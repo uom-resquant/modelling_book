@@ -384,5 +384,17 @@ results_3
 
 We can see that the average delay seems to be longer for Black applicants than White applicants. 
 
+
+But we could also try to represent these differences graphically. The problem with comparing groups on quantitative variables using numerical summaries such as the mean, is that these comparisons hide more than they show. We want to see the full distribution, not just the mean. For this we are going to use `ggplot2` the main graphical package we will use this semester. We won't get into the details of this package or what the code below means, but just try to run it. We will cover graphics in R in the next section. This is just a taster for it.
+
+```{r, warning=FALSE}
+library(ggplot2)
+ggplot(banbox, aes(y = daystoresponse, x = black_f)) + 
+  geom_boxplot() 
+```
+
+Watch [this video](https://www.khanacademy.org/math/probability/data-distributions-a1/box--whisker-plots-a1/v/reading-box-and-whisker-plots) and see if you can interpret the results portrayed here. What do you think?
+
+
 Overall the outcomes are worse for Black applicatns, and in fact, the authors find that employers substantially increase discrimination on the basis of race after ban the box goes into effect.You can now replicate these findings with the data provided. by applying the new skills you've learned this week!
 
