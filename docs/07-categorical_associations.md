@@ -593,7 +593,3 @@ It is also very important that you interpret these quantities carefully. You wil
 
 ![increased risk](https://www.explainxkcd.com/wiki/images/1/11/increased_risk.png)
 
-## HOMEWORK 7.1
-
-*Select two pairs of categorical variables from the dataset you are using for your coursework assignment. These could be variables you have selected for your coursework assignment if you wish. Then run one crosstabulation for each of these two pairs. Report appropriate statistics and interpret your results for these two crosstabulations.*
-

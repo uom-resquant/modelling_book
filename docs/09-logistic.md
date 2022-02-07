@@ -377,10 +377,6 @@ library(sjPlot)
 ##   summary.parameters_skewness      datawizard
 ```
 
-```
-## #refugeeswelcome
-```
-
 ```r
 plot_model(fitl_1)
 ```
@@ -821,9 +817,7 @@ On the other hand, we see a significant interaction between race and age. Young 
 
 We already discussed in a previous session the difficulties of interpreting regression coefficients in models with interactions. Centering and standardising in the way discussed earlier can actually be of help or this purpose.
 
-## HOMEWORK: 
 
-*Run a logistic regression model using the BCS0708 data from previous weeks and develop a model that aims to predict victimisation with at least 5 explanatory variables. Interpret your results*
 
 ## Further resources
 

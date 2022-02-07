@@ -640,8 +640,8 @@ t1waybt(tcviolent ~ ethgrp2, data = BCS0708, tr = .05, nboot = 599)
 ## 
 ## Test statistic: 45.3591 
 ## p-value: 0 
-## Variance explained: 0.081 
-## Effect size: 0.284
+## Variance explained: 0.083 
+## Effect size: 0.288
 ```
 
 As with the standard ANOVA and the Welch version, we still get a significant result.
@@ -785,12 +785,6 @@ ANOVA(tcviolent ~ ethgrp2, data = BCS0708, brief=TRUE) #The brief argument set t
 You will see this implementation of ANOVA apart from also printing the R Squared also gives you Omega Squared. Omega Squared is particularly helpful with smaller samples (check the Andy Field book for rules of thumb for its interpretation). You will also see with this function (although not printed here) a nicely labelled residual plot to assist interpretation of equal spread.
 
 
-**6.1. Homework**
 
-*Using the banbox dataset that we have used in previous sessions run a t test to explore whether criminal records are associated to emplyment response in the subset of cases before the banbox legislation was introduced. Discuss your results.*
-
-*Using the BCS data we used today explore the relationship between fear of violent crime (tcviolent) and the level of education of the respondent (educat3).*
-
-*For the purposes of your essay identify 3 to 5 variables available in the dataset that you are working with that you consider (having read relevant literature and using your previous knowledge/common sense) think that may explain variation in your outcome of interest (eg., victimisation, fairness, etc.).*
 
 

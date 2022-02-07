@@ -61,7 +61,6 @@ asymptotic-confidence-intervals-for-means-and-proportions-using-r
 a-brief-intro-to-resampling-and-bootstraping
 what-about-comparisons-sampling-distribution-for-the-difference-of-two-means
 comparing-means-visually-by-using-error-bars-representing-confidence-intervals-inference-by-eye
-homework-5.1
 studying-relationships-between-a-categorical-and-a-quantitative-variable
 the-logic-of-hypothesis-testing
 comparing-means-across-two-groups-the-t-test
@@ -81,7 +80,6 @@ expected-frequencies-and-chi-square
 residuals
 gamma
 odds-and-odd-ratios
-homework-7.1
 an-introduction-to-regression
 introduction-models-in-scientific-research
 motivating-regression
@@ -94,13 +92,11 @@ fitting-and-interpreting-a-multiple-regression-model
 presenting-your-regression-results.
 testing-conditional-hypothesis-interactions
 model-building-and-variable-selection
-homework
 logistic-regression
 introduction-3
 fitting-logistic-regression
 assessing-model-fit-i-deviance-and-pseudo-r-squared
 assessing-model-fit-ii-confusion-matrix-and-roc-curves
 interactions
-homework-1
 further-resources-2
 wrapping-up
