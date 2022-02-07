@@ -382,3 +382,7 @@ results_3 <- summarise(by_race,
 results_3
 ```
 
+We can see that the average delay seems to be longer for Black applicants than White applicants. 
+
+Overall the outcomes are worse for Black applicatns, and in fact, the authors find that employers substantially increase discrimination on the basis of race after ban the box goes into effect.You can now replicate these findings with the data provided. by applying the new skills you've learned this week!
+
