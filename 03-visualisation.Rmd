@@ -63,10 +63,17 @@ Let's have a look at some data about [banning orders](https://www.gov.uk/governm
 First you need to read the data. We keep this data in a website and you can download it with the following code:
 
 ```{r}
+# save URL into an object
 fbo_url <- "https://raw.githubusercontent.com/maczokni/R-for-Criminologists/master/fbo-by-club-supported-cleaned.csv"
-fbo <- read.csv(url(fbo_url))
+
+# load readr library and use read_csv() function
+library(readr)
+fbo <- read_csv(url(fbo_url))
 
 ```
+
+
+You can also find this on the Blackboard page for this week's learning materials. If you download from there, make sure to save this file in your project directory, possibly in a subfolder called "Datasets". Then you can read in from there
 
 Now let's explore the question of number of banning orders for clubs in different leagues. But as a first step, let's just plot the number of banning orders for each club. Let's build this plot:
 
