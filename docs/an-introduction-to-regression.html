@@ -640,7 +640,7 @@ If you want to change this you may need to reorder the levels. See <a href="http
 ##   print.parameters_skewness        datawizard
 ##   summary.parameters_kurtosis      datawizard
 ##   summary.parameters_skewness      datawizard</code></pre>
-<pre><code>## Install package &quot;strengejacke&quot; from GitHub (`devtools::install_github(&quot;strengejacke/strengejacke&quot;)`) to load all sj-packages at once!</code></pre>
+<pre><code>## Learn more about sjPlot with &#39;browseVignettes(&quot;sjPlot&quot;)&#39;.</code></pre>
 <p>Let’s try with a more complex example:</p>
 <div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb565-1"><a href="an-introduction-to-regression.html#cb565-1" aria-hidden="true" tabindex="-1"></a>fit_4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_viol_r <span class="sc">~</span> unemployed <span class="sc">+</span> largest50 <span class="sc">+</span> black <span class="sc">+</span> fborn <span class="sc">+</span> log_incarceraton, <span class="at">data=</span>df)</span>
 <span id="cb565-2"><a href="an-introduction-to-regression.html#cb565-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_model</span>(fit_4)</span></code></pre></div>
