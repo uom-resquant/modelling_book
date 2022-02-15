@@ -73,13 +73,32 @@ fbo <- read_csv(url(fbo_url))
 ```
 
 
-You can also find this on the Blackboard page for this week's learning materials. If you download from there, make sure to save this file in your project directory, possibly in a subfolder called "Datasets". Then you can read in from there
+You can also find this on the Blackboard page for this week's learning materials. If you download from there, make sure to save this file in your project directory, possibly in a subfolder called "Datasets". Then you can read in from there.
+
+One thing from the first lab we mentioned is conventions in the naming ob objects. This also applies to the names of your variables (i.e. your column names) within your data. If you look at the fbo dataframe, either with the `View()` function, or by printing the names of the columns with the `names()` function, you can see, this dataset violates that requirement: 
+
+
+```{r}
+
+names(fbo)
+
+```
+
+To address this, we can use a function called `clean_names()` which lives inside the `janitor` package. This will replace any spaces with an underscore, and also turn any capital letters into lowercase. Much more tidy!
+
+```{r, message=FALSE, warning=FALSE}
+
+library(janitor)
+
+fbo <- clean_names(fbo)
+
+```
 
 Now let's explore the question of number of banning orders for clubs in different leagues. But as a first step, let's just plot the number of banning orders for each club. Let's build this plot:
 
 ```{r}
 
-ggplot(data = fbo, aes(x = Club.Supported, y=Banning.Orders)) + #data
+ggplot(data = fbo, aes(x = club_supported, y=banning_orders)) + #data
    geom_point() +                 #geometry
   theme_bw()                     #backgroud coordinate system
 
@@ -93,7 +112,7 @@ The third line is where we can tweak the display of the graph. Here I used `them
 
 ```{r}
 
-ggplot(data = fbo, aes(x = Club.Supported, y=Banning.Orders)) +     #data
+ggplot(data = fbo, aes(x = club_supported, y=banning_orders)) +     #data
    geom_point() +                                                   #geometry
   theme_dark()                                                      #backgroud coordinate system
 
@@ -103,7 +122,7 @@ Changing the theme is not all you can do with the third element. For example her
 
 ```{r}
 
-ggplot(data = fbo, aes(x = Club.Supported, y=Banning.Orders)) +     
+ggplot(data = fbo, aes(x = club_supported, y=banning_orders)) +     
    geom_point() +                                                   
   theme(axis.text.x = element_text(angle = 90, hjust = 1))                                   
 
@@ -113,13 +132,13 @@ OK what if we don't want it to be points, but instead we wanted it to be a bar g
 
 ```{r}
 
-ggplot(data = fbo, aes(x = Club.Supported, y=Banning.Orders)) +   #data
+ggplot(data = fbo, aes(x = club_supported, y=banning_orders)) +   #data
    geom_bar(stat = "identity") +                                  #geometry
   theme(axis.text.x = element_text(angle = 90, hjust = 1))                                                       #backgroud coordinate system
 
 ```
 
-You might notice here we pass an argument `stat = "identity"` to `geo_bar()` function. This is because you can have a bar graph where the height of the bar shows frequency (`stat = "count"`), or where the height is taken from a variable in your dataframe (`stat = "identity"`). Here we specified a y-value (height) as the Banning.Orders variable. 
+You might notice here we pass an argument `stat = "identity"` to `geo_bar()` function. This is because you can have a bar graph where the height of the bar shows frequency (`stat = "count"`), or where the height is taken from a variable in your dataframe (`stat = "identity"`). Here we specified a y-value (height) as the banning_orders variable. 
 
 So this is cool! But what if I like both?
 
@@ -127,20 +146,20 @@ Well this is the beauty of the layering approach of `ggplot2`. You can layer on 
 
 ```{r}
 
-ggplot(data = fbo, aes(x = Club.Supported, y=Banning.Orders)) +  #data
+ggplot(data = fbo, aes(x = club_supported, y=banning_orders)) +  #data
   geom_bar(stat = "identity") +                                  #geometry 1 
   geom_point()+                                                  #geometry 2
 theme(axis.text.x = element_text(angle = 90, hjust = 1))                                                      #backgroud coordinate system
 
 ```
 
-You can add other things too. For example you can add the mean number of *Banning.Orders*:
+You can add other things too. For example you can add the mean number of *banning_orders*:
 
 ```{r}
-ggplot(data = fbo, aes(x = Club.Supported, y=Banning.Orders)) +  #data
+ggplot(data = fbo, aes(x = club_supported, y=banning_orders)) +  #data
   geom_bar(stat = "identity") +                                  #geometry 1 
   geom_point() +                                                 #geometry 2
-  geom_hline(yintercept = mean(fbo$Banning.Orders)) +            #mean line
+  geom_hline(yintercept = mean(fbo$banning_orders)) +            #mean line
 theme(axis.text.x = element_text(angle = 90, hjust = 1))                                                      #backgroud coordinate system
 
 ```
@@ -177,37 +196,37 @@ An important consideration is that the plot that you use depends on the data you
 One suggestion is to make a histogram for each one. You can use ggplot's `facet_wrap()` option to split graphs by a grouping variable. For example, to create a histogram of banning orders you write: 
 
 ```{r, message=FALSE}
-ggplot(data = fbo, aes(x = Banning.Orders)) + 
+ggplot(data = fbo, aes(x = banning_orders)) + 
   geom_histogram()
 ```
 
-Now to split this by *League.of.the.Club.Supported*, you use `facet_wrap()` in the coordinate layer of the plot.
+Now to split this by *league_of_the_club_supported*, you use `facet_wrap()` in the coordinate layer of the plot.
 
 ```{r, message=FALSE}
-ggplot(data = fbo, aes(x = Banning.Orders)) + 
+ggplot(data = fbo, aes(x = banning_orders)) + 
   geom_histogram() + 
-  facet_wrap(~League.of.the.Club.Supported)
+  facet_wrap(~league_of_the_club_supported)
 ```
 
 Well you can see there's different distribution in each league. But is this easy to compare? Maybe another approach would make it easier? 
 Personally I like boxplots (we will explain them in greater detail below) for showing distribution. So let's try:
 
 ```{r}
-ggplot(data = fbo, aes(x = League.of.the.Club.Supported, y = Banning.Orders)) + 
+ggplot(data = fbo, aes(x = league_of_the_club_supported, y = banning_orders)) + 
   geom_boxplot() 
 ```
 
 This makes the comparison significantly easier, right? But the order is strange! Remember we talked about factors in previous weeks? Well the good thing about factors is that we can arrange them in their natural order. If we don't describe an order, then R uses the alphabetical order. So let's reorder our factor. To do that we are specifying the levels in the order in which we want to be embedded within the factor. We use code we introduced last week to do this.
 
 ```{r}
-fbo$League.of.the.Club.Supported <- factor(fbo$League.of.the.Club.Supported, levels = c("Premier League", "Championship", "League One", "League Two", "Other clubs"))
+fbo$league_of_the_club_supported <- factor(fbo$league_of_the_club_supported, levels = c("Premier League", "Championship", "League One", "League Two", "Other clubs"))
   
 ```
 
 And now create the plot again!
 
 ```{r}
-ggplot(data = fbo, aes(x = League.of.the.Club.Supported, y = Banning.Orders)) + 
+ggplot(data = fbo, aes(x = league_of_the_club_supported, y = banning_orders)) + 
   geom_boxplot() 
 ```
 
