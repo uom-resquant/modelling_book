@@ -24,7 +24,7 @@
 <meta name="author" content="Reka Solymosi and Eon Kim (based on material developed with Juanjo Medina" />
 
 
-<meta name="date" content="2022-02-15" />
+<meta name="date" content="2022-02-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -188,7 +188,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html"><i class="fa fa-check"></i><b>4</b> Refresher on descriptive statistics &amp; data carpentry</a>
 <ul>
 <li class="chapter" data-level="4.1" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#a-template-for-your-assignment"><i class="fa fa-check"></i><b>4.2</b> A template for your assignment</a></li>
+<li class="chapter" data-level="4.2" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#getting-some-data-from-eurobarometer"><i class="fa fa-check"></i><b>4.2</b> Getting some data from Eurobarometer</a></li>
 <li class="chapter" data-level="4.3" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#thinking-about-your-data-filtering-cases"><i class="fa fa-check"></i><b>4.3</b> Thinking about your data: filtering cases</a></li>
 <li class="chapter" data-level="4.4" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#selecting-variables-using-dplyrselect"><i class="fa fa-check"></i><b>4.4</b> Selecting variables: using <code>dplyr::select</code></a></li>
 <li class="chapter" data-level="4.5" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#creating-summated-scales"><i class="fa fa-check"></i><b>4.5</b> Creating summated scales</a></li>
@@ -197,7 +197,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.8" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#recoding-factors"><i class="fa fa-check"></i><b>4.8</b> Recoding factors</a></li>
 <li class="chapter" data-level="4.9" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#understanding-missing-data"><i class="fa fa-check"></i><b>4.9</b> Understanding missing data</a></li>
 <li class="chapter" data-level="4.10" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#exploring-dataframes-visually"><i class="fa fa-check"></i><b>4.10</b> Exploring dataframes visually</a></li>
-<li class="chapter" data-level="4.11" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#a-quick-recap-on-descriptive-statistics"><i class="fa fa-check"></i><b>4.11</b> A quick recap on descriptive statistics</a></li>
+<li class="chapter" data-level="4.11" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#a-quick-recap-on-descriptive-statistics"><i class="fa fa-check"></i><b>4.11</b> A quick recap on descriptive statistics</a>
+<ul>
+<li class="chapter" data-level="4.11.1" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#central-tendency"><i class="fa fa-check"></i><b>4.11.1</b> Central Tendency</a></li>
+<li class="chapter" data-level="4.11.2" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#dispersion"><i class="fa fa-check"></i><b>4.11.2</b> Dispersion</a></li>
+</ul></li>
 <li class="chapter" data-level="4.12" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#further-resources-1"><i class="fa fa-check"></i><b>4.12</b> Further resources</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html"><i class="fa fa-check"></i><b>5</b> Foundations of statistical inference: confidence intervals</a>
@@ -284,7 +288,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Modelling Criminological Data LAWS20452</h1>
 <p class="author"><em>Reka Solymosi and Eon Kim (based on material developed with Juanjo Medina</em></p>
-<p class="date" style="margin-top: 1.5em;"><em>2022-02-15</em></p>
+<p class="date" style="margin-top: 1.5em;"><em>2022-02-21</em></p>
 </div>
 <div id="preface" class="section level1 unnumbered">
 <h1>Preface</h1>
@@ -348,6 +352,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

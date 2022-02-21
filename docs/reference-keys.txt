@@ -40,7 +40,7 @@ plotting-categorical-data-bar-charts
 further-resources
 refresher-on-descriptive-statistics-data-carpentry
 introduction-1
-a-template-for-your-assignment
+getting-some-data-from-eurobarometer
 thinking-about-your-data-filtering-cases
 selecting-variables-using-dplyrselect
 creating-summated-scales
@@ -50,6 +50,8 @@ recoding-factors
 understanding-missing-data
 exploring-dataframes-visually
 a-quick-recap-on-descriptive-statistics
+central-tendency
+dispersion
 further-resources-1
 foundations-of-statistical-inference-confidence-intervals
 introduction-2

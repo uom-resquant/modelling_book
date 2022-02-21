@@ -20,11 +20,11 @@ In this module we expect you to download a survey dataset for analysis. These da
 * Labelling all variables and categorical values so you don’t have to keep looking them up.
 * Change the labels associated with the levels of a categorical variable.
 
-## A template for your assignment
+## Getting some data from Eurobarometer
 
-For this practical we are going to proceed as if we had an assignment similar to your final assignment for this module. Only that we will use different data, specifically data from a *Eurobarometer*. Eurobarometers are opinion polls conducted regularly on behalf of the European Commission since 1973. Some of them ask the same questions over time to evaluate changes in European's views in a variety of subjects (standard Eurobarometers). Others are focused on special topics and are conducted less regularly (special Eurobarometers). They are a useful source of datasets that you could use, for exampple, for your undergraduate dissertation.
+We're going to go ahead and download some data for the session today, specifically data from a *Eurobarometer*. Eurobarometers are opinion polls conducted regularly on behalf of the European Commission since 1973. Some of them ask the same questions over time to evaluate changes in European's views in a variety of subjects (standard Eurobarometers). Others are focused on special topics and are conducted less regularly (special Eurobarometers). They are a useful source of datasets that you could use, for exampple, for your undergraduate dissertation.
 
-The data from these surveys is accessible through the data catalogue of GESIS, a data warehouse at the *Leibniz Institute for the Social Sciences* in Germany. For downloading data from GESIS you have to register with them (following the registration link) [here](https://dbk.gesis.org/dbksearch/register.asp). Once you activate your registration you should be able to access the data at GESIS.
+The data from these surveys is accessible through the data catalogue of GESIS, a data warehouse at the *Leibniz Institute for the Social Sciences* in Germany. For downloading data from GESIS you have to register with them (following the registration link) [here](https://login.gesis.org/realms/gesis/login-actions/registration). Once you activate your registration you should be able to access the data at GESIS.
 
 ![](imgs/register.PNG) 
 
@@ -32,45 +32,39 @@ GESIS has a section of their website devoted to the Eurobarometer survey. You ca
 
 ![](imgs/eb.PNG) 
 
-You can access the data for this eurobarometer [here](https://dbk.gesis.org/dbksearch/sdesc2.asp?no=6695&db=e&doi=10.4232/1.13169). 
+You can access the data for this eurobarometer [here](https://search.gesis.org/research_data/ZA6695). 
 
-![](imgs/gesis.PNG) 
+![](imgs/gesis.png) 
 
 You will see here that there are links to the files with the data in SPSS and STATA format. You can also see a tab where you could obtain the questionnaire for the survey. Once you are registered download the STATA version of the file and also an English version of the questionnaire. Make sure you place the file in your working directory. Once you do this you should be able to use the code we are using in this session.
 
-First, we will load the data into our session. Since the data is in STATA format we will need to read the data into R using the `haven` package. Specifically, we will use the `read_dta` function for importing STATA data into R. As an argument we need to write the name of the file with the data (and if it is not in your working directory, the appropriate path file).
+First, we will load the data into our session. Since the data is in STATA format we will need to read the data into R using the `haven` package. Specifically, we will use the `read_dta()` function for importing STATA data into R. As an argument we need to write the name of the file with the data (and if it is not in your working directory, the appropriate path file).
 
 
 ```r
 library(haven)
-eb85_3 <- read_dta("ZA6695_v1-1-0.dta")
+eb85_3 <- read_dta("datasets/ZA6695_v2-0-0.dta")
 dim(eb85_3)
 ```
 
 ```
 ## [1] 27818   483
 ```
-We can see there are over 27000 cases (survey participants) and 483 variables. 
+We can see there are 27818 cases (survey participants) and 483 variables. 
 
 ## Thinking about your data: filtering cases
 
-For the final coursework assignment, you will need to download other datasets but the process will be similar in that once you have the datasets you will need to think about what cases and what variables you want to work with. Imagine that we had to write our final assignment using this dataset and that we had to write a report about attitudes to sexual violence.
+Imagine that we needed to write a report about attitudes to sexual violence.
 
 First, we would need to think if we wanted to use all cases in the data or only a subset of the cases. For example, when using something like the Eurobarometer we would need to consider if we are interested in exploring the substantive topic across Europe or only for some countries. Or alternatively you may want to focus your analysis only on men attitudes to sexual violence. In a situation like this you would need to filter cases. This decision needs to be guided by your theoretical interests and your driving research question.
 
-So, for example, if we only wanted to work with the UK sample we would need to figure out if there is a variable that identifies the country in the dataset. In the questionnaire you can see indeed that there is such a variable:
+So, for example, if we only wanted to work with the UK sample we would need to figure out if there is a variable that identifies the country in the dataset. To know this, we need to look at the *codebook* (sometimes called data dictionary). In this case, we can look at the interactive facility provided for GESIS for online data analysis, which provides an interactive online codebook for this dataset. You can access this facility in the link highlighted in the image below:
 
-![](imgs/question1.PNG) 
-
-What we do not know is how this variable is named in the dataset. For this we need to look at the *codebook*. In this case, we can look at the interactive facility provided for GESIS for online data analysis, which provides an interactive online codebook for this dataset. You can access this facility in the link highlighted in the image below:
-
-![](imgs/linktoonline.PNG) 
-
-You can access similar applications for the two datasets that you need to use for the final coursework assignment. If you will use the ESS you can use an online facility [here](http://nesstar.ess.nsd.uib.no/webview/) and if you are using the CSEW you can access a similar tool [here](http://nesstar.ukdataservice.ac.uk/webview/).
+![](imgs/linktoonline.png) 
 
 Let's explore the online facility for the Eurobarometer. If we expand the menus in the left hand side by clicking in variable description, and then in standard nation id variables, you will see there is a variable that provides a "country code". This must be it. click on it and then you will see in the right hand side some information about this variable. You see the name of this variable (as it will appear in the dataset) *isocntry* and we can see this variable uses [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166) codes to designate the country. This is an international standard set of abbreviations for country names. For the UK these codes are "GB-GBN" and "GB-NIR" (for Northern Ireland).
 
-![](imgs/country.PNG) 
+![](imgs/country.png) 
 
 Now that we have this information we can run the code to select only the cases that have these values in the dataset. For doing something like that we would use the `dplyr::filter` function. We used the `filter` function in week 2. You can read more about it in the `dplyr` vignette. 
 
@@ -95,7 +89,7 @@ If you run this code you will end up with a new object called `uk_eb85_3` that o
 
 ## Selecting variables: using `dplyr::select`
 
-Perhaps for your coursework you define your essay question in such a way that you do not need to do any a priory filtering. Perhaps, for the sake of this example, we decide to do an analysis that focuses on looking at attitudes toward sexual violence for all of Europe and for all participants. Yet, you won't be using 483 variables for certain. Among other reasons because our guidelines for the essay suggest you use fewer variables. But more generally because typically your theoretical model will tell you that some things matter more than others. 
+Perhaps, for the sake of this example, we decide to do an analysis that focuses on looking at attitudes toward sexual violence for all of Europe and for all participants. Yet, you won't be using 483 variables for certain. Among other reasons because our guidelines for the essay suggest you use fewer variables. But more generally because typically your theoretical model will tell you that some things matter more than others. 
 
 The first thing you need to do is to think about what variables you are going to use. This involves first thinking about what variables are available in the dataset that measure your outcome of interest but then also consider what your theory of attitudes to gender violence say (this generally will include things that are not measured in the survey, such is life!).
 
@@ -106,11 +100,9 @@ Once you have all of this you would need to think about which of these survey qu
 
 There are many items in this survey that relate to this topic, but for purposes of continuing our illustration we are going to focus on the answers to question *QB10*. This question asks respondents to identify in what circumstances may be justified to have sexual intercourse without consent. The participants are read a list of items (e.g., "flirting before hand") and they can select various of them if so they wish. 
 
-![](imgs/qb10.PNG) 
+![](imgs/qb10.png) 
 
-Ok, so we have now selected our variable. Say that we have done so on the basis of our understanding of the literature. Next we need to identify these variables in the dataset. What name is associated with this variable? Let's look at the online interactive facility.
-
-![](imgs/qb10codes.PNG)
+What name is associated with this variable? Well you can see that depending on which thing they asked about, it might be `qb10_1`, `qb10_2`, `qb10_3`, etc etc!
 
 Damn! We have one question but several variables! This is common when the question in the survey allows for multiple responses. Typically when this is read into a dataset, survey researchers create a variable for each of the possible multiple responses. If the respondent identified one of those potential responses they will be assigned a "yes" or a "1" for that column. If they did not they will be assigned a "no" or a "0". Let's see how this was done in this case:
 
@@ -160,7 +152,7 @@ table(eb85_3$qb10_1)
 
 Fortunately, only a minority of respondents.
 
-Apart from thinking about the variables we will use to measure our outcome of interest for the coursework assignment you will need to select some variables that you think may be associated with this outcome. In the essay you will need to select a wider set. Here we will only do a few. Again, this is something that needs to be informed by the literature (what variables does the literature considers important) and your own interest. 
+Apart from thinking about the variables we will use to measure our outcome of interest we will need to select some variables that you think may be associated with this outcome. Here we will only do a few. Again, this is something that needs to be informed by the literature (what variables does the literature considers important) and our own interest. 
 
 For the sake of illustration, let's say we are going to look at gender, political background of the respondent, country of origin, age, occupation of the respondents, and type of community they live in. Most of these are demographic variables (not always the more fun or theoretically interesting), but that's all we have in this eurobarometer and so they will have to do. 
 
@@ -349,28 +341,33 @@ class(df$isocntry)
 Ok, this is a categorical unordered variable, we know that. But this kind of variables could be encoded into R as either *character* vectors, *factor* variables, or as we have seen as well as *haven_labelled*. How you recode a variable is contingent in how it is encoded. Here we are going to show you how you would do the recoding with a *character* variable such as *isocntry* into another character variable we will call *region*. We will see later examples for how to recode *factors*.
 
 
-We will have a variable with four new categories (Western, Southern, Eastern, and Northern) whenever the right conditions are met. See the code below:
+We will have a variable with four new categories (Western, Southern, Eastern, and Northern) whenever the right conditions are met. For this we can use the `case_when()` function, also from the `dplyr` package. What this does, is it goes through every *case*, and does something *when* it is true. We wrap this in the `mutate()` function, which allows us to create a new variable. We'll call this new variable "region". 
+
+First, let's create four lists, which contain the codes for countries we would like to code Western, Eastern, Northern, and Southern: 
+
 
 
 ```r
-df$region[df$isocntry == "AT" | df$isocntry == "BE" | 
-            df$isocntry == "CZ" | df$isocntry == "DE-E" |
-            df$isocntry == "DE-W" | df$isocntry == "FR" |
-            df$isocntry == "GB-GBN" | df$isocntry == "GB-NIR" |
-            df$isocntry == "IE" | df$isocntry == "LU" |
-            df$isocntry == "NL"] <- "Western"
-df$region[df$isocntry == "BG" | df$isocntry == "EE" |
-            df$isocntry == "HU" | df$isocntry == "LT" |
-            df$isocntry == "LV" | df$isocntry == "PL" |
-            df$isocntry == "RO" | 
-            df$isocntry == "SK"] <- "Eastern"
-df$region[df$isocntry == "DK" | df$isocntry =="FI" |
-            df$isocntry == "SE"] <- "Northern"
-df$region[df$isocntry == "CY" | df$isocntry == "ES" |
-            df$isocntry == "GR" | df$isocntry =="HR" |
-            df$isocntry == "IT" | df$isocntry =="MT" |
-            df$isocntry == "PT" | 
-            df$isocntry =="SI"] <- "Southern"
+western_list <- c("AT", "BE", "CZ", "DE-E", "DE-W", 
+                  "FR", "GB-GBN", "GB-NIR", "IE", "LU", "NL")
+
+eastern_list <- c("BG" , "EE", "HU", "LT" , "LV" , "PL" , "RO", "SK")
+
+northern_list <- c("DK", "FI", "SE")
+
+southern_list <- c("CY", "ES", "GR", "HR" , "IT" , "MT", "PT", "SI")
+```
+
+Now that we have these lists, our condition will be to evaluate whether the value for each row for the `isocntry` variable falls within one of these, and *when* this is the *case* then code if appropriately: 
+
+
+```r
+df <- df %>% 
+    mutate(region = case_when(isocntry %in% western_list ~ "Western", 
+                              isocntry %in% eastern_list ~ "Eastern",
+                              isocntry %in% northern_list ~ "Northern", 
+                              isocntry %in% southern_list ~ "Southern")
+           )
 
 table(df$region)
 ```
@@ -381,7 +378,7 @@ table(df$region)
 ##     8079     3161     7060     9518
 ```
 
-What we are doing above is initialising a new variable in the *df* object that we are calling *region*. We are then assigning to each of the four categories in this character vector those participants in the survey that have the corresponding values in the *isocntry* variable as defined for each category within the square brackets. So for example if Austria is the value in *isocntry* we are telling R we want this person to be assigned the value of "Western" in the *region* variable. And so on. You can see the list of ISO country codes [here](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes).
+What we are doing above is initialising a new variable in the *df* object that we are calling *region*. We are then assigning to each of the four categories in this character vector those participants in the survey that have the corresponding values in the *isocntry* variable as defined for each category. So for example if Austria is the value in *isocntry* we are telling R we want this person to be assigned the value of "Western" in the *region* variable. And so on. You can see the list of ISO country codes [here](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes).
 
 Once you have created the variable you could start exploring if there is any association with our outcome variable. For example, using **mosaic plots** from the `vcd` package (if you don't have it installed the code won't run).
 
@@ -398,7 +395,7 @@ library(vcd)
 mosaic(~region + at_sexviol, data = df)
 ```
 
-<img src="04-carpentry_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+<img src="04-carpentry_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
 In a mosaic plot like this the height of the region levels indicate how big that group is. You can see there are many more observations in our sample that come from Western countries than from Northern countries. Here what we are interested is the length. We see that Northern countries have proportionally more people in the zero category than any other group. On the other hand, Eastern countries have the fewer zeros (so looking as if attitudes more permissive towards sexual violence are more common there, even if still a minority). We will come back to this kind of plots later on this semester.
 
@@ -559,12 +556,11 @@ attributes(df$occupation)
 ##                                            18
 ```
 
-Having to look at this every time is not very convenient. You may prefer to simply use the labels directly. For this we can use the `to_factor` function from the `labelled` package.
+Having to look at this every time is not very convenient. You may prefer to simply use the labels directly. For this we can use the `as_factor` function from the `haven` package.
 
 
 ```r
-library(labelled)
-df$f_occup <- to_factor(df$occupation)
+df$f_occup <- as_factor(df$occupation)
 class(df$f_occup)
 ```
 
@@ -691,8 +687,8 @@ table(df$politics)
 
 ```
 ## 
-##    1    2    3    4    5    6    7    8    9   10   97   98 
-## 1433  830 2161 2217 6690 2238 2056 1658  474 1126 2766 4169
+##    1    2    3    4    5    6    7    8    9   10 
+## 1433  830 2161 2217 6690 2238 2056 1658  474 1126
 ```
 
 ```r
@@ -700,12 +696,12 @@ sum(is.na(df$politics))
 ```
 
 ```
-## [1] 0
+## [1] 6935
 ```
 
 It looks as if we have no missing data. Right? Well, appearances can be deceiving sometimes.
 
-![](imgs/leftright.PNG) 
+![](imgs/leftright.png) 
 
 This is the question as it was asked from the survey respondents. Notice the difference in the response options and the categories in *politics*. We know that those that see themselves further to the left will have answer 1 and those that see themselves further to the right would have answer 10. What does 97 and 98 then refers to? If you look at the questionnaire you will see that those that refuse or don't know *in the questionnaire* are coded as 11 and 12.
 
@@ -727,12 +723,14 @@ attributes(df$politics)
 ## [1] "haven_labelled" "vctrs_vctr"     "double"        
 ## 
 ## $labels
-##   Box 1 - left          Box 2          Box 3          Box 4          Box 5 
-##              1              2              3              4              5 
-##          Box 6          Box 7          Box 8          Box 9 Box 10 - right 
-##              6              7              8              9             10 
-##        Refusal             DK 
-##             97             98
+##          Box 1 - left                 Box 2                 Box 3 
+##                     1                     2                     3 
+##                 Box 4                 Box 5                 Box 6 
+##                     4                     5                     6 
+##                 Box 7                 Box 8                 Box 9 
+##                     7                     8                     9 
+##        Box 10 - right Refusal (Spontaneous)                    DK 
+##                    10                    NA                    NA
 ```
 
 A tip if you don't want to see as much output. If you want to access directly only some of the attributes you can call them directly modifying the code as below:
@@ -743,28 +741,33 @@ attributes(df$politics)$labels
 ```
 
 ```
-##   Box 1 - left          Box 2          Box 3          Box 4          Box 5 
-##              1              2              3              4              5 
-##          Box 6          Box 7          Box 8          Box 9 Box 10 - right 
-##              6              7              8              9             10 
-##        Refusal             DK 
-##             97             98
+##          Box 1 - left                 Box 2                 Box 3 
+##                     1                     2                     3 
+##                 Box 4                 Box 5                 Box 6 
+##                     4                     5                     6 
+##                 Box 7                 Box 8                 Box 9 
+##                     7                     8                     9 
+##        Box 10 - right Refusal (Spontaneous)                    DK 
+##                    10                    NA                    NA
 ```
 
 Or we could use the `val_labels` function from the `labelled` package for the same result:
 
 
 ```r
+library(labelled)
 val_labels(df$politics)
 ```
 
 ```
-##   Box 1 - left          Box 2          Box 3          Box 4          Box 5 
-##              1              2              3              4              5 
-##          Box 6          Box 7          Box 8          Box 9 Box 10 - right 
-##              6              7              8              9             10 
-##        Refusal             DK 
-##             97             98
+##          Box 1 - left                 Box 2                 Box 3 
+##                     1                     2                     3 
+##                 Box 4                 Box 5                 Box 6 
+##                     4                     5                     6 
+##                 Box 7                 Box 8                 Box 9 
+##                     7                     8                     9 
+##        Box 10 - right Refusal (Spontaneous)                    DK 
+##                    10                    NA                    NA
 ```
 
 
@@ -828,10 +831,10 @@ colMeans(is.na(df))
 ```
 
 ```
-##     uniqid at_sexviol     gender        age   politics      urban occupation 
-## 0.00000000 0.04540226 0.00000000 0.00000000 0.24929902 0.00000000 0.00000000 
-##     region    f_occup     occup2 politics_n 
-## 0.00000000 0.00000000 0.00000000 0.24929902
+##       uniqid   at_sexviol       gender          age     politics        urban 
+## 0.0000000000 0.0454022575 0.0000000000 0.0000000000 0.2492990150 0.0006470631 
+##   occupation       region      f_occup       occup2   politics_n 
+## 0.0000000000 0.0000000000 0.0000000000 0.0000000000 0.2492990150
 ```
 
 This is suspicious. Only the variables we have created and already sorted seem to have NA. This may be a function of the `haven_labelled` vectors behaving like with the original *politics* variable. Let's explore it. We can use the `val_labels` function from the `labelled` package to extract labels from the whole dataframe like this:
@@ -859,18 +862,20 @@ val_labels(df)
 ##                            99 
 ## 
 ## $politics
-##   Box 1 - left          Box 2          Box 3          Box 4          Box 5 
-##              1              2              3              4              5 
-##          Box 6          Box 7          Box 8          Box 9 Box 10 - right 
-##              6              7              8              9             10 
-##        Refusal             DK 
-##             97             98 
+##          Box 1 - left                 Box 2                 Box 3 
+##                     1                     2                     3 
+##                 Box 4                 Box 5                 Box 6 
+##                     4                     5                     6 
+##                 Box 7                 Box 8                 Box 9 
+##                     7                     8                     9 
+##        Box 10 - right Refusal (Spontaneous)                    DK 
+##                    10                    NA                    NA 
 ## 
 ## $urban
-## Rural area or village     Small/middle town            Large town 
-##                     1                     2                     3 
-##                    DK 
-##                     8 
+##      Rural area or village Small or middle sized town 
+##                          1                          2 
+##                 Large town                         DK 
+##                          3                         NA 
 ## 
 ## $occupation
 ##       Responsible for ordinary shopping, etc. 
@@ -932,8 +937,8 @@ table(df$urban)
 
 ```
 ## 
-##     1     2     3     8 
-##  8563 11881  7356    18
+##     1     2     3 
+##  8563 11881  7356
 ```
 
 Not too bad. Let's sort this variable:
@@ -941,16 +946,16 @@ Not too bad. Let's sort this variable:
 
 ```r
 df$urban[df$urban>=8] <- NA
-df$f_urban <- to_factor(df$urban)
+df$f_urban <- as_factor(df$urban)
 table(df$f_urban)
 ```
 
 ```
 ## 
-## Rural area or village     Small/middle town            Large town 
-##                  8563                 11881                  7356 
-##                    DK 
-##                     0
+##      Rural area or village Small or middle sized town 
+##                       8563                      11881 
+##                 Large town                         DK 
+##                       7356                         18
 ```
 
 ```r
@@ -958,7 +963,7 @@ mean(is.na(df$f_urban))
 ```
 
 ```
-## [1] 0.0006470631
+## [1] 0
 ```
 
 You can see that even though have now no cases with a value of 8 or DK, the label appears printed in the output. This is still a valid level:
@@ -969,8 +974,8 @@ levels(df$f_urban)
 ```
 
 ```
-## [1] "Rural area or village" "Small/middle town"     "Large town"           
-## [4] "DK"
+## [1] "Rural area or village"      "Small or middle sized town"
+## [3] "Large town"                 "DK"
 ```
 
 So, we may want to remove it explicitly if we don't want output reminding us what we already know, that "there are not" DK cases (since now we call them and treat them as NA). For removing unused levels in a factor we use the `droplevels` function,
@@ -983,15 +988,17 @@ table(df$f_urban)
 
 ```
 ## 
-## Rural area or village     Small/middle town            Large town 
-##                  8563                 11881                  7356
+##      Rural area or village Small or middle sized town 
+##                       8563                      11881 
+##                 Large town                         DK 
+##                       7356                         18
 ```
 
-Above also saw the codes for *gender* let's use `to_factor` again for this variable:
+Above also saw the codes for *gender* let's use `as_factor` again for this variable:
 
 
 ```r
-df$f_gender <- to_factor(df$gender)
+df$f_gender <- as_factor(df$gender)
 ```
 
 Let's just keep the variables we will retain for our final analysis:
@@ -1013,7 +1020,7 @@ table(df_f$complete)
 ```
 ## 
 ## FALSE  TRUE 
-##  7634 20184
+##  7628 20190
 ```
 
 ```r
@@ -1021,7 +1028,7 @@ mean(df_f$complete)
 ```
 
 ```
-## [1] 0.7255734
+## [1] 0.7257891
 ```
 
 So, shocking as this may sound you only have full data in 72% of the participants. Notice how the percentage of missing cases in the variables range:
@@ -1032,10 +1039,10 @@ colMeans(is.na(df_f))
 ```
 
 ```
-##       uniqid   at_sexviol     f_gender          age   politics_n      f_urban 
-## 0.0000000000 0.0454022575 0.0000000000 0.0000000000 0.2492990150 0.0006470631 
-##      f_occup       region     complete 
-## 0.0000000000 0.0000000000 0.0000000000
+##     uniqid at_sexviol   f_gender        age politics_n    f_urban    f_occup 
+## 0.00000000 0.04540226 0.00000000 0.00000000 0.24929902 0.00000000 0.00000000 
+##     region   complete 
+## 0.00000000 0.00000000
 ```
 
 The function `complete.cases` is returning what cases have missing data **in any of** the variables not in a singular one. It is not unusual for this percentage to be high. You may end up with a massive loss of cases even though the individual variables themselves do not look as bad as the end scenario.
@@ -1049,7 +1056,7 @@ This being the case it makes sense to exclude from your data all cases that have
 full_df <- na.omit(df_f)
 ```
 
-Now we have a dataset ready for starting our analysis. This is the point, when you are doing your assignment, that you can start running frequency distributions that you will report, and all kinds of statistical tests that we cover in the weeks to come.
+Now we have a dataset ready for starting our analysis. 
 
 ## Exploring dataframes visually
 
@@ -1061,7 +1068,7 @@ library(visdat)
 vis_dat(df_f)
 ```
 
-<img src="04-carpentry_files/figure-html/unnamed-chunk-52-1.png" width="672" />
+<img src="04-carpentry_files/figure-html/unnamed-chunk-53-1.png" width="672" />
 
 Nice one! You get a visual representations of how your variables are encoded in this dataframe. You have several categorical variables such as region, f_gender, f_urban, and f_occup. We see that region is encoded as a `character` vector, whereas the others are `factors`. For the purposes of this course, it is generally better to have your categorical variables encoded as factors. So one of the next steps in our data prep may be to recode region as a factor. 
 
@@ -1090,16 +1097,137 @@ The othe piece of info you get with `vis_dat` is the prevalence of missing data 
 vis_miss(df_f)
 ```
 
-<img src="04-carpentry_files/figure-html/unnamed-chunk-56-1.png" width="672" />
+<img src="04-carpentry_files/figure-html/unnamed-chunk-57-1.png" width="672" />
 
 You can find more details about how to explore missing data in the vignette of the `naniar` package [here](http://naniar.njtierney.com/articles/getting-started-w-naniar.html).
 
 
 ## A quick recap on descriptive statistics
 
+
+You have covered this extensively last semester, and we have also touched on this in the last three weeks, but just as a quick refresher. We can have a review of some descriptive statistics to end the week. 
+
+### Central Tendency
+
+
+Central tendency refers to a descriptive summary of the centre of the data’s distribution; it takes the form of a single number that is meant to represent the middle or average of the data. The **mean**, **median**, and **mode** are common statistics of the central tendency. 
+
+The *mean* is the average and it is useful when we want to summarise a variable quickly. Its disadvantage is that it is sensitive to extreme values, so the mean can be distorted easily. 
+
+For example, the mean value for our political scale variable is: 
+
+
+```r
+mean(df$politics_n, na.rm = TRUE)
+```
+
+```
+## [1] 5.195805
+```
+
+To address this sensitivity, the *median* is a better measure because it is a robust estimate, which means that it is not easily swayed by extreme values. It is the middle value of the distribution. 
+
+
+```r
+median(df$politics_n, na.rm = TRUE)
+```
+
+```
+## [1] 5
+```
+
+The *mode* helps give an idea of what is the most typical value in the distribution, which is the most frequently occurring case in the data. While mean and median apply to numeric variables, the mode is most useful when describing categorical variables. For example, you may want to know the most frequently occurring category. To query the mode, we use the function `mlv()` (acronym for **m**ost **l**ikely **v**alues) from the `modeest` package to answer this question: 
+<br>
+
+
+```r
+library(modeest)
+
+mlv(df$f_occup)
+```
+
+```
+## [1] Retired, unable to work
+## 18 Levels: Responsible for ordinary shopping, etc. ... Unskilled manual worker, etc.
+```
+
+<!-- ### **Dispersion in Nominal and Ordinal Variables** -->
+
+<!-- We learn how to conduct two measures of dispersion in `R` for categorical variables: the variation ratio and the index of qualitative variation: -->
+
+<!-- The **variation ratio** (VR) tells us the proportion of cases that are not in the modal category – basically cases not in the most frequent or ‘popular’ category. The formula for the variation ratio (VR) is: -->
+
+<!-- $$VR = 1 – ({\frac {N~modalcat~} {N~total~}})$$ -->
+
+<!-- $N~modalcat$ refers to the frequency of observations in the modal category, and $N~total~$ refers to the total number of observations. This formula states that VR is equal to 1 minus the proportion of observations that are in the modal category, which is the same as saying the proportion of observations that are not in the modal category.  -->
+
+<!-- So let's create objects we need for this calculation. First, how many observations do we have in our modal category? Well, looking back at the occupation variable, the modal category was:  -->
+
+<!-- ```{r} -->
+
+<!-- mlv(df$f_occup) -->
+
+<!-- ``` -->
+
+<!-- To check how many we have, we can create a frequency table:  -->
+
+<!-- ```{r} -->
+
+<!-- table(df$f_occup) -->
+
+<!-- ``` -->
+
+<!-- We can see from that it's 8916. So we could just assign this to our object:  -->
+
+<!-- ```{r} -->
+
+<!-- num_modal_cat <- 8916 -->
+
+<!-- ``` -->
+
+<!-- But with copy and pasting there is always scope f -->
+
+### Dispersion
+
+You always want to talk about dispersion as well. If you have a numeric variable, you might want to consider the **range**, which is the difference between the maximum and minimum value in a given distribution:
+
+
+
+```r
+max(df$politics_n, na.rm = TRUE) - min(df$politics_n, na.rm = TRUE)
+```
+
+```
+## [1] 9
+```
+
+
+You also want to talk about the **variance** ( $s^2$ ), which tells you about spread, specifically the sum of the squared deviations from the mean, which is then divided by the total number of observations. You will then also come across **standard deviation** (SD), which is the square root of the variance. You can find these with the `sd()` and the `var()` functions: 
+
+
+```r
+var(df$politics_n, na.rm = TRUE)
+```
+
+```
+## [1] 4.864302
+```
+
+```r
+sd(df$politics_n, na.rm = TRUE)
+```
+
+```
+## [1] 2.205516
+```
+
+Visual representations of dispersions such as a histogram are also handy for getting an overview of your data. 
+
+For categorical variables, a frequency table might show distribution, or again a visualisation. You can get quantitative summaries of dispersion for categorical variables, such as variance ratio and the index of qualitative variation, but I'll leave these for now. If you want to know about these, ask us in the labs!
+
 ## Further resources
 
-There are many other ways to recode variables and create new variables based in existing ones. Here we only provided some examples. We cannot exhaust all possibilities in this tutorial. For the purposes of the assignment you may have specific ideas of how you may want to combine variables or recode existing ones. You can find additional examples and code for how to do the recoding of variables in the following links. Please make sure that you spend some time looking at these additional resources. They are not optional.
+There are many other ways to recode variables and create new variables based in existing ones. Here we only provided some examples. We cannot exhaust all possibilities in this tutorial. You can find additional examples and code for how to do the recoding of variables in the following links. Please make sure that you spend some time looking at these additional resources. They are not optional.
 
 [Wrangling categorical data in R](https://peerj.com/preprints/3163.pdf)
 
