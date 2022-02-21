@@ -52,6 +52,7 @@ exploring-dataframes-visually
 a-quick-recap-on-descriptive-statistics
 central-tendency
 dispersion
+bivariate-analysis
 further-resources-1
 foundations-of-statistical-inference-confidence-intervals
 introduction-2

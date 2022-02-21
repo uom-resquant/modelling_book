@@ -1225,6 +1225,48 @@ Visual representations of dispersions such as a histogram are also handy for get
 
 For categorical variables, a frequency table might show distribution, or again a visualisation. You can get quantitative summaries of dispersion for categorical variables, such as variance ratio and the index of qualitative variation, but I'll leave these for now. If you want to know about these, ask us in the labs!
 
+### Bivariate analysis
+
+
+We've touched on this already in week two, when we looked at using the `group_by()` and `summarise()` functions. Look back at week 2 for more detail. But for example, if we wanted to know what is the mean political score broken down by occupation, we would answer that question using these two functions: 
+
+
+
+```r
+politics_by_occ <- df %>% 
+    group_by(f_occup) %>% 
+    summarise(mean_poli_score = mean(politics_n, na.rm = TRUE))
+
+
+politics_by_occ
+```
+
+```
+## # A tibble: 18 x 2
+##    f_occup                                       mean_poli_score
+##    <fct>                                                   <dbl>
+##  1 Responsible for ordinary shopping, etc.                  5.23
+##  2 Student                                                  4.91
+##  3 Unemployed, temporarily not working                      4.96
+##  4 Retired, unable to work                                  5.17
+##  5 Farmer                                                   5.69
+##  6 Fisherman                                                4.82
+##  7 Professional (lawyer, etc.)                              5.14
+##  8 Owner of a shop, craftsmen, etc.                         5.40
+##  9 Business proprietors, etc.                               5.72
+## 10 Employed professional (employed doctor, etc.)            5.41
+## 11 General management, etc.                                 5.59
+## 12 Middle management, etc.                                  5.16
+## 13 Employed position, at desk                               5.21
+## 14 Employed position, travelling                            5.38
+## 15 Employed position, service job                           5.11
+## 16 Supervisor                                               5.39
+## 17 Skilled manual worker                                    5.25
+## 18 Unskilled manual worker, etc.                            5.30
+```
+
+We can now begin to hypothesise whether there are differences political leanings between different occupations. Next week we will continue to expand on how we might actually go about generalising our conclusions from these observed descriptive analyses. 
+
 ## Further resources
 
 There are many other ways to recode variables and create new variables based in existing ones. Here we only provided some examples. We cannot exhaust all possibilities in this tutorial. You can find additional examples and code for how to do the recoding of variables in the following links. Please make sure that you spend some time looking at these additional resources. They are not optional.
