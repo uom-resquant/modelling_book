@@ -2,7 +2,7 @@
 
 ## Introduction
 
-We have already introduce the typical workflow of data analysis:
+We have already introduce the typical workflow of data analysis
 
 ![](imgs/data-science-explore.png)
 In this figure produced by Hadley Wickham you can see the first stage of data analysis involve importing your data, getting it into a [tidy format](http://vita.had.co.nz/papers/tidy-data.pdf), and then doing some transformations so that you get the data in good shape for analysis. There is a famous and possibly false statistic that says that 80% of an analyst time is often devoted to this kind of operations. Although the statistic is likely made up, the truth is that the experience of many analysts resonates with it. So, you should not underestimate data carpentry or data wrangling (as these processes are often called) as a part of your analysis.
