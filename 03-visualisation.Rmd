@@ -12,7 +12,7 @@ The preparation for this session includes many great resources on visualising qu
 
 As with other aspects of R, there are a number of core functions that can be used to produced graphics. However these offer limited possibilities for building graphs. 
 
-The package we will be using throughout this tutorial is `ggplot2`. The aim of `ggplot2` is to implement the [grammar of graphics](http://www.springer.com/statistics/computational+statistics/book/978-0-387-24544-7). The `ggplot2` package has excellent online [documentation](http://ggplot2.org/) and is becoming an industry standard in some sectors. [Here](https://medium.com/bbc-visual-and-data-journalism/how-the-bbc-visual-and-data-journalism-team-works-with-graphics-in-r-ed0b35693535) for example you can read about how the BBC uses as part of their News service.
+The package we will be using throughout this tutorial is `ggplot2`. The aim of `ggplot2` is to implement the [grammar of graphics](http://www.springer.com/statistics/computational+statistics/book/978-0-387-24544-7). The `ggplot2` package has excellent online [documentation](https://ggplot2.tidyverse.org/) and is becoming an industry standard in some sectors. [Here](https://medium.com/bbc-visual-and-data-journalism/how-the-bbc-visual-and-data-journalism-team-works-with-graphics-in-r-ed0b35693535) for example you can read about how the BBC uses as part of their News service.
 
 If you don't already have the package installed (check you do), you will need to do so using the `install.packages()` function. 
  
@@ -106,9 +106,9 @@ ggplot(data = fbo, aes(x = club_supported, y=banning_orders)) + #data
 
 The first line above begins a plot by calling the `ggplot()` function, and putting the data into it. You have to name your dataframe witg the `data` argument, and then, within the `aes()` command you pass the specific variables which you want to plot. In this case, we only want to see the distribution of one variable, banning orders, in the y axis and we will plot the club supported in the x axis. 
 
-The second line is where we add the *geometry*. This is where we tell R what we want the graph to be. Here we say we want it to be points by using `geom_points`. You can see a list of all possible geoms [here](http://docs.ggplot2.org/current/). 
+The second line is where we add the *geometry*. This is where we tell R what we want the graph to be. Here we say we want it to be points by using `geom_points`. You can see a list of all possible geoms [here](https://ggplot2.tidyverse.org/reference/). 
 
-The third line is where we can tweak the display of the graph. Here I used `theme_bw()` which is a nice clean theme. You can try with other themes. To get a list of themes you can also see the resource [here](http://docs.ggplot2.org/current/). If you want more variety you can explore the package [`ggthemes`](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/). 
+The third line is where we can tweak the display of the graph. Here I used `theme_bw()` which is a nice clean theme. You can try with other themes. To get a list of themes you can also see the resource [here](https://ggplot2.tidyverse.org/reference/ggtheme.html). If you want more variety you can explore the package [`ggthemes`](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/). 
 
 ```{r}
 
@@ -236,7 +236,7 @@ We'll now go through some examples of making graphs using `ggplot2` package stop
 
 ## Visualising numerical variables: Histograms
 
-[Histograms](http://www.learner.org/courses/againstallodds/unitpages/unit03.html) are useful ways of representing quantitative variables visually. 
+Histograms are useful ways of representing quantitative variables visually. 
 
 As mentioned earlier, we will emphasise in this course the use of the `ggplot()` function. With `ggplot()` you start with a blank canvass and keep adding specific layers. The `ggplot()` function can specify the dataset and the aesthetics (the visual characteristics that represent the data). 
 
@@ -410,7 +410,7 @@ We can see that the distribution of crime is particularly different when we focu
 
 ## Visualising numerical variables: Box plots
 
-[Box plots](http://tomhopper.me/2014/07/04/the-most-useful-data-plot-youve-never-used/) are an interesting way of presenting the 5 number summary (the minimum value, the first quartile, the median, the third quartile, and the maximum value of a set of numbers) in a visual way. [This video](http://www.learner.org/courses/againstallodds/unitpages/unit05.html) may help you to understand them better. If we want to use `ggplot` for plotting a single numerical variable we need some convoluted code, since `ggplot` assumes you want a boxplot to compare various groups. Therefore we need to set some arbitrary value for the grouping variable and we also may want to remove the x-axis tick markers and label. 
+[Box plots](http://tomhopper.me/2014/07/04/the-most-useful-data-plot-youve-never-used/) are an interesting way of presenting the 5 number summary (the minimum value, the first quartile, the median, the third quartile, and the maximum value of a set of numbers) in a visual way.  If we want to use `ggplot` for plotting a single numerical variable we need some convoluted code, since `ggplot` assumes you want a boxplot to compare various groups. Therefore we need to set some arbitrary value for the grouping variable and we also may want to remove the x-axis tick markers and label. 
 
 For this illustration, I am going to display the distribution of the median value of property in the various towns instead of crime.
 
@@ -463,7 +463,7 @@ The `filter` function from `dplyr` is using a logical argument to tell R to only
 
 So far we have seen how you can use histograms, density plots and boxplots to plot numerical variables and to compare groups in relation to numerical variables. Another way of saying that is that you can use comparative histograms, density plots, or boxplots to assess the relationship between a numerical variable and a categorical variable (the variable that defines the groups). How do you explore the relationship between two numerical variables?
 
-When looking at the relationship between two quantitative variables nothing beats the **scatterplot**. [This](http://www.datavis.ca/papers/friendly-scat.pdf) is a lovely article in the history of the scatterplot and [this video](http://www.learner.org/courses/againstallodds/unitpages/unit10.html) may help you to understand them better.
+When looking at the relationship between two quantitative variables nothing beats the **scatterplot**. [This](http://www.datavis.ca/papers/friendly-scat.pdf) is a lovely article in the history of the scatterplot.
 
 A scatterplot plots one variable in the Y axis, and another in the X axis. Typically, if you have a clear outcome or response variable in mind, you place it in the Y axis, and you place the explanatory variable in the X axis. 
 
@@ -795,7 +795,7 @@ p + coord_flip()
 
 You can also use `coord_flip()` with other `ggplot` plots (e.g., boxplots).
 
-A particular type of bar chart is the divergent stacked bar chart, often used to visualise [**Likert scales**](http://en.wikipedia.org/wiki/Likert_scale). You may want to look at some of the options available for it via the [HH package](http://www.jstatsoft.org/v57/i05/paper), the [likert package](http://jason.bryer.org/likert/) or [sjPlot](http://strengejacke.wordpress.com/2013/07/17/plotting-likert-scales-net-stacked-distributions-with-ggplot-rstats/). But we won't cover them here in detail.
+A particular type of bar chart is the divergent stacked bar chart, often used to visualise [**Likert scales**](http://en.wikipedia.org/wiki/Likert_scale). You may want to look at some of the options available for it via the [HH package](http://www.jstatsoft.org/v57/i05/paper), or [sjPlot](http://strengejacke.wordpress.com/2013/07/17/plotting-likert-scales-net-stacked-distributions-with-ggplot-rstats/). But we won't cover them here in detail.
 
 Keep in mind that knowing *how* to get R to produce a particular visualisation is only half the job. The other half is knowing *when* to produce a particular kind of visualisation. [This blog](https://solomonmessing.wordpress.com/2014/10/11/when-to-use-stacked-barcharts/), for example, discusses some of the problems with stacked bar charts and the exceptional circumstances in which you may want to use them.
 

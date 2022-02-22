@@ -377,10 +377,6 @@ library(sjPlot)
 ##   summary.parameters_skewness      datawizard
 ```
 
-```
-## Install package "strengejacke" from GitHub (`devtools::install_github("strengejacke/strengejacke")`) to load all sj-packages at once!
-```
-
 ```r
 plot_model(fitl_1)
 ```
