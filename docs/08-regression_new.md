@@ -647,10 +647,6 @@ library(sjPlot)
 ##   summary.parameters_skewness      datawizard
 ```
 
-```
-## Learn more about sjPlot with 'browseVignettes("sjPlot")'.
-```
-
 Let's try with a more complex example:
 
 
