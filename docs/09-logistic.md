@@ -213,7 +213,7 @@ library(lessR, quietly= TRUE)
 
 ```
 ## 
-## lessR 4.1.5  feedback: gerbing@pdx.edu  web: lessRstats.com/new
+## lessR 4.0.0  feedback: gerbing@pdx.edu  web: lessRstats.com/new
 ## ---------------------------------------------------------------
 ## > d <- Read("")   Read text, Excel, SPSS, SAS, or R data file
 ##   d is default data frame, data= in analysis routines optional
@@ -225,8 +225,6 @@ library(lessR, quietly= TRUE)
 ## 
 ## View changes in this new version of lessR.
 ##   Enter: help(package=lessR)  Click: Package NEWS
-##   Enter: interact()  for access to interactive graphics
-##   New function: reshape_long() to move data from wide to long
 ```
 
 ```r
@@ -278,17 +276,22 @@ Logit(harsher ~ checks + colour + sex + employed, data=Arrests, brief=TRUE)
 ## Number of iterations to convergence: 5 
 ## 
 ## 
+## 
+## 
 ## >>> Note:  colour is not a numeric variable.
 ## 
+## 
+## 
 ## >>> Note:  sex is not a numeric variable.
+## 
+## 
 ## 
 ## >>> Note:  employed is not a numeric variable.
 ## 
 ## Collinearity
 ## 
 ## 
-## >>> No collinearity analysis
-##  Not all variables are numeric.
+## >>> No collinearity analysis because not all variables are numeric.
 ```
 
 As with linear regression, the interpretation of regression coefficients is sensitive to the scale of measurement of the predictors. This means one cannot compare the magnitude of the coefficients to compare the relevance of variables to predict the response variable. The same applies to the odd ratios. Tempting and common as this might be, unless the predictors use the same metric (or maybe if they are all categorical) there is little point in comparing the magnitude of the odd ratios in logistic regression. Like the unstardised logistic regression coefficients odd ratios are **not** a measure of effect size that allows comparisons across inputs (Menard, 2012). 
@@ -314,11 +317,11 @@ library(arm)
 
 ```
 ## 
-## arm (Version 1.12-2, built: 2021-10-15)
+## arm (Version 1.11-2, built: 2020-7-27)
 ```
 
 ```
-## Working directory is C:/Users/mllxjrs3/Dropbox (The University of Manchester)/modelling2022/modelling_book
+## Working directory is /Users/reka/Desktop/modelling_book
 ```
 
 ```
@@ -356,6 +359,25 @@ We can also use **forest plots** in much the same way than we did for linear reg
 
 ```r
 library(sjPlot)
+```
+
+```
+## Registered S3 methods overwritten by 'parameters':
+##   method                           from      
+##   as.double.parameters_kurtosis    datawizard
+##   as.double.parameters_skewness    datawizard
+##   as.double.parameters_smoothness  datawizard
+##   as.numeric.parameters_kurtosis   datawizard
+##   as.numeric.parameters_skewness   datawizard
+##   as.numeric.parameters_smoothness datawizard
+##   print.parameters_distribution    datawizard
+##   print.parameters_kurtosis        datawizard
+##   print.parameters_skewness        datawizard
+##   summary.parameters_kurtosis      datawizard
+##   summary.parameters_skewness      datawizard
+```
+
+```r
 plot_model(fitl_1)
 ```
 
@@ -425,14 +447,12 @@ The difference between the -2LL for the model with no predictors and the -2LL fo
 ## -1.5226  -0.6156  -0.4407  -0.3711   2.3449  
 ## 
 ## Coefficients:
-##             Estimate Std. Error z value             Pr(>|z|)    
-## (Intercept) -1.90346    0.15999 -11.898 < 0.0000000000000002 ***
-## checks       0.35796    0.02580  13.875 < 0.0000000000000002 ***
-## colourBlack  0.49608    0.08264   6.003        0.00000000194 ***
-## sexMale      0.04215    0.14965   0.282                0.778    
-## employedYes -0.77973    0.08386  -9.298 < 0.0000000000000002 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+##             Estimate Std. Error z value             Pr(>|z|)
+## (Intercept) -1.90346    0.15999 -11.898 < 0.0000000000000002
+## checks       0.35796    0.02580  13.875 < 0.0000000000000002
+## colourBlack  0.49608    0.08264   6.003        0.00000000194
+## sexMale      0.04215    0.14965   0.282                0.778
+## employedYes -0.77973    0.08386  -9.298 < 0.0000000000000002
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
@@ -755,18 +775,16 @@ summary(fitl_2)
 ## -1.7625  -0.6178  -0.4408  -0.3473   2.4496  
 ## 
 ## Coefficients:
-##                     Estimate  Std. Error z value             Pr(>|z|)    
-## (Intercept)      -134.187783   69.287702  -1.937             0.052785 .  
-## employedYes        -0.747475    0.084601  -8.835 < 0.0000000000000002 ***
-## citizenYes         -0.620159    0.105164  -5.897         0.0000000037 ***
-## checks              0.364718    0.025949  14.055 < 0.0000000000000002 ***
-## colourBlack       361.668318  115.180289   3.140             0.001689 ** 
-## year                0.066318    0.034664   1.913             0.055722 .  
-## age                 0.009347    0.005495   1.701             0.088979 .  
-## colourBlack:year   -0.180225    0.057604  -3.129             0.001756 ** 
-## colourBlack:age    -0.038134    0.010161  -3.753             0.000175 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+##                     Estimate  Std. Error z value             Pr(>|z|)
+## (Intercept)      -134.187783   69.287702  -1.937             0.052785
+## employedYes        -0.747475    0.084601  -8.835 < 0.0000000000000002
+## citizenYes         -0.620159    0.105164  -5.897         0.0000000037
+## checks              0.364718    0.025949  14.055 < 0.0000000000000002
+## colourBlack       361.668318  115.180289   3.140             0.001689
+## year                0.066318    0.034664   1.913             0.055722
+## age                 0.009347    0.005495   1.701             0.088979
+## colourBlack:year   -0.180225    0.057604  -3.129             0.001756
+## colourBlack:age    -0.038134    0.010161  -3.753             0.000175
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 

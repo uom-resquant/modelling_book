@@ -78,13 +78,19 @@ fbo <- read_csv(url(fbo_url))
 
 ```
 ## Rows: 119 Columns: 4
-## -- Column specification --------------------------------------------------------
+```
+
+```
+## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: ","
 ## chr (2): Club.Supported, League.of.the.Club.Supported
 ## dbl (2): ...1, Banning.Orders
+```
+
+```
 ## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 
