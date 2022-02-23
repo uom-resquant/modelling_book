@@ -640,8 +640,8 @@ t1waybt(tcviolent ~ ethgrp2, data = BCS0708, tr = .05, nboot = 599)
 ## 
 ## Test statistic: 45.3591 
 ## p-value: 0 
-## Variance explained: 0.089 
-## Effect size: 0.299
+## Variance explained: 0.083 
+## Effect size: 0.287
 ```
 
 As with the standard ANOVA and the Welch version, we still get a significant result.
@@ -740,7 +740,7 @@ ANOVA(tcviolent ~ ethgrp2, data = BCS0708, brief=TRUE) #The brief argument set t
 <img src="06-hypothesis_testing_files/figure-html/unnamed-chunk-30-1.png" width="672" />
 
 ```
-##   BACKGROUND
+##   BACKGROUND 
 ## 
 ## Response Variable: tcviolent 
 ##  
@@ -750,8 +750,7 @@ ANOVA(tcviolent ~ ethgrp2, data = BCS0708, brief=TRUE) #The brief argument set t
 ## Number of cases (rows) of data:  11676 
 ## Number of cases retained for analysis:  8433 
 ## 
-## 
-##   DESCRIPTIVE STATISTICS 
+##   DESCRIPTIVE STATISTICS  
 ## 
 ##                            n            mean              sd              min             max 
 ## asian or asian british   283   0.88175663803   1.16668811073   -2.07022309303   3.31529736519 
@@ -762,13 +761,11 @@ ANOVA(tcviolent ~ ethgrp2, data = BCS0708, brief=TRUE) #The brief argument set t
 ##  
 ## Grand Mean: 0.045530510071 
 ## 
-## 
-##   BASIC ANALYSIS
+##   BASIC ANALYSIS 
 ## 
 ##                      df            Sum Sq         Mean Sq         F-value   p-value 
 ## ethgrp2               4   252.83066055375  63.20766513844 64.54270257531    0.0000 
 ## Residuals          8428  8253.67052402441   0.97931543949 
-## 
 ## 
 ## R Squared: 0.03 
 ## R Sq Adjusted: 0.03 
@@ -776,8 +773,7 @@ ANOVA(tcviolent ~ ethgrp2, data = BCS0708, brief=TRUE) #The brief argument set t
 ##  
 ## Cohen's f: 0.17 
 ## 
-## 
-##   TUKEY MULTIPLE COMPARISONS OF MEANS
+##   TUKEY MULTIPLE COMPARISONS OF MEANS 
 ## 
 ##   RESIDUALS
 ```

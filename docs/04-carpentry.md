@@ -5,6 +5,7 @@
 We have already introduce the typical workflow of data analysis
 
 ![](imgs/data-science-explore.png)
+
 In this figure produced by Hadley Wickham you can see the first stage of data analysis involve importing your data, getting it into a [tidy format](http://vita.had.co.nz/papers/tidy-data.pdf), and then doing some transformations so that you get the data in good shape for analysis. There is a famous and possibly false statistic that says that 80% of an analyst time is often devoted to this kind of operations. Although the statistic is likely made up, the truth is that the experience of many analysts resonates with it. So, you should not underestimate data carpentry or data wrangling (as these processes are often called) as a part of your analysis.
 
 For various decades, social scientists of a quantitative persuasion worked primarily with survey data (for an excelent history of how this come to be you can read [this book](https://global.oup.com/academic/product/identities-and-social-change-in-britain-since-1940-9780199587650?cc=gb&lang=en&#)), which came in rather tidy formats, but often required some transformations. Today we are more likely to rely on "big" and other new forms of data (from the web, administrative sources, or a variety of sensors) that may require more significant processing before we can do any analysis with it. Think, for example, of data from online vendors of drugs available in the Dark Net. Some people talk of the advent of a new [computational social science](http://science.sciencemag.org/content/323/5915/721/tab-pdf) around these new methods. This kind of data, indeed, opens avenues for research we could only dream of in the past as argued by [some of our colleagues](https://www.sciencedirect.com/science/article/pii/S0955395919300313?via%3Dihub). But getting this kind of data requires the development of new skills (e.g, web scrapping) and generally requires more processing before they are tidy and ready for analysis.
@@ -50,6 +51,7 @@ dim(eb85_3)
 ```
 ## [1] 27818   483
 ```
+
 We can see there are 27818 cases (survey participants) and 483 variables. 
 
 ## Thinking about your data: filtering cases
@@ -99,9 +101,8 @@ For the sake of this exercise we are assuming the thing you are interested in ex
 Once you have all of this you would need to think about which of these survey questions and items make more sense for your research question. This is something where you will need to use your common sense but also your understanding of the literature in the topic. Criminologists and survey researchers spend a lot of time thinking about what is the best way of asking questions about topics or concepts of interest. They often debate and write about this. In data analysis measurement is key and is the process of systematically assigning numbers to objects and their properties, to facilitate the use of mathematics in studying and describing objects and their relationships. So, as part of your essay, you will need to consider what do researchers consider are good questions to measure, to tap into, the abstract concepts you are studying.
 
 There are many items in this survey that relate to this topic, but for purposes of continuing our illustration we are going to focus on the answers to question *QB10*. This question asks respondents to identify in what circumstances may be justified to have sexual intercourse without consent. The participants are read a list of items (e.g., "flirting before hand") and they can select various of them if so they wish. 
+<img src="imgs/qb10.png" width="960" />
 
-
-![](imgs/qb10.png) 
 
 What name is associated with this variable? Well you can see that depending on which thing they asked about, it might be `qb10_1`, `qb10_2`, `qb10_3`, etc etc!
 
@@ -396,7 +397,7 @@ library(vcd)
 mosaic(~region + at_sexviol, data = df)
 ```
 
-<img src="04-carpentry_files/figure-html/unnamed-chunk-20-1.png" width="672" />
+<img src="04-carpentry_files/figure-html/unnamed-chunk-21-1.png" width="672" />
 
 In a mosaic plot like this the height of the region levels indicate how big that group is. You can see there are many more observations in our sample that come from Western countries than from Northern countries. Here what we are interested is the length. We see that Northern countries have proportionally more people in the zero category than any other group. On the other hand, Eastern countries have the fewer zeros (so looking as if attitudes more permissive towards sexual violence are more common there, even if still a minority). We will come back to this kind of plots later on this semester.
 
@@ -1069,7 +1070,14 @@ library(visdat)
 vis_dat(df_f)
 ```
 
-<img src="04-carpentry_files/figure-html/unnamed-chunk-53-1.png" width="672" />
+```
+## Warning: `gather_()` was deprecated in tidyr 1.2.0.
+## Please use `gather()` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
+```
+
+<img src="04-carpentry_files/figure-html/unnamed-chunk-54-1.png" width="672" />
 
 Nice one! You get a visual representations of how your variables are encoded in this dataframe. You have several categorical variables such as region, f_gender, f_urban, and f_occup. We see that region is encoded as a `character` vector, whereas the others are `factors`. For the purposes of this course, it is generally better to have your categorical variables encoded as factors. So one of the next steps in our data prep may be to recode region as a factor. 
 
@@ -1098,7 +1106,7 @@ The othe piece of info you get with `vis_dat` is the prevalence of missing data 
 vis_miss(df_f)
 ```
 
-<img src="04-carpentry_files/figure-html/unnamed-chunk-57-1.png" width="672" />
+<img src="04-carpentry_files/figure-html/unnamed-chunk-58-1.png" width="672" />
 
 You can find more details about how to explore missing data in the vignette of the `naniar` package [here](http://naniar.njtierney.com/articles/getting-started-w-naniar.html).
 

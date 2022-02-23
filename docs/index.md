@@ -1,7 +1,7 @@
 --- 
 title: "Modelling Criminological Data LAWS20452"
 author: "Reka Solymosi and Eon Kim (based on material developed with Juanjo Medina"
-date: "2022-02-22"
+date: "2022-02-23"
 site: bookdown::bookdown_site
 documentclass: book
 biblio-style: apalike
