@@ -1,4 +1,5 @@
-# Studying relationships between a categorical and a quantitative variable
+# Hypotheses
+
 
 ## The logic of hypothesis testing
 
@@ -640,8 +641,8 @@ t1waybt(tcviolent ~ ethgrp2, data = BCS0708, tr = .05, nboot = 599)
 ## 
 ## Test statistic: 45.3591 
 ## p-value: 0 
-## Variance explained: 0.082 
-## Effect size: 0.286
+## Variance explained: 0.08 
+## Effect size: 0.283
 ```
 
 As with the standard ANOVA and the Welch version, we still get a significant result.
@@ -782,9 +783,58 @@ ANOVA(tcviolent ~ ethgrp2, data = BCS0708, brief=TRUE) #The brief argument set t
 ##   RESIDUALS
 ```
 
-You will see this implementation of ANOVA apart from also printing the R Squared also gives you Omega Squared. Omega Squared is particularly helpful with smaller samples (check the Andy Field book for rules of thumb for its interpretation). You will also see with this function (although not printed here) a nicely labelled residual plot to assist interpretation of equal spread.
+You will see this implementation of ANOVA apart from also printing the R Squared also gives you Omega Squared. Omega Squared is particularly helpful with smaller samples. You will also see with this function (although not printed here) a nicely labelled residual plot to assist interpretation of equal spread.
+
+So finally, how to interpret these numbers? Well you could refer to seminal texts which give us guidance on the eternal question "Is that a big number?" Two such texts are: 
+
+- Field, A (2013) Discovering statistics using IBM SPSS Statistics. Fourth Edition. Sage:London.
+- Cohen, J. (1992). A power primer. Psychological bulletin, 112(1), 155.
+
+But why do something ourselves, when we can programme R to do it for us? We can ask R to look this up using some functions found in the `effectsize` package. 
+
+Specifically the function `interpret_omega_squared()` interprets the omega squared, and the function `interpret_eta_squared()` helps interpret the..... you guessed it! The eta squared. You just plug in the value, and the text you wish to use to guide you. 
+
+So to interpret our omega square result above using Field (2013): 
+
+
+```r
+library(effectsize)
+```
+
+```
+## 
+## Attaching package: 'effectsize'
+```
+
+```
+## The following object is masked from 'package:psych':
+## 
+##     phi
+```
+
+```r
+interpret_omega_squared(0.03, rules = "field2013")
+```
+
+```
+## [1] "small"
+## (Rules: field2013)
+```
+
+
+Or Cohen (1992): 
 
 
 
+```r
+interpret_omega_squared(0.03, rules = "cohen1992")
+```
+
+```
+## [1] "small"
+## (Rules: cohen1992)
+```
 
 
+
+Isn't that something! Soon you'll be learning how to write code that will write your whole essay for you! Alright that's enough for this week, well done for getting to the end!

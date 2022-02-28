@@ -64,7 +64,7 @@ asymptotic-confidence-intervals-for-means-and-proportions-using-r
 a-brief-intro-to-resampling-and-bootstraping
 what-about-comparisons-sampling-distribution-for-the-difference-of-two-means
 comparing-means-visually-by-using-error-bars-representing-confidence-intervals-inference-by-eye
-studying-relationships-between-a-categorical-and-a-quantitative-variable
+hypotheses
 the-logic-of-hypothesis-testing
 comparing-means-across-two-groups-the-t-test
 what-does-a-significant-effect-mean

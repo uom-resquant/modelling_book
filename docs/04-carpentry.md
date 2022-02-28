@@ -1269,6 +1269,7 @@ politics_by_occ
 
 We can now begin to hypothesise whether there are differences political leanings between different occupations. Next week we will continue to expand on how we might actually go about generalising our conclusions from these observed descriptive analyses. 
 
+
 ## Further resources
 
 There are many other ways to recode variables and create new variables based in existing ones. Here we only provided some examples. We cannot exhaust all possibilities in this tutorial. You can find additional examples and code for how to do the recoding of variables in the following links. Please make sure that you spend some time looking at these additional resources. They are not optional.
