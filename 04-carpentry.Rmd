@@ -90,7 +90,7 @@ Once you have all of this you would need to think about which of these survey qu
 There are many items in this survey that relate to this topic, but for purposes of continuing our illustration we are going to focus on the answers to question *QB10*. This question asks respondents to identify in what circumstances may be justified to have sexual intercourse without consent. The participants are read a list of items (e.g., "flirting before hand") and they can select various of them if so they wish. 
 ```{r, echo=FALSE}
 
-knitr::include_graphics("imgs/qb10.png")
+knitr::include_graphics("imgs/qb10a.png")
 
 ```
 
