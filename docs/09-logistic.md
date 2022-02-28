@@ -377,10 +377,6 @@ library(sjPlot)
 ##   summary.parameters_skewness      datawizard
 ```
 
-```
-## Learn more about sjPlot with 'browseVignettes("sjPlot")'.
-```
-
 ```r
 plot_model(fitl_1)
 ```

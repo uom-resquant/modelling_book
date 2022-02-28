@@ -294,18 +294,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In criminology, very often you will be interested in binary outcomes (e.g., victim/no victim, arrested/not arrested, etc.) and want to use a number of predictor variables to study these outcomes. It is then, helpful, to understand how to use these models. Logistic regression is part of a broader family of models called <strong>generalised linear models</strong>. You should read the Wikepedia entry for this concept <a href="https://en.wikipedia.org/wiki/Generalized_linear_model">here</a>.</p>
 <p>With logistic regression we are modelling the probability of belonging to one of the levels in the binary outcome. For any combination of values for our predictor variables the model will estimate a probability of presenting the outcome of interest. To fit this model we use maximum likelihood. This handout does not focuses in explaining the mathematics behind the method. Those are important but in this introductory module we only provide an introduction to the technique.</p>
 <p>To illustrate logistic regression we are going to use the <code>Arrests</code> data from the <code>effects</code> package. You can obtain details about this dataset and the variables included by using <code>help(Arrests, package="effects")</code>. If you don’t have that package you will need to install it and load it.</p>
-<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb595-1"><a href="logistic-regression.html#cb595-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effects)</span></code></pre></div>
+<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb596-1"><a href="logistic-regression.html#cb596-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effects)</span></code></pre></div>
 <pre><code>## Loading required package: carData</code></pre>
 <pre><code>## lattice theme set by effectsTheme()
 ## See ?effectsTheme for details.</code></pre>
-<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb598-1"><a href="logistic-regression.html#cb598-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Arrests, <span class="at">package=</span><span class="st">&quot;effects&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb599-1"><a href="logistic-regression.html#cb599-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Arrests, <span class="at">package=</span><span class="st">&quot;effects&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning in data(Arrests, package = &quot;effects&quot;): data set &#39;Arrests&#39; not found</code></pre>
 <p>This data includes information on police treatment of individuals arrested in Toronto for possession of marihuana. We are going to model variation on <code>released</code>, a factor with two levels indicating whether the arrestee was released with a summons. In this case the police could:</p>
 <ul>
 <li><p>Release the arrestee with a summons - like a parking ticket</p></li>
 <li><p>Bring to police station, hold for bail, etc. - harsher treatment</p></li>
 </ul>
-<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb600-1"><a href="logistic-regression.html#cb600-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Arrests<span class="sc">$</span>released)</span></code></pre></div>
+<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb601-1"><a href="logistic-regression.html#cb601-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Arrests<span class="sc">$</span>released)</span></code></pre></div>
 <pre><code>## 
 ##   No  Yes 
 ##  892 4334</code></pre>
@@ -314,27 +314,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fitting-logistic-regression" class="section level2" number="9.2">
 <h2><span class="header-section-number">9.2</span> Fitting logistic regression</h2>
 <p>It is fairly straightforward to run a logistic model. Before you fit it, though, is convenient to check what you are actually modelling. Remember that R orders the levels in a factor alphabetically (unless they have been reordered by the authors of the dataframe). What that means is that when you run logistic regression you will be predicting probabilities associated with the category with a higher alphabetical order.</p>
-<div class="sourceCode" id="cb602"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb602-1"><a href="logistic-regression.html#cb602-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(Arrests<span class="sc">$</span>released) <span class="co">#Prints the levels, and you can see that &quot;Yes&quot; comes after &quot;No&quot; in alphabetical order</span></span></code></pre></div>
+<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb603-1"><a href="logistic-regression.html#cb603-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(Arrests<span class="sc">$</span>released) <span class="co">#Prints the levels, and you can see that &quot;Yes&quot; comes after &quot;No&quot; in alphabetical order</span></span></code></pre></div>
 <pre><code>## [1] &quot;No&quot;  &quot;Yes&quot;</code></pre>
-<div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb604-1"><a href="logistic-regression.html#cb604-1" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(Arrests<span class="sc">$</span>released) <span class="co">#This function shows you the contrasts associated with a factor. You can see the 1 is associated with &quot;Yes&quot;. This is what our model will be predicting, the probability of a &quot;Yes&quot;.</span></span></code></pre></div>
+<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb605-1"><a href="logistic-regression.html#cb605-1" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(Arrests<span class="sc">$</span>released) <span class="co">#This function shows you the contrasts associated with a factor. You can see the 1 is associated with &quot;Yes&quot;. This is what our model will be predicting, the probability of a &quot;Yes&quot;.</span></span></code></pre></div>
 <pre><code>##     Yes
 ## No    0
 ## Yes   1</code></pre>
 <p>If by any chance, the level of interest is not the one that will be selected by R, we will need to reorder the factor levels. In this particular analysis our goal is to check whether being Black predicts harsher treatment. So, let’s reorder the factor in such a way that the model is oriented towards predicting this harsher treatment. This will simply chage the sign of the coefficients and, in that way, may enhance interpretation.</p>
-<div class="sourceCode" id="cb606"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb606-1"><a href="logistic-regression.html#cb606-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Reverse the order</span></span>
-<span id="cb606-2"><a href="logistic-regression.html#cb606-2" aria-hidden="true" tabindex="-1"></a>Arrests<span class="sc">$</span>harsher <span class="ot">&lt;-</span> <span class="fu">relevel</span>(Arrests<span class="sc">$</span>released, <span class="st">&quot;Yes&quot;</span>)</span>
-<span id="cb606-3"><a href="logistic-regression.html#cb606-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Rename the levels so that it is clear we now mean yes to harsher treatment</span></span>
-<span id="cb606-4"><a href="logistic-regression.html#cb606-4" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(Arrests<span class="sc">$</span>harsher) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)</span>
-<span id="cb606-5"><a href="logistic-regression.html#cb606-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Check that it matches in reverse the original variable</span></span>
-<span id="cb606-6"><a href="logistic-regression.html#cb606-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Arrests<span class="sc">$</span>harsher)</span></code></pre></div>
+<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb607-1"><a href="logistic-regression.html#cb607-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Reverse the order</span></span>
+<span id="cb607-2"><a href="logistic-regression.html#cb607-2" aria-hidden="true" tabindex="-1"></a>Arrests<span class="sc">$</span>harsher <span class="ot">&lt;-</span> <span class="fu">relevel</span>(Arrests<span class="sc">$</span>released, <span class="st">&quot;Yes&quot;</span>)</span>
+<span id="cb607-3"><a href="logistic-regression.html#cb607-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Rename the levels so that it is clear we now mean yes to harsher treatment</span></span>
+<span id="cb607-4"><a href="logistic-regression.html#cb607-4" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(Arrests<span class="sc">$</span>harsher) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)</span>
+<span id="cb607-5"><a href="logistic-regression.html#cb607-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Check that it matches in reverse the original variable</span></span>
+<span id="cb607-6"><a href="logistic-regression.html#cb607-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Arrests<span class="sc">$</span>harsher)</span></code></pre></div>
 <pre><code>## 
 ##   No  Yes 
 ## 4334  892</code></pre>
-<div class="sourceCode" id="cb608"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb608-1"><a href="logistic-regression.html#cb608-1" aria-hidden="true" tabindex="-1"></a><span class="co">#We will also reverse the order of the &quot;colour&quot;&quot; variable so that the dummy uses Whites as the baseline</span></span>
-<span id="cb608-2"><a href="logistic-regression.html#cb608-2" aria-hidden="true" tabindex="-1"></a>Arrests<span class="sc">$</span>colour <span class="ot">&lt;-</span> <span class="fu">relevel</span>(Arrests<span class="sc">$</span>colour, <span class="st">&quot;White&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb609-1"><a href="logistic-regression.html#cb609-1" aria-hidden="true" tabindex="-1"></a><span class="co">#We will also reverse the order of the &quot;colour&quot;&quot; variable so that the dummy uses Whites as the baseline</span></span>
+<span id="cb609-2"><a href="logistic-regression.html#cb609-2" aria-hidden="true" tabindex="-1"></a>Arrests<span class="sc">$</span>colour <span class="ot">&lt;-</span> <span class="fu">relevel</span>(Arrests<span class="sc">$</span>colour, <span class="st">&quot;White&quot;</span>)</span></code></pre></div>
 <p>We use the <code>glm()</code> function for fitting the model, specifying as an argument that we will be using a logit model (<code>family="binomial"</code>). As stated, we are going to run a model oriented primarily to assess to what degree race/ethnicity seems to matter even when we adjust for other factors (e.g., sex, employment, and previous police contacts (checks: number of police data records of previous arrests, previous convictions, parole status, etc. - 6 in all) on which the arrestee’s name appeared; a numeric vector)).</p>
-<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb609-1"><a href="logistic-regression.html#cb609-1" aria-hidden="true" tabindex="-1"></a>fitl_1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(harsher <span class="sc">~</span> checks <span class="sc">+</span> colour <span class="sc">+</span> sex <span class="sc">+</span> employed, <span class="at">data=</span>Arrests, <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)</span>
-<span id="cb609-2"><a href="logistic-regression.html#cb609-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitl_1)</span></code></pre></div>
+<div class="sourceCode" id="cb610"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb610-1"><a href="logistic-regression.html#cb610-1" aria-hidden="true" tabindex="-1"></a>fitl_1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(harsher <span class="sc">~</span> checks <span class="sc">+</span> colour <span class="sc">+</span> sex <span class="sc">+</span> employed, <span class="at">data=</span>Arrests, <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)</span>
+<span id="cb610-2"><a href="logistic-regression.html#cb610-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitl_1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = harsher ~ checks + colour + sex + employed, family = &quot;binomial&quot;, 
@@ -367,7 +367,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The part in the middle of the output shows the coefficients, their standard errors, the statistic, and the associated p-values. The z statistic (sometimes called a Wald z-statistic) does a job similar to the t test in the linear regression model. It is a test of statistical significance assessing whether each input in the model is associated with the dependent variable.</p>
 <p>If we focus in the table of coefficients, we can see that all the inputs but <em>sex</em> were significant in the model. The estimates that get printed when you run logistic regression give you the change in the log odds of the outcome for a one unit increase in the predictor. Here we see that for every one unit increase in the number of previous police contacts (<em>checks</em>), the <strong>log odds</strong> of receiving harsher treatment (versus being released) increases by 0.36 adjusting for the other variables in the model. The reminder variables are categorical predictors with two levels. So what we see is the coefficient for the dummy variables indicating the contrast with their respective baseline or reference category. So, for example, being Black increases the log odds of receiving harsher treatment by 0.49, whereas being employed decreases the log odds of being released by 0.77. As mentioned above, the coefficient for gender was not significant. What are log odds? We will discuss this in a bit.</p>
 <p>We can also use the <code>confint()</code> function to obtain confidence intervals for the estimated coefficients.</p>
-<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb611-1"><a href="logistic-regression.html#cb611-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(fitl_1)</span></code></pre></div>
+<div class="sourceCode" id="cb612"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb612-1"><a href="logistic-regression.html#cb612-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(fitl_1)</span></code></pre></div>
 <pre><code>## Waiting for profiling to be done...</code></pre>
 <pre><code>##                  2.5 %     97.5 %
 ## (Intercept) -2.2241433 -1.5962775
@@ -377,11 +377,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## employedYes -0.9436356 -0.6148518</code></pre>
 <p>So what does that actually mean?</p>
 <p>Interpreting in the log odds scale is something some people do not find very intuitive. So it is common to use <strong>odd ratios</strong> when interpreting logistic regression. We have already covered odd ratios when discussing cross tabulations. To do this, all we need to do is to exponentiate the coefficients. To get the exponentiated coefficients, you tell R that you want to exponentiate (<code>exp()</code>), that the object you want to exponentiate is called coefficients and it is part of the model you just run.</p>
-<div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb614-1"><a href="logistic-regression.html#cb614-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(fitl_1))</span></code></pre></div>
+<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb615-1"><a href="logistic-regression.html#cb615-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(fitl_1))</span></code></pre></div>
 <pre><code>## (Intercept)      checks colourBlack     sexMale employedYes 
 ##   0.1490516   1.4304108   1.6422658   1.0430528   0.4585312</code></pre>
 <p>You can use the same logic to the confindence intervals.</p>
-<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb616-1"><a href="logistic-regression.html#cb616-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">cbind</span>(<span class="at">OR =</span> <span class="fu">coef</span>(fitl_1), <span class="fu">confint</span>(fitl_1))) <span class="co">#This will print both the OR and their 95% CI.</span></span></code></pre></div>
+<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="logistic-regression.html#cb617-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">cbind</span>(<span class="at">OR =</span> <span class="fu">coef</span>(fitl_1), <span class="fu">confint</span>(fitl_1))) <span class="co">#This will print both the OR and their 95% CI.</span></span></code></pre></div>
 <pre><code>## Waiting for profiling to be done...</code></pre>
 <pre><code>##                    OR     2.5 %    97.5 %
 ## (Intercept) 0.1490516 0.1081600 0.2026495
@@ -393,7 +393,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Employment has an odd ratio of 0.45. When the odd ratio is between 0 and 1 is indicating a negative relationship. So employment reduces the odds of harsher treatment by 1/0.46, that is by a factor of 2.18. For more details interpreting odd ratios in logistic regression you may want to read <a href="http://www.ats.ucla.edu/stat/mult_pkg/faq/general/odds_ratio.htm">this</a>. Some people do not like odd ratios. For other ways of interpreting logistic regression coefficients you may want to consult <a href="http://www.cambridge.org/gb/academic/subjects/statistics-probability/statistical-theory-and-methods/data-analysis-using-regression-and-multilevelhierarchical-models?format=PB">chapter 5 of the book</a> by Gelman and Hill (2007).</p>
 <p>You can read more about how to read odd ratios in logistic regression <a href="https://stats.idre.ucla.edu/other/mult-pkg/faq/general/faq-how-do-i-interpret-odds-ratios-in-logistic-regression/">here</a>.</p>
 <p>Another way of getting the results with less typing is to use the <code>Logit()</code> function in the <code>lessR</code> package (you will need to install it if you do not have it).</p>
-<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="logistic-regression.html#cb619-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lessR, <span class="at">quietly=</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb620-1"><a href="logistic-regression.html#cb620-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lessR, <span class="at">quietly=</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## 
 ## lessR 4.0.0  feedback: gerbing@pdx.edu  web: lessRstats.com/new
 ## ---------------------------------------------------------------
@@ -407,7 +407,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## View changes in this new version of lessR.
 ##   Enter: help(package=lessR)  Click: Package NEWS</code></pre>
-<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="logistic-regression.html#cb621-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Logit</span>(harsher <span class="sc">~</span> checks <span class="sc">+</span> colour <span class="sc">+</span> sex <span class="sc">+</span> employed, <span class="at">data=</span>Arrests, <span class="at">brief=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb622-1"><a href="logistic-regression.html#cb622-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Logit</span>(harsher <span class="sc">~</span> checks <span class="sc">+</span> colour <span class="sc">+</span> sex <span class="sc">+</span> employed, <span class="at">data=</span>Arrests, <span class="at">brief=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## 
 ## Response Variable:   harsher
 ## Predictor Variable 1:  checks
@@ -470,7 +470,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## &gt;&gt;&gt; No collinearity analysis because not all variables are numeric.</code></pre>
 <p>As with linear regression, the interpretation of regression coefficients is sensitive to the scale of measurement of the predictors. This means one cannot compare the magnitude of the coefficients to compare the relevance of variables to predict the response variable. The same applies to the odd ratios. Tempting and common as this might be, unless the predictors use the same metric (or maybe if they are all categorical) there is little point in comparing the magnitude of the odd ratios in logistic regression. Like the unstardised logistic regression coefficients odd ratios are <strong>not</strong> a measure of effect size that allows comparisons across inputs (Menard, 2012).</p>
 <p>Finally, you could, in the same way than we did in a previous session, use the <code>standardize()</code> function from the <code>arm</code> package.</p>
-<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb623-1"><a href="logistic-regression.html#cb623-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arm)</span></code></pre></div>
+<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="logistic-regression.html#cb624-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arm)</span></code></pre></div>
 <pre><code>## Loading required package: MASS</code></pre>
 <pre><code>## Loading required package: Matrix</code></pre>
 <pre><code>## Loading required package: lme4</code></pre>
@@ -482,8 +482,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## The following object is masked from &#39;package:lessR&#39;:
 ## 
 ##     rescale</code></pre>
-<div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb631-1"><a href="logistic-regression.html#cb631-1" aria-hidden="true" tabindex="-1"></a>fitl_1_s <span class="ot">&lt;-</span> <span class="fu">standardize</span>(fitl_1)</span>
-<span id="cb631-2"><a href="logistic-regression.html#cb631-2" aria-hidden="true" tabindex="-1"></a><span class="fu">display</span>(fitl_1_s)</span></code></pre></div>
+<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="logistic-regression.html#cb632-1" aria-hidden="true" tabindex="-1"></a>fitl_1_s <span class="ot">&lt;-</span> <span class="fu">standardize</span>(fitl_1)</span>
+<span id="cb632-2"><a href="logistic-regression.html#cb632-2" aria-hidden="true" tabindex="-1"></a><span class="fu">display</span>(fitl_1_s)</span></code></pre></div>
 <pre><code>## glm(formula = harsher ~ z.checks + c.colour + c.sex + c.employed, 
 ##     family = &quot;binomial&quot;, data = Arrests)
 ##             coef.est coef.se
@@ -496,7 +496,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   n = 5226, k = 5
 ##   residual deviance = 4330.7, null deviance = 4776.3 (difference = 445.6)</code></pre>
 <p>We can also use <strong>forest plots</strong> in much the same way than we did for linear regression. One way of doing this is using the <code>plot.model()</code> function of the <code>sjPlot</code> package. Notice that by default the odd ratios are sorted from higher to lower in this display (and also that in this html file the text in the plot is not fully displayed, I’m still trying to fix that, but if you run this and zoom in you will see it better).</p>
-<div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb633-1"><a href="logistic-regression.html#cb633-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span></code></pre></div>
+<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="logistic-regression.html#cb634-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span></code></pre></div>
 <pre><code>## Registered S3 methods overwritten by &#39;parameters&#39;:
 ##   method                           from      
 ##   as.double.parameters_kurtosis    datawizard
@@ -510,7 +510,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   print.parameters_skewness        datawizard
 ##   summary.parameters_kurtosis      datawizard
 ##   summary.parameters_skewness      datawizard</code></pre>
-<pre><code>## Learn more about sjPlot with &#39;browseVignettes(&quot;sjPlot&quot;)&#39;.</code></pre>
 <div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="logistic-regression.html#cb636-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_model</span>(fitl_1)</span></code></pre></div>
 <p><img src="09-logistic_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>Equally, we can produce effect plots using the <code>effects</code> package:</p>

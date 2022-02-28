@@ -35,7 +35,7 @@ GESIS has a section of their website devoted to the Eurobarometer survey. You ca
 
 You can access the data for this eurobarometer [here](https://search.gesis.org/research_data/ZA6695). 
 
-![](imgs/gesis.PNG) 
+![](imgs/gesisa.PNG) 
 
 You will see here that there are links to the files with the data in SPSS and STATA format. You can also see a tab where you could obtain the questionnaire for the survey. Once you are registered download the STATA version of the file and also an English version of the questionnaire. Make sure you place the file in your working directory. Once you do this you should be able to use the code we are using in this session.
 
@@ -57,11 +57,11 @@ First, we would need to think if we wanted to use all cases in the data or only 
 
 So, for example, if we only wanted to work with the UK sample we would need to figure out if there is a variable that identifies the country in the dataset. To know this, we need to look at the *codebook* (sometimes called data dictionary). In this case, we can look at the interactive facility provided for GESIS for online data analysis, which provides an interactive online codebook for this dataset. You can access this facility in the link highlighted in the image below:
 
-![](imgs/linktoonline.png) 
+![](imgs/linktoonlinea.png) 
 
 Let's explore the online facility for the Eurobarometer. If we expand the menus in the left hand side by clicking in variable description, and then in standard nation id variables, you will see there is a variable that provides a "country code". This must be it. click on it and then you will see in the right hand side some information about this variable. You see the name of this variable (as it will appear in the dataset) *isocntry* and we can see this variable uses [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166) codes to designate the country. This is an international standard set of abbreviations for country names. For the UK these codes are "GB-GBN" and "GB-NIR" (for Northern Ireland).
 
-![](imgs/country.png) 
+![](imgs/countrya.png) 
 
 Now that we have this information we can run the code to select only the cases that have these values in the dataset. For doing something like that we would use the `dplyr::filter` function. We used the `filter` function in week 2. You can read more about it in the `dplyr` vignette. 
 
@@ -439,7 +439,7 @@ sum(is.na(df$politics))
 
 It looks as if we have no missing data. Right? Well, appearances can be deceiving sometimes.
 
-![](imgs/leftright.png) 
+![](imgs/leftrighta.png) 
 
 This is the question as it was asked from the survey respondents. Notice the difference in the response options and the categories in *politics*. We know that those that see themselves further to the left will have answer 1 and those that see themselves further to the right would have answer 10. What does 97 and 98 then refers to? If you look at the questionnaire you will see that those that refuse or don't know *in the questionnaire* are coded as 11 and 12.
 
@@ -730,6 +730,7 @@ politics_by_occ
 ```
 
 We can now begin to hypothesise whether there are differences political leanings between different occupations. Next week we will continue to expand on how we might actually go about generalising our conclusions from these observed descriptive analyses. 
+
 
 ## Further resources
 
