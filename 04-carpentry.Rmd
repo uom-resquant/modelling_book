@@ -474,29 +474,31 @@ It looks as if we have no missing data. Right? Well, appearances can be deceivin
 
 ![](imgs/leftrighta.png) 
 
-This is the question as it was asked from the survey respondents. Notice the difference in the response options and the categories in *politics*. We know that those that see themselves further to the left will have answer 1 and those that see themselves further to the right would have answer 10. What does 97 and 98 then refers to? If you look at the questionnaire you will see that those that refuse or don't know *in the questionnaire* are coded as 11 and 12.
+This is the question as it was asked from the survey respondents. Notice the difference in the response options and the categories in *politics*. We know that those that see themselves further to the left will have answer 1 and those that see themselves further to the right would have answer 10. What does 97 and 98 then refers to? If you look at the questionnaire you will see that those that refuse or don't know *in the questionnaire* are coded as 97 and 98.
 
-Let's look closer at the `attributes`:
+<!-- Let's look closer at the `attributes`: -->
 
-```{r}
-attributes(df$politics)
-```
+<!-- ```{r} -->
+<!-- attributes(df$politics) -->
+<!-- ``` -->
 
-A tip if you don't want to see as much output. If you want to access directly only some of the attributes you can call them directly modifying the code as below:
+<!-- A tip if you don't want to see as much output. If you want to access directly only some of the attributes you can call them directly modifying the code as below: -->
 
-```{r}
-attributes(df$politics)$labels
-```
+<!-- ```{r} -->
+<!-- attributes(df$politics)$labels -->
+<!-- ``` -->
 
-Or we could use the `val_labels` function from the `labelled` package for the same result:
+<!-- Or we could use the `val_labels` function from the `labelled` package for the same result: -->
 
-```{r}
-library(labelled)
-val_labels(df$politics)
-```
+<!-- ```{r} -->
+<!-- library(labelled) -->
+<!-- val_labels(df$politics) -->
+<!-- ``` -->
 
 
-Notice that though the questionnaire assigned a value of 11 to refusal and 12 to "don't know" answers, in the dataset those values are instead 97 and 98. You will see this often - 97, 98, 99, and similar codes are often used to denote missing data.
+<!-- Notice that though the questionnaire assigned a value of 11 to refusal and 12 to "don't know" answers, in the dataset those values are instead 97 and 98.  -->
+
+You will see this often - 97, 98, 99, and similar codes are often used to denote missing data.
 
 You may have good theoretical reasons to preserve this in your analysis. Perhaps you think that people that did not answer this question have particular reasons not to do so and those reasons may be associated with their attitudes to violence. In that case you may want to somehow preserve them in your analysis. Absent that rationale you may just want to treat them as they are: missing data. You just have no way of knowing if these people are more or less lefty or conservative. So let's declare them as such for sake of explaining how you would do that:
 
@@ -542,6 +544,8 @@ colMeans(is.na(df))
 This is suspicious. Only the variables we have created and already sorted seem to have NA. This may be a function of the `haven_labelled` vectors behaving like with the original *politics* variable. Let's explore it. We can use the `val_labels` function from the `labelled` package to extract labels from the whole dataframe like this:
 
 ```{r}
+library(labelled)
+
 val_labels(df)
 ```
 

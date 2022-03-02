@@ -736,75 +736,31 @@ It looks as if we have no missing data. Right? Well, appearances can be deceivin
 
 ![](imgs/leftrighta.png) 
 
-This is the question as it was asked from the survey respondents. Notice the difference in the response options and the categories in *politics*. We know that those that see themselves further to the left will have answer 1 and those that see themselves further to the right would have answer 10. What does 97 and 98 then refers to? If you look at the questionnaire you will see that those that refuse or don't know *in the questionnaire* are coded as 11 and 12.
+This is the question as it was asked from the survey respondents. Notice the difference in the response options and the categories in *politics*. We know that those that see themselves further to the left will have answer 1 and those that see themselves further to the right would have answer 10. What does 97 and 98 then refers to? If you look at the questionnaire you will see that those that refuse or don't know *in the questionnaire* are coded as 97 and 98.
 
-Let's look closer at the `attributes`:
+<!-- Let's look closer at the `attributes`: -->
 
+<!-- ```{r} -->
+<!-- attributes(df$politics) -->
+<!-- ``` -->
 
-```r
-attributes(df$politics)
-```
+<!-- A tip if you don't want to see as much output. If you want to access directly only some of the attributes you can call them directly modifying the code as below: -->
 
-```
-## $label
-## [1] "LEFT-RIGHT PLACEMENT"
-## 
-## $format.stata
-## [1] "%8.0g"
-## 
-## $class
-## [1] "haven_labelled" "vctrs_vctr"     "double"        
-## 
-## $labels
-##          Box 1 - left                 Box 2                 Box 3 
-##                     1                     2                     3 
-##                 Box 4                 Box 5                 Box 6 
-##                     4                     5                     6 
-##                 Box 7                 Box 8                 Box 9 
-##                     7                     8                     9 
-##        Box 10 - right Refusal (Spontaneous)                    DK 
-##                    10                    NA                    NA
-```
+<!-- ```{r} -->
+<!-- attributes(df$politics)$labels -->
+<!-- ``` -->
 
-A tip if you don't want to see as much output. If you want to access directly only some of the attributes you can call them directly modifying the code as below:
+<!-- Or we could use the `val_labels` function from the `labelled` package for the same result: -->
+
+<!-- ```{r} -->
+<!-- library(labelled) -->
+<!-- val_labels(df$politics) -->
+<!-- ``` -->
 
 
-```r
-attributes(df$politics)$labels
-```
+<!-- Notice that though the questionnaire assigned a value of 11 to refusal and 12 to "don't know" answers, in the dataset those values are instead 97 and 98.  -->
 
-```
-##          Box 1 - left                 Box 2                 Box 3 
-##                     1                     2                     3 
-##                 Box 4                 Box 5                 Box 6 
-##                     4                     5                     6 
-##                 Box 7                 Box 8                 Box 9 
-##                     7                     8                     9 
-##        Box 10 - right Refusal (Spontaneous)                    DK 
-##                    10                    NA                    NA
-```
-
-Or we could use the `val_labels` function from the `labelled` package for the same result:
-
-
-```r
-library(labelled)
-val_labels(df$politics)
-```
-
-```
-##          Box 1 - left                 Box 2                 Box 3 
-##                     1                     2                     3 
-##                 Box 4                 Box 5                 Box 6 
-##                     4                     5                     6 
-##                 Box 7                 Box 8                 Box 9 
-##                     7                     8                     9 
-##        Box 10 - right Refusal (Spontaneous)                    DK 
-##                    10                    NA                    NA
-```
-
-
-Notice that though the questionnaire assigned a value of 11 to refusal and 12 to "don't know" answers, in the dataset those values are instead 97 and 98. You will see this often - 97, 98, 99, and similar codes are often used to denote missing data.
+You will see this often - 97, 98, 99, and similar codes are often used to denote missing data.
 
 You may have good theoretical reasons to preserve this in your analysis. Perhaps you think that people that did not answer this question have particular reasons not to do so and those reasons may be associated with their attitudes to violence. In that case you may want to somehow preserve them in your analysis. Absent that rationale you may just want to treat them as they are: missing data. You just have no way of knowing if these people are more or less lefty or conservative. So let's declare them as such for sake of explaining how you would do that:
 
@@ -874,6 +830,8 @@ This is suspicious. Only the variables we have created and already sorted seem t
 
 
 ```r
+library(labelled)
+
 val_labels(df)
 ```
 
@@ -1101,7 +1059,7 @@ library(visdat)
 vis_dat(df_f)
 ```
 
-<img src="04-carpentry_files/figure-html/unnamed-chunk-57-1.png" width="672" />
+<img src="04-carpentry_files/figure-html/unnamed-chunk-54-1.png" width="672" />
 
 Nice one! You get a visual representations of how your variables are encoded in this dataframe. You have several categorical variables such as region, f_gender, f_urban, and f_occup. We see that region is encoded as a `character` vector, whereas the others are `factors`. For the purposes of this course, it is generally better to have your categorical variables encoded as factors. So one of the next steps in our data prep may be to recode region as a factor. 
 
@@ -1130,7 +1088,7 @@ The othe piece of info you get with `vis_dat` is the prevalence of missing data 
 vis_miss(df_f)
 ```
 
-<img src="04-carpentry_files/figure-html/unnamed-chunk-61-1.png" width="672" />
+<img src="04-carpentry_files/figure-html/unnamed-chunk-58-1.png" width="672" />
 
 You can find more details about how to explore missing data in the vignette of the `naniar` package [here](http://naniar.njtierney.com/articles/getting-started-w-naniar.html).
 
