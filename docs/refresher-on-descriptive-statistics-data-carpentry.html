@@ -427,7 +427,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##     0     1 
 ## 26810  1008</code></pre>
 <p>There are 255 people that refused to answer and 1008 that did not know how to answer. If you add 1008, 255, and 18418 you get 19681. So our new variable is actually computing as zeroes people that did not know how to answer this question or refused to answer it. We do not want that. We do not know what these people think, so it would be wrong to assume that they consider that none of these circumstances are valid excuses for sexual intercourse without consent.</p>
-<p>There are many ways to deal with this. He could simply filter out cases where we have values of 1 in these two variables (since we don’t know their answers we could as well get rid of them). But We could also recode the variable to define this values as what they are NA (missing data, cases for which we have no valid information).</p>
+<p>There are many ways to deal with this. We could simply filter out cases where we have values of 1 in these two variables (since we don’t know their answers we could as well get rid of them). But we could also recode the variable to define this values as what they are NA (missing data, cases for which we have no valid information).</p>
 <div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb228-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>at_sexviol[df<span class="sc">$</span>qb10_11 <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span> df<span class="sc">$</span>qb10_12 <span class="sc">==</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
 <span id="cb228-2"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb228-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>at_sexviol)</span></code></pre></div>
 <pre><code>## 
@@ -574,7 +574,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##                                            17 
 ##                 Unskilled manual worker, etc. 
 ##                                            18</code></pre>
-<p>Having to look at this every time is not very convenient. You may prefer to simply use the labels directly. For this we can use the <code>as_factor</code> function from the <code>haven</code> package.</p>
+<p>Having to look at this every time is not very convenient. You may prefer to simply use the labels directly. For this we can use the <code>as_factor()</code> function from the <code>haven</code> package.</p>
 <div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb256-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>f_occup <span class="ot">&lt;-</span> <span class="fu">as_factor</span>(df<span class="sc">$</span>occupation)</span>
 <span id="cb256-2"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb256-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(df<span class="sc">$</span>f_occup)</span></code></pre></div>
 <pre><code>## [1] &quot;factor&quot;</code></pre>
@@ -632,7 +632,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 7   Retired (4 in d15a) 
 8   Students (2 in d15a)</code></pre>
 <p>It would be quicker to recode from <em>d15a</em> into a new variable (there would be less typing when dealing with numbers rather than labels). But here we are going to use this example to show you how to recode from a factor variable, so instead we will recode form <em>f_occup</em>.</p>
-<p>As often in R, there are multiple ways of doing this. We could use <code>dplyr::recode</code>. But here we will show you how to do this using the <code>recode</code> function from the <code>car</code> library.</p>
+<p>As often in R, there are multiple ways of doing this. We could use <code>dplyr::recode</code>. But here we will show you how to do this using the <code>levels()</code> function.</p>
 <div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb261-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>occup2 <span class="ot">&lt;-</span> df<span class="sc">$</span>f_occup</span>
 <span id="cb261-2"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb261-2" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(df<span class="sc">$</span>occup2) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">&quot;Self-employed&quot;</span> <span class="ot">=</span> </span>
 <span id="cb261-3"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb261-3" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">c</span>(<span class="st">&quot;Farmer&quot;</span> , <span class="st">&quot;Fisherman&quot;</span> ,</span>
@@ -668,13 +668,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## 
 ##    1    2    3    4    5    6    7    8    9   10 
 ## 1433  830 2161 2217 6690 2238 2056 1658  474 1126</code></pre>
+<p>Now luckily this data set has been updated so the people who answered “Don’t know” (DK in the attributes) or refused to answer (Refusal (Spontaneous) in attributes) show up as NA already. So if we check how many NAs we have we can see here:</p>
 <div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb266-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(df<span class="sc">$</span>politics))</span></code></pre></div>
 <pre><code>## [1] 6935</code></pre>
+<p>But sometimes the missing values are not recoded, but rather show up as unrealistically high numbers, like 97, 98, 99. In those cases, you will have to code this yourself. Here we will demonstrate how.</p>
+<p>But first, run the code below to make it so those who refused are denoted by 97 and those who answered don’t know denoted by 98 (and do the same for the “urban”variable which we will use later):</p>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb268-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>politics[<span class="fu">as_factor</span>(df<span class="sc">$</span>politics) <span class="sc">==</span> <span class="st">&quot;Refusal (Spontaneous)&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">97</span></span>
+<span id="cb268-2"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb268-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>politics[<span class="fu">as_factor</span>(df<span class="sc">$</span>politics) <span class="sc">==</span> <span class="st">&quot;DK&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">98</span></span>
+<span id="cb268-3"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb268-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>urban[<span class="fu">as_factor</span>(df<span class="sc">$</span>urban) <span class="sc">==</span> <span class="st">&quot;DK&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">98</span></span></code></pre></div>
+<p>Now if we look again at the number of NAs:</p>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb269-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(df<span class="sc">$</span>politics))</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
 <p>It looks as if we have no missing data. Right? Well, appearances can be deceiving sometimes.</p>
 <p><img src="imgs/leftrighta.png" /></p>
 <p>This is the question as it was asked from the survey respondents. Notice the difference in the response options and the categories in <em>politics</em>. We know that those that see themselves further to the left will have answer 1 and those that see themselves further to the right would have answer 10. What does 97 and 98 then refers to? If you look at the questionnaire you will see that those that refuse or don’t know <em>in the questionnaire</em> are coded as 11 and 12.</p>
 <p>Let’s look closer at the <code>attributes</code>:</p>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb268-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attributes</span>(df<span class="sc">$</span>politics)</span></code></pre></div>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb271-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attributes</span>(df<span class="sc">$</span>politics)</span></code></pre></div>
 <pre><code>## $label
 ## [1] &quot;LEFT-RIGHT PLACEMENT&quot;
 ## 
@@ -694,7 +703,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##        Box 10 - right Refusal (Spontaneous)                    DK 
 ##                    10                    NA                    NA</code></pre>
 <p>A tip if you don’t want to see as much output. If you want to access directly only some of the attributes you can call them directly modifying the code as below:</p>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb270-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attributes</span>(df<span class="sc">$</span>politics)<span class="sc">$</span>labels</span></code></pre></div>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb273-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attributes</span>(df<span class="sc">$</span>politics)<span class="sc">$</span>labels</span></code></pre></div>
 <pre><code>##          Box 1 - left                 Box 2                 Box 3 
 ##                     1                     2                     3 
 ##                 Box 4                 Box 5                 Box 6 
@@ -704,8 +713,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##        Box 10 - right Refusal (Spontaneous)                    DK 
 ##                    10                    NA                    NA</code></pre>
 <p>Or we could use the <code>val_labels</code> function from the <code>labelled</code> package for the same result:</p>
-<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb272-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labelled)</span>
-<span id="cb272-2"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb272-2" aria-hidden="true" tabindex="-1"></a><span class="fu">val_labels</span>(df<span class="sc">$</span>politics)</span></code></pre></div>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb275-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labelled)</span>
+<span id="cb275-2"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb275-2" aria-hidden="true" tabindex="-1"></a><span class="fu">val_labels</span>(df<span class="sc">$</span>politics)</span></code></pre></div>
 <pre><code>##          Box 1 - left                 Box 2                 Box 3 
 ##                     1                     2                     3 
 ##                 Box 4                 Box 5                 Box 6 
@@ -716,32 +725,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##                    10                    NA                    NA</code></pre>
 <p>Notice that though the questionnaire assigned a value of 11 to refusal and 12 to “don’t know” answers, in the dataset those values are instead 97 and 98. You will see this often - 97, 98, 99, and similar codes are often used to denote missing data.</p>
 <p>You may have good theoretical reasons to preserve this in your analysis. Perhaps you think that people that did not answer this question have particular reasons not to do so and those reasons may be associated with their attitudes to violence. In that case you may want to somehow preserve them in your analysis. Absent that rationale you may just want to treat them as they are: missing data. You just have no way of knowing if these people are more or less lefty or conservative. So let’s declare them as such for sake of explaining how you would do that:</p>
-<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb274-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>politics[df<span class="sc">$</span>politics<span class="sc">&gt;=</span><span class="dv">97</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb274-2"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb274-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>politics)</span></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb277-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>politics[df<span class="sc">$</span>politics<span class="sc">&gt;=</span><span class="dv">97</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb277-2"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb277-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>politics)</span></code></pre></div>
 <pre><code>## 
 ##    1    2    3    4    5    6    7    8    9   10 
 ## 1433  830 2161 2217 6690 2238 2056 1658  474 1126</code></pre>
 <p>The equal or greater operator in R is written as <code>&gt;=</code>. What we are saying in the first statement to R is that whenever <em>politics</em> has a value equal or greater than 97 we are going to recode those cases as <code>NA</code>, as missing data. Since this is a <code>haven_labelled</code> vector we can use numbers here rather than characters or factor levels as part of the recoding. That makes things a bit easier in that it saves typing.
 Let’s look a the results:</p>
-<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb276-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df<span class="sc">$</span>politics)</span></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb279-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df<span class="sc">$</span>politics)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
 ##   1.000   4.000   5.000   5.196   7.000  10.000    6935</code></pre>
 <p>Now you see you have 6935 cases with missing data. As always it is good to check the original variable. We had 2766 and 4169 between refusals and “don’t know” respondents. These add up to 6935.</p>
 <p>Let’s check something else:</p>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb278-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
-<span id="cb278-2"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb278-2" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(df<span class="sc">$</span>politics)</span></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb281-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb281-2"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb281-2" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(df<span class="sc">$</span>politics)</span></code></pre></div>
 <p>Mmmmm. The <code>summary</code> function worked, but other functions do not know to treat the values in the <code>haven_labelled</code> vector as a numeric. So, to avoid problems we may want to define as such (if we truly believe this is a quantitative rather than a categorical variable or at the very least are willing to treat it as quantitative).</p>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb279-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>politics_n <span class="ot">&lt;-</span><span class="fu">as.numeric</span>(df<span class="sc">$</span>politics)</span></code></pre></div>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb282-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>politics_n <span class="ot">&lt;-</span><span class="fu">as.numeric</span>(df<span class="sc">$</span>politics)</span></code></pre></div>
 <p>If you try this now, you will see it works:</p>
-<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb280-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(df<span class="sc">$</span>politics_n)</span></code></pre></div>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb283-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(df<span class="sc">$</span>politics_n)</span></code></pre></div>
 <p>If we want to see what percentage of cases is NA across our dataset we could use <code>colMeans</code> combined with <code>is.na</code>. This will compute the mean (the proportion) of cases that are NA in each of the columns of the dataframe:</p>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb281-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colMeans</span>(<span class="fu">is.na</span>(df))</span></code></pre></div>
-<pre><code>##       uniqid   at_sexviol       gender          age     politics        urban 
-## 0.0000000000 0.0454022575 0.0000000000 0.0000000000 0.2492990150 0.0006470631 
-##   occupation       region      f_occup       occup2   politics_n 
-## 0.0000000000 0.0000000000 0.0000000000 0.0000000000 0.2492990150</code></pre>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb284-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colMeans</span>(<span class="fu">is.na</span>(df))</span></code></pre></div>
+<pre><code>##     uniqid at_sexviol     gender        age   politics      urban occupation 
+## 0.00000000 0.04540226 0.00000000 0.00000000 0.24929902 0.00000000 0.00000000 
+##     region    f_occup     occup2 politics_n 
+## 0.00000000 0.00000000 0.00000000 0.24929902</code></pre>
 <p>This is suspicious. Only the variables we have created and already sorted seem to have NA. This may be a function of the <code>haven_labelled</code> vectors behaving like with the original <em>politics</em> variable. Let’s explore it. We can use the <code>val_labels</code> function from the <code>labelled</code> package to extract labels from the whole dataframe like this:</p>
-<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb283-1" aria-hidden="true" tabindex="-1"></a><span class="fu">val_labels</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb286-1" aria-hidden="true" tabindex="-1"></a><span class="fu">val_labels</span>(df)</span></code></pre></div>
 <pre><code>## $uniqid
 ## NULL
 ## 
@@ -824,73 +833,73 @@ Let’s look a the results:</p>
 ## $politics_n
 ## NULL</code></pre>
 <p>Notice that in <em>urban</em> there are explicit codes for missing data but that these values won’t be treated as such, at least we do something. Let’s see how many cases we have in this scenario:</p>
-<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb285-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>urban)</span></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb288-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>urban)</span></code></pre></div>
 <pre><code>## 
-##     1     2     3 
-##  8563 11881  7356</code></pre>
+##     1     2     3    98 
+##  8563 11881  7356    18</code></pre>
 <p>Not too bad. Let’s sort this variable:</p>
-<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb287-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>urban[df<span class="sc">$</span>urban<span class="sc">&gt;=</span><span class="dv">8</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb287-2"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb287-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>f_urban <span class="ot">&lt;-</span> <span class="fu">as_factor</span>(df<span class="sc">$</span>urban)</span>
-<span id="cb287-3"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb287-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>f_urban)</span></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb290-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>urban[df<span class="sc">$</span>urban<span class="sc">&gt;=</span><span class="dv">98</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb290-2"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb290-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>f_urban <span class="ot">&lt;-</span> <span class="fu">as_factor</span>(df<span class="sc">$</span>urban)</span>
+<span id="cb290-3"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb290-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>f_urban)</span></code></pre></div>
 <pre><code>## 
 ##      Rural area or village Small or middle sized town 
 ##                       8563                      11881 
 ##                 Large town                         DK 
-##                       7356                         18</code></pre>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb289-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">is.na</span>(df<span class="sc">$</span>f_urban))</span></code></pre></div>
-<pre><code>## [1] 0</code></pre>
-<p>You can see that even though have now no cases with a value of 8 or DK, the label appears printed in the output. This is still a valid level:</p>
-<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb291-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(df<span class="sc">$</span>f_urban)</span></code></pre></div>
+##                       7356                          0</code></pre>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb292-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">is.na</span>(df<span class="sc">$</span>f_urban))</span></code></pre></div>
+<pre><code>## [1] 0.0006470631</code></pre>
+<p>You can see that even though have now no cases with a value of 98 or DK, the label appears printed in the output. This is still a valid level:</p>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb294-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(df<span class="sc">$</span>f_urban)</span></code></pre></div>
 <pre><code>## [1] &quot;Rural area or village&quot;      &quot;Small or middle sized town&quot;
 ## [3] &quot;Large town&quot;                 &quot;DK&quot;</code></pre>
 <p>So, we may want to remove it explicitly if we don’t want output reminding us what we already know, that “there are not” DK cases (since now we call them and treat them as NA). For removing unused levels in a factor we use the <code>droplevels</code> function,</p>
-<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb293-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>f_urban <span class="ot">&lt;-</span> <span class="fu">droplevels</span>(df<span class="sc">$</span>f_urban)</span>
-<span id="cb293-2"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb293-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>f_urban)</span></code></pre></div>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb296-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>f_urban <span class="ot">&lt;-</span> <span class="fu">droplevels</span>(df<span class="sc">$</span>f_urban)</span>
+<span id="cb296-2"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb296-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>f_urban)</span></code></pre></div>
 <pre><code>## 
 ##      Rural area or village Small or middle sized town 
 ##                       8563                      11881 
-##                 Large town                         DK 
-##                       7356                         18</code></pre>
+##                 Large town 
+##                       7356</code></pre>
 <p>Above also saw the codes for <em>gender</em> let’s use <code>as_factor</code> again for this variable:</p>
-<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb295-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>f_gender <span class="ot">&lt;-</span> <span class="fu">as_factor</span>(df<span class="sc">$</span>gender)</span></code></pre></div>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb298-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>f_gender <span class="ot">&lt;-</span> <span class="fu">as_factor</span>(df<span class="sc">$</span>gender)</span></code></pre></div>
 <p>Let’s just keep the variables we will retain for our final analysis:</p>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb296-1" aria-hidden="true" tabindex="-1"></a>df_f <span class="ot">&lt;-</span> <span class="fu">select</span>(df, uniqid, at_sexviol, f_gender, age, politics_n,</span>
-<span id="cb296-2"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb296-2" aria-hidden="true" tabindex="-1"></a>               f_urban, f_occup, region)</span></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb299-1" aria-hidden="true" tabindex="-1"></a>df_f <span class="ot">&lt;-</span> <span class="fu">select</span>(df, uniqid, at_sexviol, f_gender, age, politics_n,</span>
+<span id="cb299-2"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb299-2" aria-hidden="true" tabindex="-1"></a>               f_urban, f_occup, region)</span></code></pre></div>
 <p>We are going to do some further exploration of NA. Let’s create a new variable that identifies the cases that have missing data in at least one of the columns in the data with the final variables for our analysis. For this we can use the <code>complete.cases</code> function that creates a logical vector indicating whether any of the cases has missing values in at least one column:</p>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb297-1" aria-hidden="true" tabindex="-1"></a>df_f<span class="sc">$</span>complete <span class="ot">&lt;-</span> <span class="fu">complete.cases</span>((df_f))</span>
-<span id="cb297-2"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb297-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df_f<span class="sc">$</span>complete)</span></code></pre></div>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb300-1" aria-hidden="true" tabindex="-1"></a>df_f<span class="sc">$</span>complete <span class="ot">&lt;-</span> <span class="fu">complete.cases</span>((df_f))</span>
+<span id="cb300-2"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb300-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df_f<span class="sc">$</span>complete)</span></code></pre></div>
 <pre><code>## 
 ## FALSE  TRUE 
-##  7628 20190</code></pre>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb299-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(df_f<span class="sc">$</span>complete)</span></code></pre></div>
-<pre><code>## [1] 0.7257891</code></pre>
+##  7634 20184</code></pre>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb302-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(df_f<span class="sc">$</span>complete)</span></code></pre></div>
+<pre><code>## [1] 0.7255734</code></pre>
 <p>So, shocking as this may sound you only have full data in 72% of the participants. Notice how the percentage of missing cases in the variables range:</p>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb301-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colMeans</span>(<span class="fu">is.na</span>(df_f))</span></code></pre></div>
-<pre><code>##     uniqid at_sexviol   f_gender        age politics_n    f_urban    f_occup 
-## 0.00000000 0.04540226 0.00000000 0.00000000 0.24929902 0.00000000 0.00000000 
-##     region   complete 
-## 0.00000000 0.00000000</code></pre>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb304-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colMeans</span>(<span class="fu">is.na</span>(df_f))</span></code></pre></div>
+<pre><code>##       uniqid   at_sexviol     f_gender          age   politics_n      f_urban 
+## 0.0000000000 0.0454022575 0.0000000000 0.0000000000 0.2492990150 0.0006470631 
+##      f_occup       region     complete 
+## 0.0000000000 0.0000000000 0.0000000000</code></pre>
 <p>The function <code>complete.cases</code> is returning what cases have missing data <strong>in any of</strong> the variables not in a singular one. It is not unusual for this percentage to be high. You may end up with a massive loss of cases even though the individual variables themselves do not look as bad as the end scenario.</p>
 <p>Later this term we will cover forms of analysis (e.g., multiple regression) in which you have to work with multiple variables at the same time. This form of analysis require you to have information for all the cases and all the variables. Every case for which there is not information in one of the variables in your analysis is automatically excluded from such analysis. So the actual sample size you use when using these techniques is the sample size for which you have full information. In our example your sample size (when you do multiple regression analysis or any multivariate analysis) will be 20184 rather than 27818.</p>
 <p>This being the case it makes sense to exclude from your data all cases that have some missing information in the variables you will be using in your analisis. For this you can use the <code>na.omit</code> function. We create a new object (I name it “full_df”, you can call it whatever) and put inside it the outcome of running <code>na.omit</code> in our original sample (“df_f”).</p>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb303-1" aria-hidden="true" tabindex="-1"></a>full_df <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(df_f)</span></code></pre></div>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb306-1" aria-hidden="true" tabindex="-1"></a>full_df <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(df_f)</span></code></pre></div>
 <p>Now we have a dataset ready for starting our analysis.</p>
 </div>
 <div id="exploring-dataframes-visually" class="section level2" number="4.10">
 <h2><span class="header-section-number">4.10</span> Exploring dataframes visually</h2>
 <p>We have covered now a number of functions you can use to explore your data, such as <code>skimr::skim()</code>, <code>str()</code>, <code>summary()</code>, <code>table()</code>, or <code>dplyr::glimpse()</code>. But sometimes is useful to get a more panoramic way. For this we can use the <code>visdat</code> package for visualising whole dataframes amd its main function <code>vis_dat()</code>.</p>
-<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb304-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visdat)</span>
-<span id="cb304-2"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb304-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vis_dat</span>(df_f)</span></code></pre></div>
-<p><img src="04-carpentry_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb307-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visdat)</span>
+<span id="cb307-2"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb307-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vis_dat</span>(df_f)</span></code></pre></div>
+<p><img src="04-carpentry_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
 <p>Nice one! You get a visual representations of how your variables are encoded in this dataframe. You have several categorical variables such as region, f_gender, f_urban, and f_occup. We see that region is encoded as a <code>character</code> vector, whereas the others are <code>factors</code>. For the purposes of this course, it is generally better to have your categorical variables encoded as factors. So one of the next steps in our data prep may be to recode region as a factor.</p>
-<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb305-1" aria-hidden="true" tabindex="-1"></a>df_f<span class="sc">$</span>f_region <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(df_f<span class="sc">$</span>region)</span></code></pre></div>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb308-1" aria-hidden="true" tabindex="-1"></a>df_f<span class="sc">$</span>f_region <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(df_f<span class="sc">$</span>region)</span></code></pre></div>
 <p>We can also see we have age, a quantitative variable, <em>age</em>, encoded as <code>haven_labelled</code>. We could as well encoded as <code>numeric</code>.</p>
-<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb306-1" aria-hidden="true" tabindex="-1"></a>df_f<span class="sc">$</span>age <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df_f<span class="sc">$</span>age)</span></code></pre></div>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb309-1" aria-hidden="true" tabindex="-1"></a>df_f<span class="sc">$</span>age <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df_f<span class="sc">$</span>age)</span></code></pre></div>
 <p>What we do with <em>at_sexviol</em> depends on how we decide to treat it. But for arguments sake let’s say we are going to treat it as numerical.</p>
-<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb307-1" aria-hidden="true" tabindex="-1"></a>df_f<span class="sc">$</span>at_sexviol <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df_f<span class="sc">$</span>at_sexviol)</span></code></pre></div>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb310-1" aria-hidden="true" tabindex="-1"></a>df_f<span class="sc">$</span>at_sexviol <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df_f<span class="sc">$</span>at_sexviol)</span></code></pre></div>
 <p>The othe piece of info you get with <code>vis_dat</code> is the prevalence of missing data (NA) for each variable (the dark horizontal cases represent a missing case in the variable). We can summarise missing data visually more clearly with <code>vis_miss</code>.</p>
-<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb308-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vis_miss</span>(df_f)</span></code></pre></div>
-<p><img src="04-carpentry_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb311-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vis_miss</span>(df_f)</span></code></pre></div>
+<p><img src="04-carpentry_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
 <p>You can find more details about how to explore missing data in the vignette of the <code>naniar</code> package <a href="http://naniar.njtierney.com/articles/getting-started-w-naniar.html">here</a>.</p>
 </div>
 <div id="a-quick-recap-on-descriptive-statistics" class="section level2" number="4.11">
@@ -901,16 +910,16 @@ Let’s look a the results:</p>
 <p>Central tendency refers to a descriptive summary of the centre of the data’s distribution; it takes the form of a single number that is meant to represent the middle or average of the data. The <strong>mean</strong>, <strong>median</strong>, and <strong>mode</strong> are common statistics of the central tendency.</p>
 <p>The <em>mean</em> is the average and it is useful when we want to summarise a variable quickly. Its disadvantage is that it is sensitive to extreme values, so the mean can be distorted easily.</p>
 <p>For example, the mean value for our political scale variable is:</p>
-<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb309-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>politics_n, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb312-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>politics_n, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## [1] 5.195805</code></pre>
 <p>To address this sensitivity, the <em>median</em> is a better measure because it is a robust estimate, which means that it is not easily swayed by extreme values. It is the middle value of the distribution.</p>
-<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb311-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(df<span class="sc">$</span>politics_n, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb314-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(df<span class="sc">$</span>politics_n, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
 <p>The <em>mode</em> helps give an idea of what is the most typical value in the distribution, which is the most frequently occurring case in the data. While mean and median apply to numeric variables, the mode is most useful when describing categorical variables. For example, you may want to know the most frequently occurring category. To query the mode, we use the function <code>mlv()</code> (acronym for <strong>m</strong>ost <strong>l</strong>ikely <strong>v</strong>alues) from the <code>modeest</code> package to answer this question:
 <br></p>
-<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb313-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modeest)</span>
-<span id="cb313-2"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb313-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb313-3"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb313-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mlv</span>(df<span class="sc">$</span>f_occup)</span></code></pre></div>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb316-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modeest)</span>
+<span id="cb316-2"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb316-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb316-3"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb316-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mlv</span>(df<span class="sc">$</span>f_occup)</span></code></pre></div>
 <pre><code>## [1] Retired, unable to work
 ## 18 Levels: Responsible for ordinary shopping, etc. ... Unskilled manual worker, etc.</code></pre>
 <!-- ### **Dispersion in Nominal and Ordinal Variables** -->
@@ -935,12 +944,12 @@ Let’s look a the results:</p>
 <div id="dispersion" class="section level3" number="4.11.2">
 <h3><span class="header-section-number">4.11.2</span> Dispersion</h3>
 <p>You always want to talk about dispersion as well. If you have a numeric variable, you might want to consider the <strong>range</strong>, which is the difference between the maximum and minimum value in a given distribution:</p>
-<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb315-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(df<span class="sc">$</span>politics_n, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">-</span> <span class="fu">min</span>(df<span class="sc">$</span>politics_n, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb318-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(df<span class="sc">$</span>politics_n, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">-</span> <span class="fu">min</span>(df<span class="sc">$</span>politics_n, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## [1] 9</code></pre>
 <p>You also want to talk about the <strong>variance</strong> ( <span class="math inline">\(s^2\)</span> ), which tells you about spread, specifically the sum of the squared deviations from the mean, which is then divided by the total number of observations. You will then also come across <strong>standard deviation</strong> (SD), which is the square root of the variance. You can find these with the <code>sd()</code> and the <code>var()</code> functions:</p>
-<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb317-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(df<span class="sc">$</span>politics_n, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb320-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(df<span class="sc">$</span>politics_n, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## [1] 4.864302</code></pre>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb319-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(df<span class="sc">$</span>politics_n, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb322-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(df<span class="sc">$</span>politics_n, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## [1] 2.205516</code></pre>
 <p>Visual representations of dispersions such as a histogram are also handy for getting an overview of your data.</p>
 <p>For categorical variables, a frequency table might show distribution, or again a visualisation. You can get quantitative summaries of dispersion for categorical variables, such as variance ratio and the index of qualitative variation, but I’ll leave these for now. If you want to know about these, ask us in the labs!</p>
@@ -948,12 +957,12 @@ Let’s look a the results:</p>
 <div id="bivariate-analysis" class="section level3" number="4.11.3">
 <h3><span class="header-section-number">4.11.3</span> Bivariate analysis</h3>
 <p>We’ve touched on this already in week two, when we looked at using the <code>group_by()</code> and <code>summarise()</code> functions. Look back at week 2 for more detail. But for example, if we wanted to know what is the mean political score broken down by occupation, we would answer that question using these two functions:</p>
-<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb321-1" aria-hidden="true" tabindex="-1"></a>politics_by_occ <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
-<span id="cb321-2"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb321-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(f_occup) <span class="sc">%&gt;%</span> </span>
-<span id="cb321-3"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb321-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">mean_poli_score =</span> <span class="fu">mean</span>(politics_n, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb321-4"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb321-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb321-5"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb321-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb321-6"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb321-6" aria-hidden="true" tabindex="-1"></a>politics_by_occ</span></code></pre></div>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb324-1" aria-hidden="true" tabindex="-1"></a>politics_by_occ <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb324-2"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb324-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(f_occup) <span class="sc">%&gt;%</span> </span>
+<span id="cb324-3"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb324-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">mean_poli_score =</span> <span class="fu">mean</span>(politics_n, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb324-4"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb324-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb324-5"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb324-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb324-6"><a href="refresher-on-descriptive-statistics-data-carpentry.html#cb324-6" aria-hidden="true" tabindex="-1"></a>politics_by_occ</span></code></pre></div>
 <pre><code>## # A tibble: 18 x 2
 ##    f_occup                                       mean_poli_score
 ##    &lt;fct&gt;                                                   &lt;dbl&gt;

@@ -209,7 +209,7 @@ table(df$qb10_12)
 
 There are 255 people that refused to answer and 1008 that did not know how to answer. If you add 1008, 255, and 18418 you get 19681. So our new variable is actually computing as zeroes people that did not know how to answer this question or refused to answer it. We do not want that. We do not know what these people think, so it would be wrong to assume that they consider that none of these circumstances are valid excuses for sexual intercourse without consent.
 
-There are many ways to deal with this. He could simply filter out cases where we have values of 1 in these two variables (since we don't know their answers we could as well get rid of them). But We could also recode the variable to define this values as what they are NA (missing data, cases for which we have no valid information).
+There are many ways to deal with this. We could simply filter out cases where we have values of 1 in these two variables (since we don't know their answers we could as well get rid of them). But we could also recode the variable to define this values as what they are NA (missing data, cases for which we have no valid information).
 
 ```{r}
 df$at_sexviol[df$qb10_11 == 1 | df$qb10_12 == 1] <- NA
@@ -362,7 +362,7 @@ Remember that this is `haven_labelled`. If we look at the attributes we can see 
 attributes(df$occupation)
 ```
 
-Having to look at this every time is not very convenient. You may prefer to simply use the labels directly. For this we can use the `as_factor` function from the `haven` package.
+Having to look at this every time is not very convenient. You may prefer to simply use the labels directly. For this we can use the `as_factor()` function from the `haven` package.
 
 ```{r, message=FALSE}
 df$f_occup <- as_factor(df$occupation)
@@ -391,7 +391,7 @@ As when we created the *region* variable the first thing to do is to come out wi
     
 It would be quicker to recode from *d15a* into a new variable (there would be less typing when dealing with numbers rather than labels). But here we are going to use this example to show you how to recode from a factor variable, so instead we will recode form *f_occup*. 
 
-As often in R, there are multiple ways of doing this. We could use `dplyr::recode`. But here we will show you how to do this using the `recode` function from the `car` library.
+As often in R, there are multiple ways of doing this. We could use `dplyr::recode`. But here we will show you how to do this using the `levels()` function.
 
 ```{r,}
 df$occup2 <- df$f_occup
@@ -433,9 +433,42 @@ Let's look at the *politics* variable.
 ```{r}
 class(df$politics)
 table(df$politics)
+
+```
+
+
+Now luckily this data set has been updated so the people who answered "Don't know" (DK in the attributes) or  refused to answer (Refusal (Spontaneous) in attributes) show up as NA already. So if we check how many NAs we have we can see here: 
+
+
+
+```{r}
+
 sum(is.na(df$politics))
 
 ```
+
+
+But sometimes the missing values are not recoded, but rather show up as unrealistically high numbers, like 97, 98, 99. In those cases, you will have to code this yourself. Here we will demonstrate how. 
+
+But first, run the code below to make it so those who refused are denoted by 97 and those who answered don't know denoted by 98 (and do the same for the "urban "variable which we will use later):
+
+```{r}
+
+df$politics[as_factor(df$politics) == "Refusal (Spontaneous)"] <- 97
+df$politics[as_factor(df$politics) == "DK"] <- 98
+df$urban[as_factor(df$urban) == "DK"] <- 98
+
+```
+
+
+Now if we look again at the number of NAs: 
+
+```{r}
+
+sum(is.na(df$politics))
+
+```
+
 
 It looks as if we have no missing data. Right? Well, appearances can be deceiving sometimes.
 
@@ -521,13 +554,13 @@ table(df$urban)
 Not too bad. Let's sort this variable:
 
 ```{r}
-df$urban[df$urban>=8] <- NA
+df$urban[df$urban>=98] <- NA
 df$f_urban <- as_factor(df$urban)
 table(df$f_urban)
 mean(is.na(df$f_urban))
 ```
 
-You can see that even though have now no cases with a value of 8 or DK, the label appears printed in the output. This is still a valid level:
+You can see that even though have now no cases with a value of 98 or DK, the label appears printed in the output. This is still a valid level:
 
 ```{r}
 levels(df$f_urban)

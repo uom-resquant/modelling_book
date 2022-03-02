@@ -280,7 +280,7 @@ table(df$qb10_12)
 
 There are 255 people that refused to answer and 1008 that did not know how to answer. If you add 1008, 255, and 18418 you get 19681. So our new variable is actually computing as zeroes people that did not know how to answer this question or refused to answer it. We do not want that. We do not know what these people think, so it would be wrong to assume that they consider that none of these circumstances are valid excuses for sexual intercourse without consent.
 
-There are many ways to deal with this. He could simply filter out cases where we have values of 1 in these two variables (since we don't know their answers we could as well get rid of them). But We could also recode the variable to define this values as what they are NA (missing data, cases for which we have no valid information).
+There are many ways to deal with this. We could simply filter out cases where we have values of 1 in these two variables (since we don't know their answers we could as well get rid of them). But we could also recode the variable to define this values as what they are NA (missing data, cases for which we have no valid information).
 
 
 ```r
@@ -558,7 +558,7 @@ attributes(df$occupation)
 ##                                            18
 ```
 
-Having to look at this every time is not very convenient. You may prefer to simply use the labels directly. For this we can use the `as_factor` function from the `haven` package.
+Having to look at this every time is not very convenient. You may prefer to simply use the labels directly. For this we can use the `as_factor()` function from the `haven` package.
 
 
 ```r
@@ -635,7 +635,7 @@ As when we created the *region* variable the first thing to do is to come out wi
     
 It would be quicker to recode from *d15a* into a new variable (there would be less typing when dealing with numbers rather than labels). But here we are going to use this example to show you how to recode from a factor variable, so instead we will recode form *f_occup*. 
 
-As often in R, there are multiple ways of doing this. We could use `dplyr::recode`. But here we will show you how to do this using the `recode` function from the `car` library.
+As often in R, there are multiple ways of doing this. We could use `dplyr::recode`. But here we will show you how to do this using the `levels()` function.
 
 
 ```r
@@ -693,6 +693,12 @@ table(df$politics)
 ## 1433  830 2161 2217 6690 2238 2056 1658  474 1126
 ```
 
+
+Now luckily this data set has been updated so the people who answered "Don't know" (DK in the attributes) or  refused to answer (Refusal (Spontaneous) in attributes) show up as NA already. So if we check how many NAs we have we can see here: 
+
+
+
+
 ```r
 sum(is.na(df$politics))
 ```
@@ -700,6 +706,31 @@ sum(is.na(df$politics))
 ```
 ## [1] 6935
 ```
+
+
+But sometimes the missing values are not recoded, but rather show up as unrealistically high numbers, like 97, 98, 99. In those cases, you will have to code this yourself. Here we will demonstrate how. 
+
+But first, run the code below to make it so those who refused are denoted by 97 and those who answered don't know denoted by 98 (and do the same for the "urban "variable which we will use later):
+
+
+```r
+df$politics[as_factor(df$politics) == "Refusal (Spontaneous)"] <- 97
+df$politics[as_factor(df$politics) == "DK"] <- 98
+df$urban[as_factor(df$urban) == "DK"] <- 98
+```
+
+
+Now if we look again at the number of NAs: 
+
+
+```r
+sum(is.na(df$politics))
+```
+
+```
+## [1] 0
+```
+
 
 It looks as if we have no missing data. Right? Well, appearances can be deceiving sometimes.
 
@@ -833,10 +864,10 @@ colMeans(is.na(df))
 ```
 
 ```
-##       uniqid   at_sexviol       gender          age     politics        urban 
-## 0.0000000000 0.0454022575 0.0000000000 0.0000000000 0.2492990150 0.0006470631 
-##   occupation       region      f_occup       occup2   politics_n 
-## 0.0000000000 0.0000000000 0.0000000000 0.0000000000 0.2492990150
+##     uniqid at_sexviol     gender        age   politics      urban occupation 
+## 0.00000000 0.04540226 0.00000000 0.00000000 0.24929902 0.00000000 0.00000000 
+##     region    f_occup     occup2 politics_n 
+## 0.00000000 0.00000000 0.00000000 0.24929902
 ```
 
 This is suspicious. Only the variables we have created and already sorted seem to have NA. This may be a function of the `haven_labelled` vectors behaving like with the original *politics* variable. Let's explore it. We can use the `val_labels` function from the `labelled` package to extract labels from the whole dataframe like this:
@@ -939,15 +970,15 @@ table(df$urban)
 
 ```
 ## 
-##     1     2     3 
-##  8563 11881  7356
+##     1     2     3    98 
+##  8563 11881  7356    18
 ```
 
 Not too bad. Let's sort this variable:
 
 
 ```r
-df$urban[df$urban>=8] <- NA
+df$urban[df$urban>=98] <- NA
 df$f_urban <- as_factor(df$urban)
 table(df$f_urban)
 ```
@@ -957,7 +988,7 @@ table(df$f_urban)
 ##      Rural area or village Small or middle sized town 
 ##                       8563                      11881 
 ##                 Large town                         DK 
-##                       7356                         18
+##                       7356                          0
 ```
 
 ```r
@@ -965,10 +996,10 @@ mean(is.na(df$f_urban))
 ```
 
 ```
-## [1] 0
+## [1] 0.0006470631
 ```
 
-You can see that even though have now no cases with a value of 8 or DK, the label appears printed in the output. This is still a valid level:
+You can see that even though have now no cases with a value of 98 or DK, the label appears printed in the output. This is still a valid level:
 
 
 ```r
@@ -992,8 +1023,8 @@ table(df$f_urban)
 ## 
 ##      Rural area or village Small or middle sized town 
 ##                       8563                      11881 
-##                 Large town                         DK 
-##                       7356                         18
+##                 Large town 
+##                       7356
 ```
 
 Above also saw the codes for *gender* let's use `as_factor` again for this variable:
@@ -1022,7 +1053,7 @@ table(df_f$complete)
 ```
 ## 
 ## FALSE  TRUE 
-##  7628 20190
+##  7634 20184
 ```
 
 ```r
@@ -1030,7 +1061,7 @@ mean(df_f$complete)
 ```
 
 ```
-## [1] 0.7257891
+## [1] 0.7255734
 ```
 
 So, shocking as this may sound you only have full data in 72% of the participants. Notice how the percentage of missing cases in the variables range:
@@ -1041,10 +1072,10 @@ colMeans(is.na(df_f))
 ```
 
 ```
-##     uniqid at_sexviol   f_gender        age politics_n    f_urban    f_occup 
-## 0.00000000 0.04540226 0.00000000 0.00000000 0.24929902 0.00000000 0.00000000 
-##     region   complete 
-## 0.00000000 0.00000000
+##       uniqid   at_sexviol     f_gender          age   politics_n      f_urban 
+## 0.0000000000 0.0454022575 0.0000000000 0.0000000000 0.2492990150 0.0006470631 
+##      f_occup       region     complete 
+## 0.0000000000 0.0000000000 0.0000000000
 ```
 
 The function `complete.cases` is returning what cases have missing data **in any of** the variables not in a singular one. It is not unusual for this percentage to be high. You may end up with a massive loss of cases even though the individual variables themselves do not look as bad as the end scenario.
@@ -1070,7 +1101,7 @@ library(visdat)
 vis_dat(df_f)
 ```
 
-<img src="04-carpentry_files/figure-html/unnamed-chunk-54-1.png" width="672" />
+<img src="04-carpentry_files/figure-html/unnamed-chunk-57-1.png" width="672" />
 
 Nice one! You get a visual representations of how your variables are encoded in this dataframe. You have several categorical variables such as region, f_gender, f_urban, and f_occup. We see that region is encoded as a `character` vector, whereas the others are `factors`. For the purposes of this course, it is generally better to have your categorical variables encoded as factors. So one of the next steps in our data prep may be to recode region as a factor. 
 
@@ -1099,7 +1130,7 @@ The othe piece of info you get with `vis_dat` is the prevalence of missing data 
 vis_miss(df_f)
 ```
 
-<img src="04-carpentry_files/figure-html/unnamed-chunk-58-1.png" width="672" />
+<img src="04-carpentry_files/figure-html/unnamed-chunk-61-1.png" width="672" />
 
 You can find more details about how to explore missing data in the vignette of the `naniar` package [here](http://naniar.njtierney.com/articles/getting-started-w-naniar.html).
 
