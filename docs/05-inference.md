@@ -20,7 +20,7 @@ Unlike in previous and future sessions, the focus today will be less applied and
 
 For the purpose of today's session we are going to generate some fictitious data. We use real data in all other sessions but it is convenient for this session to have some randomly generated fake data (actually technically speaking pseudo-random data)[^1]. 
 
-So that all of us gets the same results (otherwise there would be random differences!), we need to use the `set.seed()` function. Basically your numbers are pseudo random because they're calculated by a number generating algorithm, and setting the *seed* gives it a number to "grow"" these pseudo random numbers out of. If you start with the same seed, you get the same set of random numbers. 
+So that all of us gets the same results (otherwise there would be random differences!), we need to use the `set.seed()` function. Basically your numbers are pseudo random because they're calculated by a number generating algorithm, and setting the *seed* gives it a number to "grow" these pseudo random numbers out of. If you start with the same seed, you get the same set of random numbers. 
 
 So to guarantee that all of us get the same randomly generated numbers, set your seed to 100:
 
@@ -133,20 +133,26 @@ mean(fake_population$IQ)
 ```
 
 ```r
-#We will load the plyr package to get the means for IQ for each of the two offending groups
-library(plyr)
-#We will store this mean in a data frame (IQ_means) after getting them with the ddply function
-IQ_means <- ddply(fake_population, "offender", summarise, IQ = mean(IQ))
+#We will load the dplyr package to get the means for IQ for each of the two offending groups 
+#  like we did end of last week
+library(dplyr)
+#We will store this mean in a data frame (IQ_means) after getting them with the group_by() function
+IQ_means <- fake_population %>% 
+    group_by(offender) %>% 
+    summarise(IQ = mean(IQ, na.rm = TRUE))
+
 #You can see the mean value of IQ for each of the two groups, unsurprisingly they are as we defined them
 IQ_means
 ```
 
 ```
-##   offender       IQ
-## 1       No 99.96347
-## 2      Yes 92.20370
+## # A tibble: 2 × 2
+##   offender    IQ
+##   <chr>    <dbl>
+## 1 No       100. 
+## 2 Yes       92.2
 ```
-We are going to create a plot with the density estimation for each of the plots (first two lines of code) and then I will add a vertical line at the point of the means (that we saved) for each of the groups
+We are going to create a plot with the density estimation for each of the groups (offenders and non offenders) (first two lines of code) and then I will add a vertical line at the point of the means (that we saved) for each of the groups
 
 
 ```r
@@ -158,7 +164,7 @@ ggplot(fake_population, aes(x = IQ, colour = offender)) +
 
 <img src="05-inference_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
-So, now we have our fake population data. In this case, because we generated the data ourselves, we know what the "population"" data looks like and we know what the summary statistics for the various attributes (IQ, crime) of the population are. But in real life we don't normally have access to full population data. It is not practical or economic. It is for this reason we rely on samples.
+So, now we have our fake population data. In this case, because we generated the data ourselves, we know what the "population" data looks like and we know what the summary statistics for the various attributes (IQ, crime) of the population are. But in real life we don't normally have access to full population data. It is not practical or economic. It is for this reason we rely on samples.
 
 ## Sampling data and sampling variability
 
@@ -191,7 +197,7 @@ mean(sample(fake_population$IQ, 10))
 
 And every time you do this, you will be getting a slightly different mean. Try to rerun the code several times. This is one of the problems with sample data. Not two samples are going to be exactly the same and as a result, every time you compute the mean you will be getting a slightly different value. Run the function three or four times and notice the different means you get as the elements that make up your sample vary.
 
-We can also use code to automatise the process. The following code will ask R to draw 15 samples of size 10 and obtain the means for each of them.
+We can also use code to automate the process. The following code will ask R to draw 15 samples of size 10 and obtain the means for each of them.
 
 
 ```r
@@ -472,7 +478,7 @@ The standard error was 1.7439289. If we multiply 1.7439289 times 1.96 we obtain 
 
 The wonderful thing is that we can use the margin of error to provide information about the degree to which our sample estimate may vary from the population mean. We can use it to give a measure of the uncertainty in our estimation. How?
 
->“We rely on this obvious relation: If M” (our sample mean) “is likely to be close to μ” (the population mean) “-as the last page or two has illustrated- then μ is likely to be close to M. As simple as that. The simulation shows us that, for most samples, M” (the sample mean) “falls pretty close to μ” (the population mean) “, in fact within margin of error of μ. Now, we have only a single M and don’t know μ. But, unless we’ve been unlucky, our M has fallen within the margin of error of μ, and so, if we mark out an interval extending the margin of error on either side of our, most likely we’ve included μ. Indeed, and that interval is the confidence interval (CI)” (Cumming, 2012: 69).
+>“We rely on this obvious relation: If M "(our sample mean) “is likely to be close to μ” (the population mean) “-as the last page or two has illustrated- then μ is likely to be close to M. As simple as that. The simulation shows us that, for most samples, M” (the sample mean) “falls pretty close to μ” (the population mean) “, in fact within margin of error of μ. Now, we have only a single M and don’t know μ. But, unless we’ve been unlucky, our M has fallen within the margin of error of μ, and so, if we mark out an interval extending the margin of error on either side of our, most likely we’ve included μ. Indeed, and that interval is the confidence interval (CI)” (Cumming, 2012: 69).
 
 If we have a large random sample, the 95% confidence interval will then be:  
 Upper limit= sample mean + 1.96 standard error  
@@ -940,29 +946,44 @@ Although our point estimate for the difference was 0.6, the confidence interval 
 
 In the previous section we have discussed how you can construct *the confidence interval for the difference between two means*. Another way of looking at whether the means of two groups are different in a population is by visually comparing *the confidence interval for the means of each of the two groups*. Think for a second about the semantic difference. If you don't get it, look back at the figure we represented above.
 
-We can visualise the confidence interval for the sample mean score of fear of crime for the men and the women using `ggplot()`:
+We can visualise the confidence interval for the sample mean score of fear of crime for the men and the women using `ggplot()` and the `geom_errorbar()`, `geom_pointrange()` and `geom_crossbar()`. First we have to create a new dataframe where we calculate the mean for each group (like we learned last week) and also we calculate the standard error (like we learned above, it is the standard deviation divided by the square root of the sample size):
+
+
 
 
 ```r
-#As usual we define the aesthetics first
-ggplot(BCS0708, aes(x = sex, y = tcviolent)) +
-        stat_summary(fun.data = "mean_cl_normal", geom = "pointrange") #this function ask to display summary statistics as pointrange (the point is the mean and the lines end at the upper and lower CI limits). The "mean_cl_normal" uses the CI assuming normality.
+# Calculate the mean and the standard error for each value in sex variable (male and female)
+bcs_summary <- BCS0708 %>% 
+  group_by(sex) %>%   # group by the sex variable
+  summarise(mean_tcv = mean(tcviolent, na.rm = TRUE),  # calculate the mean
+            se_tcv = sd(tcviolent, na.rm = TRUE)/sqrt(nrow(BCS0708))) # calculate the std error
+
+# Now we can make a visualisation with mean and CIs using the data created above using error bars
+#  As usual we define the aesthetics first with ggplot() and aes()
+ggplot(bcs_summary, aes(x = sex, y = mean_tcv)) + 
+  geom_point() +  # add the point layer for the mean
+  geom_errorbar(aes(ymin = mean_tcv - se_tcv*1.96,     # add errorbar define minimum (mean - ci)
+                    ymax = mean_tcv + se_tcv*1.96))    # define maximum (mean + ci)
 ```
 
 <img src="05-inference_files/figure-html/unnamed-chunk-50-1.png" width="672" />
 
 ```r
-#So if you prefer the bootstrapped confidence interval rather than assuming normality, you could use:
-ggplot(BCS0708, aes(x = sex, y = tcviolent)) +
-       stat_summary(fun.data = "mean_cl_boot", geom = "crossbar") #Here we are using a different geom just to show you the range of options, but you could also have used "pointrange". Or finally, you could also use "errorbars"
+# Make another chart, this one with pointrange
+ggplot(bcs_summary, aes(x = sex, y = mean_tcv)) +
+  geom_point() + 
+  geom_pointrange(aes(ymin = mean_tcv - se_tcv*1.96,    # add pointrange define minimum (mean - ci)
+                    ymax = mean_tcv + se_tcv*1.96))    # define maximum (mean + ci)
 ```
 
 <img src="05-inference_files/figure-html/unnamed-chunk-50-2.png" width="672" />
 
 ```r
-ggplot(BCS0708, aes(x = sex, y = tcviolent)) +
-       stat_summary(fun.data = "mean_cl_boot", geom = "errorbar") +
-        stat_summary(fun.y = mean, geom = "point")
+# Make another chart, this one with crossbar
+ggplot(bcs_summary, aes(x = sex, y = mean_tcv)) +
+  geom_point() + 
+  geom_crossbar(aes(ymin = mean_tcv - se_tcv*1.96,    # add crossbar define minimum (mean - ci)
+                    ymax = mean_tcv + se_tcv*1.96))    # define maximum (mean + ci)
 ```
 
 <img src="05-inference_files/figure-html/unnamed-chunk-50-3.png" width="672" />
