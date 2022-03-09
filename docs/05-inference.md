@@ -104,7 +104,9 @@ We are now going to generate a normally distributed variable (watch [this short 
 
 We are going to pretend that this variable measures IQ. We are going to assume that this variable has a mean of 100 in the non-criminal population (pretending there is such a thing) with a standard deviation of 15 and a mean of 92 with a standard deviation of 20 in the criminal population. I am pretty much making up these figures.
 
-The first expression is asking R to generate random values from a normal distribution with mean 100 and standard deviation for every of the 64394 "non-offenders" in our fake population data frame. WARNING: If you run the `table()` function and the number of non-offenders you get is different, you will need to amend the code below accordingly (this will happen if you did not use the seed or generated the original skewed variable more than once).If you get the following message it means you are using the wrong number of people in each category: *number of items to replace is not a multiple of replacement lengthnumber of items to replace is not a multiple of replacement length*.
+
+
+The first expression is asking R to generate random values from a normal distribution with mean 100 and standard deviation for every of the 64377 "non-offenders" in our fake population data frame. WARNING: If you run the `table()` function and the number of non-offenders you get is different, you will need to amend the code below accordingly (this will happen if you did not use the seed or generated the original skewed variable more than once).If you get the following message it means you are using the wrong number of people in each category: *number of items to replace is not a multiple of replacement lengthnumber of items to replace is not a multiple of replacement length*.
 
 
 ```r
@@ -154,7 +156,7 @@ ggplot(fake_population, aes(x = IQ, colour = offender)) +
              linetype = "dashed", size = 1)
 ```
 
-<img src="05-inference_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+<img src="05-inference_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
 So, now we have our fake population data. In this case, because we generated the data ourselves, we know what the "population"" data looks like and we know what the summary statistics for the various attributes (IQ, crime) of the population are. But in real life we don't normally have access to full population data. It is not practical or economic. It is for this reason we rely on samples.
 
@@ -255,7 +257,7 @@ ggplot(samp_IQ, aes(x = with)) +
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-<img src="05-inference_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+<img src="05-inference_files/figure-html/unnamed-chunk-16-1.png" width="672" />
 
 Your exact results may differ from those shown here, but you can surely see the point. We have a problem with using sample means as a guess for population means. Your guesses will vary. How much of a problem is this? [This excellent piece and demonstration](http://www.nytimes.com/2014/05/02/upshot/how-not-to-be-misled-by-the-jobs-report.html?_r=0) by New York Times reporters illustrate the problem well. We are going to learn that something called the **central limit theorem** is of great assistance here.
 
@@ -300,17 +302,17 @@ Let's now visually explore the distribution of the sample means.
 qplot(sampd_IQ_10$with, xlab = "Distribution of means from samples of size 10")
 ```
 
-<img src="05-inference_files/figure-html/unnamed-chunk-18-1.png" width="672" />
+<img src="05-inference_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
 Amazing too, isn't it? When you (1) take many random samples from a normally distributed variable; (2) compute the means for each of these samples; and (3) plot the means of each of these samples, you end up with something that is also normally distributed. **The sampling distribution of the means of normally distributed variables in the population is normally distributed**. I want you to think for a few seconds as to what this means and then keep reading.
 
-Did you think about it? What this type of distribution for the sample means is telling us is that most of the samples will give us guesses that are clustered around their own mean, as long as the variable is normally distributed in the population (which is something, however, that we may not know). Most of the sample means will cluster around the value of 97.11 (in the long run), which is the population mean in this case. There will be some samples that will give us much larger and much smaller means (look at the right and left tail of the distribution), but most of the samples won't gives us such extreme values.
+Did you think about it? What this type of distribution for the sample means is telling us is that most of the samples will give us guesses that are clustered around their own mean, as long as the variable is normally distributed in the population (which is something, however, that we may not know). Most of the sample means will cluster around the value of 97.1992083 (in the long run), which is the population mean in this case. There will be some samples that will give us much larger and much smaller means (look at the right and left tail of the distribution), but most of the samples won't gives us such extreme values.
 
 So although every sample will give us different values to the mean, in the long run, they will tend to be similar to the mean of the population. If you were to take repeated samples from the same population more often than not, the sample mean will be closer rather than far from the population mean. When you take a sample you have no way of knowing if your sample is one of those that got close to the population mean or far from it. But it is somehow reassuring to know the procedure in the long run tends to get it right more often than not.
 
 Another way of saying this is that the means obtained from random samples behave in a predictable way. When we take just one sample and compute the mean we won't we able to tell whether the mean for that sample is close to the centre of its sampling distribution (and thus to the population mean). But we will know the probability of getting an extreme value for the mean is lower than the probability of getting a value closer to the mean. That is, if we can assume that the variable in question is normally distributed in the population.
 
-But it gets better. Let's repeat the exercise with a sample size of 30, 100 and 1000. This code will take some time to run. But compare it with how long it would take you to take 10 pieces of paper from a bag with 100000 pieces of paper 50000 times...
+But it gets better. Let's repeat the exercise with a sample size of 30, 100 and 1000. This code will take some time to run. But compare it with how long it would take you to take 10 pieces of paper from a bag with 100000 pieces of paper 50,000 times...
 
 
 ```r
@@ -327,7 +329,7 @@ ggplot() +
   xlab("Distribution of mean value of IQ")
 ```
 
-<img src="05-inference_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+<img src="05-inference_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
 Pay attention to the aesthetics here. Because essentially we are looking at three different datasets, the variables we plot are identified not in an `aes` statement within the general `ggplot()` function but rather the `aes` are included and specified within each of the geoms we are plotting. 
 
@@ -364,9 +366,9 @@ favstats(~with, data = sampd_IQ_1000)
 ```
 
 
-As you can see the mean of the sampling distributions is pretty much the same regardless of sample size, though since we only did 50000 samples there's still some variability. But notice how the **range** (the difference between the smaller and larger value) is much larger when we use smaller samples. When I run this code I get one sample of size 30 with a sample mean as low as 83 and another as high as 110. But when I use a sample size of a 1000 the smallest sample mean I get is 95 and the largest sample size I get is 99. *When the sample size is smaller the range of possible means is wider and you are more likely to get sample means that are wide off from the expected value.*
+As you can see the mean of the sampling distributions is pretty much the same regardless of sample size, though since we only did 50000 samples there's still some variability. But notice how the **range** (the difference between the smaller and larger value) is much larger when we use smaller samples. When I run this code I get one sample of size 30 with a sample mean as low as 84.3639052 and another as high as 109.4893112. But when I use a sample size of a 1000 the smallest sample mean I get is 94.8445057 and the largest sample size I get is 99.5328967. *When the sample size is smaller the range of possible means is wider and you are more likely to get sample means that are wide off from the expected value.*
 
-This variability is also captured by the standard deviation of the sampling distributions, which is smaller the larger the sample size is. The standard deviation of a sampling distribution receives a special name you need to remember: the **standard error**. In our example, with samples of size 30 the standard error is 3.17, whereas with samples of size 1000 the standard error is 0.55. 
+This variability is also captured by the standard deviation of the sampling distributions, which is smaller the larger the sample size is. The standard deviation of a sampling distribution receives a special name you need to remember: the **standard error**. In our example, with samples of size 30 the standard error is 3.1596718, whereas with samples of size 1000 the standard error is 0.5469711. 
 
 We can see that the precision of our guess or estimate (that is the sample mean we use to infer the population mean) improves as we increase the sample size. So we can conclude that using the sample mean as a estimate (we call it a **point estimate** because it is a single value, a single guess) of the population mean is not a bad thing to do *if your sample size is large enough and the variable can be assumed to be normally distributed in the population.* As we have illustrated here, more often than not this guess won't be too far off in those circumstances.
 
@@ -391,7 +393,7 @@ ggplot() +
   scale_fill_discrete(limits = c("1000", "100", "30")) #This will ensure the order of the items in the legend is correct
 ```
 
-<img src="05-inference_files/figure-html/unnamed-chunk-22-1.png" width="672" />
+<img src="05-inference_files/figure-html/unnamed-chunk-23-1.png" width="672" />
 
 ```r
 favstats(~with, data = sampd_CR_30)
@@ -432,7 +434,7 @@ mean(fake_population$crimecount)
 
 You can see something similar happens. Even though *"crimecount"* itself is not normally distributed. The sampling distribution of the means of *"crimecount"* becomes more normally distributed the larger the sample size gets. Although we are not going to repeat the exercise again, the same would happen even for the variable *"offender"*. With a binary categorical variable such as offender (remember it could take two values: yes or no) the "mean" represents the proportion with one of the outcomes. But essentially the same process applies.
 
-What we have seen in this section is an illustration of various amazing facts associated with the central limit theorem. Most sample means are close to the population mean, very few are far away from the population mean, and on average, we get the right answer (i.e., the mean of the sample means is equal to the population mean).  This is why statisticians say that the sample mean is an **unbiased** estimate of the population mean.
+What we have seen in this section is an illustration of various amazing facts associated with the central limit theorem. Most sample means are close to the population mean, very few are far away from the population mean, and on average, we get the right answer (i.e., the mean of the sample means is equal to the population mean). We both over and underestimate the population mean in our various samples in equal measures. This is why statisticians say that the sample mean is an **unbiased** estimate of the population mean.
 
 How is this helpful? Well, it tells us we need large samples if we want to use samples to guess population parameters without being too far off. It also shows that although sampling introduces error (**sampling error**: the difference between the sample mean and the population mean), this error behaves in predictable ways (in most of the samples the error will be small, but it will be larger in some: following a normal distribution). In the next section, we will see how we can use this to produce something called confidence intervals.
 
@@ -446,7 +448,7 @@ The key to solving the problem relies in the fact that the sampling distribution
 
 One of the peculiarities of the standard normal distribution is that we know the proportion of cases that fall within standard deviation units away from the mean. In the graphic below you can see the percentage of cases that fall within one and two standard deviations from the mean in the standard normal distribution:
 
-![Normal Distribution](normpdf.jpg)
+![Normal Distribution](imgs/normpdf.png)
 
 We know that the sampling distribution of the means can be assumed with large samples to have a shape like this. We saw that when we run our sampling experiment. You can think of the sampling distribution of the means as the distribution of sampling error. Most sample means fall fairly close to the *expected value* (i.e., the population mean) and so have small sampling error; many fall a moderate distance away; and just a few fall in the tails of the sampling distribution, which signals large estimation errors. So although working with sample data we don’t have a precise distance of our sample mean from the population mean, we now have a model that tells us how that distance behaves (i.e., it follows a normal distribution). Let this sink in for a few seconds. 
 
@@ -553,7 +555,7 @@ ggplot(ci_IQ, aes(x = id, y = meanofIQ, ymin = LowerLimit, ymax = UpperLimit, gr
   coord_flip() 
 ```
 
-<img src="05-inference_files/figure-html/unnamed-chunk-30-1.png" width="672" />
+<img src="05-inference_files/figure-html/unnamed-chunk-31-1.png" width="672" />
 The horizontal lines represent the confidence intervals for the mean for each of the samples. The point in the middle of those lines represent each of the sample means. The colours indicate whether the confidence intervals cross (cover) the population mean (represented by the vertical red line). You can see that 5 (this may vary slightly according to your random samples) are red, and 95 are greenish. Few of the sample means touch the red line, but most confidence intervals include it.
 
 If we know the population mean, then we can see whether a sample confidence interval overlaps with the population mean. But in real life we run samples precisely because we don't know the population parameters. So, unfortunately, when you do a sample you can never be sure whether your estimated confidence interval is one of the red or the green ones!!! 
@@ -567,7 +569,7 @@ It is generally considered better practice to report your confidence intervals t
 
 So to reiterate:  
 
-+ INCORRECT INTERPRETATION: “There is a 95% chance that the mean IQ is between 89.7 and 104.7 minutes”. This is a very common misconception! It seems very close to true, but it isn’t because the population mean value is fixed. So, it is either in the interval or not and you can't possibly know whether that is the case. This is subtle but important.
++ INCORRECT INTERPRETATION: “There is a 95% chance that the mean IQ is between 89.7 and 104.7”. This is a very common misconception! It seems very close to true, but it isn’t because the population mean value is fixed. So, it is either in the interval or not and you can't possibly know whether that is the case. This is subtle but important.
 + What is correct? **95% of the time, when we calculate a confidence interval in this way, the true mean will be between the two values. 5% of the time, it will not.** Because the true mean (population mean) is an unknown value, we don’t know if we are in the 5% or the 95%. BUT 95% is pretty good. This is the only correct interpretation of our confidence interval, so do not take it any other as valid.
 + Is is not terrible to say something like “We are 95% confident that the mean IQ for all people in our fake population is between 89.7 and 104.7.” This is a common shorthand for the idea that the calculations “work” 95% of the time. But beware in true even this shorthand is incorrect for it seems to imply the particular confidence interval is correct, when all we can do is statements about the procedure not about the specific boundaries of our CI (as the "I am 95% confident" statement does). 
 + Remember that we can’t have a 100% confidence interval. By definition, the population mean is not known . If we could calculate it exactly we would! But that would mean that we need a census of our population with is often not possible or feasible.
@@ -577,7 +579,7 @@ So to reiterate:
 
 You may have spotted a big problem in what came before. How did we compute the confidence interval? We multiplied 1.96 times the standard error. Remember: the standard error is the standard deviation of the sampling distribution of the mean. And… well, at least you are willing to repeat a survey thousands and thousands of times with the same population you won’t know what the standard error is! The population mean is unknown and we want to estimate it. *But the standard error that we need for constructing our confidence interval is also unknown!* 
 
-If you are working with proportions there is an obvious way to estimate the standard error only with sample data (for details see the required reading). But with means this is not possible. There is, however, a solution. You can use *the standard deviation of your sample* as an estimate for the standard error . You would also need to make some adjustments to the formula for the confidence interval (you divide the sample standard deviation by the square root of the sample mean). You don't need to worry to much about the mathematics of it. In practice we will rely on R to apply these formulas and compute the confidence intervals. 
+If you are working with proportions there is an obvious way to estimate the standard error only with sample data (for details see the required reading). But with means this is not possible. There is, however, a solution. You can use *the standard deviation of your sample* as an estimate for the standard error . You would also need to make some adjustments to the formula for the confidence interval (you divide the sample standard deviation by the square root of the sample size). You don't need to worry to much about the mathematics of it but do watch the video in the learning materials for this week in which I demonstrate this. In practice here we will rely on R to apply these formulas and compute the confidence intervals. 
 
 It is important, though, that you know that this approach works reasonably well when applying the Normal probability model to large samples. But with small samples using the sample standard deviation as an estimate of the standard error (so that we can compute the confidence interval) is problematic. The sample standard deviation also varies from sample to sample and this extra variation in smaller samples will mess up the computation of the margin of errors. William Gosset's suggested we needed to use a different probability distribution for this cases, the *t Student distribution*. 
 
@@ -734,7 +736,8 @@ We can then resample (drawing samples from the set of cases in our sample) with 
 
 
 ```r
-resample(sample_2)
+re_sample_2 <- resample(sample_2)
+re_sample_2
 ```
 
 ```
@@ -742,7 +745,7 @@ resample(sample_2)
 ##  [8]  81.59962 103.15389 105.93597
 ```
 
-You can see how some elements in this resample are repeated from the original sample. In my particular original sample I have one element with the value 113.57432. In my resample from that sample I have three with that value. In your particular sample the combinations can be slightly different.
+You can see how some elements in this resample are repeated from the original sample. In my particular original sample I have one element with the value 93.32657. In my resample from that sample I have three with that value. In your particular sample the combinations can be slightly different.
 
 Bootstrapping involves repeating this process many times and examining the variation among the resamples to construct a confidence interval based on the resampling distribution. Bootstraping won't work well with very small samples. The sample size should be one or two dozen or larger (Kaplan, 2012). So let's move to a slightly larger sample and then we will create the resampling distribution.
 
@@ -831,7 +834,18 @@ resampling_IQ_30_2 <- do(1000) * mean(resample(sample_3))
 resampling_IQ_30_3 <- do(1000) * mean(resample(sample_3))
 ```
 
-<img src="05-inference_files/figure-html/unnamed-chunk-45-1.png" width="672" />
+
+```r
+ggplot() + 
+geom_density(data = sampd_IQ_30, aes(x = with, fill = "Sampling Dist.", position = "identity", alpha = 0.4)) +  
+  geom_density(data = resampling_IQ_30_1, aes(x = mean, fill = "Resampling 1", position = "identity", alpha = 0.4)) +
+geom_density(data = resampling_IQ_30_2, aes(x = mean, fill = "Resampling 2", position = "identity", alpha = 0.4)) +   
+geom_density(data = resampling_IQ_30_3, aes(x = mean, fill = "Resampling 3", position = "identity", alpha = 0.4))  +
+  labs(fill = "") + #This will change the title of the legend
+  xlab("Sampling versus resampling distribution of IQ (n=30")
+```
+
+<img src="05-inference_files/figure-html/unnamed-chunk-46-1.png" width="672" />
 
 
 ## What about comparisons? Sampling distribution for the difference of two means
@@ -875,7 +889,7 @@ ggplot(BCS0708, aes(x = sex, y = tcviolent)) +
   geom_boxplot()
 ```
 
-<img src="05-inference_files/figure-html/unnamed-chunk-47-1.png" width="672" />
+<img src="05-inference_files/figure-html/unnamed-chunk-48-1.png" width="672" />
 
 The mean value of fear of violent crime is -0.27 for the males and 0.33 for the females. There is a difference in the mean value of fear of crime of 0.6. Comparing the distributions in the boxplot seems to suggest that the distribution of scores on fear of violent crime tend to be higher than for the males. 
 
@@ -908,7 +922,7 @@ t.test(tcviolent ~ sex, data = BCS0708)
 ## 
 ## data:  tcviolent by sex
 ## t = 29.114, df = 8398.3, p-value < 2.2e-16
-## alternative hypothesis: true difference in means is not equal to 0
+## alternative hypothesis: true difference in means between group female and group male is not equal to 0
 ## 95 percent confidence interval:
 ##  0.5614656 0.6425300
 ## sample estimates:
@@ -935,7 +949,7 @@ ggplot(BCS0708, aes(x = sex, y = tcviolent)) +
         stat_summary(fun.data = "mean_cl_normal", geom = "pointrange") #this function ask to display summary statistics as pointrange (the point is the mean and the lines end at the upper and lower CI limits). The "mean_cl_normal" uses the CI assuming normality.
 ```
 
-<img src="05-inference_files/figure-html/unnamed-chunk-49-1.png" width="672" />
+<img src="05-inference_files/figure-html/unnamed-chunk-50-1.png" width="672" />
 
 ```r
 #So if you prefer the bootstrapped confidence interval rather than assuming normality, you could use:
@@ -943,7 +957,7 @@ ggplot(BCS0708, aes(x = sex, y = tcviolent)) +
        stat_summary(fun.data = "mean_cl_boot", geom = "crossbar") #Here we are using a different geom just to show you the range of options, but you could also have used "pointrange". Or finally, you could also use "errorbars"
 ```
 
-<img src="05-inference_files/figure-html/unnamed-chunk-49-2.png" width="672" />
+<img src="05-inference_files/figure-html/unnamed-chunk-50-2.png" width="672" />
 
 ```r
 ggplot(BCS0708, aes(x = sex, y = tcviolent)) +
@@ -951,7 +965,7 @@ ggplot(BCS0708, aes(x = sex, y = tcviolent)) +
         stat_summary(fun.y = mean, geom = "point")
 ```
 
-<img src="05-inference_files/figure-html/unnamed-chunk-49-3.png" width="672" />
+<img src="05-inference_files/figure-html/unnamed-chunk-50-3.png" width="672" />
 
 The point in the error bar represents the mean value for fear of crime for each of the groups and the error bars represent the upper and lower bound for the confidence interval for the mean fear of crime score for each of those two groups. Notice how *the confidence intervals do not overlap*. These confidence intervals provide a range of plausible values for the population parameters, the mean score of fear for males and females in the population. The fact that the CI do not overlap is another way of showing that there may be a difference in the population parameters for these two groups. Lack of any overlap is strong suggestion of a significant difference in the population.
 

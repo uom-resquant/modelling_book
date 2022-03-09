@@ -522,7 +522,7 @@ results
 ```
 
 ```
-## # A tibble: 2 x 3
+## # A tibble: 2 × 3
 ##   `as_factor(crime)` count outcome
 ##   <fct>              <int>   <dbl>
 ## 1 No Crime            1319  0.136 
@@ -565,7 +565,7 @@ results_3
 ```
 
 ```
-## # A tibble: 2 x 2
+## # A tibble: 2 × 2
 ##   black_f avg_delay
 ##   <fct>       <dbl>
 ## 1 White        18.7

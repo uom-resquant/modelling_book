@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Hypotheses | Modelling Criminological Data LAWS20452</title>
   <meta name="description" content="This is the course material for Modelling Criminological Data LAWS20452." />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Hypotheses | Modelling Criminological Data LAWS20452" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Reka Solymosi and Eon Kim (based on material developed with Juanjo Medina" />
 
 
-<meta name="date" content="2022-03-02" />
+<meta name="date" content="2022-03-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +33,9 @@
   
 <link rel="prev" href="foundations-of-statistical-inference-confidence-intervals.html"/>
 <link rel="next" href="studying-relationships-between-two-factors.html"/>
-<script src="libs/header-attrs-2.9/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.12/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,15 +51,16 @@
 
 
 
-
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -136,136 +138,136 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Modelling Criminological Data</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html"><i class="fa fa-check"></i><b>1</b> A first lesson about R</a>
+<li><a href="index.html#preface">Preface<span></span></a></li>
+<li class="chapter" data-level="1" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html"><i class="fa fa-check"></i><b>1</b> A first lesson about R<span></span></a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#install-r-rstudio"><i class="fa fa-check"></i><b>1.1</b> Install R &amp; RStudio</a></li>
-<li class="chapter" data-level="1.2" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#open-up-and-explore-rstudio"><i class="fa fa-check"></i><b>1.2</b> Open up and explore RStudio</a></li>
-<li class="chapter" data-level="1.3" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#customising-the-rstudio-look"><i class="fa fa-check"></i><b>1.3</b> Customising the RStudio look</a></li>
-<li class="chapter" data-level="1.4" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#getting-organised-r-projects"><i class="fa fa-check"></i><b>1.4</b> Getting organised: R Projects</a></li>
-<li class="chapter" data-level="1.5" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#talk-to-your-computer"><i class="fa fa-check"></i><b>1.5</b> Talk to your computer</a></li>
-<li class="chapter" data-level="1.6" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#more-on-packages"><i class="fa fa-check"></i><b>1.6</b> More on packages</a></li>
-<li class="chapter" data-level="1.7" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#using-objects"><i class="fa fa-check"></i><b>1.7</b> Using objects</a></li>
-<li class="chapter" data-level="1.8" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#more-on-objects"><i class="fa fa-check"></i><b>1.8</b> More on objects</a></li>
-<li class="chapter" data-level="1.9" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#on-comments"><i class="fa fa-check"></i><b>1.9</b> On comments</a></li>
-<li class="chapter" data-level="1.10" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#factors"><i class="fa fa-check"></i><b>1.10</b> Factors</a></li>
-<li class="chapter" data-level="1.11" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#naming-conventions-for-objects-in-r"><i class="fa fa-check"></i><b>1.11</b> Naming conventions for objects in R</a></li>
-<li class="chapter" data-level="1.12" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#dataframes"><i class="fa fa-check"></i><b>1.12</b> Dataframes</a></li>
-<li class="chapter" data-level="1.13" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#exploring-data"><i class="fa fa-check"></i><b>1.13</b> Exploring data</a></li>
-<li class="chapter" data-level="1.14" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#quitting-rstudio"><i class="fa fa-check"></i><b>1.14</b> Quitting RStudio</a></li>
+<li class="chapter" data-level="1.1" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#install-r-rstudio"><i class="fa fa-check"></i><b>1.1</b> Install R &amp; RStudio<span></span></a></li>
+<li class="chapter" data-level="1.2" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#open-up-and-explore-rstudio"><i class="fa fa-check"></i><b>1.2</b> Open up and explore RStudio<span></span></a></li>
+<li class="chapter" data-level="1.3" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#customising-the-rstudio-look"><i class="fa fa-check"></i><b>1.3</b> Customising the RStudio look<span></span></a></li>
+<li class="chapter" data-level="1.4" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#getting-organised-r-projects"><i class="fa fa-check"></i><b>1.4</b> Getting organised: R Projects<span></span></a></li>
+<li class="chapter" data-level="1.5" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#talk-to-your-computer"><i class="fa fa-check"></i><b>1.5</b> Talk to your computer<span></span></a></li>
+<li class="chapter" data-level="1.6" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#more-on-packages"><i class="fa fa-check"></i><b>1.6</b> More on packages<span></span></a></li>
+<li class="chapter" data-level="1.7" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#using-objects"><i class="fa fa-check"></i><b>1.7</b> Using objects<span></span></a></li>
+<li class="chapter" data-level="1.8" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#more-on-objects"><i class="fa fa-check"></i><b>1.8</b> More on objects<span></span></a></li>
+<li class="chapter" data-level="1.9" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#on-comments"><i class="fa fa-check"></i><b>1.9</b> On comments<span></span></a></li>
+<li class="chapter" data-level="1.10" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#factors"><i class="fa fa-check"></i><b>1.10</b> Factors<span></span></a></li>
+<li class="chapter" data-level="1.11" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#naming-conventions-for-objects-in-r"><i class="fa fa-check"></i><b>1.11</b> Naming conventions for objects in R<span></span></a></li>
+<li class="chapter" data-level="1.12" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#dataframes"><i class="fa fa-check"></i><b>1.12</b> Dataframes<span></span></a></li>
+<li class="chapter" data-level="1.13" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#exploring-data"><i class="fa fa-check"></i><b>1.13</b> Exploring data<span></span></a></li>
+<li class="chapter" data-level="1.14" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#quitting-rstudio"><i class="fa fa-check"></i><b>1.14</b> Quitting RStudio<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html"><i class="fa fa-check"></i><b>2</b> Getting to know your data</a>
+<li class="chapter" data-level="2" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html"><i class="fa fa-check"></i><b>2</b> Getting to know your data<span></span></a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#causality-in-social-sciences"><i class="fa fa-check"></i><b>2.1</b> Causality in social sciences</a></li>
-<li class="chapter" data-level="2.2" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#getting-data-thanks-to-reproducibility"><i class="fa fa-check"></i><b>2.2</b> Getting data thanks to reproducibility</a></li>
-<li class="chapter" data-level="2.3" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#getting-a-sense-for-your-data"><i class="fa fa-check"></i><b>2.3</b> Getting a sense for your data</a>
+<li class="chapter" data-level="2.1" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#causality-in-social-sciences"><i class="fa fa-check"></i><b>2.1</b> Causality in social sciences<span></span></a></li>
+<li class="chapter" data-level="2.2" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#getting-data-thanks-to-reproducibility"><i class="fa fa-check"></i><b>2.2</b> Getting data thanks to reproducibility<span></span></a></li>
+<li class="chapter" data-level="2.3" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#getting-a-sense-for-your-data"><i class="fa fa-check"></i><b>2.3</b> Getting a sense for your data<span></span></a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#first-steps"><i class="fa fa-check"></i><b>2.3.1</b> First steps</a></li>
-<li class="chapter" data-level="2.3.2" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#on-tibbles-and-labelled-vectors"><i class="fa fa-check"></i><b>2.3.2</b> On tibbles and labelled vectors</a></li>
-<li class="chapter" data-level="2.3.3" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#turning-variables-into-factors-and-changing-the-labels"><i class="fa fa-check"></i><b>2.3.3</b> Turning variables into factors and changing the labels</a></li>
-<li class="chapter" data-level="2.3.4" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#looking-for-missing-data-and-other-anomalies"><i class="fa fa-check"></i><b>2.3.4</b> Looking for missing data and other anomalies</a></li>
+<li class="chapter" data-level="2.3.1" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#first-steps"><i class="fa fa-check"></i><b>2.3.1</b> First steps<span></span></a></li>
+<li class="chapter" data-level="2.3.2" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#on-tibbles-and-labelled-vectors"><i class="fa fa-check"></i><b>2.3.2</b> On tibbles and labelled vectors<span></span></a></li>
+<li class="chapter" data-level="2.3.3" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#turning-variables-into-factors-and-changing-the-labels"><i class="fa fa-check"></i><b>2.3.3</b> Turning variables into factors and changing the labels<span></span></a></li>
+<li class="chapter" data-level="2.3.4" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#looking-for-missing-data-and-other-anomalies"><i class="fa fa-check"></i><b>2.3.4</b> Looking for missing data and other anomalies<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#data-wrangling-with-dplyr"><i class="fa fa-check"></i><b>2.4</b> Data wrangling with dplyr</a></li>
-<li class="chapter" data-level="2.5" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#using-dplyr-single-verbs"><i class="fa fa-check"></i><b>2.5</b> Using dplyr single verbs</a></li>
-<li class="chapter" data-level="2.6" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#using-dplyr-for-grouped-operations"><i class="fa fa-check"></i><b>2.6</b> Using dplyr for grouped operations</a></li>
-<li class="chapter" data-level="2.7" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#making-comparisons-with-numerical-outcomes"><i class="fa fa-check"></i><b>2.7</b> Making comparisons with numerical outcomes</a></li>
+<li class="chapter" data-level="2.4" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#data-wrangling-with-dplyr"><i class="fa fa-check"></i><b>2.4</b> Data wrangling with dplyr<span></span></a></li>
+<li class="chapter" data-level="2.5" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#using-dplyr-single-verbs"><i class="fa fa-check"></i><b>2.5</b> Using dplyr single verbs<span></span></a></li>
+<li class="chapter" data-level="2.6" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#using-dplyr-for-grouped-operations"><i class="fa fa-check"></i><b>2.6</b> Using dplyr for grouped operations<span></span></a></li>
+<li class="chapter" data-level="2.7" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#making-comparisons-with-numerical-outcomes"><i class="fa fa-check"></i><b>2.7</b> Making comparisons with numerical outcomes<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html"><i class="fa fa-check"></i><b>3</b> Data visualisation with R</a>
+<li class="chapter" data-level="3" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html"><i class="fa fa-check"></i><b>3</b> Data visualisation with R<span></span></a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
-<li class="chapter" data-level="3.2" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#anatomy-of-a-plot"><i class="fa fa-check"></i><b>3.2</b> Anatomy of a plot</a></li>
-<li class="chapter" data-level="3.3" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#what-graph-should-i-use"><i class="fa fa-check"></i><b>3.3</b> What graph should I use?</a></li>
-<li class="chapter" data-level="3.4" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#visualising-numerical-variables-histograms"><i class="fa fa-check"></i><b>3.4</b> Visualising numerical variables: Histograms</a></li>
-<li class="chapter" data-level="3.5" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#visualising-numerical-variables-density-plots"><i class="fa fa-check"></i><b>3.5</b> Visualising numerical variables: Density plots</a></li>
-<li class="chapter" data-level="3.6" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#visualising-numerical-variables-box-plots"><i class="fa fa-check"></i><b>3.6</b> Visualising numerical variables: Box plots</a></li>
-<li class="chapter" data-level="3.7" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#exploring-relationships-between-two-quantitative-variables-scatterplots"><i class="fa fa-check"></i><b>3.7</b> Exploring relationships between two quantitative variables: scatterplots</a></li>
-<li class="chapter" data-level="3.8" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#scatterplots-conditioning-in-a-third-variable"><i class="fa fa-check"></i><b>3.8</b> Scatterplots conditioning in a third variable</a></li>
-<li class="chapter" data-level="3.9" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#scatterplot-matrix"><i class="fa fa-check"></i><b>3.9</b> Scatterplot matrix</a></li>
-<li class="chapter" data-level="3.10" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#titles-legends-and-themes-in-ggplot2"><i class="fa fa-check"></i><b>3.10</b> Titles, legends, and themes in ggplot2</a></li>
-<li class="chapter" data-level="3.11" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#plotting-categorical-data-bar-charts"><i class="fa fa-check"></i><b>3.11</b> Plotting categorical data: bar charts</a></li>
-<li class="chapter" data-level="3.12" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#further-resources"><i class="fa fa-check"></i><b>3.12</b> Further resources</a></li>
+<li class="chapter" data-level="3.1" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#anatomy-of-a-plot"><i class="fa fa-check"></i><b>3.2</b> Anatomy of a plot<span></span></a></li>
+<li class="chapter" data-level="3.3" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#what-graph-should-i-use"><i class="fa fa-check"></i><b>3.3</b> What graph should I use?<span></span></a></li>
+<li class="chapter" data-level="3.4" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#visualising-numerical-variables-histograms"><i class="fa fa-check"></i><b>3.4</b> Visualising numerical variables: Histograms<span></span></a></li>
+<li class="chapter" data-level="3.5" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#visualising-numerical-variables-density-plots"><i class="fa fa-check"></i><b>3.5</b> Visualising numerical variables: Density plots<span></span></a></li>
+<li class="chapter" data-level="3.6" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#visualising-numerical-variables-box-plots"><i class="fa fa-check"></i><b>3.6</b> Visualising numerical variables: Box plots<span></span></a></li>
+<li class="chapter" data-level="3.7" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#exploring-relationships-between-two-quantitative-variables-scatterplots"><i class="fa fa-check"></i><b>3.7</b> Exploring relationships between two quantitative variables: scatterplots<span></span></a></li>
+<li class="chapter" data-level="3.8" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#scatterplots-conditioning-in-a-third-variable"><i class="fa fa-check"></i><b>3.8</b> Scatterplots conditioning in a third variable<span></span></a></li>
+<li class="chapter" data-level="3.9" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#scatterplot-matrix"><i class="fa fa-check"></i><b>3.9</b> Scatterplot matrix<span></span></a></li>
+<li class="chapter" data-level="3.10" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#titles-legends-and-themes-in-ggplot2"><i class="fa fa-check"></i><b>3.10</b> Titles, legends, and themes in ggplot2<span></span></a></li>
+<li class="chapter" data-level="3.11" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#plotting-categorical-data-bar-charts"><i class="fa fa-check"></i><b>3.11</b> Plotting categorical data: bar charts<span></span></a></li>
+<li class="chapter" data-level="3.12" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#further-resources"><i class="fa fa-check"></i><b>3.12</b> Further resources<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html"><i class="fa fa-check"></i><b>4</b> Refresher on descriptive statistics &amp; data carpentry</a>
+<li class="chapter" data-level="4" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html"><i class="fa fa-check"></i><b>4</b> Refresher on descriptive statistics &amp; data carpentry<span></span></a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#getting-some-data-from-eurobarometer"><i class="fa fa-check"></i><b>4.2</b> Getting some data from Eurobarometer</a></li>
-<li class="chapter" data-level="4.3" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#thinking-about-your-data-filtering-cases"><i class="fa fa-check"></i><b>4.3</b> Thinking about your data: filtering cases</a></li>
-<li class="chapter" data-level="4.4" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#selecting-variables-using-dplyrselect"><i class="fa fa-check"></i><b>4.4</b> Selecting variables: using <code>dplyr::select</code></a></li>
-<li class="chapter" data-level="4.5" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#creating-summated-scales"><i class="fa fa-check"></i><b>4.5</b> Creating summated scales</a></li>
-<li class="chapter" data-level="4.6" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#collapsing-categories-in-character-variables"><i class="fa fa-check"></i><b>4.6</b> Collapsing categories in character variables</a></li>
-<li class="chapter" data-level="4.7" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#working-with-apparently-cryptic-variable-names-and-levels"><i class="fa fa-check"></i><b>4.7</b> Working with apparently cryptic variable names and levels</a></li>
-<li class="chapter" data-level="4.8" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#recoding-factors"><i class="fa fa-check"></i><b>4.8</b> Recoding factors</a></li>
-<li class="chapter" data-level="4.9" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#understanding-missing-data"><i class="fa fa-check"></i><b>4.9</b> Understanding missing data</a></li>
-<li class="chapter" data-level="4.10" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#exploring-dataframes-visually"><i class="fa fa-check"></i><b>4.10</b> Exploring dataframes visually</a></li>
-<li class="chapter" data-level="4.11" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#a-quick-recap-on-descriptive-statistics"><i class="fa fa-check"></i><b>4.11</b> A quick recap on descriptive statistics</a>
+<li class="chapter" data-level="4.1" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="4.2" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#getting-some-data-from-eurobarometer"><i class="fa fa-check"></i><b>4.2</b> Getting some data from Eurobarometer<span></span></a></li>
+<li class="chapter" data-level="4.3" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#thinking-about-your-data-filtering-cases"><i class="fa fa-check"></i><b>4.3</b> Thinking about your data: filtering cases<span></span></a></li>
+<li class="chapter" data-level="4.4" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#selecting-variables-using-dplyrselect"><i class="fa fa-check"></i><b>4.4</b> Selecting variables: using <code>dplyr::select</code><span></span></a></li>
+<li class="chapter" data-level="4.5" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#creating-summated-scales"><i class="fa fa-check"></i><b>4.5</b> Creating summated scales<span></span></a></li>
+<li class="chapter" data-level="4.6" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#collapsing-categories-in-character-variables"><i class="fa fa-check"></i><b>4.6</b> Collapsing categories in character variables<span></span></a></li>
+<li class="chapter" data-level="4.7" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#working-with-apparently-cryptic-variable-names-and-levels"><i class="fa fa-check"></i><b>4.7</b> Working with apparently cryptic variable names and levels<span></span></a></li>
+<li class="chapter" data-level="4.8" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#recoding-factors"><i class="fa fa-check"></i><b>4.8</b> Recoding factors<span></span></a></li>
+<li class="chapter" data-level="4.9" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#understanding-missing-data"><i class="fa fa-check"></i><b>4.9</b> Understanding missing data<span></span></a></li>
+<li class="chapter" data-level="4.10" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#exploring-dataframes-visually"><i class="fa fa-check"></i><b>4.10</b> Exploring dataframes visually<span></span></a></li>
+<li class="chapter" data-level="4.11" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#a-quick-recap-on-descriptive-statistics"><i class="fa fa-check"></i><b>4.11</b> A quick recap on descriptive statistics<span></span></a>
 <ul>
-<li class="chapter" data-level="4.11.1" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#central-tendency"><i class="fa fa-check"></i><b>4.11.1</b> Central Tendency</a></li>
-<li class="chapter" data-level="4.11.2" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#dispersion"><i class="fa fa-check"></i><b>4.11.2</b> Dispersion</a></li>
-<li class="chapter" data-level="4.11.3" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#bivariate-analysis"><i class="fa fa-check"></i><b>4.11.3</b> Bivariate analysis</a></li>
+<li class="chapter" data-level="4.11.1" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#central-tendency"><i class="fa fa-check"></i><b>4.11.1</b> Central Tendency<span></span></a></li>
+<li class="chapter" data-level="4.11.2" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#dispersion"><i class="fa fa-check"></i><b>4.11.2</b> Dispersion<span></span></a></li>
+<li class="chapter" data-level="4.11.3" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#bivariate-analysis"><i class="fa fa-check"></i><b>4.11.3</b> Bivariate analysis<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="4.12" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#further-resources-1"><i class="fa fa-check"></i><b>4.12</b> Further resources</a></li>
+<li class="chapter" data-level="4.12" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#further-resources-1"><i class="fa fa-check"></i><b>4.12</b> Further resources<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html"><i class="fa fa-check"></i><b>5</b> Foundations of statistical inference: confidence intervals</a>
+<li class="chapter" data-level="5" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html"><i class="fa fa-check"></i><b>5</b> Foundations of statistical inference: confidence intervals<span></span></a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#introduction-2"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
-<li class="chapter" data-level="5.2" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#generating-random-data"><i class="fa fa-check"></i><b>5.2</b> Generating random data</a></li>
-<li class="chapter" data-level="5.3" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#sampling-data-and-sampling-variability"><i class="fa fa-check"></i><b>5.3</b> Sampling data and sampling variability</a></li>
-<li class="chapter" data-level="5.4" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#sampling-distributions-and-sampling-experiments"><i class="fa fa-check"></i><b>5.4</b> Sampling distributions and sampling experiments</a></li>
-<li class="chapter" data-level="5.5" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#the-normal-distribution-and-confidence-intervals-with-known-standard-errors"><i class="fa fa-check"></i><b>5.5</b> The normal distribution and confidence intervals with known standard errors</a></li>
-<li class="chapter" data-level="5.6" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#asymptotic-confidence-intervals-for-means-and-proportions-using-r"><i class="fa fa-check"></i><b>5.6</b> Asymptotic confidence intervals for means and proportions using R</a></li>
-<li class="chapter" data-level="5.7" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#a-brief-intro-to-resampling-and-bootstraping"><i class="fa fa-check"></i><b>5.7</b> A brief intro to resampling and bootstraping</a></li>
-<li class="chapter" data-level="5.8" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#what-about-comparisons-sampling-distribution-for-the-difference-of-two-means"><i class="fa fa-check"></i><b>5.8</b> What about comparisons? Sampling distribution for the difference of two means</a></li>
-<li class="chapter" data-level="5.9" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#comparing-means-visually-by-using-error-bars-representing-confidence-intervals-inference-by-eye"><i class="fa fa-check"></i><b>5.9</b> Comparing means visually by using error bars representing confidence intervals: inference by eye</a></li>
+<li class="chapter" data-level="5.1" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#introduction-2"><i class="fa fa-check"></i><b>5.1</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="5.2" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#generating-random-data"><i class="fa fa-check"></i><b>5.2</b> Generating random data<span></span></a></li>
+<li class="chapter" data-level="5.3" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#sampling-data-and-sampling-variability"><i class="fa fa-check"></i><b>5.3</b> Sampling data and sampling variability<span></span></a></li>
+<li class="chapter" data-level="5.4" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#sampling-distributions-and-sampling-experiments"><i class="fa fa-check"></i><b>5.4</b> Sampling distributions and sampling experiments<span></span></a></li>
+<li class="chapter" data-level="5.5" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#the-normal-distribution-and-confidence-intervals-with-known-standard-errors"><i class="fa fa-check"></i><b>5.5</b> The normal distribution and confidence intervals with known standard errors<span></span></a></li>
+<li class="chapter" data-level="5.6" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#asymptotic-confidence-intervals-for-means-and-proportions-using-r"><i class="fa fa-check"></i><b>5.6</b> Asymptotic confidence intervals for means and proportions using R<span></span></a></li>
+<li class="chapter" data-level="5.7" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#a-brief-intro-to-resampling-and-bootstraping"><i class="fa fa-check"></i><b>5.7</b> A brief intro to resampling and bootstraping<span></span></a></li>
+<li class="chapter" data-level="5.8" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#what-about-comparisons-sampling-distribution-for-the-difference-of-two-means"><i class="fa fa-check"></i><b>5.8</b> What about comparisons? Sampling distribution for the difference of two means<span></span></a></li>
+<li class="chapter" data-level="5.9" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#comparing-means-visually-by-using-error-bars-representing-confidence-intervals-inference-by-eye"><i class="fa fa-check"></i><b>5.9</b> Comparing means visually by using error bars representing confidence intervals: inference by eye<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="hypotheses.html"><a href="hypotheses.html"><i class="fa fa-check"></i><b>6</b> Hypotheses</a>
+<li class="chapter" data-level="6" data-path="hypotheses.html"><a href="hypotheses.html"><i class="fa fa-check"></i><b>6</b> Hypotheses<span></span></a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="hypotheses.html"><a href="hypotheses.html#the-logic-of-hypothesis-testing"><i class="fa fa-check"></i><b>6.1</b> The logic of hypothesis testing</a></li>
-<li class="chapter" data-level="6.2" data-path="hypotheses.html"><a href="hypotheses.html#comparing-means-across-two-groups-the-t-test"><i class="fa fa-check"></i><b>6.2</b> Comparing means across two groups (the t test)</a></li>
-<li class="chapter" data-level="6.3" data-path="hypotheses.html"><a href="hypotheses.html#what-does-a-significant-effect-mean"><i class="fa fa-check"></i><b>6.3</b> What does a significant effect mean?</a></li>
-<li class="chapter" data-level="6.4" data-path="hypotheses.html"><a href="hypotheses.html#power-analysis"><i class="fa fa-check"></i><b>6.4</b> Power analysis</a></li>
-<li class="chapter" data-level="6.5" data-path="hypotheses.html"><a href="hypotheses.html#comparing-means-across-several-groups-anova"><i class="fa fa-check"></i><b>6.5</b> Comparing means across several groups (ANOVA)</a>
+<li class="chapter" data-level="6.1" data-path="hypotheses.html"><a href="hypotheses.html#the-logic-of-hypothesis-testing"><i class="fa fa-check"></i><b>6.1</b> The logic of hypothesis testing<span></span></a></li>
+<li class="chapter" data-level="6.2" data-path="hypotheses.html"><a href="hypotheses.html#comparing-means-across-two-groups-the-t-test"><i class="fa fa-check"></i><b>6.2</b> Comparing means across two groups (the t test)<span></span></a></li>
+<li class="chapter" data-level="6.3" data-path="hypotheses.html"><a href="hypotheses.html#what-does-a-significant-effect-mean"><i class="fa fa-check"></i><b>6.3</b> What does a significant effect mean?<span></span></a></li>
+<li class="chapter" data-level="6.4" data-path="hypotheses.html"><a href="hypotheses.html#power-analysis"><i class="fa fa-check"></i><b>6.4</b> Power analysis<span></span></a></li>
+<li class="chapter" data-level="6.5" data-path="hypotheses.html"><a href="hypotheses.html#comparing-means-across-several-groups-anova"><i class="fa fa-check"></i><b>6.5</b> Comparing means across several groups (ANOVA)<span></span></a>
 <ul>
-<li class="chapter" data-level="6.5.1" data-path="hypotheses.html"><a href="hypotheses.html#the-problem-with-multiple-comparisons"><i class="fa fa-check"></i><b>6.5.1</b> The problem with multiple comparisons</a></li>
-<li class="chapter" data-level="6.5.2" data-path="hypotheses.html"><a href="hypotheses.html#anova"><i class="fa fa-check"></i><b>6.5.2</b> ANOVA</a></li>
-<li class="chapter" data-level="6.5.3" data-path="hypotheses.html"><a href="hypotheses.html#checking-homogeneity-of-variance-and-dealing-with-unequal-spread"><i class="fa fa-check"></i><b>6.5.3</b> Checking homogeneity of variance and dealing with unequal spread</a></li>
-<li class="chapter" data-level="6.5.4" data-path="hypotheses.html"><a href="hypotheses.html#checking-normality-and-dealing-with-problems"><i class="fa fa-check"></i><b>6.5.4</b> Checking normality and dealing with problems</a></li>
-<li class="chapter" data-level="6.5.5" data-path="hypotheses.html"><a href="hypotheses.html#robust-anova"><i class="fa fa-check"></i><b>6.5.5</b> Robust ANOVA</a></li>
-<li class="chapter" data-level="6.5.6" data-path="hypotheses.html"><a href="hypotheses.html#post-hoc-comparisons"><i class="fa fa-check"></i><b>6.5.6</b> Post Hoc Comparisons</a></li>
-<li class="chapter" data-level="6.5.7" data-path="hypotheses.html"><a href="hypotheses.html#effect-size-for-anova"><i class="fa fa-check"></i><b>6.5.7</b> Effect size for ANOVA</a></li>
+<li class="chapter" data-level="6.5.1" data-path="hypotheses.html"><a href="hypotheses.html#the-problem-with-multiple-comparisons"><i class="fa fa-check"></i><b>6.5.1</b> The problem with multiple comparisons<span></span></a></li>
+<li class="chapter" data-level="6.5.2" data-path="hypotheses.html"><a href="hypotheses.html#anova"><i class="fa fa-check"></i><b>6.5.2</b> ANOVA<span></span></a></li>
+<li class="chapter" data-level="6.5.3" data-path="hypotheses.html"><a href="hypotheses.html#checking-homogeneity-of-variance-and-dealing-with-unequal-spread"><i class="fa fa-check"></i><b>6.5.3</b> Checking homogeneity of variance and dealing with unequal spread<span></span></a></li>
+<li class="chapter" data-level="6.5.4" data-path="hypotheses.html"><a href="hypotheses.html#checking-normality-and-dealing-with-problems"><i class="fa fa-check"></i><b>6.5.4</b> Checking normality and dealing with problems<span></span></a></li>
+<li class="chapter" data-level="6.5.5" data-path="hypotheses.html"><a href="hypotheses.html#robust-anova"><i class="fa fa-check"></i><b>6.5.5</b> Robust ANOVA<span></span></a></li>
+<li class="chapter" data-level="6.5.6" data-path="hypotheses.html"><a href="hypotheses.html#post-hoc-comparisons"><i class="fa fa-check"></i><b>6.5.6</b> Post Hoc Comparisons<span></span></a></li>
+<li class="chapter" data-level="6.5.7" data-path="hypotheses.html"><a href="hypotheses.html#effect-size-for-anova"><i class="fa fa-check"></i><b>6.5.7</b> Effect size for ANOVA<span></span></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="studying-relationships-between-two-factors.html"><a href="studying-relationships-between-two-factors.html"><i class="fa fa-check"></i><b>7</b> Studying relationships between two factors</a>
+<li class="chapter" data-level="7" data-path="studying-relationships-between-two-factors.html"><a href="studying-relationships-between-two-factors.html"><i class="fa fa-check"></i><b>7</b> Studying relationships between two factors<span></span></a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="studying-relationships-between-two-factors.html"><a href="studying-relationships-between-two-factors.html#producing-cross-tabulations"><i class="fa fa-check"></i><b>7.1</b> Producing cross tabulations</a></li>
-<li class="chapter" data-level="7.2" data-path="studying-relationships-between-two-factors.html"><a href="studying-relationships-between-two-factors.html#expected-frequencies-and-chi-square"><i class="fa fa-check"></i><b>7.2</b> Expected frequencies and Chi-Square</a></li>
-<li class="chapter" data-level="7.3" data-path="studying-relationships-between-two-factors.html"><a href="studying-relationships-between-two-factors.html#residuals"><i class="fa fa-check"></i><b>7.3</b> Residuals</a></li>
-<li class="chapter" data-level="7.4" data-path="studying-relationships-between-two-factors.html"><a href="studying-relationships-between-two-factors.html#gamma"><i class="fa fa-check"></i><b>7.4</b> Gamma</a></li>
-<li class="chapter" data-level="7.5" data-path="studying-relationships-between-two-factors.html"><a href="studying-relationships-between-two-factors.html#odds-and-odd-ratios"><i class="fa fa-check"></i><b>7.5</b> Odds and odd ratios</a></li>
+<li class="chapter" data-level="7.1" data-path="studying-relationships-between-two-factors.html"><a href="studying-relationships-between-two-factors.html#producing-cross-tabulations"><i class="fa fa-check"></i><b>7.1</b> Producing cross tabulations<span></span></a></li>
+<li class="chapter" data-level="7.2" data-path="studying-relationships-between-two-factors.html"><a href="studying-relationships-between-two-factors.html#expected-frequencies-and-chi-square"><i class="fa fa-check"></i><b>7.2</b> Expected frequencies and Chi-Square<span></span></a></li>
+<li class="chapter" data-level="7.3" data-path="studying-relationships-between-two-factors.html"><a href="studying-relationships-between-two-factors.html#residuals"><i class="fa fa-check"></i><b>7.3</b> Residuals<span></span></a></li>
+<li class="chapter" data-level="7.4" data-path="studying-relationships-between-two-factors.html"><a href="studying-relationships-between-two-factors.html#gamma"><i class="fa fa-check"></i><b>7.4</b> Gamma<span></span></a></li>
+<li class="chapter" data-level="7.5" data-path="studying-relationships-between-two-factors.html"><a href="studying-relationships-between-two-factors.html#odds-and-odd-ratios"><i class="fa fa-check"></i><b>7.5</b> Odds and odd ratios<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html"><i class="fa fa-check"></i><b>8</b> An introduction to regression</a>
+<li class="chapter" data-level="8" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html"><i class="fa fa-check"></i><b>8</b> An introduction to regression<span></span></a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#introduction-models-in-scientific-research"><i class="fa fa-check"></i><b>8.1</b> Introduction: models in scientific research</a></li>
-<li class="chapter" data-level="8.2" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#motivating-regression"><i class="fa fa-check"></i><b>8.2</b> Motivating regression</a></li>
-<li class="chapter" data-level="8.3" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#fitting-a-simple-regression-model"><i class="fa fa-check"></i><b>8.3</b> Fitting a simple regression model</a></li>
-<li class="chapter" data-level="8.4" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#residuals-revisited-r-squared"><i class="fa fa-check"></i><b>8.4</b> Residuals revisited: R squared</a></li>
-<li class="chapter" data-level="8.5" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#inference-with-regression"><i class="fa fa-check"></i><b>8.5</b> Inference with regression</a></li>
-<li class="chapter" data-level="8.6" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#fitting-regression-with-categorical-predictors"><i class="fa fa-check"></i><b>8.6</b> Fitting regression with categorical predictors</a></li>
-<li class="chapter" data-level="8.7" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#motivating-multiple-regression"><i class="fa fa-check"></i><b>8.7</b> Motivating multiple regression</a></li>
-<li class="chapter" data-level="8.8" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#fitting-and-interpreting-a-multiple-regression-model"><i class="fa fa-check"></i><b>8.8</b> Fitting and interpreting a multiple regression model</a></li>
-<li class="chapter" data-level="8.9" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#presenting-your-regression-results."><i class="fa fa-check"></i><b>8.9</b> Presenting your regression results.</a></li>
-<li class="chapter" data-level="8.10" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#testing-conditional-hypothesis-interactions"><i class="fa fa-check"></i><b>8.10</b> Testing conditional hypothesis: interactions</a></li>
-<li class="chapter" data-level="8.11" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#model-building-and-variable-selection"><i class="fa fa-check"></i><b>8.11</b> Model building and variable selection</a></li>
+<li class="chapter" data-level="8.1" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#introduction-models-in-scientific-research"><i class="fa fa-check"></i><b>8.1</b> Introduction: models in scientific research<span></span></a></li>
+<li class="chapter" data-level="8.2" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#motivating-regression"><i class="fa fa-check"></i><b>8.2</b> Motivating regression<span></span></a></li>
+<li class="chapter" data-level="8.3" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#fitting-a-simple-regression-model"><i class="fa fa-check"></i><b>8.3</b> Fitting a simple regression model<span></span></a></li>
+<li class="chapter" data-level="8.4" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#residuals-revisited-r-squared"><i class="fa fa-check"></i><b>8.4</b> Residuals revisited: R squared<span></span></a></li>
+<li class="chapter" data-level="8.5" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#inference-with-regression"><i class="fa fa-check"></i><b>8.5</b> Inference with regression<span></span></a></li>
+<li class="chapter" data-level="8.6" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#fitting-regression-with-categorical-predictors"><i class="fa fa-check"></i><b>8.6</b> Fitting regression with categorical predictors<span></span></a></li>
+<li class="chapter" data-level="8.7" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#motivating-multiple-regression"><i class="fa fa-check"></i><b>8.7</b> Motivating multiple regression<span></span></a></li>
+<li class="chapter" data-level="8.8" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#fitting-and-interpreting-a-multiple-regression-model"><i class="fa fa-check"></i><b>8.8</b> Fitting and interpreting a multiple regression model<span></span></a></li>
+<li class="chapter" data-level="8.9" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#presenting-your-regression-results."><i class="fa fa-check"></i><b>8.9</b> Presenting your regression results.<span></span></a></li>
+<li class="chapter" data-level="8.10" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#testing-conditional-hypothesis-interactions"><i class="fa fa-check"></i><b>8.10</b> Testing conditional hypothesis: interactions<span></span></a></li>
+<li class="chapter" data-level="8.11" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#model-building-and-variable-selection"><i class="fa fa-check"></i><b>8.11</b> Model building and variable selection<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>9</b> Logistic regression</a>
+<li class="chapter" data-level="9" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>9</b> Logistic regression<span></span></a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="logistic-regression.html"><a href="logistic-regression.html#introduction-3"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
-<li class="chapter" data-level="9.2" data-path="logistic-regression.html"><a href="logistic-regression.html#fitting-logistic-regression"><i class="fa fa-check"></i><b>9.2</b> Fitting logistic regression</a></li>
-<li class="chapter" data-level="9.3" data-path="logistic-regression.html"><a href="logistic-regression.html#assessing-model-fit-i-deviance-and-pseudo-r-squared"><i class="fa fa-check"></i><b>9.3</b> Assessing model fit I: deviance and pseudo r squared</a></li>
-<li class="chapter" data-level="9.4" data-path="logistic-regression.html"><a href="logistic-regression.html#assessing-model-fit-ii-confusion-matrix-and-roc-curves"><i class="fa fa-check"></i><b>9.4</b> Assessing model fit II: confusion matrix and ROC curves</a></li>
-<li class="chapter" data-level="9.5" data-path="logistic-regression.html"><a href="logistic-regression.html#interactions"><i class="fa fa-check"></i><b>9.5</b> Interactions</a></li>
-<li class="chapter" data-level="9.6" data-path="logistic-regression.html"><a href="logistic-regression.html#further-resources-2"><i class="fa fa-check"></i><b>9.6</b> Further resources</a></li>
+<li class="chapter" data-level="9.1" data-path="logistic-regression.html"><a href="logistic-regression.html#introduction-3"><i class="fa fa-check"></i><b>9.1</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="9.2" data-path="logistic-regression.html"><a href="logistic-regression.html#fitting-logistic-regression"><i class="fa fa-check"></i><b>9.2</b> Fitting logistic regression<span></span></a></li>
+<li class="chapter" data-level="9.3" data-path="logistic-regression.html"><a href="logistic-regression.html#assessing-model-fit-i-deviance-and-pseudo-r-squared"><i class="fa fa-check"></i><b>9.3</b> Assessing model fit I: deviance and pseudo r squared<span></span></a></li>
+<li class="chapter" data-level="9.4" data-path="logistic-regression.html"><a href="logistic-regression.html#assessing-model-fit-ii-confusion-matrix-and-roc-curves"><i class="fa fa-check"></i><b>9.4</b> Assessing model fit II: confusion matrix and ROC curves<span></span></a></li>
+<li class="chapter" data-level="9.5" data-path="logistic-regression.html"><a href="logistic-regression.html#interactions"><i class="fa fa-check"></i><b>9.5</b> Interactions<span></span></a></li>
+<li class="chapter" data-level="9.6" data-path="logistic-regression.html"><a href="logistic-regression.html#further-resources-2"><i class="fa fa-check"></i><b>9.6</b> Further resources<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="wrapping-up.html"><a href="wrapping-up.html"><i class="fa fa-check"></i><b>10</b> Wrapping up</a></li>
+<li class="chapter" data-level="10" data-path="wrapping-up.html"><a href="wrapping-up.html"><i class="fa fa-check"></i><b>10</b> Wrapping up<span></span></a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -286,10 +288,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="hypotheses" class="section level1" number="6">
-<h1><span class="header-section-number">Chapter 6</span> Hypotheses</h1>
-<div id="the-logic-of-hypothesis-testing" class="section level2" number="6.1">
-<h2><span class="header-section-number">6.1</span> The logic of hypothesis testing</h2>
+<div id="hypotheses" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Hypotheses<a href="hypotheses.html#hypotheses" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="the-logic-of-hypothesis-testing" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> The logic of hypothesis testing<a href="hypotheses.html#the-logic-of-hypothesis-testing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In the last unit we learned how to think about and build confidence intervals. We explained how we could use confidence intervals to deal with uncertainty when estimating population parameters. Confidence intervals as we will see are very commonly used in statistics. The other key inferential tool in data analysis is the hypothesis test. Today we will focus on this second tool.</p>
 <p>Last week we saw how we could use confidence intervals as well to form a view about whether there are differences across groups in the population. And we also saw how we could do “inference by eye” by virtue of visually comparing the confidence interval for the estimated mean value of fear for men and the estimated mean value of fear for women. Now we are going to use a different approach to make inferences about the existence of these differences in the population: hypothesis testing.</p>
 <p>Wikipedia defines a statistical hypothesis test as “a method of making decisions using data from a scientific study”. The logic of hypothesis testing is based in the work of a number of pioneers in the field of statistics, the British Ronald Fisher and Egon Pearson and the Polish Jerzy Neyman . This work is so important that <a href="http://simplystatistics.org/2012/03/07/r-a-fisher-is-the-most-influential-scientist-ever/">some people argue</a> that Sir Ronald Fisher is one of the most influential academics in the history of science; not a small feat!</p>
@@ -338,8 +340,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Whatever you decide, the <em>American Psychological Association Statistical Committee</em> recommends that it is always a good idea to report the p value as an indication of the strength of the evidence. That is, not only report the finding to be significant or not, also report your actual p value.</p>
 <p>One final word. P values have attracted a lot of debate over the years. They are often misunderstood and people often read too much into them. They have also been used in a too simplistic way as a yardstic to decide what research findings are “worthy”. It is important to know what they are and how they work. It is particularly important not to overinterpret them either. The term statistical <strong>significance</strong> is particularly misleading because in common usage we think of something significant as important. But in our context is basically equivalent to say that we have observed in our sample/study may not be noise. That’ts it. You will find all sorts of reactions to p values. Some people think we should ban them and use alternative approaches to data analysis (like Bayesian statistics). Others think that we should use more stringent thresholds (like p values below .01 or .001). Yet most scientists still rely on them, so it is important that you learn what they are, their limitations, and how to interpret them in a correct manner.</p>
 </div>
-<div id="comparing-means-across-two-groups-the-t-test" class="section level2" number="6.2">
-<h2><span class="header-section-number">6.2</span> Comparing means across two groups (the t test)</h2>
+<div id="comparing-means-across-two-groups-the-t-test" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Comparing means across two groups (the t test)<a href="hypotheses.html#comparing-means-across-two-groups-the-t-test" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s elaborate with our example. Our research question is whether women are more afraid of crime. We are going to test a non-directional hypothesis and use an alpha level of .05. The test we use in this case is the t test, which relies in the t Student distribution introduced last week. This test makes a number of assumptions that we need to check first.</p>
 <p>This t test makes a number of assumptions:</p>
 <ol style="list-style-type: decimal">
@@ -365,7 +367,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## data:  tcviolent by sex
 ## t = 29.114, df = 8398.3, p-value &lt; 2.2e-16
-## alternative hypothesis: true difference in means is not equal to 0
+## alternative hypothesis: true difference in means between group female and group male is not equal to 0
 ## 95 percent confidence interval:
 ##  0.5614656 0.6425300
 ## sample estimates:
@@ -376,8 +378,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Farther to the right you see a value for p, this gives the probability associated with observing the difference in our sample if the null hypothesis were true. This value is 2.2e-16. If you are not used to this notation essentially what it means is that you need to move the decimal point 16 times to the left. In other words, the p value here is very close to 0 and therefore we can reject the null hypothesis that the difference in the population is 0. The observed difference in this sample would have been rather implausible if the null hypothesis were true. Therefore, here we would argue that our evidence suggests that we can reject the null hypothesis. We can say that there is a <strong>statistically significant</strong> difference between fear of violent crime for men and women in England and Wales.</p>
 <p>It is important you remember this: <strong>the p value is not the probability that the null hypothesis is true</strong>. Imagine that our p value was 0.04. As tempting as it may be to say that a p value of 0.04 means there is a 4% chance that the null hypothesis is true, that just isn’t right. The only thing that we are in a position to state is: given the null hypothesis, there is a 4% chance of observing the difference that we have actually observed (or one more unlikely).</p>
 </div>
-<div id="what-does-a-significant-effect-mean" class="section level2" number="6.3">
-<h2><span class="header-section-number">6.3</span> What does a significant effect mean?</h2>
+<div id="what-does-a-significant-effect-mean" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> What does a significant effect mean?<a href="hypotheses.html#what-does-a-significant-effect-mean" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Before we said that the difference between the mean score of fear of violent crime for males and females is statistically significant. It is of critical importance that you understand what this actually means. Unfortunately, in this context significance does not quite have the same meaning that we give it in normal language.</p>
 <p>When in normal language we say that something is significant we mean to say that it is important. When in statistics we say that something is statistically significant <em>we don’t mean to say that it is important</em>. All it means is that, if we trust our data and methods, we are in a position to reject the null hypothesis with the threshold (alpha level) that we specified (0.05) a priori. It is something much more specific as you can see. Basically all we are saying is that we are willing to reject the null hypothesis that there is whatsoever no difference (or relationship) in the population.</p>
 <p>However, rejecting the null hypothesis is, very often, not terribly “important” in a practical or theoretical sense. Think about our example. All we can say as a result of our t test here is that in the population on average the difference between fear of violent crime for males and females is likely to be different from zero. That’s all! The null hypothesis, in this sense, is almost invariably known to be untrue even before you do your study! Is that significant in the normal sense (i.e., important)? Is a difference of -0.6 in these scores important? The fact this variable uses an artificial metric makes it even more difficult to evaluate.</p>
@@ -406,8 +408,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p class="caption">Errors</p>
 </div>
 </div>
-<div id="power-analysis" class="section level2" number="6.4">
-<h2><span class="header-section-number">6.4</span> Power analysis</h2>
+<div id="power-analysis" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Power analysis<a href="hypotheses.html#power-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In this section we introduce the <code>pwr</code> package for power analysis. In the video lectures you had to watch as preparation for today we introduced the notion of power analysis. In order for a statistical test to be able to be effective, to be able to detect an effect, you need to have sufficient power. Power is related to the magnitude of the effect (it will be easier to detect stronger rather than weaker effects) and sample size (it will be easier to detect effects with large samples than with small samples). A problem with many scientific studies is that they are <em>underpowered</em>, the fail to reject the null hypothesis simply because they do not have sufficient power (often because the sample size is not large enough). Power analysis is generally done during the planning of an analysis so that you know what kind of sample you are going to need if you want to be able to run meaningfull hypothesis tests. That is you do your power analysis before you collect your data.</p>
 <p>But we can also check how much power we have after the fact, just to ensure we are not failing to reject the null hypothesis as a consequence of insufficient power. For this purposes we can use the <code>pwr</code> package. For computing the power when comparing two sample means we use the <code>pwr.t2n.test</code> function. This function expects we provide the sample size of each group (if we are doing the power calculation after we have collated our data) and the effect size we may want to be able to detect. Let’s see how many people we have in each of our two groups (male and females) when assessing differences in fear of violent crime.</p>
 <div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="hypotheses.html#cb427-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span></code></pre></div>
@@ -444,10 +446,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The function is telling us that we have a power of 1. The statistical power ranges from 0 to 1, and as statistical power increases, the probability of making a type II error (wrongly failing to reject the null) decreases. So with a power of 1 we are very unlikely indeed to failing to reject the null hypothesis when we should.</p>
 <p>With sample sizes this large, you are unlikely to run into problems with power. But these things do matter in particular applications. Think for example of cases when you are trying to evaluate if a particular criminal justice intervention works. If you work with small samples you may wrongly conclude that your intervention didn’t make a difference (you fail to reject the null hypothesis) because you did not have sufficient statistical power. This was a common problem in older studies (see <a href="https://www.sciencedirect.com/science/article/pii/0047235289900044">here</a> for a review) and it is a problem that still persist to some extent (read <a href="https://www.tandfonline.com/doi/abs/10.1080/07418825.2018.1495252">this</a> more recent review).</p>
 </div>
-<div id="comparing-means-across-several-groups-anova" class="section level2" number="6.5">
-<h2><span class="header-section-number">6.5</span> Comparing means across several groups (ANOVA)</h2>
-<div id="the-problem-with-multiple-comparisons" class="section level3" number="6.5.1">
-<h3><span class="header-section-number">6.5.1</span> The problem with multiple comparisons</h3>
+<div id="comparing-means-across-several-groups-anova" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> Comparing means across several groups (ANOVA)<a href="hypotheses.html#comparing-means-across-several-groups-anova" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="the-problem-with-multiple-comparisons" class="section level3 hasAnchor" number="6.5.1">
+<h3><span class="header-section-number">6.5.1</span> The problem with multiple comparisons<a href="hypotheses.html#the-problem-with-multiple-comparisons" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We have used the t test to assess differences in a metric variable across two groups defined by a categorical variable. As we have explained during the class, if you are interested in comparing across more than two groups then you cannot run multiple t tests. Why? Because we would run into the problem of <a href="http://en.wikipedia.org/wiki/Multiple_comparisons_problem"><strong>multiple comparisons</strong></a> illustrated below:</p>
 <div class="figure">
 <img src="http://imgs.xkcd.com/comics/significant.png" alt="" />
@@ -507,8 +509,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="06-hypothesis_testing_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>When you only have two groups you can use these graphs (error bars displaying confidence intervals) in a way equivalent to the way that you use a t test, but when you have multiple groups you need to think about the problem of multiple comparisons.</p>
 </div>
-<div id="anova" class="section level3" number="6.5.2">
-<h3><span class="header-section-number">6.5.2</span> ANOVA</h3>
+<div id="anova" class="section level3 hasAnchor" number="6.5.2">
+<h3><span class="header-section-number">6.5.2</span> ANOVA<a href="hypotheses.html#anova" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>So, again, we see some differences in means. Are these differences statistically significant? In other words, can we infer that they exist in the population from which the sample was drawn? For this we can run ANOVA and an F test.</p>
 <p>How does this test work? We run ANOVA because we want to decide if the sample means are different enough for us to be able to reject the null hypothesis that they are different in the population. Clearly, if they are very different between themselves in the sample we will be in a stronger position to do this. That should be clear: if you want to talk abut differences in the population observing big differences across the means in the sample gets you closer to that.</p>
 <p>What ANOVA does is to contrast the variability between the groups with the variability within the groups to produce a ratio: (Variability between the groups)/(Variability within the groups). If there is more variability between the groups than within the groups the more confidence we can have in a conclusion that the population means are not equal. Likewise, if there is more variation within the groups than between the groups, we will be in weaker ground to conclude that the population means are different. This <a href="https://www.youtube.com/watch?v=ITf4vHhyGpc">short video</a> explains it with an example.</p>
@@ -529,8 +531,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 + <strong>Equal variance assumption</strong> (also called the lovely names of homogeneity of variance or homoskedasticity): to check this assumption you need to check that the groups have similar variances (we’ll discuss this in greater length next). But it is important you know statisticians have discussed the degree to which this assumption matters, or in other words to what degree ANOVA is <em>robust</em> to violations of this assumptions. Is ANOVA robust (will give us results we can trust) when this assumption is violated? Andy Field and his co-authors (2012) discuss this at length in page 413. His view is that “when sample sizes are unequal, ANOVA is not robust to violations of homogeneity of variance” and we should proceed accordingly.
 + <strong>Normal population assumption</strong>: like the t test, we need to assume that the normal model is reasonable for the populations underlying each of the treatment groups.</p>
 </div>
-<div id="checking-homogeneity-of-variance-and-dealing-with-unequal-spread" class="section level3" number="6.5.3">
-<h3><span class="header-section-number">6.5.3</span> Checking homogeneity of variance and dealing with unequal spread</h3>
+<div id="checking-homogeneity-of-variance-and-dealing-with-unequal-spread" class="section level3 hasAnchor" number="6.5.3">
+<h3><span class="header-section-number">6.5.3</span> Checking homogeneity of variance and dealing with unequal spread<a href="hypotheses.html#checking-homogeneity-of-variance-and-dealing-with-unequal-spread" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s start by discussing why we care about the spread of the groups. Remember that ANOVA contrasts variability between the groups with variability within each group. If the variability within the groups varies, we are making this pooled variance larger, reducing the F statistic, and making it less likely that we can reject the null hypothesis. So when you have this problem, the ANOVA test will usually be a conservative test that will reject your null hypothesis less often than it should.</p>
 <p>Look at the boxplots we produced. Does it look as if the spreads change systematically with the centres? Do the boxes with the bigger centres also have the wider spread? This sort of systematic trend may be more concerning than random differences in spread across the groups.</p>
 <p>We can also run a test that will check the homogeneity of variance. This is the <a href="http://en.wikipedia.org/wiki/Levene&#39;s_test">Levene Test</a>. We can run this test with the <code>leveneTest()</code> function of the <code>car</code> package.</p>
@@ -561,8 +563,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## F = 46.663, num df = 4.00, denom df = 155.14, p-value &lt; 2.2e-16</code></pre>
 <p>In this case, the substantive conclusion is unsurprisingly the same. You reject the null hypothesis given the low p value associated with the observed F value.</p>
 </div>
-<div id="checking-normality-and-dealing-with-problems" class="section level3" number="6.5.4">
-<h3><span class="header-section-number">6.5.4</span> Checking normality and dealing with problems</h3>
+<div id="checking-normality-and-dealing-with-problems" class="section level3 hasAnchor" number="6.5.4">
+<h3><span class="header-section-number">6.5.4</span> Checking normality and dealing with problems<a href="hypotheses.html#checking-normality-and-dealing-with-problems" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The F tests require the underlying errors to follow a Normal model. Stricto sensu, we need to check the Normal model is reasonable for the population underlying each group. We should start by looking at the side-by-side boxplots for indications of skewness. If they are all or most skewed in the same direction, the normal condition will fail. We also need to look at outliers within each group (particularly with smaller samples). You may also find it useful to compare the density estimates.</p>
 <div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="hypotheses.html#cb451-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">na.omit</span>(BCS0708[,<span class="fu">c</span>(<span class="st">&quot;ethgrp2&quot;</span>, <span class="st">&quot;tcviolent&quot;</span>)]), <span class="fu">aes</span>(<span class="at">x =</span> tcviolent, <span class="at">fill =</span> ethgrp2)) <span class="sc">+</span> </span>
 <span id="cb451-2"><a href="hypotheses.html#cb451-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> .<span class="dv">3</span>)</span></code></pre></div>
@@ -628,8 +630,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>As we said the normal probability plots using this function display a (red) straight line (which is how a normally distributed probability should look like in these plots) and then the dots (on black here) showing the actual distribution of data. You can see that the variable in which we took the 0.5 power of fear of crime (the first plotted) is a bit closer to the straight red line, but still showing some departure from normality.</p>
 <p>If we were happy with our transformations we could then run ANOVA as if the data was normal, only instead of comparing means on fear of violence we would be comparing means on whatever transformation we have made, scores of fear of crime raised to the 0.5 power (which to many mortals may sound rather obscure).</p>
 </div>
-<div id="robust-anova" class="section level3" number="6.5.5">
-<h3><span class="header-section-number">6.5.5</span> Robust ANOVA</h3>
+<div id="robust-anova" class="section level3 hasAnchor" number="6.5.5">
+<h3><span class="header-section-number">6.5.5</span> Robust ANOVA<a href="hypotheses.html#robust-anova" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Wilcox (2005) describes a set of procedures for conducting robust ANOVA: ways of doing ANOVA when there are problems with its assumptions. When everything goes completely wrong with the assumptions, you may want to look at these options.</p>
 <p>For this we need to install the package that he has created for implementing these procedures in R.</p>
 <div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="hypotheses.html#cb470-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(WRS2) </span></code></pre></div>
@@ -644,12 +646,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## Test statistic: 45.3591 
 ## p-value: 0 
-## Variance explained: 0.081 
-## Effect size: 0.284</code></pre>
+## Variance explained: 0.082 
+## Effect size: 0.286</code></pre>
 <p>As with the standard ANOVA and the Welch version, we still get a significant result.</p>
 </div>
-<div id="post-hoc-comparisons" class="section level3" number="6.5.6">
-<h3><span class="header-section-number">6.5.6</span> Post Hoc Comparisons</h3>
+<div id="post-hoc-comparisons" class="section level3 hasAnchor" number="6.5.6">
+<h3><span class="header-section-number">6.5.6</span> Post Hoc Comparisons<a href="hypotheses.html#post-hoc-comparisons" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>So we are fairly certain there’s bound to be differences in the level of fear of crime across ethnic groups that may be reflective of those we see in our sample. In our sample (see below) the mean value of fear of violent crime across groups is different. The White group (.00) has the lowest level of fear and the Asian group the highest (.88). With the other groups with levels of fear of crime in between these two extremes: Chinese or Other (.34), Black (.50) and Mixed (.52).</p>
 <p>However, all the ANOVA test (and the Welch’s F test and the robust ANOVA) does is to tell you that there are significant differences across these categories. What it does not do is to tell you which of those differences are significant. In other words, we don’t know if, for example, the apparent difference between fear of crime for the White and the Chinese group is significant or not. We know that some of these differences are significant but we don’t know which ones. We can however run post hoc (after the fact) comparisons that would give us answers to these -although this would only make sense if the ANOVA (or equivalent) test has already detected some differences.</p>
 <p>There are different methods that have been proposed for doing post hoc multiple comparisons (see Field et al 2012 discussion in page 428-432). All of these methods try to take into account the problem of multiple comparisons and the way they modify the probability of finding a significant result, but they do it in a different way. Field et al. (2012) also explain how to compute a few different ones in pp. 447-451. I’m just going to illustrate one of these methods (Bonferroni adjustment) and you can learn about the others from Field et al. (2012).</p>
@@ -680,8 +682,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>And we can say that the Chinese/Other has more fear than the White group and less than the Asian but does not seem different from the mixed group or the Black.</p></li>
 </ul>
 </div>
-<div id="effect-size-for-anova" class="section level3" number="6.5.7">
-<h3><span class="header-section-number">6.5.7</span> Effect size for ANOVA</h3>
+<div id="effect-size-for-anova" class="section level3 hasAnchor" number="6.5.7">
+<h3><span class="header-section-number">6.5.7</span> Effect size for ANOVA<a href="hypotheses.html#effect-size-for-anova" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You can use the following programming code to get what is called as eta squared:</p>
 <div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="hypotheses.html#cb475-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(fearmodel<span class="fl">.1</span>) </span></code></pre></div>
 <pre><code>## 
@@ -712,7 +714,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="hypotheses.html#cb477-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lessR)</span>
 <span id="cb477-2"><a href="hypotheses.html#cb477-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ANOVA</span>(tcviolent <span class="sc">~</span> ethgrp2, <span class="at">data =</span> BCS0708, <span class="at">brief=</span><span class="cn">TRUE</span>) <span class="co">#The brief argument set to TRUE excludes pairwise comparisons and extra text from being printed.</span></span></code></pre></div>
 <p><img src="06-hypothesis_testing_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
-<pre><code>##   BACKGROUND
+<pre><code>##   BACKGROUND 
 ## 
 ## Response Variable: tcviolent 
 ##  
@@ -722,8 +724,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Number of cases (rows) of data:  11676 
 ## Number of cases retained for analysis:  8433 
 ## 
-## 
-##   DESCRIPTIVE STATISTICS 
+##   DESCRIPTIVE STATISTICS  
 ## 
 ##                            n            mean              sd              min             max 
 ## asian or asian british   283   0.88175663803   1.16668811073   -2.07022309303   3.31529736519 
@@ -734,13 +735,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  
 ## Grand Mean: 0.045530510071 
 ## 
-## 
-##   BASIC ANALYSIS
+##   BASIC ANALYSIS 
 ## 
 ##                      df            Sum Sq         Mean Sq         F-value   p-value 
 ## ethgrp2               4   252.83066055375  63.20766513844 64.54270257531    0.0000 
 ## Residuals          8428  8253.67052402441   0.97931543949 
-## 
 ## 
 ## R Squared: 0.03 
 ## R Sq Adjusted: 0.03 
@@ -748,8 +747,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  
 ## Cohen&#39;s f: 0.17 
 ## 
-## 
-##   TUKEY MULTIPLE COMPARISONS OF MEANS
+##   TUKEY MULTIPLE COMPARISONS OF MEANS 
 ## 
 ##   RESIDUALS</code></pre>
 <p>You will see this implementation of ANOVA apart from also printing the R Squared also gives you Omega Squared. Omega Squared is particularly helpful with smaller samples. You will also see with this function (although not printed here) a nicely labelled residual plot to assist interpretation of equal spread.</p>
@@ -789,7 +787,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -829,6 +826,10 @@ gitbook.start({
 "text": null
 },
 "download": ["book.pdf", "book.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
