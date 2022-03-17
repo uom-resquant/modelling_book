@@ -227,23 +227,23 @@ Notice that R is telling us that the minimum expected frequency is 41.68. Why? T
 
 
 ```r
-with(BCS0708, fisher.test(rubbcomm, bcsvictim))
+fisher.test(BCS0708$rubbcomm, BCS0708$bcsvictim)
 ```
 
-You will most likely get an error message telling you to increase the size of the workspace. When this happens you may try following the recommendation provided (increasing the size of the workspace for the calculation) and using a hybrid approximation of the exact probabilities.
+You will most likely get an error message telling you to increase the size of the workspace. When this happens you may try following the recommendation provided (consider using 'simulate.p.value=TRUE'): 
 
 
 ```r
-fisher.test(BCS0708$rubbcomm, BCS0708$bcsvictim, workspace = 2e+07, hybrid = TRUE)
+fisher.test(BCS0708$rubbcomm, BCS0708$bcsvictim, simulate.p.value=TRUE)
 ```
 
 ```
 ## 
-## 	Fisher's Exact Test for Count Data hybrid using asym.chisq. iff
-## 	(exp=5, perc=80, Emin=1)
+## 	Fisher's Exact Test for Count Data with simulated p-value (based on
+## 	2000 replicates)
 ## 
 ## data:  BCS0708$rubbcomm and BCS0708$bcsvictim
-## p-value < 2.2e-16
+## p-value = 0.0004998
 ## alternative hypothesis: two.sided
 ```
 
