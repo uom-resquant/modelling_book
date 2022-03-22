@@ -65,8 +65,6 @@ This can sound a bit confusing now. But as long as you remember the first rule w
 
 The second rule for reading cross tabulations the right way is this: **you make the comparisons across the right percentages (see first rule) in the direction where they do not add up to a hundred**. Another way of saying this is that you compare the percentages for each level of your dependent variable across the levels of your independent variable. In this case we would, for example, compare what percentage of people who perceive rubbish as common in their area are victims of crime. We focus in the second column here (being victim of a crime) because typically that's what we want to study, this is our outcome of interest (e.g., victimisation). We can see rubbish seems to matter a bit. For example, 30.88% of people who live in areas where rubbish is very common have been victimised. By contrast only 15.54% of people who live in areas where rubbish is not at all common have been victimised in the previous year.
 
-If this is confusing you may enjoy this [online tutorial](http://sonet.nottingham.ac.uk/rlos/ucel/cross_tab_data/main.html) on cross-tabulations looking at cause of mortality for music stars. Cross tabs are very commonly used, so it is important you understand well how they work.
-
 ## Expected frequencies and Chi-Square
 
 So far we are only describing our sample. Can we infer that these differences that we observe in this sample can be generalised to the population from which this sample was drawn? Every time you draw a sample from the same population the results will be slightly different, we will have a different combination of people in these cells. 
