@@ -57,7 +57,7 @@ To avoid confusion when looking at the table, you could as well modify the code 
 with(BCS0708, CrossTable(rubbcomm, bcsvictim, prop.chisq=FALSE, prop.c=FALSE, prop.t=FALSE, format=c("SPSS")))
 ```
 
-Much less cluttered. Now we only see in the counts and the row percentages. **Marginal frequencies** appear along the right and the bottom. *Row marginals* show the total number of cases in each row: 204 people perceive rubbish as very common in the area they're living in areas where , 1244 perceive rubbish is fairly common in their area, etc. *Column marginals* indicate the total number of cases in each column: 9318 non-victims and 2358 victims.
+Much less cluttered. Now we only see in the counts and the row percentages. **Marginal frequencies** appear along the right and the bottom. *Row marginals* show the total number of cases in each row: 204 people perceive rubbish as very common in the area they're living in areas where , 1244 perceive rubbish is fairly common in their area, etc. *Column marginals* indicate the total number of cases in each column: 8804 non-victims and 2261 victims.
 
 In the central cells we see the total number for each combination of categories and now only the row percentage. So the total in each of those cells is expressed as the percentage of cases in that row. So, for example, 63 people who perceive rubbish as very common in their area who are a victim of a crime represent 30.88%% of all people in that row (n=204). If we had asked for the column percentages the 63 people who live in areas where rubbish is very common and are victims would be divided by the 2261 victim people in the study. *Changing the denominator when computing the percentage changes the meaning of the percentage*.
 
