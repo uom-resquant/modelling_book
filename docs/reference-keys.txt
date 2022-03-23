@@ -95,6 +95,7 @@ motivating-multiple-regression
 fitting-and-interpreting-a-multiple-regression-model
 presenting-your-regression-results.
 testing-conditional-hypothesis-interactions
+regression-assumptions
 model-building-and-variable-selection
 logistic-regression
 introduction-3
