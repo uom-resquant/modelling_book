@@ -94,7 +94,6 @@ As you can see is skewed. Violence is our target variable, the one we want to be
 
 
 ```r
-library(ggplot2)
 ggplot(df, aes(x = log_viol_r)) +
   geom_histogram()
 ```
@@ -197,6 +196,96 @@ The linear model then is a model that takes the form of the equation of a straig
 <img src="08-regression_new_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
 As De Veaux et al (2012: 179) highlight: "like all models of the real world, the line will be wrong, wrong in the sense that it can't match reality exactly. But it can help us understand how the variables are associated". A map is never a perfect representation of the world, the same happens with statistical models. Yet, as with maps, models can be helpful.
+
+
+### Correlation analysis
+
+One thing we can do to try to quantify this relationship is correlation analysis. Have a watch of the correlation video in this week's learning materials to see me explain about correlation in greater detail. Essentially what we can do is evaluate the relationship between two numeric variables. The result is a correlation coefficient, which tells you about the *size* and *direction* of the relationship. This is a measure of effect size in this case. You also get a p-value, which tells you the probability to observe these results given that the null hypothesis is true - we can use this to determine whether or not we can generalise a relationship from our sample to the population. 
+
+
+Since we have two numeric variables which we have seen above have a linear relationship, we conduct a **Pearson’s correlation** test. We use the `cor.test()` function to conduct a Pearson’s correlation:
+
+
+
+```r
+cor.test(~log_viol_r + unemployed, data = df, method = "pearson", conf.level = 0.95)
+```
+
+```
+## 
+## 	Pearson's product-moment correlation
+## 
+## data:  log_viol_r and unemployed
+## t = 10.3, df = 262, p-value < 2.2e-16
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.4449525 0.6175447
+## sample estimates:
+##       cor 
+## 0.5368416
+```
+
+
+We see a positive correlation of 0.54. The coefficient is also an indication of the strength of the relationship. According to Jacob Cohen (1988), he suggested that within the social sciences, a correlation of 0.10 may be defined as a small relationship; a correlation of 0.30, a moderate relationship; and a correlation of 0.50, a large relationship.
+
+As our relationship was linear and our results are statistically significant, we reject the null hypothesis. We conclude that the higher the level of unemployment, the higher the rate of violence - this relationship can be generalisable to the population of US cities.
+
+There are some assumptions to the pearson correlation test, as there are assumptions to other tests we've covered before. These are: 
+
+
+- **level of measurement:** Pearson correlation assumes that both variables are numeric. 
+- **paired observations:** Each observation (row) should have measures on both your variables (e.g. for each cities we should have information about both crime rate and unemployment rate, and these should be in pairs of observations of the same cities)
+- **absence of outliers:** Pearson correlation test is sensitive to outliers, which will skew your results. 
+- **linearity:** Pearson correlation assumes a linear relationship between your two outcomes (e.g. as one goes up the other goes down, or as one goes down the other goes also down, and that this is constant for all values of the variables). For example, if we want to explain offending by age, the age-crime-curve would violate this linearity assumption. 
+
+
+What can you do if the assumptions are violated? If it's linearity assumption that's violated, it's likely you need a different test alltogether. For outliers, you could consider to identify and eliminate outliers. But for level of measurement, there are some other options. Specifically, two other tests, the **Kendall’s tau** or **Spearman’s rho** (or correlation), nonparametric versions of Pearson’s correlation. They both look at ranking, and so are appropriate to use with *ordinal* data. When to use which one? One tip: Kendall’s tau is more accurate when you have a small sample size compared to Spearman’s rho. 
+
+So how can you do this in R? Remember our equation for Pearson correlation above? In the `cor.test()` function, we specified the `method` parameter: `method = "pearson"`. To use a different method (such as Kendall or Spearman) you simply change this value: 
+
+
+```r
+# Conducting a Kendall
+cor.test(~ log_viol_r + unemployed, data=df, method = "kendall", conf.level = 0.95)
+```
+
+```
+## 
+## 	Kendall's rank correlation tau
+## 
+## data:  log_viol_r and unemployed
+## z = 8.6243, p-value < 2.2e-16
+## alternative hypothesis: true tau is not equal to 0
+## sample estimates:
+##       tau 
+## 0.3562149
+```
+
+```r
+# Conducting a Spearman
+cor.test(~ log_viol_r + unemployed, data=df, method = "spearman", conf.level = 0.95)
+```
+
+```
+## Warning in cor.test.default(x = c(7.2830276, 6.79316, 6.478019, 5.949461, :
+## Cannot compute exact p-value with ties
+```
+
+```
+## 
+## 	Spearman's rank correlation rho
+## 
+## data:  log_viol_r and unemployed
+## S = 1504428, p-value < 2.2e-16
+## alternative hypothesis: true rho is not equal to 0
+## sample estimates:
+##       rho 
+## 0.5094116
+```
+
+
+While correlation can give you some insight into the covariance of your varaibles, regression is better used to understand these relationships. So we move on to this now. 
+
 
 ## Fitting a simple regression model
 
@@ -473,7 +562,7 @@ fit_2 <- lm(log_viol_r ~ largest50, data=df)
 
 Notice that there is nothing different in how we ask for the model. And see below the regression line:
 
-<img src="08-regression_new_files/figure-html/unnamed-chunk-24-1.png" width="672" />
+<img src="08-regression_new_files/figure-html/unnamed-chunk-26-1.png" width="672" />
 
 Although in the plot we still see a line, what we are really estimating here is the average of *log_viol_r* for each of the two categories. 
 
@@ -631,6 +720,10 @@ We are going to use instead the `plot_model()` function of the `sjPlot` package,
 library(sjPlot)
 ```
 
+```
+## Learn more about sjPlot with 'browseVignettes("sjPlot")'.
+```
+
 Let's try with a more complex example:
 
 
@@ -639,7 +732,7 @@ fit_4 <- lm(log_viol_r ~ unemployed + largest50 + black + fborn + log_incarcerat
 plot_model(fit_4)
 ```
 
-<img src="08-regression_new_files/figure-html/unnamed-chunk-30-1.png" width="672" />
+<img src="08-regression_new_files/figure-html/unnamed-chunk-32-1.png" width="672" />
 
 <!-- Be advised to use these plots judiciously. There may be other sort of plots that may be [more appropriate](http://www.carlislerainey.com/2012/07/06/why-i-dont-like-coefficient-plots/) for what you want to communicate to your audience than the coefficient plot.-->
 
@@ -650,7 +743,7 @@ You can further customise this:
 plot_model(fit_4, title="Violence across cities")
 ```
 
-<img src="08-regression_new_files/figure-html/unnamed-chunk-31-1.png" width="672" />
+<img src="08-regression_new_files/figure-html/unnamed-chunk-33-1.png" width="672" />
 
 What you see plotted here is the point estimates (the circles), the confidence intervals around those estimates (the longer the line the less precise the estimate), and the colours represent whether the effect is negative (red) or positive (blue). There are other packages that also provide similar functionality, like the `dotwhisker` package that you may want to explore, see more details [here](https://cran.r-project.org/web/packages/dotwhisker/vignettes/dotwhisker-vignette.html).
 
@@ -869,7 +962,7 @@ library(effects)
 plot(allEffects(fit_3), ask=FALSE)
 ```
 
-<img src="08-regression_new_files/figure-html/unnamed-chunk-35-1.png" width="672" />
+<img src="08-regression_new_files/figure-html/unnamed-chunk-37-1.png" width="672" />
 
 Notice that the line has a confidence interval drawn around it (to reflect the likely impact of sampling variation) and that the predicted means for smaller and largest cities (when controlling for unemployment) also have a confidence interval.
 
@@ -989,7 +1082,7 @@ In this case the test for the interaction effect is non-significant, which sugge
 plot(allEffects(fit_5), ask=FALSE)
 ```
 
-<img src="08-regression_new_files/figure-html/unnamed-chunk-39-1.png" width="672" />
+<img src="08-regression_new_files/figure-html/unnamed-chunk-41-1.png" width="672" />
 
 Notice that essentially what we are doing is running two regression lines and testing whether the slope is different for the two groups. The intercept is different, we know that largest cities are more violent, but what we are testing here is whether violence goes up in a steeper fashion (and in the same direction) for one or the other group as unemployment goes up. We see that's not the case here. The estimated lines are almost parallel.
 

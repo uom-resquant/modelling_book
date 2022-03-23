@@ -57,7 +57,6 @@ ggplot(df, aes(x = viol_r)) +
 As you can see is skewed. Violence is our target variable, the one we want to better understand. You may remember from when we cover ANOVA that some times we have to make transformations to variables so that the assumptions of the models we use are better respected. We will discuss this a bit in greater depth later. For now, just trust us in that rather than using *viol_r* we are going to use the logarithmic transformation of the violence rate, *log_viol_r*.
 
 ```{r, message=FALSE}
-library(ggplot2)
 ggplot(df, aes(x = log_viol_r)) +
   geom_histogram()
 ```
@@ -141,6 +140,54 @@ ggplot() +
 ```
 
 As De Veaux et al (2012: 179) highlight: "like all models of the real world, the line will be wrong, wrong in the sense that it can't match reality exactly. But it can help us understand how the variables are associated". A map is never a perfect representation of the world, the same happens with statistical models. Yet, as with maps, models can be helpful.
+
+
+### Correlation analysis
+
+One thing we can do to try to quantify this relationship is correlation analysis. Have a watch of the correlation video in this week's learning materials to see me explain about correlation in greater detail. Essentially what we can do is evaluate the relationship between two numeric variables. The result is a correlation coefficient, which tells you about the *size* and *direction* of the relationship. This is a measure of effect size in this case. You also get a p-value, which tells you the probability to observe these results given that the null hypothesis is true - we can use this to determine whether or not we can generalise a relationship from our sample to the population. 
+
+
+Since we have two numeric variables which we have seen above have a linear relationship, we conduct a **Pearson’s correlation** test. We use the `cor.test()` function to conduct a Pearson’s correlation:
+
+
+```{r}
+
+cor.test(~log_viol_r + unemployed, data = df, method = "pearson", conf.level = 0.95)
+
+
+```
+
+
+We see a positive correlation of 0.54. The coefficient is also an indication of the strength of the relationship. According to Jacob Cohen (1988), he suggested that within the social sciences, a correlation of 0.10 may be defined as a small relationship; a correlation of 0.30, a moderate relationship; and a correlation of 0.50, a large relationship.
+
+As our relationship was linear and our results are statistically significant, we reject the null hypothesis. We conclude that the higher the level of unemployment, the higher the rate of violence - this relationship can be generalisable to the population of US cities.
+
+There are some assumptions to the pearson correlation test, as there are assumptions to other tests we've covered before. These are: 
+
+
+- **level of measurement:** Pearson correlation assumes that both variables are numeric. 
+- **paired observations:** Each observation (row) should have measures on both your variables (e.g. for each cities we should have information about both crime rate and unemployment rate, and these should be in pairs of observations of the same cities)
+- **absence of outliers:** Pearson correlation test is sensitive to outliers, which will skew your results. 
+- **linearity:** Pearson correlation assumes a linear relationship between your two outcomes (e.g. as one goes up the other goes down, or as one goes down the other goes also down, and that this is constant for all values of the variables). For example, if we want to explain offending by age, the age-crime-curve would violate this linearity assumption. 
+
+
+What can you do if the assumptions are violated? If it's linearity assumption that's violated, it's likely you need a different test alltogether. For outliers, you could consider to identify and eliminate outliers. But for level of measurement, there are some other options. Specifically, two other tests, the **Kendall’s tau** or **Spearman’s rho** (or correlation), nonparametric versions of Pearson’s correlation. They both look at ranking, and so are appropriate to use with *ordinal* data. When to use which one? One tip: Kendall’s tau is more accurate when you have a small sample size compared to Spearman’s rho. 
+
+So how can you do this in R? Remember our equation for Pearson correlation above? In the `cor.test()` function, we specified the `method` parameter: `method = "pearson"`. To use a different method (such as Kendall or Spearman) you simply change this value: 
+
+```{r}
+
+# Conducting a Kendall
+cor.test(~ log_viol_r + unemployed, data=df, method = "kendall", conf.level = 0.95)
+
+# Conducting a Spearman
+cor.test(~ log_viol_r + unemployed, data=df, method = "spearman", conf.level = 0.95)
+
+```
+
+
+While correlation can give you some insight into the covariance of your varaibles, regression is better used to understand these relationships. So we move on to this now. 
+
 
 ## Fitting a simple regression model
 

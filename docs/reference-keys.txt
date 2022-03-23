@@ -86,6 +86,7 @@ odds-and-odd-ratios
 an-introduction-to-regression
 introduction-models-in-scientific-research
 motivating-regression
+correlation-analysis
 fitting-a-simple-regression-model
 residuals-revisited-r-squared
 inference-with-regression
