@@ -76,7 +76,26 @@ with(BCS0708, CrossTable(rubbcomm, bcsvictim, prop.chisq = FALSE, format = c("SP
 
 The cells for the central two columns represent the total number of cases in each category, the **row percentages**, the **column percentages**, and the **total percentages**. So you have, for example, 63 people in the category "rubbish is very common" that were victims of a crime, this represents 30.88% of all the people in the "rubbish is very common" category (your row percent), 2.79% of all the people in the "victim of a crime" category (your column percent), and 0.57% of all the people in the sample.
 
-Notice that although "rubbcomm" is an ordinal variable, the order in which it gets printed does not make logical sense. We can check the order of the encoding using the `levels()` function.
+Let's check the level of measurement of the "rubbcomm" variable with the `class()` function:
+
+
+```r
+class(BCS0708$rubbcomm)
+```
+
+```
+## [1] "character"
+```
+
+It is categorical, we know, but note that R consdiers this "character" rather than "factor" which is what we would like. To make sure that R knows this is a factor, we can convert it with the `as.factor()` function. PAY ATTENTION: we are *not* recoding, so we use `as.factor()` with a dot (as.dot.factor), and we are **not using** the `as_factor()` from the haven package which we would use to recode if this were a .dta file (it's not!). 
+
+
+
+```r
+BCS0708$rubbcomm <- as.factor(BCS0708$rubbcomm)
+```
+
+Now in the table above, we notice that although "rubbcomm" is an ordinal variable, the order in which it gets printed does not make logical sense. We can check the order of the encoding using the `levels()` function.
 
 
 ```r
@@ -84,7 +103,8 @@ levels(BCS0708$rubbcomm)
 ```
 
 ```
-## NULL
+## [1] "fairly common"     "not at all common" "not very common"  
+## [4] "very common"
 ```
 
 As we can see the order makes little sense. We should reorder the factor levels to make them follow a logical order. There are multiple ways of doing this, some of which we have already seen. This is one possible way of doing it.
@@ -138,15 +158,13 @@ with(BCS0708, CrossTable(rubbcomm, bcsvictim, prop.chisq=FALSE, prop.c=FALSE, pr
 ## 
 ```
 
-Much less cluttered. Now we only see in the counts and the row percentages. **Marginal frequencies** appear along the right and the bottom. *Row marginals* show the total number of cases in each row: 204 people perceive rubbish as very common in the area they're living in areas where , 1244 perceive rubbish is fairly common in their area, etc. *Column marginals* indicate the total number of cases in each column: 9318 non-victims and 2358 victims.
+Much less cluttered. Now we only see in the counts and the row percentages. **Marginal frequencies** appear along the right and the bottom. *Row marginals* show the total number of cases in each row: 204 people perceive rubbish as very common in the area they're living in areas where , 1244 perceive rubbish is fairly common in their area, etc. *Column marginals* indicate the total number of cases in each column: 8804 non-victims and 2261 victims.
 
 In the central cells we see the total number for each combination of categories and now only the row percentage. So the total in each of those cells is expressed as the percentage of cases in that row. So, for example, 63 people who perceive rubbish as very common in their area who are a victim of a crime represent 30.88%% of all people in that row (n=204). If we had asked for the column percentages the 63 people who live in areas where rubbish is very common and are victims would be divided by the 2261 victim people in the study. *Changing the denominator when computing the percentage changes the meaning of the percentage*.
 
 This can sound a bit confusing now. But as long as you remember the first rule we gave you before you should be fine: if your dependent defines the rows ask for the column percentages, if your dependent defines the columns ask for the row percentages. There are always students that get this wrong in the assignments and loose points as a result. Don't let it be you.
 
 The second rule for reading cross tabulations the right way is this: **you make the comparisons across the right percentages (see first rule) in the direction where they do not add up to a hundred**. Another way of saying this is that you compare the percentages for each level of your dependent variable across the levels of your independent variable. In this case we would, for example, compare what percentage of people who perceive rubbish as common in their area are victims of crime. We focus in the second column here (being victim of a crime) because typically that's what we want to study, this is our outcome of interest (e.g., victimisation). We can see rubbish seems to matter a bit. For example, 30.88% of people who live in areas where rubbish is very common have been victimised. By contrast only 15.54% of people who live in areas where rubbish is not at all common have been victimised in the previous year.
-
-If this is confusing you may enjoy this [online tutorial](http://sonet.nottingham.ac.uk/rlos/ucel/cross_tab_data/main.html) on cross-tabulations looking at cause of mortality for music stars. Cross tabs are very commonly used, so it is important you understand well how they work.
 
 ## Expected frequencies and Chi-Square
 
