@@ -235,7 +235,7 @@ Knowing these two parameters not only allows us to draw the line, we can also so
 
 y = b0 + b1x   
 y = 4.58 + 0.24 (4)  
-y = .1031
+y = 5.526564
 
 Or if you don't want to do the calculation yourself, you can use the `predict` function (differences are due to rounding error):
 
