@@ -144,15 +144,6 @@ I certainly would not go with the overall mean or median as my prediction any mo
 
 If we plot the conditional means we can see that the mean *log_viol_r* for cities that report an unemployment of 9 is around 6.5. So you may be better off guessing that.
 
-
-```
-## Warning: Ignoring unknown parameters: fun.y
-```
-
-```
-## No summary function supplied, defaulting to `mean_se()`
-```
-
 <img src="08-regression_new_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
 Linear regression tackles this problem using a slightly different approach. Rather than focusing on the conditional mean (smoothed or not), it draws a straight line that tries to capture the trend in the data. If we focus in the region of the scatterplot that are less sparse we see that this is an upward trend, suggesting that as the level of unemployment increases so does the level of violent crime. 
@@ -179,19 +170,6 @@ What that line is doing is giving you guesses (predictions) for the values of vi
 Another way of thinking about this line is as the best possible summary of the cloud of points that are represented in the scatterplot (if we can assume that a straight line would do a good job doing this). If I were to tell you to draw a straight line that best represents this pattern of points the regression line would be the one that best does it (if certain assumptions are met).
 
 The linear model then is a model that takes the form of the equation of a straight line through the data. The line does not go through all the points. In fact, you can see is a slightly less accurate representation than the (smoothed) conditional means:
-
-
-```
-## Warning: Ignoring unknown parameters: fun.y
-```
-
-```
-## `geom_smooth()` using formula 'y ~ x'
-```
-
-```
-## No summary function supplied, defaulting to `mean_se()`
-```
 
 <img src="08-regression_new_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
@@ -385,7 +363,7 @@ Knowing these two parameters not only allows us to draw the line, we can also so
 
 y = b0 + b1x   
 y = 4.58 + 0.24 (4)  
-y = .1031
+y = 5.526564
 
 Or if you don't want to do the calculation yourself, you can use the `predict` function (differences are due to rounding error):
 
@@ -405,7 +383,7 @@ This is the expected value of Y, log of the violence rate, when X, unemployment 
 
 In the output when we run the model above we saw there was something called the residuals. The residuals (in regression) are the differences between the observed values of Y for each case minus the predicted or expected value of Y, in other words the distances between each point in the dataset and the regression line (see the visual example below). 
 
-![drawing](http://www.shodor.org/media/M/T/l/mYzliZjY4ZDc0NjI3YWQ3YWVlM2MzZmUzN2MwOWY.jpg)
+![drawing](imgs/residuals.jpg)
 
 You see that we have our line, which is our predicted values, and then we have the black dots which are our actually observed values. The distance between them is essentially the amount by which we were wrong, and all these distances between observed and predicted values are our residuals. **Least square estimation**, the "machine" we use to build the regression line, essentially aims to reduce the squared average of all these distances: that's how it draws the line.
 
@@ -562,6 +540,16 @@ fit_2 <- lm(log_viol_r ~ largest50, data=df)
 
 Notice that there is nothing different in how we ask for the model. And see below the regression line:
 
+
+```r
+ggplot(data=df, aes(x=largest50, y=log_viol_r)) +
+  geom_boxplot() +
+  geom_point(alpha=.5, position = "jitter", color="orange") +
+  geom_abline(intercept = fit_2$coefficients[1],
+    slope = fit_2$coefficients[2], color="red", size=1) +
+  theme_bw()
+```
+
 <img src="08-regression_new_files/figure-html/unnamed-chunk-26-1.png" width="672" />
 
 Although in the plot we still see a line, what we are really estimating here is the average of *log_viol_r* for each of the two categories. 
@@ -621,7 +609,7 @@ mean(df$log_viol_r[df$largest50 == "Yes"], na.rm=TRUE) - mean(df$log_viol_r[df$l
 
 So, to reiterate, for a single binary predictor, the coefficient is nothing else than the difference between the mean of the two levels in your factor variable, between the averages in your two groups.
 
-With categorical variables encoded as **factors** you always have a situation like this: a reference category and then as many additional coefficients as there are additional levels in your categorical variable. Each of these additional categories is input into the model as **"dummy" variables**. Here our categorical variable has two levels, thus we have only one dummy variable. There will always be one fewer dummy variable than the number of levels. The level with no dummy variable, females in this example, is known as the **reference category** or the **baseline**.
+With categorical variables encoded as **factors** you always have a situation like this: a reference category and then as many additional coefficients as there are additional levels in your categorical variable. Each of these additional categories is input into the model as **"dummy" variables**. Here our categorical variable has two levels, thus we have only one dummy variable. There will always be one fewer dummy variable than the number of levels. The level with no dummy variable, “No” (largest50No) in this example, is known as the **reference category** or the **baseline**.
 
 It turns out then that the regression table is printing out for us a t test of statistical significance for every input in the model. If we look at the table above this t value is 5.55 and the p value associated with it is near 0. This is indeed considerably lower than the conventional significance level of 0.05. So we could conclude that the probability of obtaining this value if the null hypothesis is true is very low. However, the observed r squared is also kind of poor. Read [this](http://blog.minitab.com/blog/adventures-in-statistics/how-to-interpret-a-regression-model-with-low-r-squared-and-low-p-values) to understand a bit more this phenomenon of low p, but also low r-squared.
 
@@ -708,7 +696,7 @@ Comparing the simple models with this more complex model we could say that adjus
 
 ## Presenting your regression results.
 
-Communicating your results in a clear manner is incredibly important. We have seen the tabular results produced by R. If you want to use them in a paper you may need to do some tidying up of those results. There are a number of packages (`textreg`, `stargazer`) that automatise that process. They take your `lm` objects and produce tables that you can put straight away in your reports or papers. One popular trend in presenting results is the **coefficient plot** as an alternative to the table of regression coefficients. There are various ways of producing coefficient plots with R for a variety of models. See [here](http://www.carlislerainey.com/2012/06/30/coefficient-plots-in-r/) and [here](http://www.carlislerainey.com/2012/07/03/an-improvement-to-coefficient-plots/), for example.
+Communicating your results in a clear manner is incredibly important. We have seen the tabular results produced by R. If you want to use them in a paper you may need to do some tidying up of those results. There are a number of packages (`textreg`, `stargazer`) that automatise that process. They take your `lm` objects and produce tables that you can put straight away in your reports or papers. One popular trend in presenting results is the **coefficient plot** as an alternative to the table of regression coefficients. There are various ways of producing coefficient plots with R for a variety of models. See [here](https://www.r-statistics.com/2010/07/visualization-of-regression-coefficients-in-r/), for example.
 
 We are going to use instead the `plot_model()` function of the `sjPlot` package, that makes it easier to produce this sort of plots. You can find a more detailed tutorial about this function [here](http://rpubs.com/sjPlot/sjplm). See below for an example:
 
@@ -718,7 +706,7 @@ library(sjPlot)
 ```
 
 ```
-## #refugeeswelcome
+## Learn more about sjPlot with 'browseVignettes("sjPlot")'.
 ```
 
 Let's try with a more complex example:
@@ -1097,9 +1085,9 @@ Essentially what happens is that the regression coefficients that get printed ar
 
 + The coefficient for the interaction term represents the difference in the slope for *unemployed* comparing smaller and largest cities, the difference in the slope of the two lines that we visualised above.
 
-Models with interaction terms are too often misinterpreted. I strongly recommend you read this piece by [Brambor et al (2005)](https://files.nyu.edu/mrg217/public/pa_final.pdf) to understand some of the issues involved. When discussing logistic regression we will return to this and will consider tricks to ease the interpretation.
+Models with interaction terms are too often misinterpreted. I strongly recommend you read this piece by [Brambor et al (2005)](https://www.cambridge.org/core/journals/political-analysis/article/abs/understanding-interaction-models-improving-empirical-analyses/9BA57B3720A303C61EBEC6DDFA40744B) to understand some of the issues involved. When discussing logistic regression we will return to this and will consider tricks to ease the interpretation.
 
-Equally, [John Fox (2003)](http://www.jstatsoft.org/v08/i15/paper) piece on the `effects` package goes to much more detail that we can here to explain the logic and some of the options that are available when producing plots to show interactions with this package. You may also want to have a look at the newer `interactions` package [here](https://interactions.jacob-long.com/index.html).
+Equally, [John Fox (2003)](https://www.jstatsoft.org/article/view/v008i15) piece on the `effects` package goes to much more detail that we can here to explain the logic and some of the options that are available when producing plots to show interactions with this package. You may also want to have a look at the newer `interactions` package [here](https://interactions.jacob-long.com/index.html).
 
 
 ## Regression assumptions 

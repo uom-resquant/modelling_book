@@ -94,7 +94,7 @@ I certainly would not go with the overall mean or median as my prediction any mo
 
 If we plot the conditional means we can see that the mean *log_viol_r* for cities that report an unemployment of 9 is around 6.5. So you may be better off guessing that.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(grid)
 ggplot() +
   geom_point(data=df, aes(x = unemployed, y = log_viol_r), alpha=.2) +
@@ -125,7 +125,7 @@ Another way of thinking about this line is as the best possible summary of the c
 
 The linear model then is a model that takes the form of the equation of a straight line through the data. The line does not go through all the points. In fact, you can see is a slightly less accurate representation than the (smoothed) conditional means:
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 ggplot() +
   geom_point(data = df, aes(x = unemployed, y = log_viol_r),
              alpha = .2, position = "jitter", color ="orange") +
@@ -249,7 +249,7 @@ This is the expected value of Y, log of the violence rate, when X, unemployment 
 
 In the output when we run the model above we saw there was something called the residuals. The residuals (in regression) are the differences between the observed values of Y for each case minus the predicted or expected value of Y, in other words the distances between each point in the dataset and the regression line (see the visual example below). 
 
-![drawing](http://www.shodor.org/media/M/T/l/mYzliZjY4ZDc0NjI3YWQ3YWVlM2MzZmUzN2MwOWY.jpg)
+![drawing](imgs/residuals.jpg)
 
 You see that we have our line, which is our predicted values, and then we have the black dots which are our actually observed values. The distance between them is essentially the amount by which we were wrong, and all these distances between observed and predicted values are our residuals. **Least square estimation**, the "machine" we use to build the regression line, essentially aims to reduce the squared average of all these distances: that's how it draws the line.
 
@@ -348,7 +348,7 @@ fit_2 <- lm(log_viol_r ~ largest50, data=df)
 
 Notice that there is nothing different in how we ask for the model. And see below the regression line:
 
-```{r, echo=FALSE}
+```{r}
 ggplot(data=df, aes(x=largest50, y=log_viol_r)) +
   geom_boxplot() +
   geom_point(alpha=.5, position = "jitter", color="orange") +
@@ -556,9 +556,9 @@ Essentially what happens is that the regression coefficients that get printed ar
 
 + The coefficient for the interaction term represents the difference in the slope for *unemployed* comparing smaller and largest cities, the difference in the slope of the two lines that we visualised above.
 
-Models with interaction terms are too often misinterpreted. I strongly recommend you read this piece by [Brambor et al (2005)](https://files.nyu.edu/mrg217/public/pa_final.pdf) to understand some of the issues involved. When discussing logistic regression we will return to this and will consider tricks to ease the interpretation.
+Models with interaction terms are too often misinterpreted. I strongly recommend you read this piece by [Brambor et al (2005)](https://www.cambridge.org/core/journals/political-analysis/article/abs/understanding-interaction-models-improving-empirical-analyses/9BA57B3720A303C61EBEC6DDFA40744B) to understand some of the issues involved. When discussing logistic regression we will return to this and will consider tricks to ease the interpretation.
 
-Equally, [John Fox (2003)](http://www.jstatsoft.org/v08/i15/paper) piece on the `effects` package goes to much more detail that we can here to explain the logic and some of the options that are available when producing plots to show interactions with this package. You may also want to have a look at the newer `interactions` package [here](https://interactions.jacob-long.com/index.html).
+Equally, [John Fox (2003)](https://www.jstatsoft.org/article/view/v008i15) piece on the `effects` package goes to much more detail that we can here to explain the logic and some of the options that are available when producing plots to show interactions with this package. You may also want to have a look at the newer `interactions` package [here](https://interactions.jacob-long.com/index.html).
 
 
 ## Regression assumptions 
