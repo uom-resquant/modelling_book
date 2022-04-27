@@ -4,32 +4,16 @@
 
 In previous sessions we covered the linear regression model, that you can use when you are modeling variation in a numerical response variable. In this session we are going to introduce logistic regression, which is a technique you may use when your outcome or response (or dependent) variable is categorical and has two possible levels.
 
-In criminology, very often you will be interested in binary outcomes (e.g., victim/no victim, arrested/not arrested, etc.) and want to use a number of predictor variables to study these outcomes. It is then, helpful, to understand how to use these models. Logistic regression is part of a broader family of models called **generalised linear models**. You should read the Wikepedia entry for this concept [here](https://en.wikipedia.org/wiki/Generalized_linear_model).
+In criminology, very often you will be interested in binary outcomes (e.g., victim/no victim, arrested/not arrested, etc.) and want to use a number of predictor variables to study these outcomes. It is then, helpful, to understand how to use these models. Logistic regression is part of a broader family of models called **generalised linear models**. You should read the Wikipedia entry for this concept [here](https://en.wikipedia.org/wiki/Generalized_linear_model).
 
 With logistic regression we are modelling the probability of belonging to one of the levels in the binary outcome. For any combination of values for our predictor variables the model will estimate a probability of presenting the outcome of interest. To fit this model we use maximum likelihood. This handout does not focuses in explaining the mathematics behind the method. Those are important but in this introductory module we only provide an introduction to the technique.
 
-To illustrate logistic regression we are going to use the `Arrests` data from the `effects` package. You can obtain details about this dataset and the variables included by using `help(Arrests, package="effects")`. If you don't have that package you will need to install it and load it.
+To illustrate logistic regression we are going to use the `Arrests` data from the `carData` package. You can obtain details about this dataset and the variables included by using `help(Arrests, package="carData")`. If you don't have that package you will need to install it and load it.
 
 
 ```r
-library(effects)
-```
-
-```
-## Loading required package: carData
-```
-
-```
-## lattice theme set by effectsTheme()
-## See ?effectsTheme for details.
-```
-
-```r
-data(Arrests, package="effects")
-```
-
-```
-## Warning in data(Arrests, package = "effects"): data set 'Arrests' not found
+library(carData)
+data(Arrests, package="carData")
 ```
 
 This data includes information on police treatment of individuals arrested in Toronto for possession of marihuana. We are going to model variation on `released`, a factor with two levels indicating whether the arrestee was released with a summons.  In this case the police could:
@@ -202,7 +186,7 @@ Now we can use the interpretation of odd ratios we introduced in a previous sess
 
 Employment has an odd ratio of 0.45. When the odd ratio is between 0 and 1 is indicating a negative relationship. So employment reduces the odds of harsher treatment by 1/0.46, that is by a factor of 2.18. For more details interpreting odd ratios in logistic regression you may want to read [this](http://www.ats.ucla.edu/stat/mult_pkg/faq/general/odds_ratio.htm). Some people do not like odd ratios. For other ways of interpreting logistic regression coefficients you may want to consult [chapter 5 of the book](http://www.cambridge.org/gb/academic/subjects/statistics-probability/statistical-theory-and-methods/data-analysis-using-regression-and-multilevelhierarchical-models?format=PB) by Gelman and Hill (2007).
 
-You can read more about how to read odd ratios in logistic regression [here](https://stats.idre.ucla.edu/other/mult-pkg/faq/general/faq-how-do-i-interpret-odds-ratios-in-logistic-regression/).
+You can read more about how to read odd ratios in logistic regression [here](https://stats.oarc.ucla.edu/other/mult-pkg/faq/general/faq-how-do-i-interpret-odds-ratios-in-logistic-regression/).
 
 Another way of getting the results with less typing is to use the `Logit()` function in the `lessR` package (you will need to install it if you do not have it).
 
@@ -355,13 +339,6 @@ We can also use **forest plots** in much the same way than we did for linear reg
 
 ```r
 library(sjPlot)
-```
-
-```
-## Install package "strengejacke" from GitHub (`devtools::install_github("strengejacke/strengejacke")`) to load all sj-packages at once!
-```
-
-```r
 plot_model(fitl_1)
 ```
 
@@ -372,6 +349,14 @@ Equally, we can produce effect plots using the `effects` package:
 
 ```r
 library(effects)
+```
+
+```
+## lattice theme set by effectsTheme()
+## See ?effectsTheme for details.
+```
+
+```r
 plot(allEffects(fitl_1), ask=FALSE)
 ```
 
@@ -811,9 +796,7 @@ We already discussed in a previous session the difficulties of interpreting regr
 
 These are a set of useful external resources that may aid your comprehesion (and I have partly relied upon myself, so credit to them!):
 
-+ A set of [explanatory notes](http://www.unc.edu/courses/2010fall/ecol/563/001/docs/lectures/lecture20.htm#dealing) by Jack Weiss at the University of North Carolina. Check lesson 20 and 21. I really like the look of his whole course.
-
-+ The [UCLA guide](http://www.ats.ucla.edu/stat/r/dae/logit.htm) to using logistic regression with R.
++ The [UCLA guide](https://stats.oarc.ucla.edu/r/dae/logit-regression/) to using logistic regression with R.
 
 + A [helpful list of resources](http://www.r-bloggers.com/some-r-resources-for-glms/) for general linear models with R.
 
