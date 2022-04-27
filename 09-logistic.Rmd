@@ -335,7 +335,7 @@ These are a set of useful external resources that may aid your comprehesion (and
 
 + A set of [explanatory notes](http://www.unc.edu/courses/2010fall/ecol/563/001/docs/lectures/lecture20.htm#dealing) by Jack Weiss at the University of North Carolina. Check lesson 20 and 21. I really like the look of his whole course.
 
-+ The [UCLA guide](http://www.ats.ucla.edu/stat/r/dae/logit.htm) to using logistic regression with R.
++ The [UCLA guide](https://stats.oarc.ucla.edu/r/dae/logit-regression/) to using logistic regression with R.
 
 + A [helpful list of resources](http://www.r-bloggers.com/some-r-resources-for-glms/) for general linear models with R.
 
