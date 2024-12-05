@@ -20,7 +20,7 @@ The view in R Studio is structured so that you have 4 open panes in a regular se
 
 ![](imgs/the4views.PNG){width=80%}
 
-Look for example at the bottom right area. Within this area you can see that there are different tabs, which are associated with different views. You can see in the tabs in this section that there are different views available: *Files*, *Plots*, *Packages*, *Help*, and *Viewer*. The **Files** allow you to see the files in the physical directory that is currently set up as your working environment. You can think of it like a window in Windows Explorer that lets you see the content of a folder. 
+Look, for example, at the bottom right area. Within this area you can see that there are different tabs, which are associated with different views. You can see in the tabs in this section that there are different views available: *Files*, *Plots*, *Packages*, *Help*, and *Viewer*. The **Files** allow you to see the files in the physical directory that is currently set up as your working environment. You can think of it like a window in Windows Explorer that lets you see the content of a folder. 
 
 In the **plots** panel, you will see any data visualisations or graphical displays of data that you produce. We haven't yet produced any, so it is empty at the moment. If you click on **packages**, you will see the packages that are currently available in your installation. What is a "package" in this context?
 
@@ -60,7 +60,7 @@ That will open a dialogue box where you ask to specify what kind of directory yo
 
 <img src="https://user-images.githubusercontent.com/98951792/215291834-4b1ef9b9-7423-4f1f-8df3-316c3b520875.png">
 
-Now you get another dialogue box where you have to specify what kind of project you want to create. Select the first option *New Project*.
+Now, you get another dialogue box where you have to specify what kind of project you want to create. Select the first option *New Project*.
 
 <img src="https://user-images.githubusercontent.com/98951792/215292002-901f94d9-ac91-472d-8e08-0367dedb8a7b.png">
 
@@ -71,7 +71,7 @@ Finally, you get to select a name for your project (in the image below, I use th
 
 With simple projects, a single script file and a data file are all you may have. But with more complex projects, things can rapidly become messy. So, you may want to create subdirectories within this project folder. I typically use the following structure in my own work to put all files of a certain type in the same subdirectory:
 
-+ *Scripts and code*: Here, I put all the text files with my analytic code, including Rmarkdown files which is something we will introduce much later in the semester.
++ *Scripts and code*: Here, I put all the text files with my analytic code, including Rmarkdown files, which is something we will introduce much later in the semester.
 
 + *Source data*: Here, I put the original data. I tend not to touch this once I have obtained the original data.
 
@@ -88,7 +88,7 @@ You can create these subdirectories using Windows Explorer or the Files window i
 ## Functions: Talk to your computer
 So far, we have covered an introduction to the main interface you will be using and talked about RStudio projects. In this unit, you will be using this interface and creating files within your RStudio projects to produce analysis based on programming code that you will need to write using the R language.
 
-Let's write some very simple code using R to talk to your computer. First open a new SCRIPT within the project you just created. Type the following instructions in the script window. After you are done, click in the top right corner where it says *Run* (if you prefer quick shortcuts, you can select the text and then press Ctrl +  Enter):
+Let's write some very simple code using R to talk to your computer. First, open a new SCRIPT within the project you just created. Type the following instructions in the script window. After you are done, click in the top right corner where it says *Run* (if you prefer quick shortcuts, you can select the text and then press Ctrl +  Enter):
 
 ```{r}
 print("I love stats")
@@ -111,7 +111,7 @@ Every R function admits different kinds of arguments. Learning R involves not on
 As indicated above, the window in the bottom left corner is the main **console**. You will see that the words "I love stats" appear printed there.  If, rather than using R Studio, you were working directly from R, that's all you would get: the main console where you can write code interactively (rather than all the different windows you see in R Studio). You can write your code directly in the main console and execute it line by line in an interactive fashion. However, we will be running code from scripts so that you get used to the idea of properly documenting all the steps you take. 
 
 ## More on packages
-Before we described packages as elements that add the functionality of R. What most packages do is they introduce new functions that allow you to ask R to do different things.
+Before, we described packages as elements that add the functionality of R. Most packages introduce new functions that allow you to ask R to do different things.
 
 Anybody can write a package, so consequently, R packages vary in quality and complexity. You can find packages in different places, as well, from official repositories (which means they have passed a minimum of quality control), something called GitHub (a webpage where software developers post work in progress), to personal webpages (danger, danger!). In early 2017 we passed the 10,000 mark just in the main official repository, so the number of things that can be done with R grows exponentially every day as people keep adding new packages.
 
@@ -143,7 +143,7 @@ Let's try to use some of the functions of this package. We will use the "say" fu
 say("I love stats")
 ```
 
-You will get an error message telling you that this function could not be found. What happened?? This will be the first of many error messages you will get. An error message is the computer's way of telling you that your instructions are somehow incomplete or problematic and, thus, are unable to do what you ask. It is frustrating to get these messages, and a critical skill for you this semester will be to overcome that frustration and try to understand why the computer cannot do what you ask. Finding out the source of the error and solving it is what these labs are all about. There is nothing wrong with getting errors. The problem is if you give up and let your frustration get the best of you.
+You will get an error message telling you that this function could not be found. What happened?? This will be the first of many error messages you will get. An error message is the computer's way of telling you that your instructions are somehow incomplete or problematic and, thus, are unable to do what you ask. It is frustrating to get these messages, and a critical skill for you this semester will be to overcome that frustration and try to understand why the computer cannot do what you ask. These labs are all about finding out the source of the error and solving it. There is nothing wrong with getting errors. The problem is if you give up and let your frustration get the best of you.
 
 So why are we getting this error? Installing a package is only the first step. The next step, when you want to use it in a given session, is to **load** it. 
 
@@ -190,7 +190,7 @@ This bit of code is simply telling R we are creating a new object with the assig
 
 Run the code. Look now at the *Environment* window in the top right corner. We see that this object is now listed there. You can think of the Environment as a warehouse where you put stuff - your different objects. Is there a limit to this environment? Yes, your RAM. R works on your RAM, so you need to be aware that if you use very large objects, you will need loads of RAM. But that won't be a problem you will encounter in this course unit.
 
-Once we put things into these boxes or objects we can use them as arguments in our functions. See the example below:
+Once we put things into these boxes or objects, we can use them as arguments for our functions. See the example below:
 
 ```{r}
 say(my_text, "cow")
@@ -285,7 +285,7 @@ my_7th_vector <- my_1st_vector + 1 #Create a new vector that contains the elemen
 my_1st_vector + my_7th_vector #Adds the two vectors and Auto-print the results (note how the sum was done)
 ```
 
-As indicated earlier, when you create objects you will place them in your working memory or workspace. Each R session will be associated with a workspace (called "global environment" in R Studio). In R Studio you can visualise the objects you have created during a session in the **Global Environment** screen. But if you want to produce a list of what's there, you can use the `ls()` function (the results you get may differ from the ones below depending on what you actually have in your global environment).
+As indicated earlier, when you create objects, you place them in your working memory or workspace. Each R session will be associated with a workspace (called "global environment" in R Studio). In R Studio you can visualise the objects you have created during a session in the **Global Environment** screen. But if you want to produce a list of what's there, you can use the `ls()` function (the results you get may differ from the ones below depending on what you actually have in your global environment).
 
 ```{r}
 ls() #list all objects in your global environment
@@ -312,21 +312,21 @@ class(my_8th_vector) #The class() function will tell us the class of the vector
 
 ## R object types: Data frame
 
-Ok, so now that you understand some of the basic types of objects you can use in R, let's start talking about data frames. One of the most common objects you will work with in this course are **data frames**. Data frames can be created with the `data.frame()` function. 
+Ok, so now that you understand some of the basic types of objects you can use in R, let's start talking about data frames. One of the most common objects you will work with, in this course, is **data frames**. Data frames can be created with the `data.frame()` function. 
 
-Data frames are *multiple vectors* of possibly different classes (e.g., numeric, factors, character), but of the same length (e.g., all vectors, or variables, have the same number of rows). This may sound a bit too technical but it is simply a way of saying that a data frame is what in other programmes for data analysis gets represented as data sets, the tabular spreadsheets you have seen when using Excel.
+Data frames are *multiple vectors* of possibly different classes (e.g., numeric, factors, character) but of the same length (e.g., all vectors or variables have the same number of rows). This may sound a bit too technical, but it is simply a way of saying that a data frame is what in other programs for data analysis gets represented as data sets, the tabular spreadsheets you have seen when using Excel.
 
 ![](imgs/df.PNG){width=80%}
 
 Let's create a data frame with two variables:
 
 ```{r}
-#We create a dataframe called mydata_1 with two variables, an integer vector called foo and a logical vector called bar
+#We create a data frame called mydata_1 with two variables, an integer vector called foo and a logical vector called bar
 mydata_1 <- data.frame(foo = 1:4, bar = c(T,T,F,F))
 mydata_1
 ```
 
-Or alternatively for the same result:
+Or alternatively, for the same result:
 
 ```{r}
 x <- 1:4
@@ -335,20 +335,20 @@ mydata_2 <- data.frame (foo = x, bar = y)
 mydata_2
 ```
 
-As you can see in R, as in any other language, there are multiple ways of saying the same thing. Programmers aim to produce code that has been optimised: it is short and quick. It is likely that as you develop your R skills you find increasingly more efficient ways of asking R how to do things. What this means too is that when you go for help, from your peers or us, we may teach you slightly different ways of getting the right result. As long as you get the right result that's what at this point really matters.
+As you can see in R, as in any other language, there are multiple ways of saying the same thing. Programmers aim to produce code that has been optimised: it is short and quick. It is likely that as you develop your R skills, you find increasingly more efficient ways of asking R how to do things. What this means, too, is that when you go for help from your peers or us, we may teach you slightly different ways of getting the right result. As long as you get the right result, that's what matters at this point.
 
-These are silly toy examples of data frames. In this course, we will use real data. Next week we will learn in greater detail how to read data into R. But you should also know that R comes with pre-installed data sets. Some packages in fact are nothing but collections of data frames.
+These are silly toy examples of data frames. In this course, we will use real data. Next week, we will learn in greater detail how to read data into R. But you should also know that R comes with pre-installed data sets. Some packages, in fact, are nothing but collections of data frames.
 
-Let's have a look at some of them. We are going to look at some data that are part of the *fivethirtyeight* package. This package contains data sets and code behind the stories in [this particular online newspaper](http://fivethirtyeight.com/). This package is not part of the base installation of R, so you will need to install it first. I won't give you the code for it. See if you can figure it out by looking at previous examples.
+Let's have a look at some of them. We are going to look at some data that are part of the *fivethirtyeight* package. This package contains data sets and codes behind the stories in [this particular online newspaper](http://fivethirtyeight.com/). This package is not part of the base installation of R, so you will need to install it first. I won't give you the code for it. See if you can figure it out by looking at previous examples.
 
-Done? Ok, now we are going to look at the data sets that are included in this package. Remember first we have to **install** and **load** the package if we want to use it:
+Done? Ok, now we are going to look at the data sets that are included in this package. Remember, first, we have to **install** and **load** the package if we want to use it:
 
 ```{r}
 library(fivethirtyeight)
 data(package="fivethirtyeight") #This function will return all the data frames that are available in the named package.
 ```
 
-Notice that this package has some data sets that relate to stories covered in this journal that had a criminological angle. Let's look for example at the hate_crimes data set. How do you that? First we have to load the data frame into our global environment. To do so use the following code:
+Notice that this package has some data sets that relate to stories covered in this journal that had a criminological angle. Let's look, for example, at the hate_crimes data set. How do you do that? First, we have to load the data frame into our global environment. To do so, use the following code:
 
 ```{r}
 data("hate_crimes")
@@ -356,30 +356,30 @@ data("hate_crimes")
 
 This function will search among all the *loaded* packages and locate the "hate_crimes" data set. Notice that it now appears in the global environment, although it also says "promise" next to it. To see the data in full you need to do something to it first. So let's do that.
 
-Every object in R can have **attributes**. These are: names; dimensions (for matrices and arrays: number of rows and columns) and dimensions names; class of object (numeric, character, etc.); length (for a vector this will be the number of elements in the vector); and other user-defined. You can access the attributes of an object using the `attributes()` function. Let's query R for the attributes of this data frame.
+Every object in R can have **attributes**. These are names; dimensions (for matrices and arrays: number of rows and columns) and dimensions names; class of object (numeric, character, etc.); length (for a vector, this will be the number of elements in the vector); and other user-defined. You can access the attributes of an object using the `attributes()` function. Let's query R for the attributes of this data frame.
 
 ```{r}
 attributes(hate_crimes)
 ```
 
-These results printed in the may console may not make too much sense to you at this point. We will return to this next week, so do not worry. 
+These results printed in my console may not make too much sense to you at this point. We will return to this next week, so do not worry. 
 
-Go now to the global environment panel and left click on the data frame "hate_crimes". This will open the data viewer in the top left section of R Studio. What you get there is a spreadsheet with 12 variables and 51 observations. Each variable in this case is providing you with information (demographics, voting patterns, and hate crime) about each of the US states.  
+Go now to the global environment panel and left-click on the data frame "hate_crimes". This will open the data viewer in the top left section of R Studio. What you get there is a spreadsheet with 12 variables and 51 observations. Each variable, in this case, provides you with information (demographics, voting patterns, and hate crime) about each of the US states.  
 
 ![](imgs/dataview.PNG){width=80%}
 
 ## Exploring data
-Ok, let's now have a quick look at the data. There are so many different ways of producing summary stats for data stored in R that is impossible to cover them all! We will just introduce a few functions that you may find useful for summarising data. Before we do any of that it is important you get a sense for what is available in this data set. Go to the help tab and in the search box input the name of the data frame, this will take you to the documentation for this data frame. Here you can see a list of the available variables.
+Ok, let's now have a quick look at the data. There are so many different ways of producing summary stats for data stored in R that it is impossible to cover them all! We will just introduce a few functions that you may find useful for summarising data. Before we do any of that, it is important you get a sense of what is available in this data set. Go to the help tab, and in the search box, input the name of the data frame; this will take you to the documentation for this data frame. Here, you can see a list of the available variables.
 
 ![](imgs/codebook.PNG){width=80%}
 
-Let's start with the *mean*. This function takes as an argument the numeric variable for which you want to obtain the mean. Because of the way that R works you cannot simply put the name of the variable you have to tell R as well in which data frame is that variable located. To do that you write the name of the data frame, the dollar sign(`$`), and then the name of the variable you want to summarise. If you want to obtain the mean of the variable that gives us the proportion of people that voted for Donald Trump you can use the following expression:
+Let's start with the *mean*. This function takes as an argument the numeric variable for which you want to obtain the mean. Because of the way that R works, you cannot simply put the name of the variable; you have to tell R as well which data frame that variable is located in. To do that, you write the name of the data frame, the dollar sign(`$`), and then the name of the variable you want to summarise. If you want to obtain the mean of the variable that gives us the proportion of people who voted for Donald Trump, you can use the following expression:
 
 ```{r}
 mean(hate_crimes$share_vote_trump)
 ```
 
-This code is saying look inside the "hate_crimes" dataset object and find the "share_vote_trump" variable, then print the mean. The `$` is used when you want to find a particular component of an object. In the case of dataframes that component typically will be one of the vectors (variables). But we will see other uses for other kind of objects as we move through the course.
+This code is saying to look inside the "hate_crimes" dataset object and find the "share_vote_trump" variable, then print the mean. The `$` is used when you want to find a particular component of an object. In the case of data frames, that component will typically be one of the vectors (variables). However, we will see other uses for other kinds of objects as we move through the course.
 
 Another function you may want to use with numeric variables is `summary()`:
 
@@ -387,7 +387,7 @@ Another function you may want to use with numeric variables is `summary()`:
 summary(hate_crimes$share_vote_trump)
 ```
 
-This gives you the five number summary (minimum, first quartile, median, third quartile, and maximum, plus the mean and the count of missing values if there are any). 
+This gives you the five-number summary (minimum, first quartile, median, third quartile, and maximum, plus the mean and the count of missing values, if there are any). 
 
 You don't have to specify a variable you can ask for these summaries from the whole data frame:
 
@@ -397,17 +397,17 @@ summary(hate_crimes)
 
 So you see how now we are getting this info for all variables in one go.
 
-There are multiple ways of getting results in R. Particularly for basic and intermediate-level statistical analysis many core functions and packages can give you the answer that you are looking for. For example, there are a variety of packages that allow you to look at summary statistics using functions defined within those packages. You will need to install these packages before you can use them. 
+There are multiple ways of getting results in R. Particularly for basic and intermediate-level statistical analysis, many core functions and packages can give you the answer that you are looking for. For example, there are a variety of packages that allow you to look at summary statistics using functions defined within those packages. You will need to install these packages before you can use them. 
 
 I am only going to introduce one of them here *skimr*. It is neat and is maintained by one of my former stats teachers, the criminologist [Elin Waring](https://www.lehman.edu/academics/sociology/faculty-waring.php), an example of kindness and dedication to her students. 
 
-You will need to install it before anything else. Use the code you have learnt to do so and then load it. I won't be providing you the code for it, by now you should now how to do this.
+You will need to install it before anything else. Use the code you have learnt to do so and then load it. I won't be providing you the code for it; by now you should know how to do this.
 
 ```{r, echo=FALSE}
 library(skimr)
 ```
 
-Once you have loaded the *skimr* package you can use it. Its main function is *skim*. Like *summary* for data frames, skim presents results for all the columns and the statistics will depend on the class of the variable. However, the results are displayed and stored in a nicer way - though we won't get into the details of this right now.
+Once you have loaded the *skimr* package, you can use it. Its main function is *skim*. Like *summary* for data frames, skim presents results for all the columns, and the statistics will depend on the class of the variable. However, the results are displayed and stored in a nicer way - though we won't get into the details right now.
 
 ```{r, eval = FALSE}
 skim(hate_crimes)
@@ -417,13 +417,13 @@ skim(hate_crimes)
 knitr::kable(skim(hate_crimes))
 ```
 
-Apart from summary statistics, last semester we discussed a variety of ways to graphically display variables. In week 3 of 'Making Sense of Criminological Data' covered scatterplots, a graphical device to show the relationship between two quantitative variables. I don't know if you remember the amount of point and click you had to do in Excel for getting this done. If not you can review the notes [here](https://maczokni.github.io/MSCD_labs/week3.html).
+Apart from summary statistics, last semester, we discussed a variety of ways to graphically display variables. In week 3 of 'Making Sense of Criminological Data' covered scatterplots, a graphical device to show the relationship between two quantitative variables. I don't know if you remember the number of points and clicks you had to make in Excel to get this done. 
 
 ## R data types: Factors
 
-An important thing to understand in R is that categorical (ordered, also called ordinal, or unordered, also called nominal) data are *typically* encoded as **factors**, which are just a special type of vector.  A factor is simply an integer vector that can contain *only predefined values* (this bit is very important), and is used to store categorical data. Factors are treated specially by many data analytic and visualisation functions. This makes sense because they are essentially different from quantitative variables.
+An important thing to understand in R is that categorical (ordered, also called ordinal, or unordered, also called nominal) data are *typically* encoded as **factors**, which are just a special type of vector.  A factor is simply an integer vector that can contain *only predefined values* (this bit is very important) and is used to store categorical data. Factors are treated specially by many data analytic and visualisation functions. This makes sense because they are essentially different from quantitative variables.
 
-Although you can use numbers to represent categories, *using factors with labels is better than using integers to represent categories* because factors are self-describing (having a variable that has values "Male" and "Female" is better than a variable that has values "1" and "2" to represent male and female). When R reads data in other formats (e.g., comma separated), by default it will automatically convert all character variables into factors. If you rather keep these variables as simple character vectors you need to explicitly ask R to do so. We will come back to this next week with some examples.
+Although you can use numbers to represent categories, *using factors with labels is better than using integers to represent categories* because factors are self-describing (having a variable that has values "Male" and "Female" is better than a variable that has values "1" and "2" to represent male and female). When R reads data in other formats (e.g., comma separated), by default it will automatically convert all character variables into factors. If you would rather keep these variables as simple character vectors, you need to explicitly ask R to do so. We will come back to this next week with some examples.
 
 Factors can also be created with the `factor()` function concatenating a series of *character* elements. You will notice that is printed differently from a simply character vector and that it tells us the levels of the factor (look at the second printed line).
 
@@ -431,7 +431,7 @@ Factors can also be created with the `factor()` function concatenating a series 
 the_smiths <- factor(c("Morrisey", "Marr", "Rourke", "Joyce")) #create a new factor
 the_smiths #auto-print the factor
 ```
-Alternatively for similar result using the as.factor() function. Here you will create `the_smiths_char` object and then transform it to a factor variable, `the_smiths_f`.
+Alternatively, for similar results, use the as.factor() function. Here, you will create `the_smiths_char` object and then transform it to a factor variable, `the_smiths_f`.
 
 ```{r}
 the_smiths_char <- c("Morrisey", "Marr", "Rourke", "Joyce") #create a character vector
@@ -445,17 +445,17 @@ Factors in R can be seen as vectors with more information added. This extra info
 levels(the_smiths_f)
 ```
 
-Notice that the levels appear printed by alphabetical order (Try `levels(the_smiths_char)` and see what R says. Yes, `the_smiths_char` and `the_smiths_f` are different!). There will be situations when this is not the most convenient order (e.g., *Dec, Jan, Mar (Alphabetical order)* instead of *Jan, Mar, Dec*). Later on we will discuss in these tutorials how to reorder your factor levels when you need to.
+Notice that the levels appear printed in alphabetical order (Try `levels(the_smiths_char)` and see what R says. Yes, `the_smiths_char` and `the_smiths_f` are different!). There will be situations when this is not the most convenient order (e.g., *Dec, Jan, Mar (Alphabetical order)* instead of *Jan, Mar, Dec*). Later on, we will discuss in these tutorials how to reorder your factor levels when you need to.
 
-Let's look at one more example here. Let's say we are making data about Hogwarts Houses which divided into four houses; Gryffindor, Hufflepuff, Ravenclaw and Slytherin. 
+Let's look at one more example here. Let's say we are making data about Hogwarts Houses, which are divided into four houses: Gryffindor, Hufflepuff, Ravenclaw and Slytherin. 
 
 ```{r}
-#We create a dataframe called HarryPotter with two variables, a character vector called name and a character vector called house
+#We create a data frame called HarryPotter with two variables: a character vector called name and a character vector called house
 HarryPotter <- data.frame(name = c("Potter", "Malfoy", "Lovegood", "Chang", "Hagrid", "Diggory"), house = c("Gryffindor", "Slytherin", "Ravenclaw", "Ravenclaw", "Gryffindor", "Hufflepuff"))
 HarryPotter
 ```
 
-Use `str(HarryPotter$house)` and see what R says. R will list all observations in the variable and says it's a character variable, right? Now we are going to convert `house`, a character variable, into a factor variable `house_f` meaning that R will categorise the variable.
+Use `str(HarryPotter$house)` and see what R says. R will list all observations in the variable and say it's a character variable, right? Now, we are going to convert `house`, a character variable, into a factor variable `house_f`, meaning that R will categorise the variable.
 
 ```{r}
 HarryPotter$house_f <- as.factor(HarryPotter$house)
@@ -463,7 +463,7 @@ str(HarryPotter$house_f)
 levels(HarryPotter$house_f) #try 'levels(HarryPotter$house)' and find the difference
 ```
 
-Now can you clearly understand what **factor** means in R? Factors are used to represent categorical data. Once created, factors can contain pre-defined set values, known as `levels`. Like we just converted 6 character data (`house`) into 4 factor data! (`house_f`).
+Now, can you clearly understand what **factor** means in R? Factors are used to represent categorical data. Once created, factors can contain pre-defined set values, known as `levels`. Like we just converted 6-character data (`house`) into 4-factor data! (`house_f`).
 
 ![](imgs/as_factor.png){width=80%}
 
@@ -518,7 +518,7 @@ At some point, you will quit your R/R Studio session. I know it's hard to visual
 
 If you say "yes", what will happen is that all the objects you have in your environment will be preserved, alongside the *History* (which you can access in the top right set of windows) listing all the functions you have run within your session. So, next time you open this project, everything will be there. If you think that what is *real* is those objects and that history, well, then you may think that's what you want to do.
 
-The truth is what is real is your scripts and the data that your scripts use as inputs. You don't need anything that is in your environment, because you can recreate those things by re-running your scripts. I like keeping things tidy, so when I am asked whether I want to save the image, my answer is always no. Most long time users of R never save the workspace, nor care about saving the history either. Remember, what is real is your scripts and the data.
+The truth is what is real is your scripts and the data that your scripts use as inputs. You don't need anything in your environment because you can recreate those things by re-running your scripts. I like keeping things tidy, so when I am asked whether I want to save the image, my answer is always no. Most long-time users of R never save the workspace or care about saving the history. Remember, what is real is your scripts and the data.
 
 Just so you know, though, you should not then panic if you open your next R Studio session and you don't see any objects in your environment. The good news is you can generate them quickly enough (if you really need them) by re-running your scripts. I would suggest that, at this point, it may be helpful for you to get into this habit as well. I suspect otherwise you will be in week 9 of the semester and have an environment full of garbage you don't really need.
 
