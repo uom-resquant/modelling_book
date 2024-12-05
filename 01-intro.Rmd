@@ -111,31 +111,31 @@ Every R function admits different kinds of arguments. Learning R involves not on
 As indicated above, the window in the bottom left corner is the main **console**. You will see that the words "I love stats" appear printed there.  If, rather than using R Studio, you were working directly from R, that's all you would get: the main console where you can write code interactively (rather than all the different windows you see in R Studio). You can write your code directly in the main console and execute it line by line in an interactive fashion. However, we will be running code from scripts so that you get used to the idea of properly documenting all the steps you take. 
 
 ## More on packages
-Before we described packages as elements that add the functionality of R. What most packages do is they introduce new functions that allow you to ask R to do new different things.
+Before we described packages as elements that add the functionality of R. What most packages do is they introduce new functions that allow you to ask R to do different things.
 
-Anybody can write a package, so consequently R packages vary on quality and complexity. You can find packages in different places, as well, from official repositories (which means they have passed a minimum of quality control), something called GitHub (a webpage where software developers post work in progress), to personal webpages (danger danger!). In early 2017 we passed the 10,000 mark just in the main official repository, so the number of things that can be done with R grows exponentially every day as people keep adding new packages.
+Anybody can write a package, so consequently, R packages vary in quality and complexity. You can find packages in different places, as well, from official repositories (which means they have passed a minimum of quality control), something called GitHub (a webpage where software developers post work in progress), to personal webpages (danger, danger!). In early 2017 we passed the 10,000 mark just in the main official repository, so the number of things that can be done with R grows exponentially every day as people keep adding new packages.
 
-When you install R you only install a set of basic packages, not the full 10,000 plus. So if you want to use any of these added packages that are not part of the basic installation you need to first install them. You can see what packages are availabe in your local install by looking at the *packages* tab in the bottom right corner panel. Click there and check. We are going to install a package that is not there so that you see how the installation is done. 
+When you install R, you only install a set of basic packages, not the full 10,000 plus. So, if you want to use any of these added packages that are not part of the basic installation, you first need to install them. You can see what packages are available for your local installation by looking at the *packages* tab in the bottom right corner panel. Click there and check. We are going to install a package that is not there so that you can see how the installation is done. 
 
 ![](imgs/packages.PNG){width=80%}
 
-If you just installed R in your laptop you will see a shortish list of packages that constitute the basic installation of R. If you are using one of the machines in the computer cluster this list is a bit longer, because we asked IT to install some of the most commonly used packages. But knowing how to install packages is pretty essential, since you will want to do it very often.
+If you just installed R on your laptop, you will see a shortish list of packages that constitute the basic installation of R. If you are using one of the machines in the computer cluster, this list is a bit longer because we asked IT to install some of the most commonly used packages. But knowing how to install packages is essential since you will want to do it very often.
 
-We are going to install a package called "cowsay" to demonstrate the process. In the Packages panel there is an *Install* menu that would open a dialog box and allows you to install packages. Instead we are going to use code to do this. Just cut and paste the code below into your script and then run it:
+We will install a package called "cowsay" to demonstrate the process. In the Packages panel, there is an *Install* menu that opens a dialogue box and allows you to install packages. Instead, we are going to use code to do this. Just cut and paste the code below into your script and then run it:
 
 ```{r, eval=FALSE}
 install.packages("cowsay")
 ```
 
-Here we are introducing a new function "install.packages" and what we have passed as an argument is the name of the package that we want to install. This is how we install a package *that is available in the official CRAN repository*. Given that you are connecting to an online repository you will need an internet connection every time you want to install a package. [CRAN](https://cran.r-project.org/) is an official repository that has a collection of R packages that meet a minimum set of quality criteria. It's a fairly safe place to get packages from. If we wanted to install a package from somewhere else we would have to adapt the code. Later this semester you will see how we install packages from GitHub.
+Here, we are introducing a new function, "install.packages" and what we have passed as an argument is the name of the package that we want to install. This is how we install a package *that is available in the official CRAN repository*. Given that you are connecting to an online repository, you will need an internet connection every time you want to install a package. [CRAN](https://cran.r-project.org/) is an official repository that has a collection of R packages that meet a minimum set of quality criteria. It's a fairly safe place to get packages from. If we wanted to install a package from somewhere else, we would have to adapt the code. Later this semester, you will see how we install packages from GitHub.
 
-This line of code (as it is currently written) will install this package in a personal library that will be located in your P: drive if you are using a cluster machine. If you are using a Windows machine this code will place this package within a personal library in your Documents folder. Once you install a package, it will remain in the machine/location where you install it until you physically delete it.
+This line of code (as it is currently written) will install this package in a personal library that will be located in your P: drive if you are using a cluster machine. If you are using a Windows machine this code will place this package within a personal library in your Documents folder. Once you install a package, it will remain in the machine/location where you installed it until you physically delete it.
 
-How do you find out what a package does? You look at the relevant documentation. In the Packages window scroll down until you find the new package we installed listed. Here you will see the name of the package (cowsay), a brief description of what the program is about, and the version you have installed (an indication that a package is a good package is that it has gone through several versions, that means that someone is making sure the package gets regular updates and improvements). The version I have for cowsay is 0.7.0. Yours may be older or newer. It doesn't matter much at this point. 
+How do you find out what a package does? You look at the relevant documentation. In the Packages window, scroll down until you find the new package we installed listed. Here, you will see the name of the package (cowsay), a brief description of what the program is about, and the version you have installed (an indication that a package is a good package is that it has gone through several versions, that means that someone is making sure the package gets regular updates and improvements). The version I have for cowsay is 0.7.0. Yours may be older or newer. It doesn't matter much at this point. 
 
 Click in the name *cowsay*. You will see that R Studio has now brought you to the Help tab. Here is where you find the help files for this package, including all the available documentation.
 
-Every beginner in R will find these help files a bit confusing. But after a while, their format and structure will begin to make sense to you. Click where it says *User guides, package vignettes, and other documentation*. Documentation in R has become much better since people started to write **vignettes** for their packages. They are little tutorials that explain with examples what each package does. Click in the *cowsay::cowsay_tutorial* that you see listed here. What you will find there is an html file that gives you a detailed tutorial on this package. You don't need to read it now, but remember that this is one way to find help when using R. 
+Every beginner in R will find these help files a bit confusing. But after a while, their format and structure will begin to make sense to you. Click where it says *User guides, package vignettes, and other documentation*. Documentation in R has become much better since people started to write **vignettes** for their packages. They are little tutorials that explain with examples what each package does. Click on the *cowsay::cowsay_tutorial* that you see listed here. You will find an HTML file that gives you a detailed tutorial on this package. You don't need to read it now, but remember that this is one way to find help when using R. 
 
 Let's try to use some of the functions of this package. We will use the "say" function:
 
@@ -143,11 +143,11 @@ Let's try to use some of the functions of this package. We will use the "say" fu
 say("I love stats")
 ```
 
-You will get an error message telling you that this function could not be found. What happened?? This will be the first of many error messages you will get. An error message is the computer way of telling you that your instructions are somehow incomplete or problematic and, thus, is unable to do what you ask. It is frustrating to get these messages and a critical skill for you this semester will be to overcome that frustration and try to understand why the computer cannot do what you ask. Finding out the source of the error and solving it is what these labs are all about. There is nothing wrong with getting errors. The problem is if you give up and let your frustration get the best of you.
+You will get an error message telling you that this function could not be found. What happened?? This will be the first of many error messages you will get. An error message is the computer's way of telling you that your instructions are somehow incomplete or problematic and, thus, are unable to do what you ask. It is frustrating to get these messages, and a critical skill for you this semester will be to overcome that frustration and try to understand why the computer cannot do what you ask. Finding out the source of the error and solving it is what these labs are all about. There is nothing wrong with getting errors. The problem is if you give up and let your frustration get the best of you.
 
 So why are we getting this error? Installing a package is only the first step. The next step, when you want to use it in a given session, is to **load** it. 
 
-Think of it as a pair of shoes. You buy it once, but you have to take them from your closet and put them on when you want to use them. Same with packages, you only install once, but need to load it from your library every time you want to use it -within a given session (once loaded it will remain loaded until you finish your session).
+Think of it as a pair of shoes. You buy them once, but you have to take them from your closet and put them on when you want to use them. Same with packages, you only install once, but need to load it from your library every time you want to use it -within a given session (once loaded, it will remain loaded until you finish your session).
 
 To see what packages you currently have **loaded** in your session, you use the `search()` function (you do not need to pass it any arguments in this case).
 
@@ -155,27 +155,27 @@ To see what packages you currently have **loaded** in your session, you use the 
 search()
 ```
 
-If you run this code, you will see that `cowsay` is not in the list of loaded packages. Therefore your computer cannot use any of the functions associated with it until you load it. To load a package we use the **library** function. So if we want to load the new package we installed in our machine we would need to use the following code:
+If you run this code, you will see that `cowsay` is not in the list of loaded packages. Therefore, your computer cannot use any of the functions associated with it until you load it. To load a package, we use the **library** function. So, if we want to load the new package we installed on our machine, we would need to use the following code:
 
 ```{r}
 library("cowsay")
 ```
 
-Run the `search` function again. You will see now this package is listed. So now we can try using the function "say" again.
+Run the `search` function again. You will see this package is listed now. So now we can try using the function "say" again.
 
 ```{r}
 say("I love stats")
 ```
 
-You get a random animal in the console repeating the text we passed as an argument. If we like a different animal we could pass an argument to select it. So, say, we want to have cow rather than a random animal, then we would pass the following arguments to our function.
+You get a random animal in the console repeating the text we passed as an argument. If we like a different animal, we could pass a new argument on to the "say" function. So, if we want to have a cow rather than a random animal, then we would pass the following arguments on to our function.
 
 ```{r}
 say("I love stats", "cow")
 ```
 
-This is an important feature of arguments in functions. We said how different functions admits different arguments. Here by specifying `cow` the function is printing that particular animal. But who is it that when we didn't specify a particular kind of animal we still got a result? That happened because functions always have default arguments that are necessary for them to run and that you do not have to make explicit. Default arguments are implicit and do not have to be typed. The `say` function has a default argument `random` which will print a random character or animal. It is only when you want to change the default that you need to make an alternative animal explicit.
+This is an important feature of arguments in functions. We said how different functions admit different arguments. Here, by specifying `cow`, the function prints that particular animal. But why is it that when we didn't specify a particular kind of animal, we still got a result? That happened because functions always have default arguments that are necessary for them to run and that you do not have to make explicit. Default arguments are implicit and do not have to be typed. The `say` function has a default argument, `random`, which will print a random character or animal. It is only when you want to change the default that you need to make an alternative animal explicit.
 
-Remember, you only have to install a package that is not already installed once. But if you want to use it in a given session you will have to load it within that session using the `library` function. Once you load it within a session the package will remain loaded until you terminate your session (for example, by closing R Studio). Do not forget this.
+Remember, you only have to install a package that is not already installed ONCE. But if you want to use it in a given session, you will have to load it within that session using the `library` function. Once you load it within a session, the package will remain loaded until you terminate your session (for example, by closing R Studio). Do not forget this.
 
 ## Objects: creating an object
 We have seen how the first argument that the "say" function takes is the text that we want to convert into speech for our given animal. We could write the text directly into the function (as we did above), but now we are going to do something different. We are going to create an object to store the text.
@@ -470,11 +470,11 @@ Now can you clearly understand what **factor** means in R? Factors are used to r
 
 ## How to import data
 
-Programmers are lazy, and the whole point of using code-based interfaces is that we get to avoid doing unneccessary work, like point-and-click downloading of files. And when data exists online in a suitable format, we can tell R to read the data in from the web directly, and cut out the middle man (that being ourseves in our pointing-and-clicking activity). 
+Programmers are lazy, and the whole point of using code-based interfaces is that we get to avoid doing unnecessary work, like point-and-click downloading of files. When data exists online in a suitable format, we can tell R to read the data from the web directly and cut out the middleman (that being ourselves in our pointing-and-clicking activity). 
 
-How can we do this? Well think about what we do when we read in a file. We say, "Dear R, I would like to create a new object please and I will call this new object `my_dataframe`". We do this by typing the name we are giving the object and the assignment function `<-`(assignment operator). Then on the right hand side of the assignment function, there is the value that we are assigning the variable. So it could be a bit of text (such as when you're creating a `my_text` object and you pass it the string "I love stats"), or it could be some function, for example when you read a csv file with the `read_csv()` function.
+How can we do this? Well, think about what we do when we read in a file. We say, "Dear R, I would like to create a new object, please, and I will call this new object `my_dataframe`". We do this by typing the name we are giving the object and the assignment function `<-`(assignment operator). Then, on the right-hand side of the assignment function, there is the value to which we are assigning the variable. So it could be a bit of text (such as when you're creating a `my_text` object and you pass it the string "I love stats"), or it could be some function, for example, when you read a CSV file with the `read_csv()` function.
 
-So if we're reading a csv, we also need to specify *where* to read the csv from. Where should R look to find this data? This is where normally you are putting in the path to your file, right? 
+So, if we're reading a CSV, we also need to specify *where* to read the CSV from. Where should R look to find this data? This is where normally you are putting in the path to your file, right? 
 
 Something like: 
 
@@ -482,48 +482,48 @@ Something like:
 my_dataframe <- read.csv('PATH_OR_URL_TO_CSV_FILE')
 ```
 
-Well what if your data does not live on your laptop or PC? Well, if there is a way that R can still access this data just by following a path, then this approach will still work! 
-Tips! please keep your folders simple. Just use one data folder for this module amd do not creat mutiple folders such as 'data for week 1', 'data for week 2' something like this. 
+Well, what if your data does not live on your laptop or PC? Well, if there is a way that R can still access this data just by following a path, then this approach will still work! 
+Tips! Please keep your folders simple. Just use one data folder for this module and do not create multiple folders such as 'data for week 1', 'data for week 2', or something like this. 
 
-All data we will use in the module are in the blackboard but we will also provide the links of where we saved the data for you. You know when you right click on the link, and select "Save As..." or whatever you click on to save? You could, also select "Copy Link Address". This just copies the webpage where this data is stored. Give it a go! Copy the address, and then paste it into your browser. It will take you to a blank page where a forced download of the data will begin. So what if you pasted this into the `read.csv()` function? 
+All data we will use in the module are on the blackboard, but we will also provide the links to where we saved the data for you. You know when you right-click on the link, and select "Save As..." or whatever you click on to save? You could also select "Copy Link Address". This just copies the webpage where this data is stored. Give it a go! Copy the address, and then paste it into your browser. It will take you to a blank page where a forced download of the data will begin. So what if you pasted this into the `read.csv()` function? 
 
 ```{r, eval=FALSE}
-#example 1: when you download data directly fro the webpage, you will use this code.
+#example 1: when you download data directly from the webpage, you will use this code.
 my_dataframe <- read.csv("www.data.com/data you want to import.csv")
 #example 2: when you download data from BB and save it to your computer, you can use file.choose() 
 #file.choose() brings up a file explorer window that allows you to interactively choose a file path to work with.
 my_dataframe <- read.csv(file.choose())
 ```
 
-In the first example, the my_dataframe object would be assigned the value returned from the read.csv() function reading in the file from the 'url' link you provided. File path is no mysterious thing, file path is simply the *path* to the *file* you want to read. If this is a website, then so be it. 
+In the first example, the my_dataframe object would be assigned the value returned from the read.csv() function reading in the file from the 'URL' link you provided. File path is no mysterious thing, file path is simply the *path* to the *file* you want to read. If this is a website, then so be it. 
 
-R also can read Stata (.dta) files using the `read_dta()` function in the Haven package, SPSS (.sav) files using the `read_spss()` function also in the Haven Package. There are so many different ways, codes we can use to import data into R. In this course, you will learn one by one! 
+R also can read Stata (.dta) files using the `read_dta()` function in the Haven package and SPSS (.sav) files using the `read_spss()` function also in the Haven Package. There are so many different codes we can use to import data into R. In this course, you will learn one by one! 
 
 ## How to use 'comment'
-In the bits of code above, you will have noticed parts that were grayed out. See for example in the last example provided. You can see that after the hashtag, all the text is being grayed out. What is this? What's going on? 
+In the bits of code above, you will have noticed parts that were greyed out, for instance, in the last example provided. You can see that after the hashtag, all the text is being greyed out. What is this? What's going on? 
 
-These are **comments**. Comments are simply annotations that R will know is not code (and therefore doesn't attempt to understand and execute). We use the hash-tag symbol to specify to R that what comes after is not programming code, but simply bits of notes that we write to remind ourselves what the code is actually doing. Including these comments will help you to understand your code when you come back to it.
+These are **comments**. Comments are simply annotations that R will know are not code (and therefore don't attempt to understand and execute). We use the hash-tag symbol to specify to R that what comes after is not programming code but simply bits of notes that we write to remind ourselves what the code is actually doing. Including these comments will help you to understand your code when you come back to it.
 
-To create a comment you use the hashtag/ number sign `#` followed by some text. Whenever the R engine sees the number sign it knows that what follows is not code to be executed. You can use this sign to include *annotations* when you are coding. These annotations are a helpful reminder to yourself (and others reading your code) of **what** the code is doing and (even more important) **why** you are doing it. 
+To create a comment, you use the hashtag/ sign `#` followed by some text. Whenever the R engine sees the hashtag (`#`), it knows that what follows is not code to be executed. You can use this sign to include *annotations* when you are coding. These annotations are a helpful reminder to yourself (and others reading your code) of **what** the code is doing and (even more important) **why** you are doing it. 
 
-It is good practice to often use annotations. You can use these annotations in your code to explain your reasoning and to create "scannable" headings in your code. That way after you save your script you will be able to share it with others or return to it at a later point and understand what you were doing when you first created it -see [here for further details on annotations and in how to save a script when working with the basic R interface](http://mercury.webster.edu/aleshunas/R_learning_infrastructure/R%20scripts.html).
+It is good practice to often use annotations. You can use these annotations in your code to explain your reasoning and to create "scannable" headings in your code. That way, after you save your script, you will be able to share it with others or return to it at a later point and understand what you were doing when you first created it -see [here for further details on annotations and how to save a script when working with the basic R interface](http://mercury.webster.edu/aleshunas/R_learning_infrastructure/R%20scripts.html).
 
 Just keep in mind: 
 
 + You need one `#` per line, and anything after that is a comment that is not executed by R.
 
-+ You can use spaces after (its not like a hashtag on twitter). 
++ You can use spaces after. 
 
 ## How to Quit RStudio
-At some point, you will quit your R/R Studio session. I know, hard to visualise, right? Why would you want to do that? Anyhow, when that happens R Studio will ask you a hard question: "Save work space image to bla bla bla/.RData?" What to do? What does that even mean?
+At some point, you will quit your R/R Studio session. I know it's hard to visualise, right? Why would you want to do that? Anyhow, when that happens, R Studio will ask you a hard question: "Save workspace image to bla bla bla/.RData?" What to do? What does that even mean?
 
-If you say "yes" what will happen is that all the objects you have in your environment will be preserved, alongside the *History* (which you can access in the top right set of windows) listing all the functions you have run within your session. So, next time you open this project all will be there. If you think that what is *real* is those objects and that history, well then you may think that's what you want to do.
+If you say "yes", what will happen is that all the objects you have in your environment will be preserved, alongside the *History* (which you can access in the top right set of windows) listing all the functions you have run within your session. So, next time you open this project, everything will be there. If you think that what is *real* is those objects and that history, well, then you may think that's what you want to do.
 
-Truth is what is real is your scripts and the data that your scripts use as inputs. You don't need anything that is in your environment, because you can recreate those things by re-running your scripts. I like keeping things tidy, so when I am asked whether I want to save the image, my answer is always no. Most long time users of R never save the workspace, nor care about saving the history either. Remember what is real is your scripts and the data.
+The truth is what is real is your scripts and the data that your scripts use as inputs. You don't need anything that is in your environment, because you can recreate those things by re-running your scripts. I like keeping things tidy, so when I am asked whether I want to save the image, my answer is always no. Most long time users of R never save the workspace, nor care about saving the history either. Remember, what is real is your scripts and the data.
 
-Keep in mind though that you should not then panic if you open your next R Studio session and you don't see any objects in your environment. The good news is you can generate them quickly enough (if you really need them) by re-running your scripts. I would suggest that at this point it may be helpful for you to get into this habit as well. I suspect otherwise you will be in week 9 of the semester and have an environment full of garbage you don't really need.
+Just so you know, though, you should not then panic if you open your next R Studio session and you don't see any objects in your environment. The good news is you can generate them quickly enough (if you really need them) by re-running your scripts. I would suggest that, at this point, it may be helpful for you to get into this habit as well. I suspect otherwise you will be in week 9 of the semester and have an environment full of garbage you don't really need.
 
-What is more. I would suggest you go to the Tools drop down menu, select Global Options, and make sure you select "Never" where it says "Save workspace". Then click "Apply". This way you will never be asked to save what is in your global environment when you terminate a session.
+What is more. I would suggest you go to the Tools drop-down menu, select Global Options, and make sure you select "Never" where it says "Save workspace". Then click "Apply". This way, you will never be asked to save what is in your global environment when you terminate a session.
 
 <img src="https://user-images.githubusercontent.com/98951792/215292052-cbb36812-e7a7-4a7f-b2e4-57ea93918274.png"> 
 
