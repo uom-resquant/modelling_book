@@ -175,20 +175,20 @@ say("I love stats", "cow")
 
 This is an important feature of arguments in functions. We said how different functions admit different arguments. Here, by specifying `cow`, the function prints that particular animal. But why is it that when we didn't specify a particular kind of animal, we still got a result? That happened because functions always have default arguments that are necessary for them to run and that you do not have to make explicit. Default arguments are implicit and do not have to be typed. The `say` function has a default argument, `random`, which will print a random character or animal. It is only when you want to change the default that you need to make an alternative animal explicit.
 
-Remember, you only have to install a package that is not already installed ONCE. But if you want to use it in a given session, you will have to load it within that session using the `library` function. Once you load it within a session, the package will remain loaded until you terminate your session (for example, by closing R Studio). Do not forget this.
+Remember, you only have to install a package that has not been installed ONCE. But if you want to use it in a given session, you will have to load it within that session using the `library` function. Once you load it within a session, the package will remain loaded until you terminate your session (for example, by closing R Studio). Do not forget this.
 
 ## Objects: creating an object
 We have seen how the first argument that the "say" function takes is the text that we want to convert into speech for our given animal. We could write the text directly into the function (as we did above), but now we are going to do something different. We are going to create an object to store the text.
 
-An **object**? What do I mean? In the same way that everything you do in R you do with functions (your verbs), everything that exist in R is an object. You can think of objects as boxes where you put stuff. In this case we are going to create an object called *my_text* and inside this object we are going to store the text "I love stats". How do you do this? We will use the code below:
+An **object**? What do I mean? In the same way that everything you do in R you do with functions (your verbs), everything that exists in R is an object. You can think of objects as boxes where you put stuff. In this case, we are going to create an object called *my_text* and inside this object, we are going to store the text "I love stats". How do you do this? We will use the code below:
 
 ```{r}
 my_text <- "I love stats."
 ```
 
-This bit of code is simply telling R we are creating a new object with the assigned name ("my_text"). We are creating a box with such name and inside this box we are placing a bit of text ("I love stats"). The arrow `<-` you see is the **assignment operator**. This is an important part of the R language that tells R what we are including inside the object in question.
+This bit of code is simply telling R we are creating a new object with the assigned name ("my_text"). We are creating a box with such a name, and inside this box, we are placing a bit of text ("I love stats"). The arrow `<-` you see is the **assignment operator**. This is an important part of the R language that tells R what we are including inside the object in question.
 
-Run the code. Look now at the *Environment* window in the right top corner. We see that this object is now listed there. You can think of the Environment as a warehouse where you put stuff in, your different objects. Is there a limit to this environment? Yes, your RAM. R works on your RAM, so you need to be aware that if you use very large objects you will need loads of RAM. But that won't be a problem you will encounter in this course unit.
+Run the code. Look now at the *Environment* window in the top right corner. We see that this object is now listed there. You can think of the Environment as a warehouse where you put stuff - your different objects. Is there a limit to this environment? Yes, your RAM. R works on your RAM, so you need to be aware that if you use very large objects, you will need loads of RAM. But that won't be a problem you will encounter in this course unit.
 
 Once we put things into these boxes or objects we can use them as arguments in our functions. See the example below:
 
@@ -197,14 +197,13 @@ say(my_text, "cow")
 ```
 
 ## More on objects 
-Now that we have covered some of the preliminaries we can move to talk about data. In Excel you are used to see your data in a spreadsheet format. If you need some recap
-, you should review some of the materials that is designed for UG students in Criminology. This [chapter](https://maczokni.github.io/MSCD_labs/week1.html#data-variables-and-observations) will be helpful to have a better understanding of the notion of a data set, levels of measurement, and tidy data.
+Now that we have covered some of the preliminaries, we can move on to the data. In Excel, you are used to seeing your data in spreadsheet format. If you need some recap, you should review some of the materials from previous modules. This [chapter](https://uom-resquant.github.io/MSCD_labs/week1.html#data-variables-and-observations) will be helpful to have a better understanding of the notion of a data set, levels of measurement, and tidy data.
 
-R is considerably more flexible than Excel. Most of the work we do here will use data sets or **dataframes** as they are called in R. But as you have seen earlier you can have *objects* other than data frames in R. These objects can relate to external files or simple textual information ("I love stats"). This flexibility is a big asset because among other things it allow us to break down data frames or the results from doing analysis on them to its constitutive parts (this will become clearer as we go along).
+R is considerably more flexible than Excel. Most of the work we do here will use data sets or **data frames** as they are called in R. But as you have seen earlier, you can have *objects* other than data frames in R. These objects can relate to external files or simple textual information ("I love stats"). This flexibility is a big asset because, among other things, it allows us to break down data frames or the results from doing analysis on them to their constitutive parts (this will become clearer as we go along).
 
-Technically R is an *Object Oriented language*. Object-oriented programming (OOP) is a programming language model organized around objects rather than "actions" and data rather than logic.
+Technically, R is an *Object Oriented language*. Object-oriented programming (OOP) is a programming language model organized around objects rather than "actions" and data rather than logic.
 
-As we have seen earlier, to create an object you have to give it a name, and then use the assignment operator (the `<-` symbol) to assign it some value. 
+As we have seen earlier, to create an object, you have to give it a name and then use the assignment operator (the `<-` symbol) to assign it some value. 
 
 For example, if we want to create an object that we name "x", and we want it to represent the value of 5, we write:
 
@@ -220,7 +219,7 @@ You can see the content of the object `x` in the main console either by using th
 x
 ```
 
-When writing expressions in R is very important you understand that **R is case sensitive**. This could drive you nuts if you are not careful. More often than not if you write an expression asking R to do something and R returns an error message, chances are that you have used lower case when upper case was needed (or vice-versa). So always check for the right spelling. For example, see what happens if I use a capital 'X':
+When writing expressions in R, you must understand that **R is case sensitive**. This could drive you nuts if you are not careful. More often than not, if you write an expression asking R to do something and R returns an error message, chances are that you used lowercase when uppercase was needed (or vice versa). So, always check for the right spelling. For example, see what happens if I use a capital 'X':
 
 ```{r, error = TRUE}
 X
@@ -228,28 +227,28 @@ X
 
 You will get the following message: `"Error in eval(expr, envir, enclos): object 'X' not found"`. R is telling us that `X` does not exist. There isn't an object `X` (upper case), but there is an object `x` (lower case). Error messages in R are pretty good at telling you exactly what went wrong.
 
-Remember computers are very literal. They are like dogs. You can tell a dog "sit" and if it has been trained it will sit. But if you tell a dog "would you be so kind as to relax a bit and lay down in the sofa?", it won't have a clue what you are saying and will stare at you like you have gone mad. Error messages are computers ways of telling us "I really want to help you but I don't really understand what you mean" (never take them personal, computers don't hate you).
+Remember, computers are very literal. They are like dogs. You can tell a dog to "sit", and if it has been trained, it will sit. But if you tell a dog, "Would you be so kind as to relax a bit and lay down on the sofa?" it won't have a clue what you are saying and will stare at you like you have gone mad. Error messages are computers' ways of telling us, "I really want to help you, but I don't really understand what you mean" (never take them personally; computers don't hate you).
 
-When you get an error message or implausible results, you want to look back at your code to figure out what is the problem. This process is called **debugging**. There are some proper systematic ways to write code that facilitate debugging, but we won't get into that here. R is very good with automatic error handling at the levels we'll be using it at. Very often the solution will simply involve correcting the spelling.
+When you get an error message or implausible results, you want to look back at your code to figure out what the problem is. This process is called **debugging**. There are some proper systematic ways to write code that facilitate debugging, but we won't get into that here. R is very good with automatic error handling at the levels we'll be using it at. Very often, the solution will simply involve correcting the spelling.
 
-A handy tip is to cut and paste the error message into Google and find a solution. If anybody had given me a penny for every time I had to do that myself, I would be Bill Gates by now. You’re probably not the first person to make your mistake, after all, and someone on the internet has surely already found a solution to your issue. People make mistakes all the time. It's how we learn. Don't get frustrated, don't get stuck. Instead look for a solution. These days we have Google. We didn't back in the day. Now you have the answer to your frustration within quick reach. Use it to your advantage.
+A handy tip is to cut and paste the error message into Google and find a solution. If anybody had given me a penny for every time I had to do that myself, I would be Bill Gates by now. You’re probably not the first person to make your mistake, after all, and someone on the internet has surely already found a solution to your issue. People make mistakes all the time. It's how we learn. Don't get frustrated, don't get stuck. Instead, look for a solution. These days, we have Google. We didn't back in the day. Now, you have the answer to your frustration within quick reach. Use it to your advantage.
 
 ## Naming conventions for objects in R
-You may have noticed the various names I have used to designate objects (`my_1st_vector`, `the_smiths`, etc.). You can use almost any names you want for your objects. Objects in R can have names of any length consisting of letters, numbers, underscores ("_") or the period (".") and should begin with a letter. In addition, when naming objects you need to remember: 
+You may have noticed the various names I have used to designate objects (`my_1st_vector`, `the_smiths`, etc.). You can use almost any names you want for your objects. Objects in R can have names of any length consisting of letters, numbers, underscores ("_") or the period (".") and should begin with a letter. In addition, when naming objects, you need to remember: 
 
 + *Some names are forbidden*. These include words such as FALSE and TRUE, logical operators, and programming words like Inf, for, else, break, function, and words for special entities like NA and NaN.
 
-+ *You want to use names that do not correspond to a specific function.* We have seen, for example, that there is a function called `print()`, you don't want to call an object "print" to avoid conflicts. To avoid this use nouns instead of verbs for naming your variables and data.
++ *You want to use names that do not correspond to a specific function.* We have seen, for example, that there is a function called `print()`; you don't want to call an object "print" to avoid conflicts. To avoid this, use nouns instead of verbs when naming your variables and data.
 
 + *You don't want them to be too long* (or you will regret it every time you need to use that object in your analysis: your fingers will bleed from typing).
 
 + *You want to make them as intuitive to interpret as possible.*
 
-+ *You want to follow consistent naming conventions.* [R users are terrible about this](http://journal.r-project.org/archive/2012-2/RJournal_2012-2_Baaaath.pdf). But we could make it better if we all aim to follow similar conventions. In these handouts you will see I follow the `underscore_separated` convention -see [here](https://style.tidyverse.org/syntax.html) for details.
++ *You want to follow consistent naming conventions.* [R users are terrible about this](http://journal.r-project.org/archive/2012-2/RJournal_2012-2_Baaaath.pdf). However, we could make it better if we all aim to follow similar conventions. In these handouts, you will see that I follow the `underscore_separated` convention. See [here](https://style.tidyverse.org/syntax.html) for details.
 
-It is also important to remember that R will always treat numbers as numbers. This sounds straightforward, but actually it is important to note. We can name our variables almost anything. EXCEPT they cannot be numbers. Numbers are **protected** by R. 1 will always mean 1. 
+It is also important to remember that R will always treat numbers as numbers. This sounds straightforward, but actually, it is important to note. We can name our variables almost anything. EXCEPT they cannot be numbers. Numbers are **protected** by R. 1 will always mean 1. 
 
-If you want, give it a try. Try to create a variable called 12 and assign it the value "twelve". As we did last week, we can assign something a meaning by using the "<-" characters.
+If you want, give it a try. Try to create a variable called 12 and assign it the value "twelve". As we did in the sections above, we can assign something meaning by using the "<-" characters.
 
 ```{r, error=TRUE}
 12 <- "twelve"
@@ -259,52 +258,52 @@ You get an error!
 
 ## R object types: vectors
 
-In R there are different kind of objects. We will start with **vectors**. 
+In R, there are different kinds of objects. We will start with **vectors**. 
 
-What is a vector? A vector is simply a set of elements *of the same class* (typically these classes are: character, numeric, integer, or logical -as in True/False). Vectors are the basic data structure in R. 
+What is a vector? A vector is simply a set of elements *of the same class* (typically, these classes are character, numeric, integer, or logical -as in True/False). Vectors are the basic data structure in R. 
 
-Typically you will use the `c()` function (c stands for *concatenate*) to create vectors. The code below exemplifies how to create vectors of different classes (numeric, logical, character, etc.). Notice how the listed elements (to simplify there are two elements in each vector below) are separated by commas `,`:
+Typically, you will use the `c()` function (c stands for *concatenate*) to create vectors. The code below exemplifies how to create vectors of different classes (numeric, logical, character, etc.). Notice how the listed elements (to simplify, there are two elements in each vector below) are separated by commas `,`:
 
 ```{r}
 my_1st_vector <- c(0.5, 0.6) #creates a numeric vector with two elements
 my_2nd_vector <- c(1L, 2L) #creates an integer vector ("L" suffix specifies an integer type)
 my_3rd_vector <- c(TRUE, FALSE) #creates a logical vector
-my_4th_vector <- c(T, F) #creates a logical vector using abbreviations of True and False, but you should avoid this formulation an instead use the full word.
+my_4th_vector <- c(T, F) #creates a logical vector using abbreviations of True and False, but you should avoid this formulation and instead use the full word.
 my_5th_vector <- c("a", "b", "c") #creates a character vector
 my_6th_vector <- c(1+0i, 2+4i) #creates a complex vector (we won't really use in this class)
 ```
 
 Cut and paste this code into your script and run it. You will see how all these vectors are added to your global environment and stored there.
 
-The beauty of an object oriented statistical language like R is that one you have these objects you can use them as **inputs** in functions, use them in operations, or to create other objects. This makes R very flexible. See some examples below:
+The beauty of an object-oriented statistical language like R is that once you have these objects, you can use them as **inputs** in functions, use them in operations, or create other objects. This makes R very flexible. See some examples below:
 
 ```{r}
 class(my_1st_vector) #a function to figure out the class of the vector
 length(my_1st_vector) #a function to figure out the length of the vector
 my_1st_vector + 2 #Add a constant to each element of the vector
 my_7th_vector <- my_1st_vector + 1 #Create a new vector that contains the elements of my1stvector plus a constant of 1
-my_1st_vector + my_7th_vector #Adds the two vectors and auto-print the results (note how the sum was done)
+my_1st_vector + my_7th_vector #Adds the two vectors and Auto-print the results (note how the sum was done)
 ```
 
-As indicated earlier, when you create objects you will place them in your working memory or workspace. Each R session will be associated to a workspace (called "global environment" in R Studio). In R Studio you can visualise the objects you have created during a session in the **Global Environment** screen. But if you want to produce a list of what's there you can use the `ls()` function (the results you get my differ from the ones below depending on what you actually have in your global environment).
+As indicated earlier, when you create objects you will place them in your working memory or workspace. Each R session will be associated with a workspace (called "global environment" in R Studio). In R Studio you can visualise the objects you have created during a session in the **Global Environment** screen. But if you want to produce a list of what's there, you can use the `ls()` function (the results you get may differ from the ones below depending on what you actually have in your global environment).
 
 ```{r}
 ls() #list all objects in your global environment
 ```
 
-If you want to delete a particular object you can do so using the `rm()` function.
+If you want to delete a particular object, you can do so using the `rm()` function.
 
 ```{r}
 rm(x) #remove x from your global environment
 ```
 
-It is also possibly to remove all objects at once:
+It is also possible to remove all objects at once:
 
 ```{r}
 rm(list = ls()) #remove all objects from your global environment
 ```
 
-If you mix in a vector elements that are of a different class (for example numerical and logical), R will **coerce** to the minimum common denominator, so that every element in the vector is of the same class. So, for example, if you input a number and a character, it will coerce the vector to be a character vector -see the example below and notice the use of the `class()` function to identify the class of an object. 
+If you mix in vector elements of a different class (for example, numerical and logical), R will **coerce** to the minimum common denominator so that every element in the vector is of the same class. So, for example, if you input a number and a character, it will coerce the vector to be a character vector - see the example below and notice the use of the `class()` function to identify the class of an object. 
 
 ```{r}
 my_8th_vector <- c(0.5, "a")
@@ -313,7 +312,7 @@ class(my_8th_vector) #The class() function will tell us the class of the vector
 
 ## R object types: Data frame
 
-Ok, so now that you understand some of the basic types of objects you can use in R, let's start taking about data frames. One of the most common objects you will work with in this course are **data frames**. Data frames can be created with the `data.frame()` function. 
+Ok, so now that you understand some of the basic types of objects you can use in R, let's start talking about data frames. One of the most common objects you will work with in this course are **data frames**. Data frames can be created with the `data.frame()` function. 
 
 Data frames are *multiple vectors* of possibly different classes (e.g., numeric, factors, character), but of the same length (e.g., all vectors, or variables, have the same number of rows). This may sound a bit too technical but it is simply a way of saying that a data frame is what in other programmes for data analysis gets represented as data sets, the tabular spreadsheets you have seen when using Excel.
 
