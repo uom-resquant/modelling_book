@@ -36,7 +36,7 @@ GESIS has a section of their website devoted to the Eurobarometer survey. You ca
 
 You can access the data for this Eurobarometer [here](https://search.gesis.org/research_data/ZA6695). 
 
-![](imgs/gesisa.PNG) 
+![](imgs/gesisa.png) 
 
 You will see here that there are links to the files with the data in SPSS and STATA format. You can also see a tab where you can obtain the questionnaire for the survey. Once you are registered, download the STATA version of the file and the English version of the questionnaire. Make sure you place the file in your working directory. Once you do this, you should be able to use the code we are using in this session.
 
