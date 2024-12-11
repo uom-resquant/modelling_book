@@ -24,13 +24,13 @@ In this session, we will look at data from a randomised trial that tried to esta
 
 Last week we introduced the notion of reproducible research and said that using and publishing code (particularly if using open-source tools like R) is the way that [many researchers](https://osf.io/?gclid=EAIaIQobChMIq-jM6MuY2QIV7Z3tCh04vAycEAAYASAAEgLptPD_BwE) around the world think that science ought to be done. This way of operating makes research more open, more credible, and more legitimate. It also means that we can more easily access the data used in published research. For this session, we are going to use the data from [this](https://academic.oup.com/qje/article/133/1/191/4060073) and [this paper](https://pubs.aeaweb.org/doi/pdfplus/10.1257/aer.p20171003) study. In this research project, the authors tried to answer the question of whether criminal antecedents and other personal characteristics have an impact on access to employment. You can find more details about this work in [episode 8](https://www.probablecausation.com/podcasts/episode-8-amanda-agan) of *Probable Causation*, the criminology podcast.
 
-If you want to know more about 'Ban the Box: fair chance recruitment’ practices in the UK, you can find more information [here](https://recruit.unlock.org.uk/fair-chance-recruitment/ban-the-box/) and also can watch this short video from Leo Burnett who helped promote giving people a chance to explain their past. This could give you a better understanding of this issue.
+If you want to know more about 'Ban the Box: fair chance recruitment’ practices in the UK, you can find more information [here](https://recruit.unlock.org.uk/homepage/fair-chance-recruitment/) and also can watch this short video from Leo Burnett who helped promote giving people a chance to explain their past. This could give you a better understanding of this issue.
 
 ```{r echo=FALSE, fig.align='center', cache=TRUE}
 knitr::include_url("https://www.youtube.com/embed/eM1nVA6hwlI")
 ```
 
-[Amanda Agan](http://economics.rutgers.edu/people/626-amanda-agan) and [Sonja Starr](https://www.law.umich.edu/FacultyBio/Pages/FacultyBio.aspx?FacID=sbstarr) developed a randomised experiment in which they created 15,220 fake resumes randomly generating these critical characteristics (such as having a criminal record) and used these resumes to send online job applications to low-skill, entry-level job openings in New Jersey and New York City. All the fictitious applicants were male and about 21 to 22 years old. These kinds of experiments are very common among researchers who want to explore through these "audits" whether some personal characteristics are discriminated against in the labour market.
+[Amanda Agan](https://economics.cornell.edu/amanda-agan) and [Sonja Starr](https://www.law.uchicago.edu/faculty/starr) developed a randomised experiment in which they created 15,220 fake resumes randomly generating these critical characteristics (such as having a criminal record) and used these resumes to send online job applications to low-skill, entry-level job openings in New Jersey and New York City. All the fictitious applicants were male and about 21 to 22 years old. These kinds of experiments are very common among researchers who want to explore through these "audits" whether some personal characteristics are discriminated against in the labour market.
 
 Because Amanda Agan and Sonja Starr conformed to reproducible standards when doing their research, we can access this data from the *Harvard Dataverse* (a repository for open research data). Click [here](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/VPHMNT) to locate the data.
 
@@ -395,6 +395,33 @@ ggplot(banbox, aes(y = daystoresponse, x = black_f)) +
 Watch [this video](https://www.khanacademy.org/math/probability/data-distributions-a1/box--whisker-plots-a1/v/reading-box-and-whisker-plots) and see if you can interpret the results portrayed here. What do you think?
 
 Overall, the outcomes are worse for 'Black' applicants, and in fact, the authors find that employers substantially increase discrimination on the basis of race after ban the box goes into effect. You can now replicate these findings with the data provided. by applying the new skills you've learned this week!
+
+##Summary
+This week, we used the following R functions:
+
+*read data: ‘haven’ package*
+- read_dta()
+*explore data*
+- dim()
+- names()
+- class()
+- attribute()
+- head()
+- tail()
+- table()
+- lapply()
+- sum()
+- mean()
+*transform variables into factor variables*
+- as_factor()
+*missing variable*
+- is.na()
+*‘dplyr’ package*
+- filter()
+- select()
+- group_by()
+- summarise()
+
 
 <!--## Summary: exercise for this week
 
