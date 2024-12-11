@@ -817,6 +817,32 @@ Fourth, **resources for visualisations we don't have the time to cover**. R is w
 
 For example, if you like maps, **R can also be used to produce visualisations of spatial data**. There are various resources to learn how to do this, and we will teach this in our *Crime Mapping* module in the third year.
 
+##Summary 
+
+This week, we used the following R functions:
+
+*import data: ‘readr’ package*
+- read_csv()
+*explore data*
+- names()
+*clean data: janitor package*
+- clean_names()
+- visualise data
+- ggplot()
++ geom_bar()
++ geom_point()
++ geom_histogram()
++ geom_density()
++ geom_hline()
++ geom_boxplot()
++ facet_warp()
++ facet_grid
+*transform a variable into a factor variable*
+- as_factor()
+*create a categorical variable using a numeric variable*
+- Boston$lowval[Boston$medv <= 17.02] <- "Low value"
+
+
 <!--## Summary: exercise for this week
 Once you finish your lab session, don't forget to do this [Exercise](https://eonk.shinyapps.io/MCD_ex) and have a chance to sum-up this week's R codes.-->
 
