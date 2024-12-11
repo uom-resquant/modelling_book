@@ -14,11 +14,11 @@ In this session, we will focus on developing basic familiarity with R Studio. Yo
 
 When you first open R Studio, you will see (as in the image above) that there are 3 main panes. The bigger one to your left is the console. If you read the text in the console, you will see that R Studio is opening R and can see what version of R you are running. Depending on whether you are using the cluster machines or your own installation, this may vary, but don't worry too much about it. 
 
-![](imgs/openscript.PNG){width=80%}
+![](imgs/openscript.png){width=80%}
 
 The view in R Studio is structured so that you have 4 open panes in a regular session. Click on the *File* drop-down menu, select *New File*, then *R Script*. You will now see the 4 window areas on display. You can shift between different views and panels in each of these areas. You can also use your mouse to re-size the different windows if that is convenient.
 
-![](imgs/the4views.PNG){width=80%}
+![](imgs/the4views.png){width=80%}
 
 Look, for example, at the bottom right area. Within this area you can see that there are different tabs, which are associated with different views. You can see in the tabs in this section that there are different views available: *Files*, *Plots*, *Packages*, *Help*, and *Viewer*. The **Files** allow you to see the files in the physical directory that is currently set up as your working environment. You can think of it like a window in Windows Explorer that lets you see the content of a folder. 
 
@@ -106,7 +106,7 @@ In R, you can pass a number of **arguments** to any function. These arguments co
 
 Every R function admits different kinds of arguments. Learning R involves not only learning different functions but also learning the valid arguments you can pass to each function. 
 
-![](imgs/consoleresults.PNG){width=80%}
+![](imgs/consoleresults.png){width=80%}
 
 As indicated above, the window in the bottom left corner is the main **console**. You will see that the words "I love stats" appear printed there.  If, rather than using R Studio, you were working directly from R, that's all you would get: the main console where you can write code interactively (rather than all the different windows you see in R Studio). You can write your code directly in the main console and execute it line by line in an interactive fashion. However, we will be running code from scripts so that you get used to the idea of properly documenting all the steps you take. 
 
@@ -117,7 +117,7 @@ Anybody can write a package, so consequently, R packages vary in quality and com
 
 When you install R, you only install a set of basic packages, not the full 10,000 plus. So, if you want to use any of these added packages that are not part of the basic installation, you first need to install them. You can see what packages are available for your local installation by looking at the *packages* tab in the bottom right corner panel. Click there and check. We are going to install a package that is not there so that you can see how the installation is done. 
 
-![](imgs/packages.PNG){width=80%}
+![](imgs/packages.png){width=80%}
 
 If you just installed R on your laptop, you will see a shortish list of packages that constitute the basic installation of R. If you are using one of the machines in the computer cluster, this list is a bit longer because we asked IT to install some of the most commonly used packages. But knowing how to install packages is essential since you will want to do it very often.
 
@@ -372,12 +372,12 @@ These results printed in my console may not make too much sense to you at this p
 
 Go now to the global environment panel and left-click on the data frame "hate_crimes". This will open the data viewer in the top left section of R Studio. What you get there is a spreadsheet with 12 variables and 51 observations. Each variable, in this case, provides you with information (demographics, voting patterns, and hate crime) about each of the US states.  
 
-![](imgs/dataview.PNG){width=80%}
+![](imgs/dataview.png){width=80%}
 
 ## Exploring data
 Ok, let's now have a quick look at the data. There are so many different ways of producing summary stats for data stored in R that it is impossible to cover them all! We will just introduce a few functions that you may find useful for summarising data. Before we do any of that, it is important you get a sense of what is available in this data set. Go to the help tab, and in the search box, input the name of the data frame; this will take you to the documentation for this data frame. Here, you can see a list of the available variables.
 
-![](imgs/codebook.PNG){width=80%}
+![](imgs/codebook.png){width=80%}
 
 Let's start with the *mean*. This function takes as an argument the numeric variable for which you want to obtain the mean. Because of the way that R works, you cannot simply put the name of the variable; you have to tell R as well which data frame that variable is located in. To do that, you write the name of the data frame, the dollar sign(`$`), and then the name of the variable you want to summarise. If you want to obtain the mean of the variable that gives us the proportion of people who voted for Donald Trump, you can use the following expression:
 
@@ -423,7 +423,7 @@ skim(hate_crimes)
 knitr::kable(skim(hate_crimes))
 ```
 
-Apart from summary statistics, last semester, we discussed a variety of ways to graphically display variables. In week 3 of 'Making Sense of Criminological Data' covered scatterplots, a graphical device to show the relationship between two quantitative variables. I don't know if you remember the number of points and clicks you had to make in Excel to get this done. 
+Apart from summary statistics, last semester, we discussed a variety of ways to graphically display variables. Week 3 of 'Making Sense of Criminological Data' covered scatterplots, a graphical device to show the relationship between two quantitative variables. I don't know if you remember the number of points and clicks you had to make in Excel to get this done. 
 
 ## R data types: Factors
 
@@ -497,10 +497,13 @@ Tips! Please keep your folders simple. Just use one data folder for this module 
 All data we will use in the module are on the blackboard, but we will also provide the links to where we saved the data for you. You know when you right-click on the link, and select "Save As..." or whatever you click on to save? You could also select "Copy Link Address". This just copies the webpage where this data is stored. Give it a go! Copy the address, and then paste it into your browser. It will take you to a blank page where a forced download of the data will begin. So what if you pasted this into the `read.csv()` function? 
 
 ```{r, eval=FALSE}
-#example 1: when you download data directly from the webpage, you will use this code.
+#example 1: when you download data directly from the webpage, 
+#you will use this code.
 my_dataframe <- read.csv("www.data.com/data you want to import.csv")
-#example 2: when you download data from BB and save it to your computer, you can use file.choose() 
-#file.choose() brings up a file explorer window that allows you to interactively choose a file path to work with.
+#example 2: when you download data from BB and save it to your 
+#computer, you can use file.choose() 
+#file.choose() brings up a file explorer window that allows
+#you to interactively choose a file path to work with.
 my_dataframe <- read.csv(file.choose())
 ```
 
