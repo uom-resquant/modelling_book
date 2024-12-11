@@ -30,7 +30,7 @@ The data from these surveys is accessible through the data catalogue of GESIS, a
 
 ![](imgs/register.PNG) 
 
-GESIS has a section of their website devoted to the Eurobarometer survey. You can access that section [here](https://www.gesis.org/eurobarometer-data-service/home/). You can navigate this webpage to find the data we will be using for this tutorial, but to save time, I will provide you a direct link to it. We will be using the special Eurobarometer 85.3 from 2016. This survey, among other things, asked Europeans about their views on gender violence.
+GESIS has a section of their website devoted to the Eurobarometer survey. You can access that section [here](https://www.gesis.org/en/eurobarometer-data-service). You can navigate this webpage to find the data we will be using for this tutorial, but to save time, I will provide you a direct link to it. We will be using the special Eurobarometer 85.3 from 2016. This survey, among other things, asked Europeans about their views on gender violence.
 
 ![](imgs/eb.PNG) 
 
@@ -699,17 +699,53 @@ There are many other ways to recode variables and create new variables based on 
 
 [Wrangling categorical data in R](https://peerj.com/preprints/3163.pdf)
 
-[http://rprogramming.net/recode-data-in-r/](http://rprogramming.net/recode-data-in-r/)
-
 [http://www.cookbook-r.com/Manipulating_data/Recoding_data/](http://www.cookbook-r.com/Manipulating_data/Recoding_data/)
 
-[https://mgimond.github.io/ES218/dplyr.html)
+[https://mgimond.github.io/ES218/dplyr.html](https://mgimond.github.io/ES218/dplyr.html)
 
 [https://www.r-bloggers.com/from-continuous-to-categorical/](https://www.r-bloggers.com/from-continuous-to-categorical/)
 
 You should also look for the `dplyr` documentation for the functions mutate() and recode().
 
 If you would like to combine several variables into one for your analysis in more complex ways but do not know how to do that, please do get in touch. Also, do not hesitate to approach us if you have any other specific queries.
+
+##Summary
+
+This week, we used the following R functions:
+
+*import data: ‘haven’ package*
+- read_dta()
+*explore data*
+- class()
+- attributes()
+- summary()
+- skim()
+- mosaic()
+- vis_dat()
+*explore data: descriptive statistics*
+- table()
+- mean()
+- median()
+- modeest::mlv()
+*manipulate data: dplyr package*
+- select()
+- mutate()
+*manpulate data: missing variable*
+- na.omit()
+- colMeans(is.na())
+- df$at_sexviol[df$qb10_11 == 1 | df$qb10_12 == 1] <- NA
+- levels(df$urban_f)[levels(df$urban_f) == 'DK'] <- NA
+*change a variable name*
+- rename()
+- colnames(df)[colnames(df)=="d10"] <- "gender"
+- names(df)[4:7] <- c("age", "politics", "urban", "occupation")
+*create list*
+- northern_list <- c("DK", "FI", "SE")
+*transform a variable into a factor variable*
+- as_factor()
+*transform a variable into a numeric variable*
+- as.numeric()
+
 
 <!--## Summary: exercise for this week
 Once you finish your lab session, don't forget to do this [Exercise](https://eonk.shinyapps.io/MCD_ex) and have a chance to sum up this week's R codes.-->
