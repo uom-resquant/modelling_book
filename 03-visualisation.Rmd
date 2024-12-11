@@ -195,7 +195,9 @@ ggplot(data = fbo, aes(x = league_of_the_club_supported, y = banning_orders)) +
 This makes the comparison significantly easier, right? But the order is strange! Remember we talked about factors in previous weeks? Well, the good thing about factors is that we can arrange them in their natural order. If we don't describe an order, then R uses the alphabetical order. So, let's reorder our factor. To do that, we specify the levels in the order in which we want to be embedded within the factor. We use the code we introduced last week to do this.
 
 ```{r}
-fbo$league_of_the_club_supported <- factor(fbo$league_of_the_club_supported, levels = c("Premier League", "Championship", "League One", "League Two", "Other clubs"))
+fbo$league_of_the_club_supported <- factor(fbo$league_of_the_club_supported, 
+levels = c("Premier League", "Championship", "League One", 
+"League Two", "Other clubs"))
 ```
 
 And now, create the plot again!
