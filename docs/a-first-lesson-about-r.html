@@ -4,23 +4,23 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 1 A first lesson about R | Modelling Criminological Data LAWS20452</title>
-  <meta name="description" content="This is the course material for Modelling Criminological Data LAWS20452." />
+  <title>Chapter 1 A first lesson about R | Modelling Criminological Data CRIM20452</title>
+  <meta name="description" content="This is the course material for Modelling Criminological Data CRIM20452." />
   <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 1 A first lesson about R | Modelling Criminological Data LAWS20452" />
+  <meta property="og:title" content="Chapter 1 A first lesson about R | Modelling Criminological Data CRIM20452" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="This is the course material for Modelling Criminological Data LAWS20452." />
+  <meta property="og:description" content="This is the course material for Modelling Criminological Data CRIM20452." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 1 A first lesson about R | Modelling Criminological Data LAWS20452" />
+  <meta name="twitter:title" content="Chapter 1 A first lesson about R | Modelling Criminological Data CRIM20452" />
   
-  <meta name="twitter:description" content="This is the course material for Modelling Criminological Data LAWS20452." />
+  <meta name="twitter:description" content="This is the course material for Modelling Criminological Data CRIM20452." />
   
 
-<meta name="author" content="Reka Solymosi and Eon Kim (based on material developed with Juanjo Medina" />
+<meta name="author" content="" />
 
 
 <meta name="date" content="2024-12-11" />
@@ -288,7 +288,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modelling Criminological Data LAWS20452</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modelling Criminological Data CRIM20452</a>
           </h1>
         </div>
 
@@ -301,8 +301,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="install-r-rstudio" class="section level2 hasAnchor" number="1.1">
 <h2><span class="header-section-number">1.1</span> Install R &amp; RStudio<a href="a-first-lesson-about-r.html#install-r-rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We recommend using your laptops for this course. If you have not already, then please download and install R and RStudio onto your laptops.
-- click <a href="https://www.youtube.com/watch?v=eD07NznguA4">here</a> for instructions using Windows or
-- <a href="https://www.youtube.com/watch?v=E8IFmqSXjDc">here</a> for instructions using a Mac. If you are using a Mac it would be convenient that you use the most up-to-date version of OS or at least one compatible with the most recent version of R. Read <a href="https://support.apple.com/en-gb/109033#:~:text=From%20the%20Apple%20menu%20%EF%A3%BF,version%20number%20to%20see%20it.">this</a> if you want to check how to do that.</p>
+- click <a href="https://www.youtube.com/watch?v=rHZ9MGWxU5I&amp;list=PLkIselvEzpM73U-0ONpe7eHp2WCuItVWQ&amp;index=2&amp;ab_channel=OpenIntroOrg">here</a> for instructions using Windows or
+- <a href="https://www.youtube.com/watch?v=AEebOXiMyyI&amp;list=PLkIselvEzpM73U-0ONpe7eHp2WCuItVWQ&amp;ab_channel=OpenIntroOrg">here</a> for instructions using a Mac. If you are using a Mac it would be convenient that you use the most up-to-date version of OS or at least one compatible with the most recent version of R. Read <a href="https://support.apple.com/en-gb/109033#:~:text=From%20the%20Apple%20menu%20%EF%A3%BF,version%20number%20to%20see%20it.">this</a> if you want to check how to do that.</p>
 <p>If you prefer, you can always use any of the PCs in the computer cluster. All of them already have the software installed.</p>
 </div>
 <div id="open-up-and-explore-rstudio" class="section level2 hasAnchor" number="1.2">
@@ -493,9 +493,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="a-first-lesson-about-r.html#cb23-1" tabindex="-1"></a>my_1st_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.6</span>) <span class="co">#creates a numeric vector with two elements</span></span>
 <span id="cb23-2"><a href="a-first-lesson-about-r.html#cb23-2" tabindex="-1"></a>my_2nd_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(1L, 2L) <span class="co">#creates an integer vector (&quot;L&quot; suffix specifies an integer type)</span></span>
 <span id="cb23-3"><a href="a-first-lesson-about-r.html#cb23-3" tabindex="-1"></a>my_3rd_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>) <span class="co">#creates a logical vector</span></span>
-<span id="cb23-4"><a href="a-first-lesson-about-r.html#cb23-4" tabindex="-1"></a>my_4th_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(T, F) <span class="co">#creates a logical vector using abbreviations of True and False, but you should avoid this formulation and instead use the full word.</span></span>
-<span id="cb23-5"><a href="a-first-lesson-about-r.html#cb23-5" tabindex="-1"></a>my_5th_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>) <span class="co">#creates a character vector</span></span>
-<span id="cb23-6"><a href="a-first-lesson-about-r.html#cb23-6" tabindex="-1"></a>my_6th_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">+</span>0i, <span class="dv">2</span><span class="sc">+</span>4i) <span class="co">#creates a complex vector (we won&#39;t really use in this class)</span></span></code></pre></div>
+<span id="cb23-4"><a href="a-first-lesson-about-r.html#cb23-4" tabindex="-1"></a>my_4th_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(T, F) <span class="co">#creates a logical vector using abbreviations of True and False, </span></span>
+<span id="cb23-5"><a href="a-first-lesson-about-r.html#cb23-5" tabindex="-1"></a><span class="co">#but you should avoid this formulation and instead use the full word.</span></span>
+<span id="cb23-6"><a href="a-first-lesson-about-r.html#cb23-6" tabindex="-1"></a>my_5th_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>) <span class="co">#creates a character vector</span></span>
+<span id="cb23-7"><a href="a-first-lesson-about-r.html#cb23-7" tabindex="-1"></a>my_6th_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">+</span>0i, <span class="dv">2</span><span class="sc">+</span>4i) <span class="co">#creates a complex vector (we won&#39;t really use in this class)</span></span></code></pre></div>
 <p>Cut and paste this code into your script and run it. You will see how all these vectors are added to your global environment and stored there.</p>
 <p>The beauty of an object-oriented statistical language like R is that once you have these objects, you can use them as <strong>inputs</strong> in functions, use them in operations, or create other objects. This makes R very flexible. See some examples below:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="a-first-lesson-about-r.html#cb24-1" tabindex="-1"></a><span class="fu">class</span>(my_1st_vector) <span class="co">#a function to figure out the class of the vector</span></span></code></pre></div>
@@ -504,42 +505,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] 2</code></pre>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="a-first-lesson-about-r.html#cb28-1" tabindex="-1"></a>my_1st_vector <span class="sc">+</span> <span class="dv">2</span> <span class="co">#Add a constant to each element of the vector</span></span></code></pre></div>
 <pre><code>## [1] 2.5 2.6</code></pre>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="a-first-lesson-about-r.html#cb30-1" tabindex="-1"></a>my_7th_vector <span class="ot">&lt;-</span> my_1st_vector <span class="sc">+</span> <span class="dv">1</span> <span class="co">#Create a new vector that contains the elements of my1stvector plus a constant of 1</span></span>
-<span id="cb30-2"><a href="a-first-lesson-about-r.html#cb30-2" tabindex="-1"></a>my_1st_vector <span class="sc">+</span> my_7th_vector <span class="co">#Adds the two vectors and Auto-print the results (note how the sum was done)</span></span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="a-first-lesson-about-r.html#cb30-1" tabindex="-1"></a>my_7th_vector <span class="ot">&lt;-</span> my_1st_vector <span class="sc">+</span> <span class="dv">1</span> <span class="co">#Create a new vector that contains </span></span>
+<span id="cb30-2"><a href="a-first-lesson-about-r.html#cb30-2" tabindex="-1"></a><span class="co">#the elements of my1stvector plus a constant of 1</span></span>
+<span id="cb30-3"><a href="a-first-lesson-about-r.html#cb30-3" tabindex="-1"></a>my_1st_vector <span class="sc">+</span> my_7th_vector <span class="co">#Adds the two vectors and Auto-print </span></span></code></pre></div>
 <pre><code>## [1] 2.0 2.2</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="a-first-lesson-about-r.html#cb32-1" tabindex="-1"></a><span class="co">#the results (note how the sum was done)</span></span></code></pre></div>
 <p>As indicated earlier, when you create objects, you place them in your working memory or workspace. Each R session will be associated with a workspace (called “global environment” in R Studio). In R Studio you can visualise the objects you have created during a session in the <strong>Global Environment</strong> screen. But if you want to produce a list of what’s there, you can use the <code>ls()</code> function (the results you get may differ from the ones below depending on what you actually have in your global environment).</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="a-first-lesson-about-r.html#cb32-1" tabindex="-1"></a><span class="fu">ls</span>() <span class="co">#list all objects in your global environment</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="a-first-lesson-about-r.html#cb33-1" tabindex="-1"></a><span class="fu">ls</span>() <span class="co">#list all objects in your global environment</span></span></code></pre></div>
 <pre><code>## [1] &quot;my_1st_vector&quot; &quot;my_2nd_vector&quot; &quot;my_3rd_vector&quot; &quot;my_4th_vector&quot;
 ## [5] &quot;my_5th_vector&quot; &quot;my_6th_vector&quot; &quot;my_7th_vector&quot; &quot;my_text&quot;      
 ## [9] &quot;x&quot;</code></pre>
 <p>If you want to delete a particular object, you can do so using the <code>rm()</code> function.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="a-first-lesson-about-r.html#cb34-1" tabindex="-1"></a><span class="fu">rm</span>(x) <span class="co">#remove x from your global environment</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="a-first-lesson-about-r.html#cb35-1" tabindex="-1"></a><span class="fu">rm</span>(x) <span class="co">#remove x from your global environment</span></span></code></pre></div>
 <p>It is also possible to remove all objects at once:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="a-first-lesson-about-r.html#cb35-1" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>()) <span class="co">#remove all objects from your global environment</span></span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="a-first-lesson-about-r.html#cb36-1" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>()) <span class="co">#remove all objects from your global environment</span></span></code></pre></div>
 <p>If you mix in vector elements of a different class (for example, numerical and logical), R will <strong>coerce</strong> to the minimum common denominator so that every element in the vector is of the same class. So, for example, if you input a number and a character, it will coerce the vector to be a character vector - see the example below and notice the use of the <code>class()</code> function to identify the class of an object.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="a-first-lesson-about-r.html#cb36-1" tabindex="-1"></a>my_8th_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="st">&quot;a&quot;</span>)</span>
-<span id="cb36-2"><a href="a-first-lesson-about-r.html#cb36-2" tabindex="-1"></a><span class="fu">class</span>(my_8th_vector) <span class="co">#The class() function will tell us the class of the vector</span></span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="a-first-lesson-about-r.html#cb37-1" tabindex="-1"></a>my_8th_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="st">&quot;a&quot;</span>)</span>
+<span id="cb37-2"><a href="a-first-lesson-about-r.html#cb37-2" tabindex="-1"></a><span class="fu">class</span>(my_8th_vector) <span class="co">#The class() function will tell us the class of the vector</span></span></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 </div>
 <div id="r-object-types-data-frame" class="section level2 hasAnchor" number="1.11">
 <h2><span class="header-section-number">1.11</span> R object types: Data frame<a href="a-first-lesson-about-r.html#r-object-types-data-frame" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Ok, so now that you understand some of the basic types of objects you can use in R, let’s start talking about data frames. One of the most common objects you will work with, in this course, is <strong>data frames</strong>. Data frames can be created with the <code>data.frame()</code> function.</p>
+<p>Ok, so now that you understand some of the basic types of objects you can use in R, let’s start talking about data frames. One of the most common objects you will work with, in this course, are <strong>data frames</strong>. Data frames can be created with the <code>data.frame()</code> function.</p>
 <p>Data frames are <em>multiple vectors</em> of possibly different classes (e.g., numeric, factors, character) but of the same length (e.g., all vectors or variables have the same number of rows). This may sound a bit too technical, but it is simply a way of saying that a data frame is what in other programs for data analysis gets represented as data sets, the tabular spreadsheets you have seen when using Excel.</p>
 <p><img src="imgs/df.PNG" style="width:80.0%" /></p>
 <p>Let’s create a data frame with two variables:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="a-first-lesson-about-r.html#cb38-1" tabindex="-1"></a><span class="co">#We create a data frame called mydata_1 with two variables, an integer vector called foo and a logical vector called bar</span></span>
-<span id="cb38-2"><a href="a-first-lesson-about-r.html#cb38-2" tabindex="-1"></a>mydata_1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">foo =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">bar =</span> <span class="fu">c</span>(T,T,F,F))</span>
-<span id="cb38-3"><a href="a-first-lesson-about-r.html#cb38-3" tabindex="-1"></a>mydata_1</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="a-first-lesson-about-r.html#cb39-1" tabindex="-1"></a><span class="co">#We create a data frame called mydata_1 with two variables, </span></span>
+<span id="cb39-2"><a href="a-first-lesson-about-r.html#cb39-2" tabindex="-1"></a><span class="co">#an integer vector called foo and a logical vector called bar</span></span>
+<span id="cb39-3"><a href="a-first-lesson-about-r.html#cb39-3" tabindex="-1"></a>mydata_1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">foo =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">bar =</span> <span class="fu">c</span>(T,T,F,F))</span>
+<span id="cb39-4"><a href="a-first-lesson-about-r.html#cb39-4" tabindex="-1"></a>mydata_1</span></code></pre></div>
 <pre><code>##   foo   bar
 ## 1   1  TRUE
 ## 2   2  TRUE
 ## 3   3 FALSE
 ## 4   4 FALSE</code></pre>
 <p>Or alternatively, for the same result:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="a-first-lesson-about-r.html#cb40-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span></span>
-<span id="cb40-2"><a href="a-first-lesson-about-r.html#cb40-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(T, T, F, F)</span>
-<span id="cb40-3"><a href="a-first-lesson-about-r.html#cb40-3" tabindex="-1"></a>mydata_2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span> (<span class="at">foo =</span> x, <span class="at">bar =</span> y)</span>
-<span id="cb40-4"><a href="a-first-lesson-about-r.html#cb40-4" tabindex="-1"></a>mydata_2</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="a-first-lesson-about-r.html#cb41-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span></span>
+<span id="cb41-2"><a href="a-first-lesson-about-r.html#cb41-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(T, T, F, F)</span>
+<span id="cb41-3"><a href="a-first-lesson-about-r.html#cb41-3" tabindex="-1"></a>mydata_2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span> (<span class="at">foo =</span> x, <span class="at">bar =</span> y)</span>
+<span id="cb41-4"><a href="a-first-lesson-about-r.html#cb41-4" tabindex="-1"></a>mydata_2</span></code></pre></div>
 <pre><code>##   foo   bar
 ## 1   1  TRUE
 ## 2   2  TRUE
@@ -547,21 +551,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4   4 FALSE</code></pre>
 <p>As you can see in R, as in any other language, there are multiple ways of saying the same thing. Programmers aim to produce code that has been optimised: it is short and quick. It is likely that as you develop your R skills, you find increasingly more efficient ways of asking R how to do things. What this means, too, is that when you go for help from your peers or us, we may teach you slightly different ways of getting the right result. As long as you get the right result, that’s what matters at this point.</p>
 <p>These are silly toy examples of data frames. In this course, we will use real data. Next week, we will learn in greater detail how to read data into R. But you should also know that R comes with pre-installed data sets. Some packages, in fact, are nothing but collections of data frames.</p>
-<p>Let’s have a look at some of them. We are going to look at some data that are part of the <em>fivethirtyeight</em> package. This package contains data sets and codes behind the stories in <a href="http://fivethirtyeight.com/">this particular online newspaper</a>. This package is not part of the base installation of R, so you will need to install it first. I won’t give you the code for it. See if you can figure it out by looking at previous examples.</p>
+<p>Let’s have a look at some of them. We are going to look at some data that are part of the <em>fivethirtyeight</em> package. This package contains data sets and codes behind the stories from <a href="https://cran.r-project.org/web/packages/fivethirtyeight/vignettes/fivethirtyeight.html">various online news articles</a>. This package is not part of the base installation of R, so you will need to install it first. I won’t give you the code for it. See if you can figure it out by looking at previous examples.</p>
 <p>Done? Ok, now we are going to look at the data sets that are included in this package. Remember, first, we have to <strong>install</strong> and <strong>load</strong> the package if we want to use it:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="a-first-lesson-about-r.html#cb42-1" tabindex="-1"></a><span class="fu">library</span>(fivethirtyeight)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="a-first-lesson-about-r.html#cb43-1" tabindex="-1"></a><span class="fu">library</span>(fivethirtyeight)</span></code></pre></div>
 <pre><code>## Warning: package &#39;fivethirtyeight&#39; was built under R version 4.3.3</code></pre>
 <pre><code>## Some larger datasets need to be installed separately, like senators and
 ## house_district_forecast. To install these, we recommend you install the
 ## fivethirtyeightdata package by running:
 ## install.packages(&#39;fivethirtyeightdata&#39;, repos =
 ## &#39;https://fivethirtyeightdata.github.io/drat/&#39;, type = &#39;source&#39;)</code></pre>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="a-first-lesson-about-r.html#cb45-1" tabindex="-1"></a><span class="fu">data</span>(<span class="at">package=</span><span class="st">&quot;fivethirtyeight&quot;</span>) <span class="co">#This function will return all the data frames that are available in the named package.</span></span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="a-first-lesson-about-r.html#cb46-1" tabindex="-1"></a><span class="co">#This function will return all the data frames that </span></span>
+<span id="cb46-2"><a href="a-first-lesson-about-r.html#cb46-2" tabindex="-1"></a><span class="co">#are available in the named package.</span></span>
+<span id="cb46-3"><a href="a-first-lesson-about-r.html#cb46-3" tabindex="-1"></a><span class="fu">data</span>(<span class="at">package=</span><span class="st">&quot;fivethirtyeight&quot;</span>) </span></code></pre></div>
 <p>Notice that this package has some data sets that relate to stories covered in this journal that had a criminological angle. Let’s look, for example, at the hate_crimes data set. How do you do that? First, we have to load the data frame into our global environment. To do so, use the following code:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="a-first-lesson-about-r.html#cb46-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;hate_crimes&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="a-first-lesson-about-r.html#cb47-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;hate_crimes&quot;</span>)</span></code></pre></div>
 <p>This function will search among all the <em>loaded</em> packages and locate the “hate_crimes” data set. Notice that it now appears in the global environment, although it also says “promise” next to it. To see the data in full you need to do something to it first. So let’s do that.</p>
 <p>Every object in R can have <strong>attributes</strong>. These are names; dimensions (for matrices and arrays: number of rows and columns) and dimensions names; class of object (numeric, character, etc.); length (for a vector, this will be the number of elements in the vector); and other user-defined. You can access the attributes of an object using the <code>attributes()</code> function. Let’s query R for the attributes of this data frame.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="a-first-lesson-about-r.html#cb47-1" tabindex="-1"></a><span class="fu">attributes</span>(hate_crimes)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="a-first-lesson-about-r.html#cb48-1" tabindex="-1"></a><span class="fu">attributes</span>(hate_crimes)</span></code></pre></div>
 <pre><code>## $row.names
 ##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
 ## [26] 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50
@@ -587,16 +593,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Ok, let’s now have a quick look at the data. There are so many different ways of producing summary stats for data stored in R that it is impossible to cover them all! We will just introduce a few functions that you may find useful for summarising data. Before we do any of that, it is important you get a sense of what is available in this data set. Go to the help tab, and in the search box, input the name of the data frame; this will take you to the documentation for this data frame. Here, you can see a list of the available variables.</p>
 <p><img src="imgs/codebook.PNG" style="width:80.0%" /></p>
 <p>Let’s start with the <em>mean</em>. This function takes as an argument the numeric variable for which you want to obtain the mean. Because of the way that R works, you cannot simply put the name of the variable; you have to tell R as well which data frame that variable is located in. To do that, you write the name of the data frame, the dollar sign(<code>$</code>), and then the name of the variable you want to summarise. If you want to obtain the mean of the variable that gives us the proportion of people who voted for Donald Trump, you can use the following expression:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="a-first-lesson-about-r.html#cb49-1" tabindex="-1"></a><span class="fu">mean</span>(hate_crimes<span class="sc">$</span>share_vote_trump)</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="a-first-lesson-about-r.html#cb50-1" tabindex="-1"></a><span class="fu">mean</span>(hate_crimes<span class="sc">$</span>share_vote_trump)</span></code></pre></div>
 <pre><code>## [1] 0.49</code></pre>
 <p>This code is saying to look inside the “hate_crimes” dataset object and find the “share_vote_trump” variable, then print the mean. The <code>$</code> is used when you want to find a particular component of an object. In the case of data frames, that component will typically be one of the vectors (variables). However, we will see other uses for other kinds of objects as we move through the course.</p>
 <p>Another function you may want to use with numeric variables is <code>summary()</code>:</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="a-first-lesson-about-r.html#cb51-1" tabindex="-1"></a><span class="fu">summary</span>(hate_crimes<span class="sc">$</span>share_vote_trump)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="a-first-lesson-about-r.html#cb52-1" tabindex="-1"></a><span class="fu">summary</span>(hate_crimes<span class="sc">$</span>share_vote_trump)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   0.040   0.415   0.490   0.490   0.575   0.700</code></pre>
-<p>This gives you the five-number summary (minimum, first quartile, median, third quartile, and maximum, plus the mean and the count of missing values, if there are any).</p>
-<p>You don’t have to specify a variable you can ask for these summaries from the whole data frame:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="a-first-lesson-about-r.html#cb53-1" tabindex="-1"></a><span class="fu">summary</span>(hate_crimes)</span></code></pre></div>
+<p>This gives you the five-number summary (minimum, first quartile, median, third quartile, and maximum, plus the mean and the count of missing values if there are any).</p>
+<p>You don’t have to specify a variable; you can ask for these summaries from the whole data frame:</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="a-first-lesson-about-r.html#cb54-1" tabindex="-1"></a><span class="fu">summary</span>(hate_crimes)</span></code></pre></div>
 <pre><code>##     state           state_abbrev       median_house_inc share_unemp_seas 
 ##  Length:51          Length:51          Min.   :35521    Min.   :0.02800  
 ##  Class :character   Class :character   1st Qu.:48657    1st Qu.:0.04200  
@@ -631,9 +637,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  NA&#39;s   :1</code></pre>
 <p>So you see how now we are getting this info for all variables in one go.</p>
 <p>There are multiple ways of getting results in R. Particularly for basic and intermediate-level statistical analysis, many core functions and packages can give you the answer that you are looking for. For example, there are a variety of packages that allow you to look at summary statistics using functions defined within those packages. You will need to install these packages before you can use them.</p>
-<p>I am only going to introduce one of them here <em>skimr</em>. It is neat and is maintained by one of my former stats teachers, the criminologist <a href="https://www.lehman.edu/academics/sociology/faculty-waring.php">Elin Waring</a>, an example of kindness and dedication to her students.</p>
+<p>I am only going to introduce one of them here <em>skimr</em>. It is neat and is maintained by one of my former stats teachers, the criminologist <a href="https://www.lehman.edu/academics/natural-social-sciences/sociology/Elin-Waring/">Elin Waring</a>, an example of kindness and dedication to her students.</p>
 <p>You will need to install it before anything else. Use the code you have learnt to do so and then load it. I won’t be providing you the code for it; by now you should know how to do this.</p>
-<pre><code>## Warning: package &#39;skimr&#39; was built under R version 4.3.2</code></pre>
 <p>Once you have loaded the <em>skimr</em> package, you can use it. Its main function is <em>skim</em>. Like <em>summary</em> for data frames, skim presents results for all the columns, and the statistics will depend on the class of the variable. However, the results are displayed and stored in a nicer way - though we won’t get into the details right now.</p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="a-first-lesson-about-r.html#cb56-1" tabindex="-1"></a><span class="fu">skim</span>(hate_crimes)</span></code></pre></div>
 <table style="width:100%;">
@@ -932,8 +937,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="r-data-types-factors" class="section level2 hasAnchor" number="1.13">
 <h2><span class="header-section-number">1.13</span> R data types: Factors<a href="a-first-lesson-about-r.html#r-data-types-factors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>An important thing to understand in R is that categorical (ordered, also called ordinal, or unordered, also called nominal) data are <em>typically</em> encoded as <strong>factors</strong>, which are just a special type of vector. A factor is simply an integer vector that can contain <em>only predefined values</em> (this bit is very important) and is used to store categorical data. Factors are treated specially by many data analytic and visualisation functions. This makes sense because they are essentially different from quantitative variables.</p>
-<p>Although you can use numbers to represent categories, <em>using factors with labels is better than using integers to represent categories</em> because factors are self-describing (having a variable that has values “Male” and “Female” is better than a variable that has values “1” and “2” to represent male and female). When R reads data in other formats (e.g., comma separated), by default it will automatically convert all character variables into factors. If you would rather keep these variables as simple character vectors, you need to explicitly ask R to do so. We will come back to this next week with some examples.</p>
-<p>Factors can also be created with the <code>factor()</code> function concatenating a series of <em>character</em> elements. You will notice that is printed differently from a simply character vector and that it tells us the levels of the factor (look at the second printed line).</p>
+<p>Although you can use numbers to represent categories, <em>using factors with labels is better than using integers to represent categories</em> because factors are self-describing (having a variable that has values “Male” and “Female” is better than a variable that has values “1” and “2” to represent male and female). When R reads data in other formats (e.g., comma-separated), it will automatically convert all character variables into factors by default. If you would rather keep these variables as simple character vectors, you need to explicitly ask R to do so. We will come back to this next week with some examples.</p>
+<p>Factors can also be created with the <code>factor()</code> function concatenating a series of <em>character</em> elements. You will notice that it is printed differently from a simple character vector and that it tells us the levels of the factor (look at the second printed line).</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="a-first-lesson-about-r.html#cb57-1" tabindex="-1"></a>the_smiths <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;Morrisey&quot;</span>, <span class="st">&quot;Marr&quot;</span>, <span class="st">&quot;Rourke&quot;</span>, <span class="st">&quot;Joyce&quot;</span>)) <span class="co">#create a new factor</span></span>
 <span id="cb57-2"><a href="a-first-lesson-about-r.html#cb57-2" tabindex="-1"></a>the_smiths <span class="co">#auto-print the factor</span></span></code></pre></div>
 <pre><code>## [1] Morrisey Marr     Rourke   Joyce   
@@ -944,14 +949,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb59-3"><a href="a-first-lesson-about-r.html#cb59-3" tabindex="-1"></a>the_smiths_f <span class="co">#auto-print factor</span></span></code></pre></div>
 <pre><code>## [1] Morrisey Marr     Rourke   Joyce   
 ## Levels: Joyce Marr Morrisey Rourke</code></pre>
-<p>Factors in R can be seen as vectors with more information added. This extra information consists of a record of the distinct values in that vector, called <strong>levels</strong>. If you want to know the levels in a given factor you can use the <code>levels()</code> function:</p>
+<p>Factors in R can be seen as vectors with more information added. This extra information consists of a record of the distinct values in that vector, called <strong>levels</strong>. If you want to know the levels in a given factor, you can use the <code>levels()</code> function:</p>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="a-first-lesson-about-r.html#cb61-1" tabindex="-1"></a><span class="fu">levels</span>(the_smiths_f)</span></code></pre></div>
 <pre><code>## [1] &quot;Joyce&quot;    &quot;Marr&quot;     &quot;Morrisey&quot; &quot;Rourke&quot;</code></pre>
 <p>Notice that the levels appear printed in alphabetical order (Try <code>levels(the_smiths_char)</code> and see what R says. Yes, <code>the_smiths_char</code> and <code>the_smiths_f</code> are different!). There will be situations when this is not the most convenient order (e.g., <em>Dec, Jan, Mar (Alphabetical order)</em> instead of <em>Jan, Mar, Dec</em>). Later on, we will discuss in these tutorials how to reorder your factor levels when you need to.</p>
 <p>Let’s look at one more example here. Let’s say we are making data about Hogwarts Houses, which are divided into four houses: Gryffindor, Hufflepuff, Ravenclaw and Slytherin.</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="a-first-lesson-about-r.html#cb63-1" tabindex="-1"></a><span class="co">#We create a data frame called HarryPotter with two variables: a character vector called name and a character vector called house</span></span>
-<span id="cb63-2"><a href="a-first-lesson-about-r.html#cb63-2" tabindex="-1"></a>HarryPotter <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Potter&quot;</span>, <span class="st">&quot;Malfoy&quot;</span>, <span class="st">&quot;Lovegood&quot;</span>, <span class="st">&quot;Chang&quot;</span>, <span class="st">&quot;Hagrid&quot;</span>, <span class="st">&quot;Diggory&quot;</span>), <span class="at">house =</span> <span class="fu">c</span>(<span class="st">&quot;Gryffindor&quot;</span>, <span class="st">&quot;Slytherin&quot;</span>, <span class="st">&quot;Ravenclaw&quot;</span>, <span class="st">&quot;Ravenclaw&quot;</span>, <span class="st">&quot;Gryffindor&quot;</span>, <span class="st">&quot;Hufflepuff&quot;</span>))</span>
-<span id="cb63-3"><a href="a-first-lesson-about-r.html#cb63-3" tabindex="-1"></a>HarryPotter</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="a-first-lesson-about-r.html#cb63-1" tabindex="-1"></a><span class="co">#We create a data frame called HarryPotter with two variables: </span></span>
+<span id="cb63-2"><a href="a-first-lesson-about-r.html#cb63-2" tabindex="-1"></a><span class="co">#a character vector called name and a character vector called house</span></span>
+<span id="cb63-3"><a href="a-first-lesson-about-r.html#cb63-3" tabindex="-1"></a>HarryPotter <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Potter&quot;</span>, <span class="st">&quot;Malfoy&quot;</span>, <span class="st">&quot;Lovegood&quot;</span>, <span class="st">&quot;Chang&quot;</span>, </span>
+<span id="cb63-4"><a href="a-first-lesson-about-r.html#cb63-4" tabindex="-1"></a>              <span class="st">&quot;Hagrid&quot;</span>, <span class="st">&quot;Diggory&quot;</span>), <span class="at">house =</span> <span class="fu">c</span>(<span class="st">&quot;Gryffindor&quot;</span>, <span class="st">&quot;Slytherin&quot;</span>, </span>
+<span id="cb63-5"><a href="a-first-lesson-about-r.html#cb63-5" tabindex="-1"></a>              <span class="st">&quot;Ravenclaw&quot;</span>, <span class="st">&quot;Ravenclaw&quot;</span>, <span class="st">&quot;Gryffindor&quot;</span>, <span class="st">&quot;Hufflepuff&quot;</span>))</span>
+<span id="cb63-6"><a href="a-first-lesson-about-r.html#cb63-6" tabindex="-1"></a>HarryPotter</span></code></pre></div>
 <pre><code>##       name      house
 ## 1   Potter Gryffindor
 ## 2   Malfoy  Slytherin
@@ -963,8 +971,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="a-first-lesson-about-r.html#cb65-1" tabindex="-1"></a>HarryPotter<span class="sc">$</span>house_f <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(HarryPotter<span class="sc">$</span>house)</span>
 <span id="cb65-2"><a href="a-first-lesson-about-r.html#cb65-2" tabindex="-1"></a><span class="fu">str</span>(HarryPotter<span class="sc">$</span>house_f)</span></code></pre></div>
 <pre><code>##  Factor w/ 4 levels &quot;Gryffindor&quot;,&quot;Hufflepuff&quot;,..: 1 4 3 3 1 2</code></pre>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="a-first-lesson-about-r.html#cb67-1" tabindex="-1"></a><span class="fu">levels</span>(HarryPotter<span class="sc">$</span>house_f) <span class="co">#try &#39;levels(HarryPotter$house)&#39; and find the difference</span></span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="a-first-lesson-about-r.html#cb67-1" tabindex="-1"></a><span class="fu">levels</span>(HarryPotter<span class="sc">$</span>house_f) </span></code></pre></div>
 <pre><code>## [1] &quot;Gryffindor&quot; &quot;Hufflepuff&quot; &quot;Ravenclaw&quot;  &quot;Slytherin&quot;</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="a-first-lesson-about-r.html#cb69-1" tabindex="-1"></a><span class="co">#try &#39;levels(HarryPotter$house)&#39; and find the difference</span></span></code></pre></div>
 <p>Now, can you clearly understand what <strong>factor</strong> means in R? Factors are used to represent categorical data. Once created, factors can contain pre-defined set values, known as <code>levels</code>. Like we just converted 6-character data (<code>house</code>) into 4-factor data! (<code>house_f</code>).</p>
 <p><img src="imgs/as_factor.png" style="width:80.0%" /></p>
 </div>
@@ -974,15 +983,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>How can we do this? Well, think about what we do when we read in a file. We say, “Dear R, I would like to create a new object, please, and I will call this new object <code>my_dataframe</code>”. We do this by typing the name we are giving the object and the assignment function <code>&lt;-</code>(assignment operator). Then, on the right-hand side of the assignment function, there is the value to which we are assigning the variable. So it could be a bit of text (such as when you’re creating a <code>my_text</code> object and you pass it the string “I love stats”), or it could be some function, for example, when you read a CSV file with the <code>read_csv()</code> function.</p>
 <p>So, if we’re reading a CSV, we also need to specify <em>where</em> to read the CSV from. Where should R look to find this data? This is where normally you are putting in the path to your file, right?</p>
 <p>Something like:</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="a-first-lesson-about-r.html#cb69-1" tabindex="-1"></a>my_dataframe <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;PATH_OR_URL_TO_CSV_FILE&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="a-first-lesson-about-r.html#cb70-1" tabindex="-1"></a>my_dataframe <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;PATH_OR_URL_TO_CSV_FILE&#39;</span>)</span></code></pre></div>
 <p>Well, what if your data does not live on your laptop or PC? Well, if there is a way that R can still access this data just by following a path, then this approach will still work!
 Tips! Please keep your folders simple. Just use one data folder for this module and do not create multiple folders such as ‘data for week 1’, ‘data for week 2’, or something like this.</p>
 <p>All data we will use in the module are on the blackboard, but we will also provide the links to where we saved the data for you. You know when you right-click on the link, and select “Save As…” or whatever you click on to save? You could also select “Copy Link Address”. This just copies the webpage where this data is stored. Give it a go! Copy the address, and then paste it into your browser. It will take you to a blank page where a forced download of the data will begin. So what if you pasted this into the <code>read.csv()</code> function?</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="a-first-lesson-about-r.html#cb70-1" tabindex="-1"></a><span class="co">#example 1: when you download data directly from the webpage, you will use this code.</span></span>
-<span id="cb70-2"><a href="a-first-lesson-about-r.html#cb70-2" tabindex="-1"></a>my_dataframe <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;www.data.com/data you want to import.csv&quot;</span>)</span>
-<span id="cb70-3"><a href="a-first-lesson-about-r.html#cb70-3" tabindex="-1"></a><span class="co">#example 2: when you download data from BB and save it to your computer, you can use file.choose() </span></span>
-<span id="cb70-4"><a href="a-first-lesson-about-r.html#cb70-4" tabindex="-1"></a><span class="co">#file.choose() brings up a file explorer window that allows you to interactively choose a file path to work with.</span></span>
-<span id="cb70-5"><a href="a-first-lesson-about-r.html#cb70-5" tabindex="-1"></a>my_dataframe <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">file.choose</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="a-first-lesson-about-r.html#cb71-1" tabindex="-1"></a><span class="co">#example 1: when you download data directly from the webpage, you will use this code.</span></span>
+<span id="cb71-2"><a href="a-first-lesson-about-r.html#cb71-2" tabindex="-1"></a>my_dataframe <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;www.data.com/data you want to import.csv&quot;</span>)</span>
+<span id="cb71-3"><a href="a-first-lesson-about-r.html#cb71-3" tabindex="-1"></a><span class="co">#example 2: when you download data from BB and save it to your computer, you can use file.choose() </span></span>
+<span id="cb71-4"><a href="a-first-lesson-about-r.html#cb71-4" tabindex="-1"></a><span class="co">#file.choose() brings up a file explorer window that allows you to interactively choose a file path to work with.</span></span>
+<span id="cb71-5"><a href="a-first-lesson-about-r.html#cb71-5" tabindex="-1"></a>my_dataframe <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">file.choose</span>())</span></code></pre></div>
 <p>In the first example, the my_dataframe object would be assigned the value returned from the read.csv() function reading in the file from the ‘URL’ link you provided. File path is no mysterious thing, file path is simply the <em>path</em> to the <em>file</em> you want to read. If this is a website, then so be it.</p>
 <p>R also can read Stata (.dta) files using the <code>read_dta()</code> function in the Haven package and SPSS (.sav) files using the <code>read_spss()</code> function also in the Haven Package. There are so many different codes we can use to import data into R. In this course, you will learn one by one!</p>
 </div>

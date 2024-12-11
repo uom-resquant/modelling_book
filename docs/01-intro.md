@@ -2,8 +2,8 @@
 
 ## Install R & RStudio
 We recommend using your laptops for this course. If you have not already, then please download and install R and RStudio onto your laptops. 
-- click [here](https://www.youtube.com/watch?v=eD07NznguA4) for instructions using Windows or
-- [here](https://www.youtube.com/watch?v=E8IFmqSXjDc) for instructions using a Mac. If you are using a Mac it would be convenient that you use the most up-to-date version of OS or at least one compatible with the most recent version of R. Read [this](https://support.apple.com/en-gb/109033#:~:text=From%20the%20Apple%20menu%20%EF%A3%BF,version%20number%20to%20see%20it.) if you want to check how to do that.
+- click [here](https://www.youtube.com/watch?v=rHZ9MGWxU5I&list=PLkIselvEzpM73U-0ONpe7eHp2WCuItVWQ&index=2&ab_channel=OpenIntroOrg) for instructions using Windows or
+- [here](https://www.youtube.com/watch?v=AEebOXiMyyI&list=PLkIselvEzpM73U-0ONpe7eHp2WCuItVWQ&ab_channel=OpenIntroOrg) for instructions using a Mac. If you are using a Mac it would be convenient that you use the most up-to-date version of OS or at least one compatible with the most recent version of R. Read [this](https://support.apple.com/en-gb/109033#:~:text=From%20the%20Apple%20menu%20%EF%A3%BF,version%20number%20to%20see%20it.) if you want to check how to do that.
 
 If you prefer, you can always use any of the PCs in the computer cluster. All of them already have the software installed. 
 
@@ -353,7 +353,8 @@ Typically, you will use the `c()` function (c stands for *concatenate*) to creat
 my_1st_vector <- c(0.5, 0.6) #creates a numeric vector with two elements
 my_2nd_vector <- c(1L, 2L) #creates an integer vector ("L" suffix specifies an integer type)
 my_3rd_vector <- c(TRUE, FALSE) #creates a logical vector
-my_4th_vector <- c(T, F) #creates a logical vector using abbreviations of True and False, but you should avoid this formulation and instead use the full word.
+my_4th_vector <- c(T, F) #creates a logical vector using abbreviations of True and False, 
+#but you should avoid this formulation and instead use the full word.
 my_5th_vector <- c("a", "b", "c") #creates a character vector
 my_6th_vector <- c(1+0i, 2+4i) #creates a complex vector (we won't really use in this class)
 ```
@@ -388,12 +389,17 @@ my_1st_vector + 2 #Add a constant to each element of the vector
 ```
 
 ```r
-my_7th_vector <- my_1st_vector + 1 #Create a new vector that contains the elements of my1stvector plus a constant of 1
-my_1st_vector + my_7th_vector #Adds the two vectors and Auto-print the results (note how the sum was done)
+my_7th_vector <- my_1st_vector + 1 #Create a new vector that contains 
+#the elements of my1stvector plus a constant of 1
+my_1st_vector + my_7th_vector #Adds the two vectors and Auto-print 
 ```
 
 ```
 ## [1] 2.0 2.2
+```
+
+```r
+#the results (note how the sum was done)
 ```
 
 As indicated earlier, when you create objects, you place them in your working memory or workspace. Each R session will be associated with a workspace (called "global environment" in R Studio). In R Studio you can visualise the objects you have created during a session in the **Global Environment** screen. But if you want to produce a list of what's there, you can use the `ls()` function (the results you get may differ from the ones below depending on what you actually have in your global environment).
@@ -437,7 +443,7 @@ class(my_8th_vector) #The class() function will tell us the class of the vector
 
 ## R object types: Data frame
 
-Ok, so now that you understand some of the basic types of objects you can use in R, let's start talking about data frames. One of the most common objects you will work with, in this course, is **data frames**. Data frames can be created with the `data.frame()` function. 
+Ok, so now that you understand some of the basic types of objects you can use in R, let's start talking about data frames. One of the most common objects you will work with, in this course, are **data frames**. Data frames can be created with the `data.frame()` function. 
 
 Data frames are *multiple vectors* of possibly different classes (e.g., numeric, factors, character) but of the same length (e.g., all vectors or variables have the same number of rows). This may sound a bit too technical, but it is simply a way of saying that a data frame is what in other programs for data analysis gets represented as data sets, the tabular spreadsheets you have seen when using Excel.
 
@@ -447,7 +453,8 @@ Let's create a data frame with two variables:
 
 
 ```r
-#We create a data frame called mydata_1 with two variables, an integer vector called foo and a logical vector called bar
+#We create a data frame called mydata_1 with two variables, 
+#an integer vector called foo and a logical vector called bar
 mydata_1 <- data.frame(foo = 1:4, bar = c(T,T,F,F))
 mydata_1
 ```
@@ -482,7 +489,7 @@ As you can see in R, as in any other language, there are multiple ways of saying
 
 These are silly toy examples of data frames. In this course, we will use real data. Next week, we will learn in greater detail how to read data into R. But you should also know that R comes with pre-installed data sets. Some packages, in fact, are nothing but collections of data frames.
 
-Let's have a look at some of them. We are going to look at some data that are part of the *fivethirtyeight* package. This package contains data sets and codes behind the stories in [this particular online newspaper](http://fivethirtyeight.com/). This package is not part of the base installation of R, so you will need to install it first. I won't give you the code for it. See if you can figure it out by looking at previous examples.
+Let's have a look at some of them. We are going to look at some data that are part of the *fivethirtyeight* package. This package contains data sets and codes behind the stories from [various online news articles](https://cran.r-project.org/web/packages/fivethirtyeight/vignettes/fivethirtyeight.html). This package is not part of the base installation of R, so you will need to install it first. I won't give you the code for it. See if you can figure it out by looking at previous examples.
 
 Done? Ok, now we are going to look at the data sets that are included in this package. Remember, first, we have to **install** and **load** the package if we want to use it:
 
@@ -504,7 +511,9 @@ library(fivethirtyeight)
 ```
 
 ```r
-data(package="fivethirtyeight") #This function will return all the data frames that are available in the named package.
+#This function will return all the data frames that 
+#are available in the named package.
+data(package="fivethirtyeight") 
 ```
 
 Notice that this package has some data sets that relate to stories covered in this journal that had a criminological angle. Let's look, for example, at the hate_crimes data set. How do you do that? First, we have to load the data frame into our global environment. To do so, use the following code:
@@ -578,9 +587,9 @@ summary(hate_crimes$share_vote_trump)
 ##   0.040   0.415   0.490   0.490   0.575   0.700
 ```
 
-This gives you the five-number summary (minimum, first quartile, median, third quartile, and maximum, plus the mean and the count of missing values, if there are any). 
+This gives you the five-number summary (minimum, first quartile, median, third quartile, and maximum, plus the mean and the count of missing values if there are any). 
 
-You don't have to specify a variable you can ask for these summaries from the whole data frame:
+You don't have to specify a variable; you can ask for these summaries from the whole data frame:
 
 
 ```r
@@ -626,14 +635,11 @@ So you see how now we are getting this info for all variables in one go.
 
 There are multiple ways of getting results in R. Particularly for basic and intermediate-level statistical analysis, many core functions and packages can give you the answer that you are looking for. For example, there are a variety of packages that allow you to look at summary statistics using functions defined within those packages. You will need to install these packages before you can use them. 
 
-I am only going to introduce one of them here *skimr*. It is neat and is maintained by one of my former stats teachers, the criminologist [Elin Waring](https://www.lehman.edu/academics/sociology/faculty-waring.php), an example of kindness and dedication to her students. 
+I am only going to introduce one of them here *skimr*. It is neat and is maintained by one of my former stats teachers, the criminologist [Elin Waring](https://www.lehman.edu/academics/natural-social-sciences/sociology/Elin-Waring/), an example of kindness and dedication to her students. 
 
 You will need to install it before anything else. Use the code you have learnt to do so and then load it. I won't be providing you the code for it; by now you should know how to do this.
 
 
-```
-## Warning: package 'skimr' was built under R version 4.3.2
-```
 
 Once you have loaded the *skimr* package, you can use it. Its main function is *skim*. Like *summary* for data frames, skim presents results for all the columns, and the statistics will depend on the class of the variable. However, the results are displayed and stored in a nicer way - though we won't get into the details right now.
 
@@ -665,9 +671,9 @@ Apart from summary statistics, last semester, we discussed a variety of ways to 
 
 An important thing to understand in R is that categorical (ordered, also called ordinal, or unordered, also called nominal) data are *typically* encoded as **factors**, which are just a special type of vector.  A factor is simply an integer vector that can contain *only predefined values* (this bit is very important) and is used to store categorical data. Factors are treated specially by many data analytic and visualisation functions. This makes sense because they are essentially different from quantitative variables.
 
-Although you can use numbers to represent categories, *using factors with labels is better than using integers to represent categories* because factors are self-describing (having a variable that has values "Male" and "Female" is better than a variable that has values "1" and "2" to represent male and female). When R reads data in other formats (e.g., comma separated), by default it will automatically convert all character variables into factors. If you would rather keep these variables as simple character vectors, you need to explicitly ask R to do so. We will come back to this next week with some examples.
+Although you can use numbers to represent categories, *using factors with labels is better than using integers to represent categories* because factors are self-describing (having a variable that has values "Male" and "Female" is better than a variable that has values "1" and "2" to represent male and female). When R reads data in other formats (e.g., comma-separated), it will automatically convert all character variables into factors by default. If you would rather keep these variables as simple character vectors, you need to explicitly ask R to do so. We will come back to this next week with some examples.
 
-Factors can also be created with the `factor()` function concatenating a series of *character* elements. You will notice that is printed differently from a simply character vector and that it tells us the levels of the factor (look at the second printed line).
+Factors can also be created with the `factor()` function concatenating a series of *character* elements. You will notice that it is printed differently from a simple character vector and that it tells us the levels of the factor (look at the second printed line).
 
 
 ```r
@@ -693,7 +699,7 @@ the_smiths_f #auto-print factor
 ## Levels: Joyce Marr Morrisey Rourke
 ```
 
-Factors in R can be seen as vectors with more information added. This extra information consists of a record of the distinct values in that vector, called **levels**. If you want to know the levels in a given factor you can use the `levels()` function:
+Factors in R can be seen as vectors with more information added. This extra information consists of a record of the distinct values in that vector, called **levels**. If you want to know the levels in a given factor, you can use the `levels()` function:
 
 
 ```r
@@ -710,8 +716,11 @@ Let's look at one more example here. Let's say we are making data about Hogwarts
 
 
 ```r
-#We create a data frame called HarryPotter with two variables: a character vector called name and a character vector called house
-HarryPotter <- data.frame(name = c("Potter", "Malfoy", "Lovegood", "Chang", "Hagrid", "Diggory"), house = c("Gryffindor", "Slytherin", "Ravenclaw", "Ravenclaw", "Gryffindor", "Hufflepuff"))
+#We create a data frame called HarryPotter with two variables: 
+#a character vector called name and a character vector called house
+HarryPotter <- data.frame(name = c("Potter", "Malfoy", "Lovegood", "Chang", 
+              "Hagrid", "Diggory"), house = c("Gryffindor", "Slytherin", 
+              "Ravenclaw", "Ravenclaw", "Gryffindor", "Hufflepuff"))
 HarryPotter
 ```
 
@@ -738,11 +747,15 @@ str(HarryPotter$house_f)
 ```
 
 ```r
-levels(HarryPotter$house_f) #try 'levels(HarryPotter$house)' and find the difference
+levels(HarryPotter$house_f) 
 ```
 
 ```
 ## [1] "Gryffindor" "Hufflepuff" "Ravenclaw"  "Slytherin"
+```
+
+```r
+#try 'levels(HarryPotter$house)' and find the difference
 ```
 
 Now, can you clearly understand what **factor** means in R? Factors are used to represent categorical data. Once created, factors can contain pre-defined set values, known as `levels`. Like we just converted 6-character data (`house`) into 4-factor data! (`house_f`).
