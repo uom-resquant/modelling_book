@@ -247,7 +247,9 @@ This makes the comparison significantly easier, right? But the order is strange!
 
 
 ```r
-fbo$league_of_the_club_supported <- factor(fbo$league_of_the_club_supported, levels = c("Premier League", "Championship", "League One", "League Two", "Other clubs"))
+fbo$league_of_the_club_supported <- factor(fbo$league_of_the_club_supported, 
+levels = c("Premier League", "Championship", "League One", 
+"League Two", "Other clubs"))
 ```
 
 And now, create the plot again!
