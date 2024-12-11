@@ -1,3 +1,5 @@
+# Regression II
+
 ## Motivating multiple regression
 
 So we have seen that our models with just one predictor are not terribly powerful. Partly that's due to the fact that they are not properly specified, they do not include a solid set of good predictor variables that can help us to explain variation in our response variable. We can build better models by expanding the number of predictors (although keep in mind you should also aim to build models as parsimonious as possible).
@@ -19,6 +21,11 @@ Multiple regression is one way of checking the relevance of competing explanatio
 It could not be any easier to fit a multiple regression model. You simply modify the formula in the `lm()` function by adding terms for the additional inputs.
 
 ```{r}
+data_url <- "https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/46WIH0/ARS2VS"
+sharkey <- read.table(url(data_url), sep = '\t',header = T)
+library(dplyr)
+df <- filter(sharkey, year == "2012")
+df <- select(df, place_name, state_name, viol_r, black, lesshs, unemployed, fborn, incarceration, log_incarceraton, swornftime_r, log_viol_r, largest50)
 fit_3 <- lm(log_viol_r ~ unemployed + largest50, data=df)
 summary(fit_3)
 ```
@@ -191,6 +198,7 @@ In this section we can go through very quickly how to test for some of them usin
 In r, we can use the `plot()` function on our output lm object to look through some diagnostics. This gives us 4 plots, so to show them all, we'll use the code `par(mfrow = c(2, 2))` to split our plot window into 4 panes (remember to set back, run `par(mfrow = c(1, 1))`). For example, let's return to `fit_1`, our very first model. 
 
 ```{r}
+fit_1 <- lm(log_viol_r ~ unemployed, data = df)
 par(mfrow = c(2, 2))
 plot(fit_1)
 ```
@@ -242,6 +250,8 @@ To obtain the basic residual plots for this model we use the `residualPlots()` f
 
 ```{r}
 library(car)
+BCS0708<-read.csv("https://raw.githubusercontent.com/eonk/dar_book/main/datasets/BCS0708.csv")
+
 fit_3 <- lm(tcviolent ~ tcarea + sex, data=BCS0708)
 residualPlots(fit_3)
 ```

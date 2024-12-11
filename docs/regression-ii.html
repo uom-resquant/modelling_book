@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 12 Regression II | Modelling Criminological Data CRIM20452</title>
+  <meta name="description" content="This is the course material for Modelling Criminological Data CRIM20452." />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 12 Regression II | Modelling Criminological Data CRIM20452" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is the course material for Modelling Criminological Data CRIM20452." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 12 Regression II | Modelling Criminological Data CRIM20452" />
+  
+  <meta name="twitter:description" content="This is the course material for Modelling Criminological Data CRIM20452." />
+  
+
+<meta name="author" content="" />
+
+
+<meta name="date" content="2024-12-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="regression-i.html"/>
+<link rel="next" href="studying-relationships-between-two-factors-1.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Modelling Criminological Data</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html"><i class="fa fa-check"></i><b>1</b> A first lesson about R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#install-r-rstudio"><i class="fa fa-check"></i><b>1.1</b> Install R &amp; RStudio</a></li>
+<li class="chapter" data-level="1.2" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#open-up-and-explore-rstudio"><i class="fa fa-check"></i><b>1.2</b> Open up and explore RStudio</a></li>
+<li class="chapter" data-level="1.3" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#customising-the-rstudio-look"><i class="fa fa-check"></i><b>1.3</b> Customising the RStudio look</a></li>
+<li class="chapter" data-level="1.4" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#getting-organised-r-projects"><i class="fa fa-check"></i><b>1.4</b> Getting organised: R Projects</a></li>
+<li class="chapter" data-level="1.5" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#functions-talk-to-your-computer"><i class="fa fa-check"></i><b>1.5</b> Functions: Talk to your computer</a></li>
+<li class="chapter" data-level="1.6" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#more-on-packages"><i class="fa fa-check"></i><b>1.6</b> More on packages</a></li>
+<li class="chapter" data-level="1.7" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#objects-creating-an-object"><i class="fa fa-check"></i><b>1.7</b> Objects: creating an object</a></li>
+<li class="chapter" data-level="1.8" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#more-on-objects"><i class="fa fa-check"></i><b>1.8</b> More on objects</a></li>
+<li class="chapter" data-level="1.9" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#naming-conventions-for-objects-in-r"><i class="fa fa-check"></i><b>1.9</b> Naming conventions for objects in R</a></li>
+<li class="chapter" data-level="1.10" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#r-object-types-vectors"><i class="fa fa-check"></i><b>1.10</b> R object types: vectors</a></li>
+<li class="chapter" data-level="1.11" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#r-object-types-data-frame"><i class="fa fa-check"></i><b>1.11</b> R object types: Data frame</a></li>
+<li class="chapter" data-level="1.12" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#exploring-data"><i class="fa fa-check"></i><b>1.12</b> Exploring data</a></li>
+<li class="chapter" data-level="1.13" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#r-data-types-factors"><i class="fa fa-check"></i><b>1.13</b> R data types: Factors</a></li>
+<li class="chapter" data-level="1.14" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#how-to-import-data"><i class="fa fa-check"></i><b>1.14</b> How to import data</a></li>
+<li class="chapter" data-level="1.15" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#how-to-use-comment"><i class="fa fa-check"></i><b>1.15</b> How to use ‘comment’</a></li>
+<li class="chapter" data-level="1.16" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#how-to-quit-rstudio"><i class="fa fa-check"></i><b>1.16</b> How to Quit RStudio</a></li>
+<li class="chapter" data-level="1.17" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#summary"><i class="fa fa-check"></i><b>1.17</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html"><i class="fa fa-check"></i><b>2</b> Getting to know your data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#causality-in-social-sciences"><i class="fa fa-check"></i><b>2.1</b> Causality in Social Sciences</a></li>
+<li class="chapter" data-level="2.2" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#getting-data-thanks-to-reproducibility"><i class="fa fa-check"></i><b>2.2</b> Getting data thanks to reproducibility</a></li>
+<li class="chapter" data-level="2.3" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#getting-a-sense-of-your-data"><i class="fa fa-check"></i><b>2.3</b> Getting a sense of your data</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#first-steps"><i class="fa fa-check"></i><b>2.3.1</b> First steps</a></li>
+<li class="chapter" data-level="2.3.2" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#on-tibbles-and-labelled-vectors"><i class="fa fa-check"></i><b>2.3.2</b> On tibbles and labelled vectors</a></li>
+<li class="chapter" data-level="2.3.3" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#turning-variables-into-factors-and-changing-the-labels"><i class="fa fa-check"></i><b>2.3.3</b> Turning variables into factors and changing the labels</a></li>
+<li class="chapter" data-level="2.3.4" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#looking-for-missing-data-and-other-anomalies"><i class="fa fa-check"></i><b>2.3.4</b> Looking for missing data and other anomalies</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#data-wrangling-with-dplyr"><i class="fa fa-check"></i><b>2.4</b> Data wrangling with dplyr</a></li>
+<li class="chapter" data-level="2.5" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#using-dplyr-single-verbs"><i class="fa fa-check"></i><b>2.5</b> Using dplyr single verbs</a></li>
+<li class="chapter" data-level="2.6" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#using-dplyr-for-grouped-operations"><i class="fa fa-check"></i><b>2.6</b> Using dplyr for grouped operations</a></li>
+<li class="chapter" data-level="2.7" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#making-comparisons-with-numerical-outcomes"><i class="fa fa-check"></i><b>2.7</b> Making comparisons with numerical outcomes</a></li>
+<li class="chapter" data-level="2.8" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#summary-1"><i class="fa fa-check"></i><b>2.8</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html"><i class="fa fa-check"></i><b>3</b> Data visualisation with R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#anatomy-of-a-plot"><i class="fa fa-check"></i><b>3.2</b> Anatomy of a plot</a></li>
+<li class="chapter" data-level="3.3" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#what-graph-should-i-use"><i class="fa fa-check"></i><b>3.3</b> What graph should I use?</a></li>
+<li class="chapter" data-level="3.4" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#visualising-numerical-variables-histograms"><i class="fa fa-check"></i><b>3.4</b> Visualising numerical variables: Histograms</a></li>
+<li class="chapter" data-level="3.5" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#visualising-numerical-variables-density-plots"><i class="fa fa-check"></i><b>3.5</b> Visualising numerical variables: Density plots</a></li>
+<li class="chapter" data-level="3.6" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#visualising-numerical-variables-box-plots"><i class="fa fa-check"></i><b>3.6</b> Visualising numerical variables: Box plots</a></li>
+<li class="chapter" data-level="3.7" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#exploring-relationships-between-two-quantitative-variables-scatterplots"><i class="fa fa-check"></i><b>3.7</b> Exploring relationships between two quantitative variables: scatterplots</a></li>
+<li class="chapter" data-level="3.8" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#scatterplots-conditioning-in-a-third-variable"><i class="fa fa-check"></i><b>3.8</b> Scatterplots conditioning in a third variable</a></li>
+<li class="chapter" data-level="3.9" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#scatterplot-matrix"><i class="fa fa-check"></i><b>3.9</b> Scatterplot matrix</a></li>
+<li class="chapter" data-level="3.10" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#titles-legends-and-themes-in-ggplot2"><i class="fa fa-check"></i><b>3.10</b> Titles, legends, and themes in ggplot2</a></li>
+<li class="chapter" data-level="3.11" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#plotting-categorical-data-bar-charts"><i class="fa fa-check"></i><b>3.11</b> Plotting categorical data: bar charts</a></li>
+<li class="chapter" data-level="3.12" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#further-resources"><i class="fa fa-check"></i><b>3.12</b> Further resources</a></li>
+<li class="chapter" data-level="3.13" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#summary-2"><i class="fa fa-check"></i><b>3.13</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html"><i class="fa fa-check"></i><b>4</b> Refresher on descriptive statistics &amp; data carpentry</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#getting-some-data-from-eurobarometer"><i class="fa fa-check"></i><b>4.2</b> Getting some data from Eurobarometer</a></li>
+<li class="chapter" data-level="4.3" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#thinking-about-your-data-filtering-cases"><i class="fa fa-check"></i><b>4.3</b> Thinking about your data: filtering cases</a></li>
+<li class="chapter" data-level="4.4" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#selecting-variables-using-dplyrselect"><i class="fa fa-check"></i><b>4.4</b> Selecting variables: using <code>dplyr::select</code></a></li>
+<li class="chapter" data-level="4.5" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#creating-summated-scales"><i class="fa fa-check"></i><b>4.5</b> Creating summated scales</a></li>
+<li class="chapter" data-level="4.6" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#collapsing-categories-in-character-variables"><i class="fa fa-check"></i><b>4.6</b> Collapsing categories in character variables</a></li>
+<li class="chapter" data-level="4.7" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#working-with-apparently-cryptic-variable-names-and-levels"><i class="fa fa-check"></i><b>4.7</b> Working with apparently cryptic variable names and levels</a></li>
+<li class="chapter" data-level="4.8" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#recoding-factors"><i class="fa fa-check"></i><b>4.8</b> Recoding factors</a></li>
+<li class="chapter" data-level="4.9" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#understanding-missing-data"><i class="fa fa-check"></i><b>4.9</b> Understanding missing data</a></li>
+<li class="chapter" data-level="4.10" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#exploring-data-frames-visually"><i class="fa fa-check"></i><b>4.10</b> Exploring data frames visually</a></li>
+<li class="chapter" data-level="4.11" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#a-quick-recap-on-descriptive-statistics"><i class="fa fa-check"></i><b>4.11</b> A quick recap on descriptive statistics</a>
+<ul>
+<li class="chapter" data-level="4.11.1" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#central-tendency"><i class="fa fa-check"></i><b>4.11.1</b> Central Tendency</a></li>
+<li class="chapter" data-level="4.11.2" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#dispersion"><i class="fa fa-check"></i><b>4.11.2</b> Dispersion</a></li>
+<li class="chapter" data-level="4.11.3" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#bivariate-analysis"><i class="fa fa-check"></i><b>4.11.3</b> Bivariate analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.12" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#further-resources-1"><i class="fa fa-check"></i><b>4.12</b> Further resources</a></li>
+<li class="chapter" data-level="4.13" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#summary-3"><i class="fa fa-check"></i><b>4.13</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html"><i class="fa fa-check"></i><b>5</b> Foundations of statistical inference: confidence intervals</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#introduction-2"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#generating-random-data"><i class="fa fa-check"></i><b>5.2</b> Generating random data</a></li>
+<li class="chapter" data-level="5.3" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#sampling-data-and-sampling-variability"><i class="fa fa-check"></i><b>5.3</b> Sampling data and sampling variability</a></li>
+<li class="chapter" data-level="5.4" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#sampling-distributions-and-sampling-experiments"><i class="fa fa-check"></i><b>5.4</b> Sampling distributions and sampling experiments</a></li>
+<li class="chapter" data-level="5.5" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#the-normal-distribution-and-confidence-intervals-with-known-standard-errors"><i class="fa fa-check"></i><b>5.5</b> The normal distribution and confidence intervals with known standard errors</a></li>
+<li class="chapter" data-level="5.6" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#asymptotic-confidence-intervals-for-means-and-proportions-using-r"><i class="fa fa-check"></i><b>5.6</b> Asymptotic confidence intervals for means and proportions using R</a></li>
+<li class="chapter" data-level="5.7" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#a-brief-intro-to-resampling-and-bootstraping"><i class="fa fa-check"></i><b>5.7</b> A brief intro to resampling and bootstraping</a></li>
+<li class="chapter" data-level="5.8" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#what-about-comparisons-sampling-distribution-for-the-difference-of-two-means"><i class="fa fa-check"></i><b>5.8</b> What about comparisons? Sampling distribution for the difference of two means</a></li>
+<li class="chapter" data-level="5.9" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html#comparing-means-visually-by-using-error-bars-representing-confidence-intervals-inference-by-eye"><i class="fa fa-check"></i><b>5.9</b> Comparing means visually by using error bars representing confidence intervals: inference by eye</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="hypotheses.html"><a href="hypotheses.html"><i class="fa fa-check"></i><b>6</b> Hypotheses</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="hypotheses.html"><a href="hypotheses.html#the-logic-of-hypothesis-testing"><i class="fa fa-check"></i><b>6.1</b> The logic of hypothesis testing</a></li>
+<li class="chapter" data-level="6.2" data-path="hypotheses.html"><a href="hypotheses.html#comparing-means-across-two-groups-the-t-test"><i class="fa fa-check"></i><b>6.2</b> Comparing means across two groups (the t test)</a></li>
+<li class="chapter" data-level="6.3" data-path="hypotheses.html"><a href="hypotheses.html#what-does-a-significant-effect-mean"><i class="fa fa-check"></i><b>6.3</b> What does a significant effect mean?</a></li>
+<li class="chapter" data-level="6.4" data-path="hypotheses.html"><a href="hypotheses.html#power-analysis"><i class="fa fa-check"></i><b>6.4</b> Power analysis</a></li>
+<li class="chapter" data-level="6.5" data-path="hypotheses.html"><a href="hypotheses.html#comparing-means-across-several-groups-anova"><i class="fa fa-check"></i><b>6.5</b> Comparing means across several groups (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="hypotheses.html"><a href="hypotheses.html#the-problem-with-multiple-comparisons"><i class="fa fa-check"></i><b>6.5.1</b> The problem with multiple comparisons</a></li>
+<li class="chapter" data-level="6.5.2" data-path="hypotheses.html"><a href="hypotheses.html#anova"><i class="fa fa-check"></i><b>6.5.2</b> ANOVA</a></li>
+<li class="chapter" data-level="6.5.3" data-path="hypotheses.html"><a href="hypotheses.html#checking-homogeneity-of-variance-and-dealing-with-unequal-spread"><i class="fa fa-check"></i><b>6.5.3</b> Checking homogeneity of variance and dealing with unequal spread</a></li>
+<li class="chapter" data-level="6.5.4" data-path="hypotheses.html"><a href="hypotheses.html#checking-normality-and-dealing-with-problems"><i class="fa fa-check"></i><b>6.5.4</b> Checking normality and dealing with problems</a></li>
+<li class="chapter" data-level="6.5.5" data-path="hypotheses.html"><a href="hypotheses.html#robust-anova"><i class="fa fa-check"></i><b>6.5.5</b> Robust ANOVA</a></li>
+<li class="chapter" data-level="6.5.6" data-path="hypotheses.html"><a href="hypotheses.html#post-hoc-comparisons"><i class="fa fa-check"></i><b>6.5.6</b> Post Hoc Comparisons</a></li>
+<li class="chapter" data-level="6.5.7" data-path="hypotheses.html"><a href="hypotheses.html#effect-size-for-anova"><i class="fa fa-check"></i><b>6.5.7</b> Effect size for ANOVA</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="studying-relationships-between-two-factors.html"><a href="studying-relationships-between-two-factors.html"><i class="fa fa-check"></i><b>7</b> Studying relationships between two factors</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="studying-relationships-between-two-factors.html"><a href="studying-relationships-between-two-factors.html#producing-cross-tabulations"><i class="fa fa-check"></i><b>7.1</b> Producing cross tabulations</a></li>
+<li class="chapter" data-level="7.2" data-path="studying-relationships-between-two-factors.html"><a href="studying-relationships-between-two-factors.html#expected-frequencies-and-chi-square"><i class="fa fa-check"></i><b>7.2</b> Expected frequencies and Chi-Square</a></li>
+<li class="chapter" data-level="7.3" data-path="studying-relationships-between-two-factors.html"><a href="studying-relationships-between-two-factors.html#residuals"><i class="fa fa-check"></i><b>7.3</b> Residuals</a></li>
+<li class="chapter" data-level="7.4" data-path="studying-relationships-between-two-factors.html"><a href="studying-relationships-between-two-factors.html#gamma"><i class="fa fa-check"></i><b>7.4</b> Gamma</a></li>
+<li class="chapter" data-level="7.5" data-path="studying-relationships-between-two-factors.html"><a href="studying-relationships-between-two-factors.html#odds-and-odd-ratios"><i class="fa fa-check"></i><b>7.5</b> Odds and odd ratios</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html"><i class="fa fa-check"></i><b>8</b> An introduction to regression</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#introduction-models-in-scientific-research"><i class="fa fa-check"></i><b>8.1</b> Introduction: models in scientific research</a></li>
+<li class="chapter" data-level="8.2" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#motivating-regression"><i class="fa fa-check"></i><b>8.2</b> Motivating regression</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#correlation-analysis"><i class="fa fa-check"></i><b>8.2.1</b> Correlation analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#fitting-a-simple-regression-model"><i class="fa fa-check"></i><b>8.3</b> Fitting a simple regression model</a></li>
+<li class="chapter" data-level="8.4" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#residuals-revisited-r-squared"><i class="fa fa-check"></i><b>8.4</b> Residuals revisited: R squared</a></li>
+<li class="chapter" data-level="8.5" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#inference-with-regression"><i class="fa fa-check"></i><b>8.5</b> Inference with regression</a></li>
+<li class="chapter" data-level="8.6" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#fitting-regression-with-categorical-predictors"><i class="fa fa-check"></i><b>8.6</b> Fitting regression with categorical predictors</a></li>
+<li class="chapter" data-level="8.7" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#motivating-multiple-regression"><i class="fa fa-check"></i><b>8.7</b> Motivating multiple regression</a></li>
+<li class="chapter" data-level="8.8" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#fitting-and-interpreting-a-multiple-regression-model"><i class="fa fa-check"></i><b>8.8</b> Fitting and interpreting a multiple regression model</a></li>
+<li class="chapter" data-level="8.9" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#presenting-your-regression-results."><i class="fa fa-check"></i><b>8.9</b> Presenting your regression results.</a></li>
+<li class="chapter" data-level="8.10" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#testing-conditional-hypothesis-interactions"><i class="fa fa-check"></i><b>8.10</b> Testing conditional hypothesis: interactions</a></li>
+<li class="chapter" data-level="8.11" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#regression-assumptions"><i class="fa fa-check"></i><b>8.11</b> Regression assumptions</a></li>
+<li class="chapter" data-level="8.12" data-path="an-introduction-to-regression.html"><a href="an-introduction-to-regression.html#model-building-and-variable-selection"><i class="fa fa-check"></i><b>8.12</b> Model building and variable selection</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>9</b> Logistic regression</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="logistic-regression.html"><a href="logistic-regression.html#introduction-3"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="logistic-regression.html"><a href="logistic-regression.html#fitting-logistic-regression"><i class="fa fa-check"></i><b>9.2</b> Fitting logistic regression</a></li>
+<li class="chapter" data-level="9.3" data-path="logistic-regression.html"><a href="logistic-regression.html#assessing-model-fit-i-deviance-and-pseudo-r-squared"><i class="fa fa-check"></i><b>9.3</b> Assessing model fit I: deviance and pseudo r squared</a></li>
+<li class="chapter" data-level="9.4" data-path="logistic-regression.html"><a href="logistic-regression.html#assessing-model-fit-ii-confusion-matrix-and-roc-curves"><i class="fa fa-check"></i><b>9.4</b> Assessing model fit II: confusion matrix and ROC curves</a></li>
+<li class="chapter" data-level="9.5" data-path="logistic-regression.html"><a href="logistic-regression.html#interactions"><i class="fa fa-check"></i><b>9.5</b> Interactions</a></li>
+<li class="chapter" data-level="9.6" data-path="logistic-regression.html"><a href="logistic-regression.html#further-resources-2"><i class="fa fa-check"></i><b>9.6</b> Further resources</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="wrapping-up.html"><a href="wrapping-up.html"><i class="fa fa-check"></i><b>10</b> Wrapping up</a></li>
+<li class="chapter" data-level="11" data-path="regression-i.html"><a href="regression-i.html"><i class="fa fa-check"></i><b>11</b> Regression I</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="regression-i.html"><a href="regression-i.html#hypotheses-the-logic-of-hypothesis-testing"><i class="fa fa-check"></i><b>11.1</b> Hypotheses: The logic of hypothesis testing</a></li>
+<li class="chapter" data-level="11.2" data-path="regression-i.html"><a href="regression-i.html#introduction-models-in-scientific-research-1"><i class="fa fa-check"></i><b>11.2</b> Introduction: models in scientific research</a></li>
+<li class="chapter" data-level="11.3" data-path="regression-i.html"><a href="regression-i.html#motivating-regression-1"><i class="fa fa-check"></i><b>11.3</b> Motivating regression</a></li>
+<li class="chapter" data-level="11.4" data-path="regression-i.html"><a href="regression-i.html#fitting-a-simple-regression-model-1"><i class="fa fa-check"></i><b>11.4</b> Fitting a simple regression model</a></li>
+<li class="chapter" data-level="11.5" data-path="regression-i.html"><a href="regression-i.html#residuals-revisited-r-squared-1"><i class="fa fa-check"></i><b>11.5</b> Residuals revisited: R squared</a></li>
+<li class="chapter" data-level="11.6" data-path="regression-i.html"><a href="regression-i.html#inference-with-regression-1"><i class="fa fa-check"></i><b>11.6</b> Inference with regression</a></li>
+<li class="chapter" data-level="11.7" data-path="regression-i.html"><a href="regression-i.html#fitting-regression-with-categorical-predictors-1"><i class="fa fa-check"></i><b>11.7</b> Fitting regression with categorical predictors</a></li>
+<li class="chapter" data-level="11.8" data-path="regression-i.html"><a href="regression-i.html#power-analysis-1"><i class="fa fa-check"></i><b>11.8</b> Power analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="regression-ii.html"><a href="regression-ii.html"><i class="fa fa-check"></i><b>12</b> Regression II</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="regression-ii.html"><a href="regression-ii.html#motivating-multiple-regression-1"><i class="fa fa-check"></i><b>12.1</b> Motivating multiple regression</a></li>
+<li class="chapter" data-level="12.2" data-path="regression-ii.html"><a href="regression-ii.html#fitting-and-interpreting-a-multiple-regression-model-1"><i class="fa fa-check"></i><b>12.2</b> Fitting and interpreting a multiple regression model</a></li>
+<li class="chapter" data-level="12.3" data-path="regression-ii.html"><a href="regression-ii.html#presenting-your-regression-results.-1"><i class="fa fa-check"></i><b>12.3</b> Presenting your regression results.</a></li>
+<li class="chapter" data-level="12.4" data-path="regression-ii.html"><a href="regression-ii.html#rescaling-input-variables-to-assist-interpretation"><i class="fa fa-check"></i><b>12.4</b> Rescaling input variables to assist interpretation</a></li>
+<li class="chapter" data-level="12.5" data-path="regression-ii.html"><a href="regression-ii.html#testing-conditional-hypothesis-interactions-1"><i class="fa fa-check"></i><b>12.5</b> Testing conditional hypothesis: interactions</a></li>
+<li class="chapter" data-level="12.6" data-path="regression-ii.html"><a href="regression-ii.html#regression-assumptions-1"><i class="fa fa-check"></i><b>12.6</b> Regression assumptions</a></li>
+<li class="chapter" data-level="12.7" data-path="regression-ii.html"><a href="regression-ii.html#plotting-residuals"><i class="fa fa-check"></i><b>12.7</b> Plotting residuals</a></li>
+<li class="chapter" data-level="12.8" data-path="regression-ii.html"><a href="regression-ii.html#model-building-and-variable-selection-1"><i class="fa fa-check"></i><b>12.8</b> Model building and variable selection</a></li>
+<li class="chapter" data-level="12.9" data-path="regression-ii.html"><a href="regression-ii.html#summary-exercise-for-this-week"><i class="fa fa-check"></i><b>12.9</b> Summary: exercise for this week</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="studying-relationships-between-two-factors-1.html"><a href="studying-relationships-between-two-factors-1.html"><i class="fa fa-check"></i><b>13</b> Studying relationships between two factors</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="studying-relationships-between-two-factors-1.html"><a href="studying-relationships-between-two-factors-1.html#cross-tabulations"><i class="fa fa-check"></i><b>13.1</b> Cross-tabulations</a></li>
+<li class="chapter" data-level="13.2" data-path="studying-relationships-between-two-factors-1.html"><a href="studying-relationships-between-two-factors-1.html#odds-and-odd-ratios-1"><i class="fa fa-check"></i><b>13.2</b> Odds and odd ratios</a></li>
+<li class="chapter" data-level="13.3" data-path="studying-relationships-between-two-factors-1.html"><a href="studying-relationships-between-two-factors-1.html#logistic-regression-1"><i class="fa fa-check"></i><b>13.3</b> Logistic regression</a></li>
+<li class="chapter" data-level="13.4" data-path="studying-relationships-between-two-factors-1.html"><a href="studying-relationships-between-two-factors-1.html#fitting-logistic-regression-1"><i class="fa fa-check"></i><b>13.4</b> Fitting logistic regression</a></li>
+<li class="chapter" data-level="13.5" data-path="studying-relationships-between-two-factors-1.html"><a href="studying-relationships-between-two-factors-1.html#assessing-model-fit-i-deviance-and-pseudo-r-squared-1"><i class="fa fa-check"></i><b>13.5</b> Assessing model fit I: deviance and pseudo r squared</a></li>
+<li class="chapter" data-level="13.6" data-path="studying-relationships-between-two-factors-1.html"><a href="studying-relationships-between-two-factors-1.html#assessing-model-fit-ii-confusion-matrix-and-roc-curves-1"><i class="fa fa-check"></i><b>13.6</b> Assessing model fit II: confusion matrix and ROC curves</a></li>
+<li class="chapter" data-level="13.7" data-path="studying-relationships-between-two-factors-1.html"><a href="studying-relationships-between-two-factors-1.html#further-resources-3"><i class="fa fa-check"></i><b>13.7</b> Further resources</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modelling Criminological Data CRIM20452</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="regression-ii" class="section level1 hasAnchor" number="12">
+<h1><span class="header-section-number">Chapter 12</span> Regression II<a href="regression-ii.html#regression-ii" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="motivating-multiple-regression-1" class="section level2 hasAnchor" number="12.1">
+<h2><span class="header-section-number">12.1</span> Motivating multiple regression<a href="regression-ii.html#motivating-multiple-regression-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>So we have seen that our models with just one predictor are not terribly powerful. Partly that’s due to the fact that they are not properly specified, they do not include a solid set of good predictor variables that can help us to explain variation in our response variable. We can build better models by expanding the number of predictors (although keep in mind you should also aim to build models as parsimonious as possible).</p>
+<p>Another reason why it is important to think about additional variables in your model is to control for spurious correlations (although here you may also want to use your common sense when selecting your variables!). You must have heard before that correlation does not equal causation. Just because two things are associated we cannot assume that one is the cause for the other. Typically we see how the pilots switch the secure the belt button when there is turbulence. These two things are associated, they tend to come together. But the pilots are not causing the turbulences by pressing a switch! The world is full of <strong>spurious correlations</strong>, associations between two variables that should not be taking too seriously. You can explore a few <a href="http://tylervigen.com/">here</a>. It’s funny.</p>
+<p>Looking only at covariation between pair of variables can be misleading. It may lead you to conclude that a relationship is more important than it really is. This is no trivial matter, but one of the most important ones we confront in research and policy<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a>.</p>
+<p>It’s not an exaggeration to say that most quantitative explanatory research is about trying to control for the presence of <strong>confounders</strong>, variables that may explain explain away observed associations. Think about any criminology question: Does marriage reduces crime? Or is it that people that get married are different from those that don’t (and are those pre-existing differences that are associated with less crime)? Do gangs lead to more crime? Or is it that young people that join gangs are more likely to be offenders to start with? Are the police being racist when they stop and search more members of ethnic minorities? Or is it that there are other factors (i.e., offending, area of residence, time spent in the street) that, once controlled, would mean there is no ethnic dis-proportionality in stop and searches? Does a particular program reduces crime? Or is the observed change due to something else?</p>
+<p>These things also matter for policy. Wilson and Kelling, for example, argued that signs of incivility (or antisocial behaviour) in a community lead to more serious forms of crime later on as people withdraw to the safety of their homes when they see those signs of incivilities and this leads to a reduction in informal mechanisms of social control. All the policies to tackle antisocial behaviour in this country are very much informed by this model and were heavily influenced by broken windows theory.</p>
+<p>But is the model right? Sampson and Raudenbush argue it is not entirely correct. They argue, and tried to show, that there are other confounding (poverty, collective efficacy) factors that explain the association of signs of incivility and more serious crime. In other words, the reason why you see antisocial behaviour in the same communities that you see crime is because other structural factors explain both of those outcomes. They also argue that perceptions of antisocial behaviour are not just produced by observed antisocial behaviour but also by stereotypes about social class and race. If you believe them, then the policy implications are that only tackling antisocial behaviour won’t help you to reduce crime (as Wilson and Kelling have argued) . So as you can see this stuff matters for policy not just for theory.</p>
+<p>Multiple regression is one way of checking the relevance of competing explanations. You could set up a model where you try to predict crime levels with an indicator of broken windows and an indicator of structural disadvantage. If after controlling for structural disadvantage you see that the regression coefficient for broken windows is still significant you may be onto something, particularly if the estimated effect is still large. If, on the other hand, the t test for the regression coefficient of your broken windows variable is no longer significant, then you may be tempted to think that perhaps Sampson and Raudenbush were onto something.</p>
+</div>
+<div id="fitting-and-interpreting-a-multiple-regression-model-1" class="section level2 hasAnchor" number="12.2">
+<h2><span class="header-section-number">12.2</span> Fitting and interpreting a multiple regression model<a href="regression-ii.html#fitting-and-interpreting-a-multiple-regression-model-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>It could not be any easier to fit a multiple regression model. You simply modify the formula in the <code>lm()</code> function by adding terms for the additional inputs.</p>
+<div class="sourceCode" id="cb790"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb790-1"><a href="regression-ii.html#cb790-1" tabindex="-1"></a>data_url <span class="ot">&lt;-</span> <span class="st">&quot;https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/46WIH0/ARS2VS&quot;</span></span>
+<span id="cb790-2"><a href="regression-ii.html#cb790-2" tabindex="-1"></a>sharkey <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="fu">url</span>(data_url), <span class="at">sep =</span> <span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>,<span class="at">header =</span> T)</span>
+<span id="cb790-3"><a href="regression-ii.html#cb790-3" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div class="sourceCode" id="cb794"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb794-1"><a href="regression-ii.html#cb794-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">filter</span>(sharkey, year <span class="sc">==</span> <span class="st">&quot;2012&quot;</span>)</span>
+<span id="cb794-2"><a href="regression-ii.html#cb794-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">select</span>(df, place_name, state_name, viol_r, black, lesshs, unemployed, fborn, incarceration, log_incarceraton, swornftime_r, log_viol_r, largest50)</span>
+<span id="cb794-3"><a href="regression-ii.html#cb794-3" tabindex="-1"></a>fit_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_viol_r <span class="sc">~</span> unemployed <span class="sc">+</span> largest50, <span class="at">data=</span>df)</span>
+<span id="cb794-4"><a href="regression-ii.html#cb794-4" tabindex="-1"></a><span class="fu">summary</span>(fit_3)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = log_viol_r ~ unemployed + largest50, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -1.7338 -0.4047 -0.0189  0.4531  1.5726 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  4.54871    0.14101  32.258  &lt; 2e-16 ***
+## unemployed   0.22625    0.02186  10.351  &lt; 2e-16 ***
+## largest50    0.53495    0.09476   5.645 4.29e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.5915 on 261 degrees of freedom
+## Multiple R-squared:  0.3657, Adjusted R-squared:  0.3608 
+## F-statistic: 75.23 on 2 and 261 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>With more than one input, you need to ask yourself whether all of the regression coefficients are zero. This hypothesis is tested with a F test, similar to the one we described when describing ANOVA (in fact ANOVA is just a special case of regression). Again we are assuming the residuals are normally distributed, though with large samples the F statistics approximates the F distribution.</p>
+<p>You see the F test printed at the bottom of the summary output and the associated p value, which in this case is way below the conventional .05 that we use to declare statistical significance and reject the null hypothesis. At least one of our inputs must be related to our response variable.</p>
+<p>Notice that the table printed also reports a t test for each of the predictors. These are testing whether each of these predictors is associated with the response variable when adjusting for the other variables in the model. They report the “partial effect of adding that variable to the model” (James et al. 2014: 77). In this case we can see that both variables seem to be significantly associated with the response variable.</p>
+<p>If we look at the r squared we can now see that it is higher than before. This quantity, r squared, will always increase as a consequence of adding new variables, even if the new variables added are weakly related to the response variable. But the increase we are observing suggests that adding these two variables results in a substantially improvement to our previous model.</p>
+<p>We see that the coefficients for the predictors change very little, it goes down a bit for <em>unemployed</em> and it goes down somehow more for <em>largest50</em>. <strong>But their interpretation now changes</strong>. A common interpretation is that now the regression for each variable tells you about changes in Y related to that variable <strong>when the other variables in the model are held constant</strong>. So, for example, you could say the coefficient for <em>unemployed</em> represents the increase in the log of the violence rate for every one-unit increase in the measure of unemployment <em>when holding all other variables in the model constant</em> (in this case that refers to holding constant <em>largest50</em>). But this terminology can be a bit misleading.</p>
+<p>Other interpretations are also possible and are more generalizable. Gelman and Hill (2007: p. 34) emphasise what they call the <em>predictive interpretation</em> that considers how “the outcome variable differs, on average, when comparing two groups of units that differ by 1 in the relevant predictor while being identical in all the other predictors”. So <a href="http://andrewgelman.com/2013/01/05/understanding-regression-models-and-regression-coefficients/">if you’re regressing y on u and v, the coefficient of u is the average difference in y per difference in u, comparing pairs of items that differ in u but are identical in v</a>.</p>
+<p>So, for example, in this case we could say that comparing respondents who have the same level of unemployment but who differed in whether they are one of the largest cities or not, the model predicts a expected difference of .53 in their violent crime measure. And that cities with the same size category, but that differ by one percent point in unemployment, we would expect to see a difference of 0.23 in their violent crime measure. So we are interpreting the regression slopes <strong>as comparisons of observation that differ in one predictor while being at the same levels of the other predictors</strong>.</p>
+<p>As you can see, interpreting regression coefficients can be kind of tricky<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a>. The relationship between the response y and any one explanatory variable can change greatly depending on what other explanatory variables are present in the model.</p>
+<p>For example, if you contrast this model with the one we run with only <em>largest50</em> as a predictor you will notice the intercept has changed. You can no longer read the intercept as the mean value of violence for smaller cities. <em>Adding predictors to the model changes their meaning</em>. Now the intercept index the value of violence for smaller cities <em>that, in addition, score 0 in unemployed</em>. In this case you don’t have cases that meet this condition (equal zero in all your predictors). More often than not, then, there is not much value in bothering to interpret the intercept because if does not represent a real observation in your sample.</p>
+<p>Something you need to be particularly careful about is to interpret the coefficients in a causal manner. At least your data come from an experiment this is unlikely to be helpful. With observational data regression coefficients should not be read as indexing causal relations. This sort of textbook warning is, however, often neglectfully ignored by professional researchers. Often authors carefully draw sharp distinctions between causal and correlational claims when discussing their data analysis, but then interpret the correlational patterns in a totally causal way in their conclusion section. This is what is called the <a href="http://junkcharts.typepad.com/numbersruleyourworld/2012/07/the-causation-creep.html">causation</a> or <a href="http://www.carlislerainey.com/2012/12/05/another-example-of-causal-creep/">causal</a> creep. Beware. Don’t do this tempting as it may be.</p>
+<p>Comparing the simple models with this more complex model we could say that adjusting for <em>largest50</em> does not change much the impact of <em>unemployed</em> in violence and almost the same can be said about the effect of <em>largest50</em> when holding <em>unemployed</em> fixed.</p>
+</div>
+<div id="presenting-your-regression-results.-1" class="section level2 hasAnchor" number="12.3">
+<h2><span class="header-section-number">12.3</span> Presenting your regression results.<a href="regression-ii.html#presenting-your-regression-results.-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Communicating your results in a clear manner is incredibly important. We have seen the tabular results produced by R. If you want to use them in a paper you may need to do some tidying up of those results. There are a number of packages (<code>textreg</code>, <code>stargazer</code>) that automatise that process. They take your <code>lm</code> objects and produce tables that you can put straight away in your reports or papers. One popular trend in presenting results is the <strong>coefficient plot</strong> as an alternative to the table of regression coefficients. There are various ways of producing coefficient plots with R for a variety of models. See <a href="http://www.carlislerainey.com/2012/06/30/coefficient-plots-in-r/">here</a> and <a href="http://www.carlislerainey.com/2012/07/03/an-improvement-to-coefficient-plots/">here</a>, for example.</p>
+<p>We are going to use instead the <code>plot_model()</code> function of the <code>sjPlot</code> package, that makes it easier to produce this sort of plots. You can find a more detailed tutorial about this function <a href="http://rpubs.com/sjPlot/sjplm">here</a>. See below for an example:</p>
+<div class="sourceCode" id="cb796"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb796-1"><a href="regression-ii.html#cb796-1" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span></code></pre></div>
+<pre><code>## Warning: package &#39;sjPlot&#39; was built under R version 4.3.3</code></pre>
+<pre><code>## Learn more about sjPlot with &#39;browseVignettes(&quot;sjPlot&quot;)&#39;.</code></pre>
+<p>Let’s try with a more complex example:</p>
+<div class="sourceCode" id="cb799"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb799-1"><a href="regression-ii.html#cb799-1" tabindex="-1"></a>fit_4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_viol_r <span class="sc">~</span> unemployed <span class="sc">+</span> largest50 <span class="sc">+</span> black <span class="sc">+</span> fborn <span class="sc">+</span> log_incarceraton, <span class="at">data=</span>df)</span>
+<span id="cb799-2"><a href="regression-ii.html#cb799-2" tabindex="-1"></a><span class="fu">plot_model</span>(fit_4)</span></code></pre></div>
+<p><img src="new_week_7_regression_II_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<!-- Be advised to use these plots judiciously. There may be other sort of plots that may be [more appropriate](http://www.carlislerainey.com/2012/07/06/why-i-dont-like-coefficient-plots/) for what you want to communicate to your audience than the coefficient plot.-->
+<p>You can further customise this:</p>
+<div class="sourceCode" id="cb800"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb800-1"><a href="regression-ii.html#cb800-1" tabindex="-1"></a><span class="fu">plot_model</span>(fit_4, <span class="at">title=</span><span class="st">&quot;Violence across cities&quot;</span>)</span></code></pre></div>
+<p><img src="new_week_7_regression_II_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>What you see plotted here is the point estimates (the circles), the confidence intervals around those estimates (the longer the line the less precise the estimate), and the colours represent whether the effect is negative (red) or positive (blue). There are other packages that also provide similar functionality, like the <code>dotwhisker</code> package that you may want to explore, see more details <a href="https://cran.r-project.org/web/packages/dotwhisker/vignettes/dotwhisker-vignette.html">here</a>.</p>
+<p>The <code>sjPlot</code> package also allows you to produce html tables for more professional presentation of your regression tables. For this we use the <code>tab_model()</code> function. This kind of tabulation may be particularly helpful for your final assignment.</p>
+<div class="sourceCode" id="cb801"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb801-1"><a href="regression-ii.html#cb801-1" tabindex="-1"></a><span class="fu">tab_model</span>(fit_4)</span></code></pre></div>
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
+ 
+</th>
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+log viol r
+</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
+Predictors
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+Estimates
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+CI
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+p
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+(Intercept)
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+5.65
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+4.19 – 7.12
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+unemployed
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.17
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.12 – 0.22
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+largest50
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.46
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.29 – 0.63
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+black
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.02
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.01 – 0.02
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+fborn
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.01
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.02 – -0.00
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+log incarceraton
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.13
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.36 – 0.10
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.251
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
+Observations
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
+263
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+R<sup>2</sup> / R<sup>2</sup> adjusted
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+0.508 / 0.499
+</td>
+</tr>
+</table>
+<p>As before you can further customise this table. Let’s change for example the name that is displayed for the dependent variable.</p>
+<div class="sourceCode" id="cb802"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb802-1"><a href="regression-ii.html#cb802-1" tabindex="-1"></a><span class="fu">tab_model</span>(fit_4, <span class="at">dv.labels =</span> <span class="st">&quot;Violence rate (log)&quot;</span>)</span></code></pre></div>
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
+ 
+</th>
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+Violence rate (log)
+</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
+Predictors
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+Estimates
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+CI
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+p
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+(Intercept)
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+5.65
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+4.19 – 7.12
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+unemployed
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.17
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.12 – 0.22
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+largest50
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.46
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.29 – 0.63
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+black
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.02
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.01 – 0.02
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+fborn
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.01
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.02 – -0.00
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+log incarceraton
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.13
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.36 – 0.10
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.251
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
+Observations
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
+263
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+R<sup>2</sup> / R<sup>2</sup> adjusted
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+0.508 / 0.499
+</td>
+</tr>
+</table>
+<p>Or you could change the labels for the independent variables:</p>
+<div class="sourceCode" id="cb803"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb803-1"><a href="regression-ii.html#cb803-1" tabindex="-1"></a><span class="fu">tab_model</span>(fit_4, <span class="at">pred.labels =</span> <span class="fu">c</span>(<span class="st">&quot;(Intercept)&quot;</span>, <span class="st">&quot;Percent unemployment&quot;</span>, <span class="st">&quot;Largest cities (Yes)&quot;</span>, <span class="st">&quot;Percent black&quot;</span>, <span class="st">&quot;Percent foreign born&quot;</span>, <span class="st">&quot;Incarceration rate (log)&quot;</span>), <span class="at">dv.labels =</span> <span class="st">&quot;Violence rate (log)&quot;</span>)</span></code></pre></div>
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
+ 
+</th>
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+Violence rate (log)
+</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
+Predictors
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+Estimates
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+CI
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+p
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+(Intercept)
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+5.65
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+4.19 – 7.12
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Percent unemployment
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.17
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.12 – 0.22
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Largest cities (Yes)
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.46
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.29 – 0.63
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Percent black
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.02
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.01 – 0.02
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Percent foreign born
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.01
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.02 – -0.00
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Incarceration rate (log)
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.13
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.36 – 0.10
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.251
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
+Observations
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
+263
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+R<sup>2</sup> / R<sup>2</sup> adjusted
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+0.508 / 0.499
+</td>
+</tr>
+</table>
+<p>Visual display of the effects of the variables in the model are particularly helpful. The <code>effects</code> package allows us to produce plots to visualise these relationships (when adjusting for the other variables in the model). Here’s an example going back to our model fit_3 which contained unemployment and the dummy for large cities as predictor variables:</p>
+<div class="sourceCode" id="cb804"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb804-1"><a href="regression-ii.html#cb804-1" tabindex="-1"></a><span class="fu">library</span>(effects)</span></code></pre></div>
+<pre><code>## Warning: package &#39;effects&#39; was built under R version 4.3.3</code></pre>
+<pre><code>## Loading required package: carData</code></pre>
+<pre><code>## lattice theme set by effectsTheme()
+## See ?effectsTheme for details.</code></pre>
+<div class="sourceCode" id="cb808"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb808-1"><a href="regression-ii.html#cb808-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">allEffects</span>(fit_3), <span class="at">ask=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="new_week_7_regression_II_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>Notice that the line has a confidence interval drawn around it (to reflect the likely impact of sampling variation) and that the predicted means for smaller and largest cities (when controlling for unemployment) also have a confidence interval.</p>
+</div>
+<div id="rescaling-input-variables-to-assist-interpretation" class="section level2 hasAnchor" number="12.4">
+<h2><span class="header-section-number">12.4</span> Rescaling input variables to assist interpretation<a href="regression-ii.html#rescaling-input-variables-to-assist-interpretation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The interpretation or regression coefficients is sensitive to the scale of measurement of the predictors. This means one cannot compare the magnitude of the coefficients to compare the relevance of variables to predict the response variable. Let’s look at the more recent model, how can we tell what predictors have a stronger effect?</p>
+<div class="sourceCode" id="cb809"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb809-1"><a href="regression-ii.html#cb809-1" tabindex="-1"></a><span class="fu">summary</span>(fit_4)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = log_viol_r ~ unemployed + largest50 + black + fborn + 
+##     log_incarceraton, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -1.4546 -0.3523 -0.0009  0.3827  1.5771 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)       5.654459   0.743725   7.603 5.44e-13 ***
+## unemployed        0.169895   0.024496   6.936 3.27e-11 ***
+## largest50         0.457226   0.085311   5.360 1.86e-07 ***
+## black             0.015003   0.002678   5.602 5.44e-08 ***
+## fborn            -0.010414   0.003101  -3.358 0.000904 ***
+## log_incarceraton -0.133946   0.116461  -1.150 0.251158    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.523 on 257 degrees of freedom
+##   (1 observation deleted due to missingness)
+## Multiple R-squared:  0.5082, Adjusted R-squared:  0.4987 
+## F-statistic: 53.12 on 5 and 257 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>We just cannot. One way of dealing with this is by rescaling the input variables. A common method involves subtracting the mean and dividing by the standard deviation of each numerical input. The coefficients in these models is the expected difference in the response variable, comparing units that differ by one standard deviation in the predictor while adjusting for other predictors in the model.</p>
+<p>Instead, <a href="http://www.stat.columbia.edu/~gelman/research/published/standardizing7.pdf">Gelman (2008)</a> has proposed dividing each numeric variables <em>by two times its standard deviation</em>, so that the generic comparison is with inputs equal to plus/minus one standard deviation. As Gelman explains the resulting coefficients are then comparable to untransformed binary predictors. The implementation of this approach in the <code>arm</code> package subtract the mean of each binary input while it subtract the mean and divide by two standard deviations for every numeric input.</p>
+<p>The way we would obtain these rescaled inputs uses the <code>standardize()</code> function of the <code>arm</code> package, that takes as an argument the name of the stored fit model.</p>
+<div class="sourceCode" id="cb811"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb811-1"><a href="regression-ii.html#cb811-1" tabindex="-1"></a><span class="fu">library</span>(arm)</span>
+<span id="cb811-2"><a href="regression-ii.html#cb811-2" tabindex="-1"></a><span class="fu">standardize</span>(fit_4)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = log_viol_r ~ z.unemployed + c.largest50 + z.black + 
+##     z.fborn + z.log_incarceraton, data = df)
+## 
+## Coefficients:
+##        (Intercept)        z.unemployed         c.largest50             z.black  
+##            6.06080             0.56923             0.45723             0.49188  
+##            z.fborn  z.log_incarceraton  
+##           -0.24890            -0.08133</code></pre>
+<p>Notice the main change affects the numerical predictors. The unstandardised coefficients are influenced by the degree of variability in your predictors, which means that typically they will be larger for your binary inputs. With unstandardised coefficients you are comparing complete change in one variable (whether one is a large city or not) with one-unit changes in your numerical variable, which may not amount to much change. So, by putting in a comparable scale, you avoid this problem.</p>
+<p>Standardising in the way described here will help you to make fairer comparisons. This standardised coefficients are comparable in a way that the unstandardised coefficients are not. We can now see what inputs have a comparatively stronger effect. It is very important to realise, though, that one <strong>should not</strong> compare standardised coefficients <em>across different models</em>.</p>
+</div>
+<div id="testing-conditional-hypothesis-interactions-1" class="section level2 hasAnchor" number="12.5">
+<h2><span class="header-section-number">12.5</span> Testing conditional hypothesis: interactions<a href="regression-ii.html#testing-conditional-hypothesis-interactions-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In the social sciences there is a great interest in what are called conditional hypothesis or interactions. Many of our theories do not assume simply <strong>additive effects</strong> but <strong>multiplicative effects</strong>.For example, <a href="http://euc.sagepub.com/content/8/5/401.short">Wikstrom and his colleagues (2011)</a> suggest that the threat of punishment only affects the probability of involvement on crime for those that have a propensity to offend but are largely irrelevant for people who do not have this propensity. Or you may think that a particular crime prevention programme may work in some environments but not in others. The interest in this kind of conditional hypothesis is growing.</p>
+<p>One of the assumptions of the regression model is that the relationship between the response variable and your predictors is additive. That is, if you have two predictors <code>x1</code> and <code>x2</code>. Regression assumes that the effect of <code>x1</code> on <code>y</code> is the same at all levels of <code>x2</code>. If that is not the case, you are then violating one of the assumptions of regression. This is in fact one of the most important assumptions of regression, even if researchers often overlook it.</p>
+<p>One way of extending our model to accommodate for interaction effects is to add additional terms to our model, a third predictor <code>x3</code>, where <code>x3</code> is simply the product of multiplying <code>x1</code> by <code>x2</code>. Notice we keep a term for each of the <strong>main effects</strong> (the original predictors) as well as a new term for the interaction effect. “Analysts should include all constitutive terms when specifying multiplicative interaction models except in very rare circumstances” (Brambor et al., 2006: 66).</p>
+<p>How do we do this in R? One way is to use the following notation in the formula argument. Notice how we have added a third term <code>unemployed:largest50</code>, which is asking R to test the conditional hypothesis that the size of the cities may have a different impact on violent crime rate.</p>
+<div class="sourceCode" id="cb813"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb813-1"><a href="regression-ii.html#cb813-1" tabindex="-1"></a>fit_5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_viol_r <span class="sc">~</span> unemployed <span class="sc">+</span> largest50 <span class="sc">+</span> unemployed<span class="sc">:</span>largest50 , <span class="at">data=</span>df)</span>
+<span id="cb813-2"><a href="regression-ii.html#cb813-2" tabindex="-1"></a><span class="co"># which is equivalent to: </span></span>
+<span id="cb813-3"><a href="regression-ii.html#cb813-3" tabindex="-1"></a><span class="co"># fit_5 &lt;- lm(log_viol_r ~ unemployed * largest50, data=BCS0708)</span></span>
+<span id="cb813-4"><a href="regression-ii.html#cb813-4" tabindex="-1"></a><span class="fu">summary</span>(fit_5)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = log_viol_r ~ unemployed + largest50 + unemployed:largest50, 
+##     data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.71844 -0.41330 -0.02989  0.45583  1.59625 
+## 
+## Coefficients:
+##                      Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)           4.49267    0.15636  28.734   &lt;2e-16 ***
+## unemployed            0.23532    0.02443   9.630   &lt;2e-16 ***
+## largest50             0.83064    0.36794   2.258   0.0248 *  
+## unemployed:largest50 -0.04557    0.05479  -0.832   0.4063    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.5919 on 260 degrees of freedom
+## Multiple R-squared:  0.3673, Adjusted R-squared:   0.36 
+## F-statistic: 50.32 on 3 and 260 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>You see here that essentially you have only two inputs (the size of the city and unemployment) but several regression coefficients. Gelman and Hill (2007) suggest reserving the term input for the variables encoding the information and to use the term predictor to refer to each of the terms in the model. So here we have two inputs and four predictors (one for the constant term, one for unemployment, another for the largest 50 dummy, and a final one for the interaction effect).</p>
+<p>In this case the test for the interaction effect is non-significant, which suggests there isn’t such an interaction. The R squared barely changes. Let’s visualise the results with the <code>effects</code> package:</p>
+<div class="sourceCode" id="cb815"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb815-1"><a href="regression-ii.html#cb815-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">allEffects</span>(fit_5), <span class="at">ask=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="new_week_7_regression_II_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>Notice that essentially what we are doing is running two regression lines and testing whether the slope is different for the two groups. The intercept is different, we know that largest cities are more violent, but what we are testing here is whether violence goes up in a steeper fashion (and in the same direction) for one or the other group as unemployment goes up. We see that’s not the case here. The estimated lines are almost parallel.</p>
+<p>A word of warning, the moment you introduce an interaction effect the meaning of the coefficients for the other predictors changes (what it is often referred as to the “main effects” as opposed to the interaction effect). You cannot retain the interpretation we introduced earlier. Now, for example, the coefficient for the <em>largest50</em> variable relates the marginal effect of this variable when <em>unemployment</em> equals zero. The typical table of results helps you to understand whether the effects are significant but offers little of interest that will help you to meaningfully interpret what the effects are. For this is better you use some of the graphical displays we have covered.</p>
+<p>Essentially what happens is that the regression coefficients that get printed are interpretable only for certain groups. So now:</p>
+<ul>
+<li><p>The intercept still represents the predicted score of violence for the smaller cities and have a score of 0 in unemployment (as before).</p></li>
+<li><p>The coefficient of the <em>largest50Yes</em> predictor now can be thought of as the difference between the predicted score of violence for small cities <em>that have a score of 0 in unemployment</em> and largest cities <em>that have a score of 0 in unemployment</em>.</p></li>
+<li><p>The coefficient of <em>unemployed</em> now becomes the comparison of mean violence <em>for small cities</em> who differ by one point in unemployment.</p></li>
+<li><p>The coefficient for the interaction term represents the difference in the slope for <em>unemployed</em> comparing smaller and largest cities, the difference in the slope of the two lines that we visualised above.</p></li>
+</ul>
+<p>Models with interaction terms are too often misinterpreted. We strongly recommend you read this piece by <a href="https://files.nyu.edu/mrg217/public/pa_final.pdf">Brambor et al (2005)</a> to understand some of the issues involved. When discussing logistic regression we will return to this and will consider tricks to ease the interpretation.</p>
+<p>Equally, <a href="http://www.jstatsoft.org/v08/i15/paper">John Fox (2003)</a> piece on the <code>effects</code> package goes to much more detail that we can here to explain the logic and some of the options that are available when producing plots to show interactions with this package. You may also want to have a look at the newer <code>interactions</code> package <a href="https://interactions.jacob-long.com/index.html">here</a>.</p>
+</div>
+<div id="regression-assumptions-1" class="section level2 hasAnchor" number="12.6">
+<h2><span class="header-section-number">12.6</span> Regression assumptions<a href="regression-ii.html#regression-assumptions-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Previously we covered assumptions made by various statistical tests. The regression model also makes assumptions of its own. In fact, there are so many that we could spend an entire class discussing them. Gelman and Hill (2007) point out that the most important regression assumptions by decreasing order of importance are:</p>
+<ul>
+<li><strong>Validity</strong>. The data should be appropriate for the question that you are trying to answer:</li>
+</ul>
+<blockquote>
+<p>“Optimally, this means that the outcome measure should accurately reflect the phenomenon of interest, the model should include all relevant predictors, and the model should generalize to all cases to which it will be applied… Data used in empirical research rarely meet all (if any) of these criteria precisely. However, keeping these goals in mind can help you be precise about the types of questions you can and cannot answer reliably”</p>
+</blockquote>
+<ul>
+<li><p><strong>Additiviy and linearity</strong>. These are the most important mathematical assumptions of the model. We already talked about additivity in the previous section and discussed how you can include interaction effects in your models if the additivity assumption is violated. We discuss problems with non-linearities as well using the example of the age-crime-curve. If the relationship is non linear (e.g, it is curvilinear) predicted values will be wrong in a biased manner, meaning that predicted values will systematically miss the true pattern of the mean of y (as related to the x-variables).</p></li>
+<li><p><strong>Independence of errors</strong>. Regression assumes that the errors from the prediction line (or hyperplane for multiple regression) are independent. If there is dependency between the observations (you are assessing change across the same units, working with spatial units, or with units that are somehow grouped such as students from the same class), you may have to use models that are more appropriate (e.g., multilevel models, spatial regression, etc.).</p></li>
+<li><p><strong>Equal variances of errors</strong>. When the variance of the residuals is unequal, you may need different estimation methods. This is, nonetheless, considered a minor issue. There is a small effect on the validity of t-test and F-test results, but generally regression inferences are robust with regard to the variance issue.</p></li>
+<li><p><strong>Normality of errors</strong>. The residuals should be normally distributed. Gelman and Hill (2007: 46) discuss this as the least important of the assumptions and in fact “do <em>not</em> recommend diagnostics of the normality of the regression residuals”. If the errors do not have a normal distribution, it usually is not particularly serious. Regression inferences tend to be robust with respect to normality (or nonnormality of the errors). In practice, the residuals may appear to be nonnormal when the wrong regression equation has been used. So, we will show you how to inspect normality of the residuals not because this is a problem on itself, but because it may be give you further evidence that there is some other problem with the model you are applying to your data.</p></li>
+</ul>
+<p>Apart from this, it is convenient to diagnose multicollinearity (this affects interpretation) and influential observations.</p>
+<p>So these are the assumptions of linear regression.</p>
+<p>In this section we can go through very quickly how to test for some of them using visuals. While finding that some of the assumptions are violated do not necessarily mean that you have to scrap your model, it is important to use these diagnostics to illustrate that you have considered what the possible issues with your model is, and if you find any serious issues that you address them.</p>
+<p>In r, we can use the <code>plot()</code> function on our output lm object to look through some diagnostics. This gives us 4 plots, so to show them all, we’ll use the code <code>par(mfrow = c(2, 2))</code> to split our plot window into 4 panes (remember to set back, run <code>par(mfrow = c(1, 1))</code>). For example, let’s return to <code>fit_1</code>, our very first model.</p>
+<div class="sourceCode" id="cb816"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb816-1"><a href="regression-ii.html#cb816-1" tabindex="-1"></a>fit_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_viol_r <span class="sc">~</span> unemployed, <span class="at">data =</span> df)</span>
+<span id="cb816-2"><a href="regression-ii.html#cb816-2" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb816-3"><a href="regression-ii.html#cb816-3" tabindex="-1"></a><span class="fu">plot</span>(fit_1)</span></code></pre></div>
+<p><img src="new_week_7_regression_II_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>The 4 plots we get are</p>
+<ul>
+<li><strong>Residuals vs Fitted</strong>. Used to check the linear relationship assumptions. A horizontal line, without distinct patterns is an indication for a linear relationship, what is good.</li>
+<li><strong>Normal Q-Q</strong>. Used to examine whether the residuals are normally distributed. It’s good if residuals points follow the straight dashed line.</li>
+<li><strong>Scale-Location (or Spread-Location)</strong>. Used to check the homogeneity of variance of the residuals (homoscedasticity). Horizontal line with equally spread points is a good indication of homoscedasticity. This is not the case in our example, where we have a bit of a heteroscedasticity problem (remember funnel-shape from the video!).</li>
+<li><strong>Residuals vs Leverage</strong>. Used to identify influential cases, that is extreme values that might influence the regression results when included or excluded from the analysis.</li>
+</ul>
+<p>We can also run some tests to confirm what we see in the plots.</p>
+<p>For example, to test for heteroskedasticity (unequal variance in our residuals) we can run a Breusch-Pagan test from the <code>lmtest</code> package or a NCV test from the <code>car</code> package.</p>
+<div class="sourceCode" id="cb817"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb817-1"><a href="regression-ii.html#cb817-1" tabindex="-1"></a>lmtest<span class="sc">::</span><span class="fu">bptest</span>(fit_1)  <span class="co"># Breusch-Pagan test</span></span></code></pre></div>
+<pre><code>## 
+##  studentized Breusch-Pagan test
+## 
+## data:  fit_1
+## BP = 11.498, df = 1, p-value = 0.0006965</code></pre>
+<div class="sourceCode" id="cb819"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb819-1"><a href="regression-ii.html#cb819-1" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">ncvTest</span>(fit_1) <span class="co"># NCV test</span></span></code></pre></div>
+<pre><code>## Non-constant Variance Score Test 
+## Variance formula: ~ fitted.values 
+## Chisquare = 8.270574, Df = 1, p = 0.0040293</code></pre>
+<p>Both these test have a p-value less that a significance level of 0.05, therefore we can reject the null hypothesis that the variance of the residuals is constant and infer that heteroscedasticity is indeed present, thereby confirming our graphical inference.</p>
+<p>For testing whether the residuals violate the normality assumption, we can use the Anderson-Darling test for the composite hypothesis of normality with the <code>ad.test()</code> function in the <code>nortest</code> package.</p>
+<div class="sourceCode" id="cb821"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb821-1"><a href="regression-ii.html#cb821-1" tabindex="-1"></a>nortest<span class="sc">::</span><span class="fu">ad.test</span>(fit_1<span class="sc">$</span>residuals)</span></code></pre></div>
+<pre><code>## 
+##  Anderson-Darling normality test
+## 
+## data:  fit_1$residuals
+## A = 1.0488, p-value = 0.009182</code></pre>
+<p>For the purposes of this module, it is enough that you understand that these assumptions of regression exist, what they mean, and how you might test for them. For some of them, for example additivity, we discussed above some ways to address this (look at the section on interaction effects). For others, it is just important to keep in mind when these might be violated, and raise these as possible limitations in your ability to rely on the conclusions you draw from your results.</p>
+</div>
+<div id="plotting-residuals" class="section level2 hasAnchor" number="12.7">
+<h2><span class="header-section-number">12.7</span> Plotting residuals<a href="regression-ii.html#plotting-residuals" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Many of the assumptions can be tested first by having a look at your residuals. Remember, the residuals are the ‘error’ in your model. In previous weeks we defined the ordinary residuals as the difference between the observed and the predicted values, the distance between the points in your scatterplot and the regression line. Apart from the ordinary residuals, most software computes other forms of closely related ones: the standardised, the studentised, and the Pearson residuals.</p>
+<p>The raw residuals are just the difference between the observed and the predicted, the other three are ways of normalising this measure, so you can compare what is large, what is small, etc. For example, with the standardized residuals, you essentailly calculate z scores, and given a normal distribution of the standardized residuals, the mean is 0, and the standard deviations is 1.
+Pearson residuas are raw residuals divided by the standard error of the observed value.
+Studentized resiruals (also called standardized pearson residuals) are raw residuals divided by their standard error.
+You can read more about these <a href="https://r-forge.r-project.org/scm/viewvc.php/*checkout*/pkg/BinomTools/inst/ResidualsGLM.pdf?revision=6&amp;root=binomtools&amp;pathrev=6">here</a>.</p>
+<p>Plotting these residuals versus the fitted values and versus each of the predictors is the most basic way of diagnosing problems with your regression model. However, as Fox and Weisberg (2011) emphasise
+&gt; this “is useful for revealing problems but less useful for determining the exact nature of the problem” and consequently one needs “other diagnostic graphs to suggest improvements to the model”.</p>
+<p>In the previous session we fitted the model <code>tcviolent ~ tcarea + sex</code>. This was our <code>fit_3</code> model during that session. You may have to run the model again if you do not have it in your global environment.</p>
+<p>To obtain the basic residual plots for this model we use the <code>residualPlots()</code> function of the <code>car</code> package.</p>
+<div class="sourceCode" id="cb823"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb823-1"><a href="regression-ii.html#cb823-1" tabindex="-1"></a><span class="fu">library</span>(car)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;car&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:arm&#39;:
+## 
+##     logit</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     recode</code></pre>
+<div class="sourceCode" id="cb827"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb827-1"><a href="regression-ii.html#cb827-1" tabindex="-1"></a>BCS0708<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/eonk/dar_book/main/datasets/BCS0708.csv&quot;</span>)</span>
+<span id="cb827-2"><a href="regression-ii.html#cb827-2" tabindex="-1"></a></span>
+<span id="cb827-3"><a href="regression-ii.html#cb827-3" tabindex="-1"></a>fit_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(tcviolent <span class="sc">~</span> tcarea <span class="sc">+</span> sex, <span class="at">data=</span>BCS0708)</span>
+<span id="cb827-4"><a href="regression-ii.html#cb827-4" tabindex="-1"></a><span class="fu">residualPlots</span>(fit_3)</span></code></pre></div>
+<p><img src="new_week_7_regression_II_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<pre><code>##            Test stat Pr(&gt;|Test stat|)    
+## tcarea        6.2571        4.123e-10 ***
+## sex                                      
+## Tukey test    4.6065        4.094e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>This function will produce plots of the Pearson residuals versus each of the predictors in the model and versus the fitted values.</p>
+<div id="residuals-vs-predicted-values" class="section level4 hasAnchor" number="12.7.0.1">
+<h4><span class="header-section-number">12.7.0.1</span> Residuals vs predicted values<a href="regression-ii.html#residuals-vs-predicted-values" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The most important of this is the last one, <em>the scatterplot of the Pearson residuals versus the fitted values</em>. In these plots one has to pay particular attention to nonlinear trends, trends in variations across the graph, but also isolated points.
+Ideally a plot of the residuals should show that:</p>
+<ul>
+<li>they’re pretty symmetrically distributed, tending to cluster towards the middle of the plot</li>
+<li>they’re clustered around the lower single digits of the y-axis (e.g., 0.5 or 1.5, not 30 or 150)</li>
+<li>in general there aren’t clear patterns</li>
+</ul>
+<p>For example this is a good looking scatterplot of residuals vs fitted values:</p>
+<p><img src="imgs/respre.png" /></p>
+<p>On the other hand, if your plot isn’t evenly distributed vertically, or they have an outlier, or they have a clear shape to them, that indicates you can detect a clear pattern or trend in your residuals. In this case, then your model has room for improvement.</p>
+<p>For example, these are scatterplots of residuals vs fitted values that indicate a problem:
+<img src="imgs/respre2.png" />
+<img src="imgs/respre3.png" />
+<img src="imgs/respre4.png" />
+<img src="imgs/respre5.png" /></p>
+<p>How concerned should you be if your model isn’t perfect, if your residuals look a bit unhealthy? It’s up to you. Most of the time a decent model is better than none at all. So take your model, try to improve it, and then decide whether the accuracy is good enough to be useful for your purposes.</p>
+</div>
+<div id="residuals-vs-predictors" class="section level4 hasAnchor" number="12.7.0.2">
+<h4><span class="header-section-number">12.7.0.2</span> Residuals vs predictors<a href="regression-ii.html#residuals-vs-predictors" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>These plots are related to the <strong>homogeneity of variance</strong> assumption we introduced earlier.</p>
+<p>When the predictor is <strong>categorical</strong>, we will see a collection of boxplots (one for each level in the predictor). A good fit will be indicated by boxplots that have the same centre and similar spread.</p>
+<p>When the predictor is <strong>numeric</strong>, we see a scatterplot of the predictor against the Pearson residuals. Here we also look at any systematic differences in the spread of the residuals across the X axis. When the variances are not unequal you can often see a funnel form shaping up, with less variance at one end of the X axis than the other. Though other systematic patterns are also possible. You also need to pay attention to the shape of the red line printed in the output. This line should be straight. If you observe non-linearities (e.g., a curved line), this may be a more serious issue than the unequal spread and will need addressing.</p>
+</div>
+<div id="diagnostic" class="section level4 hasAnchor" number="12.7.0.3">
+<h4><span class="header-section-number">12.7.0.3</span> Diagnostic<a href="regression-ii.html#diagnostic" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>When you run the <code>residualPlots()</code> function R will also print two numerical tests.</p>
+<p>First we have a curvature test for each of the plots by adding a quadratic term and testing the quadratic to be zero (more on this in a few sections). This is Tukey’s test for nonadditivity when plotting against fitted values. When this test is significant it may indicate a <strong>lack of fit</strong> for this particular predictor.</p>
+<p>The Tukey test optimally should not be significant. We can see in the first of the three plots that the red line is a bit curved. It is this pattern that the printed tests are picking up.</p>
+</div>
+<div id="marginal-plots" class="section level4 hasAnchor" number="12.7.0.4">
+<h4><span class="header-section-number">12.7.0.4</span> Marginal plots<a href="regression-ii.html#marginal-plots" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>We can further diagnose the model by printing <strong>marginal model plots</strong> using the <code>marginalModelPlots()</code> function of the <code>car</code> package.</p>
+<pre><code>## Error in plot.window(...): need finite &#39;xlim&#39; values</code></pre>
+<p><img src="new_week_7_regression_II_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>This will plot a scatterplot for each predictor variable against the response variable. This displays the conditional distribution of the response given each predictor, <em>ignoring the other predictors</em>. They are called marginal plots because they show the marginal relationship between the outcome and <em>each predictor</em>. It will also print a scatterplot of the response versus the fitted value displaying the conditional distribution of the outcome given the fit of the model. We observe here the curvature that was already identified by the previous plots (notice the blue line).</p>
+<p>We can also use the <code>marginalModelPlots()</code> function to assess the <strong>homogeneity of variance</strong> assumption using the following argument:</p>
+<div class="sourceCode" id="cb830"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb830-1"><a href="regression-ii.html#cb830-1" tabindex="-1"></a><span class="fu">marginalModelPlots</span>(fit_3, <span class="at">sd =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## Warning in xy.coords(x, y, xlabel, ylabel, log): NAs introduced by coercion</code></pre>
+<pre><code>## Warning in min(x): no non-missing arguments to min; returning Inf</code></pre>
+<pre><code>## Warning in max(x): no non-missing arguments to max; returning -Inf</code></pre>
+<pre><code>## Error in plot.window(...): need finite &#39;xlim&#39; values</code></pre>
+<p><img src="new_week_7_regression_II_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p>This will print the estimated standard deviation lines to the graph. You would want this to be <strong>constant</strong> across the X axis.</p>
+</div>
+<div id="diagnostic-for-homoskedasiticity" class="section level4 hasAnchor" number="12.7.0.5">
+<h4><span class="header-section-number">12.7.0.5</span> Diagnostic for homoskedasiticity<a href="regression-ii.html#diagnostic-for-homoskedasiticity" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>And since we are discussing homoskedasiticity (e.g., homogeneity of variance or constant/equal variance), it is worth pointing out that the <code>car</code> package implements a score test that evaluates whether the variance is constant. To obtain this test we use the <code>ncvTest()</code> function.</p>
+<div class="sourceCode" id="cb835"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb835-1"><a href="regression-ii.html#cb835-1" tabindex="-1"></a><span class="fu">ncvTest</span>(fit_3)</span></code></pre></div>
+<pre><code>## Non-constant Variance Score Test 
+## Variance formula: ~ fitted.values 
+## Chisquare = 186.8947, Df = 1, p = &lt; 2.22e-16</code></pre>
+<p>When the test is <strong>significant</strong>, as it is here, we may suspect there <strong>is</strong> a problem with non-constant variance (also called heterokedasticity). In practice, should already be visible from the plot of residuals versus fits plot.</p>
+</div>
+</div>
+<div id="model-building-and-variable-selection-1" class="section level2 hasAnchor" number="12.8">
+<h2><span class="header-section-number">12.8</span> Model building and variable selection<a href="regression-ii.html#model-building-and-variable-selection-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>How do you construct a good model? This partly depends on your goal, although there are commonalities. You do want to start with theory as a way to select your predictors and when specifying the nature of the relationship to your response variable (e.g., additive, multiplicative). Gelman and Hill (2007) provide a series of general principles<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a>. we would like to emphasise at this stage two of them:</p>
+<ul>
+<li><p>Include all input variables that, for substantive reasons, might be expected to be important in predicting the outcome.</p></li>
+<li><p>For inputs with large effects, consider including their interactions as well.</p></li>
+</ul>
+<p>It is often the case that for any model, the response variable is only related to a subset of the predictors. There are some scenarios where you may be interested in understanding what is the best subset of predictors. Imagine that you want to develop a risk assessment tool to be used by police officers that respond to a domestic violence incident, so that you could use this tool for forecasting the future risk of violence. There is a cost to adding too many predictors. A police officer time should not be wasted gathering information on predictors that are not associated with future risk. So you may want to identify the predictors that will help in this process.</p>
+<p>Ideally, we would like to perform variable selection by trying out a lot of different models, each containing a different subset of the predictors. There are various statistics that help in making comparisons across models. Unfortunately, as the number of potentially relevant predictors increases the number of potential models to compare increases exponentially. So you need methods that help you in this process. There are a number of tools that you can use for <strong>variable selection</strong> but this goes beyond the aims of this introduction. If you are interested you may want to read <a href="http://link.springer.com/chapter/10.1007/978-1-4614-7138-7_6">this</a>.</p>
+</div>
+<div id="summary-exercise-for-this-week" class="section level2 hasAnchor" number="12.9">
+<h2><span class="header-section-number">12.9</span> Summary: exercise for this week<a href="regression-ii.html#summary-exercise-for-this-week" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Once you finish your lab session, don’t forget to do this <a href="https://eonk.shinyapps.io/MCD_ex">Exercise</a> and have a chance to sum-up this week’s R codes.</p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="14">
+<li id="fn14"><p><a href="http://vudlab.com/simpsons/">This</a> is a nice illustration of the Simpon’s Paradox, a well known example of omitted variable bias.<a href="regression-ii.html#fnref14" class="footnote-back">↩︎</a></p></li>
+<li id="fn15"><p>We recommend reading chapter 13 “Woes of regression coefficients” of an old book Mostseller and Tukey (1977) Data Analysis and Regression. Reading: Addison-Wesley Publishing.<a href="regression-ii.html#fnref15" class="footnote-back">↩︎</a></p></li>
+<li id="fn16"><p>Look at <a href="http://www.r-bloggers.com/stop-using-bivariate-correlations-for-variable-selection/">this</a> too.<a href="regression-ii.html#fnref16" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="regression-i.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="studying-relationships-between-two-factors-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["book.pdf", "book.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

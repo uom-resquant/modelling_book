@@ -416,6 +416,7 @@ But we can also check how much power we have after the fact, just to ensure we a
 
 ```{r}
 library(psych)
+BCS0708<-read.csv("https://raw.githubusercontent.com/eonk/dar_book/main/datasets/BCS0708.csv")
 describeBy(BCS0708$tcviolent, BCS0708$sex)
 ```
 

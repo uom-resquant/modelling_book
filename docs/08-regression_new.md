@@ -724,10 +724,6 @@ library(sjPlot)
 ## Warning: package 'sjPlot' was built under R version 4.3.3
 ```
 
-```
-## Learn more about sjPlot with 'browseVignettes("sjPlot")'.
-```
-
 Let's try with a more complex example:
 
 

@@ -23,7 +23,7 @@ BCS0708<-read.csv("https://raw.githubusercontent.com/eonk/dar_book/main/datasets
 ## package 'gmodels' successfully unpacked and MD5 sums checked
 ## 
 ## The downloaded binary packages are in
-## 	C:\Users\n21731an\AppData\Local\Temp\Rtmp0Qo0s8\downloaded_packages
+## 	C:\Users\n21731an\AppData\Local\Temp\RtmpAjI18g\downloaded_packages
 ```
 
 We will start by producing a cross-tabulation of victimisation ("bcsvictim"), a categorical unordered variable, by whether the presence of rubbish in the streets is a problem in the area of residence ("rubbcomm"), another categorical ordered variable. The broken windows theory would argue that we should see a relationship. We will use the following code:
@@ -774,7 +774,7 @@ library(sjPlot)
 ```
 
 ```
-## Learn more about sjPlot with 'browseVignettes("sjPlot")'.
+## #refugeeswelcome
 ```
 
 ```r
