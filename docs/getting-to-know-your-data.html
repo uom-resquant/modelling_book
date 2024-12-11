@@ -159,6 +159,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.14" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#how-to-import-data"><i class="fa fa-check"></i><b>1.14</b> How to import data</a></li>
 <li class="chapter" data-level="1.15" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#how-to-use-comment"><i class="fa fa-check"></i><b>1.15</b> How to use ‘comment’</a></li>
 <li class="chapter" data-level="1.16" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#how-to-quit-rstudio"><i class="fa fa-check"></i><b>1.16</b> How to Quit RStudio</a></li>
+<li class="chapter" data-level="1.17" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#summary"><i class="fa fa-check"></i><b>1.17</b> Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html"><i class="fa fa-check"></i><b>2</b> Getting to know your data</a>
 <ul>
@@ -175,6 +176,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#using-dplyr-single-verbs"><i class="fa fa-check"></i><b>2.5</b> Using dplyr single verbs</a></li>
 <li class="chapter" data-level="2.6" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#using-dplyr-for-grouped-operations"><i class="fa fa-check"></i><b>2.6</b> Using dplyr for grouped operations</a></li>
 <li class="chapter" data-level="2.7" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#making-comparisons-with-numerical-outcomes"><i class="fa fa-check"></i><b>2.7</b> Making comparisons with numerical outcomes</a></li>
+<li class="chapter" data-level="2.8" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#summary-1"><i class="fa fa-check"></i><b>2.8</b> Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html"><i class="fa fa-check"></i><b>3</b> Data visualisation with R</a>
 <ul>
@@ -190,6 +192,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.10" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#titles-legends-and-themes-in-ggplot2"><i class="fa fa-check"></i><b>3.10</b> Titles, legends, and themes in ggplot2</a></li>
 <li class="chapter" data-level="3.11" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#plotting-categorical-data-bar-charts"><i class="fa fa-check"></i><b>3.11</b> Plotting categorical data: bar charts</a></li>
 <li class="chapter" data-level="3.12" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#further-resources"><i class="fa fa-check"></i><b>3.12</b> Further resources</a></li>
+<li class="chapter" data-level="3.13" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#summary-2"><i class="fa fa-check"></i><b>3.13</b> Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html"><i class="fa fa-check"></i><b>4</b> Refresher on descriptive statistics &amp; data carpentry</a>
 <ul>
@@ -210,6 +213,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.11.3" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#bivariate-analysis"><i class="fa fa-check"></i><b>4.11.3</b> Bivariate analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="4.12" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#further-resources-1"><i class="fa fa-check"></i><b>4.12</b> Further resources</a></li>
+<li class="chapter" data-level="4.13" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#summary-3"><i class="fa fa-check"></i><b>4.13</b> Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html"><i class="fa fa-check"></i><b>5</b> Foundations of statistical inference: confidence intervals</a>
 <ul>
@@ -313,10 +317,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="getting-data-thanks-to-reproducibility" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Getting data thanks to reproducibility<a href="getting-to-know-your-data.html#getting-data-thanks-to-reproducibility" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Last week we introduced the notion of reproducible research and said that using and publishing code (particularly if using open-source tools like R) is the way that <a href="https://osf.io/?gclid=EAIaIQobChMIq-jM6MuY2QIV7Z3tCh04vAycEAAYASAAEgLptPD_BwE">many researchers</a> around the world think that science ought to be done. This way of operating makes research more open, more credible, and more legitimate. It also means that we can more easily access the data used in published research. For this session, we are going to use the data from <a href="https://academic.oup.com/qje/article/133/1/191/4060073">this</a> and <a href="https://pubs.aeaweb.org/doi/pdfplus/10.1257/aer.p20171003">this paper</a> study. In this research project, the authors tried to answer the question of whether criminal antecedents and other personal characteristics have an impact on access to employment. You can find more details about this work in <a href="https://www.probablecausation.com/podcasts/episode-8-amanda-agan">episode 8</a> of <em>Probable Causation</em>, the criminology podcast.</p>
-<p>If you want to know more about ‘Ban the Box: fair chance recruitment’ practices in the UK, you can find more information <a href="https://recruit.unlock.org.uk/fair-chance-recruitment/ban-the-box/">here</a> and also can watch this short video from Leo Burnett who helped promote giving people a chance to explain their past. This could give you a better understanding of this issue.</p>
+<p>If you want to know more about ‘Ban the Box: fair chance recruitment’ practices in the UK, you can find more information <a href="https://recruit.unlock.org.uk/homepage/fair-chance-recruitment/">here</a> and also can watch this short video from Leo Burnett who helped promote giving people a chance to explain their past. This could give you a better understanding of this issue.</p>
 <iframe src="https://www.youtube.com/embed/eM1nVA6hwlI" width="672" height="400px" data-external="1">
 </iframe>
-<p><a href="http://economics.rutgers.edu/people/626-amanda-agan">Amanda Agan</a> and <a href="https://www.law.umich.edu/FacultyBio/Pages/FacultyBio.aspx?FacID=sbstarr">Sonja Starr</a> developed a randomised experiment in which they created 15,220 fake resumes randomly generating these critical characteristics (such as having a criminal record) and used these resumes to send online job applications to low-skill, entry-level job openings in New Jersey and New York City. All the fictitious applicants were male and about 21 to 22 years old. These kinds of experiments are very common among researchers who want to explore through these “audits” whether some personal characteristics are discriminated against in the labour market.</p>
+<p><a href="https://economics.cornell.edu/amanda-agan">Amanda Agan</a> and <a href="https://www.law.uchicago.edu/faculty/starr">Sonja Starr</a> developed a randomised experiment in which they created 15,220 fake resumes randomly generating these critical characteristics (such as having a criminal record) and used these resumes to send online job applications to low-skill, entry-level job openings in New Jersey and New York City. All the fictitious applicants were male and about 21 to 22 years old. These kinds of experiments are very common among researchers who want to explore through these “audits” whether some personal characteristics are discriminated against in the labour market.</p>
 <p>Because Amanda Agan and Sonja Starr conformed to reproducible standards when doing their research, we can access this data from the <em>Harvard Dataverse</em> (a repository for open research data). Click <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/VPHMNT">here</a> to locate the data.</p>
 <p><img src="imgs/harvarddataverse.PNG" /></p>
 <p>On this page, you can see a download section and some files that can be accessed. One of them contains analytic code pertaining to the study, and the other contains the data. You also see a link called <strong>metadata</strong>. Metadata is data about data, it simply provides you with some information about the data. If you click on metadata, you will see a reference to the software the authors used (STATA) at the bottom. So we know these files are in <a href="https://www.stata.com/">STATA</a> proprietary format. Let’s download the data file and then read the data into R.</p>
@@ -607,6 +611,42 @@ interpret labels than 0 and 1).</p>
 <p><img src="02-causality_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
 <p>Watch <a href="https://www.khanacademy.org/math/probability/data-distributions-a1/box--whisker-plots-a1/v/reading-box-and-whisker-plots">this video</a> and see if you can interpret the results portrayed here. What do you think?</p>
 <p>Overall, the outcomes are worse for ‘Black’ applicants, and in fact, the authors find that employers substantially increase discrimination on the basis of race after ban the box goes into effect. You can now replicate these findings with the data provided. by applying the new skills you’ve learned this week!</p>
+</div>
+<div id="summary-1" class="section level2 hasAnchor" number="2.8">
+<h2><span class="header-section-number">2.8</span> Summary<a href="getting-to-know-your-data.html#summary-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This week, we used the following R functions:</p>
+<p><strong>read data: ‘haven’ package</strong></p>
+<ul>
+<li>read_dta()</li>
+</ul>
+<p><strong>explore data</strong></p>
+<ul>
+<li>dim()</li>
+<li>names()</li>
+<li>class()</li>
+<li>attribute()</li>
+<li>head()</li>
+<li>tail()</li>
+<li>table()</li>
+<li>lapply()</li>
+<li>sum()</li>
+<li>mean()</li>
+</ul>
+<p><strong>transform variables into factor variables</strong></p>
+<ul>
+<li>as_factor()</li>
+</ul>
+<p><strong>missing variable</strong></p>
+<ul>
+<li>is.na()</li>
+</ul>
+<p><strong>‘dplyr’ package</strong></p>
+<ul>
+<li>filter()</li>
+<li>select()</li>
+<li>group_by()</li>
+<li>summarise()</li>
+</ul>
 <!--## Summary: exercise for this week
 
 Once you finish your lab session, don't forget to do this [Exercise](https://eonk.shinyapps.io/MCD_ex) and have a chance to sum-up this week's R codes.-->

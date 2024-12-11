@@ -823,5 +823,34 @@ What is more. I would suggest you go to the Tools drop-down menu, select Global 
 
 <img src="https://user-images.githubusercontent.com/98951792/215292052-cbb36812-e7a7-4a7f-b2e4-57ea93918274.png"> 
 
+## Summary
+
+This week, we used the following R functions:
+
+**install and load a package**
+
+- install.packages()
+- library()
+
+**generate and print data**
+
+- my_text <- "I love stats."
+- print()
+- say()
+
+**explore data**
+
+- search()
+- skim()
+- attribute()
+- mean()
+- summary()
+- str()
+
+**transform variables into factor variables**
+
+- as_factor()
+
+
 <!-- ## Summary: exercise for this week
 Once you finish your lab session, don't forget to do this [Exercise](https://eonk.shinyapps.io/MCD_ex) and have a chance to sum up this week's R codes. -->

@@ -396,12 +396,16 @@ Watch [this video](https://www.khanacademy.org/math/probability/data-distributio
 
 Overall, the outcomes are worse for 'Black' applicants, and in fact, the authors find that employers substantially increase discrimination on the basis of race after ban the box goes into effect. You can now replicate these findings with the data provided. by applying the new skills you've learned this week!
 
-##Summary
+## Summary
+
 This week, we used the following R functions:
 
-*read data: ‘haven’ package*
+**read data: ‘haven’ package**
+
 - read_dta()
-*explore data*
+
+**explore data**
+
 - dim()
 - names()
 - class()
@@ -412,11 +416,17 @@ This week, we used the following R functions:
 - lapply()
 - sum()
 - mean()
-*transform variables into factor variables*
+
+**transform variables into factor variables**
+
 - as_factor()
-*missing variable*
+
+**missing variable**
+
 - is.na()
-*‘dplyr’ package*
+
+**‘dplyr’ package**
+
 - filter()
 - select()
 - group_by()

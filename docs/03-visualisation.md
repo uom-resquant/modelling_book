@@ -43,7 +43,7 @@ Let's take it one step at a time.
 
 ## Anatomy of a plot
 
-Essentially, the philosophy behind this is that all graphics are made up of layers. The package `ggplot2` is based on the grammar of graphics, the idea that you can build every graph from the same few components: a data set, a set of geoms—visual marks that represent data points, and a coordinate system.
+The philosophy behind this is that all graphics are made up of layers. The package `ggplot2` is based on the grammar of graphics, the idea that you can build every graph from the same few components: a data set, a set of geoms—visual marks that represent data points—and a coordinate system.
 
 Take this example (all taken from *Wickham, H. (2010). A layered grammar of graphics. Journal of Computational and Graphical Statistics, 19(1), 3-28.*)
 
@@ -83,7 +83,7 @@ fbo <- read_csv("https://raw.githubusercontent.com/eonk/dar_book/main/datasets/F
 ## • `` -> `...1`
 ```
 
-You can also find this on the Blackboard page for this week's learning materials. If you download from there, make sure to save this file in your project directory, possibly in a subfolder called "Datasets". Then you can read in from there.
+You can also find this on the Blackboard page for this week's learning materials. If you download it from there, make sure to save it in your project directory, possibly in a subfolder called "Datasets." Then, you can read it from there.
 
 One thing we mentioned from the first lab is conventions in the naming of objects. This also applies to the names of your variables (i.e. your column names) within your data. If you look at the fbo data frame, either with the `View()` function or by printing the names of the columns with the `names()` function, you can see this dataset violates that requirement: 
 
@@ -194,12 +194,12 @@ As some guidance, you can use the below [cheatsheet, taken from Nathan Yau's blo
 
 However, keep in mind that this is more of a guideline aimed to nudge you in the right direction. There are many ways to visualise the same data, and sometimes, you might want to experiment with some of these and see what the differences are. 
 
-There is also a vast amount of research into what works in displaying quantitative information. The classic book is by Edward Tufte[^1], but since then, there have been many other researchers as well who focus on approaches to displaying data. Two useful books you may want to consider are Few (2012)[^2] and Cairo (2016)[^3]. Claus Wilke is also producing a textbook that is freely available [on the internet](https://serialmentor.com/dataviz/).
+There is also a vast amount of research into what works in displaying quantitative information. The classic book is by Edward Tufte[^1], but since then, there have been many other researchers as well who focus on approaches to displaying data. Two useful books you may want to consider are Few (2012)[^2] and Cairo (2016)[^3]. Claus Wilke is also producing a textbook that is freely available [on the internet](https://clauswilke.com/dataviz/).
 These authors tend to produce recommendations on what to use (and not use) in certain contexts.  
 
 For example, most data visualisation experts agree that you should not use 3D graphics unless there is a meaning to the third dimension. So using 3D graphics just for decoration, as in [this case](https://mir-s3-cdn-cf.behance.net/project_modules/disp/2505dd10837923.56030acd2ef20.jpg) is normally frowned upon. However, there are cases when including a third dimension is vital to communicating your findings. See this [example](http://www.visualisingdata.com/2015/03/when-3d-works/).
 
-Also, often, certain chart types are vilified. For example, the [*pie chart*](https://en.wikipedia.org/wiki/Pie_chart) is one such example. A lot of people (including your course leader) really dislike pie charts, e.g. see [here](http://www.storytellingwithdata.com/blog/2011/07/death-to-pie-charts) or [here](http://www.businessinsider.com/pie-charts-are-the-worst-2013-6?IR=T). If you want to display proportion, research indicates that a square pie chart is more likely to be interpreted correctly by viewers. See [here](https://eagereyes.org/blog/2016/a-reanalysis-of-a-study-about-square-pie-charts-from-2009).
+Also, often, certain chart types are vilified. For example, the [*pie chart*](https://en.wikipedia.org/wiki/Pie_chart) is one such example. A lot of people (including your course leader) really dislike pie charts, e.g. see [here](http://www.storytellingwithdata.com/blog/2011/07/death-to-pie-charts). If you want to display proportion, research indicates that a square pie chart is more likely to be interpreted correctly by viewers. See [here](https://eagereyes.org/blog/2016/a-reanalysis-of-a-study-about-square-pie-charts-from-2009).
 
 Also, in some cases, bar plots (if used to visualise quantitative variables) can hide important features of your data and might not be the most appropriate means for comparison: 
 
@@ -423,11 +423,11 @@ ggplot(Boston, aes(x = crim)) +
 
 <img src="03-visualisation_files/figure-html/unnamed-chunk-26-1.png" width="672" />
 
-In a density plot, we attempt to visualize the underlying probability distribution of the data by drawing an appropriate continuous curve. So, in a density plot then, the area under the lines sums to 1 and the Y, vertical, axis now gives you the estimated (guessed) probability for the different values in the X, horizontal, axis. This curve is guessed from the data, and the method we use for this guessing or estimation is kernel density estimation. You can read more about density plots [here](https://serialmentor.com/dataviz/histograms-density-plots.html).
+In a density plot, we attempt to visualize the underlying probability distribution of the data by drawing an appropriate continuous curve. So, in a density plot then, the area under the lines sums to 1 and the Y, vertical, axis now gives you the estimated (guessed) probability for the different values in the X, horizontal, axis. This curve is guessed from the data, and the method we use for this guessing or estimation is kernel density estimation. You can read more about density plots [here](https://clauswilke.com/dataviz/histograms-density-plots.html).
 
 In this plot, we can see that there is a high estimated probability of observing a town with near zero per capita crime rate and a low estimated probability of seeing towns with large per capita crime rates. As you can observe, it provides a smoother representation of the distribution (as compared to the histograms).
 
-You can also use this to compare the distribution of a quantitative variable across the levels in a categorical variable (factor), and, as before, is possibly better to take the log of skewed variables such as crime:
+You can also use this to compare the distribution of a quantitative variable across the levels in a categorical variable (factor), and, as before, it is possibly better to take the log of skewed variables such as crime:
 
 
 ```r
@@ -620,7 +620,8 @@ ggplot(BCS0708, aes(x = age, y = tcviolent)) +
 <img src="03-visualisation_files/figure-html/unnamed-chunk-41-1.png" width="672" />
 
 ```r
-#Alternatively, you could replace geom_point() with geom_jitter(), in which case you don't need to specify the position
+#Alternatively, you could replace geom_point() with geom_jitter(), 
+#in which case you don't need to specify the position
 ```
 
 Another alternative for solving overplotting is to **bin the data** into rectangles and map the density of the points to the fill of the colour of the rectangles.
@@ -667,21 +668,15 @@ With only about 500 cases, there are loads of ups and downs. If you have many mo
 ```r
 ggplot(Boston, aes(x = medv, y = crim)) +
   geom_point(alpha=.4) +
-  geom_smooth(colour="red", size=1, se=FALSE) #We'll explain later this semester what the se argument does; 
-```
-
-```
-## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-## ℹ Please use `linewidth` instead.
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-## generated.
+  geom_smooth(colour="red", size=1, se=FALSE) 
 ```
 
 <img src="03-visualisation_files/figure-html/unnamed-chunk-45-1.png" width="672" />
 
 ```r
-#colour is simply asking for a red line instead of blue (which I personally find harder to see). 
+#We'll explain later this semester what the se argument does; 
+#colour is simply asking for a red line instead of blue 
+#(which I personally find harder to see). 
 #I'm also making the line a bit thicker with size 1.
 ```
 
@@ -782,7 +777,9 @@ Not to overcomplicate things, we will only use a few variables from the *Boston*
 
 
 ```r
-#I create a new data frame that only contains 4 variables included in the Boston dataset, and I am calling this new data frame object Boston_spm
+#I create a new data frame that only 
+#contains 4 variables included in the Boston dataset, 
+#and I am calling this new data frame object Boston_spm
 Boston_spm <- dplyr::select(Boston, crim, medv, lstat)
 ```
 
@@ -812,7 +809,8 @@ R gives you a lot of flexibility, and there are often competing packages that ai
 
 ```r
 library(car)
- #The regLine argument is used to avoid displaying something we will cover in week 8, regression analysis.
+ #The regLine argument is used to avoid displaying 
+#something we will cover in regression analysis.
 spm(Boston_spm, regLine=FALSE)
 ```
 
@@ -833,7 +831,8 @@ You can also condition in a third variable. For example, we could condition on w
 
 ```r
 Boston_spm <- dplyr::select(Boston, crim, medv, lstat, chas)
-spm(~crim+medv+lstat, data=Boston_spm, groups=Boston_spm$chas, by.groups=TRUE, smooth=FALSE, regLine=FALSE)
+spm(~crim+medv+lstat, data=Boston_spm, groups=Boston_spm$chas, 
+by.groups=TRUE, smooth=FALSE, regLine=FALSE)
 ```
 
 <img src="03-visualisation_files/figure-html/unnamed-chunk-57-1.png" width="672" />
@@ -846,7 +845,11 @@ We have introduced a number of various graphical tools, but what if you want to 
 
 
 ```r
-#Notice how here we are using an additional function to ask R to treat the variable chas, which is numeric in our dataset, as if it were a factor (as.factor()). You need to do this if your variable is categorical but is encoded as numeric in your dataframe.
+#Notice how here we are using an additional function 
+#to ask R to treat the variable chas, which is numeric 
+#in our dataset, as if it were a factor (as.factor()). 
+#You need to do this if your variable is categorical 
+#but is encoded as numeric in your data frame.
 ggplot(Boston, aes(x = medv, y = crim, colour = as.factor(chas))) +
   geom_point() +
   ggtitle("Fig 1.Crime, Property Value and River Proximity of Boston Towns")
@@ -981,7 +984,12 @@ print(levels(BCS0708$walkday))
 
 
 ```r
-#Reordering the factor levels from very safe to very unsafe (rather than by alphabet). Notice that I am creating a new variable; it is often not unwise to do this to avoid messing up your original data.
+#Reordering the factor levels from very safe 
+#to very unsafe (rather than by alphabet). 
+#Notice that I am creating a new variable; 
+#it is often not unwise to do this to avoid 
+#messing up your original data.
+
 BCS0708$walkdayR <- factor(BCS0708$walkday, levels=c('very safe',
   'fairly safe','a bit unsafe','or very unsafe'))
 #Plotting the variable again (and subsetting out the NA data)
@@ -1031,7 +1039,8 @@ Sometimes, you may want to flip the axis so that the bars are displayed horizont
 
 
 ```r
-#First, we invoke the plot we created and stored earlier, and then we add an additional specification with coord_flip()
+#First, we invoke the plot we created and stored earlier, 
+#and then we add an additional specification with coord_flip()
 p + coord_flip()
 ```
 
@@ -1052,11 +1061,9 @@ What I would use instead are **waffle charts**. They're super easy to make with 
 
 ## Further resources
 
-By now, you should know the path to data analysis, but wisdom will take time. The good news is that we live in a time where there are multiple (very often free) resources to help you along the way. The time when this knowledge was just the preserve of a few is long distant. If you are a motivated and disciplined person there is a lot that you can do to further consolidate and expand your data visualisation skills without spending money. I have already recommended the excellent `ggplot2` online documentation to you. Here, we just want to point you to a few useful resources that you can pursue in the future. 
+By now, you should know the path to data analysis, but wisdom will take time. The good news is that we live in a time where there are multiple (very often free) resources to help you along the way. The time when this knowledge was just the preserve of a few is long distant. If you are a motivated and disciplined person, there is a lot that you can do to consolidate and expand your data visualisation skills further without spending money. I have already recommended the excellent `ggplot2` online documentation to you. Here, we just want to point you to a few useful resources that you can pursue in the future. 
 
 First **MOOCS (Massive Online Open Courses)**. There are loads of useful MOOCS that provide training in data visualisation for free (well, you can pay if you want a certificate, but you can also use the resources and learn for free).
-
-+ [Information visualisation](https://www.coursera.org/specializations/information-visualization). This course offers an introduction to some more advanced concepts than those presented in our tutorial. It also covers more advanced software for visualisations on the web.
 
 Second, **online tutorials**. One of the things you will also soon discover is that R users are keen to write "how to" guides in some of the [750 R devoted blogs](http://www.r-bloggers.com/) or as part of [Rpubs](https://rpubs.com/). Using Google or similar, you will often find solutions to almost any problem you will encounter using R. For example, in this blog, there are a few tutorials that you may want to look to complement my own:
 
@@ -1066,7 +1073,6 @@ Second, **online tutorials**. One of the things you will also soon discover is t
 
 Third, *blogs on data visualisation*. If you use [Feedly](https://feedly.com/index.html#discover) or a similar blog aggregator, you should add the following blogs to your reading list. They are written by leading people in the field and are full of useful advice:
 + [Flowing Data](http://flowingdata.com/)
-+ [The Functional Art](http://www.thefunctionalart.com/)
 + [Visual Business Intelligence](http://www.perceptualedge.com/blog/)
 + [chartsnthings](https://kpq.github.io/chartsnthings/)
 + [Data Revelations](http://www.datarevelations.com/category/blog)
@@ -1074,6 +1080,41 @@ Third, *blogs on data visualisation*. If you use [Feedly](https://feedly.com/ind
 Fourth, **resources for visualisations we don't have the time to cover**. R is way ahead of some of the more popular data analysis programs you may be more familiar with (e.g. SPSS or Excel). There are many things you can do. 
 
 For example, if you like maps, **R can also be used to produce visualisations of spatial data**. There are various resources to learn how to do this, and we will teach this in our *Crime Mapping* module in the third year.
+
+## Summary 
+
+This week, we used the following R functions:
+
+**import data: ‘readr’ package**
+
+- read_csv()
+
+**explore data**
+
+- names()
+
+**clean data: janitor package**
+
+- clean_names()
+- visualise data
+- ggplot()
++ geom_bar()
++ geom_point()
++ geom_histogram()
++ geom_density()
++ geom_hline()
++ geom_boxplot()
++ facet_warp()
++ facet_grid
+
+**transform a variable into a factor variable**
+
+- as_factor()
+
+**create a categorical variable using a numeric variable**
+
+- Boston$lowval[Boston$medv <= 17.02] <- "Low value"
+
 
 <!--## Summary: exercise for this week
 Once you finish your lab session, don't forget to do this [Exercise](https://eonk.shinyapps.io/MCD_ex) and have a chance to sum-up this week's R codes.-->

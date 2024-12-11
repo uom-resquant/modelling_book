@@ -159,6 +159,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.14" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#how-to-import-data"><i class="fa fa-check"></i><b>1.14</b> How to import data</a></li>
 <li class="chapter" data-level="1.15" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#how-to-use-comment"><i class="fa fa-check"></i><b>1.15</b> How to use ‘comment’</a></li>
 <li class="chapter" data-level="1.16" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#how-to-quit-rstudio"><i class="fa fa-check"></i><b>1.16</b> How to Quit RStudio</a></li>
+<li class="chapter" data-level="1.17" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#summary"><i class="fa fa-check"></i><b>1.17</b> Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html"><i class="fa fa-check"></i><b>2</b> Getting to know your data</a>
 <ul>
@@ -175,6 +176,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#using-dplyr-single-verbs"><i class="fa fa-check"></i><b>2.5</b> Using dplyr single verbs</a></li>
 <li class="chapter" data-level="2.6" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#using-dplyr-for-grouped-operations"><i class="fa fa-check"></i><b>2.6</b> Using dplyr for grouped operations</a></li>
 <li class="chapter" data-level="2.7" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#making-comparisons-with-numerical-outcomes"><i class="fa fa-check"></i><b>2.7</b> Making comparisons with numerical outcomes</a></li>
+<li class="chapter" data-level="2.8" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#summary-1"><i class="fa fa-check"></i><b>2.8</b> Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html"><i class="fa fa-check"></i><b>3</b> Data visualisation with R</a>
 <ul>
@@ -190,6 +192,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.10" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#titles-legends-and-themes-in-ggplot2"><i class="fa fa-check"></i><b>3.10</b> Titles, legends, and themes in ggplot2</a></li>
 <li class="chapter" data-level="3.11" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#plotting-categorical-data-bar-charts"><i class="fa fa-check"></i><b>3.11</b> Plotting categorical data: bar charts</a></li>
 <li class="chapter" data-level="3.12" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#further-resources"><i class="fa fa-check"></i><b>3.12</b> Further resources</a></li>
+<li class="chapter" data-level="3.13" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#summary-2"><i class="fa fa-check"></i><b>3.13</b> Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html"><i class="fa fa-check"></i><b>4</b> Refresher on descriptive statistics &amp; data carpentry</a>
 <ul>
@@ -210,6 +213,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.11.3" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#bivariate-analysis"><i class="fa fa-check"></i><b>4.11.3</b> Bivariate analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="4.12" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#further-resources-1"><i class="fa fa-check"></i><b>4.12</b> Further resources</a></li>
+<li class="chapter" data-level="4.13" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#summary-3"><i class="fa fa-check"></i><b>4.13</b> Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="foundations-of-statistical-inference-confidence-intervals.html"><a href="foundations-of-statistical-inference-confidence-intervals.html"><i class="fa fa-check"></i><b>5</b> Foundations of statistical inference: confidence intervals</a>
 <ul>
@@ -1015,6 +1019,34 @@ Tips! Please keep your folders simple. Just use one data folder for this module 
 <p>Just so you know, though, you should not then panic if you open your next R Studio session and you don’t see any objects in your environment. The good news is you can generate them quickly enough (if you really need them) by re-running your scripts. I would suggest that, at this point, it may be helpful for you to get into this habit as well. I suspect otherwise you will be in week 9 of the semester and have an environment full of garbage you don’t really need.</p>
 <p>What is more. I would suggest you go to the Tools drop-down menu, select Global Options, and make sure you select “Never” where it says “Save workspace”. Then click “Apply”. This way, you will never be asked to save what is in your global environment when you terminate a session.</p>
 <p><img src="https://user-images.githubusercontent.com/98951792/215292052-cbb36812-e7a7-4a7f-b2e4-57ea93918274.png"></p>
+</div>
+<div id="summary" class="section level2 hasAnchor" number="1.17">
+<h2><span class="header-section-number">1.17</span> Summary<a href="a-first-lesson-about-r.html#summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This week, we used the following R functions:</p>
+<p><strong>install and load a package</strong></p>
+<ul>
+<li>install.packages()</li>
+<li>library()</li>
+</ul>
+<p><strong>generate and print data</strong></p>
+<ul>
+<li>my_text &lt;- “I love stats.”</li>
+<li>print()</li>
+<li>say()</li>
+</ul>
+<p><strong>explore data</strong></p>
+<ul>
+<li>search()</li>
+<li>skim()</li>
+<li>attribute()</li>
+<li>mean()</li>
+<li>summary()</li>
+<li>str()</li>
+</ul>
+<p><strong>transform variables into factor variables</strong></p>
+<ul>
+<li>as_factor()</li>
+</ul>
 <!-- ## Summary: exercise for this week
 Once you finish your lab session, don't forget to do this [Exercise](https://eonk.shinyapps.io/MCD_ex) and have a chance to sum up this week's R codes. -->
 

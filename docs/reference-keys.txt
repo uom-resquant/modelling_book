@@ -15,6 +15,7 @@ r-data-types-factors
 how-to-import-data
 how-to-use-comment
 how-to-quit-rstudio
+summary
 getting-to-know-your-data
 causality-in-social-sciences
 getting-data-thanks-to-reproducibility
@@ -27,6 +28,7 @@ data-wrangling-with-dplyr
 using-dplyr-single-verbs
 using-dplyr-for-grouped-operations
 making-comparisons-with-numerical-outcomes
+summary-1
 data-visualisation-with-r
 introduction
 anatomy-of-a-plot
@@ -40,6 +42,7 @@ scatterplot-matrix
 titles-legends-and-themes-in-ggplot2
 plotting-categorical-data-bar-charts
 further-resources
+summary-2
 refresher-on-descriptive-statistics-data-carpentry
 introduction-1
 getting-some-data-from-eurobarometer
@@ -56,6 +59,7 @@ central-tendency
 dispersion
 bivariate-analysis
 further-resources-1
+summary-3
 foundations-of-statistical-inference-confidence-intervals
 introduction-2
 generating-random-data
