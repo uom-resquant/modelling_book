@@ -145,6 +145,13 @@ We can always look at **standardised measure of the effect size**. You will find
 
 ```r
 library(effsize, quietly=TRUE, warn.conflicts=FALSE)
+```
+
+```
+## Warning: package 'effsize' was built under R version 4.3.2
+```
+
+```r
 cohen.d(BCS0708$tcviolent ~ BCS0708$sex)
 ```
 
@@ -221,6 +228,13 @@ Ok, so that is 4475 and 3959. Let's say we want to detect even very small effect
 
 ```r
 library(pwr)
+```
+
+```
+## Warning: package 'pwr' was built under R version 4.3.2
+```
+
+```r
 pwr.t2n.test(n1 = 4475, n2 = 3959, d= 0.2)
 ```
 
@@ -264,12 +278,15 @@ ggplot(BCS0708, aes(ethgrp2, tcviolent, fill=ethgrp2)) +
 ```
 
 ```
-## Warning: `guides(<scale> = FALSE)` is deprecated. Please use `guides(<scale> =
-## "none")` instead.
+## Warning: The `<scale>` argument of `guides()` cannot be `FALSE`. Use "none" instead as
+## of ggplot2 3.3.4.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
 ```
 
 ```
-## Warning: Removed 3242 rows containing non-finite values (stat_boxplot).
+## Warning: Removed 3242 rows containing non-finite values (`stat_boxplot()`).
 ```
 
 <img src="06-hypothesis_testing_files/figure-html/unnamed-chunk-7-1.png" width="672" />
@@ -285,11 +302,6 @@ ggplot(na.omit(BCS0708[,c("ethgrp2", "tcviolent")]), aes(x=reorder (ethgrp2, tcv
   geom_boxplot() +
   coord_flip() + #We are flipping the coordinates to avoid the overprinting of the factor levels
   guides(fill=FALSE)
-```
-
-```
-## Warning: `guides(<scale> = FALSE)` is deprecated. Please use `guides(<scale> =
-## "none")` instead.
 ```
 
 <img src="06-hypothesis_testing_files/figure-html/unnamed-chunk-8-1.png" width="672" />
@@ -518,7 +530,7 @@ ggplot(BCS0708, aes(x = tcviolent)) +
 ```
 
 ```
-## Warning: Removed 3242 rows containing non-finite values (stat_density).
+## Warning: Removed 3242 rows containing non-finite values (`stat_density()`).
 ```
 
 <img src="06-hypothesis_testing_files/figure-html/unnamed-chunk-19-1.png" width="672" />
@@ -539,7 +551,7 @@ ggplot(BCS0708, aes(x = ptcviolent)) +
 ```
 
 ```
-## Warning: Removed 3242 rows containing non-finite values (stat_density).
+## Warning: Removed 3242 rows containing non-finite values (`stat_density()`).
 ```
 
 <img src="06-hypothesis_testing_files/figure-html/unnamed-chunk-21-1.png" width="672" />
@@ -553,7 +565,7 @@ ggplot(BCS0708, aes(x = log10(ptcviolent))) +
 ```
 
 ```
-## Warning: Removed 3242 rows containing non-finite values (stat_density).
+## Warning: Removed 3242 rows containing non-finite values (`stat_density()`).
 ```
 
 <img src="06-hypothesis_testing_files/figure-html/unnamed-chunk-22-1.png" width="672" />
@@ -581,7 +593,7 @@ ggplot(BCS0708, aes(x = bctcviolent)) +
 ```
 
 ```
-## Warning: Removed 3242 rows containing non-finite values (stat_density).
+## Warning: Removed 3242 rows containing non-finite values (`stat_density()`).
 ```
 
 <img src="06-hypothesis_testing_files/figure-html/unnamed-chunk-24-1.png" width="672" />
@@ -621,7 +633,15 @@ For this we need to install the package that he has created for implementing the
 
 
 ```r
-library(WRS2) 
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+install.packages("WRS2")
+```
+
+```
+## package 'WRS2' successfully unpacked and MD5 sums checked
+## 
+## The downloaded binary packages are in
+## 	C:\Users\n21731an\AppData\Local\Temp\RtmpI71U1I\downloaded_packages
 ```
 
 We can now invoke the code. The following code will use ANOVA based on 5% trimmed mean with 599 bootstrap samples:
@@ -629,6 +649,13 @@ We can now invoke the code. The following code will use ANOVA based on 5% trimme
 
 ```r
 library(WRS2)
+```
+
+```
+## Warning: package 'WRS2' was built under R version 4.3.3
+```
+
+```r
 t1waybt(tcviolent ~ ethgrp2, data = BCS0708, tr = .05, nboot = 599)
 ```
 
@@ -641,8 +668,8 @@ t1waybt(tcviolent ~ ethgrp2, data = BCS0708, tr = .05, nboot = 599)
 ## 
 ## Test statistic: 45.3591 
 ## p-value: 0 
-## Variance explained: 0.081 
-## Effect size: 0.285
+## Variance explained: 0.082 
+## Effect size: 0.286
 ```
 
 As with the standard ANOVA and the Welch version, we still get a significant result.
@@ -741,6 +768,7 @@ ANOVA(tcviolent ~ ethgrp2, data = BCS0708, brief=TRUE) #The brief argument set t
 <img src="06-hypothesis_testing_files/figure-html/unnamed-chunk-30-1.png" width="672" />
 
 ```
+## 
 ##   BACKGROUND 
 ## 
 ## Response Variable: tcviolent 
@@ -751,30 +779,35 @@ ANOVA(tcviolent ~ ethgrp2, data = BCS0708, brief=TRUE) #The brief argument set t
 ## Number of cases (rows) of data:  11676 
 ## Number of cases retained for analysis:  8433 
 ## 
+## 
 ##   DESCRIPTIVE STATISTICS  
 ## 
-##                            n            mean              sd              min             max 
-## asian or asian british   283   0.88175663803   1.16668811073   -2.07022309303   3.31529736519 
-## black or black british   120   0.50063411160   1.13798384912   -1.85322141647   2.59109425545 
-## chinese or other          93   0.33978925640   1.13861126145   -1.64311027527   2.80809569359 
-## mixed                     35   0.51799569013   1.29961704407   -2.33650994301   2.96658897400 
-## white                   7902   0.00311507460   0.97682414921   -2.35029053688   3.80547618866 
+##                            n           mean             sd             min            max 
+## asian or asian british   283   0.8817566380   1.1666881107   -2.0702230930   3.3152973652 
+## black or black british   120   0.5006341116   1.1379838491   -1.8532214165   2.5910942554 
+## chinese or other          93   0.3397892564   1.1386112614   -1.6431102753   2.8080956936 
+## mixed                     35   0.5179956901   1.2996170441   -2.3365099430   2.9665889740 
+## white                   7902   0.0031150746   0.9768241492   -2.3502905369   3.8054761887 
 ##  
-## Grand Mean: 0.045530510071 
+## Grand Mean: 0.04553051007 
 ## 
-##   BASIC ANALYSIS 
 ## 
-##                      df            Sum Sq         Mean Sq         F-value   p-value 
-## ethgrp2               4   252.83066055375  63.20766513844 64.54270257531    0.0000 
-## Residuals          8428  8253.67052402441   0.97931543949 
+##   ANOVA 
 ## 
-## R Squared: 0.03 
-## R Sq Adjusted: 0.03 
-## Omega Squared: 0.03 
+##                     df           Sum Sq        Mean Sq        F-value   p-value 
+## ethgrp2              4   252.8306605538  63.2076651384 64.5427025753    0.0000 
+## Residuals         8428  8253.6705240244   0.9793154395 
+## 
+## R Squared: 0.030 
+## R Sq Adjusted: 0.029 
+## Omega Squared: 0.029 
 ##  
-## Cohen's f: 0.17 
+## 
+## Cohen's f: 0.174 
+## 
 ## 
 ##   TUKEY MULTIPLE COMPARISONS OF MEANS 
+## 
 ## 
 ##   RESIDUALS
 ```

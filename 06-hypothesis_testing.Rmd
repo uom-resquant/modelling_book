@@ -406,7 +406,8 @@ Wilcox (2005) describes a set of procedures for conducting robust ANOVA: ways of
 For this we need to install the package that he has created for implementing these procedures in R. 
 
 ```{r, message=FALSE, warning=FALSE}
-install.packages("WRS2") 
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+install.packages("WRS2")
 ```
 
 We can now invoke the code. The following code will use ANOVA based on 5% trimmed mean with 599 bootstrap samples:

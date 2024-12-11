@@ -95,10 +95,6 @@ summary(fitl_1)
 ## glm(formula = harsher ~ checks + colour + sex + employed, family = "binomial", 
 ##     data = Arrests)
 ## 
-## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -1.5226  -0.6156  -0.4407  -0.3711   2.3449  
-## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(>|z|)    
 ## (Intercept) -1.90346    0.15999 -11.898  < 2e-16 ***
@@ -196,21 +192,26 @@ library(lessR, quietly= TRUE)
 ```
 
 ```
+## Warning: package 'lessR' was built under R version 4.3.2
+```
+
+```
 ## 
-## lessR 4.1.6  feedback: gerbing@pdx.edu  web: lessRstats.com/new
-## ---------------------------------------------------------------
+## lessR 4.3.0                         feedback: gerbing@pdx.edu 
+## --------------------------------------------------------------
 ## > d <- Read("")   Read text, Excel, SPSS, SAS, or R data file
 ##   d is default data frame, data= in analysis routines optional
 ## 
 ## Learn about reading, writing, and manipulating data, graphics,
 ## testing means and proportions, regression, factor analysis,
-## customization, and descriptive statistics from pivot tables.
+## customization, and descriptive statistics from pivot tables
 ##   Enter:  browseVignettes("lessR")
 ## 
-## View changes in this or recent versions of lessR.
-##   Enter: help(package=lessR)  Click: Package NEWS
-##   Enter: interact()  for access to interactive graphics
-##   New function: reshape_long() to move data from wide to long
+## View changes in this and recent versions of lessR
+##   Enter: news(package="lessR")
+## 
+## Interactive data analysis
+##   Enter: interact()
 ```
 
 ```r
@@ -219,11 +220,20 @@ Logit(harsher ~ checks + colour + sex + employed, data=Arrests, brief=TRUE)
 
 ```
 ## 
+## >>> Note:  colour is not a numeric variable.
+##            Indicator variables are created and analyzed.
+## 
+## >>> Note:  sex is not a numeric variable.
+##            Indicator variables are created and analyzed.
+## 
+## >>> Note:  employed is not a numeric variable.
+##            Indicator variables are created and analyzed.
+## 
 ## Response Variable:   harsher
 ## Predictor Variable 1:  checks
-## Predictor Variable 2:  colour
-## Predictor Variable 3:  sex
-## Predictor Variable 4:  employed
+## Predictor Variable 2:  colourBlack
+## Predictor Variable 3:  sexMale
+## Predictor Variable 4:  employedYes
 ## 
 ## Number of cases (rows) of data:  5226 
 ## Number of cases retained for analysis:  5226 
@@ -231,7 +241,7 @@ Logit(harsher ~ checks + colour + sex + employed, data=Arrests, brief=TRUE)
 ## 
 ##    BASIC ANALYSIS 
 ## 
-## Estimated Model for the Logit of Reference Group Membership
+## -- Estimated Model of harsher for the Logit of Reference Group Membership
 ## 
 ##              Estimate    Std Err  z-value  p-value   Lower 95%   Upper 95%
 ## (Intercept)   -1.9035     0.1600  -11.898    0.000     -2.2170     -1.5899 
@@ -241,7 +251,7 @@ Logit(harsher ~ checks + colour + sex + employed, data=Arrests, brief=TRUE)
 ## employedYes   -0.7797     0.0839   -9.298    0.000     -0.9441     -0.6154 
 ## 
 ## 
-## Odds ratios and confidence intervals
+## -- Odds Ratios and Confidence Intervals
 ## 
 ##              Odds Ratio   Lower 95%   Upper 95%
 ## (Intercept)      0.1491      0.1089      0.2039 
@@ -251,7 +261,7 @@ Logit(harsher ~ checks + colour + sex + employed, data=Arrests, brief=TRUE)
 ## employedYes      0.4585      0.3890      0.5404 
 ## 
 ## 
-## Model Fit
+## -- Model Fit
 ## 
 ##     Null deviance: 4776.258 on 5225 degrees of freedom
 ## Residual deviance: 4330.699 on 5221 degrees of freedom
@@ -261,17 +271,13 @@ Logit(harsher ~ checks + colour + sex + employed, data=Arrests, brief=TRUE)
 ## Number of iterations to convergence: 5 
 ## 
 ## 
-## >>> Note:  colour is not a numeric variable.
-## 
-## >>> Note:  sex is not a numeric variable.
-## 
-## >>> Note:  employed is not a numeric variable.
-## 
 ## Collinearity
 ## 
-## 
-## >>> No collinearity analysis
-##  Not all variables are numeric.
+##             Tolerance       VIF
+## checks          0.908     1.101
+## colourBlack     0.963     1.038
+## sexMale         0.982     1.019
+## employedYes     0.931     1.074
 ```
 
 As with linear regression, the interpretation of regression coefficients is sensitive to the scale of measurement of the predictors. This means one cannot compare the magnitude of the coefficients to compare the relevance of variables to predict the response variable. The same applies to the odd ratios. Tempting and common as this might be, unless the predictors use the same metric (or maybe if they are all categorical) there is little point in comparing the magnitude of the odd ratios in logistic regression. Like the unstardised logistic regression coefficients odd ratios are **not** a measure of effect size that allows comparisons across inputs (Menard, 2012). 
@@ -297,11 +303,11 @@ library(arm)
 
 ```
 ## 
-## arm (Version 1.12-2, built: 2021-10-15)
+## arm (Version 1.13-1, built: 2022-8-25)
 ```
 
 ```
-## Working directory is /Users/user/Desktop/modelling_book
+## Working directory is C:/Users/n21731an/OneDrive - The University of Manchester/Criminology/Lectures/CRIM20452/modelling_book
 ```
 
 ```
@@ -339,6 +345,13 @@ We can also use **forest plots** in much the same way than we did for linear reg
 
 ```r
 library(sjPlot)
+```
+
+```
+## Install package "strengejacke" from GitHub (`devtools::install_github("strengejacke/strengejacke")`) to load all sj-packages at once!
+```
+
+```r
 plot_model(fitl_1)
 ```
 
@@ -410,10 +423,6 @@ The difference between the -2LL for the model with no predictors and the -2LL fo
 ## Call:
 ## glm(formula = harsher ~ checks + colour + sex + employed, family = "binomial", 
 ##     data = Arrests)
-## 
-## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -1.5226  -0.6156  -0.4407  -0.3711   2.3449  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value             Pr(>|z|)    
@@ -740,10 +749,6 @@ summary(fitl_2)
 ## Call:
 ## glm(formula = harsher ~ employed + citizen + checks + colour * 
 ##     year + colour * age, family = binomial, data = Arrests)
-## 
-## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -1.7625  -0.6178  -0.4408  -0.3473   2.4496  
 ## 
 ## Coefficients:
 ##                     Estimate  Std. Error z value             Pr(>|z|)    

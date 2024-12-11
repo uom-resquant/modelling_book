@@ -84,6 +84,13 @@ We are going to look at the relationship between violent crime with a variable m
 
 ```r
 library(ggplot2)
+```
+
+```
+## Warning: package 'ggplot2' was built under R version 4.3.2
+```
+
+```r
 ggplot(df, aes(x = viol_r)) +
   geom_histogram()
 ```
@@ -124,6 +131,14 @@ ggplot(df, aes(x = log_viol_r)) +
   ggtitle("Density estimate and mean of log violent crime rate")
 ```
 
+```
+## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## ℹ Please use `linewidth` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+```
+
 <img src="08-regression_new_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 
 
@@ -158,7 +173,7 @@ ggplot(data = df, aes(x = unemployed, y = log_viol_r)) +
 ```
 
 ```
-## `geom_smooth()` using formula 'y ~ x'
+## `geom_smooth()` using formula = 'y ~ x'
 ```
 
 <img src="08-regression_new_files/figure-html/unnamed-chunk-10-1.png" width="672" />
@@ -245,8 +260,8 @@ cor.test(~ log_viol_r + unemployed, data=df, method = "spearman", conf.level = 0
 ```
 
 ```
-## Warning in cor.test.default(x = c(7.2830276, 6.79316, 6.478019, 5.949461, :
-## Cannot compute exact p-value with ties
+## Warning in cor.test.default(x = mf[[1L]], y = mf[[2L]], ...): Cannot compute
+## exact p-value with ties
 ```
 
 ```
@@ -706,7 +721,7 @@ library(sjPlot)
 ```
 
 ```
-## #refugeeswelcome
+## Warning: package 'sjPlot' was built under R version 4.3.3
 ```
 
 Let's try with a more complex example:
@@ -932,6 +947,10 @@ Visual display of the effects of the variables in the model are particularly hel
 
 ```r
 library(effects)
+```
+
+```
+## Warning: package 'effects' was built under R version 4.3.3
 ```
 
 ```

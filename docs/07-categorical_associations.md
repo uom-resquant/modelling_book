@@ -25,6 +25,13 @@ We will start by producing a cross tabulation of victimisation ("bcsvictim"), a 
 
 ```r
 library(gmodels)
+```
+
+```
+## Warning: package 'gmodels' was built under R version 4.3.3
+```
+
+```r
 with(BCS0708, CrossTable(rubbcomm, bcsvictim, prop.chisq = FALSE, format = c("SPSS")))
 ```
 
@@ -375,6 +382,21 @@ print(mytable.2) ##You can print the content of this object and you will see tha
 
 ```r
 library(vcdExtra) ##This will load the vcdExtra package (assuming it is already installed)
+```
+
+```
+## Warning: package 'vcdExtra' was built under R version 4.3.3
+```
+
+```
+## Warning: package 'vcd' was built under R version 4.3.2
+```
+
+```
+## Warning: package 'gnm' was built under R version 4.3.3
+```
+
+```r
 GKgamma(mytable.2) ##This function from the vcdExtra package will compute the Gamma measure of association, between parenthesis you need to identify the object that contains your data.
 ```
 
