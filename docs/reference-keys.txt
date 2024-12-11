@@ -111,3 +111,11 @@ assessing-model-fit-ii-confusion-matrix-and-roc-curves
 interactions
 further-resources-2
 wrapping-up
+studying-relationships-between-two-factors-1
+cross-tabulations
+odds-and-odd-ratios-1
+logistic-regression-1
+fitting-logistic-regression-1
+assessing-model-fit-i-deviance-and-pseudo-r-squared-1
+assessing-model-fit-ii-confusion-matrix-and-roc-curves-1
+further-resources-3
