@@ -4,12 +4,12 @@
 
 In earlier sessions, we covered how to run frequency distributions using the `table()` function. Cross tabulations, also called **contingency tables**, are essentially crossed frequency distributions, where you plot the frequency distributions of more than one variable simultaneously. This semester, we are only going to explore **two-way cross-tabulations**, that is, contingency tables where we plot the frequency distribution of two variables at the same time. Frequency distributions are a useful way of exploring categorical variables that do not have too many categories. By extension, cross-tabulations are a useful way of exploring relationships between two categorical variables that do not have too many levels or categories.
 
-As we learned during the first week, we can get results from R in a variety of ways. You can produce basic tables with some of the core functions in R. However, in order to produce the sort of cross-tabs  we will use, I suggest you install and load the package `gmodels`. This package allows you to produce cross-tabulations in a format similar to the one used by commercial statistical packages SPSS and SAS. Since some of you may have some previous experience with SPSS, we will use the SPSS format. Cross-tabs with this package are more useful for our purposes than the default you may get with the core R `table()` function.
+As we learned during the first week, we can get results from R in various ways. You can produce basic tables with some of the core functions in R. However, I suggest you install and load the package `gmodels` to produce the sort of cross-tabs we will use. This package allows you to produce cross-tabulations in a format similar to the one used by commercial statistical packages SPSS and SAS. Since some of you may have previous experience with SPSS, we will use the SPSS format. Cross-tabs with this package are more useful for our purposes than the default you may get with the core R `table()` function.
 
 We will begin the session by loading again the BCS 2007/2008 data from previous weeks. 
 
 ```{r}
-BCS0708<-read.csv("https://raw.githubusercontent.com/eonk/dar_book/main/datasets/BCS0708.csv")
+BCS0708<-read.csv("https://raw.githubusercontent.com/uom-resquant/modelling_book/refs/heads/master/datasets/BCS0708.csv")
 ```
 
 ```{r echo=FALSE}
@@ -21,10 +21,10 @@ We will start by producing a cross-tabulation of victimisation ("bcsvictim"), a 
 ```{r message=FALSE, warning=FALSE, error=FALSE}
 library(gmodels)
 with(BCS0708, CrossTable(rubbcomm, bcsvictim, prop.chisq = FALSE, format = c("SPSS")))
-#In CrossTable() we are using as our first argument the name of the variable defining the rows, and as our second argument the name of the variable defining the columns. We are also telling R we don't want yet any test of statistical significance and that we want the table to look like it would in SPSS.
+#In CrossTable(), we are using the name of the variable defining the rows as our first argument, and as our second argument, the name of the variable defining the columns. We are also telling R that we don't yet want any test of statistical significance and that we want the table to look like it would in SPSS.
 ```
 
-The cells for the central two columns represent the total number of cases in each category, the **row percentages**, the **column percentages**, and the **total percentages**. So you have, for example, 63 people in the category "rubbish is very common" that were victims of a crime; this represents 30.88% of all the people in the "rubbish is very common" category (your row percent), 2.79% of all the people in the "victim of a crime" category (your column percent), and 0.57% of all the people in the sample.
+The cells for the central two columns represent the total number of cases in each category, the **row percentages**, the **column percentages**, and the **total percentages**. So you have, for example, 63 people in the category "rubbish is very common" who were victims of a crime; this represents 30.88% of all the people in the "rubbish is very common" category (your row per cent), 2.79% of all the people in the "victim of a crime" category (your column per cent), and 0.57% of all the people in the sample.
 
 Let's check the level of measurement of the "rubbcomm" variable with the `class()` function:
 
@@ -32,7 +32,7 @@ Let's check the level of measurement of the "rubbcomm" variable with the `class(
 class(BCS0708$rubbcomm)
 ```
 
-It is categorical, we know, but note that R considers this "character" rather than "factor" which is what we would like. To make sure that R knows this is a factor, we can convert it with the `as.factor()` function. PAY ATTENTION: we are *not* recoding, so we use `as.factor()` with a dot (as.dot.factor), and we are **not using** the `as_factor()` from the haven package, which we would use to recode if this were a *.dta file (it's not!). 
+It is categorical, we know, but note that R considers this "character" rather than "factor", which is what we would like. To make sure that R knows this is a factor, we can convert it with the `as.factor()` function. PAY ATTENTION: we are *not* recoding, so we use `as.factor()` with a dot (as.dot.factor), and we are **not using** the `as_factor()` from the haven package, which we would use to recode if this were a *.dta file (it's not!). 
 
 ```{r}
 BCS0708$rubbcomm <- as.factor(BCS0708$rubbcomm)
@@ -50,7 +50,7 @@ As we can see, the order makes little sense. We should reorder the factor levels
 BCS0708$rubbcomm <- factor(BCS0708$rubbcomm, levels = c("not at all common", "not very common", "fairly common", "very common"))
 ```
 
-You are only interested in the proportions or percentages that allow you to make meaningful comparisons. Although you can do cross-tabs for variables in which a priori you don't think of one of them as the one doing the explaining (your independent variable) and another to be explained (your dependent variable); most often you will already be thinking of them in this way. Here, we think of victimisation as the outcome we want to explain and "rubbish in the area" as the factor that may help us explain variation in victimisation.
+You are only interested in the proportions or percentages that allow you to make meaningful comparisons. Although you can do cross-tabs for variables in which a priori you don't think of one of them as the one doing the explaining (your independent variable) and another to be explained (your dependent variable), most often, you will already be thinking of them in this way. Here, we think of victimisation as the outcome we want to explain and "rubbish in the area" as the factor that may help us explain variation in victimisation.
 
 If you have a dependent variable, you need to request only the percentages that allow you to make comparisons across your independent variable (how common rubbish is) for the outcome of interest (victimisation). In this case, with our outcome (victimisation) defining the columns, we would request and compare the row percentages only. On the other hand, if our outcome were the variable defining the rows, we would be interested in the column percentages instead. Pay very close attention to this. It is a very common mistake to interpret a cross tab the wrong way if you don't do as explained here. 
 
