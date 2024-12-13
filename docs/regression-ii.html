@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2024-12-11" />
+<meta name="date" content="2024-12-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -348,9 +348,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fitting-and-interpreting-a-multiple-regression-model-1" class="section level2 hasAnchor" number="12.2">
 <h2><span class="header-section-number">12.2</span> Fitting and interpreting a multiple regression model<a href="regression-ii.html#fitting-and-interpreting-a-multiple-regression-model-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>It could not be any easier to fit a multiple regression model. You simply modify the formula in the <code>lm()</code> function by adding terms for the additional inputs.</p>
-<div class="sourceCode" id="cb790"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb790-1"><a href="regression-ii.html#cb790-1" tabindex="-1"></a>data_url <span class="ot">&lt;-</span> <span class="st">&quot;https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/46WIH0/ARS2VS&quot;</span></span>
-<span id="cb790-2"><a href="regression-ii.html#cb790-2" tabindex="-1"></a>sharkey <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="fu">url</span>(data_url), <span class="at">sep =</span> <span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>,<span class="at">header =</span> T)</span>
-<span id="cb790-3"><a href="regression-ii.html#cb790-3" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<div class="sourceCode" id="cb791"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb791-1"><a href="regression-ii.html#cb791-1" tabindex="-1"></a>data_url <span class="ot">&lt;-</span> <span class="st">&quot;https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/46WIH0/ARS2VS&quot;</span></span>
+<span id="cb791-2"><a href="regression-ii.html#cb791-2" tabindex="-1"></a>sharkey <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="fu">url</span>(data_url), <span class="at">sep =</span> <span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>,<span class="at">header =</span> T)</span>
+<span id="cb791-3"><a href="regression-ii.html#cb791-3" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;dplyr&#39;</code></pre>
 <pre><code>## The following objects are masked from &#39;package:stats&#39;:
@@ -359,10 +359,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## The following objects are masked from &#39;package:base&#39;:
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
-<div class="sourceCode" id="cb794"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb794-1"><a href="regression-ii.html#cb794-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">filter</span>(sharkey, year <span class="sc">==</span> <span class="st">&quot;2012&quot;</span>)</span>
-<span id="cb794-2"><a href="regression-ii.html#cb794-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">select</span>(df, place_name, state_name, viol_r, black, lesshs, unemployed, fborn, incarceration, log_incarceraton, swornftime_r, log_viol_r, largest50)</span>
-<span id="cb794-3"><a href="regression-ii.html#cb794-3" tabindex="-1"></a>fit_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_viol_r <span class="sc">~</span> unemployed <span class="sc">+</span> largest50, <span class="at">data=</span>df)</span>
-<span id="cb794-4"><a href="regression-ii.html#cb794-4" tabindex="-1"></a><span class="fu">summary</span>(fit_3)</span></code></pre></div>
+<div class="sourceCode" id="cb795"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb795-1"><a href="regression-ii.html#cb795-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">filter</span>(sharkey, year <span class="sc">==</span> <span class="st">&quot;2012&quot;</span>)</span>
+<span id="cb795-2"><a href="regression-ii.html#cb795-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">select</span>(df, place_name, state_name, viol_r, black, lesshs, unemployed, fborn, incarceration, log_incarceraton, swornftime_r, log_viol_r, largest50)</span>
+<span id="cb795-3"><a href="regression-ii.html#cb795-3" tabindex="-1"></a>fit_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_viol_r <span class="sc">~</span> unemployed <span class="sc">+</span> largest50, <span class="at">data=</span>df)</span>
+<span id="cb795-4"><a href="regression-ii.html#cb795-4" tabindex="-1"></a><span class="fu">summary</span>(fit_3)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = log_viol_r ~ unemployed + largest50, data = df)
@@ -398,9 +398,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">12.3</span> Presenting your regression results.<a href="regression-ii.html#presenting-your-regression-results.-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Communicating your results in a clear manner is incredibly important. We have seen the tabular results produced by R. If you want to use them in a paper you may need to do some tidying up of those results. There are a number of packages (<code>textreg</code>, <code>stargazer</code>) that automatise that process. They take your <code>lm</code> objects and produce tables that you can put straight away in your reports or papers. One popular trend in presenting results is the <strong>coefficient plot</strong> as an alternative to the table of regression coefficients. There are various ways of producing coefficient plots with R for a variety of models. See <a href="http://www.carlislerainey.com/2012/06/30/coefficient-plots-in-r/">here</a> and <a href="http://www.carlislerainey.com/2012/07/03/an-improvement-to-coefficient-plots/">here</a>, for example.</p>
 <p>We are going to use instead the <code>plot_model()</code> function of the <code>sjPlot</code> package, that makes it easier to produce this sort of plots. You can find a more detailed tutorial about this function <a href="http://rpubs.com/sjPlot/sjplm">here</a>. See below for an example:</p>
-<div class="sourceCode" id="cb796"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb796-1"><a href="regression-ii.html#cb796-1" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span></code></pre></div>
+<div class="sourceCode" id="cb797"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb797-1"><a href="regression-ii.html#cb797-1" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span></code></pre></div>
 <pre><code>## Warning: package &#39;sjPlot&#39; was built under R version 4.3.3</code></pre>
-<pre><code>## Learn more about sjPlot with &#39;browseVignettes(&quot;sjPlot&quot;)&#39;.</code></pre>
 <p>Let’s try with a more complex example:</p>
 <div class="sourceCode" id="cb799"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb799-1"><a href="regression-ii.html#cb799-1" tabindex="-1"></a>fit_4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_viol_r <span class="sc">~</span> unemployed <span class="sc">+</span> largest50 <span class="sc">+</span> black <span class="sc">+</span> fborn <span class="sc">+</span> log_incarceraton, <span class="at">data=</span>df)</span>
 <span id="cb799-2"><a href="regression-ii.html#cb799-2" tabindex="-1"></a><span class="fu">plot_model</span>(fit_4)</span></code></pre></div>

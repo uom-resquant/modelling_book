@@ -4,27 +4,16 @@
 
 In earlier sessions, we covered how to run frequency distributions using the `table()` function. Cross tabulations, also called **contingency tables**, are essentially crossed frequency distributions, where you plot the frequency distributions of more than one variable simultaneously. This semester, we are only going to explore **two-way cross-tabulations**, that is, contingency tables where we plot the frequency distribution of two variables at the same time. Frequency distributions are a useful way of exploring categorical variables that do not have too many categories. By extension, cross-tabulations are a useful way of exploring relationships between two categorical variables that do not have too many levels or categories.
 
-As we learned during the first week, we can get results from R in a variety of ways. You can produce basic tables with some of the core functions in R. However, in order to produce the sort of cross-tabs  we will use, I suggest you install and load the package `gmodels`. This package allows you to produce cross-tabulations in a format similar to the one used by commercial statistical packages SPSS and SAS. Since some of you may have some previous experience with SPSS, we will use the SPSS format. Cross-tabs with this package are more useful for our purposes than the default you may get with the core R `table()` function.
+As we learned during the first week, we can get results from R in various ways. You can produce basic tables with some of the core functions in R. However, I suggest you install and load the package `gmodels` to produce the sort of cross-tabs we will use. This package allows you to produce cross-tabulations in a format similar to the one used by commercial statistical packages SPSS and SAS. Since some of you may have previous experience with SPSS, we will use the SPSS format. Cross-tabs with this package are more useful for our purposes than the default you may get with the core R `table()` function.
 
 We will begin the session by loading again the BCS 2007/2008 data from previous weeks. 
 
 
 ```r
-BCS0708<-read.csv("https://raw.githubusercontent.com/eonk/dar_book/main/datasets/BCS0708.csv")
+BCS0708<-read.csv("https://raw.githubusercontent.com/uom-resquant/modelling_book/refs/heads/master/datasets/BCS0708.csv")
 ```
 
 
-```
-## Installing package into 'C:/Users/n21731an/AppData/Local/R/win-library/4.3'
-## (as 'lib' is unspecified)
-```
-
-```
-## package 'gmodels' successfully unpacked and MD5 sums checked
-## 
-## The downloaded binary packages are in
-## 	C:\Users\n21731an\AppData\Local\Temp\RtmpAjI18g\downloaded_packages
-```
 
 We will start by producing a cross-tabulation of victimisation ("bcsvictim"), a categorical unordered variable, by whether the presence of rubbish in the streets is a problem in the area of residence ("rubbcomm"), another categorical ordered variable. The broken windows theory would argue that we should see a relationship. We will use the following code:
 
@@ -77,10 +66,10 @@ with(BCS0708, CrossTable(rubbcomm, bcsvictim, prop.chisq = FALSE, format = c("SP
 ```
 
 ```r
-#In CrossTable() we are using as our first argument the name of the variable defining the rows, and as our second argument the name of the variable defining the columns. We are also telling R we don't want yet any test of statistical significance and that we want the table to look like it would in SPSS.
+#In CrossTable(), we are using the name of the variable defining the rows as our first argument, and as our second argument, the name of the variable defining the columns. We are also telling R that we don't yet want any test of statistical significance and that we want the table to look like it would in SPSS.
 ```
 
-The cells for the central two columns represent the total number of cases in each category, the **row percentages**, the **column percentages**, and the **total percentages**. So you have, for example, 63 people in the category "rubbish is very common" that were victims of a crime; this represents 30.88% of all the people in the "rubbish is very common" category (your row percent), 2.79% of all the people in the "victim of a crime" category (your column percent), and 0.57% of all the people in the sample.
+The cells for the central two columns represent the total number of cases in each category, the **row percentages**, the **column percentages**, and the **total percentages**. So you have, for example, 63 people in the category "rubbish is very common" who were victims of a crime; this represents 30.88% of all the people in the "rubbish is very common" category (your row per cent), 2.79% of all the people in the "victim of a crime" category (your column per cent), and 0.57% of all the people in the sample.
 
 Let's check the level of measurement of the "rubbcomm" variable with the `class()` function:
 
@@ -93,7 +82,7 @@ class(BCS0708$rubbcomm)
 ## [1] "character"
 ```
 
-It is categorical, we know, but note that R considers this "character" rather than "factor" which is what we would like. To make sure that R knows this is a factor, we can convert it with the `as.factor()` function. PAY ATTENTION: we are *not* recoding, so we use `as.factor()` with a dot (as.dot.factor), and we are **not using** the `as_factor()` from the haven package, which we would use to recode if this were a *.dta file (it's not!). 
+It is categorical, we know, but note that R considers this "character" rather than "factor", which is what we would like. To make sure that R knows this is a factor, we can convert it with the `as.factor()` function. PAY ATTENTION: we are *not* recoding, so we use `as.factor()` with a dot (as.dot.factor), and we are **not using** the `as_factor()` from the haven package, which we would use to recode if this were a *.dta file (it's not!). 
 
 
 ```r
@@ -119,13 +108,13 @@ As we can see, the order makes little sense. We should reorder the factor levels
 BCS0708$rubbcomm <- factor(BCS0708$rubbcomm, levels = c("not at all common", "not very common", "fairly common", "very common"))
 ```
 
-You are only interested in the proportions or percentages that allow you to make meaningful comparisons. Although you can do cross-tabs for variables in which a priori you don't think of one of them as the one doing the explaining (your independent variable) and another to be explained (your dependent variable); most often you will already be thinking of them in this way. Here, we think of victimisation as the outcome we want to explain and "rubbish in the area" as the factor that may help us explain variation in victimisation.
+You are only interested in the proportions or percentages that allow you to make meaningful comparisons. Although you can do cross-tabs for variables in which a priori you don't think of one of them as the one doing the explaining (your independent variable) and another to be explained (your dependent variable), most often, you will already be thinking of them in this way. Here, we think of victimisation as the outcome we want to explain and "rubbish in the area" as the factor that may help us explain variation in victimisation.
 
 If you have a dependent variable, you need to request only the percentages that allow you to make comparisons across your independent variable (how common rubbish is) for the outcome of interest (victimisation). In this case, with our outcome (victimisation) defining the columns, we would request and compare the row percentages only. On the other hand, if our outcome were the variable defining the rows, we would be interested in the column percentages instead. Pay very close attention to this. It is a very common mistake to interpret a cross tab the wrong way if you don't do as explained here. 
 
-To reiterate, there are two rules for producing and reading cross tabs the right way. The first rule for reading cross-tabulations is that **if your dependent variable is defining the rows, then you ask for the column percentages. If, on the other hand, you decided that you preferred to have your dependent variable defining the columns (as seen here), then, you would need to ask for the row percentages**. Make sure you remember this.
+To reiterate, there are two rules for producing and reading cross tabs the right way. The first rule for reading cross-tabulations is that **if your dependent variable is defining the rows, then you ask for the column percentages. If, on the other hand, you decided that you preferred to have your dependent variable define the columns (as seen here), then you would need to ask for the row percentages**. Make sure you remember this.
 
-To avoid confusion when looking at the table, you could also modify the code to only ask for the relevant percentages. In this case, we will ask for the row percentages. We can control what gets printed in the main console using the different options of the `CrossTable()` function. By default, this function prints all the percentages, but most of them are not terribly useful for our purposes here. So, we are going to modify the default options by asking R not to print the column nor the total percentages. 
+To avoid confusion when looking at the table, you could also modify the code to only ask for the relevant percentages. In this case, we will ask for the row percentages. We can control what gets printed in the main console using the different options of the `CrossTable()` function. By default, this function prints all the percentages, but most of them are not terribly useful for our purposes here. So, we are going to modify the default options by asking R not to print the column or the total percentages. 
 
 
 ```r
@@ -163,19 +152,122 @@ with(BCS0708, CrossTable(rubbcomm, bcsvictim, prop.chisq=FALSE, prop.c=FALSE, pr
 ## 
 ```
 
-Much less cluttered. Now, we only see the counts and the row percentages. **Marginal frequencies** appear along the right and the bottom. *Row marginals* show the total number of cases in each row: 204 people perceive rubbish as very common in the area they're living in areas where, 1244 perceive rubbish is fairly common in their area, etc. *Column marginals* indicate the total number of cases in each column: 8804 non-victims and 2261 victims.
+Much less cluttered. Now, we only see the counts and the row percentages. **Marginal frequencies** appear along the right and the bottom. *Row marginals* show the total number of cases in each row: 204 people perceive rubbish as very common in the area they're living in, whereas 1244 perceive rubbish as fairly common in their area, etc. *Column marginals* indicate the total number of cases in each column: 8804 non-victims and 2261 victims.
 
-In the central cells, we see the total number for each combination of categories and now only the row percentage. So, the total in each of those cells is expressed as the percentage of cases in that row. So, for example, 63 people who perceive rubbish as very common in their area who are a victim of a crime represent 30.88%% of all people in that row (n=204). If we had asked for the column percentages, the 63 people who live in areas where rubbish is very common and are victims would be divided by the 2261 victim people in the study. *Changing the denominator when computing the percentage changes the meaning of the percentage*.
+In the central cells, we see the total number for each combination of categories and now only the row percentage. So, the total in each of those cells is expressed as the percentage of cases in that row. So, for example, 63 people who perceive rubbish as very common in their area who are victims of a crime represent 30.88%% of all people in that row (n=204). If we had asked for the column percentages, the 63 people who live in areas where rubbish is very common and are victims would be divided by the 2261 victims in the study. *Changing the denominator when computing the percentage changes the meaning of the percentage*.
 
-This can sound a bit confusing now. But as long as you remember the first rule we gave you before, you should be fine: if your dependent defines the rows, ask for the column percentages, if your dependent defines the columns ask for the row percentages. There are always students who get this wrong in the assignments and lose points as a result. Don't let it be you.
+This can sound a bit confusing now. But as long as you remember the first rule we gave you before, you should be fine: if your dependent defines the rows, ask for the column percentages; if your dependent defines the columns, ask for the row percentages. There are always students who get this wrong in the assignments and lose points as a result. Don't let it be you.
 
-The second rule for reading cross-tabulations the right way is this: **You make the comparisons across the right percentages (see first rule) in the direction where they do not add up to a hundred**. Another way of saying this is that you compare the percentages for each level of your dependent variable across the levels of your independent variable. In this case we would, for example, compare what percentage of people who perceive rubbish as common in their area are victims of crime. We focus on the second column here (being a victim of a crime) because typically that's what we want to study, this is our outcome of interest (e.g., victimisation). We can see rubbish seems to matter a bit. For example, 30.88% of people who live in areas where rubbish is very common have been victimised. By contrast, only 15.54% of people who live in areas where rubbish is not at all common have been victimised in the previous year.
+The second rule for reading cross-tabulations the right way is this: **You make the comparisons across the right percentages (see first rule) in the direction where they do not add up to a hundred**. Another way of saying this is that you compare the percentages for each level of your dependent variable across the levels of your independent variable. In this case, we would, for example, compare "What percentage of people who perceive rubbish as common in their area are victims of crime?". We focus on the second column here (being a victim of a crime) because, typically, that's what we want to study; this is our outcome of interest (e.g., victimisation). We can see rubbish seems to matter a bit. For example, 30.88% of people who live in areas where rubbish is very common have been victimised. By contrast, only 15.54% of people who live in areas where rubbish is not at all common have been victimised in the previous year.
+
+## Expected frequencies and Chi-Square
+
+So far, we have only described our sample. Can we infer that the differences that we observed in this sample can be generalised to the population from which this sample was drawn? Every time you draw a sample from the same population the results will be slightly different, we will have a different combination of people in these cells. 
+
+In order to assess that possibility, we carry out a test of statistical significance. This test allows us to examine the null hypothesis. So, our hypothesis is that there is a relationship between the two variables, while our null hypothesis is that there is not a relationship. In this case, the null hypothesis states that in the population from which this sample was drawn victimisation and how common rubbish is in your area are independent events, that is, they are not related to each other. The materials you read as preparation explained the test that is appropriate for this case, the chi-square test. You should know that what this test does is to contrast the squared average difference between the observed frequencies and the expected frequencies (divided by the expected frequencies). We can see the expected frequencies for each cell modifying the options of the `CrossTable` function in the following manner:
+
+
+```r
+with(BCS0708, CrossTable(rubbcomm, bcsvictim, expected = TRUE, prop.c = FALSE, prop.t = FALSE, format = c("SPSS")))
+```
+
+```
+## 
+##    Cell Contents
+## |-------------------------|
+## |                   Count |
+## |         Expected Values |
+## | Chi-square contribution |
+## |             Row Percent |
+## |-------------------------|
+## 
+## Total Observations in Table:  11065 
+## 
+##                   | bcsvictim 
+##          rubbcomm | not a victim of crime  |       victim of crime  |             Row Total | 
+## ------------------|-----------------------|-----------------------|-----------------------|
+## not at all common |                 4614  |                  849  |                 5463  | 
+##                   |             4346.701  |             1116.299  |                       | 
+##                   |               16.437  |               64.005  |                       | 
+##                   |               84.459% |               15.541% |               49.372% | 
+## ------------------|-----------------------|-----------------------|-----------------------|
+##   not very common |                 3173  |                  981  |                 4154  | 
+##                   |             3305.180  |              848.820  |                       | 
+##                   |                5.286  |               20.583  |                       | 
+##                   |               76.384% |               23.616% |               37.542% | 
+## ------------------|-----------------------|-----------------------|-----------------------|
+##     fairly common |                  876  |                  368  |                 1244  | 
+##                   |              989.804  |              254.196  |                       | 
+##                   |               13.085  |               50.950  |                       | 
+##                   |               70.418% |               29.582% |               11.243% | 
+## ------------------|-----------------------|-----------------------|-----------------------|
+##       very common |                  141  |                   63  |                  204  | 
+##                   |              162.315  |               41.685  |                       | 
+##                   |                2.799  |               10.899  |                       | 
+##                   |               69.118% |               30.882% |                1.844% | 
+## ------------------|-----------------------|-----------------------|-----------------------|
+##      Column Total |                 8804  |                 2261  |                11065  | 
+## ------------------|-----------------------|-----------------------|-----------------------|
+## 
+##  
+## Statistics for All Table Factors
+## 
+## 
+## Pearson's Chi-squared test 
+## ------------------------------------------------------------
+## Chi^2 =  184.0443     d.f. =  3     p =  1.180409e-39 
+## 
+## 
+##  
+##        Minimum expected frequency: 41.68495
+```
+
+So you can see, for example, that although 63 people lived in areas where rubbish was very common and experienced victimisation in the past year, under the null hypothesis of no relationship, we should expect this value to be 41.69. There are more people in this cell than we would expect under the null hypothesis. 
+
+The Chi-Square test 
+
+(1) compares these expected frequencies with the ones we actually observe in each of the cells; 
+(2) then averages the differences across the cells and 
+(3) produces a standardised value that 
+(4) we look at a Chi-Square distribution to see how probable/improbable it is. 
+
+If this absolute value is large, it will have a small p-value associated with, and we will be in a position to reject the null hypothesis. We would conclude then that observing such a large chi-square is improbable if the null hypothesis is true. In practice, we don't actually do any of this. We just run the Chi-Square in our software and look at the p-value in much the same way we have done for other tests. But it is helpful to know what the test is actually doing.
+
+Asking for the expected frequencies with `CrossTable()` automatically prints the results of the Chi-Square test. In this case, you get a Chi-Square of 184.04, with 3 degrees of freedom. The probability associated with this particular value is nearly zero (1.180e-39). This value is considerably lower than the standard alpha level of .05. So these results would lead us to conclude that there is a statistically significant relationship between these two variables. We are able to reject the null hypothesis that these two variables are independent in the population from which this sample was drawn. In other words, this significant Chi-Square test means that we can assume that there was indeed a relationship between our indicator of broken windows (perceived disorder, here rubbish) and victimisation in the population of England and Wales in 2007/2008.
+
+Notice that R is telling us that the minimum expected frequency is 41.68. Why? For the Chi-squared test to work, it assumes the cell counts are sufficiently large. Precisely what constitutes 'sufficiently large' is a matter of some debate. One rule of thumb is that all expected cell counts should be above 5. If we have small cells, one alternative is to rely on the Fisher's Exact Test rather than on the Chi-Square. We don't have to request it here. Our cells are large enough for Chi Square to work fine. But if we needed, we could obtain the Fisher's Exact Test with the following code:
+
+
+```r
+fisher.test(BCS0708$rubbcomm, BCS0708$bcsvictim)
+```
+
+You will most likely get an error message telling you to increase the size of the workspace. When this happens, you may try following the recommendation provided (consider using 'simulate.p.value=TRUE'): 
+
+
+```r
+fisher.test(BCS0708$rubbcomm, BCS0708$bcsvictim, simulate.p.value=TRUE)
+```
+
+```
+## 
+## 	Fisher's Exact Test for Count Data with simulated p-value (based on
+## 	2000 replicates)
+## 
+## data:  BCS0708$rubbcomm and BCS0708$bcsvictim
+## p-value = 0.0004998
+## alternative hypothesis: two.sided
+```
+
+The p-value is still considerably lower than our alpha level of .05. So, we can still reach the conclusion that the relationship we observe can be generalised to the population. 
+
+Remember that we didn't need the Fisher test or the simulated p values in this case. But there may be occasions when you need it, as suggested above.
 
 ## Odds and odd ratios
 
-When you have two dichotomous nominal level variables, that is, two nominal level variables that can take only two possible levels, one of the more commonly used measures to indicate the strength of an association are odds ratios. Odds ratios and relative risk are very commonly used in public health and in criminological research. If you have knowledge of betting, you may already know a thing or two about odds.
+When you have two dichotomous nominal-level variables, which can take only two possible levels, odds ratios are one of the more commonly used measures to indicate the strength of an association. Odds ratios and relative risk are commonly used in public health and criminological research. If you have knowledge of betting, you may already know a thing or two about odds.
 
-They are the statistical equivalent of a tongue twister, so don't worry too much if you need to keep looking at this handout every time you want to interpret them. We are going to look at the relationship between victimisation and living in a rural/urban setting: 
+They are the statistical equivalent of a tongue twister, so don't worry too much if you need to keep looking at this handout whenever you want to interpret them. We are going to look at the relationship between victimisation and living in a rural/urban setting: 
 
 
 ```r
@@ -226,9 +318,9 @@ with(BCS0708, CrossTable(rural2, bcsvictim, prop.c = FALSE, prop.t = FALSE, expe
 ##        Minimum expected frequency: 600.6074
 ```
 
-So we can see that 22% of urban dwellers by comparison to 14% of those living in rural areas have experienced a victimisation in the previous past year. It looks as if living in an urban environment constitutes a risk factor or is associated with victimisation. The Chi Square we obtain has a low p value suggesting that this association is statistically significant. That is, we can possibly infer that there is an association in the population from which the sample was drawn. But how large is this relationship? 
+So, we can see that 22% of urban dwellers, compared to 14% of those living in rural areas, have experienced victimisation in the previous year. Living in an urban environment seems to constitute a risk factor or is associated with victimisation. The Chi-Square we obtained has a low p-value, suggesting this association is statistically significant. That is, we can possibly infer that there is an association in the population from which the sample was drawn. But how large is this relationship? 
 
-This is where odds ratios are handy. Before we get to them, I will discuss a simple tip on layout. Risk ratios and odds ratios are very commonly used in the public health tradition. In this tradition, researchers place the disease/condition defining the columns and the treatment or risk factor defining the rows, and they do so in such a way that the first cell corresponds to the intersection of the outcome and the risk factor. And the software that computes odds ratios tends to assume this is how your table is set up. So, whenever you are after the relative risks or odds ratios (that is, whenever you work with a 2X2 table), you should have the table shown like this as well. It will help interpretation:
+This is where odds ratios are handy. Before we get to them, I will discuss a simple tip on layout. Risk ratios and odds ratios are commonly used in the public health tradition. In this tradition, researchers place the disease/condition defining the columns and the treatment or risk factor defining the rows, and they do so in such a way that the first cell corresponds to the intersection of the outcome and the risk factor. And the software that computes odds ratios tends to assume this is how your table is set up. So, whenever you are after the relative risks or odds ratios (that is, whenever you work with a 2X2 table), you should have the table shown like this as well. It will help interpretation:
 
 +-------------------+---------------------+-----------------+
 |                   | Outcome: Yes        | Outcome: No     |
@@ -257,7 +349,7 @@ print(levels(BCS0708$rural2))
 ## NULL
 ```
 
-You are seeing NULL because these variables are currently character vectors. So we must 1) change them both into factor variables and then 2) reverse the order of the levels. So that "victim of crime" becomes the first level (appears first in the printout), and "urban" becomes the first level as well. There are various ways of doing that with add-on packages, this is an easy way using base R:
+You are seeing NULL because these variables are currently character vectors. So we must 1) change them both into factor variables and then 2) reverse the order of the levels. So, "victim of crime" becomes the first level (appears first in the printout), and "urban" becomes the first level as well. There are various ways of doing that with add-on packages; this is an easy way using base R:
 
 
 ```r
@@ -329,13 +421,13 @@ with(BCS0708, CrossTable(urban, bcsvictimR, prop.c = FALSE, prop.t = FALSE, expe
 ##        Minimum expected frequency: 600.6074
 ```
 
-In order to understand odds ratios and relative risk it is important to understand risks and odds first. The **risk** is simply the probability of the "outcome" we are concerned about (i.e., victimisation). So the risk of victimisation for urban dwellers is simply the number of victimised urban dwellers (1945) divided by the total number of urban dwellers (8702). This is .2235. Similarly, we can look at the risk of victimisation for people living in rural areas: the number of victimised countryside residents (413) divided by the total number of residents in rural areas (2974).  This is .1388. The **relative risk** is simply the ratio of these two risks. In this case, this yields 1.60. This suggests that urban dwellers are 1.60 times more likely to be victimised than people who live in rural areas.
+In order to understand odds ratios and relative risk, it is important to understand risks and odds first. The **risk** is simply the probability of the "outcome" we are concerned about (i.e., victimisation). So, the risk of victimisation for urban dwellers is simply the number of victimised urban dwellers (1945) divided by the total number of urban dwellers (8702). This is .2235. Similarly, we can look at the risk of victimisation for people living in rural areas: the number of victimised countryside residents (413) divided by the total number of residents in rural areas (2974).  This is .1388. The **relative risk** is simply the ratio of these two risks. In this case, this yields 1.60. This suggests that urban dwellers are 1.60 times more likely to be victimised than people who live in rural areas.
 
-The **odds**, on the other hand, contrast the number of individuals with the outcome with those without the outcome for each of the rows. Notice the difference with the risk. So the odds of victimisation for urban dwellers equal the number of victimised urban dwellers (1945) by the number of non-victimised urban dwellers (6757). This is .2878. There are .2878 victimised urban dwellers for every non-victimised urban dweller. And the odds of victimisation for residents of rural areas equal the number of victimised rural residents (413) by the number of non-victimised rural residents (2561). This is .1612. There are .1612 victimised rural residents for every non-victimised rural resident.
+The **odds**, on the other hand, contrast the number of individuals with the outcome with those without the outcome for each of the rows. Notice the difference compared to risk. So, the odds of victimisation for urban dwellers equal the number of victimised urban dwellers (1945) by the number of non-victimised urban dwellers (6757). This is .2878. There are .2878 victimised urban dwellers for every non-victimised urban dweller. The odds of victimisation for residents of rural areas equal the number of victimised rural residents (413) by the number of non-victimised rural residents (2561). This is .1612. There are .1612 victimised rural residents for every non-victimised rural resident.
 
-The **odds ratio** is the ratio of these two odds. So the odds ratio of victimisation for urban dwellers to rural residents is the odds of victimisation for urban dwellers (.2878) divided by the odds of victimisation for rural residents (.1612). This yields 1.78. This means that the odds of victimisation are almost 1.78 times higher for urban dwellers than for residents in rural areas. 
+The **odds ratio** is the ratio of these two odds. So, the odds ratio of victimisation for urban dwellers to rural residents is the odds of victimisation for urban dwellers (.2878) divided by the odds of victimisation for rural residents (.1612). This yields 1.78. This means that the odds of victimisation are almost 1.78 times higher for urban dwellers than for residents in rural areas. 
 
-You can use R to obtain the odds ratios directly. We can use the `vcd` package we mentioned earlier. As before we first create an object with the table and then ask for the ordinary odds ratio using the following code:
+You can use R to obtain the odds ratios directly. We can use the `vcdExtra` package (which you may need to install and load). We first create an object with the table and then ask for the ordinary odds ratio using the following code:
 
 
 ```r
@@ -351,8 +443,8 @@ library(vcd)
 ```
 
 ```r
-mytable.3<-table(BCS0708$urban, BCS0708$bcsvictimR)
-oddsratio(mytable.3, stratum = NULL, log = FALSE) 
+mytable.1<-table(BCS0708$urban, BCS0708$bcsvictimR)
+oddsratio(mytable.1, stratum = NULL, log = FALSE) 
 ```
 
 ```
@@ -361,14 +453,14 @@ oddsratio(mytable.3, stratum = NULL, log = FALSE)
 ## [1] 1.784947
 ```
 
-The  `oddsratio` function here asks for the odds ratio for the table data in the object called *mytable.3*. The `log=FALSE` requests an ordinary odds ratio, and the `stratum` option clarifies that your data are not stratified.
+The  `oddsratio` function here asks for the odds ratio for the table data in the object called *mytable.1*. The `log=FALSE` requests an ordinary odds ratio, and the `stratum` option clarifies that your data are not stratified.
 
 What would happen if we used the original variable instead of the recoded one ("bcsvictimR")?
 
 
 ```r
-mytable.4<-table(BCS0708$urban, BCS0708$bcsvictim)
-print(mytable.4)
+mytable.2<-table(BCS0708$urban, BCS0708$bcsvictim)
+print(mytable.2)
 ```
 
 ```
@@ -379,7 +471,7 @@ print(mytable.4)
 ```
 
 ```r
-oddsratio(mytable.4, stratum = NULL, log = FALSE)
+oddsratio(mytable.2, stratum = NULL, log = FALSE)
 ```
 
 ```
@@ -388,15 +480,15 @@ oddsratio(mytable.4, stratum = NULL, log = FALSE)
 ## [1] 0.5602409
 ```
 
-What's going on? Why do we have a different value here? If you look at the cross tab you should be able to understand. R is now computing the odds ratio for "not being a victim of a crime" (since this is what defines the first column). When an odds ratio is below 1 it indicates that the odds in the first row ("urban") are lower than in the second row ("rural"). Living in urban areas (as contrasted with living in rural areas) reduces the likelihood of non-victimisation. 
+What's going on? Why do we have a different value here? If you look at the cross-tab, you should be able to understand. R is now computing the odds ratio for "not being a victim of a crime" (since this is what defines the first column). When an odds ratio is below 1, it indicates that the odds in the first row ("urban") are lower than in the second row ("rural"). Living in urban areas (as contrasted with living in rural areas) reduces the likelihood of non-victimisation. 
 
-How to interpret odds ratios? Something that is important to keep in mind is that odds ratios (and relative risk) are non-negative values, that is: they cannot take negative values (i.e., -1, -3, etc.). They can go from 1 to infinite but only from 1 to zero. If the value is greater than 1 that means that, as in this case, living in an urban area increases the chances of the event, being a victim in this example. If the value were to be between 0 and 1 that would mean that the factor in question reduces the chances of the event you are trying to predict. Finally, a value of 1 means that there is no relationship between the two variables: it would mean that the odds or the risks are the same for the two groups.
+How do you interpret odds ratios? Something important to keep in mind is that odds ratios (and relative risk) are non-negative values; that is, they cannot take negative values (i.e., -1, -3, etc.). They can go from 1 to infinite but only from 1 to zero. If the value is greater than 1 that means that, as in this case, living in an urban area increases the chances of the event, being a victim in this example. If the value were to be between 0 and 1 that would mean that the factor in question reduces the chances of the event you are trying to predict. Finally, a value of 1 means that there is no relationship between the two variables: it would mean that the odds or the risks are the same for the two groups.
 
-Whenever the odds ratio is between 0 and 1 that means that the odds of whatever it is defining the first column (in the more recent table we printed not being a victim) is lower for the first row (in this case living in an urban area) than in the second row (in this case living in a rural area). To read an odds ratio that is between 0 and 1 you first need to take its inverse, so in this case, 1/0.5602 will give you 1.78. What this is telling you is that the odds of not being a victim of crime are 1.78 times less for 'rural dweller' than 'urban dweller', which is the same as saying that the odds of being a victim of assault are 1.78 more for 'urban dweller' than 'rural dweller'. That is, odds ratios are reciprocal.
+Whenever the odds ratio is between 0 and 1, that means that the odds of whatever it is defining the first column (in the more recent table we printed not being a victim) is lower for the first row (in this case, living in an urban area) than in the second row (in this case living in a rural area). To read an odds ratio between 0 and 1, you first need to take its inverse, so in this case, 1/0.5602 will give you 1.78. What this is telling you is that the odds of not being a victim of crime are 1.78 times less for 'rural dweller' than 'urban dweller', which is the same as saying that the odds of being a victim of assault are 1.78 more for 'urban dweller' than 'rural dweller'. That is, odds ratios are reciprocal.
 
-You may be confused by now. Have a look at [this video](https://www.youtube.com/watch?v=nFHL54yOniI), it may help to see an oral presentation of these ideas with a different example. Repeated practice will make it easier to understand. The fact that the interpretation of these quantities is contingent on the way we have laid out our table makes it particularly advisable to hand calculate them as explained above in relation to the outcome you are interested in until you are comfortable with them. This may help you to see more clearly what you are getting and how to interpret it. When looking at the R results for odds ratios just always keep in mind that you are aware of what are the reference categories (what defines the first column and the first row) when reading and interpreting odds ratios. The R function we introduced will always give you the odds ratio for the event defined in the first column and will contrast the odds for the group defined by the first row with the odds defined by the second row. If the odds ratio is between 0 and 1 that would mean the odds are lower for the first row, if the odds are greater than 1 that would mean the odds are higher for the second row.
+You may be confused by now. Look at [this video](https://www.youtube.com/watch?v=nFHL54yOniI); it may help to see an oral presentation of these ideas with a different example. Repeated practice will make it easier to understand. The fact that the interpretation of these quantities is contingent on the way we have laid out our table makes it particularly advisable to hand calculate them as explained above in relation to the outcome you are interested in until you are comfortable with them. This may help you to see more clearly what you are getting and how to interpret it. When looking at the R results for odds ratios, always remember that you are aware of the reference categories (what defines the first column and the first row) when reading and interpreting odds ratios. The R function we introduced will always give you the odds ratio for the event defined in the first column and will contrast the odds for the group defined by the first row with the odds defined by the second row. If the odds ratio is between 0 and 1, that would mean the odds are lower for the first row; if the odds are greater than 1, that would mean the odds are higher for the second row.
 
-It is also very important you do not confuse the relative risk (a ratio of probabilities) with the odds ratio (a ratio of odds). Be very careful with the language you use when interpreting these quantities.
+It is also very important you distinguish the relative risk (a ratio of probabilities) from the odds ratio (a ratio of odds). Be very careful with the language you use when interpreting these quantities.
 
 Odds ratios are ratios of odds, not probability ratios. You cannot say that urban dwellers are 1.78 more likely to be victimised. All you can say with an odds ratio is that the odds of being victimised are 1.78 times higher for urban dwellers than for residents in rural areas. Odds and probabilities are different things.
 
@@ -408,7 +500,7 @@ It is also very important that you interpret these quantities carefully. You wil
 
 <!--## Introduction-->
 
-In previous sessions we covered the linear regression model, that you can use when you are modeling variation in a numerical response variable. In this session we are going to introduce logistic regression, which is a technique you may use when your outcome or response (or dependent) variable is categorical and has two possible levels.
+In previous sessions, we covered the linear regression model, that you can use when you are modeling variation in a numerical response variable. In this session we are going to introduce logistic regression, which is a technique you may use when your outcome or response (or dependent) variable is categorical and has two possible levels.
 
 In criminology, very often you will be interested in binary outcomes (e.g., victim/no victim, arrested/not arrested, etc.) and want to use a number of predictor variables to study these outcomes. It is then, helpful, to understand how to use these models. Logistic regression is part of a broader family of models called **generalised linear models**. You should read the Wikepedia entry for this concept [here](https://en.wikipedia.org/wiki/Generalized_linear_model).
 
@@ -713,41 +805,6 @@ Finally, you could, in the same way than we did in a previous session, use the `
 
 ```r
 library(arm)
-```
-
-```
-## Loading required package: MASS
-```
-
-```
-## Loading required package: Matrix
-```
-
-```
-## Loading required package: lme4
-```
-
-```
-## 
-## arm (Version 1.13-1, built: 2022-8-25)
-```
-
-```
-## Working directory is C:/Users/n21731an/OneDrive - The University of Manchester/Criminology/Lectures/CRIM20452/modelling_book
-```
-
-```
-## 
-## Attaching package: 'arm'
-```
-
-```
-## The following object is masked from 'package:lessR':
-## 
-##     rescale
-```
-
-```r
 fitl_1_s <- standardize(fitl_1)
 display(fitl_1_s)
 ```
@@ -774,14 +831,14 @@ library(sjPlot)
 ```
 
 ```
-## #refugeeswelcome
+## Learn more about sjPlot with 'browseVignettes("sjPlot")'.
 ```
 
 ```r
 plot_model(fitl_1)
 ```
 
-<img src="new_week_9_categorical_variables_files/figure-html/unnamed-chunk-25-1.png" width="672" />
+<img src="new_week_9_categorical_variables_files/figure-html/unnamed-chunk-28-1.png" width="672" />
 
 Equally, we can produce effect plots using the `effects` package:
 
@@ -791,7 +848,7 @@ library(effects)
 plot(allEffects(fitl_1), ask=FALSE)
 ```
 
-<img src="new_week_9_categorical_variables_files/figure-html/unnamed-chunk-26-1.png" width="672" />
+<img src="new_week_9_categorical_variables_files/figure-html/unnamed-chunk-29-1.png" width="672" />
 
 Effect plots in this context are particularly helpful because they summarise the results using probabilities, which is what you see plotted in the y axis.
 
@@ -802,7 +859,7 @@ We don't have to print them all. When we are primarily concerned with one of the
 plot(effect("colour", fitl_1), multiline = FALSE, ylab = "Probability(harsher)")
 ```
 
-<img src="new_week_9_categorical_variables_files/figure-html/unnamed-chunk-27-1.png" width="672" />
+<img src="new_week_9_categorical_variables_files/figure-html/unnamed-chunk-30-1.png" width="672" />
 
 We can use the `predict()` function to generate the predicted probability that the arrestess will be released given what we know about their inputs in the model, given values of the predictors. By default R will compute the probabilities for the dataset we fitted the model to. Here we have printed only the first ten probabilities, but the way we use the `predict()` function here will generate a predicted probability for each case in the dataset.
 
@@ -1138,7 +1195,7 @@ Once we have the object with the information, we can plot the ROC curve.
 plot(rocCURVE, legacy.axes = TRUE) #By default the x-axis goes backwards, we can use the specified option legacy.axes=TRUE, to get 1-spec on the x axis moving from 0 to 1.
 ```
 
-<img src="new_week_9_categorical_variables_files/figure-html/unnamed-chunk-39-1.png" width="672" />
+<img src="new_week_9_categorical_variables_files/figure-html/unnamed-chunk-42-1.png" width="672" />
 
 We can see the trajectory of the curve is at first steep, suggesting that sensitivity increases at a greater pace than the decrease in specificity. However we then reach a point at which specificity decreases at a greater rate than the sensitivity increases. If you want to select a cut off that gives you the optimal cut off point you can use the `coords()` function of the pROC package. You can pass arguments to this function so that it returns the best sum of sensitivity and speficitity.
 
@@ -1204,7 +1261,7 @@ What we see here is that the two interactions included are significant. To assis
 plot(effect("colour:year", fitl_2))
 ```
 
-<img src="new_week_9_categorical_variables_files/figure-html/unnamed-chunk-42-1.png" width="672" />
+<img src="new_week_9_categorical_variables_files/figure-html/unnamed-chunk-45-1.png" width="672" />
 
 First we see that up to 2000, there is strong evidence for differential treatment of blacks and whites. However, we also see evidence to support Police claims of effect of training to reduce racial effects.
 
@@ -1213,7 +1270,7 @@ First we see that up to 2000, there is strong evidence for differential treatmen
 plot(effect("colour:age", fitl_2))
 ```
 
-<img src="new_week_9_categorical_variables_files/figure-html/unnamed-chunk-43-1.png" width="672" />
+<img src="new_week_9_categorical_variables_files/figure-html/unnamed-chunk-46-1.png" width="672" />
 
 On the other hand, we see a significant interaction between race and age. Young blacks are treated more harshly than young whites. But older blacks treated less harshly than older whites.
 

@@ -12,7 +12,7 @@ We will begin the session by loading again the BCS 2007/2008 data from previous 
 BCS0708<-read.csv("https://raw.githubusercontent.com/uom-resquant/modelling_book/refs/heads/master/datasets/BCS0708.csv")
 ```
 
-```{r echo=FALSE}
+```{r include = FALSE, echo=FALSE, warnings= FALSE, message=FALSE}
 install.packages("gmodels", repos = "http://cran.us.r-project.org")
 ```
 
@@ -69,6 +69,7 @@ In the central cells, we see the total number for each combination of categories
 This can sound a bit confusing now. But as long as you remember the first rule we gave you before, you should be fine: if your dependent defines the rows, ask for the column percentages; if your dependent defines the columns, ask for the row percentages. There are always students who get this wrong in the assignments and lose points as a result. Don't let it be you.
 
 The second rule for reading cross-tabulations the right way is this: **You make the comparisons across the right percentages (see first rule) in the direction where they do not add up to a hundred**. Another way of saying this is that you compare the percentages for each level of your dependent variable across the levels of your independent variable. In this case, we would, for example, compare "What percentage of people who perceive rubbish as common in their area are victims of crime?". We focus on the second column here (being a victim of a crime) because, typically, that's what we want to study; this is our outcome of interest (e.g., victimisation). We can see rubbish seems to matter a bit. For example, 30.88% of people who live in areas where rubbish is very common have been victimised. By contrast, only 15.54% of people who live in areas where rubbish is not at all common have been victimised in the previous year.
+
 ## Expected frequencies and Chi-Square
 
 So far, we have only described our sample. Can we infer that the differences that we observed in this sample can be generalised to the population from which this sample was drawn? Every time you draw a sample from the same population the results will be slightly different, we will have a different combination of people in these cells. 
@@ -297,7 +298,7 @@ As with linear regression, the interpretation of regression coefficients is sens
 
 Finally, you could, in the same way than we did in a previous session, use the `standardize()` function from the `arm` package.
 
-```{r}
+```{r, message=FALSE,warning=FALSE}
 library(arm)
 fitl_1_s <- standardize(fitl_1)
 display(fitl_1_s)

@@ -724,6 +724,10 @@ library(sjPlot)
 ## Warning: package 'sjPlot' was built under R version 4.3.3
 ```
 
+```
+## Install package "strengejacke" from GitHub (`devtools::install_github("strengejacke/strengejacke")`) to load all sj-packages at once!
+```
+
 Let's try with a more complex example:
 
 

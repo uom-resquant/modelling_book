@@ -143,3 +143,4 @@ fitting-logistic-regression-1
 assessing-model-fit-i-deviance-and-pseudo-r-squared-1
 assessing-model-fit-ii-confusion-matrix-and-roc-curves-1
 further-resources-3
+expected-frequencies-and-chi-square-1
