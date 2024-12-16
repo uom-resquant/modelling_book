@@ -282,9 +282,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10" data-path="wrapping-up.html"><a href="wrapping-up.html"><i class="fa fa-check"></i><b>10</b> Wrapping up</a></li>
 <li class="chapter" data-level="11" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i><b>11</b> Appendix</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="appendix.html"><a href="appendix.html#logistic-regression-1"><i class="fa fa-check"></i><b>11.1</b> Logistic regression</a></li>
-<li class="chapter" data-level="11.2" data-path="appendix.html"><a href="appendix.html#assessing-model-fit-i-deviance-and-pseudo-r-squared-1"><i class="fa fa-check"></i><b>11.2</b> Assessing model fit I: deviance and pseudo r squared</a></li>
-<li class="chapter" data-level="11.3" data-path="appendix.html"><a href="appendix.html#assessing-model-fit-roc-curves"><i class="fa fa-check"></i><b>11.3</b> Assessing model fit: ROC curves</a></li>
+<li class="chapter" data-level="11.0.1" data-path="appendix.html"><a href="appendix.html#expected-frequencies"><i class="fa fa-check"></i><b>11.0.1</b> Expected frequencies</a></li>
+<li class="chapter" data-level="11.1" data-path="appendix.html"><a href="appendix.html#logistic-regression-1"><i class="fa fa-check"></i><b>11.1</b> Logistic regression</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="appendix.html"><a href="appendix.html#fitting-logistic-regression-alternative"><i class="fa fa-check"></i><b>11.1.1</b> Fitting logistic regression: alternative</a></li>
+<li class="chapter" data-level="11.1.2" data-path="appendix.html"><a href="appendix.html#assessing-model-fit-deviance-and-pseudo-r-squared"><i class="fa fa-check"></i><b>11.1.2</b> Assessing model fit: deviance and pseudo r squared</a></li>
+<li class="chapter" data-level="11.1.3" data-path="appendix.html"><a href="appendix.html#assessing-model-fit-roc-curves"><i class="fa fa-check"></i><b>11.1.3</b> Assessing model fit: ROC curves</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="regression-i.html"><a href="regression-i.html"><i class="fa fa-check"></i><b>12</b> Regression I</a>
 <ul>
@@ -355,9 +359,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fitting-and-interpreting-a-multiple-regression-model-1" class="section level2 hasAnchor" number="13.2">
 <h2><span class="header-section-number">13.2</span> Fitting and interpreting a multiple regression model<a href="regression-ii.html#fitting-and-interpreting-a-multiple-regression-model-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>It could not be any easier to fit a multiple regression model. You simply modify the formula in the <code>lm()</code> function by adding terms for the additional inputs.</p>
-<div class="sourceCode" id="cb808"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb808-1"><a href="regression-ii.html#cb808-1" tabindex="-1"></a>data_url <span class="ot">&lt;-</span> <span class="st">&quot;https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/46WIH0/ARS2VS&quot;</span></span>
-<span id="cb808-2"><a href="regression-ii.html#cb808-2" tabindex="-1"></a>sharkey <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="fu">url</span>(data_url), <span class="at">sep =</span> <span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>,<span class="at">header =</span> T)</span>
-<span id="cb808-3"><a href="regression-ii.html#cb808-3" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<div class="sourceCode" id="cb813"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb813-1"><a href="regression-ii.html#cb813-1" tabindex="-1"></a>data_url <span class="ot">&lt;-</span> <span class="st">&quot;https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/46WIH0/ARS2VS&quot;</span></span>
+<span id="cb813-2"><a href="regression-ii.html#cb813-2" tabindex="-1"></a>sharkey <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="fu">url</span>(data_url), <span class="at">sep =</span> <span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>,<span class="at">header =</span> T)</span>
+<span id="cb813-3"><a href="regression-ii.html#cb813-3" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;dplyr&#39;</code></pre>
 <pre><code>## The following objects are masked from &#39;package:stats&#39;:
@@ -366,10 +370,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## The following objects are masked from &#39;package:base&#39;:
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
-<div class="sourceCode" id="cb812"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb812-1"><a href="regression-ii.html#cb812-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">filter</span>(sharkey, year <span class="sc">==</span> <span class="st">&quot;2012&quot;</span>)</span>
-<span id="cb812-2"><a href="regression-ii.html#cb812-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">select</span>(df, place_name, state_name, viol_r, black, lesshs, unemployed, fborn, incarceration, log_incarceraton, swornftime_r, log_viol_r, largest50)</span>
-<span id="cb812-3"><a href="regression-ii.html#cb812-3" tabindex="-1"></a>fit_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_viol_r <span class="sc">~</span> unemployed <span class="sc">+</span> largest50, <span class="at">data=</span>df)</span>
-<span id="cb812-4"><a href="regression-ii.html#cb812-4" tabindex="-1"></a><span class="fu">summary</span>(fit_3)</span></code></pre></div>
+<div class="sourceCode" id="cb817"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb817-1"><a href="regression-ii.html#cb817-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">filter</span>(sharkey, year <span class="sc">==</span> <span class="st">&quot;2012&quot;</span>)</span>
+<span id="cb817-2"><a href="regression-ii.html#cb817-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">select</span>(df, place_name, state_name, viol_r, black, lesshs, unemployed, fborn, incarceration, log_incarceraton, swornftime_r, log_viol_r, largest50)</span>
+<span id="cb817-3"><a href="regression-ii.html#cb817-3" tabindex="-1"></a>fit_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_viol_r <span class="sc">~</span> unemployed <span class="sc">+</span> largest50, <span class="at">data=</span>df)</span>
+<span id="cb817-4"><a href="regression-ii.html#cb817-4" tabindex="-1"></a><span class="fu">summary</span>(fit_3)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = log_viol_r ~ unemployed + largest50, data = df)
@@ -405,20 +409,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">13.3</span> Presenting your regression results.<a href="regression-ii.html#presenting-your-regression-results.-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Communicating your results in a clear manner is incredibly important. We have seen the tabular results produced by R. If you want to use them in a paper you may need to do some tidying up of those results. There are a number of packages (<code>textreg</code>, <code>stargazer</code>) that automatise that process. They take your <code>lm</code> objects and produce tables that you can put straight away in your reports or papers. One popular trend in presenting results is the <strong>coefficient plot</strong> as an alternative to the table of regression coefficients. There are various ways of producing coefficient plots with R for a variety of models. See <a href="http://www.carlislerainey.com/2012/06/30/coefficient-plots-in-r/">here</a> and <a href="http://www.carlislerainey.com/2012/07/03/an-improvement-to-coefficient-plots/">here</a>, for example.</p>
 <p>We are going to use instead the <code>plot_model()</code> function of the <code>sjPlot</code> package, that makes it easier to produce this sort of plots. You can find a more detailed tutorial about this function <a href="http://rpubs.com/sjPlot/sjplm">here</a>. See below for an example:</p>
-<div class="sourceCode" id="cb814"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb814-1"><a href="regression-ii.html#cb814-1" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span></code></pre></div>
+<div class="sourceCode" id="cb819"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb819-1"><a href="regression-ii.html#cb819-1" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span></code></pre></div>
 <pre><code>## Warning: package &#39;sjPlot&#39; was built under R version 4.3.3</code></pre>
-<pre><code>## Learn more about sjPlot with &#39;browseVignettes(&quot;sjPlot&quot;)&#39;.</code></pre>
+<pre><code>## #refugeeswelcome</code></pre>
 <p>Let’s try with a more complex example:</p>
-<div class="sourceCode" id="cb817"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb817-1"><a href="regression-ii.html#cb817-1" tabindex="-1"></a>fit_4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_viol_r <span class="sc">~</span> unemployed <span class="sc">+</span> largest50 <span class="sc">+</span> black <span class="sc">+</span> fborn <span class="sc">+</span> log_incarceraton, <span class="at">data=</span>df)</span>
-<span id="cb817-2"><a href="regression-ii.html#cb817-2" tabindex="-1"></a><span class="fu">plot_model</span>(fit_4)</span></code></pre></div>
+<div class="sourceCode" id="cb822"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb822-1"><a href="regression-ii.html#cb822-1" tabindex="-1"></a>fit_4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_viol_r <span class="sc">~</span> unemployed <span class="sc">+</span> largest50 <span class="sc">+</span> black <span class="sc">+</span> fborn <span class="sc">+</span> log_incarceraton, <span class="at">data=</span>df)</span>
+<span id="cb822-2"><a href="regression-ii.html#cb822-2" tabindex="-1"></a><span class="fu">plot_model</span>(fit_4)</span></code></pre></div>
 <p><img src="new_week_7_regression_II_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <!-- Be advised to use these plots judiciously. There may be other sort of plots that may be [more appropriate](http://www.carlislerainey.com/2012/07/06/why-i-dont-like-coefficient-plots/) for what you want to communicate to your audience than the coefficient plot.-->
 <p>You can further customise this:</p>
-<div class="sourceCode" id="cb818"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb818-1"><a href="regression-ii.html#cb818-1" tabindex="-1"></a><span class="fu">plot_model</span>(fit_4, <span class="at">title=</span><span class="st">&quot;Violence across cities&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb823"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb823-1"><a href="regression-ii.html#cb823-1" tabindex="-1"></a><span class="fu">plot_model</span>(fit_4, <span class="at">title=</span><span class="st">&quot;Violence across cities&quot;</span>)</span></code></pre></div>
 <p><img src="new_week_7_regression_II_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>What you see plotted here is the point estimates (the circles), the confidence intervals around those estimates (the longer the line the less precise the estimate), and the colours represent whether the effect is negative (red) or positive (blue). There are other packages that also provide similar functionality, like the <code>dotwhisker</code> package that you may want to explore, see more details <a href="https://cran.r-project.org/web/packages/dotwhisker/vignettes/dotwhisker-vignette.html">here</a>.</p>
 <p>The <code>sjPlot</code> package also allows you to produce html tables for more professional presentation of your regression tables. For this we use the <code>tab_model()</code> function. This kind of tabulation may be particularly helpful for your final assignment.</p>
-<div class="sourceCode" id="cb819"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb819-1"><a href="regression-ii.html#cb819-1" tabindex="-1"></a><span class="fu">tab_model</span>(fit_4)</span></code></pre></div>
+<div class="sourceCode" id="cb824"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb824-1"><a href="regression-ii.html#cb824-1" tabindex="-1"></a><span class="fu">tab_model</span>(fit_4)</span></code></pre></div>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
@@ -544,7 +548,7 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 </tr>
 </table>
 <p>As before you can further customise this table. Let’s change for example the name that is displayed for the dependent variable.</p>
-<div class="sourceCode" id="cb820"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb820-1"><a href="regression-ii.html#cb820-1" tabindex="-1"></a><span class="fu">tab_model</span>(fit_4, <span class="at">dv.labels =</span> <span class="st">&quot;Violence rate (log)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb825"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb825-1"><a href="regression-ii.html#cb825-1" tabindex="-1"></a><span class="fu">tab_model</span>(fit_4, <span class="at">dv.labels =</span> <span class="st">&quot;Violence rate (log)&quot;</span>)</span></code></pre></div>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
@@ -670,7 +674,7 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 </tr>
 </table>
 <p>Or you could change the labels for the independent variables:</p>
-<div class="sourceCode" id="cb821"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb821-1"><a href="regression-ii.html#cb821-1" tabindex="-1"></a><span class="fu">tab_model</span>(fit_4, <span class="at">pred.labels =</span> <span class="fu">c</span>(<span class="st">&quot;(Intercept)&quot;</span>, <span class="st">&quot;Percent unemployment&quot;</span>, <span class="st">&quot;Largest cities (Yes)&quot;</span>, <span class="st">&quot;Percent black&quot;</span>, <span class="st">&quot;Percent foreign born&quot;</span>, <span class="st">&quot;Incarceration rate (log)&quot;</span>), <span class="at">dv.labels =</span> <span class="st">&quot;Violence rate (log)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb826"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb826-1"><a href="regression-ii.html#cb826-1" tabindex="-1"></a><span class="fu">tab_model</span>(fit_4, <span class="at">pred.labels =</span> <span class="fu">c</span>(<span class="st">&quot;(Intercept)&quot;</span>, <span class="st">&quot;Percent unemployment&quot;</span>, <span class="st">&quot;Largest cities (Yes)&quot;</span>, <span class="st">&quot;Percent black&quot;</span>, <span class="st">&quot;Percent foreign born&quot;</span>, <span class="st">&quot;Incarceration rate (log)&quot;</span>), <span class="at">dv.labels =</span> <span class="st">&quot;Violence rate (log)&quot;</span>)</span></code></pre></div>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
@@ -796,19 +800,19 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 </tr>
 </table>
 <p>Visual display of the effects of the variables in the model are particularly helpful. The <code>effects</code> package allows us to produce plots to visualise these relationships (when adjusting for the other variables in the model). Here’s an example going back to our model fit_3 which contained unemployment and the dummy for large cities as predictor variables:</p>
-<div class="sourceCode" id="cb822"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb822-1"><a href="regression-ii.html#cb822-1" tabindex="-1"></a><span class="fu">library</span>(effects)</span></code></pre></div>
+<div class="sourceCode" id="cb827"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb827-1"><a href="regression-ii.html#cb827-1" tabindex="-1"></a><span class="fu">library</span>(effects)</span></code></pre></div>
 <pre><code>## Warning: package &#39;effects&#39; was built under R version 4.3.3</code></pre>
 <pre><code>## Loading required package: carData</code></pre>
 <pre><code>## lattice theme set by effectsTheme()
 ## See ?effectsTheme for details.</code></pre>
-<div class="sourceCode" id="cb826"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb826-1"><a href="regression-ii.html#cb826-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">allEffects</span>(fit_3), <span class="at">ask=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb831"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb831-1"><a href="regression-ii.html#cb831-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">allEffects</span>(fit_3), <span class="at">ask=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="new_week_7_regression_II_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>Notice that the line has a confidence interval drawn around it (to reflect the likely impact of sampling variation) and that the predicted means for smaller and largest cities (when controlling for unemployment) also have a confidence interval.</p>
 </div>
 <div id="rescaling-input-variables-to-assist-interpretation" class="section level2 hasAnchor" number="13.4">
 <h2><span class="header-section-number">13.4</span> Rescaling input variables to assist interpretation<a href="regression-ii.html#rescaling-input-variables-to-assist-interpretation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The interpretation or regression coefficients is sensitive to the scale of measurement of the predictors. This means one cannot compare the magnitude of the coefficients to compare the relevance of variables to predict the response variable. Let’s look at the more recent model, how can we tell what predictors have a stronger effect?</p>
-<div class="sourceCode" id="cb827"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb827-1"><a href="regression-ii.html#cb827-1" tabindex="-1"></a><span class="fu">summary</span>(fit_4)</span></code></pre></div>
+<div class="sourceCode" id="cb832"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb832-1"><a href="regression-ii.html#cb832-1" tabindex="-1"></a><span class="fu">summary</span>(fit_4)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = log_viol_r ~ unemployed + largest50 + black + fborn + 
@@ -836,8 +840,8 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <p>We just cannot. One way of dealing with this is by rescaling the input variables. A common method involves subtracting the mean and dividing by the standard deviation of each numerical input. The coefficients in these models is the expected difference in the response variable, comparing units that differ by one standard deviation in the predictor while adjusting for other predictors in the model.</p>
 <p>Instead, <a href="http://www.stat.columbia.edu/~gelman/research/published/standardizing7.pdf">Gelman (2008)</a> has proposed dividing each numeric variables <em>by two times its standard deviation</em>, so that the generic comparison is with inputs equal to plus/minus one standard deviation. As Gelman explains the resulting coefficients are then comparable to untransformed binary predictors. The implementation of this approach in the <code>arm</code> package subtract the mean of each binary input while it subtract the mean and divide by two standard deviations for every numeric input.</p>
 <p>The way we would obtain these rescaled inputs uses the <code>standardize()</code> function of the <code>arm</code> package, that takes as an argument the name of the stored fit model.</p>
-<div class="sourceCode" id="cb829"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb829-1"><a href="regression-ii.html#cb829-1" tabindex="-1"></a><span class="fu">library</span>(arm)</span>
-<span id="cb829-2"><a href="regression-ii.html#cb829-2" tabindex="-1"></a><span class="fu">standardize</span>(fit_4)</span></code></pre></div>
+<div class="sourceCode" id="cb834"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb834-1"><a href="regression-ii.html#cb834-1" tabindex="-1"></a><span class="fu">library</span>(arm)</span>
+<span id="cb834-2"><a href="regression-ii.html#cb834-2" tabindex="-1"></a><span class="fu">standardize</span>(fit_4)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = log_viol_r ~ z.unemployed + c.largest50 + z.black + 
@@ -857,10 +861,10 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <p>One of the assumptions of the regression model is that the relationship between the response variable and your predictors is additive. That is, if you have two predictors <code>x1</code> and <code>x2</code>. Regression assumes that the effect of <code>x1</code> on <code>y</code> is the same at all levels of <code>x2</code>. If that is not the case, you are then violating one of the assumptions of regression. This is in fact one of the most important assumptions of regression, even if researchers often overlook it.</p>
 <p>One way of extending our model to accommodate for interaction effects is to add additional terms to our model, a third predictor <code>x3</code>, where <code>x3</code> is simply the product of multiplying <code>x1</code> by <code>x2</code>. Notice we keep a term for each of the <strong>main effects</strong> (the original predictors) as well as a new term for the interaction effect. “Analysts should include all constitutive terms when specifying multiplicative interaction models except in very rare circumstances” (Brambor et al., 2006: 66).</p>
 <p>How do we do this in R? One way is to use the following notation in the formula argument. Notice how we have added a third term <code>unemployed:largest50</code>, which is asking R to test the conditional hypothesis that the size of the cities may have a different impact on violent crime rate.</p>
-<div class="sourceCode" id="cb831"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb831-1"><a href="regression-ii.html#cb831-1" tabindex="-1"></a>fit_5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_viol_r <span class="sc">~</span> unemployed <span class="sc">+</span> largest50 <span class="sc">+</span> unemployed<span class="sc">:</span>largest50 , <span class="at">data=</span>df)</span>
-<span id="cb831-2"><a href="regression-ii.html#cb831-2" tabindex="-1"></a><span class="co"># which is equivalent to: </span></span>
-<span id="cb831-3"><a href="regression-ii.html#cb831-3" tabindex="-1"></a><span class="co"># fit_5 &lt;- lm(log_viol_r ~ unemployed * largest50, data=BCS0708)</span></span>
-<span id="cb831-4"><a href="regression-ii.html#cb831-4" tabindex="-1"></a><span class="fu">summary</span>(fit_5)</span></code></pre></div>
+<div class="sourceCode" id="cb836"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb836-1"><a href="regression-ii.html#cb836-1" tabindex="-1"></a>fit_5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_viol_r <span class="sc">~</span> unemployed <span class="sc">+</span> largest50 <span class="sc">+</span> unemployed<span class="sc">:</span>largest50 , <span class="at">data=</span>df)</span>
+<span id="cb836-2"><a href="regression-ii.html#cb836-2" tabindex="-1"></a><span class="co"># which is equivalent to: </span></span>
+<span id="cb836-3"><a href="regression-ii.html#cb836-3" tabindex="-1"></a><span class="co"># fit_5 &lt;- lm(log_viol_r ~ unemployed * largest50, data=BCS0708)</span></span>
+<span id="cb836-4"><a href="regression-ii.html#cb836-4" tabindex="-1"></a><span class="fu">summary</span>(fit_5)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = log_viol_r ~ unemployed + largest50 + unemployed:largest50, 
@@ -884,7 +888,7 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 ## F-statistic: 50.32 on 3 and 260 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>You see here that essentially you have only two inputs (the size of the city and unemployment) but several regression coefficients. Gelman and Hill (2007) suggest reserving the term input for the variables encoding the information and to use the term predictor to refer to each of the terms in the model. So here we have two inputs and four predictors (one for the constant term, one for unemployment, another for the largest 50 dummy, and a final one for the interaction effect).</p>
 <p>In this case the test for the interaction effect is non-significant, which suggests there isn’t such an interaction. The R squared barely changes. Let’s visualise the results with the <code>effects</code> package:</p>
-<div class="sourceCode" id="cb833"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb833-1"><a href="regression-ii.html#cb833-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">allEffects</span>(fit_5), <span class="at">ask=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb838"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb838-1"><a href="regression-ii.html#cb838-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">allEffects</span>(fit_5), <span class="at">ask=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="new_week_7_regression_II_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>Notice that essentially what we are doing is running two regression lines and testing whether the slope is different for the two groups. The intercept is different, we know that largest cities are more violent, but what we are testing here is whether violence goes up in a steeper fashion (and in the same direction) for one or the other group as unemployment goes up. We see that’s not the case here. The estimated lines are almost parallel.</p>
 <p>A word of warning, the moment you introduce an interaction effect the meaning of the coefficients for the other predictors changes (what it is often referred as to the “main effects” as opposed to the interaction effect). You cannot retain the interpretation we introduced earlier. Now, for example, the coefficient for the <em>largest50</em> variable relates the marginal effect of this variable when <em>unemployment</em> equals zero. The typical table of results helps you to understand whether the effects are significant but offers little of interest that will help you to meaningfully interpret what the effects are. For this is better you use some of the graphical displays we have covered.</p>
@@ -917,9 +921,9 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <p>So these are the assumptions of linear regression.</p>
 <p>In this section we can go through very quickly how to test for some of them using visuals. While finding that some of the assumptions are violated do not necessarily mean that you have to scrap your model, it is important to use these diagnostics to illustrate that you have considered what the possible issues with your model is, and if you find any serious issues that you address them.</p>
 <p>In r, we can use the <code>plot()</code> function on our output lm object to look through some diagnostics. This gives us 4 plots, so to show them all, we’ll use the code <code>par(mfrow = c(2, 2))</code> to split our plot window into 4 panes (remember to set back, run <code>par(mfrow = c(1, 1))</code>). For example, let’s return to <code>fit_1</code>, our very first model.</p>
-<div class="sourceCode" id="cb834"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb834-1"><a href="regression-ii.html#cb834-1" tabindex="-1"></a>fit_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_viol_r <span class="sc">~</span> unemployed, <span class="at">data =</span> df)</span>
-<span id="cb834-2"><a href="regression-ii.html#cb834-2" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb834-3"><a href="regression-ii.html#cb834-3" tabindex="-1"></a><span class="fu">plot</span>(fit_1)</span></code></pre></div>
+<div class="sourceCode" id="cb839"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb839-1"><a href="regression-ii.html#cb839-1" tabindex="-1"></a>fit_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_viol_r <span class="sc">~</span> unemployed, <span class="at">data =</span> df)</span>
+<span id="cb839-2"><a href="regression-ii.html#cb839-2" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb839-3"><a href="regression-ii.html#cb839-3" tabindex="-1"></a><span class="fu">plot</span>(fit_1)</span></code></pre></div>
 <p><img src="new_week_7_regression_II_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>The 4 plots we get are</p>
 <ul>
@@ -930,19 +934,19 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 </ul>
 <p>We can also run some tests to confirm what we see in the plots.</p>
 <p>For example, to test for heteroskedasticity (unequal variance in our residuals) we can run a Breusch-Pagan test from the <code>lmtest</code> package or a NCV test from the <code>car</code> package.</p>
-<div class="sourceCode" id="cb835"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb835-1"><a href="regression-ii.html#cb835-1" tabindex="-1"></a>lmtest<span class="sc">::</span><span class="fu">bptest</span>(fit_1)  <span class="co"># Breusch-Pagan test</span></span></code></pre></div>
+<div class="sourceCode" id="cb840"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb840-1"><a href="regression-ii.html#cb840-1" tabindex="-1"></a>lmtest<span class="sc">::</span><span class="fu">bptest</span>(fit_1)  <span class="co"># Breusch-Pagan test</span></span></code></pre></div>
 <pre><code>## 
 ##  studentized Breusch-Pagan test
 ## 
 ## data:  fit_1
 ## BP = 11.498, df = 1, p-value = 0.0006965</code></pre>
-<div class="sourceCode" id="cb837"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb837-1"><a href="regression-ii.html#cb837-1" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">ncvTest</span>(fit_1) <span class="co"># NCV test</span></span></code></pre></div>
+<div class="sourceCode" id="cb842"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb842-1"><a href="regression-ii.html#cb842-1" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">ncvTest</span>(fit_1) <span class="co"># NCV test</span></span></code></pre></div>
 <pre><code>## Non-constant Variance Score Test 
 ## Variance formula: ~ fitted.values 
 ## Chisquare = 8.270574, Df = 1, p = 0.0040293</code></pre>
 <p>Both these test have a p-value less that a significance level of 0.05, therefore we can reject the null hypothesis that the variance of the residuals is constant and infer that heteroscedasticity is indeed present, thereby confirming our graphical inference.</p>
 <p>For testing whether the residuals violate the normality assumption, we can use the Anderson-Darling test for the composite hypothesis of normality with the <code>ad.test()</code> function in the <code>nortest</code> package.</p>
-<div class="sourceCode" id="cb839"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb839-1"><a href="regression-ii.html#cb839-1" tabindex="-1"></a>nortest<span class="sc">::</span><span class="fu">ad.test</span>(fit_1<span class="sc">$</span>residuals)</span></code></pre></div>
+<div class="sourceCode" id="cb844"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb844-1"><a href="regression-ii.html#cb844-1" tabindex="-1"></a>nortest<span class="sc">::</span><span class="fu">ad.test</span>(fit_1<span class="sc">$</span>residuals)</span></code></pre></div>
 <pre><code>## 
 ##  Anderson-Darling normality test
 ## 
@@ -961,7 +965,7 @@ You can read more about these <a href="https://r-forge.r-project.org/scm/viewvc.
 &gt; this “is useful for revealing problems but less useful for determining the exact nature of the problem” and consequently one needs “other diagnostic graphs to suggest improvements to the model”.</p>
 <p>In the previous session we fitted the model <code>tcviolent ~ tcarea + sex</code>. This was our <code>fit_3</code> model during that session. You may have to run the model again if you do not have it in your global environment.</p>
 <p>To obtain the basic residual plots for this model we use the <code>residualPlots()</code> function of the <code>car</code> package.</p>
-<div class="sourceCode" id="cb841"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb841-1"><a href="regression-ii.html#cb841-1" tabindex="-1"></a><span class="fu">library</span>(car)</span></code></pre></div>
+<div class="sourceCode" id="cb846"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb846-1"><a href="regression-ii.html#cb846-1" tabindex="-1"></a><span class="fu">library</span>(car)</span></code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;car&#39;</code></pre>
 <pre><code>## The following object is masked from &#39;package:arm&#39;:
@@ -970,10 +974,10 @@ You can read more about these <a href="https://r-forge.r-project.org/scm/viewvc.
 <pre><code>## The following object is masked from &#39;package:dplyr&#39;:
 ## 
 ##     recode</code></pre>
-<div class="sourceCode" id="cb845"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb845-1"><a href="regression-ii.html#cb845-1" tabindex="-1"></a>BCS0708<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/eonk/dar_book/main/datasets/BCS0708.csv&quot;</span>)</span>
-<span id="cb845-2"><a href="regression-ii.html#cb845-2" tabindex="-1"></a></span>
-<span id="cb845-3"><a href="regression-ii.html#cb845-3" tabindex="-1"></a>fit_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(tcviolent <span class="sc">~</span> tcarea <span class="sc">+</span> sex, <span class="at">data=</span>BCS0708)</span>
-<span id="cb845-4"><a href="regression-ii.html#cb845-4" tabindex="-1"></a><span class="fu">residualPlots</span>(fit_3)</span></code></pre></div>
+<div class="sourceCode" id="cb850"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb850-1"><a href="regression-ii.html#cb850-1" tabindex="-1"></a>BCS0708<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/eonk/dar_book/main/datasets/BCS0708.csv&quot;</span>)</span>
+<span id="cb850-2"><a href="regression-ii.html#cb850-2" tabindex="-1"></a></span>
+<span id="cb850-3"><a href="regression-ii.html#cb850-3" tabindex="-1"></a>fit_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(tcviolent <span class="sc">~</span> tcarea <span class="sc">+</span> sex, <span class="at">data=</span>BCS0708)</span>
+<span id="cb850-4"><a href="regression-ii.html#cb850-4" tabindex="-1"></a><span class="fu">residualPlots</span>(fit_3)</span></code></pre></div>
 <p><img src="new_week_7_regression_II_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <pre><code>##            Test stat Pr(&gt;|Test stat|)    
 ## tcarea        6.2571        4.123e-10 ***
@@ -1020,7 +1024,7 @@ Ideally a plot of the residuals should show that:</p>
 <p><img src="new_week_7_regression_II_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>This will plot a scatterplot for each predictor variable against the response variable. This displays the conditional distribution of the response given each predictor, <em>ignoring the other predictors</em>. They are called marginal plots because they show the marginal relationship between the outcome and <em>each predictor</em>. It will also print a scatterplot of the response versus the fitted value displaying the conditional distribution of the outcome given the fit of the model. We observe here the curvature that was already identified by the previous plots (notice the blue line).</p>
 <p>We can also use the <code>marginalModelPlots()</code> function to assess the <strong>homogeneity of variance</strong> assumption using the following argument:</p>
-<div class="sourceCode" id="cb848"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb848-1"><a href="regression-ii.html#cb848-1" tabindex="-1"></a><span class="fu">marginalModelPlots</span>(fit_3, <span class="at">sd =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb853"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb853-1"><a href="regression-ii.html#cb853-1" tabindex="-1"></a><span class="fu">marginalModelPlots</span>(fit_3, <span class="at">sd =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## Warning in xy.coords(x, y, xlabel, ylabel, log): NAs introduced by coercion</code></pre>
 <pre><code>## Warning in min(x): no non-missing arguments to min; returning Inf</code></pre>
 <pre><code>## Warning in max(x): no non-missing arguments to max; returning -Inf</code></pre>
@@ -1031,7 +1035,7 @@ Ideally a plot of the residuals should show that:</p>
 <div id="diagnostic-for-homoskedasiticity" class="section level4 hasAnchor" number="13.7.0.5">
 <h4><span class="header-section-number">13.7.0.5</span> Diagnostic for homoskedasiticity<a href="regression-ii.html#diagnostic-for-homoskedasiticity" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>And since we are discussing homoskedasiticity (e.g., homogeneity of variance or constant/equal variance), it is worth pointing out that the <code>car</code> package implements a score test that evaluates whether the variance is constant. To obtain this test we use the <code>ncvTest()</code> function.</p>
-<div class="sourceCode" id="cb853"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb853-1"><a href="regression-ii.html#cb853-1" tabindex="-1"></a><span class="fu">ncvTest</span>(fit_3)</span></code></pre></div>
+<div class="sourceCode" id="cb858"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb858-1"><a href="regression-ii.html#cb858-1" tabindex="-1"></a><span class="fu">ncvTest</span>(fit_3)</span></code></pre></div>
 <pre><code>## Non-constant Variance Score Test 
 ## Variance formula: ~ fitted.values 
 ## Chisquare = 186.8947, Df = 1, p = &lt; 2.22e-16</code></pre>

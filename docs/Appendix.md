@@ -1,9 +1,118 @@
 # Appendix
 
+### Expected frequencies
+
+Notice that R is telling us that the minimum expected frequency is 41.68. Why? For the Chi-squared test to work, it assumes the cell counts are sufficiently large. Precisely what constitutes 'sufficiently large' is a matter of some debate. One rule of thumb is that all expected cell counts should be above 5. If we have small cells, one alternative is to rely on the Fisher's Exact Test rather than on the Chi-Square. We don't have to request it here. Our cells are large enough for Chi Square to work fine. But if we needed, we could obtain the Fisher's Exact Test with the following code:
+
+
+```r
+BCS0708<-read.csv("https://raw.githubusercontent.com/uom-resquant/modelling_book/refs/heads/master/datasets/BCS0708.csv")
+library(gmodels)
+BCS0708$rubbcomm <- as.factor(BCS0708$rubbcomm)
+BCS0708$rubbcomm <- factor(BCS0708$rubbcomm, 
+                    levels = c("not at all common", 
+                    "not very common", "fairly common",
+                    "very common"))
+fisher.test(BCS0708$rubbcomm, BCS0708$bcsvictim, simulate.p.value=TRUE)
+```
+
+```
+## 
+## 	Fisher's Exact Test for Count Data with simulated p-value (based on
+## 	2000 replicates)
+## 
+## data:  BCS0708$rubbcomm and BCS0708$bcsvictim
+## p-value = 0.0004998
+## alternative hypothesis: two.sided
+```
+
+The p-value is still considerably lower than our alpha level of .05. So, we can still conclude that the relationship we observe can be generalised to the population. 
+
+Remember that we didn't need the Fisher test. However, as suggested above, there may be times when you need them.
 
 ## Logistic regression
 
-## Assessing model fit I: deviance and pseudo r squared
+### Fitting logistic regression: alternative
+
+Another way of fitting a logistic regression and getting the odds ratio with less typing is to use the `Logit()` function in the `lessR` package (you will need to install it if you do not have it).
+
+
+```r
+library(effects)
+data(Arrests, package="effects")
+
+Arrests$harsher <- relevel(Arrests$released, "Yes")
+#Rename the levels so that it is clear we now mean yes to harsher treatment
+levels(Arrests$harsher) <- c("No","Yes")
+#Check that it matches in reverse the original variable
+
+Arrests$colour <- relevel(Arrests$colour, "White")
+library(lessR, quietly= TRUE)
+Logit(harsher ~ checks + colour + sex + employed, data=Arrests, brief=TRUE)
+```
+
+```
+## 
+## >>> Note:  colour is not a numeric variable.
+##            Indicator variables are created and analyzed.
+## 
+## >>> Note:  sex is not a numeric variable.
+##            Indicator variables are created and analyzed.
+## 
+## >>> Note:  employed is not a numeric variable.
+##            Indicator variables are created and analyzed.
+## 
+## Response Variable:   harsher
+## Predictor Variable 1:  checks
+## Predictor Variable 2:  colourBlack
+## Predictor Variable 3:  sexMale
+## Predictor Variable 4:  employedYes
+## 
+## Number of cases (rows) of data:  5226 
+## Number of cases retained for analysis:  5226 
+## 
+## 
+##    BASIC ANALYSIS 
+## 
+## -- Estimated Model of harsher for the Logit of Reference Group Membership
+## 
+##              Estimate    Std Err  z-value  p-value   Lower 95%   Upper 95%
+## (Intercept)   -1.9035     0.1600  -11.898    0.000     -2.2170     -1.5899 
+##      checks    0.3580     0.0258   13.875    0.000      0.3074      0.4085 
+## colourBlack    0.4961     0.0826    6.003    0.000      0.3341      0.6580 
+##     sexMale    0.0422     0.1496    0.282    0.778     -0.2511      0.3355 
+## employedYes   -0.7797     0.0839   -9.298    0.000     -0.9441     -0.6154 
+## 
+## 
+## -- Odds Ratios and Confidence Intervals
+## 
+##              Odds Ratio   Lower 95%   Upper 95%
+## (Intercept)      0.1491      0.1089      0.2039 
+##      checks      1.4304      1.3599      1.5046 
+## colourBlack      1.6423      1.3967      1.9310 
+##     sexMale      1.0431      0.7779      1.3986 
+## employedYes      0.4585      0.3890      0.5404 
+## 
+## 
+## -- Model Fit
+## 
+##     Null deviance: 4776.258 on 5225 degrees of freedom
+## Residual deviance: 4330.699 on 5221 degrees of freedom
+## 
+## AIC: 4340.699 
+## 
+## Number of iterations to convergence: 5 
+## 
+## 
+## Collinearity
+## 
+##             Tolerance       VIF
+## checks          0.908     1.101
+## colourBlack     0.963     1.038
+## sexMale         0.982     1.019
+## employedYes     0.931     1.074
+```
+### Assessing model fit: deviance and pseudo r squared
 
 As you may remember, when looking at linear models, we could use an F test to check the overall fit of the model, and we could evaluate R squared. When running logistic regression, we cannot obtain the R squared (although there is a collection of pseudo-R^2 measures that have been produced). In linear regression, things are a bit simpler. As Menard (2010: 43) explains:
 
@@ -18,6 +127,11 @@ The deviance, on the other hand, is simply the log-likelihood multiplied by -2 a
 The difference between the -2LL for the model with no predictors and the -2LL for the model with all the predictors is the closer we get in logistic regression to the regression sum of squares. This difference is often called **model chi-squared**, and it provides a test of the null hypothesis that all the regression coefficients equal zero. It is, thus, equivalent to the F test in OLS regression.
 
 
+```r
+fitl_1 <- glm(harsher ~ checks + colour + sex + employed, data=Arrests, family = "binomial")
+summary(fitl_1)
+```
+
 ```
 ## 
 ## Call:
@@ -25,12 +139,12 @@ The difference between the -2LL for the model with no predictors and the -2LL fo
 ##     data = Arrests)
 ## 
 ## Coefficients:
-##             Estimate Std. Error z value Pr(>|z|)    
-## (Intercept) -1.90346    0.15999 -11.898  < 2e-16 ***
-## checks       0.35796    0.02580  13.875  < 2e-16 ***
-## colourBlack  0.49608    0.08264   6.003 1.94e-09 ***
-## sexMale      0.04215    0.14965   0.282    0.778    
-## employedYes -0.77973    0.08386  -9.298  < 2e-16 ***
+##             Estimate Std. Error z value             Pr(>|z|)    
+## (Intercept) -1.90346    0.15999 -11.898 < 0.0000000000000002 ***
+## checks       0.35796    0.02580  13.875 < 0.0000000000000002 ***
+## colourBlack  0.49608    0.08264   6.003        0.00000000194 ***
+## sexMale      0.04215    0.14965   0.282                0.778    
+## employedYes -0.77973    0.08386  -9.298 < 0.0000000000000002 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
@@ -124,7 +238,7 @@ Some authors refer to this as the Hosmer/Lemeshow R^2. It indicates how much the
 
 + And it can be used in other generalised linear models (models for categorical outcomes with more than two levels, which we don't cover here)
 
-## Assessing model fit: ROC curves
+### Assessing model fit: ROC curves
 
 We may want to see what happens to sensitivity and specificity for different cut-off points. For this, we can look at **receiver operating characteristics** or simply [ROC curves](http://en.wikipedia.org/wiki/Receiver_operating_characteristic). This is essentially a tool for evaluating the sensitivity/specificity trade-off. The ROC curve can be used to investigate alternate cut-offs for class probabilities.
 
@@ -145,7 +259,7 @@ Once we have the object with the information, we can plot the ROC curve.
 plot(rocCURVE, legacy.axes = TRUE) #By default, the x-axis goes backwards; we can use the specified option legacy.axes=TRUE, to get 1-spec on the x-axis moving from 0 to 1.
 ```
 
-<img src="Appendix_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+<img src="Appendix_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
 We can see the trajectory of the curve is at first steep, suggesting that sensitivity increases at a greater pace than the decrease in specificity. However, we then reach a point at which specificity decreases at a greater rate than the sensitivity increases. If you want to select a cut-off that gives you the optimal cut-off point, you can use the `coords()` function of the pROC package. You can pass arguments to this function so that it returns the best sum of sensitivity and specificity.
 

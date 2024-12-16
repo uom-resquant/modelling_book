@@ -112,8 +112,10 @@ interactions
 further-resources-2
 wrapping-up
 appendix
+expected-frequencies
 logistic-regression-1
-assessing-model-fit-i-deviance-and-pseudo-r-squared-1
+fitting-logistic-regression-alternative
+assessing-model-fit-deviance-and-pseudo-r-squared
 assessing-model-fit-roc-curves
 regression-i
 hypotheses-the-logic-of-hypothesis-testing
