@@ -111,6 +111,10 @@ assessing-model-fit-ii-confusion-matrix-and-roc-curves
 interactions
 further-resources-2
 wrapping-up
+appendix
+logistic-regression-1
+assessing-model-fit-i-deviance-and-pseudo-r-squared-1
+assessing-model-fit-roc-curves
 regression-i
 hypotheses-the-logic-of-hypothesis-testing
 introduction-models-in-scientific-research-1
@@ -137,10 +141,10 @@ model-building-and-variable-selection-1
 summary-exercise-for-this-week
 studying-relationships-between-two-factors-1
 cross-tabulations
-odds-and-odd-ratios-1
-logistic-regression-1
-fitting-logistic-regression-1
-assessing-model-fit-i-deviance-and-pseudo-r-squared-1
-assessing-model-fit-ii-confusion-matrix-and-roc-curves-1
-further-resources-3
 expected-frequencies-and-chi-square-1
+odds-and-odd-ratios-1
+logistic-regression-2
+fitting-logistic-regression-1
+assessing-model-fit-confusion-matrix
+interactions-1
+further-resources-3

@@ -641,7 +641,7 @@ install.packages("WRS2")
 ## package 'WRS2' successfully unpacked and MD5 sums checked
 ## 
 ## The downloaded binary packages are in
-## 	C:\Users\n21731an\AppData\Local\Temp\RtmpeyxPLZ\downloaded_packages
+## 	C:\Users\n21731an\AppData\Local\Temp\RtmpQVNBcq\downloaded_packages
 ```
 
 We can now invoke the code. The following code will use ANOVA based on 5% trimmed mean with 599 bootstrap samples:
@@ -668,8 +668,8 @@ t1waybt(tcviolent ~ ethgrp2, data = BCS0708, tr = .05, nboot = 599)
 ## 
 ## Test statistic: 45.3591 
 ## p-value: 0 
-## Variance explained: 0.078 
-## Effect size: 0.279
+## Variance explained: 0.084 
+## Effect size: 0.29
 ```
 
 As with the standard ANOVA and the Welch version, we still get a significant result.
