@@ -1,4 +1,4 @@
-# Regression II
+# Regression III
 
 ## Motivating multiple regression
 

@@ -1,4 +1,4 @@
-# Regression I 
+# Regression II
 
 ## Hypotheses: The logic of hypothesis testing
 
@@ -78,13 +78,12 @@ Today we will cover something that is called linear regression or ordinary least
 
 We will use a new dataset today, specifically the data used by Patrick Sharkey and his colleagues to study the effect of non profit organisations in the levels of crime. In [*"Uneasy Peace"*](https://books.wwnorton.com/books/Uneasy-Peace/) Prof Sharkey argues that one of the factors that contributed to the decline of crime from the 90s onwards was the role played by non profit community organisations to bring peace and services to deteriorated neighbourhoods. Watch this video and let's have more theoretical background and learn about the research. 
 
-```{r echo=FALSE, fig.align='center', cache=TRUE}
-knitr::include_url("https://www.youtube.com/embed/47IISvRXmpA")
-```
+<iframe src="https://www.youtube.com/embed/47IISvRXmpA" width="672" height="400px" data-external="1"></iframe>
 
 In this session we will use the replication data from one of the papers that Prof Sharkey published studying this question. We can find this data in the [Harvard Dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/46WIH0). If you are interested in the specific study analysing this data you can find it [here](https://journals.sagepub.com/doi/abs/10.1177/0003122417736289).
 
-```{r}
+
+```r
 urlfile <- "https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/46WIH0/ARS2VS"
 communitycrime <- read.table(urlfile, sep = '\t',header = T)
 ```
@@ -93,7 +92,8 @@ As before we create an object with the permanent `url` address and then we use a
 
 There are many more variables here that we are going to need, so let's do some filtering and selection. Let's just focus on a single year, 2012, the most recent in the dataset and just a few select variables.
 
-```{r, message=FALSE}
+
+```r
 library(dplyr)
 df <- filter(communitycrime, year == "2012")
 df <- select(df, place_name, state_name, viol_r, black, lesshs, unemployed, fborn, incarceration, log_incarceraton, swornftime_r, log_viol_r, largest50)
@@ -101,34 +101,85 @@ df <- select(df, place_name, state_name, viol_r, black, lesshs, unemployed, fbor
 
 So now we have a more manageable data set that we can use for this session. The file includes a sample of 264 US cities (see *place_name*) across 44 of states:
 
-```{r}
+
+```r
 table(df$state_name)
+```
+
+```
+## 
+##              Alabama               Alaska              Arizona 
+##                    4                    1                    9 
+##             Arkansas           California             Colorado 
+##                    1                   65                   10 
+##          Connecticut District of Columbia              Florida 
+##                    5                    1                   18 
+##              Georgia                Idaho             Illinois 
+##                    2                    1                    8 
+##              Indiana                 Iowa               Kansas 
+##                    3                    3                    5 
+##            Louisiana             Maryland        Massachusetts 
+##                    4                    1                    3 
+##             Michigan            Minnesota          Mississippi 
+##                    6                    3                    1 
+##             Missouri              Montana             Nebraska 
+##                    5                    1                    2 
+##               Nevada        New Hampshire           New Jersey 
+##                    3                    1                    4 
+##           New Mexico             New York       North Carolina 
+##                    1                    5                    9 
+##         North Dakota                 Ohio             Oklahoma 
+##                    1                    5                    4 
+##               Oregon         Pennsylvania         Rhode Island 
+##                    4                    4                    1 
+##       South Carolina         South Dakota            Tennessee 
+##                    3                    1                    6 
+##                Texas                 Utah             Virginia 
+##                   30                    4                    7 
+##           Washington            Wisconsin 
+##                    6                    3
 ```
 
 The variables we have extracted contain information on the demographic composition of those cities (percent black population, percent without high school degree, percent unemployed, percent foreign born), some criminal justice ones (incarceration rate and the rate of sworn full time police officers). We also have measures of the violence rate and a binary indicator that tell us if the city is one of the 50 largest in the country.
 
 We are going to look at the relationship between violent crime with a variable measuring unemployment (*unemployed*). Let's look at the violence rate:
 
-```{r, message=FALSE}
+
+```r
 library(ggplot2)
+```
+
+```
+## Warning: package 'ggplot2' was built under R version 4.3.2
+```
+
+```r
 ggplot(df, aes(x = viol_r)) +
   geom_histogram()
 ```
 
+<img src="06_regression_II_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+
 As you can see is skewed. Violence is our target variable, the one we want to better understand. You may remember from when we cover ANOVA that some times we have to make transformations to variables so that the assumptions of the models we use are better respected. We will discuss this a bit in greater depth later. For now, just trust us in that rather than using *viol_r* we are going to use the logarithmic transformation of the violence rate, *log_viol_r*.
 
-```{r, message=FALSE}
+
+```r
 library(ggplot2)
 ggplot(df, aes(x = log_viol_r)) +
   geom_histogram()
 ```
 
+<img src="06_regression_II_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+
 Let's look at the scatterplot between the log of the violence rate and unemployment:
 
-```{r}
+
+```r
 ggplot(df, aes(x = unemployed, y = log_viol_r)) +
   geom_point(alpha=.2, position="jitter") 
 ```
+
+<img src="06_regression_II_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 
 What do you think when looking at this scatterplot? Is there a relationship between violence and unemployment? Does it look as if cities that have a high score on the X axis (unemployment) also have a high score on the Y axis (violent crime)? It may be a bit hard to see but we would think there is certainly a trend. 
 
@@ -136,15 +187,32 @@ What do you think when looking at this scatterplot? Is there a relationship betw
 
 Now, imagine that we play a game. Imagine we have all the names of the cities in a hat, and we randomly take one of names from the hat. You're sitting in the audience, and you have to guess the level of violence (*log_viol_r*) for that city. Imagine that we pay £150 to the student that gets the closest to the right value. What would you guess if you only have one guess and you knew (as we do) how the log of violent crime is distributed? 
 
-```{r}
+
+```r
 ggplot(df, aes(x = log_viol_r)) + 
   geom_density() +
   geom_vline(xintercept = 6.061, linetype = "dashed", size = 1, color="red") +
   ggtitle("Density estimate and mean of log violent crime rate")
 ```
 
-```{r}
+```
+## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## ℹ Please use `linewidth` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+```
+
+<img src="06_regression_II_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+
+
+```r
 summary(df$log_viol_r)
+```
+
+```
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   3.831   5.532   6.149   6.061   6.595   7.634
 ```
 
 If we only had one shot, we would go for the mean or the median (given the skew). Most of the cities have values clustered around those values, which is another way of saying they are bound to be not too far from them. It would be silly to say 4, for example, since there are very few cities with such low level of violence (as measured by *log_viol_r*).
@@ -155,28 +223,34 @@ We certainly would not go with the overall mean or median as my prediction any m
 
 If we plot the conditional means we can see that the mean *log_viol_r* for cities that report an unemployment of 9 is around 6.5. So you may be better off guessing that.
 
-```{r, echo=FALSE}
-library(grid)
-ggplot() +
-  geom_point(data=df, aes(x = unemployed, y = log_viol_r), alpha=.2) +
-geom_line(data=df, aes(x = round(unemployed/0.12)*0.12, y = log_viol_r), 
-          stat='summary',
-          fun.y=mean,
-          color="red",
-          size=1) +
-  annotate("segment", x=10, xend = 9, y = 5.5, yend= 6.5, color = "blue", size = 2, arrow = arrow()) +
-  annotate("text", x = 10, y = 5.2, label = "Pick this one!", size =7, colour = "blue")
+
 ```
+## Warning in geom_line(data = df, aes(x = round(unemployed/0.12) * 0.12, y =
+## log_viol_r), : Ignoring unknown parameters: `fun.y`
+```
+
+```
+## No summary function supplied, defaulting to `mean_se()`
+```
+
+<img src="06_regression_II_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
 Linear regression tackles this problem using a slightly different approach. Rather than focusing on the conditional mean (smoothed or not), it draws a straight line that tries to capture the trend in the data. If we focus in the region of the scatterplot that are less sparse we see that this is an upward trend, suggesting that as the level of unemployment increases so does the level of violent crime. 
 
 Simple linear regression draws a single straight line of predicted values **as the model for the data**. This line would be a **model**, a *simplification* of the real world like any other model (e.g., a toy pistol, an architectural drawing, a subway map), that assumes that there is approximately a linear relationship between X and Y. Let's draw the regression line:
 
-```{r}
+
+```r
 ggplot(data = df, aes(x = unemployed, y = log_viol_r)) +
   geom_point(alpha = .2, position = "jitter") +
   geom_smooth(method = "lm", se = FALSE, color = "red", size = 1) 
 ```
+
+```
+## `geom_smooth()` using formula = 'y ~ x'
+```
+
+<img src="06_regression_II_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
 The `geom_smooth` function asks for a geom with the regression line, `method=lm` asks for the linear regression line, `se=FALSE` asks for just the line to be printed, the other arguments specify the colour and thickness of the line.
 
@@ -186,19 +260,18 @@ Another way of thinking about this line is as the best possible summary of the c
 
 The linear model then is a model that takes the form of the equation of a straight line through the data. The line does not go through all the points. In fact, you can see is a slightly less accurate representation than the (smoothed) conditional means:
 
-```{r, echo = FALSE}
-ggplot() +
-  geom_point(data = df, aes(x = unemployed, y = log_viol_r),
-             alpha = .2, position = "jitter", color ="orange") +
-  geom_smooth(data = df, aes(x = unemployed, y = log_viol_r),
-              method = "lm", se = FALSE, color = "red", size = 1) +
-  geom_line(data=df, aes(x = round(unemployed/0.12)*0.12, y = log_viol_r), 
-          stat='summary',
-          fun.y=mean,
-          color="blue",
-          size=1) +
-  theme_bw()
+
 ```
+## Warning in geom_line(data = df, aes(x = round(unemployed/0.12) * 0.12, y =
+## log_viol_r), : Ignoring unknown parameters: `fun.y`
+```
+
+```
+## `geom_smooth()` using formula = 'y ~ x'
+## No summary function supplied, defaulting to `mean_se()`
+```
+
+<img src="06_regression_II_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
 As De Veaux et al (2012: 179) highlight: "like all models of the real world, the line will be wrong, wrong in the sense that it can't match reality exactly. But it can help us understand how the variables are associated". A map is never a perfect representation of the world, the same happens with statistical models. Yet, as with maps, models can be helpful.
 
@@ -217,27 +290,79 @@ We need the origin of the line ($b_0$) and the slope of the line ($b_1$). How do
 
 In order to fit the model we use the `lm()` function using the formula specification `(Y ~ X)`. Typically you want to store your regression model in a "variable", let's call it `fit_1`:
 
-```{r}
+
+```r
 fit_1 <- lm(log_viol_r ~ unemployed, data = df)
 ```
 
 You will see in your R Studio global environment space that there is a new object called `fit_1` with 12 elements on it. We can get a sense for what this object is and includes using the functions we introduced in Week 1:
 
-```{r}
+
+```r
 class(fit_1)
+```
+
+```
+## [1] "lm"
+```
+
+```r
 attributes(fit_1)
+```
+
+```
+## $names
+##  [1] "coefficients"  "residuals"     "effects"       "rank"         
+##  [5] "fitted.values" "assign"        "qr"            "df.residual"  
+##  [9] "xlevels"       "call"          "terms"         "model"        
+## 
+## $class
+## [1] "lm"
 ```
 
 R is telling us that this is an object of class `lm` and that it includes a number of attributes. One of the beauties of R is that you are producing all the results from running the model, putting them in an object, and then giving you the opportunity for using them later on. If you want to simply see the basic results from running the model you can use the `summary()` function.
 
-```{r}
+
+```r
 summary(fit_1)
+```
+
+```
+## 
+## Call:
+## lm(formula = log_viol_r ~ unemployed, data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.81195 -0.44612  0.06817  0.45424  1.50438 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  4.57817    0.14899   30.73   <2e-16 ***
+## unemployed   0.23710    0.02302   10.30   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.6254 on 262 degrees of freedom
+## Multiple R-squared:  0.2882,	Adjusted R-squared:  0.2855 
+## F-statistic: 106.1 on 1 and 262 DF,  p-value: < 2.2e-16
 ```
 
 Or if you prefer more parsimonious presentation you could use the `display()` function of the `arm` package:
 
-```{r}
+
+```r
 arm::display(fit_1)
+```
+
+```
+## lm(formula = log_viol_r ~ unemployed, data = df)
+##             coef.est coef.se
+## (Intercept) 4.58     0.15   
+## unemployed  0.24     0.02   
+## ---
+## n = 264, k = 2
+## residual sd = 0.63, R-Squared = 0.29
 ```
 
 For now we just want you to focus on the numbers in the "Estimate" column. The value of 4.58 estimated for the **intercept** is the "predicted" value for Y when X equals zero. This is the predicted value of the violence score *when the level of unemployment is zero*. 
@@ -252,10 +377,16 @@ $y = 5.526564$
 
 Or if you don't want to do the calculation yourself, you can use the `predict` function (differences are due to rounding error):
 
-```{r}
+
+```r
 #First you name your stored model and then you identify the new data 
 #(which has to be in a data frame format and with a variable name matching the one in the original data set)
 predict(fit_1, data.frame(unemployed = c(4))) 
+```
+
+```
+##        1 
+## 5.526564
 ```
 
 This is the expected value of Y, log of the violence rate, when X, unemployment is 5% of the population *according to our model* (according to our simplification of the real world, our simplification of the whole cloud of points into just one straight line). Look back at the scatterplot we produced earlier with the green line. Does it look as if the green line when X is 4 corresponds to a value of Y of 5.5?
@@ -287,11 +418,29 @@ All this formula is doing is taking a ratio of the explained variation (the squa
 
 As then we can take this value as a measure of the strength of our model. If you look at the R output you will see that the $R^2$ for our model was .29 (look at the multiple R square value in the output) . We can say that our model explains 29% of the variance in the fear of violent crime measure.
 
-```{r}
+
+```r
 #As an aside, and to continue emphasising your appreciation of the object oriented nature of R, when we run the summary() function we are simply generating a list object of the class summary.lm.
 attributes(summary(fit_1))
+```
+
+```
+## $names
+##  [1] "call"          "terms"         "residuals"     "coefficients" 
+##  [5] "aliased"       "sigma"         "df"            "r.squared"    
+##  [9] "adj.r.squared" "fstatistic"    "cov.unscaled" 
+## 
+## $class
+## [1] "summary.lm"
+```
+
+```r
 #This means that we can access its elements if so we wish. So, for example, to obtain just the R Squared, we could ask for:
 summary(fit_1)$r.squared
+```
+
+```
+## [1] 0.2881989
 ```
 
 Knowing how to interpret this is important. $R^2$ ranges from 0 to 1. The greater it is the more powerful our model is, the more explaining we are doing, the better we are able to account for variation in our outcome $Y$ with our input. In other words, the stronger the relationship is between $Y$ and $X$. As with all the other measures of effect size interpretation is a matter of judgement. You are advised to see what other researchers report in relation to the particular outcome that you may be exploring.[This](http://blog.minitab.com/blog/adventures-in-statistics/regression-analysis-how-do-i-interpret-r-squared-and-assess-the-goodness-of-fit) is a reasonable explanation of how to interpret R-Squared.
@@ -314,16 +463,30 @@ The dark-blue line marks the best fit. The two dark-pink lines mark the limits o
 
 You can also then perform standard hypothesis test on the coefficients. As we saw before when summarising the model, R will compute the standard errors and a **t test** for  each of the coefficients.
 
-```{r}
+
+```r
 summary(fit_1)$coefficients
+```
+
+```
+##              Estimate Std. Error  t value     Pr(>|t|)
+## (Intercept) 4.5781742 0.14898596 30.72890 7.474077e-89
+## unemployed  0.2370975 0.02302022 10.29953 4.145166e-21
 ```
 
 In our example, we can see that the coefficient for our predictor here is statistically significant[^10].
 
 We can also obtain confidence intervals for the estimated coefficients using the `confint()` function:
 
-```{r}
+
+```r
 confint(fit_1)
+```
+
+```
+##                 2.5 %    97.5 %
+## (Intercept) 4.2848120 4.8715365
+## unemployed  0.1917693 0.2824257
 ```
 
 [This blog post](http://www.sumsar.net/blog/2013/12/an-animation-of-the-construction-of-a-confidence-interval/) provides a nice animation of the confidence interval and hypothesis testing.
@@ -334,49 +497,91 @@ So far we have explained regression using a numeric input. It turns out we can a
 
 We have one categorical variable in the dataset, *largest50*, identifying whether the city is one of the 50 largest in the country.
 
-```{r}
+
+```r
 table(df$largest50)
+```
+
+```
+## 
+##   0   1 
+## 216  48
+```
+
+```r
 class(df$largest50)
+```
+
+```
+## [1] "numeric"
 ```
 
 This variable is however stored in a numeric vector. We may want to change this to reflect the fact it is actually categorical.
 
-```{r}
+
+```r
 df$largest50 <- as.factor(df$largest50)
 class(df$largest50)
 ```
 
+```
+## [1] "factor"
+```
+
 Let's rename the levels. In previous sessions we have illustrated how to do that with base R functions. Here we introduce a new package `forcats` that is worth considering when doing any work with factor variables. You can read more about it [here](https://forcats.tidyverse.org).
 
-```{r}
+
+```r
 library(forcats)
 df$largest50 <- fct_recode(df$largest50, Yes = "1", No = "0")
 table(df$largest50)
 ```
 
+```
+## 
+##  No Yes 
+## 216  48
+```
+
 We can explore if particularly large cities have higher rates of violence (remember a rate controls for population size, so if this were to be significant it would be telling us that it's not just because there is more people in them!). This is how you would express the model:
 
-```{r}
+
+```r
 fit_2 <- lm(log_viol_r ~ largest50, data=df)
 ```
 
 Notice that there is nothing different in how we ask for the model. And see below the regression line:
 
-```{r, echo=FALSE}
-ggplot(data=df, aes(x=largest50, y=log_viol_r)) +
-  geom_boxplot() +
-  geom_point(alpha=.5, position = "jitter", color="orange") +
-  geom_abline(intercept = fit_2$coefficients[1],
-    slope = fit_2$coefficients[2], color="red", size=1) +
-  theme_bw()
-```
+<img src="06_regression_II_files/figure-html/unnamed-chunk-25-1.png" width="672" />
 
 Although in the plot we still see a line, what we are really estimating here is the average of *log_viol_r* for each of the two categories. 
 
 Let's have a look at the results:
 
-```{r}
+
+```r
 summary(fit_2)
+```
+
+```
+## 
+## Call:
+## lm(formula = log_viol_r ~ largest50, data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.11616 -0.48286  0.02965  0.51523  1.49789 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)   5.94763    0.04771 124.661  < 2e-16 ***
+## largest50Yes  0.62114    0.11189   5.551 6.94e-08 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.7012 on 262 degrees of freedom
+## Multiple R-squared:  0.1052,	Adjusted R-squared:  0.1018 
+## F-statistic: 30.82 on 1 and 262 DF,  p-value: 6.943e-08
 ```
 
 As you will see the output does not look too different. But notice that in the print out you see how the row with the coefficient and other values for our input variable *largest50* we see that R is printing `largest50Yes`. What does this mean?
@@ -385,11 +590,23 @@ Remember week 6 and t tests? It turns out that a linear regression model with ju
 
 The reference category is the one for which R does not print the *level* next to the name of the variable for which it gives you the regression coefficient. Here we see that the named level is "Yes" (`largest50Yes`). That's telling you that the reference category here is "No". Therefore the Y intercept in this case is the mean value of violence for cities that are not the largest in the country, whereas the coefficient for the slope is telling you how much higher the mean value is for the largest cities in the country. Don't believe me?
 
-```{r}
+
+```r
 #Compute the mean for the smaller cities
 mean(df$log_viol_r[df$largest50 == "No"], na.rm=TRUE)
+```
+
+```
+## [1] 5.947628
+```
+
+```r
 #Compute the difference between the two means
 mean(df$log_viol_r[df$largest50 == "Yes"], na.rm=TRUE) - mean(df$log_viol_r[df$largest50 == "No"], na.rm=TRUE)
+```
+
+```
+## [1] 0.6211428
 ```
 
 So, to reiterate, for a single binary predictor, the coefficient is nothing else than the difference between the mean of the two levels in your factor variable, between the averages in your two groups.
@@ -400,8 +617,13 @@ It turns out then that the regression table is printing out for us a t test of s
 
 If rather than a binary explanatory variable, you had a factor with five levels. Then if you were to run a regression model this would result in a model with 4 dummy variables. The coefficient of each of these dummies would be telling you how much higher or lower (if the sign were negative) was the level of violence for each of the levels for which you have a dummy compared to your reference category or baseline. One thing that is important to keep in mind is that R by default will use as the baseline category the first level in your factor. 
 
-```{r}
+
+```r
 levels(df$largest50)
+```
+
+```
+## [1] "No"  "Yes"
 ```
 
 In our case you can see "No" is listed first. Keep in mind for your assignment that levels in factors are often alphabetically listed, not in a particularly meaningful or useful way.
@@ -414,17 +636,64 @@ In this section, we introduce the `pwr` package for power analysis. In the video
 But we can also check how much power we have after the fact, just to ensure we are not failing to reject the null hypothesis as a consequence of insufficient power. For this purposes we can use the `pwr` package. For computing the power when comparing two sample means we use the `pwr.t2n.test` function. This function expects we provide the sample size of each group (if we are doing the power calculation after we have collated our data) and the effect size we may want to be able to detect. Let's see how many people we have in each of our two groups (male and female) when assessing differences in fear of violent crime.
 
 
-```{r}
+
+```r
 library(psych)
+```
+
+```
+## 
+## Attaching package: 'psych'
+```
+
+```
+## The following objects are masked from 'package:ggplot2':
+## 
+##     %+%, alpha
+```
+
+```r
 BCS0708<-read.csv("https://raw.githubusercontent.com/eonk/dar_book/main/datasets/BCS0708.csv")
 describeBy(BCS0708$tcviolent, BCS0708$sex)
 ```
 
+```
+## 
+##  Descriptive statistics by group 
+## group: female
+##    vars    n mean   sd median trimmed  mad   min  max range skew kurtosis   se
+## X1    1 4475 0.33 1.04   0.23    0.25 0.96 -2.35 3.56  5.91 0.61     0.02 0.02
+## ------------------------------------------------------------ 
+## group: male
+##    vars    n  mean   sd median trimmed  mad   min  max range skew kurtosis   se
+## X1    1 3959 -0.27 0.86  -0.44   -0.36 0.69 -2.35 3.81  6.16  1.1     1.91 0.01
+```
+
 Ok, so that is 4475 and 3959. Let's say we want to detect even very small effect sizes. The functions in this package assume a default .05 level of statistical significance, although this is something we could change. So if we go with the default, we would write as follows:
 
-```{r}
+
+```r
 library(pwr)
+```
+
+```
+## Warning: package 'pwr' was built under R version 4.3.2
+```
+
+```r
 pwr.t2n.test(n1 = 4475, n2 = 3959, d= 0.2)
+```
+
+```
+## 
+##      t test power calculation 
+## 
+##              n1 = 4475
+##              n2 = 3959
+##               d = 0.2
+##       sig.level = 0.05
+##           power = 1
+##     alternative = two.sided
 ```
 
 The function is telling us that we have a power of 1. The statistical power ranges from 0 to 1, and as statistical power increases, the probability of making a type II error (wrongly failing to reject the null) decreases. So with a power of 1 we are very unlikely indeed to failing to reject the null hypothesis when we should.
