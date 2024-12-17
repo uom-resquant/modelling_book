@@ -239,7 +239,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.5" data-path="regression-iii.html"><a href="regression-iii.html#presenting-your-regression-results."><i class="fa fa-check"></i><b>7.5</b> Presenting your regression results.</a></li>
 <li class="chapter" data-level="7.6" data-path="regression-iii.html"><a href="regression-iii.html#rescaling-input-variables-to-assist-interpretation"><i class="fa fa-check"></i><b>7.6</b> Rescaling input variables to assist interpretation</a></li>
 <li class="chapter" data-level="7.7" data-path="regression-iii.html"><a href="regression-iii.html#testing-conditional-hypothesis-interactions"><i class="fa fa-check"></i><b>7.7</b> Testing conditional hypothesis: interactions</a></li>
-<li class="chapter" data-level="7.8" data-path="regression-iii.html"><a href="regression-iii.html#plotting-residuals"><i class="fa fa-check"></i><b>7.8</b> Plotting residuals</a></li>
+<li class="chapter" data-level="7.8" data-path="regression-iii.html"><a href="regression-iii.html#multicollinearity"><i class="fa fa-check"></i><b>7.8</b> Multicollinearity</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="studying-relationships-between-two-factors.html"><a href="studying-relationships-between-two-factors.html"><i class="fa fa-check"></i><b>8</b> Studying relationships between two factors</a>
 <ul>
@@ -433,17 +433,18 @@ If you want to change this you may need to reorder the levels. See <a href="http
 <p>We are going to use instead the <code>plot_model()</code> function of the <code>sjPlot</code> package, that makes it easier to produce this sort of plots. You can find a more detailed tutorial about this function <a href="http://rpubs.com/sjPlot/sjplm">here</a>. See below for an example:</p>
 <div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="regression-iii.html#cb412-1" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span></code></pre></div>
 <pre><code>## Warning: package &#39;sjPlot&#39; was built under R version 4.3.3</code></pre>
+<pre><code>## Learn more about sjPlot with &#39;browseVignettes(&quot;sjPlot&quot;)&#39;.</code></pre>
 <p>Let’s try with a more complex example:</p>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="regression-iii.html#cb414-1" tabindex="-1"></a>fit_4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_viol_r <span class="sc">~</span> unemployed <span class="sc">+</span> largest50 <span class="sc">+</span> black <span class="sc">+</span> fborn <span class="sc">+</span> log_incarceraton, <span class="at">data=</span>df)</span>
-<span id="cb414-2"><a href="regression-iii.html#cb414-2" tabindex="-1"></a><span class="fu">plot_model</span>(fit_4)</span></code></pre></div>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="regression-iii.html#cb415-1" tabindex="-1"></a>fit_4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_viol_r <span class="sc">~</span> unemployed <span class="sc">+</span> largest50 <span class="sc">+</span> black <span class="sc">+</span> fborn <span class="sc">+</span> log_incarceraton, <span class="at">data=</span>df)</span>
+<span id="cb415-2"><a href="regression-iii.html#cb415-2" tabindex="-1"></a><span class="fu">plot_model</span>(fit_4)</span></code></pre></div>
 <p><img src="07_regression_III_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <!-- Be advised to use these plots judiciously. There may be other sort of plots that may be [more appropriate](http://www.carlislerainey.com/2012/07/06/why-i-dont-like-coefficient-plots/) for what you want to communicate to your audience than the coefficient plot.-->
 <p>You can further customise this:</p>
-<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="regression-iii.html#cb415-1" tabindex="-1"></a><span class="fu">plot_model</span>(fit_4, <span class="at">title=</span><span class="st">&quot;Violence across cities&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="regression-iii.html#cb416-1" tabindex="-1"></a><span class="fu">plot_model</span>(fit_4, <span class="at">title=</span><span class="st">&quot;Violence across cities&quot;</span>)</span></code></pre></div>
 <p><img src="07_regression_III_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>What you see plotted here is the point estimates (the circles), the confidence intervals around those estimates (the longer the line the less precise the estimate), and the colours represent whether the effect is negative (red) or positive (blue). There are other packages that also provide similar functionality, like the <code>dotwhisker</code> package that you may want to explore, see more details <a href="https://cran.r-project.org/web/packages/dotwhisker/vignettes/dotwhisker-vignette.html">here</a>.</p>
 <p>The <code>sjPlot</code> package also allows you to produce html tables for more professional presentation of your regression tables. For this we use the <code>tab_model()</code> function. This kind of tabulation may be particularly helpful for your final assignment.</p>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="regression-iii.html#cb416-1" tabindex="-1"></a><span class="fu">tab_model</span>(fit_4)</span></code></pre></div>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="regression-iii.html#cb417-1" tabindex="-1"></a><span class="fu">tab_model</span>(fit_4)</span></code></pre></div>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
@@ -569,7 +570,7 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 </tr>
 </table>
 <p>As before you can further customise this table. Let’s change for example the name that is displayed for the dependent variable.</p>
-<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="regression-iii.html#cb417-1" tabindex="-1"></a><span class="fu">tab_model</span>(fit_4, <span class="at">dv.labels =</span> <span class="st">&quot;Violence rate (log)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="regression-iii.html#cb418-1" tabindex="-1"></a><span class="fu">tab_model</span>(fit_4, <span class="at">dv.labels =</span> <span class="st">&quot;Violence rate (log)&quot;</span>)</span></code></pre></div>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
@@ -695,7 +696,7 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 </tr>
 </table>
 <p>Or you could change the labels for the independent variables:</p>
-<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="regression-iii.html#cb418-1" tabindex="-1"></a><span class="fu">tab_model</span>(fit_4, <span class="at">pred.labels =</span> <span class="fu">c</span>(<span class="st">&quot;(Intercept)&quot;</span>, <span class="st">&quot;Percent unemployment&quot;</span>, <span class="st">&quot;Largest cities (Yes)&quot;</span>, <span class="st">&quot;Percent black&quot;</span>, <span class="st">&quot;Percent foreign born&quot;</span>, <span class="st">&quot;Incarceration rate (log)&quot;</span>), <span class="at">dv.labels =</span> <span class="st">&quot;Violence rate (log)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="regression-iii.html#cb419-1" tabindex="-1"></a><span class="fu">tab_model</span>(fit_4, <span class="at">pred.labels =</span> <span class="fu">c</span>(<span class="st">&quot;(Intercept)&quot;</span>, <span class="st">&quot;Percent unemployment&quot;</span>, <span class="st">&quot;Largest cities (Yes)&quot;</span>, <span class="st">&quot;Percent black&quot;</span>, <span class="st">&quot;Percent foreign born&quot;</span>, <span class="st">&quot;Incarceration rate (log)&quot;</span>), <span class="at">dv.labels =</span> <span class="st">&quot;Violence rate (log)&quot;</span>)</span></code></pre></div>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
@@ -821,19 +822,19 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 </tr>
 </table>
 <p>Visual display of the effects of the variables in the model are particularly helpful. The <code>effects</code> package allows us to produce plots to visualise these relationships (when adjusting for the other variables in the model). Here’s an example going back to our model fit_3 which contained unemployment and the dummy for large cities as predictor variables:</p>
-<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="regression-iii.html#cb419-1" tabindex="-1"></a><span class="fu">library</span>(effects)</span></code></pre></div>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="regression-iii.html#cb420-1" tabindex="-1"></a><span class="fu">library</span>(effects)</span></code></pre></div>
 <pre><code>## Warning: package &#39;effects&#39; was built under R version 4.3.3</code></pre>
 <pre><code>## Loading required package: carData</code></pre>
 <pre><code>## lattice theme set by effectsTheme()
 ## See ?effectsTheme for details.</code></pre>
-<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="regression-iii.html#cb423-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">allEffects</span>(fit_3), <span class="at">ask=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="regression-iii.html#cb424-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">allEffects</span>(fit_3), <span class="at">ask=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="07_regression_III_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>Notice that the line has a confidence interval drawn around it (to reflect the likely impact of sampling variation) and that the predicted means for smaller and largest cities (when controlling for unemployment) also have a confidence interval.</p>
 </div>
 <div id="rescaling-input-variables-to-assist-interpretation" class="section level2 hasAnchor" number="7.6">
 <h2><span class="header-section-number">7.6</span> Rescaling input variables to assist interpretation<a href="regression-iii.html#rescaling-input-variables-to-assist-interpretation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The interpretation or regression coefficients is sensitive to the scale of measurement of the predictors. This means one cannot compare the magnitude of the coefficients to compare the relevance of variables to predict the response variable. Let’s look at the more recent model, how can we tell what predictors have a stronger effect?</p>
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="regression-iii.html#cb424-1" tabindex="-1"></a><span class="fu">summary</span>(fit_4)</span></code></pre></div>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="regression-iii.html#cb425-1" tabindex="-1"></a><span class="fu">summary</span>(fit_4)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = log_viol_r ~ unemployed + largest50 + black + fborn + 
@@ -861,8 +862,8 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <p>We just cannot. One way of dealing with this is by rescaling the input variables. A common method involves subtracting the mean and dividing by the standard deviation of each numerical input. The coefficients in these models is the expected difference in the response variable, comparing units that differ by one standard deviation in the predictor while adjusting for other predictors in the model.</p>
 <p>Instead, <a href="http://www.stat.columbia.edu/~gelman/research/published/standardizing7.pdf">Gelman (2008)</a> has proposed dividing each numeric variables <em>by two times its standard deviation</em>, so that the generic comparison is with inputs equal to plus/minus one standard deviation. As Gelman explains the resulting coefficients are then comparable to untransformed binary predictors. The implementation of this approach in the <code>arm</code> package subtract the mean of each binary input while it subtract the mean and divide by two standard deviations for every numeric input.</p>
 <p>The way we would obtain these rescaled inputs uses the <code>standardize()</code> function of the <code>arm</code> package, that takes as an argument the name of the stored fit model.</p>
-<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="regression-iii.html#cb426-1" tabindex="-1"></a><span class="fu">library</span>(arm)</span>
-<span id="cb426-2"><a href="regression-iii.html#cb426-2" tabindex="-1"></a><span class="fu">standardize</span>(fit_4)</span></code></pre></div>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="regression-iii.html#cb427-1" tabindex="-1"></a><span class="fu">library</span>(arm)</span>
+<span id="cb427-2"><a href="regression-iii.html#cb427-2" tabindex="-1"></a><span class="fu">standardize</span>(fit_4)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = log_viol_r ~ z.unemployed + c.largest50 + z.black + 
@@ -882,10 +883,10 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <p>One of the assumptions of the regression model is that the relationship between the response variable and your predictors is additive. That is, if you have two predictors <code>x1</code> and <code>x2</code>. Regression assumes that the effect of <code>x1</code> on <code>y</code> is the same at all levels of <code>x2</code>. If that is not the case, you are then violating one of the assumptions of regression. This is in fact one of the most important assumptions of regression, even if researchers often overlook it.</p>
 <p>One way of extending our model to accommodate for interaction effects is to add additional terms to our model, a third predictor <code>x3</code>, where <code>x3</code> is simply the product of multiplying <code>x1</code> by <code>x2</code>. Notice we keep a term for each of the <strong>main effects</strong> (the original predictors) as well as a new term for the interaction effect. “Analysts should include all constitutive terms when specifying multiplicative interaction models except in very rare circumstances” (Brambor et al., 2006: 66).</p>
 <p>How do we do this in R? One way is to use the following notation in the formula argument. Notice how we have added a third term <code>unemployed:largest50</code>, which is asking R to test the conditional hypothesis that the size of the cities may have a different impact on violent crime rate.</p>
-<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="regression-iii.html#cb428-1" tabindex="-1"></a>fit_5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_viol_r <span class="sc">~</span> unemployed <span class="sc">+</span> largest50 <span class="sc">+</span> unemployed<span class="sc">:</span>largest50 , <span class="at">data=</span>df)</span>
-<span id="cb428-2"><a href="regression-iii.html#cb428-2" tabindex="-1"></a><span class="co"># which is equivalent to: </span></span>
-<span id="cb428-3"><a href="regression-iii.html#cb428-3" tabindex="-1"></a><span class="co"># fit_5 &lt;- lm(log_viol_r ~ unemployed * largest50, data=BCS0708)</span></span>
-<span id="cb428-4"><a href="regression-iii.html#cb428-4" tabindex="-1"></a><span class="fu">summary</span>(fit_5)</span></code></pre></div>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="regression-iii.html#cb429-1" tabindex="-1"></a>fit_5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_viol_r <span class="sc">~</span> unemployed <span class="sc">+</span> largest50 <span class="sc">+</span> unemployed<span class="sc">:</span>largest50 , <span class="at">data=</span>df)</span>
+<span id="cb429-2"><a href="regression-iii.html#cb429-2" tabindex="-1"></a><span class="co"># which is equivalent to: </span></span>
+<span id="cb429-3"><a href="regression-iii.html#cb429-3" tabindex="-1"></a><span class="co"># fit_5 &lt;- lm(log_viol_r ~ unemployed * largest50, data=BCS0708)</span></span>
+<span id="cb429-4"><a href="regression-iii.html#cb429-4" tabindex="-1"></a><span class="fu">summary</span>(fit_5)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = log_viol_r ~ unemployed + largest50 + unemployed:largest50, 
@@ -909,7 +910,7 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 ## F-statistic: 50.32 on 3 and 260 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>You see here that essentially you have only two inputs (the size of the city and unemployment) but several regression coefficients. Gelman and Hill (2007) suggest reserving the term input for the variables encoding the information and to use the term predictor to refer to each of the terms in the model. So here we have two inputs and four predictors (one for the constant term, one for unemployment, another for the largest 50 dummy, and a final one for the interaction effect).</p>
 <p>In this case the test for the interaction effect is non-significant, which suggests there isn’t such an interaction. The R squared barely changes. Let’s visualise the results with the <code>effects</code> package:</p>
-<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="regression-iii.html#cb430-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">allEffects</span>(fit_5), <span class="at">ask=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="regression-iii.html#cb431-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">allEffects</span>(fit_5), <span class="at">ask=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="07_regression_III_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <p>Notice that essentially what we are doing is running two regression lines and testing whether the slope is different for the two groups. The intercept is different, we know that largest cities are more violent, but what we are testing here is whether violence goes up in a steeper fashion (and in the same direction) for one or the other group as unemployment goes up. We see that’s not the case here. The estimated lines are almost parallel.</p>
 <p>A word of warning, the moment you introduce an interaction effect the meaning of the coefficients for the other predictors changes (what it is often referred as to the “main effects” as opposed to the interaction effect). You cannot retain the interpretation we introduced earlier. Now, for example, the coefficient for the <em>largest50</em> variable relates the marginal effect of this variable when <em>unemployment</em> equals zero. The typical table of results helps you to understand whether the effects are significant but offers little of interest that will help you to meaningfully interpret what the effects are. For this is better you use some of the graphical displays we have covered.</p>
@@ -922,97 +923,213 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 </ul>
 <p>Models with interaction terms are too often misinterpreted. We strongly recommend you read this piece by <a href="https://files.nyu.edu/mrg217/public/pa_final.pdf">Brambor et al (2005)</a> to understand some of the issues involved. When discussing logistic regression we will return to this and will consider tricks to ease the interpretation.</p>
 <p>Equally, <a href="http://www.jstatsoft.org/v08/i15/paper">John Fox (2003)</a> piece on the <code>effects</code> package goes to much more detail that we can here to explain the logic and some of the options that are available when producing plots to show interactions with this package. You may also want to have a look at the newer <code>interactions</code> package <a href="https://interactions.jacob-long.com/index.html">here</a>.</p>
-</div>
-<div id="plotting-residuals" class="section level2 hasAnchor" number="7.8">
-<h2><span class="header-section-number">7.8</span> Plotting residuals<a href="regression-iii.html#plotting-residuals" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Many of the assumptions can be tested first by having a look at your residuals. Remember, the residuals are the ‘error’ in your model. In previous weeks we defined the ordinary residuals as the difference between the observed and the predicted values, the distance between the points in your scatterplot and the regression line. Apart from the ordinary residuals, most software computes other forms of closely related ones: the standardised, the studentised, and the Pearson residuals.</p>
-<p>The raw residuals are just the difference between the observed and the predicted, the other three are ways of normalising this measure, so you can compare what is large, what is small, etc. For example, with the standardized residuals, you essentailly calculate z scores, and given a normal distribution of the standardized residuals, the mean is 0, and the standard deviations is 1.
-Pearson residuas are raw residuals divided by the standard error of the observed value.
-Studentized resiruals (also called standardized pearson residuals) are raw residuals divided by their standard error.
-You can read more about these <a href="https://r-forge.r-project.org/scm/viewvc.php/*checkout*/pkg/BinomTools/inst/ResidualsGLM.pdf?revision=6&amp;root=binomtools&amp;pathrev=6">here</a>.</p>
-<p>Plotting these residuals versus the fitted values and versus each of the predictors is the most basic way of diagnosing problems with your regression model. However, as Fox and Weisberg (2011) emphasise
-&gt; this “is useful for revealing problems but less useful for determining the exact nature of the problem” and consequently one needs “other diagnostic graphs to suggest improvements to the model”.</p>
-<p>In the previous session we fitted the model <code>tcviolent ~ tcarea + sex</code>. This was our <code>fit_3</code> model during that session. You may have to run the model again if you do not have it in your global environment.</p>
-<p>To obtain the basic residual plots for this model we use the <code>residualPlots()</code> function of the <code>car</code> package.</p>
-<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="regression-iii.html#cb431-1" tabindex="-1"></a><span class="fu">library</span>(car)</span></code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;car&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:arm&#39;:
+<!--## Plotting residuals
+
+Many of the assumptions can be tested first by having a look at your residuals. Remember, the residuals are the 'error' in your model. In previous weeks we defined the ordinary residuals as the difference between the observed and the predicted values, the distance between the points in your scatterplot and the regression line. Apart from the ordinary residuals, most software computes other forms of closely related ones: the standardised, the studentised, and the Pearson residuals. 
+
+The raw residuals are just the difference between the observed and the predicted, the other three are ways of normalising this measure, so you can compare what is large, what is small, etc. For example, with the standardized residuals, you essentailly calculate z scores, and given a normal distribution of the standardized residuals, the mean is 0, and the standard deviations is 1. 
+Pearson residuas are raw residuals divided by the standard error of the observed value. 
+Studentized resiruals (also called standardized pearson residuals) are raw residuals divided by their standard error. 
+You can read more about these [here](https://r-forge.r-project.org/scm/viewvc.php/*checkout*/pkg/BinomTools/inst/ResidualsGLM.pdf?revision=6&root=binomtools&pathrev=6). 
+
+Plotting these residuals versus the fitted values and versus each of the predictors is the most basic way of diagnosing problems with your regression model. However, as Fox and Weisberg (2011) emphasise 
+> this "is useful for revealing problems but less useful for determining the exact nature of the problem" and consequently one needs "other diagnostic graphs to suggest improvements to the model".
+
+In the previous session we fitted the model `tcviolent ~ tcarea + sex`. This was our `fit_3` model during that session. You may have to run the model again if you do not have it in your global environment.
+
+To obtain the basic residual plots for this model we use the `residualPlots()` function of the `car` package.
+
+
+
+```r
+library(car)
+```
+
+```
 ## 
-##     logit</code></pre>
-<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## Attaching package: 'car'
+```
+
+```
+## The following object is masked from 'package:arm':
 ## 
-##     recode</code></pre>
-<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="regression-iii.html#cb435-1" tabindex="-1"></a>BCS0708<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/eonk/dar_book/main/datasets/BCS0708.csv&quot;</span>)</span>
-<span id="cb435-2"><a href="regression-iii.html#cb435-2" tabindex="-1"></a></span>
-<span id="cb435-3"><a href="regression-iii.html#cb435-3" tabindex="-1"></a>fit_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(tcviolent <span class="sc">~</span> tcarea <span class="sc">+</span> sex, <span class="at">data=</span>BCS0708)</span>
-<span id="cb435-4"><a href="regression-iii.html#cb435-4" tabindex="-1"></a><span class="fu">residualPlots</span>(fit_3)</span></code></pre></div>
-<p><img src="07_regression_III_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
-<pre><code>##            Test stat Pr(&gt;|Test stat|)    
+##     logit
+```
+
+```
+## The following object is masked from 'package:dplyr':
+## 
+##     recode
+```
+
+```r
+BCS0708<-read.csv("https://raw.githubusercontent.com/eonk/dar_book/main/datasets/BCS0708.csv")
+
+fit_3 <- lm(tcviolent ~ tcarea + sex, data=BCS0708)
+residualPlots(fit_3)
+```
+
+<img src="07_regression_III_files/figure-html/unnamed-chunk-21-1.png" width="672" />
+
+```
+##            Test stat Pr(>|Test stat|)    
 ## tcarea        6.2571        4.123e-10 ***
 ## sex                                      
 ## Tukey test    4.6065        4.094e-06 ***
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<p>This function will produce plots of the Pearson residuals versus each of the predictors in the model and versus the fitted values.</p>
-<div id="residuals-vs-predicted-values" class="section level4 hasAnchor" number="7.8.0.1">
-<h4><span class="header-section-number">7.8.0.1</span> Residuals vs predicted values<a href="regression-iii.html#residuals-vs-predicted-values" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>The most important of this is the last one, <em>the scatterplot of the Pearson residuals versus the fitted values</em>. In these plots one has to pay particular attention to nonlinear trends, trends in variations across the graph, but also isolated points.
-Ideally a plot of the residuals should show that:</p>
-<ul>
-<li>they’re pretty symmetrically distributed, tending to cluster towards the middle of the plot</li>
-<li>they’re clustered around the lower single digits of the y-axis (e.g., 0.5 or 1.5, not 30 or 150)</li>
-<li>in general there aren’t clear patterns</li>
-</ul>
-<p>For example this is a good looking scatterplot of residuals vs fitted values:</p>
-<p><img src="imgs/respre.png" /></p>
-<p>On the other hand, if your plot isn’t evenly distributed vertically, or they have an outlier, or they have a clear shape to them, that indicates you can detect a clear pattern or trend in your residuals. In this case, then your model has room for improvement.</p>
-<p>For example, these are scatterplots of residuals vs fitted values that indicate a problem:
-<img src="imgs/respre2.png" />
-<img src="imgs/respre3.png" />
-<img src="imgs/respre4.png" />
-<img src="imgs/respre5.png" /></p>
-<p>How concerned should you be if your model isn’t perfect, if your residuals look a bit unhealthy? It’s up to you. Most of the time a decent model is better than none at all. So take your model, try to improve it, and then decide whether the accuracy is good enough to be useful for your purposes.</p>
-</div>
-<div id="residuals-vs-predictors" class="section level4 hasAnchor" number="7.8.0.2">
-<h4><span class="header-section-number">7.8.0.2</span> Residuals vs predictors<a href="regression-iii.html#residuals-vs-predictors" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>These plots are related to the <strong>homogeneity of variance</strong> assumption we introduced earlier.</p>
-<p>When the predictor is <strong>categorical</strong>, we will see a collection of boxplots (one for each level in the predictor). A good fit will be indicated by boxplots that have the same centre and similar spread.</p>
-<p>When the predictor is <strong>numeric</strong>, we see a scatterplot of the predictor against the Pearson residuals. Here we also look at any systematic differences in the spread of the residuals across the X axis. When the variances are not unequal you can often see a funnel form shaping up, with less variance at one end of the X axis than the other. Though other systematic patterns are also possible. You also need to pay attention to the shape of the red line printed in the output. This line should be straight. If you observe non-linearities (e.g., a curved line), this may be a more serious issue than the unequal spread and will need addressing.</p>
-</div>
-<div id="diagnostic" class="section level4 hasAnchor" number="7.8.0.3">
-<h4><span class="header-section-number">7.8.0.3</span> Diagnostic<a href="regression-iii.html#diagnostic" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>When you run the <code>residualPlots()</code> function R will also print two numerical tests.</p>
-<p>First we have a curvature test for each of the plots by adding a quadratic term and testing the quadratic to be zero (more on this in a few sections). This is Tukey’s test for nonadditivity when plotting against fitted values. When this test is significant it may indicate a <strong>lack of fit</strong> for this particular predictor.</p>
-<p>The Tukey test optimally should not be significant. We can see in the first of the three plots that the red line is a bit curved. It is this pattern that the printed tests are picking up.</p>
-</div>
-<div id="marginal-plots" class="section level4 hasAnchor" number="7.8.0.4">
-<h4><span class="header-section-number">7.8.0.4</span> Marginal plots<a href="regression-iii.html#marginal-plots" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>We can further diagnose the model by printing <strong>marginal model plots</strong> using the <code>marginalModelPlots()</code> function of the <code>car</code> package.</p>
-<pre><code>## Error in plot.window(...): need finite &#39;xlim&#39; values</code></pre>
-<p><img src="07_regression_III_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
-<p>This will plot a scatterplot for each predictor variable against the response variable. This displays the conditional distribution of the response given each predictor, <em>ignoring the other predictors</em>. They are called marginal plots because they show the marginal relationship between the outcome and <em>each predictor</em>. It will also print a scatterplot of the response versus the fitted value displaying the conditional distribution of the outcome given the fit of the model. We observe here the curvature that was already identified by the previous plots (notice the blue line).</p>
-<p>We can also use the <code>marginalModelPlots()</code> function to assess the <strong>homogeneity of variance</strong> assumption using the following argument:</p>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="regression-iii.html#cb438-1" tabindex="-1"></a><span class="fu">marginalModelPlots</span>(fit_3, <span class="at">sd =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>## Warning in xy.coords(x, y, xlabel, ylabel, log): NAs introduced by coercion</code></pre>
-<pre><code>## Warning in min(x): no non-missing arguments to min; returning Inf</code></pre>
-<pre><code>## Warning in max(x): no non-missing arguments to max; returning -Inf</code></pre>
-<pre><code>## Error in plot.window(...): need finite &#39;xlim&#39; values</code></pre>
-<p><img src="07_regression_III_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
-<p>This will print the estimated standard deviation lines to the graph. You would want this to be <strong>constant</strong> across the X axis.</p>
-</div>
-<div id="diagnostic-for-homoskedasiticity" class="section level4 hasAnchor" number="7.8.0.5">
-<h4><span class="header-section-number">7.8.0.5</span> Diagnostic for homoskedasiticity<a href="regression-iii.html#diagnostic-for-homoskedasiticity" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>And since we are discussing homoskedasiticity (e.g., homogeneity of variance or constant/equal variance), it is worth pointing out that the <code>car</code> package implements a score test that evaluates whether the variance is constant. To obtain this test we use the <code>ncvTest()</code> function.</p>
-<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="regression-iii.html#cb443-1" tabindex="-1"></a><span class="fu">ncvTest</span>(fit_3)</span></code></pre></div>
-<pre><code>## Non-constant Variance Score Test 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+This function will produce plots of the Pearson residuals versus each of the predictors in the model and versus the fitted values.
+
+#### Residuals vs predicted values
+The most important of this is the last one, *the scatterplot of the Pearson residuals versus the fitted values*. In these plots one has to pay particular attention to nonlinear trends, trends in variations across the graph, but also isolated points. 
+Ideally a plot of the residuals should show that: 
+
+- they’re pretty symmetrically distributed, tending to cluster towards the middle of the plot
+- they’re clustered around the lower single digits of the y-axis (e.g., 0.5 or 1.5, not 30 or 150)
+- in general there aren’t clear patterns
+
+For example this is a good looking scatterplot of residuals vs fitted values: 
+
+![](imgs/respre.png) 
+
+On the other hand, if your plot isn’t evenly distributed vertically, or they have an outlier, or they have a clear shape to them, that indicates you can detect a clear pattern or trend in your residuals. In this case, then your model has room for improvement.
+
+For example, these are scatterplots of residuals vs fitted values that indicate a problem: 
+![](imgs/respre2.png) 
+![](imgs/respre3.png) 
+![](imgs/respre4.png) 
+![](imgs/respre5.png) 
+
+How concerned should you be if your model isn’t perfect, if your residuals look a bit unhealthy? It’s up to you. Most of the time a decent model is better than none at all. So take your model, try to improve it, and then decide whether the accuracy is good enough to be useful for your purposes.
+
+#### Residuals vs predictors
+
+These plots are related to the **homogeneity of variance** assumption we introduced earlier.
+
+When the predictor is **categorical**, we will see a collection of boxplots (one for each level in the predictor). A good fit will be indicated by boxplots that have the same centre and similar spread. 
+
+When the predictor is **numeric**, we see a scatterplot of the predictor against the Pearson residuals. Here we also look at any systematic differences in the spread of the residuals across the X axis. When the variances are not unequal you can often see a funnel form shaping up, with less variance at one end of the X axis than the other. Though other systematic patterns are also possible. You also need to pay attention to the shape of the red line printed in the output. This line should be straight. If you observe non-linearities (e.g., a curved line), this may be a more serious issue than the unequal spread and will need addressing.
+
+#### Diagnostic
+
+When you run the `residualPlots()` function R will also print two numerical tests. 
+
+First we have a curvature test for each of the plots by adding a quadratic term and testing the quadratic to be zero (more on this in a few sections). This is Tukey's test for nonadditivity when plotting against fitted values. When this test is significant it may indicate a **lack of fit** for this particular predictor. 
+
+The Tukey test optimally should not be significant. We can see in the first of the three plots that the red line is a bit curved. It is this pattern that the printed tests are picking up. 
+
+
+#### Marginal plots
+We can further diagnose the model by printing **marginal model plots** using the `marginalModelPlots()` function of the `car` package.
+
+
+```
+## Error in plot.window(...): need finite 'xlim' values
+```
+
+<img src="07_regression_III_files/figure-html/unnamed-chunk-22-1.png" width="672" />
+
+This will plot a scatterplot for each predictor variable against the response variable. This displays the conditional distribution of the response given each predictor, *ignoring the other predictors*. They are called marginal plots because they show the marginal relationship between the outcome and *each predictor*. It will also print a scatterplot of the response versus the fitted value displaying the conditional distribution of the outcome given the fit of the model. We observe here the curvature that was already identified by the previous plots (notice the blue line).
+
+We can also use the `marginalModelPlots()` function to assess the **homogeneity of variance** assumption using the following argument:
+
+
+```r
+marginalModelPlots(fit_3, sd = TRUE)
+```
+
+```
+## Warning in xy.coords(x, y, xlabel, ylabel, log): NAs introduced by coercion
+```
+
+```
+## Warning in min(x): no non-missing arguments to min; returning Inf
+```
+
+```
+## Warning in max(x): no non-missing arguments to max; returning -Inf
+```
+
+```
+## Error in plot.window(...): need finite 'xlim' values
+```
+
+<img src="07_regression_III_files/figure-html/unnamed-chunk-23-1.png" width="672" />
+
+This will print the estimated standard deviation lines to the graph. You would want this to be **constant** across the X axis.
+
+#### Diagnostic for homoskedasiticity
+And since we are discussing homoskedasiticity (e.g., homogeneity of variance or constant/equal variance), it is worth pointing out that the `car` package implements a score test that evaluates whether the variance is constant. To obtain this test we use the `ncvTest()` function.
+
+
+```r
+ncvTest(fit_3)
+```
+
+```
+## Non-constant Variance Score Test 
 ## Variance formula: ~ fitted.values 
-## Chisquare = 186.8947, Df = 1, p = &lt; 2.22e-16</code></pre>
-<p>When the test is <strong>significant</strong>, as it is here, we may suspect there <strong>is</strong> a problem with non-constant variance (also called heterokedasticity). In practice, should already be visible from the plot of residuals versus fits plot.</p>
+## Chisquare = 186.8947, Df = 1, p = < 2.22e-16
+```
+
+When the test is **significant**, as it is here, we may suspect there **is** a problem with non-constant variance (also called heterokedasticity). In practice, should already be visible from the plot of residuals versus fits plot.
+-->
+</div>
+<div id="multicollinearity" class="section level2 hasAnchor" number="7.8">
+<h2><span class="header-section-number">7.8</span> Multicollinearity<a href="regression-iii.html#multicollinearity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The regression model may experience some problems where there is strong collinearity, when the predictors are related among themselves. In these scenarios, the standard errors for the coefficients will be large and the confidence intervals will also be broader. The power of the hypothesis test for our t statistic will be lower. That is, it will be more difficult to detect a significant relationship even if there is one.</p>
+<p>To diagnose multicollinearity a first step may be to observe the correlation between the predictors in the model. Let’s first subset the data to only obtain the relevant predictors and our main outcome. For this I will introduce another form of selecting columns in a dataframe using the <code>dplyr</code> package.</p>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="regression-iii.html#cb432-1" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb432-2"><a href="regression-iii.html#cb432-2" tabindex="-1"></a><span class="fu">library</span>(dplyr, <span class="at">quietly=</span><span class="cn">TRUE</span>, <span class="at">warn.conflict=</span><span class="cn">FALSE</span>)</span>
+<span id="cb432-3"><a href="regression-iii.html#cb432-3" tabindex="-1"></a>data <span class="ot">&lt;-</span> Boston</span>
+<span id="cb432-4"><a href="regression-iii.html#cb432-4" tabindex="-1"></a>Boston_R <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(data, crim, lstat, dis, chas, medv)</span></code></pre></div>
+<p>Then we can obtain the correlations using the <code>cor()</code> function.</p>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="regression-iii.html#cb433-1" tabindex="-1"></a>c_1 <span class="ot">&lt;-</span> <span class="fu">cor</span>(Boston_R)</span>
+<span id="cb433-2"><a href="regression-iii.html#cb433-2" tabindex="-1"></a>c_1</span></code></pre></div>
+<pre><code>##              crim      lstat         dis        chas       medv
+## crim   1.00000000  0.4556215 -0.37967009 -0.05589158 -0.3883046
+## lstat  0.45562148  1.0000000 -0.49699583 -0.05392930 -0.7376627
+## dis   -0.37967009 -0.4969958  1.00000000 -0.09917578  0.2499287
+## chas  -0.05589158 -0.0539293 -0.09917578  1.00000000  0.1752602
+## medv  -0.38830461 -0.7376627  0.24992873  0.17526018  1.0000000</code></pre>
+<p>And then we can visualise these correlations with the <code>corrplot</code> package.</p>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="regression-iii.html#cb435-1" tabindex="-1"></a><span class="fu">library</span>(corrplot, <span class="at">quietly =</span> <span class="cn">TRUE</span>, <span class="at">warn.conflicts =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## corrplot 0.92 loaded</code></pre>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="regression-iii.html#cb437-1" tabindex="-1"></a><span class="fu">corrplot</span>(c_1, <span class="at">order =</span> <span class="st">&quot;hclust&quot;</span>, <span class="at">tl.pos=</span><span class="st">&quot;d&quot;</span>)</span></code></pre></div>
+<p><img src="07_regression_III_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p>We can see that there are some non-trivial correlations between some of the predictors, in particular between median property value and percent lower status (r=-73). And keep in mind these coefficients are not picking up well enough the actual curvilinear relation that we saw in the scatterplot matrix printed earlier.</p>
+<p>Correlations among pairs of variables, will only give you a first impression of the problem. What we are really concerned is what happens once you throw all the variables in the model. Not all problems with multicollinearity will be detected by the correlation matrix. The recommended reading describes the variance inflation factor as a tool to diagnose multicollinearity. Let’s look at the on we obtain with the first model (pre-transformations) that we run with the <code>Boston</code> dataset:</p>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="regression-iii.html#cb438-1" tabindex="-1"></a>fit_B1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(crim <span class="sc">~</span> medv <span class="sc">+</span> lstat <span class="sc">+</span> dis <span class="sc">+</span> chas, <span class="at">data =</span> Boston)</span>
+<span id="cb438-2"><a href="regression-iii.html#cb438-2" tabindex="-1"></a><span class="fu">vif</span>(fit_B1)</span></code></pre></div>
+<pre><code>##     medv    lstat      dis     chas 
+## 2.358517 2.850675 1.399747 1.057865</code></pre>
+<p>Typically a VIF larger than 5 or 10 indicates serious problems wiht collinearity. Fox (2008) recommends using the square root of the variance inflation factor:</p>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="regression-iii.html#cb440-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">vif</span>(fit_B1))</span></code></pre></div>
+<pre><code>##     medv    lstat      dis     chas 
+## 1.535746 1.688394 1.183109 1.028525</code></pre>
+<p>Typically, it is assumed that you need a value greater than 2 for the square root of the variance inflation factor before collinearity seriously impairs the precision of the estimation. It does not look as if we would have to worry much on the basis of these results.</p>
+<p>When you have a set of related inputs or regressors (either because you have a multicategory factor and various dummy variables or because you have polynomial regressors) you cannot use the variance inflation factor. There is, however, a similar statistics that you can use in these contexts: the <strong>generalised variance inflation factor</strong>. We could use this measure for the final model we used for the <code>Boston</code> data. We invoke this statistic using the same code as before:</p>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="regression-iii.html#cb442-1" tabindex="-1"></a>fit_B3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(crim) <span class="sc">~</span> <span class="fu">poly</span>(medv, <span class="dv">2</span>) <span class="sc">+</span> <span class="fu">log</span>(lstat) <span class="sc">+</span> <span class="fu">log</span>(dis) <span class="sc">+</span> chas, <span class="at">data =</span> Boston)</span>
+<span id="cb442-2"><a href="regression-iii.html#cb442-2" tabindex="-1"></a></span>
+<span id="cb442-3"><a href="regression-iii.html#cb442-3" tabindex="-1"></a><span class="fu">vif</span>(fit_B3)</span></code></pre></div>
+<pre><code>##                   GVIF Df GVIF^(1/(2*Df))
+## poly(medv, 2) 4.439803  2        1.451580
+## log(lstat)    4.151409  1        2.037501
+## log(dis)      1.770096  1        1.330450
+## chas          1.058015  1        1.028599</code></pre>
+<p>Now that we are using the transformed variables it looks as if we have more of an issue with the coefficient for <code>lstat</code>. The confidence interval for this coefficient is about 2 times larger than it would be without collinearity, which goes a long way towards explaining why it is not longer significant.</p>
+<p>The problem with collinear inputs is that they do not add much new to the model. Non-collinearity is not an assumption of the regression model. And everything is related to everything else, to some extent at least. But if a predictor is strongly related to some other input, then we are simply adding redundant information to the model. If you are developing a risk assessment tool for probation, you don’t want to add loads of predictors that are highly correlated (for this simply is requiring probation to collect redundant information). Also, in these situations is hard to tell apart the relative importance of the collinear predictors (if you are interested in explanation rather than prediction). It can be difficult to separate their effects.</p>
+<p>There are a number of proposed solutions to multicollinearity, from dropping the culprits to creating composite variables that summarise variation among the correlated inputs, to more complex techniques, but all these are well beyond the aims of this course.</p>
+<p>It is very important, however, to remember that there are some circunstances in which multicollinearity can be safely ignored. Professor Paul Allison <a href="http://www.statisticalhorizons.com/multicollinearity">discusses this issue</a> in his blog and you may want to check the full discussion. Essentially, Prof. Allison argues that one can ignore multicollinearity when:</p>
+<ul>
+<li><p>“The variables with high VIFs are control variables, and the variables of interest do not have high VIFs… In this case the coefficients of the variables of interest are not affected, and the performance of the control variables as controls is not impaired.”</p></li>
+<li><p>“The high VIFs are caused by the inclusion of powers or products of other variables. If you specify a regression model with both x and x2, there’s a good chance that those two variables will be highly correlated. Similarly, if your model has x, z, and xz, both x and z are likely to be highly correlated with their product. This is not something to be concerned about, however, because the p-value for xz is not affected by the multicollinearity…”</p></li>
+<li><p>“The variables with high VIFs are indicator (dummy) variables that represent a categorical variable with three or more categories. If the proportion of cases in the reference category is small, the indicator variables will necessarily have high VIFs, even if the categorical variable is not associated with other variables in the regression model.”</p></li>
+</ul>
 <!--## Summary: exercise for this week
 Once you finish your lab session, don't forget to do this [Exercise](https://eonk.shinyapps.io/MCD_ex) and have a chance to sum-up this week's R codes.-->
 
-</div>
 </div>
 </div>
 <div class="footnotes">

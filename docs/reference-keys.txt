@@ -79,12 +79,7 @@ fitting-and-interpreting-a-multiple-regression-model
 presenting-your-regression-results.
 rescaling-input-variables-to-assist-interpretation
 testing-conditional-hypothesis-interactions
-plotting-residuals
-residuals-vs-predicted-values
-residuals-vs-predictors
-diagnostic
-marginal-plots
-diagnostic-for-homoskedasiticity
+multicollinearity
 studying-relationships-between-two-factors
 cross-tabulations
 expected-frequencies-and-chi-square

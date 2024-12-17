@@ -264,7 +264,7 @@ Models with interaction terms are too often misinterpreted. We strongly recommen
 Equally, [John Fox (2003)](http://www.jstatsoft.org/v08/i15/paper) piece on the `effects` package goes to much more detail that we can here to explain the logic and some of the options that are available when producing plots to show interactions with this package. You may also want to have a look at the newer `interactions` package [here](https://interactions.jacob-long.com/index.html).
 
 
-## Plotting residuals
+<!--## Plotting residuals
 
 Many of the assumptions can be tested first by having a look at your residuals. Remember, the residuals are the 'error' in your model. In previous weeks we defined the ordinary residuals as the difference between the observed and the predicted values, the distance between the points in your scatterplot and the regression line. Apart from the ordinary residuals, most software computes other forms of closely related ones: the standardised, the studentised, and the Pearson residuals. 
 
@@ -354,7 +354,74 @@ ncvTest(fit_3)
 ```
 
 When the test is **significant**, as it is here, we may suspect there **is** a problem with non-constant variance (also called heterokedasticity). In practice, should already be visible from the plot of residuals versus fits plot.
+-->
 
+## Multicollinearity
+
+The regression model may experience some problems where there is strong collinearity, when the predictors are related among themselves. In these scenarios, the standard errors for the coefficients will be large and the confidence intervals will also be broader. The power of the hypothesis test for our t statistic will be lower. That is, it will be more difficult to detect a significant relationship even if there is one.
+
+To diagnose multicollinearity a first step may be to observe the correlation between the predictors in the model. Let's first subset the data to only obtain the relevant predictors and our main outcome. For this I will introduce another form of selecting columns in a dataframe using the `dplyr` package.
+
+```{r}
+library(MASS)
+library(dplyr, quietly=TRUE, warn.conflict=FALSE)
+data <- Boston
+Boston_R <- dplyr::select(data, crim, lstat, dis, chas, medv)
+```
+
+Then we can obtain the correlations using the `cor()` function.
+
+```{r}
+c_1 <- cor(Boston_R)
+c_1
+```
+
+And then we can visualise these correlations with the `corrplot` package. 
+
+```{r}
+library(corrplot, quietly = TRUE, warn.conflicts = FALSE)
+corrplot(c_1, order = "hclust", tl.pos="d")
+```
+
+We can see that there are some non-trivial correlations between some of the predictors, in particular between median property value and percent lower status (r=-73). And keep in mind these coefficients are not picking up well enough the actual curvilinear relation that we saw in the scatterplot matrix printed earlier.
+
+Correlations among pairs of variables, will only give you a first impression of the problem. What we are really concerned is what happens once you throw all the variables in the model. Not all problems with multicollinearity will be detected by the correlation matrix. The recommended reading describes the variance inflation factor as a tool to diagnose multicollinearity. Let's look at the on we obtain with the first model (pre-transformations) that we run with the `Boston` dataset:
+
+```{r}
+fit_B1 <- lm(crim ~ medv + lstat + dis + chas, data = Boston)
+vif(fit_B1)
+```
+
+Typically a VIF larger than 5 or 10 indicates serious problems wiht collinearity. Fox (2008) recommends using the square root of the variance inflation factor:
+
+```{r}
+
+sqrt(vif(fit_B1))
+```
+
+Typically, it is assumed that you need a value greater than 2 for the square root of the variance inflation factor before collinearity seriously impairs the precision of the estimation. It does not look as if we would have to worry much on the basis of these results.
+
+When you have a set of related inputs or regressors (either because you have a multicategory factor and various dummy variables or because you have polynomial regressors) you cannot use the variance inflation factor. There is, however, a similar statistics that you can use in these contexts: the **generalised variance inflation factor**. We could use this measure for the final model we used for the `Boston` data. We invoke this statistic using the same code as before:
+
+```{r}
+fit_B3 <- lm(log(crim) ~ poly(medv, 2) + log(lstat) + log(dis) + chas, data = Boston)
+
+vif(fit_B3)
+```
+
+Now that we are using the transformed variables it looks as if we have more of an issue with the coefficient for `lstat`. The confidence interval for this coefficient is about 2 times larger than it would be without collinearity, which goes a long way towards explaining why it is not longer significant.
+
+The problem with collinear inputs is that they do not add much new to the model. Non-collinearity is not an assumption of the regression model. And everything is related to everything else, to some extent at least. But if a predictor is strongly related to some other input, then we are simply adding redundant information to the model. If you are developing a risk assessment tool for probation, you don't want to add loads of predictors that are highly correlated (for this simply is requiring probation to collect redundant information). Also, in these situations is hard to tell apart the relative importance of the collinear predictors (if you are interested in explanation rather than prediction). It can be difficult to separate their effects.
+
+There are a number of proposed solutions to multicollinearity, from dropping the culprits to creating composite variables that summarise variation among the correlated inputs, to more complex techniques, but all these are well beyond the aims of this course.
+
+It is very important, however, to remember that there are some circunstances in which multicollinearity can be safely ignored. Professor Paul Allison [discusses this issue](http://www.statisticalhorizons.com/multicollinearity) in his blog and you may want to check the full discussion. Essentially, Prof. Allison argues that one can ignore multicollinearity when:
+
++ "The variables with high VIFs are control variables, and the variables of interest do not have high VIFs... In this case the coefficients of the variables of interest are not affected, and the performance of the control variables as controls is not impaired."
+
++ "The high VIFs are caused by the inclusion of powers or products of other variables. If you specify a regression model with both x and x2, there’s a good chance that those two variables will be highly correlated. Similarly, if your model has x, z, and xz, both x and z are likely to be highly correlated with their product. This is not something to be concerned about, however, because the p-value for xz is not affected by the multicollinearity..."
+
++ "The variables with high VIFs are indicator (dummy) variables that represent a categorical variable with three or more categories. If the proportion of cases in the reference category is small, the indicator variables will necessarily have high VIFs, even if the categorical variable is not associated with other variables in the regression model."
 
 
 
