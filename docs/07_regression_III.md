@@ -1,5 +1,187 @@
 # Regression III
 
+## Introduction
+
+## Fitting regression with categorical predictors
+
+So far we have explained regression using a numeric input. It turns out we can also use regression with categorical explanatory variables. It is quite straightforward to run it. 
+
+We have one categorical variable in the dataset, *largest50*, identifying whether the city is one of the 50 largest in the country.
+
+
+```r
+urlfile <- "https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/46WIH0/ARS2VS"
+communitycrime <- read.table(urlfile, sep = '\t',header = T)
+library(dplyr)
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
+df <- filter(communitycrime, year == "2012")
+df <- select(df, place_name, state_name, viol_r, black, lesshs, unemployed, fborn, incarceration, log_incarceraton, swornftime_r, log_viol_r, largest50)
+
+
+
+
+table(df$largest50)
+```
+
+```
+## 
+##   0   1 
+## 216  48
+```
+
+```r
+class(df$largest50)
+```
+
+```
+## [1] "numeric"
+```
+
+This variable is however stored in a numeric vector. We may want to change this to reflect the fact it is actually categorical.
+
+
+```r
+df$largest50 <- as.factor(df$largest50)
+class(df$largest50)
+```
+
+```
+## [1] "factor"
+```
+
+Let's rename the levels. In previous sessions we have illustrated how to do that with base R functions. Here we introduce a new package `forcats` that is worth considering when doing any work with factor variables. You can read more about it [here](https://forcats.tidyverse.org).
+
+
+```r
+library(forcats)
+df$largest50 <- fct_recode(df$largest50, Yes = "1", No = "0")
+table(df$largest50)
+```
+
+```
+## 
+##  No Yes 
+## 216  48
+```
+
+We can explore if particularly large cities have higher rates of violence (remember a rate controls for population size, so if this were to be significant it would be telling us that it's not just because there is more people in them!). This is how you would express the model:
+
+
+```r
+fit_2 <- lm(log_viol_r ~ largest50, data=df)
+```
+
+Notice that there is nothing different in how we ask for the model. And see below the regression line:
+
+
+```
+## Warning: package 'ggplot2' was built under R version 4.3.2
+```
+
+```
+## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## ℹ Please use `linewidth` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+```
+
+<img src="07_regression_III_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+
+Although in the plot we still see a line, what we are really estimating here is the average of *log_viol_r* for each of the two categories. 
+
+Let's have a look at the results:
+
+
+```r
+summary(fit_2)
+```
+
+```
+## 
+## Call:
+## lm(formula = log_viol_r ~ largest50, data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.11616 -0.48286  0.02965  0.51523  1.49789 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)   5.94763    0.04771 124.661  < 2e-16 ***
+## largest50Yes  0.62114    0.11189   5.551 6.94e-08 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.7012 on 262 degrees of freedom
+## Multiple R-squared:  0.1052,	Adjusted R-squared:  0.1018 
+## F-statistic: 30.82 on 1 and 262 DF,  p-value: 6.943e-08
+```
+
+As you will see the output does not look too different. But notice that in the print out you see how the row with the coefficient and other values for our input variable *largest50* we see that R is printing `largest50Yes`. What does this mean?
+
+Remember week 6 and t tests? It turns out that a linear regression model with just one dichotomous categorical predictor is just the equivalent of a t test. When you only have one predictor the value of the intercept is the mean value of what we call the **reference category** and the coefficient for the slope tells you how much higher (if it is positive) or how much lower (if it is negative) is the mean value for the other category in your factor.
+
+The reference category is the one for which R does not print the *level* next to the name of the variable for which it gives you the regression coefficient. Here we see that the named level is "Yes" (`largest50Yes`). That's telling you that the reference category here is "No". Therefore the Y intercept in this case is the mean value of violence for cities that are not the largest in the country, whereas the coefficient for the slope is telling you how much higher the mean value is for the largest cities in the country. Don't believe me?
+
+
+```r
+#Compute the mean for the smaller cities
+mean(df$log_viol_r[df$largest50 == "No"], na.rm=TRUE)
+```
+
+```
+## [1] 5.947628
+```
+
+```r
+#Compute the difference between the two means
+mean(df$log_viol_r[df$largest50 == "Yes"], na.rm=TRUE) - mean(df$log_viol_r[df$largest50 == "No"], na.rm=TRUE)
+```
+
+```
+## [1] 0.6211428
+```
+
+So, to reiterate, for a single binary predictor, the coefficient is nothing else than the difference between the mean of the two levels in your factor variable, between the averages in your two groups.
+
+With categorical variables encoded as **factors** you always have a situation like this: a reference category and then as many additional coefficients as there are additional levels in your categorical variable. Each of these additional categories is input into the model as **"dummy" variables**. Here our categorical variable has two levels, thus we have only one dummy variable. There will always be one fewer dummy variable than the number of levels. The level with no dummy variable, females in this example, is known as the **reference category** or the **baseline**.
+
+It turns out then that the regression table is printing out for us a t test of statistical significance for every input in the model. If we look at the table above this t value is 5.55 and the p value associated with it is near 0. This is indeed considerably lower than the conventional significance level of 0.05. So we could conclude that the probability of obtaining this value if the null hypothesis is true is very low. However, the observed r squared is also kind of poor. Read [this](http://blog.minitab.com/blog/adventures-in-statistics/how-to-interpret-a-regression-model-with-low-r-squared-and-low-p-values) to understand a bit more this phenomenon of low p, but also low r-squared.
+
+If rather than a binary explanatory variable, you had a factor with five levels. Then if you were to run a regression model this would result in a model with 4 dummy variables. The coefficient of each of these dummies would be telling you how much higher or lower (if the sign were negative) was the level of violence for each of the levels for which you have a dummy compared to your reference category or baseline. One thing that is important to keep in mind is that R by default will use as the baseline category the first level in your factor. 
+
+
+```r
+levels(df$largest50)
+```
+
+```
+## [1] "No"  "Yes"
+```
+
+In our case you can see "No" is listed first. Keep in mind for your assignment that levels in factors are often alphabetically listed, not in a particularly meaningful or useful way.
+If you want to change this you may need to reorder the levels. See [here](https://forcats.tidyverse.org/reference/fct_relevel.html) how to do this.
+
 ## Motivating multiple regression
 
 So we have seen that our models with just one predictor are not terribly powerful. Partly that's due to the fact that they are not properly specified, they do not include a solid set of good predictor variables that can help us to explain variation in our response variable. We can build better models by expanding the number of predictors (although keep in mind you should also aim to build models as parsimonious as possible).
@@ -25,26 +207,6 @@ It could not be any easier to fit a multiple regression model. You simply modify
 data_url <- "https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/46WIH0/ARS2VS"
 sharkey <- read.table(url(data_url), sep = '\t',header = T)
 library(dplyr)
-```
-
-```
-## 
-## Attaching package: 'dplyr'
-```
-
-```
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```r
 df <- filter(sharkey, year == "2012")
 df <- select(df, place_name, state_name, viol_r, black, lesshs, unemployed, fborn, incarceration, log_incarceraton, swornftime_r, log_viol_r, largest50)
 fit_3 <- lm(log_viol_r ~ unemployed + largest50, data=df)
@@ -110,10 +272,6 @@ library(sjPlot)
 ## Warning: package 'sjPlot' was built under R version 4.3.3
 ```
 
-```
-## Learn more about sjPlot with 'browseVignettes("sjPlot")'.
-```
-
 Let's try with a more complex example:
 
 
@@ -122,7 +280,7 @@ fit_4 <- lm(log_viol_r ~ unemployed + largest50 + black + fborn + log_incarcerat
 plot_model(fit_4)
 ```
 
-<img src="07_regression_III_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+<img src="07_regression_III_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
 <!-- Be advised to use these plots judiciously. There may be other sort of plots that may be [more appropriate](http://www.carlislerainey.com/2012/07/06/why-i-dont-like-coefficient-plots/) for what you want to communicate to your audience than the coefficient plot.-->
 
@@ -133,7 +291,7 @@ You can further customise this:
 plot_model(fit_4, title="Violence across cities")
 ```
 
-<img src="07_regression_III_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+<img src="07_regression_III_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
 What you see plotted here is the point estimates (the circles), the confidence intervals around those estimates (the longer the line the less precise the estimate), and the colours represent whether the effect is negative (red) or positive (blue). There are other packages that also provide similar functionality, like the `dotwhisker` package that you may want to explore, see more details [here](https://cran.r-project.org/web/packages/dotwhisker/vignettes/dotwhisker-vignette.html).
 
@@ -356,7 +514,7 @@ library(effects)
 plot(allEffects(fit_3), ask=FALSE)
 ```
 
-<img src="07_regression_III_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+<img src="07_regression_III_files/figure-html/unnamed-chunk-16-1.png" width="672" />
 
 Notice that the line has a confidence interval drawn around it (to reflect the likely impact of sampling variation) and that the predicted means for smaller and largest cities (when controlling for unemployment) also have a confidence interval.
 
@@ -476,7 +634,7 @@ In this case the test for the interaction effect is non-significant, which sugge
 plot(allEffects(fit_5), ask=FALSE)
 ```
 
-<img src="07_regression_III_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+<img src="07_regression_III_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
 Notice that essentially what we are doing is running two regression lines and testing whether the slope is different for the two groups. The intercept is different, we know that largest cities are more violent, but what we are testing here is whether violence goes up in a steeper fashion (and in the same direction) for one or the other group as unemployment goes up. We see that's not the case here. The estimated lines are almost parallel.
 
@@ -496,94 +654,6 @@ Models with interaction terms are too often misinterpreted. We strongly recommen
 
 Equally, [John Fox (2003)](http://www.jstatsoft.org/v08/i15/paper) piece on the `effects` package goes to much more detail that we can here to explain the logic and some of the options that are available when producing plots to show interactions with this package. You may also want to have a look at the newer `interactions` package [here](https://interactions.jacob-long.com/index.html).
 
-## Regression assumptions 
-
-Previously we covered assumptions made by various statistical tests. The regression model also makes assumptions of its own. In fact, there are so many that we could spend an entire class discussing them. Gelman and Hill (2007) point out that the most important regression assumptions by decreasing order of importance are:
-
-+ **Validity**. The data should be appropriate for the question that you are trying to answer:
-
-> "Optimally, this means that the outcome measure should accurately reflect the phenomenon of interest, the model should include all relevant predictors, and the model should generalize to all cases to which it will be applied... Data used in empirical research rarely meet all (if any) of these criteria precisely. However, keeping these goals in mind can help you be precise about the types of questions you can and cannot answer reliably"
-
-+ **Additiviy and linearity**. These are the most important mathematical assumptions of the model. We already talked about additivity in the previous section and discussed how you can include interaction effects in your models if the additivity assumption is violated. We discuss problems with non-linearities  as well using the example of the age-crime-curve. If the relationship is non linear (e.g, it is curvilinear) predicted values will be wrong in a biased manner, meaning that predicted values will systematically miss the true pattern of the mean of y (as related to the x-variables).
-
-
-+ **Independence of errors**. Regression assumes that the errors from the prediction line (or hyperplane for multiple regression) are independent. If there is dependency between the observations (you are assessing change across the same units, working with spatial units, or with units that are somehow grouped such as students from the same class), you may have to use models that are more appropriate (e.g., multilevel models, spatial regression, etc.).
-
-+ **Equal variances of errors**. When the variance of the residuals is unequal, you may need different estimation methods. This is, nonetheless, considered a minor issue. There is a small effect on the validity of t-test and F-test results, but generally regression inferences are robust with regard to the variance issue.
-
-+ **Normality of errors**. The residuals should be normally distributed. Gelman and Hill (2007: 46) discuss this as the least important of the assumptions and in fact "do *not* recommend diagnostics of the normality of the regression residuals". If the errors do not have a normal distribution, it usually is not particularly serious. Regression inferences tend to be robust with respect to normality (or nonnormality of the errors). In practice, the residuals may appear to be nonnormal when the wrong regression equation has been used. So, we will show you how to inspect normality of the residuals not because this is a problem on itself, but because it may be give you further evidence that there is some other problem with the model you are applying to your data.
-
-Apart from this, it is convenient to diagnose multicollinearity (this affects interpretation) and influential observations.
-
-So these are the assumptions of linear regression. 
-
-In this section we can go through very quickly how to test for some of them using visuals. While finding that some of the assumptions are violated do not necessarily mean that you have to scrap your model, it is important to use these diagnostics to illustrate that you have considered what the possible issues with your model is, and if you find any serious issues that you address them. 
-
-In r, we can use the `plot()` function on our output lm object to look through some diagnostics. This gives us 4 plots, so to show them all, we'll use the code `par(mfrow = c(2, 2))` to split our plot window into 4 panes (remember to set back, run `par(mfrow = c(1, 1))`). For example, let's return to `fit_1`, our very first model. 
-
-
-```r
-fit_1 <- lm(log_viol_r ~ unemployed, data = df)
-par(mfrow = c(2, 2))
-plot(fit_1)
-```
-
-<img src="07_regression_III_files/figure-html/unnamed-chunk-13-1.png" width="672" />
-
-
-The 4 plots we get are 
-
-- **Residuals vs Fitted**. Used to check the linear relationship assumptions. A horizontal line, without distinct patterns is an indication for a linear relationship, what is good.
-- **Normal Q-Q**. Used to examine whether the residuals are normally distributed. It’s good if residuals points follow the straight dashed line.
-- **Scale-Location (or Spread-Location)**. Used to check the homogeneity of variance of the residuals (homoscedasticity). Horizontal line with equally spread points is a good indication of homoscedasticity. This is not the case in our example, where we have a bit of a heteroscedasticity problem (remember funnel-shape from the video!).
-- **Residuals vs Leverage**. Used to identify influential cases, that is extreme values that might influence the regression results when included or excluded from the analysis. 
-
-We can also run some tests to confirm what we see in the plots. 
-
-For example, to test for heteroskedasticity (unequal variance in our residuals) we can run a Breusch-Pagan test from the `lmtest` package or a NCV test from the `car` package. 
-
-
-```r
-lmtest::bptest(fit_1)  # Breusch-Pagan test
-```
-
-```
-## 
-## 	studentized Breusch-Pagan test
-## 
-## data:  fit_1
-## BP = 11.498, df = 1, p-value = 0.0006965
-```
-
-```r
-car::ncvTest(fit_1) # NCV test
-```
-
-```
-## Non-constant Variance Score Test 
-## Variance formula: ~ fitted.values 
-## Chisquare = 8.270574, Df = 1, p = 0.0040293
-```
-
-
-Both these test have a p-value less that a significance level of 0.05, therefore we can reject the null hypothesis that the variance of the residuals is constant and infer that heteroscedasticity is indeed present, thereby confirming our graphical inference.
-
-For testing whether the residuals violate the normality assumption, we can use the  Anderson-Darling test for the composite hypothesis of normality with the `ad.test()` function in the `nortest` package.
-
-
-```r
-nortest::ad.test(fit_1$residuals)
-```
-
-```
-## 
-## 	Anderson-Darling normality test
-## 
-## data:  fit_1$residuals
-## A = 1.0488, p-value = 0.009182
-```
-
-For the purposes of this module, it is enough that you understand that these assumptions of regression exist, what they mean, and how you might test for them. For some of them, for example additivity, we discussed above some ways to address this (look at the section on interaction effects). For others, it is just important to keep in mind when these might be violated, and raise these as possible limitations in your ability to rely on the conclusions you draw from your results. 
 
 ## Plotting residuals
 
@@ -631,7 +701,7 @@ fit_3 <- lm(tcviolent ~ tcarea + sex, data=BCS0708)
 residualPlots(fit_3)
 ```
 
-<img src="07_regression_III_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+<img src="07_regression_III_files/figure-html/unnamed-chunk-21-1.png" width="672" />
 
 ```
 ##            Test stat Pr(>|Test stat|)    
@@ -690,7 +760,7 @@ We can further diagnose the model by printing **marginal model plots** using the
 ## Error in plot.window(...): need finite 'xlim' values
 ```
 
-<img src="07_regression_III_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+<img src="07_regression_III_files/figure-html/unnamed-chunk-22-1.png" width="672" />
 
 This will plot a scatterplot for each predictor variable against the response variable. This displays the conditional distribution of the response given each predictor, *ignoring the other predictors*. They are called marginal plots because they show the marginal relationship between the outcome and *each predictor*. It will also print a scatterplot of the response versus the fitted value displaying the conditional distribution of the outcome given the fit of the model. We observe here the curvature that was already identified by the previous plots (notice the blue line).
 
@@ -717,7 +787,7 @@ marginalModelPlots(fit_3, sd = TRUE)
 ## Error in plot.window(...): need finite 'xlim' values
 ```
 
-<img src="07_regression_III_files/figure-html/unnamed-chunk-18-1.png" width="672" />
+<img src="07_regression_III_files/figure-html/unnamed-chunk-23-1.png" width="672" />
 
 This will print the estimated standard deviation lines to the graph. You would want this to be **constant** across the X axis.
 
@@ -743,21 +813,10 @@ When the test is **significant**, as it is here, we may suspect there **is** a p
 
 
 
-## Model building and variable selection
-
-How do you construct a good model? This partly depends on your goal, although there are commonalities. You do want to start with theory as a way to select your predictors and when specifying the nature of the relationship to your response variable (e.g., additive, multiplicative). Gelman and Hill (2007) provide a series of general principles[^13]. we would like to emphasise at this stage two of them:
-
-+ Include all input variables that, for substantive reasons, might be expected to be important in predicting the outcome.
-
-+ For inputs with large effects, consider including their interactions as well.
-
-It is often the case that for any model, the response variable is only related to a subset of the predictors. There are some scenarios where you may be interested in understanding what is the best subset of predictors. Imagine that you want to develop a risk assessment tool to be used by police officers that respond to a domestic violence incident, so that you could use this tool for forecasting the future risk of violence. There is a cost to adding too many predictors. A police officer time should not be wasted gathering information on predictors that are not associated with future risk. So you may want to identify the predictors that will help in this process.
-
-Ideally, we would like to perform variable selection by trying out a lot of different models, each containing a different subset of the predictors. There are various statistics that help in making comparisons across models. Unfortunately, as the number of potentially relevant predictors increases the number of potential models to compare increases exponentially. So you need methods that help you in this process. There are a number of tools that you can use for **variable selection** but this goes beyond the aims of this introduction. If you are interested you may want to read [this](http://link.springer.com/chapter/10.1007/978-1-4614-7138-7_6).
 
 
-## Summary: exercise for this week
-Once you finish your lab session, don't forget to do this [Exercise](https://eonk.shinyapps.io/MCD_ex) and have a chance to sum-up this week's R codes.
+<!--## Summary: exercise for this week
+Once you finish your lab session, don't forget to do this [Exercise](https://eonk.shinyapps.io/MCD_ex) and have a chance to sum-up this week's R codes.-->
 
 
 [^8]: [This](http://link.springer.com/chapter/10.1007/978-1-4614-9170-5_15) is a fine chapter too if you struggle with the explanations in the required reading. Many universities, like the University of Manchester, have full access to Springer ebooks. You can also have a look at [these notes](http://people.stern.nyu.edu/wgreene/Statistics/MultipleRegressionBasicsCollection.pdf).

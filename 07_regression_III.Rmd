@@ -1,4 +1,7 @@
 # Regression III
+
+## Introduction
+
 ## Fitting regression with categorical predictors
 
 So far we have explained regression using a numeric input. It turns out we can also use regression with categorical explanatory variables. It is quite straightforward to run it. 
@@ -6,6 +9,15 @@ So far we have explained regression using a numeric input. It turns out we can a
 We have one categorical variable in the dataset, *largest50*, identifying whether the city is one of the 50 largest in the country.
 
 ```{r}
+urlfile <- "https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/46WIH0/ARS2VS"
+communitycrime <- read.table(urlfile, sep = '\t',header = T)
+library(dplyr)
+df <- filter(communitycrime, year == "2012")
+df <- select(df, place_name, state_name, viol_r, black, lesshs, unemployed, fborn, incarceration, log_incarceraton, swornftime_r, log_viol_r, largest50)
+
+
+
+
 table(df$largest50)
 class(df$largest50)
 ```
@@ -34,6 +46,7 @@ fit_2 <- lm(log_viol_r ~ largest50, data=df)
 Notice that there is nothing different in how we ask for the model. And see below the regression line:
 
 ```{r, echo=FALSE}
+library(ggplot2)
 ggplot(data=df, aes(x=largest50, y=log_viol_r)) +
   geom_boxplot() +
   geom_point(alpha=.5, position = "jitter", color="orange") +
@@ -348,21 +361,10 @@ When the test is **significant**, as it is here, we may suspect there **is** a p
 
 
 
-## Model building and variable selection
-
-How do you construct a good model? This partly depends on your goal, although there are commonalities. You do want to start with theory as a way to select your predictors and when specifying the nature of the relationship to your response variable (e.g., additive, multiplicative). Gelman and Hill (2007) provide a series of general principles[^13]. we would like to emphasise at this stage two of them:
-
-+ Include all input variables that, for substantive reasons, might be expected to be important in predicting the outcome.
-
-+ For inputs with large effects, consider including their interactions as well.
-
-It is often the case that for any model, the response variable is only related to a subset of the predictors. There are some scenarios where you may be interested in understanding what is the best subset of predictors. Imagine that you want to develop a risk assessment tool to be used by police officers that respond to a domestic violence incident, so that you could use this tool for forecasting the future risk of violence. There is a cost to adding too many predictors. A police officer time should not be wasted gathering information on predictors that are not associated with future risk. So you may want to identify the predictors that will help in this process.
-
-Ideally, we would like to perform variable selection by trying out a lot of different models, each containing a different subset of the predictors. There are various statistics that help in making comparisons across models. Unfortunately, as the number of potentially relevant predictors increases the number of potential models to compare increases exponentially. So you need methods that help you in this process. There are a number of tools that you can use for **variable selection** but this goes beyond the aims of this introduction. If you are interested you may want to read [this](http://link.springer.com/chapter/10.1007/978-1-4614-7138-7_6).
 
 
-## Summary: exercise for this week
-Once you finish your lab session, don't forget to do this [Exercise](https://eonk.shinyapps.io/MCD_ex) and have a chance to sum-up this week's R codes.
+<!--## Summary: exercise for this week
+Once you finish your lab session, don't forget to do this [Exercise](https://eonk.shinyapps.io/MCD_ex) and have a chance to sum-up this week's R codes.-->
 
 
 [^8]: [This](http://link.springer.com/chapter/10.1007/978-1-4614-9170-5_15) is a fine chapter too if you struggle with the explanations in the required reading. Many universities, like the University of Manchester, have full access to Springer ebooks. You can also have a look at [these notes](http://people.stern.nyu.edu/wgreene/Statistics/MultipleRegressionBasicsCollection.pdf).
