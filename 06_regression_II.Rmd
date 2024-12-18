@@ -190,7 +190,7 @@ $y = b_0 + b_1x$
 $y = 4.58 + 0.24 * 4$  
 $y = 5.526564$
 
-Or if you don't want to do the calculation yourself, you can use the `predict` function (differences are due to rounding error):
+Or, if you don't want to do the calculation yourself, you can use the `predict` function (differences are due to rounding error):
 
 ```{r}
 #First, you name your stored model, and then you identify the new data 
@@ -272,28 +272,28 @@ confint(fit_1)
 
 ## Regression assumptions 
 
-The regression model also makes assumptions of its own. In fact, there are so many that we could spend an entire class discussing them. Gelman and Hill (2007) point out that the most important regression assumptions by decreasing order of importance are:
+Like other models and statistical tests, the regression model also makes assumptions of its own. In fact, there are so many that we could spend an entire class discussing them. Gelman and Hill (2007) point out that the most important regression assumptions by decreasing order of importance are:
 
 + **Validity**. The data should be appropriate for the question that you are trying to answer:
 
-> "Optimally, this means that the outcome measure should accurately reflect the phenomenon of interest, the model should include all relevant predictors, and the model should generalize to all cases to which it will be applied... Data used in empirical research rarely meet all (if any) of these criteria precisely. However, keeping these goals in mind can help you be precise about the types of questions you can and cannot answer reliably"
+> "Optimally, this means that the outcome measure should accurately reflect the phenomenon of interest, the model should include all relevant predictors, and the model should generalize to all cases to which it will be applied... Data used in empirical research rarely meet all (if any) of these criteria precisely. However, keeping these goals in mind can help you be precise about the types of questions you can and cannot answer reliably."
 
-+ **Additiviy and linearity**. These are the most important mathematical assumptions of the model. We already talked about additivity in the previous section and discussed how you can include interaction effects in your models if the additivity assumption is violated. We discuss problems with non-linearities  as well using the example of the age-crime-curve. If the relationship is non linear (e.g, it is curvilinear) predicted values will be wrong in a biased manner, meaning that predicted values will systematically miss the true pattern of the mean of y (as related to the x-variables).
++ **Additiviy and linearity**. These are the most important mathematical assumptions of the model. You can include interaction effects in your models if the additivity assumption is violated. This is something we will discuss in more detail in future sessions. similarly, we will discuss problems with non-linearities. If the relationship is non-linear (e.g., it is curvilinear), predicted values will be wrong in a biased manner, meaning that predicted values will systematically miss the true pattern of the mean of y (as related to the x-variables).
 
 
-+ **Independence of errors**. Regression assumes that the errors from the prediction line (or hyperplane for multiple regression) are independent. If there is dependency between the observations (you are assessing change across the same units, working with spatial units, or with units that are somehow grouped such as students from the same class), you may have to use models that are more appropriate (e.g., multilevel models, spatial regression, etc.).
++ **Independence of errors**. Regression assumes that the errors from the prediction line (or hyperplane for multiple regression) are independent. Suppose there is a dependency between the observations (you are assessing change across the same units, working with spatial units, or with units that are somehow grouped, such as students from the same class). In that case, you may have to use more appropriate models (e.g., multilevel models, spatial regression, etc.).
 
-+ **Equal variances of errors**. When the variance of the residuals is unequal, you may need different estimation methods. This is, nonetheless, considered a minor issue. There is a small effect on the validity of t-test and F-test results, but generally regression inferences are robust with regard to the variance issue.
++ **Equal variances of errors**. When the variance of the residuals is unequal, you may need different estimation methods. This is, nonetheless, considered a minor issue. There is a small effect on the validity of t-test and F-test results, but generally, regression inferences are robust with regard to the variance issue.
 
-+ **Normality of errors**. The residuals should be normally distributed. Gelman and Hill (2007: 46) discuss this as the least important of the assumptions and in fact "do *not* recommend diagnostics of the normality of the regression residuals". If the errors do not have a normal distribution, it usually is not particularly serious. Regression inferences tend to be robust with respect to normality (or nonnormality of the errors). In practice, the residuals may appear to be nonnormal when the wrong regression equation has been used. So, we will show you how to inspect normality of the residuals not because this is a problem on itself, but because it may be give you further evidence that there is some other problem with the model you are applying to your data.
++ **Normality of errors**. The residuals should be normally distributed. Gelman and Hill (2007: 46) discuss this as the least important of the assumptions and, in fact, "do *not* recommend diagnostics of the normality of the regression residuals". If the errors do not have a normal distribution, it usually is not particularly serious. Regression inferences tend to be robust with respect to normality (or nonnormality of the errors). In practice, the residuals may appear to be nonnormal when the wrong regression equation has been used. So, we will show you how to inspect the normality of the residuals, not because this is a problem in itself, but because it may give you further evidence that there is some other problem with the model you are applying to your data.
 
 Apart from this, it is convenient to diagnose multicollinearity (this affects interpretation) and influential observations.
 
-So these are the assumptions of linear regression. 
+So, these are the assumptions of linear regression. 
 
-In this section we can go through very quickly how to test for some of them using visuals. While finding that some of the assumptions are violated do not necessarily mean that you have to scrap your model, it is important to use these diagnostics to illustrate that you have considered what the possible issues with your model is, and if you find any serious issues that you address them. 
+In this section, we can go through very quickly how to test some of them using visuals. While finding that some of the assumptions are violated does not necessarily mean that you have to scrap your model, it is important to use these diagnostics to illustrate that you have considered what the possible issues with your model are and if you find any serious issues that you address them. 
 
-In r, we can use the `plot()` function on our output lm object to look through some diagnostics. This gives us 4 plots, so to show them all, we'll use the code `par(mfrow = c(2, 2))` to split our plot window into 4 panes (remember to set back, run `par(mfrow = c(1, 1))`). For example, let's return to `fit_1`, our very first model. 
+In r, we can use the `plot()` function on our output glm object to look through some diagnostics. This gives us 4 plots, so to show them all, we'll use the code `par(mfrow = c(2, 2))` to split our plot window into 4 panes (remember to set back, run `par(mfrow = c(1, 1))`). Let's return to `fit_1`, our model. 
 
 ```{r}
 fit_1 <- lm(log_viol_r ~ unemployed, data = df)
@@ -302,16 +302,16 @@ plot(fit_1)
 ```
 
 
-The 4 plots we get are 
+The 4 plots we get are:
 
-- **Residuals vs Fitted**. Used to check the linear relationship assumptions. A horizontal line, without distinct patterns is an indication for a linear relationship, what is good.
-- **Normal Q-Q**. Used to examine whether the residuals are normally distributed. It’s good if residuals points follow the straight dashed line.
-- **Scale-Location (or Spread-Location)**. Used to check the homogeneity of variance of the residuals (homoscedasticity). Horizontal line with equally spread points is a good indication of homoscedasticity. This is not the case in our example, where we have a bit of a heteroscedasticity problem (remember funnel-shape from the video!).
-- **Residuals vs Leverage**. Used to identify influential cases, that is extreme values that might influence the regression results when included or excluded from the analysis. 
+- **Residuals vs Fitted**. Used to check the linear relationship assumptions. A horizontal line, without distinct patterns, is an indication of a linear relationship, which is good.
+- **Normal Q-Q**. Used to examine whether the residuals are normally distributed. It’s good if residual points follow the straight dashed line.
+- **Scale-Location (or Spread-Location)**. Used to check the homogeneity of variance of the residuals (homoscedasticity). A horizontal line with equally spread points is a good indication of homoscedasticity. This is not the case in our example, where we have a bit of a heteroscedasticity problem (remember the funnel shape from the video!).
+- **Residuals vs Leverage**. Used to identify influential cases, that is, extreme values that might influence the regression results when included or excluded from the analysis. 
 
 We can also run some tests to confirm what we see in the plots. 
 
-For example, to test for heteroskedasticity (unequal variance in our residuals) we can run a Breusch-Pagan test from the `lmtest` package or a NCV test from the `car` package. 
+For example, to test for heteroskedasticity (unequal variance in our residuals), we can run a Breusch-Pagan test from the `lmtest` package or a NCV test from the `car` package. 
 
 ```{r}
 lmtest::bptest(fit_1)  # Breusch-Pagan test
@@ -319,7 +319,7 @@ car::ncvTest(fit_1) # NCV test
 ```
 
 
-Both these test have a p-value less that a significance level of 0.05, therefore we can reject the null hypothesis that the variance of the residuals is constant and infer that heteroscedasticity is indeed present, thereby confirming our graphical inference.
+Both these tests have a p-value less than a significance level of 0.05. Therefore, we can reject the null hypothesis that the variance of the residuals is constant and infer that heteroscedasticity is indeed present, thereby confirming our graphical inference.
 
 For testing whether the residuals violate the normality assumption, we can use the  Anderson-Darling test for the composite hypothesis of normality with the `ad.test()` function in the `nortest` package.
 
@@ -327,7 +327,7 @@ For testing whether the residuals violate the normality assumption, we can use t
 nortest::ad.test(fit_1$residuals)
 ```
 
-For the purposes of this module, it is enough that you understand that these assumptions of regression exist, what they mean, and how you might test for them. For some of them, for example additivity, we discussed above some ways to address this (look at the section on interaction effects). For others, it is just important to keep in mind when these might be violated, and raise these as possible limitations in your ability to rely on the conclusions you draw from your results. 
+For the purposes of this module, it is enough that you understand that these assumptions of regression exist, what they mean, and how you might test for them. For some of them, for example, additivity, we will discuss some ways to address this in future weeks in sections focused on interaction effects). For others, it is just important to keep in mind when these might be violated and raise these as possible limitations in your ability to rely on the conclusions you draw from your results. 
 
 ## Model building and variable selection
 
@@ -337,11 +337,12 @@ How do you construct a good model? This partly depends on your goal, although th
 
 + For inputs with large effects, consider including their interactions as well.
 
-It is often the case that for any model, the response variable is only related to a subset of the predictors. There are some scenarios where you may be interested in understanding what is the best subset of predictors. Imagine that you want to develop a risk assessment tool to be used by police officers that respond to a domestic violence incident, so that you could use this tool for forecasting the future risk of violence. There is a cost to adding too many predictors. A police officer time should not be wasted gathering information on predictors that are not associated with future risk. So you may want to identify the predictors that will help in this process.
+Often, for any model, the response variable is only related to a subset of the predictors. There are some scenarios where you may be interested in understanding what is the best subset of predictors. Imagine that you want to develop a risk assessment tool to be used by police officers who respond to a domestic violence incident so that you could use this tool for forecasting the future risk of violence. There is a cost to adding too many predictors. A police officer's time should not be wasted gathering information on predictors that are not associated with future risk. So you may want to identify the predictors that will help in this process.
 
-Ideally, we would like to perform variable selection by trying out a lot of different models, each containing a different subset of the predictors. There are various statistics that help in making comparisons across models. Unfortunately, as the number of potentially relevant predictors increases the number of potential models to compare increases exponentially. So you need methods that help you in this process. There are a number of tools that you can use for **variable selection** but this goes beyond the aims of this introduction. If you are interested you may want to read [this](http://link.springer.com/chapter/10.1007/978-1-4614-7138-7_6).
+Ideally, we would like to perform variable selection by trying out a lot of different models, each containing a different subset of the predictors. There are various statistics that help in making comparisons across models. Unfortunately, as the number of potentially relevant predictors increases, the number of potential models to compare increases exponentially. So, you need methods that can help you in this process. There are a number of tools that you can use for **variable selection**, but this goes beyond the aims of this introduction. If you are interested, you may want to read [this](http://link.springer.com/chapter/10.1007/978-1-4614-7138-7_6).
+
+In the next sessions, we will further develop our regression models, discuss interaction effects and see how the above mentioned assumptions apply in real data examples. 
  
-We will try building some regression modesl next week
 
 
 
