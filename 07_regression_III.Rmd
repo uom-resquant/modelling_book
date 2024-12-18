@@ -364,7 +364,7 @@ When the test is **significant**, as it is here, we may suspect there **is** a p
 
 ## Multicollinearity
 
-The regression model may experience some problems where there is strong collinearity - when the predictors are related among themselves. In these scenarios, the standard errors for the coefficients will be large, and the confidence intervals will be broader. That is, it will be more difficult to detect a significant relationship even if there is one.
+The regression model may experience problems when there is strong collinearity—when the predictors are related to each other. In these scenarios, the standard errors for the coefficients will be large, and the confidence intervals will be broader. Thus, it will be more difficult to detect a significant relationship even if there is one.
 
 To diagnose multicollinearity, the first step may be to observe the correlation between the predictors in the model. Let's first subset the data to obtain only the relevant predictors and our main outcome. For this, I will introduce another form of selecting columns in a data frame using the `dplyr` package.
 
@@ -389,9 +389,9 @@ library(corrplot, quietly = TRUE, warn.conflicts = FALSE)
 corrplot(c_1, order = "hclust", tl.pos="d")
 ```
 
-We can see that there are some non-trivial correlations between some of the predictors, in particular between median property value and percent lower status (r=-73). And keep in mind these coefficients are not picking up well enough the actual curvilinear relation that we saw in the scatterplot matrix printed earlier.
+We can see some non-trivial correlations between some of the predictors, particularly between median property value and per cent lower status (r=-73).
 
-Correlations among pairs of variables will only give you a first impression of the problem. What we are really concerned is what happens once you throw all the variables in the model. Not all problems with multicollinearity will be detected by the correlation matrix. The recommended reading describes the variance inflation factor as a tool to diagnose multicollinearity. Let's look at the on we obtain with the first model (pre-transformations) that we run with the `Boston` dataset:
+Correlations among pairs of variables will only give you a first impression of the problem. What we are really concerned about is what happens once you throw all the variables in the model. Not all problems with multicollinearity will be detected by the correlation matrix. The recommended reading describes the variance inflation factor as a tool to diagnose multicollinearity. Let's look at the one we obtain with the first model (pre-transformations) that we run with the `Boston` dataset:
 
 ```{r}
 fit_B1 <- lm(crim ~ medv + lstat + dis + chas, data = Boston)
@@ -407,7 +407,7 @@ sqrt(vif(fit_B1))
 
 Typically, it is assumed that you need a value greater than 2 for the square root of the variance inflation factor before collinearity seriously impairs the precision of the estimation. It does not look as if we would have to worry much on the basis of these results.
 
-When you have a set of related inputs or regressors (either because you have a multicategory factor and various dummy variables or because you have polynomial regressors), you cannot use the variance inflation factor. There is, however, a similar statistics that you can use in these contexts: the **generalised variance inflation factor**. We could use this measure for the final model we used for the `Boston` data. We invoke this statistic using the same code as before:
+When you have a set of related inputs or regressors (either because you have a multicategory factor and various dummy variables or because you have polynomial regressors), you cannot use the variance inflation factor. There is, however, a similar statistic that you can use in these contexts: the **generalised variance inflation factor**. We could use this measure for our final model for the `Boston` data. We invoke this statistic using the same code as before:
 
 ```{r}
 fit_B3 <- lm(log(crim) ~ poly(medv, 2) + log(lstat) + log(dis) + chas, data = Boston)
