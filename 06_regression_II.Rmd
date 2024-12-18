@@ -2,36 +2,36 @@
 
 ## Introduction: models in scientific research
 
-In science one of our main concerns is to develop models of the world, models that help us to understand the world a bit better or to predict how things will develop better. You can read more about modelling in scientific research [here](https://www.visionlearning.com/en/library/Process-of-Science/49/Modeling-in-Scientific-Research/153). Statistics provides a set of tools that help researchers build and test scientific models.
+In science, one of our main concerns is developing models of the world, models that help us understand the world a bit better or predict how things will develop better. You can read more about modelling in scientific research [here](https://www.visionlearning.com/en/library/Process-of-Science/49/Modeling-in-Scientific-Research/153). Statistics provides a set of tools that help researchers build and test scientific models.
 
 Our models can be simple. We can think that unemployment is a factor that may help us to understand why cities differ in their level of violent crime. We could express such a model like this:
 
 ![](imgs/model1.PNG) 
 
-Surely we know the world is complex and likely there are other things that may help us to understand why some cities have more crime than others. So, we may want to have tools that allow us to examine such models. Like, for example, the one below:
+Surely, we know the world is complex, and other things may help us understand why some cities have more crime than others. So, we may want to have tools that allow us to examine such models. Like for example, the one below:
 
 ![](imgs/model2.PNG) 
 
-In this session we are going to cover regression analysis or, rather, we are beginning to talk about regression modelling. This form of analysis has been one the main technique of data analysis in the social sciences for many years and it belongs to a family of techniques called generalised linear models. Regression is a flexible model that allows you to "explain" or "predict" a given outcome (Y), variously called your outcome, response or dependent variable, as a function of a number of what is variously called inputs, features or independent, explanatory, or predictive variables (X1, X2, X3, etc.). Following Gelman and Hill (2007), we will try to stick for the most part to the terms outputs and inputs.
+In this session, we will continue our journey with regression analysis. This form of analysis has been one of the main techniques of data analysis in the social sciences for many years, and it belongs to a family of techniques called generalised linear models. Regression is a flexible model that allows you to "explain" or "predict" a given outcome (Y), variously called your outcome, response or dependent variable, as a function of a number of what are variously called inputs, features or independent, explanatory, or predictive variables (X1, X2, X3, etc.). Following Gelman and Hill (2007), we will try to stick, for the most part, to the terms outputs and inputs.
 
-Today we will cover something that is called linear regression or ordinary least squares regression (OLS), which is a technique that you use when you are interested in explaining variation in an interval level variable. First we will see how you can use regression analysis when you only have one input, like in our first model, and then we will move to situations when we have several explanatory variables or inputs, like in our second model.
+Today, we will cover something called linear regression or ordinary least squares regression (OLS), a technique you use when you are interested in explaining variation in an interval-level variable. First, we will see how you can use regression analysis when you only have one input, like in our first model. Then, next week, we will move to situations when we have several explanatory variables or inputs.
 
-We will use a new dataset today, specifically the data used by Patrick Sharkey and his colleagues to study the effect of non profit organisations in the levels of crime. In [*"Uneasy Peace"*](https://books.wwnorton.com/books/Uneasy-Peace/) Prof Sharkey argues that one of the factors that contributed to the decline of crime from the 90s onwards was the role played by non profit community organisations to bring peace and services to deteriorated neighbourhoods. Watch this video and let's have more theoretical background and learn about the research. 
+We will use a new dataset today, specifically the data used by Patrick Sharkey and his colleagues, to study the effect of non-profit organisations on crime levels. In [*"Uneasy Peace"*](https://books.wwnorton.com/books/Uneasy-Peace/), Prof Sharkey argues that one factor contributing to the decline of crime from the 1990s onwards was the role played by non-profit community organisations in bringing peace and services to deteriorated neighbourhoods. Watch this video, and let's gain a more theoretical background and learn about the research. 
 
 ```{r echo=FALSE, fig.align='center', cache=TRUE}
 knitr::include_url("https://www.youtube.com/embed/47IISvRXmpA")
 ```
 
-In this session we will use the replication data from one of the papers that Prof Sharkey published studying this question. We can find this data in the [Harvard Dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/46WIH0). If you are interested in the specific study analysing this data you can find it [here](https://journals.sagepub.com/doi/abs/10.1177/0003122417736289).
+In this session, we will use the replication data from one of the papers that Prof Sharkey published to study this question. This data is found in the [Harvard Dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/46WIH0). If you are interested in the specific study analysing this data, you can find it [here](https://journals.sagepub.com/doi/abs/10.1177/0003122417736289).
 
 ```{r}
 urlfile <- "https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/46WIH0/ARS2VS"
 communitycrime <- read.table(urlfile, sep = '\t',header = T)
 ```
 
-As before we create an object with the permanent `url` address and then we use a function to read the data into R. The data that can be saved using an `api` is in tab separated format. For this then we use the `read.table` function from base R. We pass two arguments to the function `sep= '\t'` is telling R this file is tab separated. The `header = T` function is telling R that is TRUE (T) that this file has a first row that acts as a header (this row has the name of the variables).
+As before, we create an object with the permanent `URL` address, and then we use a function to read the data into R. The data can be saved using an `api`, and it is in tab-separated format. We use the `read.table` function from base R for this. We pass two arguments to the function `sep= '\t'`, telling R this file is tab separated. The `header = T` function tells R that it is TRUE (T) that this file has a first row that acts as a header (this row has the name of the variables).
 
-There are many more variables here that we are going to need, so let's do some filtering and selection. Let's just focus on a single year, 2012, the most recent in the dataset and just a few select variables.
+We will need many more variables here, so let's do some filtering and selection. We will focus on 2012, the most recent year in the dataset, and just a few select variables.
 
 ```{r, message=FALSE}
 library(dplyr)
@@ -45,9 +45,9 @@ So now we have a more manageable data set that we can use for this session. The 
 table(df$state_name)
 ```
 
-The variables we have extracted contain information on the demographic composition of those cities (percent black population, percent without high school degree, percent unemployed, percent foreign born), some criminal justice ones (incarceration rate and the rate of sworn full time police officers). We also have measures of the violence rate and a binary indicator that tell us if the city is one of the 50 largest in the country.
+The variables we have extracted contain information on the demographic composition of those cities (per cent black population, per cent without high school degree, per cent unemployed, per cent foreign-born), and some criminal justice ones (incarceration rate and the rate of sworn full-time police officers). We also have measures of the violence rate and a binary indicator that tells us if the city is one of the 50 largest in the country.
 
-We are going to look at the relationship between violent crime with a variable measuring unemployment (*unemployed*). Let's look at the violence rate:
+We will examine the relationship between violent crime and a variable measuring unemployment (*unemployed*). Let's look at the violence rate:
 
 ```{r, message=FALSE}
 library(ggplot2)
@@ -55,7 +55,7 @@ ggplot(df, aes(x = viol_r)) +
   geom_histogram()
 ```
 
-As you can see is skewed. Violence is our target variable, the one we want to better understand. You may remember from when we cover ANOVA that some times we have to make transformations to variables so that the assumptions of the models we use are better respected. We will discuss this a bit in greater depth later. For now, just trust us in that rather than using *viol_r* we are going to use the logarithmic transformation of the violence rate, *log_viol_r*.
+As you can see, it is skewed. Violence is our target variable, the one we want to better understand. Sometimes, we have to transform variables so that the assumptions of the models we use are better respected. We will discuss this in greater depth later. For now, just trust us in that rather than using *viol_r*, we will use the logarithmic transformation of the violence rate, *log_viol_r*.
 
 ```{r, message=FALSE}
 library(ggplot2)
@@ -70,11 +70,11 @@ ggplot(df, aes(x = unemployed, y = log_viol_r)) +
   geom_point(alpha=.2, position="jitter") 
 ```
 
-What do you think when looking at this scatterplot? Is there a relationship between violence and unemployment? Does it look as if cities that have a high score on the X axis (unemployment) also have a high score on the Y axis (violent crime)? It may be a bit hard to see but we would think there is certainly a trend. 
+What do you think when looking at this scatterplot? Is there a relationship between violence and unemployment? Does it look like cities with a high score on the X axis (unemployment) also have a high score on the Y axis (violent crime)? It may be a bit hard to see, but we think there is certainly a trend. 
 
 ## Motivating regression
 
-Now, imagine that we play a game. Imagine we have all the names of the cities in a hat, and we randomly take one of names from the hat. You're sitting in the audience, and you have to guess the level of violence (*log_viol_r*) for that city. Imagine that we pay £150 to the student that gets the closest to the right value. What would you guess if you only have one guess and you knew (as we do) how the log of violent crime is distributed? 
+Now, imagine that we play a game. Imagine we have all the names of the cities in a hat, and we randomly take one of the names from the hat. You're sitting in the audience, and you have to guess the level of violence (*log_viol_r*) for that city. Imagine paying £150 to the student who gets the closest to the right value. What would you guess if you only had one guess and knew (as we do) how the log of violent crime is distributed? 
 
 ```{r}
 ggplot(df, aes(x = log_viol_r)) + 
@@ -87,13 +87,13 @@ ggplot(df, aes(x = log_viol_r)) +
 summary(df$log_viol_r)
 ```
 
-If we only had one shot, we would go for the mean or the median (given the skew). Most of the cities have values clustered around those values, which is another way of saying they are bound to be not too far from them. It would be silly to say 4, for example, since there are very few cities with such low level of violence (as measured by *log_viol_r*).
+If we only had one shot, we would go for the mean or the median (given the skew). Most cities have values clustered around those values, which is another way of saying they are bound to be not too far from them. It would be silly to say 4, for example, since very few cities have such low levels of violence (as measured by *log_viol_r*).
 
-Imagine, however, that now when we take the name of the city from the hat, you are also told how much unemployment there is in that city - so the value of the *unemployed* variable for the city that has been selected (for example 9). Imagine as well that you have the scatterplot that we produced earlier in front of you. Would you still go for the value of "six" (the mean) as your best guess for the value of the selected city? 
+Imagine, however, that now, when we take the name of the city from the hat, you are also told how much unemployment there is in that city - so the value of the *unemployed* variable for the city that has been selected (for example, 9). Imagine that you also have the scatterplot we produced earlier in front of you. Would you still go for the value of "six" (the mean) as your best guess for the value of the selected city? 
 
-We certainly would not go with the overall mean or median as my prediction any more. If somebody said to me, the value *unemployed* for the selected respondent is 9, we would be more inclined to guess the mean value for the cities *with that level of unemployment* (the conditional mean), rather than the overall mean across all the cities. Wouldn't you? 
+We certainly would not go with the overall mean or median as my prediction any more. If somebody told me the value *unemployed* for the selected respondent is 9, we would be more inclined to guess the mean value for the cities *with that level of unemployment* (the conditional mean) rather than the overall mean across all the cities. Wouldn't you? 
 
-If we plot the conditional means we can see that the mean *log_viol_r* for cities that report an unemployment of 9 is around 6.5. So you may be better off guessing that.
+If we plot the conditional means, we can see that the mean *log_viol_r* for cities that report an unemployment rate of 9 is around 6.5. So you may be better off guessing that.
 
 ```{r, echo=FALSE}
 library(grid)
@@ -108,9 +108,9 @@ geom_line(data=df, aes(x = round(unemployed/0.12)*0.12, y = log_viol_r),
   annotate("text", x = 10, y = 5.2, label = "Pick this one!", size =7, colour = "blue")
 ```
 
-Linear regression tackles this problem using a slightly different approach. Rather than focusing on the conditional mean (smoothed or not), it draws a straight line that tries to capture the trend in the data. If we focus in the region of the scatterplot that are less sparse we see that this is an upward trend, suggesting that as the level of unemployment increases so does the level of violent crime. 
+Linear regression tackles this problem using a slightly different approach. Rather than focusing on the conditional mean (smoothed or not), it draws a straight line that tries to capture the trend in the data. If we focus on the regions of the scatterplot that are less sparse, we see that this is an upward trend, suggesting that as the level of unemployment increases, so does the level of violent crime. 
 
-Simple linear regression draws a single straight line of predicted values **as the model for the data**. This line would be a **model**, a *simplification* of the real world like any other model (e.g., a toy pistol, an architectural drawing, a subway map), that assumes that there is approximately a linear relationship between X and Y. Let's draw the regression line:
+Simple linear regression draws a single straight line of predicted values **as the model for the data**. This line would be a **model**, a *simplification* of the real world like any other model (e.g., a toy pistol, an architectural drawing, a subway map) that assumes that there is approximately a linear relationship between X and Y. Let's draw the regression line:
 
 ```{r}
 ggplot(data = df, aes(x = unemployed, y = log_viol_r)) +
@@ -118,13 +118,13 @@ ggplot(data = df, aes(x = unemployed, y = log_viol_r)) +
   geom_smooth(method = "lm", se = FALSE, color = "red", size = 1) 
 ```
 
-The `geom_smooth` function asks for a geom with the regression line, `method=lm` asks for the linear regression line, `se=FALSE` asks for just the line to be printed, the other arguments specify the colour and thickness of the line.
+The `geom_smooth` function asks for a geom with the regression line, `method=lm` asks for the linear regression line, `se=FALSE` asks for just the line to be printed, and the other arguments specify the colour and thickness of the line.
 
-What that line is doing is giving you guesses (predictions) for the values of violent crime based in the information that we have about the level of unemployment. It gives you one possible guess for the value of violence for every possible value of unemployment and links them all together in a straight line. 
+What that line is doing is giving you guesses (predictions) for the values of violent crime based on the information that we have about the level of unemployment. It gives you one possible guess for the value of violence for every possible value of unemployment and links them all together in a straight line. 
 
-Another way of thinking about this line is as the best possible summary of the cloud of points that are represented in the scatterplot (if we can assume that a straight line would do a good job doing this). If we were to tell you to draw a straight line that best represents this pattern of points the regression line would be the one that best does it (if certain assumptions are met).
+Another way to think about this line is as the best possible summary of the cloud of points represented in the scatterplot (if we can assume that a straight line would do a good job of this). If we were to tell you to draw a straight line that best represents this pattern of points, the regression line would be the one that best does it (if certain assumptions are met).
 
-The linear model then is a model that takes the form of the equation of a straight line through the data. The line does not go through all the points. In fact, you can see is a slightly less accurate representation than the (smoothed) conditional means:
+The linear model is then a model that takes the form of the equation of a straight line through the data. The line does not go through all the points. In fact, you can see it is a slightly less accurate representation than the (smoothed) conditional means:
 
 ```{r, echo = FALSE}
 ggplot() +
@@ -140,7 +140,7 @@ ggplot() +
   theme_bw()
 ```
 
-As De Veaux et al (2012: 179) highlight: "like all models of the real world, the line will be wrong, wrong in the sense that it can't match reality exactly. But it can help us understand how the variables are associated". A map is never a perfect representation of the world, the same happens with statistical models. Yet, as with maps, models can be helpful.
+As De Veaux et al. (2012: 179) highlight: "like all models of the real world, the line will be wrong, wrong in the sense that it can't match reality exactly. But it can help us understand how the variables are associated". A map is never a perfect representation of the world; the same happens with statistical models. Yet, as with maps, models can be helpful.
 
 ## Fitting a simple regression model
 
