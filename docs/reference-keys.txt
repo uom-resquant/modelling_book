@@ -67,12 +67,11 @@ regression-ii
 introduction-models-in-scientific-research
 motivating-regression
 fitting-a-simple-regression-model
-residuals-revisited-r-squared
+residuals-r-squared
 inference-with-regression
 regression-assumptions
 model-building-and-variable-selection
 regression-iii
-introduction-2
 fitting-regression-with-categorical-predictors
 motivating-multiple-regression
 fitting-and-interpreting-a-multiple-regression-model

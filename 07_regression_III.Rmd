@@ -50,12 +50,12 @@ table(df$largest50)
 We can explore if particularly large cities have higher rates of violence (remember, a rate controls for population size, so if this were to be significant, it would be telling us that it's not just because there are more people in them!). This is how you would express the model:
 
 ```{r}
-fit_2 <- glm(log_viol_r ~ largest50, data=df)
+fit_2 <- lm(log_viol_r ~ largest50, data=df)
 ```
 
 Notice that there is nothing different in how we ask for the model compared to last week. And see below the regression line:
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning = FALSE, message=FALSE}
 library(ggplot2)
 ggplot(data=df, aes(x=largest50, y=log_viol_r)) +
   geom_boxplot() +
@@ -107,7 +107,7 @@ So, we saw above and in previous weeks that our models with just one predictor a
 
 Another reason why it is important to think about additional variables in your model is to control for spurious correlations (although here, you may also want to use your common sense when selecting your variables!). You must have heard before that correlation does not equal causation. Just because two things are associated, we cannot assume that one is the cause for the other. Typically, we see how the pilots switch on the secure belt button when there is turbulence. These two things are associated - they tend to come together. But the pilots are not causing the turbulences by pressing a switch! The world is full of **spurious correlations**, associations between two variables that should not be taken too seriously. You can explore a few [here](http://tylervigen.com/). It's funny. 
 
-Looking only at covariation between pairs of variables can be misleading. It may lead you to conclude that a relationship is more important than it really is. This is no trivial matter, but one of the most important ones we confront in research and policy[^11]. 
+Looking only at covariation between pairs of variables can be misleading. It may lead you to conclude that a relationship is more important than it really is. This is no trivial matter, but one of the most important ones we confront in research and policy. 
 
 It's not an exaggeration to say that most quantitative explanatory research is about trying to control for the presence of **confounders**, variables that may explain away observed associations. Think about any criminology question: Does marriage reduce crime? Or is it that people who get married are different from those who don't (and are those pre-existing differences that are associated with less crime)? Do gangs lead to more crime? Or is it that young people who join gangs are more likely to be offenders to start with? Are the police being racist when they stop and search more members of ethnic minorities? Or are there other factors (i.e., offending, area of residence, time spent in the street) that, once controlled, would mean no ethnic dis-proportionality in stop and searches? Does a particular program reduce crime? Or is the observed change due to something else?
 
@@ -119,10 +119,10 @@ Multiple regression is one way of checking the relevance of competing explanatio
 
 ## Fitting and interpreting a multiple regression model
 
-It could not be any easier to fit a multiple regression model. You simply modify the formula in the `glm()` function by adding terms for the additional inputs.
+It could not be any easier to fit a multiple regression model. You simply modify the formula in the `lm()` function by adding terms for the additional inputs.
 
 ```{r}
-fit_3 <- glm(log_viol_r ~ unemployed + largest50, data=df)
+fit_3 <- lm(log_viol_r ~ unemployed + largest50, data=df)
 summary(fit_3)
 ```
 
@@ -144,24 +144,24 @@ As you can see, interpreting regression coefficients can be kind of tricky[^12].
 
 For example, if you contrast this model with the one we run with only *largest50* as a predictor, you will notice that the intercept has changed. You can no longer read the intercept as the mean value of violence for smaller cities. *Adding predictors to the model changes their meaning*. Now, the intercept index is the value of violence for smaller cities *that, in addition, score 0 in unemployed*. In this case, you don't have cases that meet this condition (equal to zero in all your predictors). More often than not, there is not much value in bothering to interpret the intercept because it does not represent a real observation in your sample.
 
-Something you need to be particularly careful about is to interpret the coefficients in a causal manner. Unless your data comes from an experiment, this is unlikely to be helpful. With observational data, regression coefficients should not be read as indexing causal relations. This sort of textbook warning is, however, often neglectfully ignored by professional researchers. Often authors carefully draw sharp distinctions between causal and correlational claims when discussing their data analysis, but then interpret the correlational patterns in a totally causal way in their conclusion section. This is what is called the [causation](http://junkcharts.typepad.com/numbersruleyourworld/2012/07/the-causation-creep.html) or [causal](http://www.carlislerainey.com/2012/12/05/another-example-of-causal-creep/) creep. Beware. Don't do this tempting as it may be.
+Something you need to be particularly careful about is to interpret the coefficients in a causal manner. Unless your data comes from an experiment, this is unlikely to be helpful. With observational data, regression coefficients should not be read as indexing causal relations. This sort of textbook warning is, however, often neglectfully ignored by professional researchers. Often authors carefully draw sharp distinctions between causal and correlational claims when discussing their data analysis, but then interpret the correlational patterns in a totally causal way in their conclusion section. This is what is called the [causation](http://junkcharts.typepad.com/numbersruleyourworld/2012/07/the-causation-creep.html) creep. Beware. Don't do this tempting as it may be.
 
 Comparing the simple models with this more complex model, we could say that adjusting for *largest50* does not change much the impact of *unemployed* in violence. Almost the same can be said about the effect of *largest50* when holding *unemployed* fixed. 
 
 ## Presenting your regression results.
 
-Clearly communicating your results is incredibly important. We have seen the tabular results produced by R. If you want to use them in a paper, you may need to tidy up those results. There are a number of packages (`textreg`, `stargazer`) that automatise that process. They take your `glm` objects and produce tables that you can put straight away in your reports or papers. One popular trend in presenting results is the **coefficient plot** as an alternative to the table of regression coefficients. There are various ways of producing coefficient plots with R for a variety of models. See [here](http://www.carlislerainey.com/2012/06/30/coefficient-plots-in-r/) and [here](http://www.carlislerainey.com/2012/07/03/an-improvement-to-coefficient-plots/), for example.
+Clearly communicating your results is incredibly important. We have seen the tabular results produced by R. If you want to use them in a paper, you may need to tidy up those results. There are a number of packages (`textreg`, `stargazer`) that automatise that process. They take your `lm` objects and produce tables that you can put straight away in your reports or papers. One popular trend in presenting results is the **coefficient plot** as an alternative to the table of regression coefficients. There are various ways of producing coefficient plots with R for a variety of models. See [here](http://www.carlislerainey.com/2012/06/30/coefficient-plots-in-r/) and [here](http://www.carlislerainey.com/2012/07/03/an-improvement-to-coefficient-plots/), for example.
 
 We are going to use instead the `plot_model()` function of the `sjPlot` package, which makes it easier to produce these sorts of plots. You can find a more detailed tutorial about this function [here](http://rpubs.com/sjPlot/sjplm). See below for an example:
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 library(sjPlot)
 ```
 
 Let's try a more complex example:
 
 ```{r}
-fit_4 <- glm(log_viol_r ~ unemployed + largest50 + black + fborn + log_incarceraton, data=df)
+fit_4 <- lm(log_viol_r ~ unemployed + largest50 + black + fborn + log_incarceraton, data=df)
 plot_model(fit_4)
 ```
 
@@ -237,9 +237,9 @@ One way of extending our model to accommodate for interaction effects is to add 
 How do we do this in R? One way is to use the following notation in the formula argument. Notice how we have added a third term, `unemployed:largest50`, which is asking R to test the conditional hypothesis that the size of the cities may have a different impact on the violent crime rate.
 
 ```{r}
-fit_5 <- glm(log_viol_r ~ unemployed + largest50 + unemployed:largest50 , data=df)
+fit_5 <- lm(log_viol_r ~ unemployed + largest50 + unemployed:largest50 , data=df)
 # which is equivalent to: 
-# fit_5 <- glm(log_viol_r ~ unemployed * largest50, data=BCS0708)
+# fit_5 <- lm(log_viol_r ~ unemployed * largest50, data=BCS0708)
 summary(fit_5)
 ```
 
@@ -443,7 +443,7 @@ Once you finish your lab session, don't forget to do this [Exercise](https://eon
 [^8]: [This](http://link.springer.com/chapter/10.1007/978-1-4614-9170-5_15) is a fine chapter too if you struggle with the explanations in the required reading. Many universities, like the University of Manchester, have full access to Springer ebooks. You can also have a look at [these notes](http://people.stern.nyu.edu/wgreene/Statistics/MultipleRegressionBasicsCollection.pdf).
 [^9]: [This](http://blog.minitab.com/blog/adventures-in-statistics/regression-analysis-how-do-i-interpret-r-squared-and-assess-the-goodness-of-fit) is a reasonable explanation of how to interpret R-Squared.
 [^10]: [This blog post](http://www.sumsar.net/blog/2013/12/an-animation-of-the-construction-of-a-confidence-interval/) provides a nice animation of the confidence interval and hypothesis testing.
-[^11]: [This](http://vudlab.com/simpsons/) is a nice illustration of the Simpon's Paradox, a well known example of omitted variable bias.
+
 [^12]: We recommend reading chapter 13 "Woes of regression coefficients" of an old book Mostseller and Tukey (1977) Data Analysis and Regression. Reading: Addison-Wesley Publishing.
 [^13]: Look at [this](
 http://www.r-bloggers.com/stop-using-bivariate-correlations-for-variable-selection/) too.
