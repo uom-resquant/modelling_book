@@ -16,7 +16,7 @@ In this session, we will continue our journey with regression analysis. This for
 
 Today, we will cover something called linear regression or ordinary least squares regression (OLS), a technique you use when you are interested in explaining variation in an interval-level variable. First, we will see how you can use regression analysis when you only have one input, like in our first model. Then, next week, we will move to situations when we have several explanatory variables or inputs.
 
-We will use a new dataset today, specifically the data used by Patrick Sharkey and his colleagues, to study the effect of non-profit organisations on crime levels. In [*"Uneasy Peace"*](https://books.wwnorton.com/books/Uneasy-Peace/), Prof Sharkey argues that one factor contributing to the decline of crime from the 1990s onwards was the role played by non-profit community organisations in bringing peace and services to deteriorated neighbourhoods. Watch this video, and let's gain a more theoretical background and learn about the research. 
+We will use a new dataset today, specifically the data used by Patrick Sharkey and his colleagues, to study the effect of non-profit organisations on crime levels. In [*"Uneasy Peace"*](https://books.wwnorton.com/books/Uneasy-Peace/), Prof Sharkey argues that one factor contributing to the decline of crime from the 1990s onwards was the role played by non-profit community organisations in bringing peace and services to deteriorated neighbourhoods. Watch this video to gain a more theoretical background and learn about the research. 
 
 ```{r echo=FALSE, fig.align='center', cache=TRUE}
 knitr::include_url("https://www.youtube.com/embed/47IISvRXmpA")
@@ -45,7 +45,7 @@ So now we have a more manageable data set that we can use for this session. The 
 table(df$state_name)
 ```
 
-The variables we have extracted contain information on the demographic composition of those cities (per cent black population, per cent without high school degree, per cent unemployed, per cent foreign-born), and some criminal justice ones (incarceration rate and the rate of sworn full-time police officers). We also have measures of the violence rate and a binary indicator that tells us if the city is one of the 50 largest in the country.
+The variables we have extracted contain information on the demographic composition of those cities (per cent black population, per cent without a high school degree, per cent unemployed, per cent foreign-born), and some criminal justice ones (incarceration rate and the rate of sworn full-time police officers). We also have measures of the violence rate and a binary indicator that tells us if the city is one of the 50 largest in the country.
 
 We will examine the relationship between violent crime and a variable measuring unemployment (*unemployed*). Let's look at the violence rate:
 
@@ -120,7 +120,7 @@ ggplot(data = df, aes(x = unemployed, y = log_viol_r)) +
 
 The `geom_smooth` function asks for a geom with the regression line, `method=lm` asks for the linear regression line, `se=FALSE` asks for just the line to be printed, and the other arguments specify the colour and thickness of the line.
 
-What that line is doing is giving you guesses (predictions) for the values of violent crime based on the information that we have about the level of unemployment. It gives you one possible guess for the value of violence for every possible value of unemployment and links them all together in a straight line. 
+What that line is doing is giving you guesses (predictions) for the values of violent crime based on the information we have about the level of unemployment. It gives you one possible guess for the value of violence for every possible value of unemployment and links them all together in a straight line. 
 
 Another way to think about this line is as the best possible summary of the cloud of points represented in the scatterplot (if we can assume that a straight line would do a good job of this). If we were to tell you to draw a straight line that best represents this pattern of points, the regression line would be the one that best does it (if certain assumptions are met).
 
@@ -144,47 +144,47 @@ As De Veaux et al. (2012: 179) highlight: "like all models of the real world, th
 
 ## Fitting a simple regression model
 
-In order to draw a regression line we need to know two things: 
-(1) We need to know where the line begins, what is the value of Y (our dependent variable) when X (our independent variable) is 0, so that we have a point from which to start drawing the line. The technical name for this point is the **intercept**.
+In order to draw a regression line, we need to know two things: 
+(1) We need to know where the line begins: what is the value of Y (our dependent variable) when X (our independent variable) is 0 so that we have a point from which to start drawing the line. The technical name for this point is the **intercept**.
 (2) And we need to know what is the **slope** of that line, that is, how inclined the line is, the angle of the line.
 
 If you recall from elementary algebra (and you may not), the equation for any straight line is:
 $y = mx + b$ 
-In statistics we use a slightly different notation, although the equation remains the same:
+In statistics, we use a slightly different notation, although the equation remains the same:
 $y = b_0 + b_1x$
 
-We need the origin of the line ($b_0$) and the slope of the line ($b_1$). How does R get the intercept and the slope for the green line? How does R know where to draw this line? We need to estimate these **parameters** (or **coefficients**) from the data. How? We don't have the time to get into these more mathematical details now. You should study the [required reading](http://link.springer.com/chapter/10.1007/978-1-4614-7138-7_3) to understand this (*required means it is required, it is not optional*)[^8]. For now, suffice to say that for linear regression models like the one we cover here, when drawing the line, R tries to minimise the distance from every point in the scatterplot to the regression line using a method called **least squares estimation**.
+We need the origin of the line ($b_0$) and the slope of the line ($b_1$). How does R get the intercept and the slope for the green line? How does R know where to draw this line? We need to estimate these **parameters** (or **coefficients**) from the data. How? We don't have time to get into these more mathematical details now. You should study the [required reading](http://link.springer.com/chapter/10.1007/978-1-4614-7138-7_3) to understand this (*required means it is required, it is not optional*)[^8]. For now, suffice to say that for linear regression models like the one we cover here when drawing the line, R tries to minimise the distance from every point in the scatterplot to the regression line using a method called **least squares estimation**.
 
-In order to fit the model we use the `lm()` function using the formula specification `(Y ~ X)`. Typically you want to store your regression model in a "variable", let's call it `fit_1`:
+In order to fit the model, we use the `glm()` function using the formula specification `(Y ~ X)`. Typically, you want to store your regression model in a "variable", let's call it `fit_1`:
 
 ```{r}
-fit_1 <- lm(log_viol_r ~ unemployed, data = df)
+fit_1 <- glm(log_viol_r ~ unemployed, data = df)
 ```
 
-You will see in your R Studio global environment space that there is a new object called `fit_1` with 12 elements on it. We can get a sense for what this object is and includes using the functions we introduced in Week 1:
+In your R Studio global environment space, you will see a new object called `fit_1` with 12 elements on it. We can get a sense for what this object is and includes using the functions we introduced in previous weeks:
 
 ```{r}
 class(fit_1)
 attributes(fit_1)
 ```
 
-R is telling us that this is an object of class `lm` and that it includes a number of attributes. One of the beauties of R is that you are producing all the results from running the model, putting them in an object, and then giving you the opportunity for using them later on. If you want to simply see the basic results from running the model you can use the `summary()` function.
+R is telling us that this is an object of class `glm` and includes several attributes. One of the beauties of R is that you are producing all the results from running the model, putting them in an object, and then giving you the opportunity to use them later on. If you want to see the basic results from running the model, you can use the `summary()` function.
 
 ```{r}
 summary(fit_1)
 ```
 
-Or if you prefer more parsimonious presentation you could use the `display()` function of the `arm` package:
+Or, if you prefer a more parsimonious presentation, you could use the `display()` function of the `arm` package:
 
 ```{r}
 arm::display(fit_1)
 ```
 
-For now we just want you to focus on the numbers in the "Estimate" column. The value of 4.58 estimated for the **intercept** is the "predicted" value for Y when X equals zero. This is the predicted value of the violence score *when the level of unemployment is zero*. 
+For now, we just want you to focus on the numbers in the "Estimate" column. The value of 4.58 estimated for the **intercept** is the "predicted" value for Y when X equals zero. This is the predicted value of the violence score *when the level of unemployment is zero*. 
 
-We then need the $b_1$ regression coefficient for for our independent variable, the value that will shape the **slope** in this scenario. This value is 0.24. This estimated regression coefficient for our independent variable has a convenient interpretation. When the value is positive, it tells us that *for every one unit increase in X there is a* $b_1$ *increase on Y*. If the coefficient is negative then it represents a decrease on Y. Here, we can read it as "for every one unit increase in the percentage of people unemployed, there is a 0.24 unit increase in the logarithm of the violence rate."
+We then need the $b_1$ regression coefficient for our independent variable, the value that will shape the **slope** in this scenario. This value is 0.24. This estimated regression coefficient for our independent variable has a convenient interpretation. When the value is positive, it tells us that *for every one unit increase in X, there is a* $b_1$ *increase on Y*. If the coefficient is negative, then it represents a decrease in Y. Here, we can read it as "for every one unit increase in the percentage of people unemployed, there is a 0.24 unit increase in the logarithm of the violence rate."
 
-Knowing these two parameters not only allows us to draw the line, we can also solve for any given value of X. Let's go back to our guess-the-violence game. Imagine we tell you the level of unemployment is 4. What would be your best bet now? We can simply go back to our regression line equation and insert the estimated parameters:
+Knowing these two parameters not only allows us to draw the line, but we can also solve for any given value of X. Let's go back to our guess-the-violence game. Imagine if we tell you the unemployment rate is 4. What would be your best bet now? We can go back to our regression line equation and insert the estimated parameters:
 
 $y = b_0 + b_1x$   
 $y = 4.58 + 0.24 * 4$  
@@ -193,72 +193,74 @@ $y = 5.526564$
 Or if you don't want to do the calculation yourself, you can use the `predict` function (differences are due to rounding error):
 
 ```{r}
-#First you name your stored model and then you identify the new data 
+#First, you name your stored model, and then you identify the new data 
 #(which has to be in a data frame format and with a variable name matching the one in the original data set)
 predict(fit_1, data.frame(unemployed = c(4))) 
 ```
 
-This is the expected value of Y, log of the violence rate, when X, unemployment is 5% of the population *according to our model* (according to our simplification of the real world, our simplification of the whole cloud of points into just one straight line). Look back at the scatterplot we produced earlier with the green line. Does it look as if the green line when X is 4 corresponds to a value of Y of 5.5?
+This is the expected value of Y, the log of the violence rate, when X, unemployment is 5% of the population *according to our model* (according to our simplification of the real world, our simplification of the whole cloud of points into just one straight line). Look back at the scatterplot we produced earlier with the green line. Does it look like the green line when X is 4 corresponds to a value of Y of 5.5?
 
-## Residuals revisited: R squared
+## Residuals: R squared
 
-In the output when we run the model above we saw there was something called the residuals. The residuals (in regression) are the differences between the observed values of Y for each case minus the predicted or expected value of Y, in other words the distances between each point in the dataset and the regression line (see the visual example below). 
+In the output, when we ran the model above, we saw something called the residuals. The residuals (in regression) are the differences between the observed values of Y for each case minus the predicted or expected value of Y, in other words, the distances between each point in the dataset and the regression line (see the visual example below). 
 
 ![@http://www.shodor.org/](imgs/residual_01.png)
 
-You see that we have our line, which is our predicted values, and then we have the black dots which are our actually observed values. The distance between them is essentially the amount by which we were wrong, and all these distances between observed and predicted values are our residuals. **Least square estimation**, the "machine" we use to build the regression line, essentially aims to reduce the squared average of all these distances: that's how it draws the line.
+You see, we have our line, our predicted value, and then we have the black dots, which are our observed values. The distance between them is essentially the amount by which we were wrong, and all these distances between observed and predicted values are our residuals. **Least square estimation**, the "machine" we use to build the regression line, essentially aims to reduce the squared average of all these distances: that's how it draws the line.
 
-Why do we have residuals? Well, think about it. The fact that the line is not a perfect representation of the cloud of points makes sense, doesn't it? You cannot predict perfectly what the value of Y is for every city just by looking ONLY at unemployment! This line only uses information regarding unemployment. This means that there's bound to be some difference between our predicted level of violence given our knowledge of unemployment (the regression line) and the actual level of violence (the actual location of the points in the scatterplot). There are other things that matter not being taken into account by our model to predict the values of Y. There are other things that surely matter in terms of understanding violence. And then, of course, we have measurement error and other forms of noise.
+Why do we have residuals? Well, think about it. The fact that the line is not a perfect representation of the cloud of points makes sense, doesn't it? You cannot predict perfectly what the value of Y is for every city just by looking ONLY at unemployment! This line only uses information regarding unemployment. This means there's bound to be some difference between our predicted level of violence, given our knowledge of unemployment (the regression line) and the actual level of violence (the actual location of the points in the scatterplot). Other things that matter are not being taken into account by our model to predict the values of Y. There are other things that surely matter regarding understanding violence. And then, of course, we have measurement errors and other forms of noise.
 
 We can re-write our equation like this if we want to represent each value of Y (rather than the predicted value of Y) then: 
 $y = b_0 + b_1x + e(residuals)$
 
-The residuals capture how much variation is unexplained, how much we still have to learn if we want to understand variation in Y. A good model tries to maximise explained variation and reduce the magnitude of the residuals. 
+The residuals capture how much variation is unexplained - how much we still have to learn if we want to understand variation in Y. A good model tries to maximise explained variation and reduce the magnitude of the residuals. 
 
-We can use information from the residuals to produce a measure of effect size, of how good our model is in predicting variation in our dependent variables. Remember our game where we try to guess violence (Y)? If we did not have any information about X our best bet for Y would be the mean of Y. The regression line aims to improve that prediction. By knowing the values of X we can build a regression line that aims to get us closer to the actual values of Y. 
+We can use information from the residuals to produce a measure of effect size - how good our model is in predicting variation in our dependent variables. Remember our game where we try to guess violence (Y)? If we had no information about X, our best bet for Y would be the mean of Y. The regression line aims to improve that prediction. By knowing X's values, we can build a regression line that aims to get us closer to the actual values of Y. 
 
 ![](https://people.richland.edu/james/ictcm/2004/weight2.png)
 
-The distance between the mean (our best guess without any other piece of information) and the observed value of Y is what we call the **total variation**. The residual is the difference between our predicted value of Y  and the observed value of Y. This is what we cannot explain (i.e, variation in Y that is *unexplained*). The difference between the mean value of Y and the expected value of Y (the value given by our regression line) is how much better we are doing with our prediction by using information about X (i.e., in our previous example it would be variation in Y that can be *explained* by knowing about unemployment). How much closer the regression line gets us to the observed values. We can then contrast these two different sources of variation (explained and unexplained) to produce a single measure of how good our model is. The formula is as follows:
+The distance between the mean (our best guess without any other information) and the observed value of Y is the **total variation**. The residual is the difference between our predicted value of Y and the observed value of Y. This is what we cannot explain (i.e., variation in Y that is *unexplained*). The difference between the mean value of Y and the expected value of Y (the value given by our regression line) is how much better we are doing with our prediction by using information about X (i.e., in our previous example, it would be variation in Y that can be *explained* by knowing about unemployment). How much closer the regression line gets us to the observed values? We can then contrast these two different sources of variation (explained and unexplained) to produce a single measure of how good our model is. The formula is as follows:
 
 ![formula](http://docs.oracle.com/cd/E40248_01/epm.1112/cb_statistical_11123500/images/graphics/r_squared_constant.gif)
 
-All this formula is doing is taking a ratio of the explained variation (the squared differences between the regression line and the mean of Y for each observation) by the total variation (the squared differences of the observed values of Y for each observation from the mean of Y). This gives us a measure of the **percentage of variation in Y that is "explained" by X**. If this sounds familiar is because it is a measure similar to eta squared in ANOVA that we cover in an earlier session.
+All this formula is doing is taking a ratio of the explained variation (the squared differences between the regression line and the mean of Y for each observation) by the total variation (the squared differences of the observed values of Y for each observation from the mean of Y). This gives us a measure of the **percentage of variation in Y that is "explained" by X**. 
 
-As then we can take this value as a measure of the strength of our model. If you look at the R output you will see that the $R^2$ for our model was .29 (look at the multiple R square value in the output) . We can say that our model explains 29% of the variance in the fear of violent crime measure.
+Then, we can take this value as a measure of the strength of our model. If you look at the R output, you will see that the $R^2$ for our model was .29 (look at the multiple R square value in the output). We can say that our model explains 29% of the variance in the fear of violent crime measure.
 
 ```{r}
-#As an aside, and to continue emphasising your appreciation of the object oriented nature of R, when we run the summary() function we are simply generating a list object of the class summary.lm.
+#As an aside, and to continue emphasising your appreciation of the object-oriented nature of R,
+#when we run the summary() function, we are simply generating a list object of the class summary.glm.
 attributes(summary(fit_1))
-#This means that we can access its elements if so we wish. So, for example, to obtain just the R Squared, we could ask for:
+#This means that we can access its elements if so we wish. 
+#So, for example, to obtain just the R Squared, we could ask for:
 summary(fit_1)$r.squared
 ```
 
-Knowing how to interpret this is important. $R^2$ ranges from 0 to 1. The greater it is the more powerful our model is, the more explaining we are doing, the better we are able to account for variation in our outcome $Y$ with our input. In other words, the stronger the relationship is between $Y$ and $X$. As with all the other measures of effect size interpretation is a matter of judgement. You are advised to see what other researchers report in relation to the particular outcome that you may be exploring.[This](http://blog.minitab.com/blog/adventures-in-statistics/regression-analysis-how-do-i-interpret-r-squared-and-assess-the-goodness-of-fit) is a reasonable explanation of how to interpret R-Squared.
+Knowing how to interpret this is important. $R^2$ ranges from 0 to 1. The greater it is, the more powerful our model is; the more explaining we are doing, the better we can account for variation in our outcome $Y$ with our input. In other words, the stronger the relationship is between $Y$ and $X$. As with all the other measures of effect size, interpretation is a matter of judgement. You are advised to see what other researchers report in relation to the particular outcome that you may be exploring. [This](http://blog.minitab.com/blog/adventures-in-statistics/regression-analysis-how-do-i-interpret-r-squared-and-assess-the-goodness-of-fit) is a reasonable explanation of how to interpret R-Squared.
 
-Weisburd and Britt (2009: 437) suggest that in criminal justice you rarely see values for $R^2$ greater than .40. Thus, if your $R^2$ is larger than .40, you can assume you have a powerful model. When, on the other hand, $R^2$ is lower than .15 or .2 the model is likely to be viewed as relatively weak. Our observed r squared here is not too bad. There is considerably room for improvement if we want to develop a better model to explain violence[^9]. In any case, many people would argue that $R^2$ is a bit overrated. You need to be aware of what it measures and the context in which you are using it. Read [here](http://blog.minitab.com/blog/adventures-in-statistics/how-high-should-r-squared-be-in-regression-analysis) for some additional detail.
+Weisburd and Britt (2009: 437) suggest that in criminal justice, you rarely see values for $R^2$ greater than .40. Thus if your $R^2$ is larger than .40, you can assume you have a powerful model. When, on the other hand, $R^2$ is lower than .15 or .2, the model is likely to be viewed as relatively weak. Our observed r squared here is not too bad. There is considerable room for improvement to develop a better model to explain violence[^9]. In any case, many people would argue that $R^2$ is a bit overrated. You need to be aware of what it measures and the context in which you use it. Read [here](http://blog.minitab.com/blog/adventures-in-statistics/how-high-should-r-squared-be-in-regression-analysis) for some additional detail.
 
 ## Inference with regression
 
-In real applications, we have access to a set of observations from which we can compute the least squares line, but the population regression line is unobserved. So our regression line is one of many that could be estimated. A different sample would produce a different regression line. The same sort of ideas that we introduced when discussing the estimation of sample means or proportions also apply here. If we estimate $b_0$ and $b_1$ from a particular sample, then our estimates won't be exactly equal to $b_0$ and b1 in the population. But if we could average the estimates obtained over a very large number of data sets, the average of these estimates would equal the coefficients of the regression line in the population.
+In real applications, we have access to a set of observations from which we can compute the least squares line, but the population regression line is unobserved. So, our regression line is one of many that can be estimated. A different sample would produce a different regression line. If we estimate $b_0$ and $b_1$ from a particular sample, then our estimates will be different from $b_0$ and b1 in the population. However, if we could average the estimates obtained over a very large number of data sets, the average of these estimates would equal the coefficients of the regression line in the population.
 
-In the same way that we can compute the standard error when estimating the mean and explained in Week 5, we can compute standard errors for the regression coefficients to quantify our uncertainty about these estimates. These standard errors can in turn be used to produce confidence intervals. This would require us to assume that the residuals are normally distributed. As seen in the image, and for a simple regression model, you are assuming that the values of $Y$ are approximately normally distributed for each level of $X$:
+We can compute standard errors for the regression coefficients to quantify our uncertainty about these estimates. These standard errors can, in turn, be used to produce confidence intervals. This would require us to assume that the residuals are normally distributed. As seen in the image and for a simple regression model, you are assuming that the values of $Y$ are approximately normally distributed for each level of $X$:
 
 ![normalityresiduals](http://reliawiki.org/images/2/28/Doe4.3.png)
 
-In those circumstances we can trust the confidence intervals that we can draw around the regression line as in the image below:
+In those circumstances, we can trust the confidence intervals that we can draw around the regression line, as in the image below:
 
 ![estimated](http://2.bp.blogspot.com/-5e1_FibUjg4/Uv5BItdZqmI/AAAAAAAAA00/o1EfWZ0fk-g/s1600/SimpleLinearRegressionJags-ICON-FREQ-EST.png "Image taken from John Krushcke blog http://doingbayesiandataanalysis.blogspot.co.uk/")
 
-The dark-blue line marks the best fit. The two dark-pink lines mark the limits of the confidence interval. The light-pink lines show the sampling distributions around each of the confidence-interval limits (the many regression lines that would result from repeated sampling); notice that the best-fit line falls at the extreme of each sampling distribution.
+The dark blue line marks the best fit. The two dark-pink lines mark the limits of the confidence interval. The light-pink lines show the sampling distributions around each confidence-interval limit (the many regression lines resulting from repeated sampling); notice that the best-fit line falls at the extreme of each sampling distribution.
 
-You can also then perform standard hypothesis test on the coefficients. As we saw before when summarising the model, R will compute the standard errors and a **t test** for  each of the coefficients.
+As we saw before, when summarising the model, R will compute the standard errors. 
 
 ```{r}
 summary(fit_1)$coefficients
 ```
 
-In our example, we can see that the coefficient for our predictor here is statistically significant[^10].
+In our example, we can see the coefficient for our predictor is statistically significant.
 
 We can also obtain confidence intervals for the estimated coefficients using the `confint()` function:
 
@@ -270,7 +272,7 @@ confint(fit_1)
 
 ## Regression assumptions 
 
-Previously we covered assumptions made by various statistical tests. The regression model also makes assumptions of its own. In fact, there are so many that we could spend an entire class discussing them. Gelman and Hill (2007) point out that the most important regression assumptions by decreasing order of importance are:
+The regression model also makes assumptions of its own. In fact, there are so many that we could spend an entire class discussing them. Gelman and Hill (2007) point out that the most important regression assumptions by decreasing order of importance are:
 
 + **Validity**. The data should be appropriate for the question that you are trying to answer:
 
