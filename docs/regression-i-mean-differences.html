@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2024-12-18" />
+<meta name="date" content="2024-12-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -335,9 +335,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">5.2</span> Power analysis<a href="regression-i-mean-differences.html#power-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In this section, we introduce the <code>pwr</code> package for power analysis. In the video lectures you had to watch as preparation for today we introduced the notion of power analysis. In order for a statistical test to be able to be effective, to be able to detect an effect, you need to have sufficient power. Power is related to the magnitude of the effect (it will be easier to detect stronger rather than weaker effects) and sample size (it will be easier to detect effects with large samples than with small samples). A problem with many scientific studies is that they are <em>underpowered</em>, the fail to reject the null hypothesis simply because they do not have sufficient power (often because the sample size is not large enough). Power analysis is generally done during the planning of an analysis so that you know what kind of sample you are going to need if you want to be able to run meaningfull hypothesis tests. That is you do your power analysis before you collect your data.</p>
 <p>But we can also check how much power we have after the fact, just to ensure we are not failing to reject the null hypothesis as a consequence of insufficient power. For this purposes we can use the <code>pwr</code> package. For computing the power when comparing two sample means we use the <code>pwr.t2n.test</code> function. This function expects we provide the sample size of each group (if we are doing the power calculation after we have collated our data) and the effect size we may want to be able to detect. Let’s see how many people we have in each of our two groups (male and female) when assessing differences in fear of violent crime.</p>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="regression-i-mean-differences.html#cb336-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
-<span id="cb336-2"><a href="regression-i-mean-differences.html#cb336-2" tabindex="-1"></a>BCS0708<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/eonk/dar_book/main/datasets/BCS0708.csv&quot;</span>)</span>
-<span id="cb336-3"><a href="regression-i-mean-differences.html#cb336-3" tabindex="-1"></a><span class="fu">describeBy</span>(BCS0708<span class="sc">$</span>tcviolent, BCS0708<span class="sc">$</span>sex)</span></code></pre></div>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="regression-i-mean-differences.html#cb332-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb332-2"><a href="regression-i-mean-differences.html#cb332-2" tabindex="-1"></a>BCS0708<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/eonk/dar_book/main/datasets/BCS0708.csv&quot;</span>)</span>
+<span id="cb332-3"><a href="regression-i-mean-differences.html#cb332-3" tabindex="-1"></a><span class="fu">describeBy</span>(BCS0708<span class="sc">$</span>tcviolent, BCS0708<span class="sc">$</span>sex)</span></code></pre></div>
 <pre><code>## 
 ##  Descriptive statistics by group 
 ## group: female
@@ -348,9 +348,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##    vars    n  mean   sd median trimmed  mad   min  max range skew kurtosis   se
 ## X1    1 3959 -0.27 0.86  -0.44   -0.36 0.69 -2.35 3.81  6.16  1.1     1.91 0.01</code></pre>
 <p>Ok, so that is 4475 and 3959. Let’s say we want to detect even very small effect sizes. The functions in this package assume a default .05 level of statistical significance, although this is something we could change. So if we go with the default, we would write as follows:</p>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="regression-i-mean-differences.html#cb338-1" tabindex="-1"></a><span class="fu">library</span>(pwr)</span></code></pre></div>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="regression-i-mean-differences.html#cb334-1" tabindex="-1"></a><span class="fu">library</span>(pwr)</span></code></pre></div>
 <pre><code>## Warning: package &#39;pwr&#39; was built under R version 4.3.2</code></pre>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="regression-i-mean-differences.html#cb340-1" tabindex="-1"></a><span class="fu">pwr.t2n.test</span>(<span class="at">n1 =</span> <span class="dv">4475</span>, <span class="at">n2 =</span> <span class="dv">3959</span>, <span class="at">d=</span> <span class="fl">0.2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="regression-i-mean-differences.html#cb336-1" tabindex="-1"></a><span class="fu">pwr.t2n.test</span>(<span class="at">n1 =</span> <span class="dv">4475</span>, <span class="at">n2 =</span> <span class="dv">3959</span>, <span class="at">d=</span> <span class="fl">0.2</span>)</span></code></pre></div>
 <pre><code>## 
 ##      t test power calculation 
 ## 
@@ -413,7 +413,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["book.pdf", "book.epub"],
+"download": {},
 "search": {
 "engine": "fuse",
 "options": null

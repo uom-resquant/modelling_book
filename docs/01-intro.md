@@ -176,10 +176,6 @@ If you run this code, you will see that `cowsay` is not in the list of loaded pa
 library("cowsay")
 ```
 
-```
-## Warning: package 'cowsay' was built under R version 4.3.3
-```
-
 Run the `search` function again. You will see this package is listed now. So now we can try using the function "say" again.
 
 
@@ -496,10 +492,6 @@ Done? Ok, now we are going to look at the data sets that are included in this pa
 
 ```r
 library(fivethirtyeight)
-```
-
-```
-## Warning: package 'fivethirtyeight' was built under R version 4.3.3
 ```
 
 ```

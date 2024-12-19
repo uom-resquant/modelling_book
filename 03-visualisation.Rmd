@@ -18,7 +18,7 @@ If you don't already have the package installed (check you do), you will need to
  
  You will then need to load up the package
  
-```{r}
+```{r, warning=FALSE}
 library(ggplot2)                                  
 ```
 
@@ -63,7 +63,7 @@ First, you need to read the data. We keep this data on a website, and you can do
 ```{r}
 # load readr library and import the data using read_csv() function
 library(readr)
-fbo <- read_csv("https://raw.githubusercontent.com/eonk/dar_book/main/datasets/FootbalBanningOrders.csv")
+fbo <- read_csv("https://raw.githubusercontent.com/uom-resquant/modelling_book/refs/heads/master/datasets/FootbalBanningOrders.csv")
 ```
 
 You can also find this on the Blackboard page for this week's learning materials. If you download it from there, make sure to save it in your project directory, possibly in a subfolder called "Datasets." Then, you can read it from there.
@@ -405,7 +405,7 @@ This can be even more helpful when you have various groups. Let's try an example
 
 ```{r}
 #We create a data frame object reading the data from the webaddress.csv file
-BCS0708<-read.csv("https://raw.githubusercontent.com/eonk/dar_book/main/datasets/BCS0708.csv")
+BCS0708<-read.csv("https://raw.githubusercontent.com/uom-resquant/modelling_book/refs/heads/master/datasets/BCS0708.csv")
 ```
 
 This dataset contains a quantitative variable that measures the level of worry about crime (*tcviolent*): high scores represent high levels of worry. We are going to see how the score in this variable changes according to ethnicity (*ethgrp2*).

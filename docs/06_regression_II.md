@@ -328,7 +328,26 @@ We can use information from the residuals to produce a measure of effect size - 
 
 The distance between the mean (our best guess without any other information) and the observed value of Y is the **total variation**. The residual is the difference between our predicted value of Y and the observed value of Y. This is what we cannot explain (i.e., variation in Y that is *unexplained*). The difference between the mean value of Y and the expected value of Y (the value given by our regression line) is how much better we are doing with our prediction by using information about X (i.e., in our previous example, it would be variation in Y that can be *explained* by knowing about unemployment). How much closer the regression line gets us to the observed values? We can then contrast these two different sources of variation (explained and unexplained) to produce a single measure of how good our model is. The formula is as follows:
 
-![formula](http://docs.oracle.com/cd/E40248_01/epm.1112/cb_statistical_11123500/images/graphics/r_squared_constant.gif)
+
+\[
+R^2 = \frac{\text{Explained Variation}}{\text{Total Variation}}
+\]
+
+This can also be written as:
+
+\[
+R^2 = \frac{\sum (\hat{Y}_i - \bar{Y})^2}{\sum (Y_i - \bar{Y})^2}
+\]
+
+Where:
+- \( Y_i \): observed values of the dependent variable.
+- \( \hat{Y}_i \): predicted values from the regression line.
+- \( \bar{Y} \): mean of the observed \( Y \) values.
+- \( \sum (\hat{Y}_i - \bar{Y})^2 \): explained variation (the squared differences between the predicted values and the mean of \( Y \)).
+- \( \sum (Y_i - \bar{Y})^2 \): total variation (the squared differences between the observed values and the mean of \( Y \)).
+
+
+<!--![formula](http://docs.oracle.com/cd/E40248_01/epm.1112/cb_statistical_11123500/images/graphics/r_squared_constant.gif)-->
 
 All this formula is doing is taking a ratio of the explained variation (the squared differences between the regression line and the mean of Y for each observation) by the total variation (the squared differences of the observed values of Y for each observation from the mean of Y). This gives us a measure of the **percentage of variation in Y that is "explained" by X**. 
 
@@ -370,8 +389,9 @@ Weisburd and Britt (2009: 437) suggest that in criminal justice, you rarely see 
 In real applications, we have access to a set of observations from which we can compute the least squares line, but the population regression line is unobserved. So, our regression line is one of many that can be estimated. A different sample would produce a different regression line. If we estimate $b_0$ and $b_1$ from a particular sample, then our estimates will be different from $b_0$ and b1 in the population. However, if we could average the estimates obtained over a very large number of data sets, the average of these estimates would equal the coefficients of the regression line in the population.
 
 We can compute standard errors for the regression coefficients to quantify our uncertainty about these estimates. These standard errors can, in turn, be used to produce confidence intervals. This would require us to assume that the residuals are normally distributed. As seen in the image and for a simple regression model, you are assuming that the values of $Y$ are approximately normally distributed for each level of $X$:
+![](imgs/normalityresiduals.png)
 
-![normalityresiduals](http://reliawiki.org/images/2/28/Doe4.3.png)
+<!--![normalityresiduals](http://reliawiki.org/images/2/28/Doe4.3.png)-->
 
 In those circumstances, we can trust the confidence intervals that we can draw around the regression line, as in the image below:
 

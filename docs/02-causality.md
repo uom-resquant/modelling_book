@@ -44,7 +44,8 @@ You could just click "download" and then place the file in your project director
 library(haven)
 banbox <- read_dta("https://dataverse.harvard.edu/api/access/datafile/3036350")
 
-##Window users! R in Windows has some problems with HTTPS addresses; that's why we need to do this first:
+##Window users! R in Windows has some problems with HTTPS addresses; 
+#that's why we need to do this first:
 ```
 
 This  data file is a STATA.dta file in our working directory. To read STATA files, we will need the *haven* package. This is a package developed to import different kinds of data files into R. If you don't have it, you will need to install it. And then load it.
@@ -52,7 +53,8 @@ This  data file is a STATA.dta file in our working directory. To read STATA file
 
 ```r
 ##IF THE CODE ABOVE DOES NOT WORK, USE THIS CODE.
-##Window users! R in Windows have some problems with https addresses, in that case, try to use this code
+##Window users! R in Windows have some problems with https addresses, 
+#in that case, try to use this code
 #First, let's create an object with the link. Paste the copied address here:
 urlfile <- "https://dataverse.harvard.edu/api/access/datafile/3036350"
 
@@ -310,7 +312,9 @@ class(banbox$black_f)
 ```
 
 ```r
-#But if you print the frequency distribution you will see the data are still presented in relation to 0 and 1
+#But if you print the frequency distribution 
+#you will see the data are still presented 
+#in relation to 0 and 1
 table(banbox$black_f)
 ```
 

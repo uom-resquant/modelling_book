@@ -290,7 +290,7 @@ What we are doing above is initialising a new variable in the *df* object that w
 
 Once you have created the variable, you can start exploring if there is any association with our outcome variable. For example, using **mosaic plots** from the `vcd` package (if you don't have it installed, the code won't run).
 
-```{r}
+```{r, warning=FALSE}
 library(vcd)
 mosaic(~region + at_sexviol, data = df)
 ```

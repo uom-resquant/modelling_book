@@ -23,10 +23,6 @@ If you don't already have the package installed (check you do), you will need to
 library(ggplot2)                                  
 ```
 
-```
-## Warning: package 'ggplot2' was built under R version 4.3.2
-```
-
 The grammar of graphics upon which this package is based defines various components of a graphic. Some of the most important are:
 
 +**The data**: For using `ggplot2`, the data has to be stored as a data frame or tibble.
@@ -69,7 +65,7 @@ First, you need to read the data. We keep this data on a website, and you can do
 ```r
 # load readr library and import the data using read_csv() function
 library(readr)
-fbo <- read_csv("https://raw.githubusercontent.com/eonk/dar_book/main/datasets/FootbalBanningOrders.csv")
+fbo <- read_csv("https://raw.githubusercontent.com/uom-resquant/modelling_book/refs/heads/master/datasets/FootbalBanningOrders.csv")
 ```
 
 ```
@@ -524,7 +520,7 @@ This can be even more helpful when you have various groups. Let's try an example
 
 ```r
 #We create a data frame object reading the data from the webaddress.csv file
-BCS0708<-read.csv("https://raw.githubusercontent.com/eonk/dar_book/main/datasets/BCS0708.csv")
+BCS0708<-read.csv("https://raw.githubusercontent.com/uom-resquant/modelling_book/refs/heads/master/datasets/BCS0708.csv")
 ```
 
 This dataset contains a quantitative variable that measures the level of worry about crime (*tcviolent*): high scores represent high levels of worry. We are going to see how the score in this variable changes according to ethnicity (*ethgrp2*).

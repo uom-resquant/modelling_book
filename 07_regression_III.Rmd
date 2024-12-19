@@ -150,9 +150,9 @@ Comparing the simple models with this more complex model, we could say that adju
 
 ## Presenting your regression results.
 
-Clearly communicating your results is incredibly important. We have seen the tabular results produced by R. If you want to use them in a paper, you may need to tidy up those results. There are a number of packages (`textreg`, `stargazer`) that automatise that process. They take your `lm` objects and produce tables that you can put straight away in your reports or papers. One popular trend in presenting results is the **coefficient plot** as an alternative to the table of regression coefficients. There are various ways of producing coefficient plots with R for a variety of models. See [here](http://www.carlislerainey.com/2012/06/30/coefficient-plots-in-r/) and [here](http://www.carlislerainey.com/2012/07/03/an-improvement-to-coefficient-plots/), for example.
+Clearly communicating your results is incredibly important. We have seen the tabular results produced by R. If you want to use them in a paper, you may need to tidy up those results. There are a number of packages (`textreg`, `stargazer`) that automatise that process. They take your `lm` objects and produce tables that you can put straight away in your reports or papers. One popular trend in presenting results is the **coefficient plot** as an alternative to the table of regression coefficients. There are various ways of producing coefficient plots with R for a variety of models. See [here](https://rpubs.com/friendly/coefplots-demo) for example.
 
-We are going to use instead the `plot_model()` function of the `sjPlot` package, which makes it easier to produce these sorts of plots. You can find a more detailed tutorial about this function [here](http://rpubs.com/sjPlot/sjplm). See below for an example:
+We are going to use instead the `plot_model()` function of the `sjPlot` package, which makes it easier to produce these sorts of plots. You can find a more detailed tutorial about this function [here](https://strengejacke.github.io/sjPlot/articles/plot_marginal_effects.html#:~:text=plot_model()%20is%20a%20generic,(model%20coefficients)%20are%20plotted.). See below for an example:
 
 ```{r, warning=FALSE, message=FALSE}
 library(sjPlot)
@@ -190,13 +190,15 @@ tab_model(fit_4, dv.labels = "Violence rate (log)")
 Or you could change the labels for the independent variables:
 
 ```{r}
-tab_model(fit_4, pred.labels = c("(Intercept)", "Percent unemployment", "Largest cities (Yes)", 
-"Percent black", "Percent foreign-born", "Incarceration rate (log)"), dv.labels = "Violence rate (log)")
+tab_model(fit_4, pred.labels = c("(Intercept)", "Percent unemployment", 
+            "Largest cities (Yes)","Percent black",
+            "Percent foreign-born", "Incarceration rate (log)"), 
+          dv.labels = "Violence rate (log)")
 ```
 
 Visual displays of the effects of the variables in the model are particularly helpful. The `effects` package allows us to produce plots to visualise these relationships (when adjusting for the other variables in the model). Here's an example going back to our model fit_3, which contained unemployment and the dummy for large cities as predictor variables:
 
-```{r}
+```{r, warning=FALSE,message=FALSE}
 library(effects)
 plot(allEffects(fit_3), ask=FALSE)
 ```
@@ -265,9 +267,9 @@ Essentially, the regression coefficients that get printed are interpretable only
 
 + The coefficient for the interaction term represents the difference in the slope for *unemployed* comparing smaller and largest cities, the difference in the slope of the two lines that we visualised above.
 
-Models with interaction terms are too often misinterpreted. We strongly recommend you read this piece by [Brambor et al (2005)](https://files.nyu.edu/mrg217/public/pa_final.pdf) to understand some of the issues involved. When discussing logistic regression we will return to this and will consider tricks to ease the interpretation.
+Models with interaction terms are too often misinterpreted. We strongly recommend you read this piece by [Brambor et al (2005)](https://www.cambridge.org/core/journals/political-analysis/article/abs/understanding-interaction-models-improving-empirical-analyses/9BA57B3720A303C61EBEC6DDFA40744B) to understand some of the issues involved. When discussing logistic regression we will return to this and will consider tricks to ease the interpretation.
 
-Equally, [John Fox (2003)](http://www.jstatsoft.org/v08/i15/paper) piece on the `effects` package goes into much more detail than we can explain here - the logic and some of the options that are available when producing plots to show interactions with this package. You may also want to look at the newer `interactions` package [here](https://interactions.jacob-long.com/index.html).
+Equally, [John Fox (2003)](https://www.jstatsoft.org/article/view/v008i15) piece on the `effects` package goes into much more detail than we can explain here - the logic and some of the options that are available when producing plots to show interactions with this package. You may also want to look at the newer `interactions` package [here](https://interactions.jacob-long.com/index.html).
 
 
 <!--## Plotting residuals

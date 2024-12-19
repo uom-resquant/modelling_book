@@ -12,3 +12,7 @@ pre {
 pre code {
   white-space: inherit;
 }
+
+a.js-toolbar-action[title="Information about the toolbar"] {
+    display: none !important;
+}

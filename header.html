@@ -1,0 +1,24 @@
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const links = document.querySelectorAll('a[href]');
+    
+      links.forEach(link => {
+    
+          link.setAttribute('target', '_blank');  // Open non-search links in a new tab
+          link.setAttribute('rel', 'noopener noreferrer');  // Security attributes
+      });
+    })
+    
+    </script>
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Find the search button
+        const searchButton = document.querySelector('a[href][target="_blank"] .fa-search').parentElement;
+    
+        // Remove the 'target="_blank"' attribute to stop it from opening in a new tab
+        if (searchButton) {
+            searchButton.removeAttribute('target');
+        }
+    });
+    </script>

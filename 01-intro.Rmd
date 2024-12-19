@@ -157,7 +157,7 @@ search()
 
 If you run this code, you will see that `cowsay` is not in the list of loaded packages. Therefore, your computer cannot use any of the functions associated with it until you load it. To load a package, we use the **library** function. So, if we want to load the new package we installed on our machine, we would need to use the following code:
 
-```{r}
+```{r, warning=FALSE}
 library("cowsay")
 ```
 
@@ -347,7 +347,7 @@ Let's have a look at some of them. We are going to look at some data that are pa
 
 Done? Ok, now we are going to look at the data sets that are included in this package. Remember, first, we have to **install** and **load** the package if we want to use it:
 
-```{r}
+```{r, warning=FALSE}
 library(fivethirtyeight)
 #This function will return all the data frames that 
 #are available in the named package.
