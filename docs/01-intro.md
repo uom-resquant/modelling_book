@@ -515,7 +515,7 @@ Notice that this package has some data sets that relate to stories covered in th
 data("hate_crimes")
 ```
 
-This function will search among all the *loaded* packages and locate the "hate_crimes" data set. Notice that it now appears in the global environment, although it also says "promise" next to it. To see the data in full you need to do something to it first. So let's do that.
+This function will search among all the *loaded* packages and locate the "hate_crimes" data set.
 
 Every object in R can have **attributes**. These are names; dimensions (for matrices and arrays: number of rows and columns) and dimensions names; class of object (numeric, character, etc.); length (for a vector, this will be the number of elements in the vector); and other user-defined. You can access the attributes of an object using the `attributes()` function. Let's query R for the attributes of this data frame.
 
@@ -627,7 +627,7 @@ So you see how now we are getting this info for all variables in one go.
 
 There are multiple ways of getting results in R. Particularly for basic and intermediate-level statistical analysis, many core functions and packages can give you the answer that you are looking for. For example, there are a variety of packages that allow you to look at summary statistics using functions defined within those packages. You will need to install these packages before you can use them. 
 
-I am only going to introduce one of them here *skimr*. It is neat and is maintained by one of my former stats teachers, the criminologist [Elin Waring](https://www.lehman.edu/academics/natural-social-sciences/sociology/Elin-Waring/), an example of kindness and dedication to her students. 
+I am only going to introduce one of them here *skimr*. It is neat and is maintained by the criminologist [Elin Waring](https://www.lehman.edu/academics/natural-social-sciences/sociology/Elin-Waring/), an example of kindness and dedication to her students. 
 
 You will need to install it before anything else. Use the code you have learnt to do so and then load it. I won't be providing you the code for it; by now you should know how to do this.
 

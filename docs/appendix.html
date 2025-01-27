@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2024-12-19" />
+<meta name="date" content="2025-01-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -217,8 +217,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html"><i class="fa fa-check"></i><b>5</b> Regression I: Mean differences</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#hypotheses-the-logic-of-hypothesis-testing"><i class="fa fa-check"></i><b>5.1</b> Hypotheses: The logic of hypothesis testing</a></li>
-<li class="chapter" data-level="5.2" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#power-analysis"><i class="fa fa-check"></i><b>5.2</b> Power analysis</a></li>
+<li class="chapter" data-level="5.1" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#introduction-2"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#dependent-variable-numerical-independent-variable-binary"><i class="fa fa-check"></i><b>5.2</b> Dependent variable: numerical | Independent variable: binary</a></li>
+<li class="chapter" data-level="5.3" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#calculating-mean-differences-in-r"><i class="fa fa-check"></i><b>5.3</b> Calculating mean differences in <code>R</code></a></li>
+<li class="chapter" data-level="5.4" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#visual-exploration"><i class="fa fa-check"></i><b>5.4</b> Visual exploration</a></li>
+<li class="chapter" data-level="5.5" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#using-linear-regression-to-calculate-mean-differences"><i class="fa fa-check"></i><b>5.5</b> Using linear regression to calculate mean differences</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#linear-regression"><i class="fa fa-check"></i><b>5.5.1</b> Linear Regression</a></li>
+<li class="chapter" data-level="5.5.2" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#linear-regression-as-a-difference-in-means-estimator"><i class="fa fa-check"></i><b>5.5.2</b> Linear Regression as a Difference-in-Means Estimator</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#effect-size"><i class="fa fa-check"></i><b>5.6</b> Effect size</a></li>
+<li class="chapter" data-level="5.7" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#summary-exercise-for-the-this-week"><i class="fa fa-check"></i><b>5.7</b> Summary: exercise for the this week</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="regression-ii.html"><a href="regression-ii.html"><i class="fa fa-check"></i><b>6</b> Regression II</a>
 <ul>
@@ -288,14 +297,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="expected-frequencies" class="section level3 hasAnchor" number="11.0.1">
 <h3><span class="header-section-number">11.0.1</span> Expected frequencies<a href="appendix.html#expected-frequencies" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Notice that R is telling us that the minimum expected frequency is 41.68. Why? For the Chi-squared test to work, it assumes the cell counts are sufficiently large. Precisely what constitutes ‘sufficiently large’ is a matter of some debate. One rule of thumb is that all expected cell counts should be above 5. If we have small cells, one alternative is to rely on the Fisher’s Exact Test rather than on the Chi-Square. We don’t have to request it here. Our cells are large enough for Chi Square to work fine. But if we needed, we could obtain the Fisher’s Exact Test with the following code:</p>
-<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="appendix.html#cb496-1" tabindex="-1"></a>BCS0708<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/uom-resquant/modelling_book/refs/heads/master/datasets/BCS0708.csv&quot;</span>)</span>
-<span id="cb496-2"><a href="appendix.html#cb496-2" tabindex="-1"></a><span class="fu">library</span>(gmodels)</span>
-<span id="cb496-3"><a href="appendix.html#cb496-3" tabindex="-1"></a>BCS0708<span class="sc">$</span>rubbcomm <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(BCS0708<span class="sc">$</span>rubbcomm)</span>
-<span id="cb496-4"><a href="appendix.html#cb496-4" tabindex="-1"></a>BCS0708<span class="sc">$</span>rubbcomm <span class="ot">&lt;-</span> <span class="fu">factor</span>(BCS0708<span class="sc">$</span>rubbcomm, </span>
-<span id="cb496-5"><a href="appendix.html#cb496-5" tabindex="-1"></a>                    <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;not at all common&quot;</span>, </span>
-<span id="cb496-6"><a href="appendix.html#cb496-6" tabindex="-1"></a>                    <span class="st">&quot;not very common&quot;</span>, <span class="st">&quot;fairly common&quot;</span>,</span>
-<span id="cb496-7"><a href="appendix.html#cb496-7" tabindex="-1"></a>                    <span class="st">&quot;very common&quot;</span>))</span>
-<span id="cb496-8"><a href="appendix.html#cb496-8" tabindex="-1"></a><span class="fu">fisher.test</span>(BCS0708<span class="sc">$</span>rubbcomm, BCS0708<span class="sc">$</span>bcsvictim, <span class="at">simulate.p.value=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="appendix.html#cb520-1" tabindex="-1"></a>BCS0708<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/uom-resquant/modelling_book/refs/heads/master/datasets/BCS0708.csv&quot;</span>)</span>
+<span id="cb520-2"><a href="appendix.html#cb520-2" tabindex="-1"></a><span class="fu">library</span>(gmodels)</span>
+<span id="cb520-3"><a href="appendix.html#cb520-3" tabindex="-1"></a>BCS0708<span class="sc">$</span>rubbcomm <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(BCS0708<span class="sc">$</span>rubbcomm)</span>
+<span id="cb520-4"><a href="appendix.html#cb520-4" tabindex="-1"></a>BCS0708<span class="sc">$</span>rubbcomm <span class="ot">&lt;-</span> <span class="fu">factor</span>(BCS0708<span class="sc">$</span>rubbcomm, </span>
+<span id="cb520-5"><a href="appendix.html#cb520-5" tabindex="-1"></a>                    <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;not at all common&quot;</span>, </span>
+<span id="cb520-6"><a href="appendix.html#cb520-6" tabindex="-1"></a>                    <span class="st">&quot;not very common&quot;</span>, <span class="st">&quot;fairly common&quot;</span>,</span>
+<span id="cb520-7"><a href="appendix.html#cb520-7" tabindex="-1"></a>                    <span class="st">&quot;very common&quot;</span>))</span>
+<span id="cb520-8"><a href="appendix.html#cb520-8" tabindex="-1"></a><span class="fu">fisher.test</span>(BCS0708<span class="sc">$</span>rubbcomm, BCS0708<span class="sc">$</span>bcsvictim, <span class="at">simulate.p.value=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Fisher&#39;s Exact Test for Count Data with simulated p-value (based on
 ##  2000 replicates)
@@ -311,17 +320,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fitting-logistic-regression-alternative" class="section level3 hasAnchor" number="11.1.1">
 <h3><span class="header-section-number">11.1.1</span> Fitting logistic regression: alternative<a href="appendix.html#fitting-logistic-regression-alternative" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Another way of fitting a logistic regression and getting the odds ratio with less typing is to use the <code>Logit()</code> function in the <code>lessR</code> package (you will need to install it if you do not have it).</p>
-<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb498-1"><a href="appendix.html#cb498-1" tabindex="-1"></a><span class="fu">library</span>(effects)</span>
-<span id="cb498-2"><a href="appendix.html#cb498-2" tabindex="-1"></a><span class="fu">data</span>(Arrests, <span class="at">package=</span><span class="st">&quot;effects&quot;</span>)</span>
-<span id="cb498-3"><a href="appendix.html#cb498-3" tabindex="-1"></a></span>
-<span id="cb498-4"><a href="appendix.html#cb498-4" tabindex="-1"></a>Arrests<span class="sc">$</span>harsher <span class="ot">&lt;-</span> <span class="fu">relevel</span>(Arrests<span class="sc">$</span>released, <span class="st">&quot;Yes&quot;</span>)</span>
-<span id="cb498-5"><a href="appendix.html#cb498-5" tabindex="-1"></a><span class="co">#Rename the levels so that it is clear we now mean yes to harsher treatment</span></span>
-<span id="cb498-6"><a href="appendix.html#cb498-6" tabindex="-1"></a><span class="fu">levels</span>(Arrests<span class="sc">$</span>harsher) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)</span>
-<span id="cb498-7"><a href="appendix.html#cb498-7" tabindex="-1"></a><span class="co">#Check that it matches in reverse the original variable</span></span>
-<span id="cb498-8"><a href="appendix.html#cb498-8" tabindex="-1"></a></span>
-<span id="cb498-9"><a href="appendix.html#cb498-9" tabindex="-1"></a>Arrests<span class="sc">$</span>colour <span class="ot">&lt;-</span> <span class="fu">relevel</span>(Arrests<span class="sc">$</span>colour, <span class="st">&quot;White&quot;</span>)</span>
-<span id="cb498-10"><a href="appendix.html#cb498-10" tabindex="-1"></a><span class="fu">library</span>(lessR, <span class="at">quietly=</span> <span class="cn">TRUE</span>)</span>
-<span id="cb498-11"><a href="appendix.html#cb498-11" tabindex="-1"></a><span class="fu">Logit</span>(harsher <span class="sc">~</span> checks <span class="sc">+</span> colour <span class="sc">+</span> sex <span class="sc">+</span> employed, <span class="at">data=</span>Arrests, <span class="at">brief=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="appendix.html#cb522-1" tabindex="-1"></a><span class="fu">library</span>(effects)</span>
+<span id="cb522-2"><a href="appendix.html#cb522-2" tabindex="-1"></a><span class="fu">data</span>(Arrests, <span class="at">package=</span><span class="st">&quot;effects&quot;</span>)</span>
+<span id="cb522-3"><a href="appendix.html#cb522-3" tabindex="-1"></a></span>
+<span id="cb522-4"><a href="appendix.html#cb522-4" tabindex="-1"></a>Arrests<span class="sc">$</span>harsher <span class="ot">&lt;-</span> <span class="fu">relevel</span>(Arrests<span class="sc">$</span>released, <span class="st">&quot;Yes&quot;</span>)</span>
+<span id="cb522-5"><a href="appendix.html#cb522-5" tabindex="-1"></a><span class="co">#Rename the levels so that it is clear we now mean yes to harsher treatment</span></span>
+<span id="cb522-6"><a href="appendix.html#cb522-6" tabindex="-1"></a><span class="fu">levels</span>(Arrests<span class="sc">$</span>harsher) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)</span>
+<span id="cb522-7"><a href="appendix.html#cb522-7" tabindex="-1"></a><span class="co">#Check that it matches in reverse the original variable</span></span>
+<span id="cb522-8"><a href="appendix.html#cb522-8" tabindex="-1"></a></span>
+<span id="cb522-9"><a href="appendix.html#cb522-9" tabindex="-1"></a>Arrests<span class="sc">$</span>colour <span class="ot">&lt;-</span> <span class="fu">relevel</span>(Arrests<span class="sc">$</span>colour, <span class="st">&quot;White&quot;</span>)</span>
+<span id="cb522-10"><a href="appendix.html#cb522-10" tabindex="-1"></a><span class="fu">library</span>(lessR, <span class="at">quietly=</span> <span class="cn">TRUE</span>)</span>
+<span id="cb522-11"><a href="appendix.html#cb522-11" tabindex="-1"></a><span class="fu">Logit</span>(harsher <span class="sc">~</span> checks <span class="sc">+</span> colour <span class="sc">+</span> sex <span class="sc">+</span> employed, <span class="at">data=</span>Arrests, <span class="at">brief=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## 
 ## &gt;&gt;&gt; Note:  colour is not a numeric variable.
 ##            Indicator variables are created and analyzed.
@@ -392,8 +401,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The log-likelihood aims to provide a measure of how much-unexplained variation there is after you fit the mode. Large values indicate poor fit.</p>
 <p>The deviance, on the other hand, is simply the log-likelihood multiplied by -2 and is generally abbreviated as -2LL. The deviance will be a positive value, and <em>larger values indicate worse prediction</em> of the response variable. It is analogous to the error sum of squares in linear regression. In the same way that OLS linear regression tries to minimise the error sum of squares, maximum likelihood logistic regression tries to minimise the -2LL.</p>
 <p>The difference between the -2LL for the model with no predictors and the -2LL for the model with all the predictors is the closer we get in logistic regression to the regression sum of squares. This difference is often called <strong>model chi-squared</strong>, and it provides a test of the null hypothesis that all the regression coefficients equal zero. It is, thus, equivalent to the F test in OLS regression.</p>
-<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb500-1"><a href="appendix.html#cb500-1" tabindex="-1"></a>fitl_1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(harsher <span class="sc">~</span> checks <span class="sc">+</span> colour <span class="sc">+</span> sex <span class="sc">+</span> employed, <span class="at">data=</span>Arrests, <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)</span>
-<span id="cb500-2"><a href="appendix.html#cb500-2" tabindex="-1"></a><span class="fu">summary</span>(fitl_1)</span></code></pre></div>
+<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb524-1"><a href="appendix.html#cb524-1" tabindex="-1"></a>fitl_1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(harsher <span class="sc">~</span> checks <span class="sc">+</span> colour <span class="sc">+</span> sex <span class="sc">+</span> employed, <span class="at">data=</span>Arrests, <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)</span>
+<span id="cb524-2"><a href="appendix.html#cb524-2" tabindex="-1"></a><span class="fu">summary</span>(fitl_1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = harsher ~ checks + colour + sex + employed, family = &quot;binomial&quot;, 
@@ -418,7 +427,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Number of Fisher Scoring iterations: 5</code></pre>
 <p>In our example, we saw that some measures of fit were printed below the table with the coefficients. The <strong>null deviance</strong> is the deviance of the model with no predictors, and the <strong>residual deviance</strong> is simply the deviance of this model. You clearly want the residual deviance to be smaller than the null deviance. The difference between the null and the residual deviance is what we call the model chi-squared. In this case, this is 4776.3 minus 4330.7. We can ask R to do this for us.</p>
 <p>First, notice that the object we created has all the information we need already stored.</p>
-<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb502-1"><a href="appendix.html#cb502-1" tabindex="-1"></a><span class="fu">names</span>(fitl_1)</span></code></pre></div>
+<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="appendix.html#cb526-1" tabindex="-1"></a><span class="fu">names</span>(fitl_1)</span></code></pre></div>
 <pre><code>##  [1] &quot;coefficients&quot;      &quot;residuals&quot;         &quot;fitted.values&quot;    
 ##  [4] &quot;effects&quot;           &quot;R&quot;                 &quot;rank&quot;             
 ##  [7] &quot;qr&quot;                &quot;family&quot;            &quot;linear.predictors&quot;
@@ -430,20 +439,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [25] &quot;data&quot;              &quot;offset&quot;            &quot;control&quot;          
 ## [28] &quot;method&quot;            &quot;contrasts&quot;         &quot;xlevels&quot;</code></pre>
 <p>So we can use this stored information in our calculations.</p>
-<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb504-1"><a href="appendix.html#cb504-1" tabindex="-1"></a><span class="fu">with</span>(fitl_1, null.deviance <span class="sc">-</span> deviance)</span></code></pre></div>
+<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="appendix.html#cb528-1" tabindex="-1"></a><span class="fu">with</span>(fitl_1, null.deviance <span class="sc">-</span> deviance)</span></code></pre></div>
 <pre><code>## [1] 445.5594</code></pre>
 <p>Is 445.6 small? How much smaller is enough? This value has a chi-square distribution, and its significance can be easily computed. For this computation, we need to know the degrees of freedom for the model (which equal the number of predictors in the model) and can be obtained like this:</p>
-<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="appendix.html#cb506-1" tabindex="-1"></a><span class="fu">with</span>(fitl_1, df.null <span class="sc">-</span> df.residual)</span></code></pre></div>
+<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb530-1"><a href="appendix.html#cb530-1" tabindex="-1"></a><span class="fu">with</span>(fitl_1, df.null <span class="sc">-</span> df.residual)</span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
 <p>Finally, the p-value can be obtained using the following code to invoke the Chi-Square distribution:</p>
-<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="appendix.html#cb508-1" tabindex="-1"></a><span class="co">#When doing it yourself, this is all you really need </span></span>
-<span id="cb508-2"><a href="appendix.html#cb508-2" tabindex="-1"></a><span class="co">#(we present the code in a separate fashion above so that you understand better what the one here does)</span></span>
-<span id="cb508-3"><a href="appendix.html#cb508-3" tabindex="-1"></a><span class="fu">with</span>(fitl_1, <span class="fu">pchisq</span>(null.deviance <span class="sc">-</span> deviance, df.null <span class="sc">-</span> df.residual, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb532-1"><a href="appendix.html#cb532-1" tabindex="-1"></a><span class="co">#When doing it yourself, this is all you really need </span></span>
+<span id="cb532-2"><a href="appendix.html#cb532-2" tabindex="-1"></a><span class="co">#(we present the code in a separate fashion above so that you understand better what the one here does)</span></span>
+<span id="cb532-3"><a href="appendix.html#cb532-3" tabindex="-1"></a><span class="fu">with</span>(fitl_1, <span class="fu">pchisq</span>(null.deviance <span class="sc">-</span> deviance, df.null <span class="sc">-</span> df.residual, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>))</span></code></pre></div>
 <pre><code>## [1] 3.961177e-95</code></pre>
 <p>We can see that the model chi-square is highly significant. Our model as a whole fits significantly better than a model with no predictors.</p>
 <p>Menard (2010) recommends also looking at the likelihood ratio R^2, which can be calculated as the difference between the null deviance and the residual deviance divided by the null deviance.</p>
-<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="appendix.html#cb510-1" tabindex="-1"></a><span class="co">#Likelihood ratio R2</span></span>
-<span id="cb510-2"><a href="appendix.html#cb510-2" tabindex="-1"></a><span class="fu">with</span>(fitl_1, (null.deviance <span class="sc">-</span> deviance)<span class="sc">/</span>null.deviance)</span></code></pre></div>
+<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb534-1"><a href="appendix.html#cb534-1" tabindex="-1"></a><span class="co">#Likelihood ratio R2</span></span>
+<span id="cb534-2"><a href="appendix.html#cb534-2" tabindex="-1"></a><span class="fu">with</span>(fitl_1, (null.deviance <span class="sc">-</span> deviance)<span class="sc">/</span>null.deviance)</span></code></pre></div>
 <pre><code>## [1] 0.09328629</code></pre>
 <p>Some authors refer to this as the Hosmer/Lemeshow R^2. It indicates how much the inclusion of the independent variables in the model reduces variation, as measured by the null deviance. It varies between 0 (when our prediction is catastrophically useless) and 1 (when we predict with total accuracy). There are many other pseudo R^2 measures that have been proposed, but Menard <a href="http://www.tandfonline.com/doi/pdf/10.1080/00031305.2000.10474502">based on research</a> on the properties of various of these measures recommends the likelihood ratio R^2 because:</p>
 <ul>
@@ -457,18 +466,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">11.1.3</span> Assessing model fit: ROC curves<a href="appendix.html#assessing-model-fit-roc-curves" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We may want to see what happens to sensitivity and specificity for different cut-off points. For this, we can look at <strong>receiver operating characteristics</strong> or simply <a href="http://en.wikipedia.org/wiki/Receiver_operating_characteristic">ROC curves</a>. This is essentially a tool for evaluating the sensitivity/specificity trade-off. The ROC curve can be used to investigate alternate cut-offs for class probabilities.</p>
 <p>We can use the <code>pROC</code> package for this. We start by creating an object that contains the relevant information with the <code>roc()</code> function from the <code>pROC</code> package.</p>
-<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="appendix.html#cb512-1" tabindex="-1"></a>fitl_1_prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(fitl_1, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>) </span>
-<span id="cb512-2"><a href="appendix.html#cb512-2" tabindex="-1"></a><span class="fu">library</span>(pROC)</span>
-<span id="cb512-3"><a href="appendix.html#cb512-3" tabindex="-1"></a>rocCURVE <span class="ot">&lt;-</span> <span class="fu">roc</span>(<span class="at">response =</span> Arrests<span class="sc">$</span>harsher, </span>
-<span id="cb512-4"><a href="appendix.html#cb512-4" tabindex="-1"></a>                <span class="at">predictor =</span> fitl_1_prob)</span></code></pre></div>
+<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb536-1"><a href="appendix.html#cb536-1" tabindex="-1"></a>fitl_1_prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(fitl_1, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>) </span>
+<span id="cb536-2"><a href="appendix.html#cb536-2" tabindex="-1"></a><span class="fu">library</span>(pROC)</span>
+<span id="cb536-3"><a href="appendix.html#cb536-3" tabindex="-1"></a>rocCURVE <span class="ot">&lt;-</span> <span class="fu">roc</span>(<span class="at">response =</span> Arrests<span class="sc">$</span>harsher, </span>
+<span id="cb536-4"><a href="appendix.html#cb536-4" tabindex="-1"></a>                <span class="at">predictor =</span> fitl_1_prob)</span></code></pre></div>
 <p>Once we have the object with the information, we can plot the ROC curve.</p>
-<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb513-1"><a href="appendix.html#cb513-1" tabindex="-1"></a><span class="fu">plot</span>(rocCURVE, <span class="at">legacy.axes =</span> <span class="cn">TRUE</span>) <span class="co">#By default, the x-axis goes backwards; we can use the specified option legacy.axes=TRUE, to get 1-spec on the x-axis moving from 0 to 1.</span></span></code></pre></div>
+<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb537-1"><a href="appendix.html#cb537-1" tabindex="-1"></a><span class="fu">plot</span>(rocCURVE, <span class="at">legacy.axes =</span> <span class="cn">TRUE</span>) <span class="co">#By default, the x-axis goes backwards; we can use the specified option legacy.axes=TRUE, to get 1-spec on the x-axis moving from 0 to 1.</span></span></code></pre></div>
 <p><img src="Appendix_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>We can see the trajectory of the curve is at first steep, suggesting that sensitivity increases at a greater pace than the decrease in specificity. However, we then reach a point at which specificity decreases at a greater rate than the sensitivity increases. If you want to select a cut-off that gives you the optimal cut-off point, you can use the <code>coords()</code> function of the pROC package. You can pass arguments to this function so that it returns the best sum of sensitivity and specificity.</p>
-<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="appendix.html#cb514-1" tabindex="-1"></a>alt_cutoff1 <span class="ot">&lt;-</span> <span class="fu">coords</span>(rocCURVE, <span class="at">x =</span> <span class="st">&quot;best&quot;</span>, <span class="at">best.method =</span> <span class="st">&quot;closest.topleft&quot;</span>)</span>
-<span id="cb514-2"><a href="appendix.html#cb514-2" tabindex="-1"></a><span class="co">#The x argument, in this case, is selecting the best cut-off using the &quot;closest topleft&quot; method </span></span>
-<span id="cb514-3"><a href="appendix.html#cb514-3" tabindex="-1"></a><span class="co">#(which identifies the point closest to the top-left part of the plot with perfect sensitivity or specificity). Another option is to use the &quot;youden&quot; method in the best.method argument.</span></span>
-<span id="cb514-4"><a href="appendix.html#cb514-4" tabindex="-1"></a>alt_cutoff1</span></code></pre></div>
+<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb538-1"><a href="appendix.html#cb538-1" tabindex="-1"></a>alt_cutoff1 <span class="ot">&lt;-</span> <span class="fu">coords</span>(rocCURVE, <span class="at">x =</span> <span class="st">&quot;best&quot;</span>, <span class="at">best.method =</span> <span class="st">&quot;closest.topleft&quot;</span>)</span>
+<span id="cb538-2"><a href="appendix.html#cb538-2" tabindex="-1"></a><span class="co">#The x argument, in this case, is selecting the best cut-off using the &quot;closest topleft&quot; method </span></span>
+<span id="cb538-3"><a href="appendix.html#cb538-3" tabindex="-1"></a><span class="co">#(which identifies the point closest to the top-left part of the plot with perfect sensitivity or specificity). Another option is to use the &quot;youden&quot; method in the best.method argument.</span></span>
+<span id="cb538-4"><a href="appendix.html#cb538-4" tabindex="-1"></a>alt_cutoff1</span></code></pre></div>
 <pre><code>##   threshold specificity sensitivity
 ## 1 0.1696539   0.6305953   0.7163677</code></pre>
 <p>Here, we can see that with a cut-off point of .16 we get a specificity of .63 and a sensitivity of .71. Notice how this is close to the base rate of harsher treatment in the sample (17% of individuals actually received harsher treatment). For a more informed discussion of cut-off points and costs of errors in applied predictive problems in criminal justice, I recommend reading <a href="http://link.springer.com/book/10.1007%2F978-1-4614-3085-8">Berk (2012)</a>. Often, the selection of cut-off may be motivated by practical considerations (e.g., selecting individuals for treatment in a situation where resources to do so are limited).</p>
@@ -477,6 +486,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
+
 
 
 

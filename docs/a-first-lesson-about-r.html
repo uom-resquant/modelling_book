@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2024-12-19" />
+<meta name="date" content="2025-01-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -217,8 +217,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html"><i class="fa fa-check"></i><b>5</b> Regression I: Mean differences</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#hypotheses-the-logic-of-hypothesis-testing"><i class="fa fa-check"></i><b>5.1</b> Hypotheses: The logic of hypothesis testing</a></li>
-<li class="chapter" data-level="5.2" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#power-analysis"><i class="fa fa-check"></i><b>5.2</b> Power analysis</a></li>
+<li class="chapter" data-level="5.1" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#introduction-2"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#dependent-variable-numerical-independent-variable-binary"><i class="fa fa-check"></i><b>5.2</b> Dependent variable: numerical | Independent variable: binary</a></li>
+<li class="chapter" data-level="5.3" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#calculating-mean-differences-in-r"><i class="fa fa-check"></i><b>5.3</b> Calculating mean differences in <code>R</code></a></li>
+<li class="chapter" data-level="5.4" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#visual-exploration"><i class="fa fa-check"></i><b>5.4</b> Visual exploration</a></li>
+<li class="chapter" data-level="5.5" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#using-linear-regression-to-calculate-mean-differences"><i class="fa fa-check"></i><b>5.5</b> Using linear regression to calculate mean differences</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#linear-regression"><i class="fa fa-check"></i><b>5.5.1</b> Linear Regression</a></li>
+<li class="chapter" data-level="5.5.2" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#linear-regression-as-a-difference-in-means-estimator"><i class="fa fa-check"></i><b>5.5.2</b> Linear Regression as a Difference-in-Means Estimator</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#effect-size"><i class="fa fa-check"></i><b>5.6</b> Effect size</a></li>
+<li class="chapter" data-level="5.7" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#summary-exercise-for-the-this-week"><i class="fa fa-check"></i><b>5.7</b> Summary: exercise for the this week</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="regression-ii.html"><a href="regression-ii.html"><i class="fa fa-check"></i><b>6</b> Regression II</a>
 <ul>
@@ -550,7 +559,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb44-3"><a href="a-first-lesson-about-r.html#cb44-3" tabindex="-1"></a><span class="fu">data</span>(<span class="at">package=</span><span class="st">&quot;fivethirtyeight&quot;</span>) </span></code></pre></div>
 <p>Notice that this package has some data sets that relate to stories covered in this journal that had a criminological angle. Let’s look, for example, at the hate_crimes data set. How do you do that? First, we have to load the data frame into our global environment. To do so, use the following code:</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="a-first-lesson-about-r.html#cb45-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;hate_crimes&quot;</span>)</span></code></pre></div>
-<p>This function will search among all the <em>loaded</em> packages and locate the “hate_crimes” data set. Notice that it now appears in the global environment, although it also says “promise” next to it. To see the data in full you need to do something to it first. So let’s do that.</p>
+<p>This function will search among all the <em>loaded</em> packages and locate the “hate_crimes” data set.</p>
 <p>Every object in R can have <strong>attributes</strong>. These are names; dimensions (for matrices and arrays: number of rows and columns) and dimensions names; class of object (numeric, character, etc.); length (for a vector, this will be the number of elements in the vector); and other user-defined. You can access the attributes of an object using the <code>attributes()</code> function. Let’s query R for the attributes of this data frame.</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="a-first-lesson-about-r.html#cb46-1" tabindex="-1"></a><span class="fu">attributes</span>(hate_crimes)</span></code></pre></div>
 <pre><code>## $row.names
@@ -622,7 +631,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  NA&#39;s   :1</code></pre>
 <p>So you see how now we are getting this info for all variables in one go.</p>
 <p>There are multiple ways of getting results in R. Particularly for basic and intermediate-level statistical analysis, many core functions and packages can give you the answer that you are looking for. For example, there are a variety of packages that allow you to look at summary statistics using functions defined within those packages. You will need to install these packages before you can use them.</p>
-<p>I am only going to introduce one of them here <em>skimr</em>. It is neat and is maintained by one of my former stats teachers, the criminologist <a href="https://www.lehman.edu/academics/natural-social-sciences/sociology/Elin-Waring/">Elin Waring</a>, an example of kindness and dedication to her students.</p>
+<p>I am only going to introduce one of them here <em>skimr</em>. It is neat and is maintained by the criminologist <a href="https://www.lehman.edu/academics/natural-social-sciences/sociology/Elin-Waring/">Elin Waring</a>, an example of kindness and dedication to her students.</p>
 <p>You will need to install it before anything else. Use the code you have learnt to do so and then load it. I won’t be providing you the code for it; by now you should know how to do this.</p>
 <p>Once you have loaded the <em>skimr</em> package, you can use it. Its main function is <em>skim</em>. Like <em>summary</em> for data frames, skim presents results for all the columns, and the statistics will depend on the class of the variable. However, the results are displayed and stored in a nicer way - though we won’t get into the details right now.</p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="a-first-lesson-about-r.html#cb54-1" tabindex="-1"></a><span class="fu">skim</span>(hate_crimes)</span></code></pre></div>
