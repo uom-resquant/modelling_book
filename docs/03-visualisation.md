@@ -743,7 +743,7 @@ ggplot(BCS0708, aes(x = age, y = tcviolent, colour = bcsvictim)) +
 
 <img src="03-visualisation_files/figure-html/unnamed-chunk-50-1.png" width="672" />
 
-You can possibly notice that there are more green points on the left-hand side (since victimisation tends to be more common among youth). But it is hard to read the relationship with age. Could we try to use facets instead of using `facet_grid`?
+You can possibly notice that there are more green points on the left-hand side (since victimisation tends to be more common among youth). But it is hard to read the relationship with age. Could we try to use facets instead (hint: `facet_grid`)?
 
 
 ```r
@@ -781,7 +781,7 @@ Not to overcomplicate things, we will only use a few variables from the *Boston*
 Boston_spm <- dplyr::select(Boston, crim, medv, lstat)
 ```
 
-Then we load `ggpairs` and run the scatterplot matrix using the `ggpairs` function:
+Then we load `GGally)` and run the scatterplot matrix using the `ggpairs` function:
 
 
 ```r
@@ -985,7 +985,7 @@ print(levels(BCS0708$walkday))
 #Reordering the factor levels from very safe 
 #to very unsafe (rather than by alphabet). 
 #Notice that I am creating a new variable; 
-#it is often not unwise to do this to avoid 
+#it is often wise to do this to avoid 
 #messing up your original data.
 
 BCS0708$walkdayR <- factor(BCS0708$walkday, levels=c('very safe',

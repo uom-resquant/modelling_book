@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-01-27" />
+<meta name="date" content="2025-02-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -645,7 +645,7 @@ Personally, I like boxplots (we will explain them in greater detail below) for s
 <div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="data-visualisation-with-r.html#cb188-1" tabindex="-1"></a><span class="fu">ggplot</span>(BCS0708, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> tcviolent, <span class="at">colour =</span> bcsvictim)) <span class="sc">+</span></span>
 <span id="cb188-2"><a href="data-visualisation-with-r.html#cb188-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span>.<span class="dv">4</span>, <span class="at">position=</span><span class="st">&quot;jitter&quot;</span>)</span></code></pre></div>
 <p><img src="03-visualisation_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
-<p>You can possibly notice that there are more green points on the left-hand side (since victimisation tends to be more common among youth). But it is hard to read the relationship with age. Could we try to use facets instead of using <code>facet_grid</code>?</p>
+<p>You can possibly notice that there are more green points on the left-hand side (since victimisation tends to be more common among youth). But it is hard to read the relationship with age. Could we try to use facets instead (hint: <code>facet_grid</code>)?</p>
 <div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="data-visualisation-with-r.html#cb189-1" tabindex="-1"></a><span class="fu">ggplot</span>(BCS0708, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> tcviolent)) <span class="sc">+</span></span>
 <span id="cb189-2"><a href="data-visualisation-with-r.html#cb189-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span>.<span class="dv">4</span>, <span class="at">position=</span><span class="st">&quot;jitter&quot;</span>) <span class="sc">+</span></span>
 <span id="cb189-3"><a href="data-visualisation-with-r.html#cb189-3" tabindex="-1"></a>  <span class="fu">facet_grid</span>( .<span class="sc">~</span> bcsvictim)</span></code></pre></div>
@@ -665,7 +665,7 @@ Personally, I like boxplots (we will explain them in greater detail below) for s
 <span id="cb191-2"><a href="data-visualisation-with-r.html#cb191-2" tabindex="-1"></a><span class="co">#contains 4 variables included in the Boston dataset, </span></span>
 <span id="cb191-3"><a href="data-visualisation-with-r.html#cb191-3" tabindex="-1"></a><span class="co">#and I am calling this new data frame object Boston_spm</span></span>
 <span id="cb191-4"><a href="data-visualisation-with-r.html#cb191-4" tabindex="-1"></a>Boston_spm <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Boston, crim, medv, lstat)</span></code></pre></div>
-<p>Then we load <code>ggpairs</code> and run the scatterplot matrix using the <code>ggpairs</code> function:</p>
+<p>Then we load <code>GGally)</code> and run the scatterplot matrix using the <code>ggpairs</code> function:</p>
 <div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="data-visualisation-with-r.html#cb192-1" tabindex="-1"></a><span class="fu">library</span>(GGally)</span></code></pre></div>
 <pre><code>## Warning: package &#39;GGally&#39; was built under R version 4.3.2</code></pre>
 <div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="data-visualisation-with-r.html#cb194-1" tabindex="-1"></a><span class="fu">ggpairs</span>(Boston_spm)</span></code></pre></div>
@@ -766,7 +766,7 @@ As Kieran Helay (2018) indicates:</p>
 <div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="data-visualisation-with-r.html#cb212-1" tabindex="-1"></a><span class="co">#Reordering the factor levels from very safe </span></span>
 <span id="cb212-2"><a href="data-visualisation-with-r.html#cb212-2" tabindex="-1"></a><span class="co">#to very unsafe (rather than by alphabet). </span></span>
 <span id="cb212-3"><a href="data-visualisation-with-r.html#cb212-3" tabindex="-1"></a><span class="co">#Notice that I am creating a new variable; </span></span>
-<span id="cb212-4"><a href="data-visualisation-with-r.html#cb212-4" tabindex="-1"></a><span class="co">#it is often not unwise to do this to avoid </span></span>
+<span id="cb212-4"><a href="data-visualisation-with-r.html#cb212-4" tabindex="-1"></a><span class="co">#it is often wise to do this to avoid </span></span>
 <span id="cb212-5"><a href="data-visualisation-with-r.html#cb212-5" tabindex="-1"></a><span class="co">#messing up your original data.</span></span>
 <span id="cb212-6"><a href="data-visualisation-with-r.html#cb212-6" tabindex="-1"></a></span>
 <span id="cb212-7"><a href="data-visualisation-with-r.html#cb212-7" tabindex="-1"></a>BCS0708<span class="sc">$</span>walkdayR <span class="ot">&lt;-</span> <span class="fu">factor</span>(BCS0708<span class="sc">$</span>walkday, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&#39;very safe&#39;</span>,</span>
