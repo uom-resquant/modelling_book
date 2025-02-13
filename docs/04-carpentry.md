@@ -26,7 +26,7 @@ In this module, we expect you to download a survey dataset for analysis. These d
 
 We're going to go ahead and download some data for the session today, specifically data from a *Eurobarometer*. Eurobarometers are opinion polls conducted regularly on behalf of the European Commission since 1973. Some of them ask the same questions over time to evaluate changes in European's views on a variety of subjects (standard Eurobarometers). Others are focused on special topics and are conducted less regularly (special Eurobarometers). They are a useful source of datasets that you could use, for example, for your undergraduate dissertation. 
 
-The data from these surveys is accessible through the data catalogue of GESIS, a data warehouse at the *Leibniz Institute for the Social Sciences* in Germany. To download data from GESIS, you have to register with them (following the registration link) [here](https://login.gesis.org/realms/gesis/protocol/openid-connect/auth?client_id=gesis-gws-client&redirect_uri=https%3A%2F%2Fsearch.gesis.org%2Fresearch_data&response_mode=fragment&response_type=code&scope=openid&ui_locales=en). Once you activate your registration you should be able to access the data at GESIS. Use the *You are not registered?* option to fill in your details. 
+The data from these surveys is accessible through the data catalogue of GESIS, a data warehouse at the *Leibniz Institute for the Social Sciences* in Germany. To download data from GESIS, you have to register with them (following the registration link) [here](https://login.gesis.org/realms/gesis/protocol/openid-connect/auth?client_id=gesis-gws-client&redirect_uri=https%3A%2F%2Fsearch.gesis.org%2Fresearch_data&response_mode=fragment&response_type=code&scope=openid&ui_locales=en). Once you activate your registration you should be able to access the data at GESIS. Use the *You are not yet registered?* option to fill in your details. 
 
 ![](imgs/register.PNG) 
 
@@ -38,7 +38,7 @@ You can access the data for this Eurobarometer [here](https://search.gesis.org/r
 
 ![](imgs/gesisa.png) 
 
-You will see here that there are links to the files with the data in SPSS and STATA format. You can also see a tab where you can obtain the questionnaire for the survey. Once you are registered, download the STATA version of the file and the English version of the questionnaire. Make sure you place the file in your working directory. Once you do this, you should be able to use the code we are using in this session.
+You will see here that there are links to the files with the data in SPSS and STATA format. You can also see a tab where you can obtain the questionnaire for the survey. Once you are registered, download the STATA (.dta) version of the file and the English version of the questionnaire. Make sure you place the file in your working directory/ datasets folder. Once you do this, you should be able to use the code we are using in this session.
 
 First, we will load the data into our session. Since the data is in STATA format, we will need to read the data into R using the `haven` package. Specifically, we will use the `read_dta()` function to import STATA data into R. As an argument, we need to write the name of the file with the data (and if it is not in your working directory, the appropriate path file).
 
