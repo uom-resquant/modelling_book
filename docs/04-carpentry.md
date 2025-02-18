@@ -77,11 +77,11 @@ First, we would need to think about whether we wanted to use all cases in the da
 
 <iframe src="https://www.youtube.com/embed/yTufHITtGBA" width="672" height="400px" data-external="1"></iframe>
 
-So, for example, if we only wanted to work with the UK sample, we would need to figure out if there is a variable that identifies the country in the dataset. To know this, we need to look at the *codebook* (sometimes called data dictionary). In this case, we can look at the interactive facility provided by GESIS for online data analysis, which provides an interactive online codebook for this dataset. You can access this facility in the link highlighted in the image below:
+So, for example, if we only wanted to work with the UK sample, we would need to figure out if there is a variable that identifies the country in the dataset. To know this, we need to look at the *codebook* (sometimes called data dictionary). You can access this facility in the link highlighted in the image below:
 
 ![](imgs/linktoonlinea.png) 
 
-Let's explore the online facility for the Eurobarometer. If we expand the menus on the left-hand side by clicking on variable description, and then in standard nation ID variables, you will see there is a variable that provides a "country code". This must be it. Click on it, and then you will see some information about this variable on the right-hand side. You see the name of this variable (as it will appear in the dataset) *isocntry*, and we can see this variable uses [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166) codes to designate the country. This is an international standard set of abbreviations for country names. For the UK these codes are "GB-GBN" and "GB-NIR" (for Northern Ireland).
+Let's explore the codebook for the Eurobarometer. If we expand the menus on the left-hand side by clicking on "Explanation of the variable documentation", you will see country codes. The name of this variable, as it will appear in the dataset, is *isocntry*, and we can see this variable uses [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166) codes to designate the country. This is an international standard set of abbreviations for country names. For the UK these codes are "GB-GBN" and "GB-NIR" (for Northern Ireland).
 
 ![](imgs/countrya.png) 
 
@@ -108,7 +108,7 @@ If you run this code, you will end up with a new object called `uk_eb85_3` that 
 
 ## Selecting variables: using `dplyr::select`
 
-Perhaps, for the sake of this example, we decided to do an analysis that focuses on looking at attitudes toward sexual violence for all of Europe and for all participants. Yet, you won't be using 483 variables for certain. Among other reasons because our guidelines for the essay suggest you use fewer variables. But more generally because, typically, your theoretical model will tell you that some things matter more than others. 
+Perhaps, for the sake of this example, we decided to do an analysis that focuses on looking at attitudes toward sexual violence for all of Europe and for all participants. Yet, you won't be using 483 variables for certain. Among other reasons because our guidelines for the essay suggest you use fewer variables. But more generally, because, typically, your theoretical model will tell you that some things matter more than others. 
 
 The first thing you need to do is to think about what variables you are going to use. This involves first thinking about what variables are available in the dataset that measure your outcome of interest but then also considering what your theory of attitudes to gender violence says (this generally will include things that are not measured in the survey, such is life!).
 
@@ -116,7 +116,7 @@ For the sake of this exercise, we are assuming the thing you are interested in e
 
 Once you have all of this, you will need to think about which of these survey questions and items make more sense for your research question. This is something where you will need to use your common sense but also your understanding of the literature on the topic. Criminologists and survey researchers spend a lot of time thinking about the best way of asking questions about topics or concepts of interest. They often debate and write about this. In data analysis, measurement is key and is the process of systematically assigning numbers to objects and their properties, to facilitate the use of mathematics in studying and describing objects and their relationships. So, as part of your essay, you will need to consider what researchers consider are good questions to measure, to tap into, the abstract concepts you are studying.
 
-There are many items in this survey that relate to this topic, but for the purpose of continuing our illustration, we are going to focus on the answers to question *QB10*. This question asks respondents to identify in what circumstances it may be justified to have sexual intercourse without consent. The participants are read a list of items (e.g., "flirting beforehand") and they can select various of them if so they wish. If you want to look at the codebook again to see how *qb10_1* is measured, use this [link](https://www.dropbox.com/s/pvw2ipn45ygm6hm/ZA6695_cdb.pdf?dl=0) and go to page.384.
+There are many items in this survey that relate to this topic, but for the purpose of continuing our illustration, we are going to focus on the answers to question *QB10*. This question asks respondents to identify in what circumstances it may be justified to have sexual intercourse without consent. The participants are read a list of items (e.g., "flirting beforehand") and they can select various of them if so they wish. If you want to look at the codebook again to see how *qb10_1* is measured, return to the document you downloaded (the codebook) and go to page 384.
 
 <img src="imgs/qb10a.png" width="960" />
 
@@ -198,19 +198,11 @@ df <- select(eb85_3, uniqid, qb10_1, qb10_2, qb10_3, qb10_4,
              isocntry, d1, d25, d15a)
 ```
 
-Or if you just want to reorder one or a few columns (for example, you want to also move d1, d25 and d15 a to the front), you could use `everything()` afterwards to save some typing, as below:
-
-
-```r
-#option 3: select()
-df <- select(df, uniqid, d1, d25, d15a, everything())
-```
-
 If you want to add a lot of columns, it can save you some typing to have a good look at your data and see whether you can’t get to your selection by using chunks. Since *qb10_1* and the others are one after the other in the dataset, we can use the `start.col:end.col` syntax like the below:
 
 
 ```r
-#option 4: select()
+#option 3: select()
 df <- select(eb85_3, uniqid, qb10_1:qb10_12, d10, d11,
              isocntry, d1, d25, d15a)
 ```
@@ -219,7 +211,7 @@ If you have a lot of columns with a similar structure, you can use partial match
 
 
 ```r
-#option 5: select()
+#option 4: select()
 df <- select(eb85_3, uniqid, starts_with("qb10"), d10, d11,
              isocntry, d1, d25, d15a)
 ```
@@ -234,7 +226,7 @@ An alternative is to deselect columns by adding a minus sign in front of the col
 df <- select(df, -uniqid)
 ```
 
-Yes, a lot of these tips are about saving you some typing. Being lazy (productive, efficient) is fine. You can find more tips like this and useful ideas if you want to rename your columns or variables in [this tutorial](https://suzan.rbind.io/2018/01/dplyr-tutorial-1/).
+Yes, a lot of these tips are about saving you some typing. Being lazy (productive, efficient) is fine. 
 
 ## Creating summated scales
 
@@ -412,7 +404,7 @@ library(vcd)
 mosaic(~region + at_sexviol, data = df)
 ```
 
-<img src="04-carpentry_files/figure-html/unnamed-chunk-23-1.png" width="672" />
+<img src="04-carpentry_files/figure-html/unnamed-chunk-22-1.png" width="672" />
 
 In a mosaic plot like this, the height of the region levels indicates how big that group is. You can see there are many more observations in our sample that come from Western countries than from Northern countries. Here, what we are interested in is the length. We see that Northern countries have proportionally more people in the zero category than any other group. On the other hand, Eastern countries have fewer zeros (so looking as if attitudes more permissive towards sexual violence are more common there, even if still a minority). We will come back to these kinds of plots later this semester.
 
@@ -441,7 +433,7 @@ To start with, we may want to change the name of the variable. One way to do thi
 colnames(data)[colnames(data)=="old_name"] <- "new_name"
 ```
 
-Of course, we need to change the names to be valid ones. So, adapting that cod,e we would write as follows:
+Of course, we need to change the names to be valid ones. So, adapting that code, we would write as follows:
 
 
 ```r
@@ -1004,7 +996,7 @@ library(visdat)
 vis_dat(df_f)
 ```
 
-<img src="04-carpentry_files/figure-html/unnamed-chunk-54-1.png" width="672" />
+<img src="04-carpentry_files/figure-html/unnamed-chunk-53-1.png" width="672" />
 
 Nice one! You get a visual representation of how your variables are encoded in this data frame. You have several categorical variables such as region, urban_f, urban_f, and occup_f. We see that the region is encoded as a `character` vector, whereas the others are `factors`. For the purposes of this course, it is generally better to have your categorical variables encoded as factors. So, one of the next steps in our data prep may be to recode region as a factor. 
 
@@ -1033,7 +1025,7 @@ The other piece of info you get with `vis_dat` is the prevalence of missing data
 vis_miss(df_f)
 ```
 
-<img src="04-carpentry_files/figure-html/unnamed-chunk-58-1.png" width="672" />
+<img src="04-carpentry_files/figure-html/unnamed-chunk-57-1.png" width="672" />
 
 You can find more details about how to explore missing data in the vignette of the `naniar` package [here](http://naniar.njtierney.com/articles/getting-started-w-naniar.html).
 
@@ -1162,7 +1154,7 @@ sd(df$politics_n, na.rm = TRUE)
 
 Visual representations of dispersions, such as a histogram, are also handy for getting an overview of your data. 
 
-For categorical variables, a frequency table might show distribution or, again, a visualisation. You can get quantitative summaries of dispersion for categorical variables, such as variance ratio and the index of qualitative variation, but I'll leave these for now. If you want to know about these, ask us in the labs!
+
 
 ### Bivariate analysis
 

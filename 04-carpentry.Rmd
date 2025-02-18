@@ -670,7 +670,7 @@ sd(df$politics_n, na.rm = TRUE)
 
 Visual representations of dispersions, such as a histogram, are also handy for getting an overview of your data. 
 
-For categorical variables, a frequency table might show distribution or, again, a visualisation. You can get quantitative summaries of dispersion for categorical variables, such as variance ratio and the index of qualitative variation, but I'll leave these for now. If you want to know about these, ask us in the labs!
+
 
 ### Bivariate analysis
 
