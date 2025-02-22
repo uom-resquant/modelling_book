@@ -2,15 +2,15 @@
 
 ## Introduction
 
-Up to now we have introduced a series of concepts and tools that help describe variables. Descriptive statistics are crucial for summarising information about individual variables. However, in the social sciences, we often aim to go beyond description. We use data to test theories, investigate relationships, and uncover associations. This requires moving beyond single-variable analysis to examining the relationship between variables. In this chapter, we begin exploring bivariate associations.
+Up to now we have introduced a series of concepts and tools that help describe variables. Descriptive statistics are crucial for summarising information about individual variables. However, in the social sciences, we often aim to go beyond description. We use data to test theories, investigate relationships, and uncover associations. This requires moving beyond single-variable analysis to examining the relationship between two variables. In this chapter, we begin exploring bivariate associations.
 
-In bivariate analysis, we always start with a **research question**. Do Black and other ethnic minority citizens experience police stops more often than White citizens? Are violent crimes more common in low-income countries than in high-income countries? Are people living in urban areas more likely to be victims of crime than those in rural areas? These criminologically relevant research questions require the analysis of two variables simultaneously.
+In bivariate analysis, we always start with a **research question**. Do Black and other ethnic minority citizens experience police stops more often than White citizens (i.e., *ethnicity* $\rightarrow$ *police stops*)? Are violent crimes more common in low-income countries than in high-income countries (*income level* $\rightarrow$ *violent crimes*)? Are people living in urban areas more likely to be victims of crime than those in rural areas (*urbanisation* $\rightarrow$ *crime victimisation*)? These criminologically relevant research questions require the analysis of two variables simultaneously.
 
 To answer a research question, we formulate a research hypothesis (or sometimes several research hypotheses related to it). A research hypothesis is simply a proposed answer to our research question that we can test by carrying out some research. Research hypotheses can be directional and non-directional:
 
 >"When the research hypothesis does not indicate a specific type of outcome, stating only that there is a relationship or a difference, we say that it is a **non-directional hypothesis**. However, in those cases where a researcher has a very clear idea of what to expect---based on prior research evidence and/or theory---the research hypothesis may be more precise. In this case, the researcher may specify the nature of the relationship that is expected. Such a research hypothesis is called a **directional hypothesis**. When a directional hypothesis is used, the researcher states at the outset that he or she is interested in a specific type of outcome -for example, that one group has more arrests than another. Suppose we are interested in comparing the arrest records of drug-involved offenders with those of offenders who do not use drugs. Our research hypothesis might be simply that the arrest records of drug-involved offenders and offenders who do not use drugs are different (a nondirectional hypothesis). But based on prior knowledge of criminal behaviour among drug-involved offenders, we might want to state a directional hypothesis -that drug-involved offenders have more serious arrest records than non-drug-involved offenders do. One problem with choosing the latter option is that if we state our research hypothesis as a directional hypothesis, we are stating that we are not interested in outcomes that fall in the opposite direction. In criminal justice research, we can often be surprised by what we learn in a study. Accordingly, researchers generally are cautious in defining a directional research hypothesis" (Weisburd and Britt, 2010: 120)
 
-When formulating a research hypothesis, it is common practice to also formulate a *null hypotehsis*. We will return to this discussion in more detail in Chapter 9, when introducing statistical inference. For now, it suffices to say that in science we always take a sceptic approach and test hypotheses against empirical data. For example, consider the research question: do Black and other ethnic minority citizens experience police stops more often than White citizens? Based on prior research (e.g., [here](https://www.nature.com/articles/s41562-020-01029-w) or [here](https://www.cambridge.org/core/journals/american-political-science-review/article/administrative-records-mask-racially-biased-policing/66BC0F9998543868BB20F241796B79B8)), our research hypothesis could be that Black and other ethnic minority citizens are stopped by the police more frequently than White citizens. A sceptical approach, however, would begin with a null hypothesis: there is no difference in the frequency of police stops experienced by Black and other minority citizens compared to White citizens. We then test test this null hypothesis against empirical data to draw conclusions about the association between ethnicity and the experience of police stops. More details on the rationale behind null hypotheses and the principles of hypothesis testing will be provided in Chapter 9!
+When formulating a research hypothesis, it is common practice to also formulate a *null hypotehsis*. We will return to this discussion in more detail in Chapter 9, when introducing statistical inference. For now, it suffices to say that in science we always take a sceptic approach and test hypotheses against empirical data. For example, consider the research question: do Black and other ethnic minority citizens experience police stops more often than White citizens? Based on prior research (e.g., [here](https://www.nature.com/articles/s41562-020-01029-w) or [here](https://www.cambridge.org/core/journals/american-political-science-review/article/administrative-records-mask-racially-biased-policing/66BC0F9998543868BB20F241796B79B8)), our research hypothesis could be that Black and other ethnic minority citizens are stopped by the police more frequently than White citizens. A sceptical approach, however, would begin with a null hypothesis: *there is no difference in the frequency of police stops experienced by Black and other minority citizens compared to White citizens*. We then test **test** this null hypothesis against empirical data to draw conclusions about the association between ethnicity and the experience of police stops. More details on the rationale behind null hypotheses and the principles of hypothesis testing will be provided in Chapter 9!
 
 From the research question and the research hypothesis (as well as the null hypothesis), we identify two variables, each with a distinct role. One variable represents the *explanandum*, the phenomenon we aim to explain---this is called the **dependent variable** (also referred to as the *outcome variable* or *response variable*). The other variable is the *explanans*, the phenomenon used to explain it---this is called the **independent variable** (also known as the *explanatory variable* or *predictor variable*). For example, in the question we explored earlier---*Do Black and other ethnic minority citizens experience police stops more often than White citizens?*---we are examining how the frequency of police stops varies depending on a person’s ethnicity. In this case, the frequency of police stops is the dependent variable, as it is the phenomenon we want to explain. Ethnicity is the independent variable, as it is the factor we believe influences the dependent variable. From now on, we will consistently identify dependent and independent variables based on research questions and hypotheses.
 
@@ -24,12 +24,11 @@ details {
 
 + Are violent crimes more common in low-income countries than in high-income countries?
 
-  <details>
-  <summary><i>Reveal answer!</i></summary>
+  <details> <summary><i>Reveal answer!</i></summary>
 
   + **Unit of analysis**: *countries*  
   + **Dependent variable**: *frequency of violent crimes*  
-  + **Independent variable**: *countries' socioeconomic characteristics (e.g., high-income vs. low-income)*  
+  + **Independent variable**: *income level*  
 
   </details>
 
@@ -40,7 +39,7 @@ details {
 
   + **Unit of analysis**: *people / members of the public*  
   + **Dependent variable**: *likelihood of crime victimisation*  
-  + **Independent variable**: *residence area characteristics (e.g., urban vs. rural areas)*  
+  + **Independent variable**: *urbanisation, or residence area characteristics (e.g., urban vs. rural areas)*  
 
   </details>
 
@@ -79,7 +78,7 @@ details {
 
 ## Dependent variable: numerical | Independent variable: binary
 
-Throughout the semester, we will explore how to analyse relationships between variables across various combinations. If you examine the research questions above, they share a key feature: all the dependent variables are numerical, and all the independent variables are binary. Numerical variables represent measurable or countable quantities where arithmetic operations like addition, subtraction, multiplication, and division are meaningful. Examples from the research questions include the frequency of police stops, frequency of violent crimes, likelihood of crime victimisation, frequency of crimes, likelihood of reoffending, and self-reported levels of cannabis use. These are all numerical variables because they have numerical values that can be counted or measured. Binary variables (also referred to as dichotomous or dummy variables), on the other hand, represent categorical data with two mutually exclusive and exhaustive categories. Binary variables include only two possible levels, such as `TRUE` or `FALSE`, yes or no, or two distinct groupings. Examples from the research questions include: ethnicity (e.g., White vs. Black and other ethnic minorities), countries' socioeconomic characteristics (e.g., low-income vs. high-income), area characteristics (e.g., urban vs. rural areas), police prevalence in neighbourhoods (e.g., heavily policed vs. lightly policed), probation status (e.g., being on probation vs. not being on probation), and cannabis legislation (e.g., legalised vs. prohibited)
+Throughout the semester, we will explore how to analyse relationships between variables across various combinations. If you examine the research questions above, they share a key feature: all the dependent variables are numerical, and all the independent variables are binary. Numerical variables represent measurable or countable quantities where arithmetic operations like addition, subtraction, multiplication, and division are meaningful. Examples from the research questions include the frequency of police stops, frequency of violent crimes, likelihood of crime victimisation, frequency of crimes, likelihood of reoffending, and self-reported levels of cannabis use. These are all numerical variables because they have numerical values that can be counted or measured. Binary variables (also referred to as dichotomous or dummy variables), on the other hand, represent categorical data with two mutually exclusive and exhaustive categories. Binary variables include only two possible levels, such as `TRUE` or `FALSE`, yes or no, or two distinct groupings. Examples from the research questions include: ethnicity (e.g., White vs. Black and other ethnic minorities), countries' income level (e.g., low-income vs. high-income), area characteristics (e.g., urban vs. rural areas), police prevalence in neighbourhoods (e.g., heavily policed vs. lightly policed), probation status (e.g., being on probation vs. not being on probation), and cannabis legislation (e.g., legalised vs. prohibited)
 
 This is the first bivariate analysis we will study. 
 
@@ -98,7 +97,7 @@ div {
 
 Let's elaborate with an example. Let's start with the following research question: *are women more afraid of violent crime than men?* Previous research has consistently demonstrated a gender disparity in fear of crime, with women reporting higher levels of fear compared to men (e.g., [here](https://www.tandfonline.com/doi/full/10.1080/07352166.2021.1923372?utm_source=chatgpt.com), [here](https://academic.oup.com/bjc/article-abstract/51/1/58/344723?redirectedFrom=fulltext&login=false&utm_source=chatgpt.com), [here](https://academic.oup.com/bjc/article-abstract/44/6/946/397351)). While the dynamics of crime victimisation risk differ between men and women, the fear-gender gap persists across various contexts.^[Note: While this example examines the fear of crime between men and women, reflecting the focus of much prior research, we acknowledge that gender is not binary and includes transgender, non-binary, and gender-diverse individuals. Their experiences and perceptions of fear may differ and are equally important to consider in criminological research. The binary framing here is intended only to align with the specific scope of prior studies, not to imply that other gender identities are less significant.] 
 
-Based on previous research, our research hypothesis is that women are more afraid of violent crime than men. However, adopting a sceptical approach, our *null hypothesis* states that *there are no differences in fear of crime between men and women*. To test this, we must contrast this statement with empirical data. For this example, we will use data from the Crime Survey for England and Wales (2007–08), which provides a representative sample of the population living in England and Wales. This dataset includes information on respondents’ fear of crime, making it suitable for addressing our research question. Let’s begin by loading the dataset.
+Based on previous research, our research hypothesis is that women are more afraid of violent crime than men. However, adopting a sceptical approach, our *null hypothesis* states that *there are no differences in fear of crime between men and women*. To test this, we must contrast this statement with empirical data. For this example, we will use data from the Crime Survey for England and Wales (2007–08), which provides a representative sample of the adult population living in England and Wales. This dataset includes information on respondents’ fear of crime, making it suitable for addressing our research question. Let’s begin by loading the dataset.
 
 ```{r, message = F}
 # load readr library and import the data using read_csv() function
@@ -205,7 +204,24 @@ If the null hypothesis were true (i.e., adopting a sceptical approach), we would
 
 ## Visual exploration
 
+One simple strategy to depict the association between a numerical dependent variable and a binary independent variable (i.e., the mean difference) involves using data visualisation techniques. We already covered this in Chapter 3! For example, when we want to visualise the distribution of a numerical variable, we can produce a histogram, a density plot, or a boxplot. If we want to graphically represent the distribution of a numerical variable across two groups, we can produce a grouped histogram, a grouped density plot, or a grouped boxplot. This allows us to assess the association between a numerical dependent variable and a binary independent variable by examining their mean difference.
 
+```{r}
+# load the ggplot2 package
+library(ggplot2)
+
+# produce a grouped density plot
+ggplot(csew_0708, aes(x = tcviolent, fill = sex)) + 
+  geom_density(alpha = .3)
+```
+
+This grouped density plot shows that the distribution of *fear of violent crime* (`tcviolent`) scores among female respondents is slightly shifted to the right compared to the distribution among male respondents. This suggests an association between gender and fear of violent crime---as we already knew---as women in this sample have a higher average score than men. The same pattern can be visualised with a grouped boxplot.
+
+```{r}
+# produce a grouped boxplot
+ggplot(csew_0708, aes(x = sex, y = tcviolent)) + 
+  geom_boxplot()
+```
 
 ## Using linear regression to calculate mean differences
 
@@ -251,14 +267,14 @@ The output has two parts:
       + `(Intercept):` `r round(coef(mean_difference_lm)[1], 4)`
       + `sexmale:` `r round(coef(mean_difference_lm)[2], 4)`0
     
-If you recall from above when we manually calculated everything, these numbers should look familiar! The average score of fear of violent crime among women (remember, we created the `mean_fear_women` object) was `r round(mean_fear_women, 4)`---exactly what is reported as the *Intercept* in this case. And the mean difference (remember, we created the `mean_difference` object) was `r round(mean_difference, 3)`---exactly what is reported as the `sexmale` coefficient! This implies that male respondents have a fear score that is `r round(coef(mean_difference_lm)[1], 4)` points lower than female respondents on average.
+If you recall from above when we manually calculated everything, these numbers should look familiar! The average score of fear of violent crime among women (remember, we created the `mean_fear_women` object) was `r round(mean_fear_women, 4)`---exactly what is reported as the *Intercept* in this output. And the mean difference (remember, we created the `mean_difference` object) was `r round(mean_difference, 3)`---exactly what is reported as the `sexmale` coefficient! This implies that male respondents have a fear score that is `r round(coef(mean_difference_lm)[1], 4)` points lower than female respondents on average.
 
 <details>
 <summary><b>Note on how to figure out which comparisons the model is making:</b></summary>
 
 As we discussed above, there are two possible comparisons. They are numerically equivalent (i.e., only the sign differs), but the interpretation changes. We can calculate `mean_fear_men - mean_fear_women`, which gives a mean difference of `r round(coef(mean_difference_lm)[2], 4)`. Alternatively, we can calculate `mean_fear_women - mean_fear_men`, as we did when we created the `mean_difference_alternative` object, which gives a mean difference of `r round(mean_difference_alternative, 4)`. While these values are numerically the same, their interpretation focuses on different groups.
 
-#### How to determine which comparison `lm()` is performing
+#### How to determine which comparison `lm()` is performing {-}
 
 The `lm()` function selects one category to be represented by the *Intercept*---this is known as the *reference category*. The reference category is the group being compared against, i.e., the right-hand side of the subtraction equation. The `lm()` function then calculates the difference between the other category and the reference category. This is visible in the output. For example, in the output above, the coefficient is labelled `sexmale`. This implies that *female* is the reference category, and the comparison being made is `mean_fear_men - mean_fear_women`. The coefficient `sexmale:` `r round(coef(mean_difference_lm)[2], 4)` therefore indicates that male respondents, on average, have a fear score `r round(coef(mean_difference_lm)[2], 4)` points lower than female respondents.
 
@@ -320,7 +336,8 @@ Linear regression is a widely used statistical model in the social sciences. Ove
 
 In reality, we do not know the true data-generating process, and our statistical model may be incomplete. For example, factors beyond gender---such as prior victimisation (of oneself or family/friends), local crime rates, or individual personality traits---may also influence people's fear of violent crime. While these factors are not included in our current model, that's acceptable. As the saying goes, "all models are wrong, but some are useful." Our primary goal is not to explain all variation in the dependent variable (e.g., fear of crime) but to address our research question. In this case, we aim to determine whether women are more afraid of violent crime than men by estimating the difference in average fear scores between the two groups.
 
-Over the next few weeks, we will expand our understanding of linear regression models in various ways:  
+Over the next few weeks, we will expand our understanding of linear regression models in various ways:
+
   + Independent variables can also be numerical (Chapter 6).
   + Linear regression models have several assumptions that need to be satisfied (Chapter 6).
   + Independent variables can be categorical with more than two groups (Chapter 7).  
@@ -402,7 +419,7 @@ $$
 
 Here, $\alpha$ and $\beta$ are *unknown* parameters that need to be estimated. We can attempt to estimate (e.g., calculate) them. A common method for estimating these linear regression coefficients is the method of *least squares*. However, because we don't know whether our estimates of $\alpha$ and $\beta$ perfectly match the unknown parameters, we need distinguish the estimates from the unknown values. That's where the "hats" come in.
 
-  + $\widehat{\alpha}$ and $\widehat{\beta}$ represent the estimates of $\alpha$ and $\beta$, respectively.
+  + $\widehat{\alpha}$ and $\widehat{\beta}$ represent the estimates (think *guesstimates*!) of $\alpha$ and $\beta$, respectively.
   + The "hat" indicates that these are estimated values, not the true parameters.
   
 We usually expect our estimator to do a good job in estimating parameters. To the extent that $\widehat{\alpha} = \alpha$ and $\widehat{\beta} = \beta$ can be proved, then we would have an *unbiased estimator*. (but don't worry, that's not something we need to worry about! That's a job for theoretical statisticians).
@@ -410,12 +427,12 @@ We usually expect our estimator to do a good job in estimating parameters. To th
 Once we have estimated values of $\alpha$ and $\beta$, we can use them to *predict* the value of the dependent variable $Y$ for a given value of the independent variable $X$ (e.g., predict the value of fear of violent crime given respondents' sex). This *predicted value* (or *fitted value*) of *Y* is also and estimated value, therefore we denote it as $\widehat{Y}$. As such, we can write the regression function:
 
 $$
-\widehat{Y} = \widehat{\alpha} + \widehat{\beta} \ cdot x
+\widehat{Y} = \widehat{\alpha} + \widehat{\beta} \cdot x
 $$
 
 In this equation, we did not include $\epsilon$. In most cases, the predicted value $\widehat{Y}$ is not equal to the observed value $Y$. For instance, while $\widehat{Y}=0.3282$ for $X=0$ (i.e., the average score of fear of violent crime among female respondents is $0.3282$), most female respondents probably have an observed score of fear of violent crime that is not exactly $0.3282$. Similarly, while $\widehat{Y}=-0.2738$ for $X=1$ (i.e., the average score of fear of violent crime among male respondents is $-0.2738$), most male respondents probably have an observed score of fear of violent crime that is not exactly $-0.2738$. 
 
-The difference between the observed value $Y$ and its predicted value $\widehat{Y}$ (e.g., the difference between each individual score of fear of violent crime and the estimates above) is called the *residual* and is given by:
+The difference between the observed value $Y$ and its predicted value $\widehat{Y}$ (e.g., the difference between each individual score of fear of violent crime and the estimates above) is called the *residual* and is given by:  
 
 $$
 \widehat{\epsilon} = Y - \widehat{Y}.
@@ -427,9 +444,205 @@ The distinction between the error term ($\epsilon$) and the residual ($\widehat{
 
 </details>
 
-
 ## Effect size
 
+In this chapter, we learned that when we have a numerical dependent variable and a binary independent variable, we can assess their association by calculating the mean difference. Any difference between the mean scores of the dependent variable in the reference group and the mean scores of the dependent variable in the comparison group indicates that both variables are associated. In our case, because the average score of fear of violent crime among male respondents is `r round(mean_fear_men, 2)`, and among female respondents it is `r round(mean_fear_women, 2)`, the mean difference of `r round(mean_difference, 2)` represents the association between gender and fear of violent crime.
+
+Is this enough, though? Does a mean difference of `r round(mean_difference, 2)` imply a strong association? How large a difference would we need to observe to argue that there is a substantive difference? Let's say, *hypothetically*, that the mean score of fear of violent crime among men was `r round(mean_fear_women - .01, 2)`, and among women it was `r round(mean_fear_women, 2)`. In this hypothetical case, the mean difference would be $0.01$. Would this mean difference be enough for us to conclude that there is an association? Technically, given that the mean difference is not $0$, an association exists... but how strong is it? How can we assess the actual strength of an association?
+
+The first step is looking at the scaling of the dependent variable. In our case, fear of violent crime (`tcviolent`) was measured using an artificial metric. It ranges from `r csew_0708$tcviolent %>% min(na.rm = T) %>% round(2)` to `r csew_0708$tcviolent %>% max(na.rm = T) %>% round(2)`, with a range of `r csew_0708$tcviolent %>% max(na.rm = T) %>% round(2) - csew_0708$tcviolent %>% min(na.rm = T) %>% round(2)` points. In this context, we can subjectively assess whether our estimated mean difference of `r round(mean_difference, 2)` is weak or strong. In other words, considering a scale ranging from `r csew_0708$tcviolent %>% min(na.rm = T) %>% round(2)` to `r csew_0708$tcviolent %>% max(na.rm = T) %>% round(2)`, female respondents have an mean score that is `r abs(round(mean_difference, 2))` higher than male respondents.
+
+If that subjective assessment is not enough to have an intuitive understanding of the magnitude of the observed association, we can always look at a **standardised measured of the effect size**. You will find a number of standardised measures of effect size. They aim to give you a sense of how large these differences are by using a standardised metric. We are just going to use one of them, Cohen’s d, for this scenario. We can obtain this measure with the `cohen.d()` function from the `effsize` package, which you will have to install.
+
+```{r, echo = F}
+# install the 'effsize' package. Remember: you only have to do this once.
+install.packages("effsize")
+
+# load the 'effsize' package. You have to do this everytime.
+library(effsize)
+
+# compute the Cohen's d effect size
+cohen.d(csew_0708$tcviolent ~ csew_0708$sex)
+```
+
+The output suggests that the Cohen’s d estimate is a medium effect size. Cohen proposed a set of rules of thumb to interpret the d statistic: an effect size (in absolute value) of 0.2 to 0.3 might be a “small” effect, around 0.5 a “medium” effect and 0.8 to infinity, a “large” effect. However, keep in mind these rules are not absolute. In some fields of research and in relation to some problems the rules of thumb may be slightly different. You need, in professional practice, to be alert to those nuances by being familiar with the rules that other researchers use in your particular area of work.
+
+How do we write our results up? We could say the following:
+
+> On average, males have a lower score of fear of violent crime (mean = -0.27) than the female group (mean =0.33). Considering a normally distributed score ranging from -2.35 to 3.81, the mean difference of 0.60 suggests a moderate association between gender and fear of violent crime. For example, this association is represented by a medium-sized standardised effect (Cohen’s d=-0.63).
+
+This is what you would write in your “Findings” section. In your “Conclusions” you would need to discuss what the theoretical or practical implications of this finding are; connecting it to existing theoretical debates.
+
+## Lab Exercises
+
+**Your turn!** In the lab session, using the same data set (the Crime Survey for England and Wales 2007/08, i.e., the `csew_0708` data.frame), answer the following questions. Note that not all questions necessarily require analysing data in `R`. After you finish, click on '*Reveal answer!*' to check your answers.
+
+You want to use the CSEW data to study people's perceptions about the level of anti-social behaviour in their neighbourhood. The variable `tcarea` measures that, with higher scores indicating higher levels of perceived anti-social behaviour. Based on social disorganisation theory, you suspect that citizens who live in urban or rural areas have different perceptions. The variable `rural2` indicates the level of urbanisation of respondents' area of residence.
+
+1. Based on social disorganisation theory, what is your research hypothesis?
+
+<details>
+<summary><i>Reveal answer!</i></summary>
+
+Citizens who reside in urban areas tend to perceive more anti-social behaviour in their neighbourhood than residents of rural areas.
+
+</details>
+
+2. Based on your research hypothesis, what are your dependent and independent variables?
+
+<details>
+<summary><i>Reveal answer!</i></summary>
+
+Dependent variable: perceived levels of anti-social behaviour, i.e., `tcarea`.
+Independent variable: level of urbanisation of respondents' area of residence, i.e., `rural2`.
+
+</details>
+
+3. Is your dependent variable numerical or categorical? If categorical, is it binary, ordinal, or multinomial? What about the independent variable?
+
+<details>
+<summary><i>Reveal answer!</i></summary>
+
+The dependent variable, perceived levels of anti-social behaviour in the neighbourhood (`tcarea`), is a numerical variable.
+
+The independent variable, level of urbanisation of respondents' area of residence (`rural2`), is a binary variable.
+
+</details>
+
+4. Using your dependent and independent variables, what is your null hypothesis?
+
+<details>
+<summary><i>Reveal answer!</i></summary>
+
+Null hypothesis: there is no difference in the level of perceived anti-social behaviour in the neighbourhood between residents of urban and rural areas.
+
+</details>
+
+5. How can you assess the association between your dependent and independent variables and test your null hypothesis?
+
+<details>
+<summary><i>Reveal answer!</i></summary>
+
+Given that the dependent variable is numeric and the independent variable is binary, we can test the null hypothesis by estimating a mean difference. If the null hypothesis is true, we would expect the average level of perceived anti-social behaviour in the neihbourhood to be largely the same among both rural and urban residents.
+
+</details>
+
+6. Describe your dependent variable using the appropriate descriptive statistics.
+
+<details>
+<summary><i>Reveal answer!</i></summary>
+
+Given that `tcarea` is a numerical variable, we can use the `summary()` function to describe it.
+
+```{r}
+summary(csew_0708$tcarea)
+```
+
+Perceived anti-social behaviour in the neighbourhood is measured using a scale ranging from `r min(csew_0708$tcarea, na.rm = T) %>% round(2)` to `r max(csew_0708$tcarea, na.rm = T) %>% round(2)`. The mean is `r mean(csew_0708$tcarea, na.rm = T) %>% round(2)`, with a median of `r median(csew_0708$tcarea, na.rm = T) %>% round(2)`.
+
+</details>
+
+7. Describe your independent variable using the appropriate descriptive statistics.
+
+<details>
+<summary><i>Reveal answer!</i></summary>
+
+Given that `rural2` is a binary variable, we can use the `table()` and the `prop.table()` functions to describe it.
+
+```{r}
+table(csew_0708$rural2)
+
+prop.table(table(csew_0708$rural2))
+```
+
+`r table(csew_0708$rural2)[1]` respondents (`r paste(round(prop.table(table(csew_0708$rural2))[1] * 100, 2), '%', sep = "")`) live in rural areas, whereas `r table(csew_0708$rural2)[2]` respondents (`r paste(round(prop.table(table(csew_0708$rural2))[2] * 100, 2), '%', sep = "")`) live in urban areas.
+
+</details>
+
+8. What is the average score of perceived anti-social behaviour among respondents who live in rural areas? What about respondents who live in urban areas? What is the mean difference?
+
+<details>
+<summary><i>Reveal answer!</i></summary>
+
+```{r}
+# Subset the data for respondents living in urban areas
+csew_0708_urban <- filter(csew_0708, rural2 == "urban")
+
+# Calculate the average perceived ASB in the neighbourhood among urban residents
+mean_urban <- mean(csew_0708_urban$tcarea, na.rm = T)
+
+# Display results
+mean_urban
+
+# Subset the data for respondents living in rural areas
+csew_0708_rural <- filter(csew_0708, rural2 == "rural")
+
+# Calculate the average perceived ASB in the neighbourhood among rural residents
+mean_rural <- mean(csew_0708_rural$tcarea, na.rm = T)
+
+# Display results
+mean_rural
+
+# Estimate the mean difference
+mean_urban - mean_rural
+```
+
+The average score of perceived anti-social behaviour among respondents who live in urban areas is `r round(mean_urban, 2)`, whereas the average score of perceived anti-social behaviour among respondents who live in rural areas is `r round(mean_rural, 2)`. The mean difference is `r round(mean_urban - mean_rural, 2)`
+
+</details>
+
+9. Let's build a regression model. Replacing $Y$ with the name of your dependent variable, and $X$ with the name of your independent variable, write down the equation with the unknown parameters (i.e, $\alpha$ and $\beta$) that you want to estimate. *Note: this question does not involve any data analysis*.
+
+<details>
+<summary><i>Reveal answer!</i></summary>
+
+$$
+tcarea = \alpha + \beta \cdot rural2
+$$
+
+</details>
+
+10. Using the `lm()` function, estimate the parameters of your linear regression model. Rewrite the equation above replacing unknown parameters with the estimated parameters.
+
+<details>
+<summary><i>Reveal answer!</i></summary>
+
+```{r}
+lm(tcarea ~ rural2, data = csew_0708)
+```
+
+Based on the results of the linear regression model, we can rewrite the equation in the following way:
+
+$$
+tcarea = -0.34 + 0.50 \cdot rural2
+$$
 
 
-## Summary: exercise for the this week
+</details>
+
+11. What does the estimated intercept $\widehat{\alpha}$ represent? What does the estimated slope coefficient $\widehat{\beta}$ represent?
+
+<details>
+<summary><i>Reveal answer!</i></summary>
+
+The estimated intercept $\widehat{\alpha}=-0.34$ indicates the average score of perceived anti-social behaviour in the reference group (i.e., when $rural2=0$). In this case, it indicates that the average perceived anti-social behaviour among rural residents is `r round(mean_rural)`.
+
+The estimated slope coefficient $\widehat{\beta}=0.50$ indicates the mean difference between the comparison and the reference groups. In this case, it indicates that respondents who live in urban areas have, on average, scores of perceived anti-social behaviour in the neighbourhood 0.50 points higher than respondents who live in rural areas.
+
+</details>
+
+12. What do you conclude about the association between your independent and dependent variables? Did you find support for your hypothesis? How strongly associated are the two variables?
+
+<details>
+<summary><i>Reveal answer!</i></summary>
+
+```{r}
+cohen.d(csew_0708$tcarea ~ csew_0708$rural2)
+```
+
+As hypothesised by social disorganisation theory, on average, residents of urban areas are more exposed to anti-social behaviour in the neighbourhood (mean $=0.16$) than residents of rural areas (mean $=-0.34$). Considering a normally distributed score ranging from `r min(csew_0708$tcarea, na.rm = T) %>% round(2)` to `r max(csew_0708$tcarea, na.rm = T) %>% round(2)`, the mean difference of `r round(mean_urban - mean_rural, 2)` suggests a moderate association. For example, this association is represented by a medium-sized standardised effect (Cohen's d $=-0.51$).
+
+
+
+</details>
+
