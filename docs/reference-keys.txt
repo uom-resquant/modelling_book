@@ -104,3 +104,10 @@ logistic-regression-1
 fitting-logistic-regression-alternative
 assessing-model-fit-deviance-and-pseudo-r-squared
 assessing-model-fit-roc-curves
+lab-exercises
+residuals-vs-predicted-values
+residuals-vs-predictors
+diagnostic
+marginal-plots
+diagnostic-for-homoskedasiticity
+assessing-model-fit-i-deviance-and-pseudo-r-squared

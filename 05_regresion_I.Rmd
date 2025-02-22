@@ -456,7 +456,7 @@ If that subjective assessment is not enough to have an intuitive understanding o
 
 ```{r, echo = F}
 # install the 'effsize' package. Remember: you only have to do this once.
-install.packages("effsize")
+# install.packages("effsize")
 
 # load the 'effsize' package. You have to do this everytime.
 library(effsize)
