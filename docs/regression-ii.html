@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Regression II | Modelling Criminological Data CRIM20452</title>
   <meta name="description" content="This is the course material for Modelling Criminological Data CRIM20452." />
-  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Regression II | Modelling Criminological Data CRIM20452" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-02-18" />
+<meta name="date" content="2025-02-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -227,7 +227,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5.2" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#linear-regression-as-a-difference-in-means-estimator"><i class="fa fa-check"></i><b>5.5.2</b> Linear Regression as a Difference-in-Means Estimator</a></li>
 </ul></li>
 <li class="chapter" data-level="5.6" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#effect-size"><i class="fa fa-check"></i><b>5.6</b> Effect size</a></li>
-<li class="chapter" data-level="5.7" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#summary-exercise-for-the-this-week"><i class="fa fa-check"></i><b>5.7</b> Summary: exercise for the this week</a></li>
+<li class="chapter" data-level="5.7" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#lab-exercises"><i class="fa fa-check"></i><b>5.7</b> Lab Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="regression-ii.html"><a href="regression-ii.html"><i class="fa fa-check"></i><b>6</b> Regression II</a>
 <ul>
@@ -307,18 +307,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <iframe src="https://www.youtube.com/embed/47IISvRXmpA" width="672" height="400px" data-external="1">
 </iframe>
 <p>In this session, we will use the replication data from one of the papers that Prof Sharkey published to study this question. This data is found in the <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/46WIH0">Harvard Dataverse</a>. If you are interested in the specific study analysing this data, you can find it <a href="https://journals.sagepub.com/doi/abs/10.1177/0003122417736289">here</a>.</p>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="regression-ii.html#cb361-1" tabindex="-1"></a>urlfile <span class="ot">&lt;-</span> <span class="st">&quot;https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/46WIH0/ARS2VS&quot;</span></span>
-<span id="cb361-2"><a href="regression-ii.html#cb361-2" tabindex="-1"></a>communitycrime <span class="ot">&lt;-</span> <span class="fu">read.table</span>(urlfile, <span class="at">sep =</span> <span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>,<span class="at">header =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="regression-ii.html#cb373-1" tabindex="-1"></a>urlfile <span class="ot">&lt;-</span> <span class="st">&quot;https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/46WIH0/ARS2VS&quot;</span></span>
+<span id="cb373-2"><a href="regression-ii.html#cb373-2" tabindex="-1"></a>communitycrime <span class="ot">&lt;-</span> <span class="fu">read.table</span>(urlfile, <span class="at">sep =</span> <span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>,<span class="at">header =</span> T)</span></code></pre></div>
 <p>As before, we create an object with the permanent <code>URL</code> address, and then we use a function to read the data into R. The data can be saved using an <code>api</code>, and it is in tab-separated format. We use the <code>read.table</code> function from base R for this. We pass two arguments to the function <code>sep= '\t'</code>, telling R this file is tab separated. The <code>header = T</code> function tells R that it is TRUE (T) that this file has a first row that acts as a header (this row has the name of the variables).</p>
 <p>There are many more variables here that we are going to need, so let’s do some filtering and selection. We will focus on 2012, the most recent year in the dataset, and just a few select variables.</p>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="regression-ii.html#cb362-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb362-2"><a href="regression-ii.html#cb362-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">filter</span>(communitycrime, year <span class="sc">==</span> <span class="st">&quot;2012&quot;</span>)</span>
-<span id="cb362-3"><a href="regression-ii.html#cb362-3" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">select</span>(df, place_name, state_name, viol_r, </span>
-<span id="cb362-4"><a href="regression-ii.html#cb362-4" tabindex="-1"></a>             black, lesshs, unemployed, fborn,</span>
-<span id="cb362-5"><a href="regression-ii.html#cb362-5" tabindex="-1"></a>             incarceration, log_incarceraton,</span>
-<span id="cb362-6"><a href="regression-ii.html#cb362-6" tabindex="-1"></a>             swornftime_r, log_viol_r, largest50)</span></code></pre></div>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="regression-ii.html#cb374-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb374-2"><a href="regression-ii.html#cb374-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">filter</span>(communitycrime, year <span class="sc">==</span> <span class="st">&quot;2012&quot;</span>)</span>
+<span id="cb374-3"><a href="regression-ii.html#cb374-3" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">select</span>(df, place_name, state_name, viol_r, </span>
+<span id="cb374-4"><a href="regression-ii.html#cb374-4" tabindex="-1"></a>             black, lesshs, unemployed, fborn,</span>
+<span id="cb374-5"><a href="regression-ii.html#cb374-5" tabindex="-1"></a>             incarceration, log_incarceraton,</span>
+<span id="cb374-6"><a href="regression-ii.html#cb374-6" tabindex="-1"></a>             swornftime_r, log_viol_r, largest50)</span></code></pre></div>
 <p>So now we have a more manageable data set that we can use for this session. The file includes a sample of 264 US cities (see <em>place_name</em>) across 44 of states:</p>
-<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="regression-ii.html#cb363-1" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>state_name)</span></code></pre></div>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="regression-ii.html#cb375-1" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>state_name)</span></code></pre></div>
 <pre><code>## 
 ##              Alabama               Alaska              Arizona 
 ##                    4                    1                    9 
@@ -352,35 +352,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##                    6                    3</code></pre>
 <p>The variables we have extracted contain information on the demographic composition of those cities (per cent black population, per cent without a high school degree, per cent unemployed, per cent foreign-born), and some criminal justice ones (incarceration rate and the rate of sworn full-time police officers). We also have measures of the violence rate and a binary indicator that tells us if the city is one of the 50 largest in the country.</p>
 <p>We will examine the relationship between violent crime and a variable measuring unemployment (<em>unemployed</em>). Let’s look at the violence rate:</p>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="regression-ii.html#cb365-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb365-2"><a href="regression-ii.html#cb365-2" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> viol_r)) <span class="sc">+</span></span>
-<span id="cb365-3"><a href="regression-ii.html#cb365-3" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="regression-ii.html#cb377-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb377-2"><a href="regression-ii.html#cb377-2" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> viol_r)) <span class="sc">+</span></span>
+<span id="cb377-3"><a href="regression-ii.html#cb377-3" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
 <p><img src="06_regression_II_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>As you can see, it is skewed. Violence is our target variable, the one we want to better understand. Sometimes, we have to transform variables so that the assumptions of the models we use are better respected. We will discuss this in greater depth later. For now, just trust us in that rather than using <em>viol_r</em>, we will use the logarithmic transformation of the violence rate, <em>log_viol_r</em>.</p>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="regression-ii.html#cb366-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb366-2"><a href="regression-ii.html#cb366-2" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> log_viol_r)) <span class="sc">+</span></span>
-<span id="cb366-3"><a href="regression-ii.html#cb366-3" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="regression-ii.html#cb378-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb378-2"><a href="regression-ii.html#cb378-2" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> log_viol_r)) <span class="sc">+</span></span>
+<span id="cb378-3"><a href="regression-ii.html#cb378-3" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
 <p><img src="06_regression_II_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>Let’s look at the scatterplot between the log of the violence rate and unemployment:</p>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="regression-ii.html#cb367-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> unemployed, <span class="at">y =</span> log_viol_r)) <span class="sc">+</span></span>
-<span id="cb367-2"><a href="regression-ii.html#cb367-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span>.<span class="dv">2</span>, <span class="at">position=</span><span class="st">&quot;jitter&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="regression-ii.html#cb379-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> unemployed, <span class="at">y =</span> log_viol_r)) <span class="sc">+</span></span>
+<span id="cb379-2"><a href="regression-ii.html#cb379-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span>.<span class="dv">2</span>, <span class="at">position=</span><span class="st">&quot;jitter&quot;</span>) </span></code></pre></div>
 <p><img src="06_regression_II_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>What do you think when looking at this scatterplot? Is there a relationship between violence and unemployment? Does it look like cities with a high score on the X axis (unemployment) also have a high score on the Y axis (violent crime)? It may be a bit hard to see, but we think there is certainly a trend.</p>
 </div>
 <div id="motivating-regression" class="section level2 hasAnchor" number="6.2">
 <h2><span class="header-section-number">6.2</span> Motivating regression<a href="regression-ii.html#motivating-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Now, imagine that we play a game. Imagine we have all the names of the cities in a hat, and we randomly take one of the names from the hat. You’re sitting in the audience, and you have to guess the level of violence (<em>log_viol_r</em>) for that city. Imagine paying £150 to the student who gets the closest to the right value. What would you guess if you only had one guess and knew (as we do) how the log of violent crime is distributed?</p>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="regression-ii.html#cb368-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> log_viol_r)) <span class="sc">+</span> </span>
-<span id="cb368-2"><a href="regression-ii.html#cb368-2" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
-<span id="cb368-3"><a href="regression-ii.html#cb368-3" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">6.061</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">color=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb368-4"><a href="regression-ii.html#cb368-4" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Density estimate and mean of log violent crime rate&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="regression-ii.html#cb380-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> log_viol_r)) <span class="sc">+</span> </span>
+<span id="cb380-2"><a href="regression-ii.html#cb380-2" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb380-3"><a href="regression-ii.html#cb380-3" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">6.061</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">color=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb380-4"><a href="regression-ii.html#cb380-4" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Density estimate and mean of log violent crime rate&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
 ## ℹ Please use `linewidth` instead.
 ## This warning is displayed once every 8 hours.
 ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
 ## generated.</code></pre>
 <p><img src="06_regression_II_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="regression-ii.html#cb370-1" tabindex="-1"></a><span class="fu">summary</span>(df<span class="sc">$</span>log_viol_r)</span></code></pre></div>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="regression-ii.html#cb382-1" tabindex="-1"></a><span class="fu">summary</span>(df<span class="sc">$</span>log_viol_r)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   3.831   5.532   6.149   6.061   6.595   7.634</code></pre>
 <p>If we only had one shot, we would go for the mean or the median (given the skew). Most cities have values clustered around those values, which is another way of saying they are bound to be not too far from them. It would be silly to say 4, for example, since very few cities have such low levels of violence (as measured by <em>log_viol_r</em>).</p>
@@ -390,9 +390,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="06_regression_II_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>Linear regression tackles this problem using a slightly different approach. Rather than focusing on the conditional mean (smoothed or not), it draws a straight line that tries to capture the trend in the data. If we focus on the regions of the scatterplot that are less sparse, we see that this is an upward trend, suggesting that as the level of unemployment increases, so does the level of violent crime.</p>
 <p>Simple linear regression draws a single straight line of predicted values <strong>as the model for the data</strong>. This line would be a <strong>model</strong>, a <em>simplification</em> of the real world like any other model (e.g., a toy pistol, an architectural drawing, a subway map) that assumes that there is approximately a linear relationship between X and Y. Let’s draw the regression line:</p>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="regression-ii.html#cb372-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df, <span class="fu">aes</span>(<span class="at">x =</span> unemployed, <span class="at">y =</span> log_viol_r)) <span class="sc">+</span></span>
-<span id="cb372-2"><a href="regression-ii.html#cb372-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">2</span>, <span class="at">position =</span> <span class="st">&quot;jitter&quot;</span>) <span class="sc">+</span></span>
-<span id="cb372-3"><a href="regression-ii.html#cb372-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="regression-ii.html#cb384-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df, <span class="fu">aes</span>(<span class="at">x =</span> unemployed, <span class="at">y =</span> log_viol_r)) <span class="sc">+</span></span>
+<span id="cb384-2"><a href="regression-ii.html#cb384-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">2</span>, <span class="at">position =</span> <span class="st">&quot;jitter&quot;</span>) <span class="sc">+</span></span>
+<span id="cb384-3"><a href="regression-ii.html#cb384-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) </span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="06_regression_II_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>The <code>geom_smooth</code> function asks for a geom with the regression line, <code>method=lm</code> asks for the linear regression line, <code>se=FALSE</code> asks for just the line to be printed, and the other arguments specify the colour and thickness of the line.</p>
@@ -413,11 +413,11 @@ In statistics, we use a slightly different notation, although the equation remai
 <span class="math inline">\(y = b_0 + b_1x\)</span></p>
 <p>We need the origin of the line (<span class="math inline">\(b_0\)</span>) and the slope of the line (<span class="math inline">\(b_1\)</span>). How does R get the intercept and the slope for the green line? How does R know where to draw this line? We need to estimate these <strong>parameters</strong> (or <strong>coefficients</strong>) from the data. How? We don’t have time to get into these more mathematical details now. You should study the <a href="http://link.springer.com/chapter/10.1007/978-1-4614-7138-7_3">required reading</a> to understand this (<em>required means it is required, it is not optional</em>)<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>. For now, suffice to say that for linear regression models like the one we cover here when drawing the line, R tries to minimise the distance from every point in the scatterplot to the regression line using a method called <strong>least squares estimation</strong>.</p>
 <p>In order to fit the model, we use the <code>lm()</code> function using the formula specification <code>(Y ~ X)</code>. Typically, you want to store your regression model in a “variable”, let’s call it <code>fit_1</code>:</p>
-<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="regression-ii.html#cb374-1" tabindex="-1"></a>fit_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_viol_r <span class="sc">~</span> unemployed, <span class="at">data =</span> df)</span></code></pre></div>
+<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="regression-ii.html#cb386-1" tabindex="-1"></a>fit_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_viol_r <span class="sc">~</span> unemployed, <span class="at">data =</span> df)</span></code></pre></div>
 <p>In your R Studio global environment space, you will see a new object called <code>fit_1</code> with 12 elements on it. We can get a sense for what this object is and includes using the functions we introduced in previous weeks:</p>
-<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="regression-ii.html#cb375-1" tabindex="-1"></a><span class="fu">class</span>(fit_1)</span></code></pre></div>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="regression-ii.html#cb387-1" tabindex="-1"></a><span class="fu">class</span>(fit_1)</span></code></pre></div>
 <pre><code>## [1] &quot;lm&quot;</code></pre>
-<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="regression-ii.html#cb377-1" tabindex="-1"></a><span class="fu">attributes</span>(fit_1)</span></code></pre></div>
+<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="regression-ii.html#cb389-1" tabindex="-1"></a><span class="fu">attributes</span>(fit_1)</span></code></pre></div>
 <pre><code>## $names
 ##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         
 ##  [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  
@@ -426,7 +426,7 @@ In statistics, we use a slightly different notation, although the equation remai
 ## $class
 ## [1] &quot;lm&quot;</code></pre>
 <p>R is telling us that this is an object of class <code>lm</code> and includes several attributes. One of the beauties of R is that you are producing all the results from running the model, putting them in an object, and then giving you the opportunity to use them later on. If you want to see the basic results from running the model, you can use the <code>summary()</code> function.</p>
-<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="regression-ii.html#cb379-1" tabindex="-1"></a><span class="fu">summary</span>(fit_1)</span></code></pre></div>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="regression-ii.html#cb391-1" tabindex="-1"></a><span class="fu">summary</span>(fit_1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = log_viol_r ~ unemployed, data = df)
@@ -446,7 +446,7 @@ In statistics, we use a slightly different notation, although the equation remai
 ## Multiple R-squared:  0.2882, Adjusted R-squared:  0.2855 
 ## F-statistic: 106.1 on 1 and 262 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>Or, if you prefer a more parsimonious presentation, you could use the <code>display()</code> function of the <code>arm</code> package:</p>
-<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="regression-ii.html#cb381-1" tabindex="-1"></a>arm<span class="sc">::</span><span class="fu">display</span>(fit_1)</span></code></pre></div>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="regression-ii.html#cb393-1" tabindex="-1"></a>arm<span class="sc">::</span><span class="fu">display</span>(fit_1)</span></code></pre></div>
 <pre><code>## lm(formula = log_viol_r ~ unemployed, data = df)
 ##             coef.est coef.se
 ## (Intercept) 4.58     0.15   
@@ -461,10 +461,10 @@ In statistics, we use a slightly different notation, although the equation remai
 <span class="math inline">\(y = 4.58 + 0.24 * 4\)</span><br />
 <span class="math inline">\(y = 5.526564\)</span></p>
 <p>Or, if you don’t want to do the calculation yourself, you can use the <code>predict</code> function (differences are due to rounding error):</p>
-<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="regression-ii.html#cb383-1" tabindex="-1"></a><span class="co">#First, you name your stored model, and then you identify the new data </span></span>
-<span id="cb383-2"><a href="regression-ii.html#cb383-2" tabindex="-1"></a><span class="co">#(which has to be in a data frame format and with a variable name matching </span></span>
-<span id="cb383-3"><a href="regression-ii.html#cb383-3" tabindex="-1"></a><span class="co">#the one in the original data set)</span></span>
-<span id="cb383-4"><a href="regression-ii.html#cb383-4" tabindex="-1"></a><span class="fu">predict</span>(fit_1, <span class="fu">data.frame</span>(<span class="at">unemployed =</span> <span class="fu">c</span>(<span class="dv">4</span>))) </span></code></pre></div>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="regression-ii.html#cb395-1" tabindex="-1"></a><span class="co">#First, you name your stored model, and then you identify the new data </span></span>
+<span id="cb395-2"><a href="regression-ii.html#cb395-2" tabindex="-1"></a><span class="co">#(which has to be in a data frame format and with a variable name matching </span></span>
+<span id="cb395-3"><a href="regression-ii.html#cb395-3" tabindex="-1"></a><span class="co">#the one in the original data set)</span></span>
+<span id="cb395-4"><a href="regression-ii.html#cb395-4" tabindex="-1"></a><span class="fu">predict</span>(fit_1, <span class="fu">data.frame</span>(<span class="at">unemployed =</span> <span class="fu">c</span>(<span class="dv">4</span>))) </span></code></pre></div>
 <pre><code>##        1 
 ## 5.526564</code></pre>
 <p>This is the expected value of Y, the log of the violence rate, when X, unemployment is 5% of the population <em>according to our model</em> (according to our simplification of the real world, our simplification of the whole cloud of points into just one straight line). Look back at the scatterplot we produced earlier with the green line. Does it look like the green line when X is 4 corresponds to a value of Y of 5.5?</p>
@@ -500,9 +500,9 @@ R^2 = \frac{\sum (\hat{Y}_i - \bar{Y})^2}{\sum (Y_i - \bar{Y})^2}
 <!--![formula](http://docs.oracle.com/cd/E40248_01/epm.1112/cb_statistical_11123500/images/graphics/r_squared_constant.gif)-->
 <p>All this formula is doing is taking a ratio of the explained variation (the squared differences between the regression line and the mean of Y for each observation) by the total variation (the squared differences of the observed values of Y for each observation from the mean of Y). This gives us a measure of the <strong>percentage of variation in Y that is “explained” by X</strong>.</p>
 <p>Then, we can take this value as a measure of the strength of our model. If you look at the R output, you will see that the <span class="math inline">\(R^2\)</span> for our model was .29 (look at the multiple R square value in the output). We can say that our model explains 29% of the variance in the fear of violent crime measure.</p>
-<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="regression-ii.html#cb385-1" tabindex="-1"></a><span class="co">#As an aside, and to continue emphasising your appreciation of the object-oriented nature of R,</span></span>
-<span id="cb385-2"><a href="regression-ii.html#cb385-2" tabindex="-1"></a><span class="co">#when we run the summary() function, we are simply generating a list object of the class summary.lm.</span></span>
-<span id="cb385-3"><a href="regression-ii.html#cb385-3" tabindex="-1"></a><span class="fu">attributes</span>(<span class="fu">summary</span>(fit_1))</span></code></pre></div>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="regression-ii.html#cb397-1" tabindex="-1"></a><span class="co">#As an aside, and to continue emphasising your appreciation of the object-oriented nature of R,</span></span>
+<span id="cb397-2"><a href="regression-ii.html#cb397-2" tabindex="-1"></a><span class="co">#when we run the summary() function, we are simply generating a list object of the class summary.lm.</span></span>
+<span id="cb397-3"><a href="regression-ii.html#cb397-3" tabindex="-1"></a><span class="fu">attributes</span>(<span class="fu">summary</span>(fit_1))</span></code></pre></div>
 <pre><code>## $names
 ##  [1] &quot;call&quot;          &quot;terms&quot;         &quot;residuals&quot;     &quot;coefficients&quot; 
 ##  [5] &quot;aliased&quot;       &quot;sigma&quot;         &quot;df&quot;            &quot;r.squared&quot;    
@@ -510,9 +510,9 @@ R^2 = \frac{\sum (\hat{Y}_i - \bar{Y})^2}{\sum (Y_i - \bar{Y})^2}
 ## 
 ## $class
 ## [1] &quot;summary.lm&quot;</code></pre>
-<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="regression-ii.html#cb387-1" tabindex="-1"></a><span class="co">#This means that we can access its elements if so we wish. </span></span>
-<span id="cb387-2"><a href="regression-ii.html#cb387-2" tabindex="-1"></a><span class="co">#So, for example, to obtain just the R Squared, we could ask for:</span></span>
-<span id="cb387-3"><a href="regression-ii.html#cb387-3" tabindex="-1"></a><span class="fu">summary</span>(fit_1)<span class="sc">$</span>r.squared</span></code></pre></div>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="regression-ii.html#cb399-1" tabindex="-1"></a><span class="co">#This means that we can access its elements if so we wish. </span></span>
+<span id="cb399-2"><a href="regression-ii.html#cb399-2" tabindex="-1"></a><span class="co">#So, for example, to obtain just the R Squared, we could ask for:</span></span>
+<span id="cb399-3"><a href="regression-ii.html#cb399-3" tabindex="-1"></a><span class="fu">summary</span>(fit_1)<span class="sc">$</span>r.squared</span></code></pre></div>
 <pre><code>## [1] 0.2881989</code></pre>
 <p>Knowing how to interpret this is important. <span class="math inline">\(R^2\)</span> ranges from 0 to 1. The greater it is, the more powerful our model is; the more explaining we are doing, the better we can account for variation in our outcome <span class="math inline">\(Y\)</span> with our input. In other words, the stronger the relationship is between <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span>. As with all the other measures of effect size, interpretation is a matter of judgement. You are advised to see what other researchers report in relation to the particular outcome that you may be exploring. <a href="http://blog.minitab.com/blog/adventures-in-statistics/regression-analysis-how-do-i-interpret-r-squared-and-assess-the-goodness-of-fit">This</a> is a reasonable explanation of how to interpret R-Squared.</p>
 <p>Weisburd and Britt (2009: 437) suggest that in criminal justice, you rarely see values for <span class="math inline">\(R^2\)</span> greater than .40. Thus if your <span class="math inline">\(R^2\)</span> is larger than .40, you can assume you have a powerful model. When, on the other hand, <span class="math inline">\(R^2\)</span> is lower than .15 or .2, the model is likely to be viewed as relatively weak. Our observed r squared here is not too bad. There is considerable room for improvement to develop a better model to explain violence<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>. In any case, many people would argue that <span class="math inline">\(R^2\)</span> is a bit overrated. You need to be aware of what it measures and the context in which you use it. Read <a href="http://blog.minitab.com/blog/adventures-in-statistics/how-high-should-r-squared-be-in-regression-analysis">here</a> for some additional detail.</p>
@@ -530,13 +530,13 @@ R^2 = \frac{\sum (\hat{Y}_i - \bar{Y})^2}{\sum (Y_i - \bar{Y})^2}
 </div>
 <p>The dark blue line marks the best fit. The two dark-pink lines mark the limits of the confidence interval. The light-pink lines show the sampling distributions around each confidence-interval limit (the many regression lines resulting from repeated sampling); notice that the best-fit line falls at the extreme of each sampling distribution.</p>
 <p>As we saw before, when summarising the model, R will compute the standard errors.</p>
-<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="regression-ii.html#cb389-1" tabindex="-1"></a><span class="fu">summary</span>(fit_1)<span class="sc">$</span>coefficients</span></code></pre></div>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="regression-ii.html#cb401-1" tabindex="-1"></a><span class="fu">summary</span>(fit_1)<span class="sc">$</span>coefficients</span></code></pre></div>
 <pre><code>##              Estimate Std. Error  t value     Pr(&gt;|t|)
 ## (Intercept) 4.5781742 0.14898596 30.72890 7.474077e-89
 ## unemployed  0.2370975 0.02302022 10.29953 4.145166e-21</code></pre>
 <p>In our example, we can see the coefficient for our predictor is statistically significant.</p>
 <p>We can also obtain confidence intervals for the estimated coefficients using the <code>confint()</code> function:</p>
-<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="regression-ii.html#cb391-1" tabindex="-1"></a><span class="fu">confint</span>(fit_1)</span></code></pre></div>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="regression-ii.html#cb403-1" tabindex="-1"></a><span class="fu">confint</span>(fit_1)</span></code></pre></div>
 <pre><code>##                 2.5 %    97.5 %
 ## (Intercept) 4.2848120 4.8715365
 ## unemployed  0.1917693 0.2824257</code></pre>
@@ -561,9 +561,9 @@ R^2 = \frac{\sum (\hat{Y}_i - \bar{Y})^2}{\sum (Y_i - \bar{Y})^2}
 <p>So, these are the assumptions of linear regression.</p>
 <p>In this section, we can go through very quickly how to test some of them using visuals. While finding that some of the assumptions are violated does not necessarily mean that you have to scrap your model, it is important to use these diagnostics to illustrate that you have considered what the possible issues with your model are and if you find any serious issues that you address them.</p>
 <p>In r, we can use the <code>plot()</code> function on our output lm object to look through some diagnostics. This gives us 4 plots, so to show them all, we’ll use the code <code>par(mfrow = c(2, 2))</code> to split our plot window into 4 panes (remember to set back, run <code>par(mfrow = c(1, 1))</code>). Let’s return to <code>fit_1</code>, our model.</p>
-<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="regression-ii.html#cb393-1" tabindex="-1"></a>fit_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_viol_r <span class="sc">~</span> unemployed, <span class="at">data =</span> df)</span>
-<span id="cb393-2"><a href="regression-ii.html#cb393-2" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb393-3"><a href="regression-ii.html#cb393-3" tabindex="-1"></a><span class="fu">plot</span>(fit_1)</span></code></pre></div>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="regression-ii.html#cb405-1" tabindex="-1"></a>fit_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_viol_r <span class="sc">~</span> unemployed, <span class="at">data =</span> df)</span>
+<span id="cb405-2"><a href="regression-ii.html#cb405-2" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb405-3"><a href="regression-ii.html#cb405-3" tabindex="-1"></a><span class="fu">plot</span>(fit_1)</span></code></pre></div>
 <p><img src="06_regression_II_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <p>The 4 plots we get are:</p>
 <ul>
@@ -574,19 +574,19 @@ R^2 = \frac{\sum (\hat{Y}_i - \bar{Y})^2}{\sum (Y_i - \bar{Y})^2}
 </ul>
 <p>We can also run some tests to confirm what we see in the plots.</p>
 <p>For example, to test for heteroskedasticity (unequal variance in our residuals), we can run a Breusch-Pagan test from the <code>lmtest</code> package or a NCV test from the <code>car</code> package.</p>
-<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="regression-ii.html#cb394-1" tabindex="-1"></a>lmtest<span class="sc">::</span><span class="fu">bptest</span>(fit_1)  <span class="co"># Breusch-Pagan test</span></span></code></pre></div>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="regression-ii.html#cb406-1" tabindex="-1"></a>lmtest<span class="sc">::</span><span class="fu">bptest</span>(fit_1)  <span class="co"># Breusch-Pagan test</span></span></code></pre></div>
 <pre><code>## 
 ##  studentized Breusch-Pagan test
 ## 
 ## data:  fit_1
 ## BP = 11.498, df = 1, p-value = 0.0006965</code></pre>
-<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="regression-ii.html#cb396-1" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">ncvTest</span>(fit_1) <span class="co"># NCV test</span></span></code></pre></div>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="regression-ii.html#cb408-1" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">ncvTest</span>(fit_1) <span class="co"># NCV test</span></span></code></pre></div>
 <pre><code>## Non-constant Variance Score Test 
 ## Variance formula: ~ fitted.values 
 ## Chisquare = 8.270574, Df = 1, p = 0.0040293</code></pre>
 <p>Both these tests have a p-value less than a significance level of 0.05. Therefore, we can reject the null hypothesis that the variance of the residuals is constant and infer that heteroscedasticity is indeed present, thereby confirming our graphical inference.</p>
 <p>For testing whether the residuals violate the normality assumption, we can use the Anderson-Darling test for the composite hypothesis of normality with the <code>ad.test()</code> function in the <code>nortest</code> package.</p>
-<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="regression-ii.html#cb398-1" tabindex="-1"></a>nortest<span class="sc">::</span><span class="fu">ad.test</span>(fit_1<span class="sc">$</span>residuals)</span></code></pre></div>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="regression-ii.html#cb410-1" tabindex="-1"></a>nortest<span class="sc">::</span><span class="fu">ad.test</span>(fit_1<span class="sc">$</span>residuals)</span></code></pre></div>
 <pre><code>## 
 ##  Anderson-Darling normality test
 ## 

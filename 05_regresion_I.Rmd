@@ -24,57 +24,58 @@ details {
 
 + Are violent crimes more common in low-income countries than in high-income countries?
 
-  <details> <summary><i>Reveal answer!</i></summary>
+<details>
+<summary><i>Reveal answer!</i></summary>
 
   + **Unit of analysis**: *countries*  
   + **Dependent variable**: *frequency of violent crimes*  
   + **Independent variable**: *income level*  
 
-  </details>
+</details>
 
 + Are people living in urban areas more likely to be victims of crime than those in rural areas?
 
-  <details>
-  <summary><i>Reveal answer!</i></summary>
+<details>
+<summary><i>Reveal answer!</i></summary>
 
   + **Unit of analysis**: *people / members of the public*  
   + **Dependent variable**: *likelihood of crime victimisation*  
   + **Independent variable**: *urbanisation, or residence area characteristics (e.g., urban vs. rural areas)*  
 
-  </details>
+</details>
 
 + Do neighbourhoods with a heavier police presence experience less crime?
 
-  <details>
-  <summary><i>Reveal answer!</i></summary>
+<details>
+<summary><i>Reveal answer!</i></summary>
 
   + **Unit of analysis**: *neighbourhoods*  
   + **Dependent variable**: *frequency of crimes*  
   + **Independent variable**: *police prevalence (e.g., heavily policed vs. lightly policed)*  
 
-  </details>
+</details>
 
 + Does being on probation reduce the likelihood of reoffending compared to individuals not on probation?
 
-  <details>
-  <summary><i>Reveal answer!</i></summary>
+<details>
+<summary><i>Reveal answer!</i></summary>
 
   + **Unit of analysis**: *individuals / previous offenders*  
   + **Dependent variable**: *likelihood of reoffending*  
   + **Independent variable**: *probation (e.g., being on probation vs. not on probation)*  
 
-  </details>
+</details>
 
 + Does cannabis legalisation lead to higher self-reported levels of cannabis use?
 
-  <details>
-  <summary><i>Reveal answer!</i></summary>
+<details>
+<summary><i>Reveal answer!</i></summary>
 
   + **Unit of analysis**: *countries / cities / states*  
   + **Dependent variable**: *self-reported levels of cannabis use*  
   + **Independent variable**: *cannabis legislation (e.g., legalised vs. prohibited)*  
 
-  </details>
+</details>
 
 ## Dependent variable: numerical | Independent variable: binary
 
@@ -206,7 +207,7 @@ If the null hypothesis were true (i.e., adopting a sceptical approach), we would
 
 One simple strategy to depict the association between a numerical dependent variable and a binary independent variable (i.e., the mean difference) involves using data visualisation techniques. We already covered this in Chapter 3! For example, when we want to visualise the distribution of a numerical variable, we can produce a histogram, a density plot, or a boxplot. If we want to graphically represent the distribution of a numerical variable across two groups, we can produce a grouped histogram, a grouped density plot, or a grouped boxplot. This allows us to assess the association between a numerical dependent variable and a binary independent variable by examining their mean difference.
 
-```{r}
+```{r, warning = F}
 # load the ggplot2 package
 library(ggplot2)
 
@@ -217,7 +218,7 @@ ggplot(csew_0708, aes(x = tcviolent, fill = sex)) +
 
 This grouped density plot shows that the distribution of *fear of violent crime* (`tcviolent`) scores among female respondents is slightly shifted to the right compared to the distribution among male respondents. This suggests an association between gender and fear of violent crime---as we already knew---as women in this sample have a higher average score than men. The same pattern can be visualised with a grouped boxplot.
 
-```{r}
+```{r, warning = F}
 # produce a grouped boxplot
 ggplot(csew_0708, aes(x = sex, y = tcviolent)) + 
   geom_boxplot()
@@ -454,7 +455,7 @@ The first step is looking at the scaling of the dependent variable. In our case,
 
 If that subjective assessment is not enough to have an intuitive understanding of the magnitude of the observed association, we can always look at a **standardised measured of the effect size**. You will find a number of standardised measures of effect size. They aim to give you a sense of how large these differences are by using a standardised metric. We are just going to use one of them, Cohen’s d, for this scenario. We can obtain this measure with the `cohen.d()` function from the `effsize` package, which you will have to install.
 
-```{r, echo = F}
+```{r, warning = F}
 # install the 'effsize' package. Remember: you only have to do this once.
 # install.packages("effsize")
 
@@ -494,6 +495,7 @@ Citizens who reside in urban areas tend to perceive more anti-social behaviour i
 <summary><i>Reveal answer!</i></summary>
 
 Dependent variable: perceived levels of anti-social behaviour, i.e., `tcarea`.
+
 Independent variable: level of urbanisation of respondents' area of residence, i.e., `rural2`.
 
 </details>

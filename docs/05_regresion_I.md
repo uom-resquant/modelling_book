@@ -24,57 +24,58 @@ details {
 
 + Are violent crimes more common in low-income countries than in high-income countries?
 
-  <details> <summary><i>Reveal answer!</i></summary>
+<details>
+<summary><i>Reveal answer!</i></summary>
 
   + **Unit of analysis**: *countries*  
   + **Dependent variable**: *frequency of violent crimes*  
   + **Independent variable**: *income level*  
 
-  </details>
+</details>
 
 + Are people living in urban areas more likely to be victims of crime than those in rural areas?
 
-  <details>
-  <summary><i>Reveal answer!</i></summary>
+<details>
+<summary><i>Reveal answer!</i></summary>
 
   + **Unit of analysis**: *people / members of the public*  
   + **Dependent variable**: *likelihood of crime victimisation*  
   + **Independent variable**: *urbanisation, or residence area characteristics (e.g., urban vs. rural areas)*  
 
-  </details>
+</details>
 
 + Do neighbourhoods with a heavier police presence experience less crime?
 
-  <details>
-  <summary><i>Reveal answer!</i></summary>
+<details>
+<summary><i>Reveal answer!</i></summary>
 
   + **Unit of analysis**: *neighbourhoods*  
   + **Dependent variable**: *frequency of crimes*  
   + **Independent variable**: *police prevalence (e.g., heavily policed vs. lightly policed)*  
 
-  </details>
+</details>
 
 + Does being on probation reduce the likelihood of reoffending compared to individuals not on probation?
 
-  <details>
-  <summary><i>Reveal answer!</i></summary>
+<details>
+<summary><i>Reveal answer!</i></summary>
 
   + **Unit of analysis**: *individuals / previous offenders*  
   + **Dependent variable**: *likelihood of reoffending*  
   + **Independent variable**: *probation (e.g., being on probation vs. not on probation)*  
 
-  </details>
+</details>
 
 + Does cannabis legalisation lead to higher self-reported levels of cannabis use?
 
-  <details>
-  <summary><i>Reveal answer!</i></summary>
+<details>
+<summary><i>Reveal answer!</i></summary>
 
   + **Unit of analysis**: *countries / cities / states*  
   + **Dependent variable**: *self-reported levels of cannabis use*  
   + **Independent variable**: *cannabis legislation (e.g., legalised vs. prohibited)*  
 
-  </details>
+</details>
 
 ## Dependent variable: numerical | Independent variable: binary
 
@@ -269,11 +270,6 @@ ggplot(csew_0708, aes(x = tcviolent, fill = sex)) +
   geom_density(alpha = .3)
 ```
 
-```
-## Warning: Removed 3242 rows containing non-finite outside the scale range
-## (`stat_density()`).
-```
-
 <img src="05_regresion_I_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
 This grouped density plot shows that the distribution of *fear of violent crime* (`tcviolent`) scores among female respondents is slightly shifted to the right compared to the distribution among male respondents. This suggests an association between gender and fear of violent crime---as we already knew---as women in this sample have a higher average score than men. The same pattern can be visualised with a grouped boxplot.
@@ -283,11 +279,6 @@ This grouped density plot shows that the distribution of *fear of violent crime*
 # produce a grouped boxplot
 ggplot(csew_0708, aes(x = sex, y = tcviolent)) + 
   geom_boxplot()
-```
-
-```
-## Warning: Removed 3242 rows containing non-finite outside the scale range
-## (`stat_boxplot()`).
 ```
 
 <img src="05_regresion_I_files/figure-html/unnamed-chunk-10-1.png" width="672" />
@@ -572,8 +563,15 @@ The first step is looking at the scaling of the dependent variable. In our case,
 If that subjective assessment is not enough to have an intuitive understanding of the magnitude of the observed association, we can always look at a **standardised measured of the effect size**. You will find a number of standardised measures of effect size. They aim to give you a sense of how large these differences are by using a standardised metric. We are just going to use one of them, Cohen’s d, for this scenario. We can obtain this measure with the `cohen.d()` function from the `effsize` package, which you will have to install.
 
 
-```
-## Warning: package 'effsize' was built under R version 4.3.3
+```r
+# install the 'effsize' package. Remember: you only have to do this once.
+# install.packages("effsize")
+
+# load the 'effsize' package. You have to do this everytime.
+library(effsize)
+
+# compute the Cohen's d effect size
+cohen.d(csew_0708$tcviolent ~ csew_0708$sex)
 ```
 
 ```
@@ -615,6 +613,7 @@ Citizens who reside in urban areas tend to perceive more anti-social behaviour i
 <summary><i>Reveal answer!</i></summary>
 
 Dependent variable: perceived levels of anti-social behaviour, i.e., `tcarea`.
+
 Independent variable: level of urbanisation of respondents' area of residence, i.e., `rural2`.
 
 </details>
