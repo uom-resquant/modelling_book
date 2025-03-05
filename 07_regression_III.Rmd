@@ -282,7 +282,7 @@ library(effects)
 plot(allEffects(fit_5), ask=FALSE)
 ```
 
-Notice that essentially, what we are doing is running two regression lines and testing whether the slope is different for the two groups. The intercept is different; we know that largest cities are more violent, but what we are testing here is whether violence goes up in a steeper fashion (and in the same direction) for one or the other group as unemployment goes up. We see that's not the case here. The estimated lines are almost parallel.
+Notice that essentially, what we are doing is running two regression lines and testing whether the slope is different for the two groups. The intercept is different; we know that largest cities are more violent, but what we are testing here is whether violence goes up in a steeper fashion (and in the same direction) for one or the other group as unemployment goes up. We see that's not the case here. The estimated lines are almost parallel...
 
 A word of warning: the moment you introduce an interaction effect, the meaning of the coefficients for the other predictors changes (what it is often referred to as the "main effects" as opposed to the interaction effect). You cannot retain the interpretation we introduced earlier. Now, for example, the coefficient for the *largest50* variable relates to the marginal effect of this variable when *unemployment* equals zero. The typical table of results helps you to understand whether the effects are significant but offers little of interest that will help you to meaningfully interpret what the effects are. For this, it is better if you use some of the graphical displays we have covered.
 
