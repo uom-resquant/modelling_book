@@ -1,105 +1,188 @@
-# Regression III
+# Regression III: categorical independent variables and multiple regression models
 
-Following the introduction of regression models in previous weeks, we will develop these models further in this session. How do we interpret categorical variables used in regression? What are interaction effects, and why we might need them? These are some of the questions we will address this week. 
+In previous weeks, we learned that linear regression models are a powerful method that allows us to assess the association between a binary or numerical independent variable and a numerical dependent variable. This week, we will develop these models even further. Specifically, we will learn how to handle scenarios when the dependent variable is numerical (as in previous weeks) but the independent variable is categorical with more than two groups (i.e., ordinal or nominal variables). In addition, we will finally introduce the world of *multivariate analysis*, when we analyse more than two variables at the same time.
 
 ## Fitting regression with categorical predictors
 
-In previous weeks, we explained regression using a numeric input. It turns out we can also use regression with categorical explanatory variables. It is quite straightforward to run it. 
+With linear regression models, the dependent variable $Y$ will always be numerical. If the independent variable $X$ is numerical, the estimated slope coefficient $\beta$ implies that every one-unit increase in $X$ is associated with a $\beta$-increase in $Y$. If the independent variable $X$ is binary, the estimated slope coefficient $\beta$ implies the mean difference: expected scores of $Y$ in the comparison group are $\beta$ units higher/lower than in the reference group. Now, let's expand that rationale to other categorical independent variables with more than two groups. It is quite straightforward to run it, and very similar to the binary case!
 
-We will use the same dataset from previous weeks. We will use the replication data from one of the papers that Prof Sharkey published to study what contributed to the decline of crime from the 90s. This data is found in the [Harvard Dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/46WIH0). If you are interested in the specific study analysing this data, you can find it [here](https://journals.sagepub.com/doi/abs/10.1177/0003122417736289).
+We will use the same dataset from last week. We will use the replication data from one of the papers that Prof Sharkey published to study what contributed to the decline of crime from the 1990s. This data is found in the [Harvard Dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/46WIH0). If you are interested in the specific study analysing this data, you can find it [here](https://journals.sagepub.com/doi/abs/10.1177/0003122417736289).
 
 ```{r}
+# create an object with the URL address of the dataset
 urlfile <- "https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/46WIH0/ARS2VS"
+
+# import the dataset into R
 communitycrime <- read.table(urlfile, sep = '\t',header = T)
 ```
 
-As before, we create an object with the permanent `URL` address, and then we use a function to read the data into R. We use the `read.table` function from base R for this. We pass two arguments to the function `sep= '\t'`, telling R this file is tab separated. The `header = T` function tells R that it is TRUE (T) that this file has a first row that acts as a header (this row has the name of the variables).
+As before, we create an object with the permanent `URL` address, and then we use a function to read the data into `R`. We use the `read.table()` function from base `R` for this. We pass two arguments to the function `sep= '\t'`, telling `R` this file is tab separated. The `header = T` function tells `R` that it is `TRUE` (`T`) that this file has a first row that acts as a header (this row has the name of the variables).
 
 There are many more variables here than we will need, so let's do some filtering and selection. We will focus on 2012, the most recent year in the dataset, and just a few select variables.
 
 ```{r, message=FALSE}
+# load the dplyr package for data cleaning
 library(dplyr)
-df <- filter(communitycrime, year == "2012")
-df <- select(df, place_name, state_name, viol_r, black, lesshs, unemployed, fborn, incarceration, log_incarceraton, swornftime_r, log_viol_r, largest50)
+
+# create a new object, 'df', that only includes observations from 2012
+# and removes missing observations from the variable 'region'
+df <- filter(communitycrime, year == "2012", !is.na(region))
+
+# select just some variables from the dataset
+df <- select(df, place_name, state_name, region, viol_r, black, lesshs, unemployed, fborn, incarceration, log_incarceraton, swornftime_r, log_viol_r, largest50)
 ```
 
-So now we have a more manageable data set that we can use for this session. The file includes a sample of 264 US cities (see *place_name*) across 44 states. See previous weeks for code on how to figure out what these states are. 
+So now we have a more manageable data set that we can use for this session. Our unit of analysis, as last week, are cities in the United States, and our sample includes 263 US cities (see `place_name`) across 44 states. See previous weeks for code on how to figure out what these states are. 
 
-We have one categorical variable in the dataset, *largest50*, identifying whether the city is one of the 50 largest in the country.
+We have one categorical variable with more than two groups in this dataset, `region`, which identifies the region in United States the city is located. There are four regions: East Coast, Midwest, South, and West Coast. Let's start recoding this variable to ensure that it is treated as a factor with the relevant labels.
+
 
 ```{r}
-table(df$largest50)
-class(df$largest50)
+# frequency table of the variable 'region'
+table(df$region)
+
+# factorising variable 'region' and assigning relevant labels
+df <- mutate(df, region = factor(region, 
+                                 levels = c(1, 2, 3, 4), 
+                                 labels = c("East Coast", "Midwest", "South", "West Coast")))
+
+# frequency table of variable 'region' to make sure
+# that our changes worked as expected
+table(df$region)
 ```
 
-This variable is, however, stored in a numeric vector. We may want to change this to reflect the fact it is categorical.
+One possible avenue for research here is exploring the extent to which different regions in the US have different rates of violence. In this case, as in previous week, violence rate would be our dependent variable and region in the US, our independent variable. The question, then, is whether we can simply throw a categorical independent variable in a regression model.
+
+Now, let's return to Week 5 for a minute and remember how we handle *binary* independent variables. If our independent variable is binary, what we want to do is essentially calculate the mean of the dependent variable across both groups of the independent variable. With a categorical (ordinal or nominal) variable, we can start similarly: we can start calculating the mean of the dependent variable across *all* groups of the independent variable. For example, let's calculate the average rate of violence across the four regions in the US.
 
 ```{r}
-df$largest50 <- as.factor(df$largest50)
-class(df$largest50)
+# calculate the mean of 'viol_r' across groups of 'region'
+df %>%
+  group_by(region) %>%
+  summarise(average = mean(viol_r))
 ```
 
-Let's rename the levels. In previous sessions, we illustrated how to do that with base R functions. Here, we introduce a new package, `forcats`, worth considering when doing any work with factor variables. You can read more about it [here](https://forcats.tidyverse.org).
+Great, we know that the average violence rate in cities in the East Coast is 790, the average violence rate in cities in the Midwest is 634, the average violence rate in cities in the South is 589, and the average violence rate in cities in the West Coast is 417. We can also visually inspect those mean differences using a grouped boxplot.
 
 ```{r}
-library(forcats)
-df$largest50 <- fct_recode(df$largest50, Yes = "1", No = "0")
-table(df$largest50)
-```
-
-We can explore if particularly large cities have higher rates of violence (remember, a rate controls for population size, so if this were to be significant, it would be telling us that it's not just because there are more people in them!). This is how you would express the model:
-
-```{r}
-fit_2 <- lm(log_viol_r ~ largest50, data=df)
-```
-
-Notice that there is nothing different in how we ask for the model compared to last week. And see below the regression line:
-
-```{r, echo=FALSE, warning = FALSE, message=FALSE}
+# load the 'ggplot2' package
 library(ggplot2)
-ggplot(data=df, aes(x=largest50, y=log_viol_r)) +
-  geom_boxplot() +
-  geom_point(alpha=.5, position = "jitter", color="orange") +
-  geom_abline(intercept = fit_2$coefficients[1],
-    slope = fit_2$coefficients[2], color="red", size=1) +
-  theme_bw()
+
+# produce a grouped boxplot assessing the distribution of
+# 'viol_r' across groups of 'region'
+ggplot(data = df, aes(x = region, y = viol_r)) +
+  geom_boxplot()
 ```
 
-Although in the plot, we still see a line, what we are really estimating here is the average of *log_viol_r* for each of the two categories. 
-
-Let's have a look at the results:
+Now, how about including this categorical variable as an independent variable in a regression model? If we think about it, theoretically we could recode this categorical variable into several binary variables. For example, we could create one binary variable that indicates whether the city is from the East Coast ($=1$) or elsewhere ($=0$), another binary variable indicating whether the city is from the Midwest ($=1$) or elsewhere ($=0$), another binary variable indicating whether the city is from the South ($=1$) or elsewhere ($=0$), and a fourth binary variable indicating whether the city is from the West Coast ($=1$) or elsewhere ($=0$). This would be good because we already know how to handle binary independent variables. Given that the variable `region` has four groups, we could create four new binary variables.
 
 ```{r}
-summary(fit_2)
+# create four new binary variables based on groups of 'region'
+df <- mutate(df,
+             east_coast = case_when(region == "East Coast" ~ 1, TRUE ~ 0),
+             midwest = case_when(region == "Midwest" ~ 1, TRUE ~ 0),
+             south = case_when(region == "South" ~ 1, TRUE ~ 0),
+             west_coast = case_when(region == "West Coast" ~ 1, TRUE ~ 0)
+             )
+
+## Now, let's check this worked
+
+# table of frequency for new binary variable 'east_coast'
+table(df$east_coast)
+
+# table of frequency for new binary variable 'midwest'
+table(df$midwest)
+
+# table of frequency for new binary variable 'south'
+table(df$south)
+
+# table of frequency for new binary variable 'west_coast'
+table(df$west_coast)
 ```
 
-As you can see, the output does not look too different. But notice that in the printout, you see how the row with the coefficient and other values for our input variable *largest50* we see that R is printing `largest50Yes`. What does this mean?
+Great, it worked! Now, each one of the groups is presented by their own binary variable. We could, for example, simply estimate four separate regression models, each including one independent binary variable. That would allow us to examine the association between region and rates of violence!
 
-When you only have one predictor, the value of the intercept is the mean value of what we call the **reference category**, and the coefficient for the slope tells you how much higher (if it is positive) or how much lower (if it is negative) is the mean value for the other category in your factor.
+True, that would... but that's not very efficient. After all we had to manually create four separate binary variables and then would need to run four separate linear regression models. Not exactly an easy solution.
 
-The reference category is the one for which R does not print the *level* next to the name of the variable for which it gives you the regression coefficient. Here we see that the named level is "Yes" (`largest50Yes`). That's telling you that the reference category here is "No". Therefore, the Y-intercept, in this case, is the mean value of violence for cities that are not the largest in the country, whereas the coefficient for the slope tells you how much higher the mean value is for the largest cities in the country. Don't believe me?
+Now, let's think again---a bit more deeply---about what the regression model estimates when we have a binary independent variable. Let's use the variable `largest50` as a quick example---this variable indicates whether the city is one of the 50 largest cities in the US. As we know, a linear model is given by
+
+$$
+Y = \alpha + \beta \cdot X
+$$
+If we regress rates of violence (`viol_r`) on this binary indicator (`largest50`), the regression estimator will yield estimates of the intercept ($\alpha$) and the slope coefficient ($\beta$).
 
 ```{r}
-#Compute the mean for the smaller cities
-mean(df$log_viol_r[df$largest50 == "No"], na.rm=TRUE)
-#Compute the difference between the two means
-mean(df$log_viol_r[df$largest50 == "Yes"], na.rm=TRUE) - mean(df$log_viol_r[df$largest50 == "No"], na.rm=TRUE)
+# fit a regression model with 'viol_r' as the DV and 'largest50' as the IV
+lm(viol_r ~ largest50, data = df)
 ```
 
-So, to reiterate, the coefficient for a single binary predictor in a linear regression model often represents the difference in the means of the outcome variable between the two groups defined by the binary predictor (the two groups).
+Based on the output above, we know that the estimated intercept is $\widehat{\alpha}=484.4$, indicating the average rates of violence in smaller cities. We also know that the estimated slope coefficient is $\widehat{\beta}=339.2$, indicating that the average rate of violence is 339.2 scores higher in the larger cities than in smaller cities.
 
-With categorical variables encoded as **factors**, you always have a situation like this: a reference category and then as many additional coefficients as there are additional levels in your categorical variable. Each of these additional categories is input into the model as **"dummy" variables**. Here, our categorical variable has two levels. Thus, we have only one dummy variable. There will always be one fewer dummy variable than the number of levels. The level with no dummy variable, females in this example, is known as the **reference category** or the **baseline**.
+In other words, we had a categorical variable with two groups (`largest50`$=0$ indicating smaller cities and `largest50`$=1$ indicating larger cities), we estimated a regression model, which then returned the average score for one of the groups ($\alpha$, for the *reference group*) and one slope coefficient indicating the mean difference between that group and the reference group ($\beta$).
 
-It turns out the regression table is printing out a test of statistical significance for every input in the model. If we look at the table above, the p value associated with it is near 0. This is indeed considerably lower than the conventional significance level of 0.05. So, we could conclude that the probability of obtaining this value if the null hypothesis is true is very low. However, the observed r squared is also kind of poor. Read [this](http://blog.minitab.com/blog/adventures-in-statistics/how-to-interpret-a-regression-model-with-low-r-squared-and-low-p-values) to understand a bit more about this phenomenon of low p, but also low r-squared.
-
-If, rather than a binary explanatory variable, you had a factor with five levels. Then, if you were to run a regression model, this would result in a model with 4 dummy variables. The coefficient of each of these dummies would tell you how much higher or lower (if the sign were negative) the level of violence for each of the levels for which you have a dummy compared to your reference category or baseline is. One thing that is important to keep in mind is that R, by default, will use the first level in your factor as the baseline category. 
+Now, let's fit another regression model where the dependent variable is rates of violence (`viol_r`) and the independent variable is region (`region`), a categorical variable. Let's see what happens.
 
 ```{r}
-levels(df$largest50)
+# fit a regression model with 'viol_r' as the DV and 'region' as the IV
+lm(viol_r ~ region, data = df)
 ```
 
-In our case, you can see "No" listed first. Keep in mind for your assignment that levels in factors are often alphabetically listed, not in a particularly meaningful or useful way.
-If you want to change this, you may need to reorder the levels. See [here](https://forcats.tidyverse.org/reference/fct_relevel.html) for instructions on how to do this.
+It works! But how do we make sense of it? We now have one estimated intercept and **three** estimated slope coefficients! The estimated intercept ($\widehat{\alpha}=790$) we immediately recognise as the mean rate of violence in the East Coast (check the grouped averages above!). And the three slope coefficients all make reference to the remaining groups: Midwest ($\widehat{\beta}=-155.6$), South ($\widehat{\beta}=-200.9$), and West Coast ($\widehat{\beta}=-373.2$). What's going on here?
+
+Essentially, what happened is that we have four different groups. One of those groups is what we call the **reference category**: this is the group whose average is represented by the Intercept. Then the model returns one coefficient for each of the remaining groups. Those coefficients reflect the mean difference between each group and the reference group. For example, the slope coefficient for Midwest is $\widehat{\beta}=-155.6$, implying that cities in the Midwest have an average rate of violence 155.6 units lower than the average rate of violence in the East Coast. This checks out! We knew that the average violence rate in Midwest cities was 634, which is exactly 156 units lower than East Coast's average of 790 (any small differences are due to rounding error).
+
+Similarly, the slope coefficient for South is $\widehat{\beta}=-200.9$, implying that cities in the South have an average rate of violence 200.9 units lower than the average rate of violence in the East Coast. the slope coefficient for West Coast is $\widehat{\beta}=-373.2$, implying that cities in the West Coast have an average rate of violence 200.9 units lower than the average rate of violence in the East Coast. 
+
+With categorical variables, the value of the intercept is the mean value of $Y$ in the **reference category**, and then we have one slope coefficient for each of the remaining groups---each one of them indicating the estimated mean difference between that group and the reference group. If, hypothetically, we had a categorical variable with 10 groups and used it as an independent variable in a regression model, that would yield nine slope coefficients---each one of them estimating the mean difference between each group and reference category.
+
+Now, before we created a series of binary variables. What if we used them instead the variable `region`? For example, we could fit a regression model including the binary variables `midwest`, `south`, and `west_coast` as independent variables at the same time. 
+
+```{r}
+# fit a regression model with binary independent variables
+lm(viol_r ~ midwest + south + west_coast, data = df)
+```
+
+It's exactly the same model! That's what `R` is doing in the background. Because we left the group 'East Coast' out, we are treating it as the reference category. Therefore, its average score is represented by the estimated intercept. Then, each slope coefficient estimates the mean difference between each group and the reference group. What `R` is doing in the background is exactly that: creating a bunch of binary variables from the categorical variable, including each one of them as a separate variable in the model---except for one group, which is left out and treated as the reference category, so that all comparisons are made against this group.
+
+So, that's great! We don't need to manually create a bunch of new binary variables. Every time we include a `factor` as an independent variable, `R` will do all of that automatically for us. We just need to make sure we interpret the coefficients correctly! It's as if we were estimating the following linear model:
+
+$$
+viol\_r = \alpha + \beta_1\cdot MidWest + \beta_2\cdot South + \beta_3\cdot West Coast
+$$
+
+When dealing with categorical independent variables, therefore, a key question becomes the choice of the reference category. We need to choose the reference category that makes more sense for us, given that all comparisons will be made against that group. We can check which group is the reference category by checking the `levels()` of the factor variable; `R` will always pick the first category as the reference category.
+
+```{r}
+# checking the levels of variable 'region'
+levels(df$region)
+```
+
+Because the group "East Coast" is the first group, `R` has picked it as the reference category in the regression model above. If we want to change the reference category, we can use the `fct_relevel()` function, from the `forcats` package. For example, if we want the West Coast to be the reference group, we simply use the following code:
+
+```{r}
+# install the package if you haven't yet. You only need to do it once.
+## install.packages("forcats")
+
+# load the 'forcats' package
+library(forcats)
+
+# changing the reference group of variable 'region' to West Coast
+df <- mutate(df, region = fct_relevel(region, "West Coast"))
+
+# check that it worked. 'West Coast' should be the first group now
+levels(df$region)
+```
+
+If we estimate a regression model with `viol_r` as the dependent variable and `region` as the independent variable, we will get different results now.
+
+```{r}
+# regression model using 'West Coast' as the reference group
+lm(viol_r ~ region, data = df)
+```
+
+**Important!** The code we used to fit this regression model is *exactly* the same as before. Yet, results are different. Now, we are treating 'West Coast' as the reference group. Therefore, the estimated intercept $\widehat{\alpha}=416.8$ is the average violence rate in the West Coast, and each of the three slope coefficients is the difference between the average violence rates in each region and in the West Coast. 
+
+Always check what is the reference category when dealing with categorical independent variables!
 
 ## Motivating multiple regression
 
@@ -148,68 +231,13 @@ Something you need to be particularly careful about is to interpret the coeffici
 
 Comparing the simple models with this more complex model, we could say that adjusting for *largest50* does not change much the impact of *unemployed* in violence. Almost the same can be said about the effect of *largest50* when holding *unemployed* fixed. 
 
-## Presenting your regression results.
-
-Clearly communicating your results is incredibly important. We have seen the tabular results produced by R. If you want to use them in a paper, you may need to tidy up those results. There are a number of packages (`textreg`, `stargazer`) that automatise that process. They take your `lm` objects and produce tables that you can put straight away in your reports or papers. One popular trend in presenting results is the **coefficient plot** as an alternative to the table of regression coefficients. There are various ways of producing coefficient plots with R for a variety of models. See [here](https://rpubs.com/friendly/coefplots-demo) for example.
-
-We are going to use instead the `plot_model()` function of the `sjPlot` package, which makes it easier to produce these sorts of plots. You can find a more detailed tutorial about this function [here](https://strengejacke.github.io/sjPlot/articles/plot_marginal_effects.html#:~:text=plot_model()%20is%20a%20generic,(model%20coefficients)%20are%20plotted.). See below for an example:
-
-```{r, warning=FALSE, message=FALSE}
-library(sjPlot)
-```
-
-Let's try a more complex example:
-
-```{r}
-fit_4 <- lm(log_viol_r ~ unemployed + largest50 + black + fborn + log_incarceraton, data=df)
-plot_model(fit_4)
-```
-
-<!-- Be advised to use these plots judiciously. There may be other sort of plots that may be [more appropriate](http://www.carlislerainey.com/2012/07/06/why-i-dont-like-coefficient-plots/) for what you want to communicate to your audience than the coefficient plot.-->
-
-You can further customise this:
-
-```{r}
-plot_model(fit_4, title="Violence across cities")
-```
-
-What you see plotted here are the point estimates (the circles), the confidence intervals around those estimates (the longer the line, the less precise the estimate), and the colours representing whether the effect is negative (red) or positive (blue). There are other packages that also provide similar functionality, like the `dotwhisker` package, that you may want to explore; see more details [here](https://cran.r-project.org/web/packages/dotwhisker/vignettes/dotwhisker-vignette.html).
-
-The `sjPlot` package also allows you to produce HTML tables for a more professional presentation of your regression tables. For this, we use the `tab_model()` function. This kind of tabulation may be particularly helpful for your final assignment.
-
-```{r}
-tab_model(fit_4)
-```
-
-As before, you can further customise this table. Let's change, for example, the name displayed for the dependent variable.
-
-```{r}
-tab_model(fit_4, dv.labels = "Violence rate (log)")
-```
-
-Or you could change the labels for the independent variables:
-
-```{r}
-tab_model(fit_4, pred.labels = c("(Intercept)", "Percent unemployment", 
-            "Largest cities (Yes)","Percent black",
-            "Percent foreign-born", "Incarceration rate (log)"), 
-          dv.labels = "Violence rate (log)")
-```
-
-Visual displays of the effects of the variables in the model are particularly helpful. The `effects` package allows us to produce plots to visualise these relationships (when adjusting for the other variables in the model). Here's an example going back to our model fit_3, which contained unemployment and the dummy for large cities as predictor variables:
-
-```{r, warning=FALSE,message=FALSE}
-library(effects)
-plot(allEffects(fit_3), ask=FALSE)
-```
-
-Notice that the line has a confidence interval drawn around it (to reflect the likely impact of sampling variation) and that the predicted means for smaller and largest cities (when controlling for unemployment) also have a confidence interval.
 
 ## Rescaling input variables to assist interpretation
 
 The interpretation of regression coefficients is sensitive to the scale of measurement of the predictors. This means one cannot compare the magnitude of the coefficients to compare the relevance of variables to predict the response variable. Let's look at the more recent model. How can we tell which predictors have a stronger effect?
 
 ```{r}
+fit_4 <- lm(log_viol_r ~ unemployed + largest50 + black + fborn + log_incarceraton, data=df)
 summary(fit_4)
 ```
 
@@ -250,6 +278,7 @@ You see here that, essentially, you have only two inputs (the size of the city a
 In this case, the test for the interaction effect is non-significant, which suggests there isn't such an interaction. The R squared barely changes. Let's visualise the results with the `effects` package:
 
 ```{r}
+library(effects)
 plot(allEffects(fit_5), ask=FALSE)
 ```
 

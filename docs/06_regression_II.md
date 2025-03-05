@@ -13,7 +13,7 @@ We will use a new dataset today, specifically the data used by Patrick Sharkey a
 In this session, we will use the replication data from one of the papers that Prof Sharkey published to study this question. This data is found in the [Harvard Dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/46WIH0). If you are interested in the specific study analysing this data, you can find it [here](https://journals.sagepub.com/doi/abs/10.1177/0003122417736289).
 
 
-```r
+``` r
 # create an object with the URL address of the dataset
 urlfile <- "https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/46WIH0/ARS2VS"
 
@@ -26,7 +26,7 @@ As before, we create an object with the permanent `URL` address, and then we use
 There are many more variables here that we are going to need, so let's do some filtering and selection. We will focus on 2012, the most recent year in the dataset, and just a few select variables.
 
 
-```r
+``` r
 # load the dplyr package for data cleaning
 library(dplyr)
 
@@ -44,7 +44,7 @@ df <- select(df, place_name, state_name, viol_r,
 So now we have a more manageable data set that we can use for this session. The file includes a sample of 264 US cities (see variable `place_name`) across 44 of states (variable `state_name`). As ever, we always start understanding what our unit of analysis is (i.e., what each row represents). In this case, our unit of analysis are cities in the US: each row of the data frame `df` represents a different city. Then we have information (*variables*) on those cities, such as their level of violence and their unemployment rate. You can check the names of each column (i.e., each variable) included in the dataset by using the `names()` function.
 
 
-```r
+``` r
 # print the names of all columns in the dataset 'df'
 names(df)
 ```
@@ -60,7 +60,7 @@ The variables we have extracted contain information on the demographic compositi
 We will examine the relationship between unemployment and violence. Based on Sharkey's book, we would expect that cities with a larger percentage of unemployed residents would also have larger violence rates. Therefore, *violence rate* is our dependent variable, and *unemployment percentage* is our independent variable. They are both numerical variables. Let's start examining the following scatterplot. On the Y-axis, we have the distribution of our dependent variable, violence rate, ranging from 0 to just over 2000. On the X-axis, we have the distribution of our independent variable, unemployment percentage, ranging from 0 to 14. Each dot in the scatterplot represents one of the 264 cities in our dataset.
 
 
-```r
+``` r
 # load the 'ggplot2' package
 library(ggplot2)
 
@@ -78,7 +78,7 @@ What do you think when looking at this scatterplot? Is there a relationship betw
 Now, imagine that we play a game. Imagine we have all the names of the cities in a hat, and we randomly take one of the names from the hat. You're sitting in the audience, and you have to guess the level of violence (`viol_r`) for that city. Imagine paying £150 to the student who gets the closest to the right value. What would you guess if you only had one guess and knew (as we do) how violent crime is distributed across all cities? 
 
 
-```r
+``` r
 # plot a density plot with the distribution of violence rate
 ggplot(df, aes(x = viol_r)) + 
   geom_density() +
@@ -89,7 +89,7 @@ ggplot(df, aes(x = viol_r)) +
 <img src="06_regression_II_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 
 
-```r
+``` r
 summary(df$log_viol_r)
 ```
 
@@ -113,7 +113,7 @@ Linear regression tackles this problem using a slightly different approach. Rath
 Simple linear regression draws a single straight line of predicted values **as the model for the data**. This line would be a **model**, a *simplification* of the real world like any other model (e.g., a toy pistol, an architectural drawing, a subway map) that assumes that there is approximately a linear relationship between $X$ and $Y$. Let's draw the regression line:
 
 
-```r
+``` r
 # produce a scatterplot and a regression line
 # summarising the relationship between unemployment
 # and violence rate
@@ -156,7 +156,7 @@ We need the origin of the line ($\alpha$) and the slope of the line ($\beta$). H
 In order to fit the model, we use the `lm()` function using the formula specification `(Y ~ X)`---exactly as we did last week. Typically, you want to store your regression model into an object. For example, let's fit a linear model regression violence rates on percentage of unemployment and store the results under an object named `fit_1`:
 
 
-```r
+``` r
 # run a regression model where violence rate is
 # the dependent variable and per cent unemployed
 # is the independent variable
@@ -166,7 +166,7 @@ fit_1 <- lm(viol_r ~ unemployed, data = df)
 In your `R` Studio global environment space, you will see a new object called `fit_1` with 12 elements on it. We can get a sense for what this object is and includes using the functions we introduced in previous weeks:
 
 
-```r
+``` r
 # check the class of the object "fit_1"
 class(fit_1)
 ```
@@ -175,7 +175,7 @@ class(fit_1)
 ## [1] "lm"
 ```
 
-```r
+``` r
 # check the attributes of the object "fit_1"
 attributes(fit_1)
 ```
@@ -193,7 +193,7 @@ attributes(fit_1)
 `R` is telling us that this is an object of class `lm` and includes several attributes. One of the beauties of `R` is that you are producing all the results from running the model, putting them in an object, and then giving you the opportunity to use them later on. If you want to see the basic results from running the model, you can simply print the name of the object.
 
 
-```r
+``` r
 # print results of the regression model "fit_1"
 fit_1
 ```
@@ -221,7 +221,7 @@ $Y = 273.1$
 Or, if you don't want to do the calculation yourself, you can use the `predict` function (differences are due to rounding error):
 
 
-```r
+``` r
 # First, you name your stored model, and then you identify the new data 
 # (which has to be in a data frame format and with a variable name matching 
 # the one in the original data set)
@@ -282,7 +282,7 @@ All this formula is doing is taking a ratio of the explained variation (the squa
 Then, we can take this value as a measure of the strength of our model. If you look at the R output, you will see that the $R^2$ for our model was .29 (look at the multiple R square value in the output). We can say that our model explains 29% of the variance in the fear of violent crime measure.
 
 
-```r
+``` r
 #As an aside, and to continue emphasising your appreciation of the object-oriented nature of R,
 #when we run the summary() function, we are simply generating a list object of the class summary.lm.
 attributes(summary(fit_1))
@@ -298,7 +298,7 @@ attributes(summary(fit_1))
 ## [1] "summary.lm"
 ```
 
-```r
+``` r
 #This means that we can access its elements if so we wish. 
 #So, for example, to obtain just the R Squared, we could ask for:
 summary(fit_1)$r.squared
@@ -319,7 +319,7 @@ Yes! Last week, we used linear regression modelling to assess the association be
 In fact, everything we learned today applies for what we studied last week. A binary independent variable is just a special case of linear regression models. Let's have a look at another independent variable: whether the city is one of the largest 50 cities in the United States or not. The name of the variable is `largest50`
 
 
-```r
+``` r
 # print frequency table of variable largest50
 table(df$largest50)
 ```
@@ -333,7 +333,7 @@ table(df$largest50)
 48 observations have a score of 1, indicating that they are one of the 50 largest cities in the United States, whereas 216 observations have a score of 0, indicating that they not. Sharkey also hypothesised that violent crime is more common in large cities. So, we can treat violence rate (`viol_r`) as our numerical dependent variable and whether they are one of the largest 50 cities in the country (`largest50`) as our new binary independent variable. We can test this association by fitting a linear regression model that estimates parameters $\alpha$ (the intercept) and $\beta$ (the slope coefficient, in this case representing the mean difference). But, if today we learned that linear regression models are essentially all about drawing a line, what if we start producing a scatterplot?
 
 
-```r
+``` r
 # produce a scatterplot between violence rate and largest 50
 ggplot(data = df, aes(x = largest50, y = viol_r)) +
   geom_point()
@@ -346,7 +346,7 @@ This scatterplot does not seem very useful... This is because, as we already kne
 But this scatterplot is not entirely useless! If we quickly check, for instance, what the average violence rate among smaller cities is and what the average violence rate among larger cities is, we can try to eyeball those means in the plot
 
 
-```r
+``` r
 # load the dplyr package
 library(dplyr)
 
@@ -373,7 +373,7 @@ The average violence rate in smaller cities is 486, whereas the average violence
 That's exactly what linear regression does! It draws a line. This line, because the independent variable is binary, only goes from 0 (a group representing smaller cities) to 1 (a group representing larger cities). If we fit a linear regression model:
 
 
-```r
+``` r
 # fit a linear regression model
 lm(viol_r ~ largest50, data = df)
 ```
@@ -415,7 +415,7 @@ In this section, we can go through very quickly how to test some of them using v
 In `R`, we can use the `plot()` function on our output `lm` object to look through some diagnostics. This gives us 4 plots, so to show them all, we'll use the code `par(mfrow = c(2, 2))` to split our plot window into 4 panes (remember to set back, run `par(mfrow = c(1, 1))`). Let's return to `fit_1`, our model. 
 
 
-```r
+``` r
 par(mfrow = c(2, 2))
 plot(fit_1)
 ```
@@ -442,7 +442,7 @@ For the purposes of this module, it is enough that you understand that these ass
 We start revisiting the `communitycrime` dataset (which we loaded in the beginning of the section) to select new variables:
 
 
-```r
+``` r
 # select new variables from the raw dataset
 df_homework <- communitycrime %>%
   filter(year == 2012) %>%
@@ -490,7 +490,7 @@ Null hypothesis: there is no association between the percentage of foreign-born 
 We can produce a scatterplot to assess the relationship
 
 
-```r
+``` r
 # produce scatterplot
 ggplot(df_homework, aes(x = fborn, y = burglary_r)) + 
   geom_point()
@@ -501,7 +501,7 @@ ggplot(df_homework, aes(x = fborn, y = burglary_r)) +
 Based on the scatterplot, we could expect a negative relationship: a higher concentration of foreign-born residents appears to be associated with fewer burglaries. We can check the regression line.
 
 
-```r
+``` r
 # produce scatterplot
 ggplot(df_homework, aes(x = fborn, y = burglary_r)) + 
   geom_point() + 
@@ -533,7 +533,7 @@ $$
 <summary><i>Reveal answer!</i></summary>
 
 
-```r
+``` r
 # fit linear regression model
 lm(burglary_r ~ fborn, data = df_homework)
 ```
@@ -566,7 +566,7 @@ This indicates that the expected level of burglary rates in a hypothetical city 
 We can use the regression model to make those predictions. We can calculate manually or use `R` as a calculator.
 
 
-```r
+``` r
 # fit regression model
 regression_model <- lm(burglary_r ~ fborn, data = df_homework)
 
@@ -579,7 +579,7 @@ predict(regression_model, data.frame(fborn = c(1)))
 ## 1133.445
 ```
 
-```r
+``` r
 # predict burglary scores when foreign born is 10
 predict(regression_model, data.frame(fborn = c(10))) 
 ```
@@ -589,7 +589,7 @@ predict(regression_model, data.frame(fborn = c(10)))
 ## 1001.37
 ```
 
-```r
+``` r
 # predict burglary scores when foreign born is 50
 predict(regression_model, data.frame(fborn = c(50))) 
 ```
@@ -610,7 +610,7 @@ The predicted burglary rate in a city with 1% of foreign-born residents is 1133.
 <summary><i>Reveal answer!</i></summary>
 
 
-```r
+``` r
 # extract R Squared
 summary(regression_model)$r.squared
 ```

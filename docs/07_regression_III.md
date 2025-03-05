@@ -1,165 +1,304 @@
-# Regression III
+# Regression III: categorical independent variables and multiple regression models
 
-Following the introduction of regression models in previous weeks, we will develop these models further in this session. How do we interpret categorical variables used in regression? What are interaction effects, and why we might need them? These are some of the questions we will address this week. 
+In previous weeks, we learned that linear regression models are a powerful method that allows us to assess the association between a binary or numerical independent variable and a numerical dependent variable. This week, we will develop these models even further. Specifically, we will learn how to handle scenarios when the dependent variable is numerical (as in previous weeks) but the independent variable is categorical with more than two groups (i.e., ordinal or nominal variables). In addition, we will finally introduce the world of *multivariate analysis*, when we analyse more than two variables at the same time.
 
 ## Fitting regression with categorical predictors
 
-In previous weeks, we explained regression using a numeric input. It turns out we can also use regression with categorical explanatory variables. It is quite straightforward to run it. 
+With linear regression models, the dependent variable $Y$ will always be numerical. If the independent variable $X$ is numerical, the estimated slope coefficient $\beta$ implies that every one-unit increase in $X$ is associated with a $\beta$-increase in $Y$. If the independent variable $X$ is binary, the estimated slope coefficient $\beta$ implies the mean difference: expected scores of $Y$ in the comparison group are $\beta$ units higher/lower than in the reference group. Now, let's expand that rationale to other categorical independent variables with more than two groups. It is quite straightforward to run it, and very similar to the binary case!
 
-We will use the same dataset from previous weeks. We will use the replication data from one of the papers that Prof Sharkey published to study what contributed to the decline of crime from the 90s. This data is found in the [Harvard Dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/46WIH0). If you are interested in the specific study analysing this data, you can find it [here](https://journals.sagepub.com/doi/abs/10.1177/0003122417736289).
+We will use the same dataset from last week. We will use the replication data from one of the papers that Prof Sharkey published to study what contributed to the decline of crime from the 1990s. This data is found in the [Harvard Dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/46WIH0). If you are interested in the specific study analysing this data, you can find it [here](https://journals.sagepub.com/doi/abs/10.1177/0003122417736289).
 
 
-```r
+``` r
+# create an object with the URL address of the dataset
 urlfile <- "https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/46WIH0/ARS2VS"
+
+# import the dataset into R
 communitycrime <- read.table(urlfile, sep = '\t',header = T)
 ```
 
-As before, we create an object with the permanent `URL` address, and then we use a function to read the data into R. We use the `read.table` function from base R for this. We pass two arguments to the function `sep= '\t'`, telling R this file is tab separated. The `header = T` function tells R that it is TRUE (T) that this file has a first row that acts as a header (this row has the name of the variables).
+As before, we create an object with the permanent `URL` address, and then we use a function to read the data into `R`. We use the `read.table()` function from base `R` for this. We pass two arguments to the function `sep= '\t'`, telling `R` this file is tab separated. The `header = T` function tells `R` that it is `TRUE` (`T`) that this file has a first row that acts as a header (this row has the name of the variables).
 
 There are many more variables here than we will need, so let's do some filtering and selection. We will focus on 2012, the most recent year in the dataset, and just a few select variables.
 
 
-```r
+``` r
+# load the dplyr package for data cleaning
 library(dplyr)
-df <- filter(communitycrime, year == "2012")
-df <- select(df, place_name, state_name, viol_r, black, lesshs, unemployed, fborn, incarceration, log_incarceraton, swornftime_r, log_viol_r, largest50)
+
+# create a new object, 'df', that only includes observations from 2012
+# and removes missing observations from the variable 'region'
+df <- filter(communitycrime, year == "2012", !is.na(region))
+
+# select just some variables from the dataset
+df <- select(df, place_name, state_name, region, viol_r, black, lesshs, unemployed, fborn, incarceration, log_incarceraton, swornftime_r, log_viol_r, largest50)
 ```
 
-So now we have a more manageable data set that we can use for this session. The file includes a sample of 264 US cities (see *place_name*) across 44 states. See previous weeks for code on how to figure out what these states are. 
+So now we have a more manageable data set that we can use for this session. Our unit of analysis, as last week, are cities in the United States, and our sample includes 263 US cities (see `place_name`) across 44 states. See previous weeks for code on how to figure out what these states are. 
 
-We have one categorical variable in the dataset, *largest50*, identifying whether the city is one of the 50 largest in the country.
+We have one categorical variable with more than two groups in this dataset, `region`, which identifies the region in United States the city is located. There are four regions: East Coast, Midwest, South, and West Coast. Let's start recoding this variable to ensure that it is treated as a factor with the relevant labels.
 
 
-```r
-table(df$largest50)
+
+``` r
+# frequency table of the variable 'region'
+table(df$region)
+```
+
+```
+## 
+##   1   2   3   4 
+##  23  45  91 104
+```
+
+``` r
+# factorising variable 'region' and assigning relevant labels
+df <- mutate(df, region = factor(region, 
+                                 levels = c(1, 2, 3, 4), 
+                                 labels = c("East Coast", "Midwest", "South", "West Coast")))
+
+# frequency table of variable 'region' to make sure
+# that our changes worked as expected
+table(df$region)
+```
+
+```
+## 
+## East Coast    Midwest      South West Coast 
+##         23         45         91        104
+```
+
+One possible avenue for research here is exploring the extent to which different regions in the US have different rates of violence. In this case, as in previous week, violence rate would be our dependent variable and region in the US, our independent variable. The question, then, is whether we can simply throw a categorical independent variable in a regression model.
+
+Now, let's return to Week 5 for a minute and remember how we handle *binary* independent variables. If our independent variable is binary, what we want to do is essentially calculate the mean of the dependent variable across both groups of the independent variable. With a categorical (ordinal or nominal) variable, we can start similarly: we can start calculating the mean of the dependent variable across *all* groups of the independent variable. For example, let's calculate the average rate of violence across the four regions in the US.
+
+
+``` r
+# calculate the mean of 'viol_r' across groups of 'region'
+df %>%
+  group_by(region) %>%
+  summarise(average = mean(viol_r))
+```
+
+```
+## # A tibble: 4 Ã— 2
+##   region     average
+##   <fct>        <dbl>
+## 1 East Coast    790.
+## 2 Midwest       634.
+## 3 South         589.
+## 4 West Coast    417.
+```
+
+Great, we know that the average violence rate in cities in the East Coast is 790, the average violence rate in cities in the Midwest is 634, the average violence rate in cities in the South is 589, and the average violence rate in cities in the West Coast is 417. We can also visually inspect those mean differences using a grouped boxplot.
+
+
+``` r
+# load the 'ggplot2' package
+library(ggplot2)
+
+# produce a grouped boxplot assessing the distribution of
+# 'viol_r' across groups of 'region'
+ggplot(data = df, aes(x = region, y = viol_r)) +
+  geom_boxplot()
+```
+
+<img src="07_regression_III_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+
+Now, how about including this categorical variable as an independent variable in a regression model? If we think about it, theoretically we could recode this categorical variable into several binary variables. For example, we could create one binary variable that indicates whether the city is from the East Coast ($=1$) or elsewhere ($=0$), another binary variable indicating whether the city is from the Midwest ($=1$) or elsewhere ($=0$), another binary variable indicating whether the city is from the South ($=1$) or elsewhere ($=0$), and a fourth binary variable indicating whether the city is from the West Coast ($=1$) or elsewhere ($=0$). This would be good because we already know how to handle binary independent variables. Given that the variable `region` has four groups, we could create four new binary variables.
+
+
+``` r
+# create four new binary variables based on groups of 'region'
+df <- mutate(df,
+             east_coast = case_when(region == "East Coast" ~ 1, TRUE ~ 0),
+             midwest = case_when(region == "Midwest" ~ 1, TRUE ~ 0),
+             south = case_when(region == "South" ~ 1, TRUE ~ 0),
+             west_coast = case_when(region == "West Coast" ~ 1, TRUE ~ 0)
+             )
+
+## Now, let's check this worked
+
+# table of frequency for new binary variable 'east_coast'
+table(df$east_coast)
 ```
 
 ```
 ## 
 ##   0   1 
-## 216  48
+## 240  23
 ```
 
-```r
-class(df$largest50)
-```
-
-```
-## [1] "numeric"
-```
-
-This variable is, however, stored in a numeric vector. We may want to change this to reflect the fact it is categorical.
-
-
-```r
-df$largest50 <- as.factor(df$largest50)
-class(df$largest50)
-```
-
-```
-## [1] "factor"
-```
-
-Let's rename the levels. In previous sessions, we illustrated how to do that with base R functions. Here, we introduce a new package, `forcats`, worth considering when doing any work with factor variables. You can read more about it [here](https://forcats.tidyverse.org).
-
-
-```r
-library(forcats)
-df$largest50 <- fct_recode(df$largest50, Yes = "1", No = "0")
-table(df$largest50)
+``` r
+# table of frequency for new binary variable 'midwest'
+table(df$midwest)
 ```
 
 ```
 ## 
-##  No Yes 
-## 216  48
+##   0   1 
+## 218  45
 ```
 
-We can explore if particularly large cities have higher rates of violence (remember, a rate controls for population size, so if this were to be significant, it would be telling us that it's not just because there are more people in them!). This is how you would express the model:
-
-
-```r
-fit_2 <- lm(log_viol_r ~ largest50, data=df)
+``` r
+# table of frequency for new binary variable 'south'
+table(df$south)
 ```
 
-Notice that there is nothing different in how we ask for the model compared to last week. And see below the regression line:
+```
+## 
+##   0   1 
+## 172  91
+```
 
-<img src="07_regression_III_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+``` r
+# table of frequency for new binary variable 'west_coast'
+table(df$west_coast)
+```
 
-Although in the plot, we still see a line, what we are really estimating here is the average of *log_viol_r* for each of the two categories. 
+```
+## 
+##   0   1 
+## 159 104
+```
 
-Let's have a look at the results:
+Great, it worked! Now, each one of the groups is presented by their own binary variable. We could, for example, simply estimate four separate regression models, each including one independent binary variable. That would allow us to examine the association between region and rates of violence!
+
+True, that would... but that's not very efficient. After all we had to manually create four separate binary variables and then would need to run four separate linear regression models. Not exactly an easy solution.
+
+Now, let's think again---a bit more deeply---about what the regression model estimates when we have a binary independent variable. Let's use the variable `largest50` as a quick example---this variable indicates whether the city is one of the 50 largest cities in the US. As we know, a linear model is given by
+
+$$
+Y = \alpha + \beta \cdot X
+$$
+If we regress rates of violence (`viol_r`) on this binary indicator (`largest50`), the regression estimator will yield estimates of the intercept ($\alpha$) and the slope coefficient ($\beta$).
 
 
-```r
-summary(fit_2)
+``` r
+# fit a regression model with 'viol_r' as the DV and 'largest50' as the IV
+lm(viol_r ~ largest50, data = df)
 ```
 
 ```
 ## 
 ## Call:
-## lm(formula = log_viol_r ~ largest50, data = df)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.11616 -0.48286  0.02965  0.51523  1.49789 
+## lm(formula = viol_r ~ largest50, data = df)
 ## 
 ## Coefficients:
-##              Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)   5.94763    0.04771 124.661  < 2e-16 ***
-## largest50Yes  0.62114    0.11189   5.551 6.94e-08 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## (Intercept)    largest50  
+##       484.4        339.2
+```
+
+Based on the output above, we know that the estimated intercept is $\widehat{\alpha}=484.4$, indicating the average rates of violence in smaller cities. We also know that the estimated slope coefficient is $\widehat{\beta}=339.2$, indicating that the average rate of violence is 339.2 scores higher in the larger cities than in smaller cities.
+
+In other words, we had a categorical variable with two groups (`largest50`$=0$ indicating smaller cities and `largest50`$=1$ indicating larger cities), we estimated a regression model, which then returned the average score for one of the groups ($\alpha$, for the *reference group*) and one slope coefficient indicating the mean difference between that group and the reference group ($\beta$).
+
+Now, let's fit another regression model where the dependent variable is rates of violence (`viol_r`) and the independent variable is region (`region`), a categorical variable. Let's see what happens.
+
+
+``` r
+# fit a regression model with 'viol_r' as the DV and 'region' as the IV
+lm(viol_r ~ region, data = df)
+```
+
+```
 ## 
-## Residual standard error: 0.7012 on 262 degrees of freedom
-## Multiple R-squared:  0.1052,	Adjusted R-squared:  0.1018 
-## F-statistic: 30.82 on 1 and 262 DF,  p-value: 6.943e-08
+## Call:
+## lm(formula = viol_r ~ region, data = df)
+## 
+## Coefficients:
+##      (Intercept)     regionMidwest       regionSouth  regionWest Coast  
+##            790.0            -155.6            -200.9            -373.2
 ```
 
-As you can see, the output does not look too different. But notice that in the printout, you see how the row with the coefficient and other values for our input variable *largest50* we see that R is printing `largest50Yes`. What does this mean?
+It works! But how do we make sense of it? We now have one estimated intercept and **three** estimated slope coefficients! The estimated intercept ($\widehat{\alpha}=790$) we immediately recognise as the mean rate of violence in the East Coast (check the grouped averages above!). And the three slope coefficients all make reference to the remaining groups: Midwest ($\widehat{\beta}=-155.6$), South ($\widehat{\beta}=-200.9$), and West Coast ($\widehat{\beta}=-373.2$). What's going on here?
 
-When you only have one predictor, the value of the intercept is the mean value of what we call the **reference category**, and the coefficient for the slope tells you how much higher (if it is positive) or how much lower (if it is negative) is the mean value for the other category in your factor.
+Essentially, what happened is that we have four different groups. One of those groups is what we call the **reference category**: this is the group whose average is represented by the Intercept. Then the model returns one coefficient for each of the remaining groups. Those coefficients reflect the mean difference between each group and the reference group. For example, the slope coefficient for Midwest is $\widehat{\beta}=-155.6$, implying that cities in the Midwest have an average rate of violence 155.6 units lower than the average rate of violence in the East Coast. This checks out! We knew that the average violence rate in Midwest cities was 634, which is exactly 156 units lower than East Coast's average of 790 (any small differences are due to rounding error).
 
-The reference category is the one for which R does not print the *level* next to the name of the variable for which it gives you the regression coefficient. Here we see that the named level is "Yes" (`largest50Yes`). That's telling you that the reference category here is "No". Therefore, the Y-intercept, in this case, is the mean value of violence for cities that are not the largest in the country, whereas the coefficient for the slope tells you how much higher the mean value is for the largest cities in the country. Don't believe me?
+Similarly, the slope coefficient for South is $\widehat{\beta}=-200.9$, implying that cities in the South have an average rate of violence 200.9 units lower than the average rate of violence in the East Coast. the slope coefficient for West Coast is $\widehat{\beta}=-373.2$, implying that cities in the West Coast have an average rate of violence 200.9 units lower than the average rate of violence in the East Coast. 
 
+With categorical variables, the value of the intercept is the mean value of $Y$ in the **reference category**, and then we have one slope coefficient for each of the remaining groups---each one of them indicating the estimated mean difference between that group and the reference group. If, hypothetically, we had a categorical variable with 10 groups and used it as an independent variable in a regression model, that would yield nine slope coefficients---each one of them estimating the mean difference between each group and reference category.
 
-```r
-#Compute the mean for the smaller cities
-mean(df$log_viol_r[df$largest50 == "No"], na.rm=TRUE)
-```
-
-```
-## [1] 5.947628
-```
-
-```r
-#Compute the difference between the two means
-mean(df$log_viol_r[df$largest50 == "Yes"], na.rm=TRUE) - mean(df$log_viol_r[df$largest50 == "No"], na.rm=TRUE)
-```
-
-```
-## [1] 0.6211428
-```
-
-So, to reiterate, the coefficient for a single binary predictor in a linear regression model often represents the difference in the means of the outcome variable between the two groups defined by the binary predictor (the two groups).
-
-With categorical variables encoded as **factors**, you always have a situation like this: a reference category and then as many additional coefficients as there are additional levels in your categorical variable. Each of these additional categories is input into the model as **"dummy" variables**. Here, our categorical variable has two levels. Thus, we have only one dummy variable. There will always be one fewer dummy variable than the number of levels. The level with no dummy variable, females in this example, is known as the **reference category** or the **baseline**.
-
-It turns out the regression table is printing out a test of statistical significance for every input in the model. If we look at the table above, the p value associated with it is near 0. This is indeed considerably lower than the conventional significance level of 0.05. So, we could conclude that the probability of obtaining this value if the null hypothesis is true is very low. However, the observed r squared is also kind of poor. Read [this](http://blog.minitab.com/blog/adventures-in-statistics/how-to-interpret-a-regression-model-with-low-r-squared-and-low-p-values) to understand a bit more about this phenomenon of low p, but also low r-squared.
-
-If, rather than a binary explanatory variable, you had a factor with five levels. Then, if you were to run a regression model, this would result in a model with 4 dummy variables. The coefficient of each of these dummies would tell you how much higher or lower (if the sign were negative) the level of violence for each of the levels for which you have a dummy compared to your reference category or baseline is. One thing that is important to keep in mind is that R, by default, will use the first level in your factor as the baseline category. 
+Now, before we created a series of binary variables. What if we used them instead the variable `region`? For example, we could fit a regression model including the binary variables `midwest`, `south`, and `west_coast` as independent variables at the same time. 
 
 
-```r
-levels(df$largest50)
+``` r
+# fit a regression model with binary independent variables
+lm(viol_r ~ midwest + south + west_coast, data = df)
 ```
 
 ```
-## [1] "No"  "Yes"
+## 
+## Call:
+## lm(formula = viol_r ~ midwest + south + west_coast, data = df)
+## 
+## Coefficients:
+## (Intercept)      midwest        south   west_coast  
+##       790.0       -155.6       -200.9       -373.2
 ```
 
-In our case, you can see "No" listed first. Keep in mind for your assignment that levels in factors are often alphabetically listed, not in a particularly meaningful or useful way.
-If you want to change this, you may need to reorder the levels. See [here](https://forcats.tidyverse.org/reference/fct_relevel.html) for instructions on how to do this.
+It's exactly the same model! That's what `R` is doing in the background. Because we left the group 'East Coast' out, we are treating it as the reference category. Therefore, its average score is represented by the estimated intercept. Then, each slope coefficient estimates the mean difference between each group and the reference group. What `R` is doing in the background is exactly that: creating a bunch of binary variables from the categorical variable, including each one of them as a separate variable in the model---except for one group, which is left out and treated as the reference category, so that all comparisons are made against this group.
+
+So, that's great! We don't need to manually create a bunch of new binary variables. Every time we include a `factor` as an independent variable, `R` will do all of that automatically for us. We just need to make sure we interpret the coefficients correctly! It's as if we were estimating the following linear model:
+
+$$
+viol\_r = \alpha + \beta_1\cdot MidWest + \beta_2\cdot South + \beta_3\cdot West Coast
+$$
+
+When dealing with categorical independent variables, therefore, a key question becomes the choice of the reference category. We need to choose the reference category that makes more sense for us, given that all comparisons will be made against that group. We can check which group is the reference category by checking the `levels()` of the factor variable; `R` will always pick the first category as the reference category.
+
+
+``` r
+# checking the levels of variable 'region'
+levels(df$region)
+```
+
+```
+## [1] "East Coast" "Midwest"    "South"      "West Coast"
+```
+
+Because the group "East Coast" is the first group, `R` has picked it as the reference category in the regression model above. If we want to change the reference category, we can use the `fct_relevel()` function, from the `forcats` package. For example, if we want the West Coast to be the reference group, we simply use the following code:
+
+
+``` r
+# install the package if you haven't yet. You only need to do it once.
+## install.packages("forcats")
+
+# load the 'forcats' package
+library(forcats)
+
+# changing the reference group of variable 'region' to West Coast
+df <- mutate(df, region = fct_relevel(region, "West Coast"))
+
+# check that it worked. 'West Coast' should be the first group now
+levels(df$region)
+```
+
+```
+## [1] "West Coast" "East Coast" "Midwest"    "South"
+```
+
+If we estimate a regression model with `viol_r` as the dependent variable and `region` as the independent variable, we will get different results now.
+
+
+``` r
+# regression model using 'West Coast' as the reference group
+lm(viol_r ~ region, data = df)
+```
+
+```
+## 
+## Call:
+## lm(formula = viol_r ~ region, data = df)
+## 
+## Coefficients:
+##      (Intercept)  regionEast Coast     regionMidwest       regionSouth  
+##            416.8             373.2             217.6             172.4
+```
+
+**Important!** The code we used to fit this regression model is *exactly* the same as before. Yet, results are different. Now, we are treating 'West Coast' as the reference group. Therefore, the estimated intercept $\widehat{\alpha}=416.8$ is the average violence rate in the West Coast, and each of the three slope coefficients is the difference between the average violence rates in each region and in the West Coast. 
+
+Always check what is the reference category when dealing with categorical independent variables!
 
 ## Motivating multiple regression
 
@@ -182,7 +321,7 @@ Multiple regression is one way of checking the relevance of competing explanatio
 It could not be any easier to fit a multiple regression model. You simply modify the formula in the `lm()` function by adding terms for the additional inputs.
 
 
-```r
+``` r
 fit_3 <- lm(log_viol_r ~ unemployed + largest50, data=df)
 summary(fit_3)
 ```
@@ -193,20 +332,20 @@ summary(fit_3)
 ## lm(formula = log_viol_r ~ unemployed + largest50, data = df)
 ## 
 ## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -1.7338 -0.4047 -0.0189  0.4531  1.5726 
+##      Min       1Q   Median       3Q      Max 
+## -1.72640 -0.40291 -0.01909  0.45260  1.58156 
 ## 
 ## Coefficients:
-##              Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)   4.54871    0.14101  32.258  < 2e-16 ***
-## unemployed    0.22625    0.02186  10.351  < 2e-16 ***
-## largest50Yes  0.53495    0.09476   5.645 4.29e-08 ***
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  4.53359    0.14088  32.180  < 2e-16 ***
+## unemployed   0.22798    0.02182  10.450  < 2e-16 ***
+## largest50    0.53874    0.09449   5.701 3.22e-08 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 0.5915 on 261 degrees of freedom
-## Multiple R-squared:  0.3657,	Adjusted R-squared:  0.3608 
-## F-statistic: 75.23 on 2 and 261 DF,  p-value: < 2.2e-16
+## Residual standard error: 0.5897 on 260 degrees of freedom
+## Multiple R-squared:  0.3707,	Adjusted R-squared:  0.3659 
+## F-statistic: 76.59 on 2 and 260 DF,  p-value: < 2.2e-16
 ```
 
 With more than one input, you need to ask yourself whether all of the regression coefficients are zero. We are assuming the residuals are normally distributed, though with large samples, the F statistics approximate the F distribution.
@@ -231,256 +370,14 @@ Something you need to be particularly careful about is to interpret the coeffici
 
 Comparing the simple models with this more complex model, we could say that adjusting for *largest50* does not change much the impact of *unemployed* in violence. Almost the same can be said about the effect of *largest50* when holding *unemployed* fixed. 
 
-## Presenting your regression results.
-
-Clearly communicating your results is incredibly important. We have seen the tabular results produced by R. If you want to use them in a paper, you may need to tidy up those results. There are a number of packages (`textreg`, `stargazer`) that automatise that process. They take your `lm` objects and produce tables that you can put straight away in your reports or papers. One popular trend in presenting results is the **coefficient plot** as an alternative to the table of regression coefficients. There are various ways of producing coefficient plots with R for a variety of models. See [here](https://rpubs.com/friendly/coefplots-demo) for example.
-
-We are going to use instead the `plot_model()` function of the `sjPlot` package, which makes it easier to produce these sorts of plots. You can find a more detailed tutorial about this function [here](https://strengejacke.github.io/sjPlot/articles/plot_marginal_effects.html#:~:text=plot_model()%20is%20a%20generic,(model%20coefficients)%20are%20plotted.). See below for an example:
-
-
-```r
-library(sjPlot)
-```
-
-Let's try a more complex example:
-
-
-```r
-fit_4 <- lm(log_viol_r ~ unemployed + largest50 + black + fborn + log_incarceraton, data=df)
-plot_model(fit_4)
-```
-
-<img src="07_regression_III_files/figure-html/unnamed-chunk-13-1.png" width="672" />
-
-<!-- Be advised to use these plots judiciously. There may be other sort of plots that may be [more appropriate](http://www.carlislerainey.com/2012/07/06/why-i-dont-like-coefficient-plots/) for what you want to communicate to your audience than the coefficient plot.-->
-
-You can further customise this:
-
-
-```r
-plot_model(fit_4, title="Violence across cities")
-```
-
-<img src="07_regression_III_files/figure-html/unnamed-chunk-14-1.png" width="672" />
-
-What you see plotted here are the point estimates (the circles), the confidence intervals around those estimates (the longer the line, the less precise the estimate), and the colours representing whether the effect is negative (red) or positive (blue). There are other packages that also provide similar functionality, like the `dotwhisker` package, that you may want to explore; see more details [here](https://cran.r-project.org/web/packages/dotwhisker/vignettes/dotwhisker-vignette.html).
-
-The `sjPlot` package also allows you to produce HTML tables for a more professional presentation of your regression tables. For this, we use the `tab_model()` function. This kind of tabulation may be particularly helpful for your final assignment.
-
-
-```r
-tab_model(fit_4)
-```
-
-<table style="border-collapse:collapse; border:none;">
-<tr>
-<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">&nbsp;</th>
-<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">log viol r</th>
-</tr>
-<tr>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">Predictors</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">Estimates</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">CI</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">p</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">(Intercept)</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">5.65</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">4.19&nbsp;&ndash;&nbsp;7.12</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">unemployed</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.17</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.12&nbsp;&ndash;&nbsp;0.22</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">largest50 [Yes]</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.46</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.29&nbsp;&ndash;&nbsp;0.63</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">black</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.02</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.01&nbsp;&ndash;&nbsp;0.02</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">fborn</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.01</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.02&nbsp;&ndash;&nbsp;-0.00</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>0.001</strong></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">log incarceraton</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.13</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.36&nbsp;&ndash;&nbsp;0.10</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.251</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">Observations</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">263</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">0.508 / 0.499</td>
-</tr>
-
-</table>
-
-As before, you can further customise this table. Let's change, for example, the name displayed for the dependent variable.
-
-
-```r
-tab_model(fit_4, dv.labels = "Violence rate (log)")
-```
-
-<table style="border-collapse:collapse; border:none;">
-<tr>
-<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">&nbsp;</th>
-<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">Violence rate (log)</th>
-</tr>
-<tr>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">Predictors</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">Estimates</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">CI</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">p</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">(Intercept)</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">5.65</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">4.19&nbsp;&ndash;&nbsp;7.12</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">unemployed</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.17</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.12&nbsp;&ndash;&nbsp;0.22</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">largest50 [Yes]</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.46</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.29&nbsp;&ndash;&nbsp;0.63</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">black</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.02</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.01&nbsp;&ndash;&nbsp;0.02</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">fborn</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.01</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.02&nbsp;&ndash;&nbsp;-0.00</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>0.001</strong></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">log incarceraton</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.13</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.36&nbsp;&ndash;&nbsp;0.10</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.251</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">Observations</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">263</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">0.508 / 0.499</td>
-</tr>
-
-</table>
-
-Or you could change the labels for the independent variables:
-
-
-```r
-tab_model(fit_4, pred.labels = c("(Intercept)", "Percent unemployment", 
-            "Largest cities (Yes)","Percent black",
-            "Percent foreign-born", "Incarceration rate (log)"), 
-          dv.labels = "Violence rate (log)")
-```
-
-<table style="border-collapse:collapse; border:none;">
-<tr>
-<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">&nbsp;</th>
-<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">Violence rate (log)</th>
-</tr>
-<tr>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">Predictors</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">Estimates</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">CI</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">p</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">(Intercept)</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">5.65</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">4.19&nbsp;&ndash;&nbsp;7.12</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Percent unemployment</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.17</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.12&nbsp;&ndash;&nbsp;0.22</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Largest cities (Yes)</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.46</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.29&nbsp;&ndash;&nbsp;0.63</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Percent black</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.02</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.01&nbsp;&ndash;&nbsp;0.02</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Percent foreign-born</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.01</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.02&nbsp;&ndash;&nbsp;-0.00</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>0.001</strong></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Incarceration rate (log)</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.13</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.36&nbsp;&ndash;&nbsp;0.10</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.251</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">Observations</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">263</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">0.508 / 0.499</td>
-</tr>
-
-</table>
-
-Visual displays of the effects of the variables in the model are particularly helpful. The `effects` package allows us to produce plots to visualise these relationships (when adjusting for the other variables in the model). Here's an example going back to our model fit_3, which contained unemployment and the dummy for large cities as predictor variables:
-
-
-```r
-library(effects)
-plot(allEffects(fit_3), ask=FALSE)
-```
-
-<img src="07_regression_III_files/figure-html/unnamed-chunk-18-1.png" width="672" />
-
-Notice that the line has a confidence interval drawn around it (to reflect the likely impact of sampling variation) and that the predicted means for smaller and largest cities (when controlling for unemployment) also have a confidence interval.
 
 ## Rescaling input variables to assist interpretation
 
 The interpretation of regression coefficients is sensitive to the scale of measurement of the predictors. This means one cannot compare the magnitude of the coefficients to compare the relevance of variables to predict the response variable. Let's look at the more recent model. How can we tell which predictors have a stronger effect?
 
 
-```r
+``` r
+fit_4 <- lm(log_viol_r ~ unemployed + largest50 + black + fborn + log_incarceraton, data=df)
 summary(fit_4)
 ```
 
@@ -492,23 +389,23 @@ summary(fit_4)
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -1.4546 -0.3523 -0.0009  0.3827  1.5771 
+## -1.4516 -0.3492  0.0005  0.3883  1.5860 
 ## 
 ## Coefficients:
 ##                   Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)       5.654459   0.743725   7.603 5.44e-13 ***
-## unemployed        0.169895   0.024496   6.936 3.27e-11 ***
-## largest50Yes      0.457226   0.085311   5.360 1.86e-07 ***
-## black             0.015003   0.002678   5.602 5.44e-08 ***
-## fborn            -0.010414   0.003101  -3.358 0.000904 ***
-## log_incarceraton -0.133946   0.116461  -1.150 0.251158    
+## (Intercept)       5.633973   0.740506   7.608 5.31e-13 ***
+## unemployed        0.170578   0.024390   6.994 2.32e-11 ***
+## largest50         0.460237   0.084948   5.418 1.39e-07 ***
+## black             0.015170   0.002668   5.686 3.53e-08 ***
+## fborn            -0.010148   0.003091  -3.283  0.00117 ** 
+## log_incarceraton -0.133172   0.115945  -1.149  0.25180    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 0.523 on 257 degrees of freedom
+## Residual standard error: 0.5207 on 256 degrees of freedom
 ##   (1 observation deleted due to missingness)
-## Multiple R-squared:  0.5082,	Adjusted R-squared:  0.4987 
-## F-statistic: 53.12 on 5 and 257 DF,  p-value: < 2.2e-16
+## Multiple R-squared:  0.5135,	Adjusted R-squared:  0.504 
+## F-statistic: 54.03 on 5 and 256 DF,  p-value: < 2.2e-16
 ```
 
 We just cannot. One way of dealing with this is by rescaling the input variables. A common method involves subtracting the mean and dividing it by the standard deviation of each numerical input. The coefficients in these models are the expected difference in the response variable, comparing units that differ by one standard deviation in the predictor while adjusting for other predictors in the model. 
@@ -518,7 +415,7 @@ Instead, [Gelman (2008)](http://www.stat.columbia.edu/~gelman/research/published
 The way we would obtain these rescaled inputs uses the `standardize()` function of the `arm` package, which takes the name of the stored fit model as an argument.
 
 
-```r
+``` r
 library(arm)
 standardize(fit_4)
 ```
@@ -531,9 +428,9 @@ standardize(fit_4)
 ## 
 ## Coefficients:
 ##        (Intercept)        z.unemployed         c.largest50             z.black  
-##            6.06080             0.56923             0.45723             0.49188  
+##            6.05876             0.57186             0.46024             0.49786  
 ##            z.fborn  z.log_incarceraton  
-##           -0.24890            -0.08133
+##           -0.24278            -0.08101
 ```
 
 Notice the main change affects the numerical predictors. The unstandardised coefficients are influenced by the degree of variability in your predictors, which means they will typically be larger for your binary inputs. With unstandardised coefficients, you are comparing the complete change in one variable (whether one is a large city or not) with one-unit changes in your numerical variable, which may not amount to much change. So, by putting in a comparable scale, you avoid this problem.
@@ -551,7 +448,7 @@ One way of extending our model to accommodate for interaction effects is to add 
 How do we do this in R? One way is to use the following notation in the formula argument. Notice how we have added a third term, `unemployed:largest50`, which is asking R to test the conditional hypothesis that the size of the cities may have a different impact on the violent crime rate.
 
 
-```r
+``` r
 fit_5 <- lm(log_viol_r ~ unemployed + largest50 + unemployed:largest50 , data=df)
 # which is equivalent to: 
 # fit_5 <- lm(log_viol_r ~ unemployed * largest50, data=BCS0708)
@@ -566,20 +463,20 @@ summary(fit_5)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -1.71844 -0.41330 -0.02989  0.45583  1.59625 
+## -1.71025 -0.40955 -0.03157  0.45480  1.60644 
 ## 
 ## Coefficients:
-##                         Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)              4.49267    0.15636  28.734   <2e-16 ***
-## unemployed               0.23532    0.02443   9.630   <2e-16 ***
-## largest50Yes             0.83064    0.36794   2.258   0.0248 *  
-## unemployed:largest50Yes -0.04557    0.05479  -0.832   0.4063    
+##                      Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)           4.47468    0.15623  28.641   <2e-16 ***
+## unemployed            0.23750    0.02439   9.737   <2e-16 ***
+## largest50             0.84863    0.36690   2.313   0.0215 *  
+## unemployed:largest50 -0.04776    0.05463  -0.874   0.3829    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 0.5919 on 260 degrees of freedom
-## Multiple R-squared:  0.3673,	Adjusted R-squared:   0.36 
-## F-statistic: 50.32 on 3 and 260 DF,  p-value: < 2.2e-16
+## Residual standard error: 0.59 on 259 degrees of freedom
+## Multiple R-squared:  0.3726,	Adjusted R-squared:  0.3653 
+## F-statistic: 51.27 on 3 and 259 DF,  p-value: < 2.2e-16
 ```
 
 You see here that, essentially, you have only two inputs (the size of the city and unemployment) but several regression coefficients. Gelman and Hill (2007) suggest reserving the term input for the variables encoding the information and using the term predictor to refer to each of the terms in the model. So here, we have two inputs and four predictors (one for the constant term, one for unemployment, another for the largest 50 dummy, and a final one for the interaction effect).
@@ -587,11 +484,24 @@ You see here that, essentially, you have only two inputs (the size of the city a
 In this case, the test for the interaction effect is non-significant, which suggests there isn't such an interaction. The R squared barely changes. Let's visualise the results with the `effects` package:
 
 
-```r
+``` r
+library(effects)
+```
+
+```
+## Loading required package: carData
+```
+
+```
+## lattice theme set by effectsTheme()
+## See ?effectsTheme for details.
+```
+
+``` r
 plot(allEffects(fit_5), ask=FALSE)
 ```
 
-<img src="07_regression_III_files/figure-html/unnamed-chunk-22-1.png" width="672" />
+<img src="07_regression_III_files/figure-html/unnamed-chunk-17-1.png" width="672" />
 
 Notice that essentially, what we are doing is running two regression lines and testing whether the slope is different for the two groups. The intercept is different; we know that largest cities are more violent, but what we are testing here is whether violence goes up in a steeper fashion (and in the same direction) for one or the other group as unemployment goes up. We see that's not the case here. The estimated lines are almost parallel.
 
@@ -630,7 +540,7 @@ To obtain the basic residual plots for this model we use the `residualPlots()` f
 
 
 
-```r
+``` r
 library(car)
 ```
 
@@ -651,14 +561,14 @@ library(car)
 ##     recode
 ```
 
-```r
+``` r
 BCS0708<-read.csv("https://raw.githubusercontent.com/eonk/dar_book/main/datasets/BCS0708.csv")
 
 fit_3 <- lm(tcviolent ~ tcarea + sex, data=BCS0708)
 residualPlots(fit_3)
 ```
 
-<img src="07_regression_III_files/figure-html/unnamed-chunk-23-1.png" width="672" />
+<img src="07_regression_III_files/figure-html/unnamed-chunk-18-1.png" width="672" />
 
 ```
 ##            Test stat Pr(>|Test stat|)    
@@ -717,14 +627,14 @@ We can further diagnose the model by printing **marginal model plots** using the
 ## Error in plot.window(...): need finite 'xlim' values
 ```
 
-<img src="07_regression_III_files/figure-html/unnamed-chunk-24-1.png" width="672" />
+<img src="07_regression_III_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
 This will plot a scatterplot for each predictor variable against the response variable. This displays the conditional distribution of the response given each predictor, *ignoring the other predictors*. They are called marginal plots because they show the marginal relationship between the outcome and *each predictor*. It will also print a scatterplot of the response versus the fitted value displaying the conditional distribution of the outcome given the fit of the model. We observe here the curvature that was already identified by the previous plots (notice the blue line).
 
 We can also use the `marginalModelPlots()` function to assess the **homogeneity of variance** assumption using the following argument:
 
 
-```r
+``` r
 marginalModelPlots(fit_3, sd = TRUE)
 ```
 
@@ -744,7 +654,7 @@ marginalModelPlots(fit_3, sd = TRUE)
 ## Error in plot.window(...): need finite 'xlim' values
 ```
 
-<img src="07_regression_III_files/figure-html/unnamed-chunk-25-1.png" width="672" />
+<img src="07_regression_III_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
 This will print the estimated standard deviation lines to the graph. You would want this to be **constant** across the X axis.
 
@@ -752,7 +662,7 @@ This will print the estimated standard deviation lines to the graph. You would w
 And since we are discussing homoskedasiticity (e.g., homogeneity of variance or constant/equal variance), it is worth pointing out that the `car` package implements a score test that evaluates whether the variance is constant. To obtain this test we use the `ncvTest()` function.
 
 
-```r
+``` r
 ncvTest(fit_3)
 ```
 
@@ -772,7 +682,7 @@ The regression model may experience problems when there is strong collinearityâ€
 To diagnose multicollinearity, the first step may be to observe the correlation between the predictors in the model. Let's first subset the data to obtain only the relevant predictors and our main outcome. For this, I will introduce another form of selecting columns in a data frame using the `dplyr` package.
 
 
-```r
+``` r
 library(MASS)
 library(dplyr, quietly=TRUE, warn.conflict=FALSE)
 data <- Boston
@@ -782,7 +692,7 @@ Boston_R <- dplyr::select(data, crim, lstat, dis, chas, medv)
 Then, we can obtain the correlations using the `cor()` function.
 
 
-```r
+``` r
 c_1 <- cor(Boston_R)
 c_1
 ```
@@ -799,30 +709,26 @@ c_1
 And then, we can visualise these correlations with the `corrplot` package. 
 
 
-```r
+``` r
 library(corrplot, quietly = TRUE, warn.conflicts = FALSE)
-```
-
-```
-## Warning: package 'corrplot' was built under R version 4.3.3
 ```
 
 ```
 ## corrplot 0.95 loaded
 ```
 
-```r
+``` r
 corrplot(c_1, order = "hclust", tl.pos="d")
 ```
 
-<img src="07_regression_III_files/figure-html/unnamed-chunk-29-1.png" width="672" />
+<img src="07_regression_III_files/figure-html/unnamed-chunk-24-1.png" width="672" />
 
 We can see some non-trivial correlations between some of the predictors, particularly between median property value and per cent lower status (r=-73).
 
 Correlations among pairs of variables will only give you a first impression of the problem. What we are really concerned about is what happens once you throw all the variables in the model. Not all problems with multicollinearity will be detected by the correlation matrix. The recommended reading describes the variance inflation factor as a tool to diagnose multicollinearity. Let's look at the one we obtain with the first model (pre-transformations) that we run with the `Boston` dataset:
 
 
-```r
+``` r
 fit_B1 <- lm(crim ~ medv + lstat + dis + chas, data = Boston)
 vif(fit_B1)
 ```
@@ -835,7 +741,7 @@ vif(fit_B1)
 Typically, a VIF larger than 5 or 10 indicates serious problems with collinearity. Fox (2008) recommends using the square root of the variance inflation factor:
 
 
-```r
+``` r
 sqrt(vif(fit_B1))
 ```
 
@@ -849,7 +755,7 @@ Typically, it is assumed that you need a value greater than 2 for the square roo
 When you have a set of related inputs or regressors (either because you have a multicategory factor and various dummy variables or because you have polynomial regressors), you cannot use the variance inflation factor. There is, however, a similar statistic that you can use in these contexts: the **generalised variance inflation factor**. We could use this measure for our final model for the `Boston` data. We invoke this statistic using the same code as before:
 
 
-```r
+``` r
 fit_B3 <- lm(log(crim) ~ poly(medv, 2) + log(lstat) + log(dis) + chas, data = Boston)
 
 vif(fit_B3)

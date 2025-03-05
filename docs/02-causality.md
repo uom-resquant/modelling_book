@@ -39,7 +39,7 @@ On this page, you can see a download section and some files that can be accessed
 You could just click "download" and then place the file in your project directory. Alternatively, and preferably, you may want to use code to make your whole work more reproducible. Think of it this way: every time you click or use drop-down menus, you are doing things that others cannot reproduce because there won't be a written record of your steps. You will need to do some clicking to find the required URL for writing your code. The file we want is the `AganStarrQJEData.dta`. Click on the name of this file. You will be taken to another webpage. You will see the download URL on it. Copy and paste this URL into your code below.
 
 
-```r
+``` r
 #First, let's import the data using an URL address:
 library(haven)
 banbox <- read_dta("https://dataverse.harvard.edu/api/access/datafile/3036350")
@@ -51,7 +51,7 @@ banbox <- read_dta("https://dataverse.harvard.edu/api/access/datafile/3036350")
 This  data file is a STATA.dta file in our working directory. To read STATA files, we will need the *haven* package. This is a package developed to import different kinds of data files into R. If you don't have it, you will need to install it. And then load it.
 
 
-```r
+``` r
 ##IF THE CODE ABOVE DOES NOT WORK, USE THIS CODE.
 ##Window users! R in Windows have some problems with https addresses, 
 #in that case, try to use this code
@@ -84,7 +84,7 @@ Here, we will introduce a few functions that will help you make sense of what yo
 Let's start with the basic things you always look at first in a dataset. You can see in the Environment window that banbox has 14813 observations (rows) of 62 variables (columns). You can also obtain this information using code. Here, you want the  **DIM**ensions of the data frame (the number of rows and columns), so you use the `dim()` function:
 
 
-```r
+``` r
 dim(banbox)
 ```
 
@@ -95,7 +95,7 @@ dim(banbox)
 Looking at this information will help you to diagnose whether there was any trouble getting your data into R (e.g., imagine you know there should be more cases or more variables). You may also want to have a look at the names of the columns using the `names()` function. We will see the names of the variables.
 
 
-```r
+``` r
 names(banbox)
 ```
 
@@ -126,7 +126,7 @@ names(banbox)
 As you may notice, these names may be hard to interpret. If you open the dataset in the data viewer of RStudio (using `View`), you will see that each column has a variable name and underneath a longer and more meaningful **variable label** that tells you what each variable means. 
 
 
-```r
+``` r
 View(banbox)
 ```
 
@@ -135,7 +135,7 @@ View(banbox)
 You also want to understand what the banbox object actually is. You can do that using the `class()` function:
 
 
-```r
+``` r
 class(banbox)
 ```
 
@@ -152,7 +152,7 @@ You can also look at the class of each individual column. As discussed, the clas
 To get the class of one variable, you pass it to the `class()` function. For example:
 
 
-```r
+``` r
 class(banbox$crime)
 ```
 
@@ -160,7 +160,7 @@ class(banbox$crime)
 ## [1] "haven_labelled" "vctrs_vctr"     "double"
 ```
 
-```r
+``` r
 class(banbox$num_stores)
 ```
 
@@ -175,7 +175,7 @@ We talked about numeric vectors in week one. It is simply a collection of number
 If you look carefully, you will see that the various columns that include categorical variables only contain numbers. In many statistical environments, such as STATA or SPSS, this is a common standard. The variables have a numeric value for each observation, and each of these numeric values is associated with a label. This made sense when computer memory was an issue - for this was an efficient way of saving resources. It also made manual data input quicker. These days, it makes perhaps less sense. However, labelled vectors give you a chance to reproduce data from other statistical environments without losing any fidelity in the import process. See what happens if we try to summarise this labelled vector. We will use the `table()` to provide a count of observations on the various valid values of the *crime* variable. It is a function that obtains your frequency distribution.
 
 
-```r
+``` r
 table(banbox$crime)
 ```
 
@@ -188,7 +188,7 @@ table(banbox$crime)
 So, we see that we have 7490 observations classed as 1 and 7323 classed as 2. If only we knew what those numbers represent! Well, we actually do. We will use the `attributes()` function to see the different "compartments" within your "box", your object.
 
 
-```r
+``` r
 attributes(banbox$crime)
 ```
 
@@ -214,7 +214,7 @@ So, this object has different compartments. The first one is called a label, and
 Last week, we said that many R functions expect factors when you have categorical data, so typically, after you import data into R you may want to coerce your labelled vectors into factors. To do that, you need to use the `as_factor()` function of the *haven* package. Let's see how we do that.
 
 
-```r
+``` r
 #This code asks R to create a new column in your banbox tibble
 #that is going to be called crime_f. Typically, when you alter
 #variables, you can to create a new one so that the original gets
@@ -229,7 +229,7 @@ banbox$crime_f <- as_factor(banbox$crime)
 You will see now that you have 63 variables in your dataset; look at the environment to check. Let's explore the new variable we have created (you can also look for the new variable in the data browser and see how it looks different to the original crime variable):
 
 
-```r
+``` r
 class(banbox$crime_f)
 ```
 
@@ -237,7 +237,7 @@ class(banbox$crime_f)
 ## [1] "factor"
 ```
 
-```r
+``` r
 table(banbox$crime_f)
 ```
 
@@ -247,7 +247,7 @@ table(banbox$crime_f)
 ##     7323     7490
 ```
 
-```r
+``` r
 attributes(banbox$crime_f)
 ```
 
@@ -270,7 +270,7 @@ So we want to type `lapply('name of dataframe', 'name of function')`
 
 Which is: 
 
-```r
+``` r
 lapply(banbox, class)
 ```
 
@@ -279,7 +279,7 @@ As you can see, many variables are classed as 'labelled'. This is common with su
 See, for example, the variable black:
 
 
-```r
+``` r
 class(banbox$black)
 ```
 
@@ -287,7 +287,7 @@ class(banbox$black)
 ## [1] "numeric"
 ```
 
-```r
+``` r
 table(banbox$black)
 ```
 
@@ -300,7 +300,7 @@ table(banbox$black)
 We know that this variable measures whether someone is black or not. When people use 0 and 1 to code binary responses, typically, they use a 1 to denote a positive response, a yes. So, I think it is fair to assume that a 1 here means the respondent is black. Because this variable is of class numeric, we cannot simply use `as_factor()` to assign the pre-existing labels and create a new factor. In this case, we don't have preexisting labels since this is not a labelled vector. So what can we do to tidy this variable? We'll need to do some further work.
 
 
-```r
+``` r
 #We will use a slightly different function as.factor()
 banbox$black_f <- as.factor(banbox$black)
 #You can check that the resulting column is a factor
@@ -311,7 +311,7 @@ class(banbox$black_f)
 ## [1] "factor"
 ```
 
-```r
+``` r
 #But if you print the frequency distribution 
 #you will see the data are still presented 
 #in relation to 0 and 1
@@ -324,7 +324,7 @@ table(banbox$black_f)
 ## 7406 7407
 ```
 
-```r
+``` r
 #You can use the levels function to see the levels of the categories in your factor
 levels(banbox$black_f)
 ```
@@ -336,7 +336,7 @@ levels(banbox$black_f)
 So, all we have done is create a new column that is a factor but still refers to 0 and 1. If we assume (rightly) that 1 means black, we have 7407 black applicants. Of course, it makes sense we only get 0 and 1 here. What else could R do? This is not a labelled vector, so there is no way for R to know that 0 and 1 mean anything other than 0 and 1, which is why those are the levels is using. But now that we have the factor, we can rename those levels. We can use the following code to do just that:
 
 
-```r
+``` r
 #We are using the levels function to access them and change
 #them to the levels we specify with the c() function. Be
 #careful here because the order we specify here will map 
@@ -361,14 +361,14 @@ This gives you an idea of the kind of transformations you often want to perform 
 You can, for example, use the `head()` function if you just want to visualise the values for the first few cases in your dataset. The next code, for example, asks for the values for the first two cases. If you want a different number to be shown, you just need to change the number you are passing as an argument.
 
 
-```r
+``` r
 head(banbox, 2)
 ```
 
 In the same way, you could look at the last two cases in your dataset using `tail()`:
 
 
-```r
+``` r
 tail(banbox, 2)
 ```
 
@@ -377,7 +377,7 @@ It is good practice to do this to ensure R has read the data correctly and there
 One thing you may also want to do is to see if there are any **missing values**. For that, we can use the `is.na()` function. Missing values in R are coded as NA. The code below, for example, asks for NA values for the variable *response_black* in the *banbox* object for observations 1 to 10:
 
 
-```r
+``` r
 is.na(banbox$response_black[1:10])
 ```
 
@@ -389,7 +389,7 @@ The result is a logical vector that tells us if it is true that there is missing
 
 
 
-```r
+``` r
 sum(is.na(banbox$response_black)) 
 ```
 
@@ -402,7 +402,7 @@ This is asking R to sum up how many cases are TRUE NA in this variable. When rea
 You can use a bit of a hack to get the proportion of missing cases instead of the count:
 
 
-```r
+``` r
 mean(is.na(banbox$response_black))
 ```
 
@@ -438,7 +438,7 @@ In this session, we will introduce and practice some of these. But we won't have
 Now, let's load the package:
 
 
-```r
+``` r
 library(dplyr)
 ```
 
@@ -462,7 +462,7 @@ library(dplyr)
 Notice that when you run this package you get a series of warnings in the console. It is telling us that some functions from certain packages are being "masked". One of the things with a language like R is that sometimes packages introduce functions that have the same name as others that are already loaded into your session. When that happens, the newly loaded ones will override the previous ones. You can still use them, but you will have to refer to them explicitly. Otherwise, R will assume you are using the function most recently loaded:
 
 
-```r
+``` r
 #Example:
 #If you use load dplyr and then invoke the *filter()* function
 #R will assume you are using the filter function from dplyr
@@ -486,7 +486,7 @@ For this kind of operation, we use the `filter()` function. Like all single verb
 Ok, let's filter out some information we are interested in from `bandbox`. If we look at the dataset, we can see that there is a variable called "crimbox" that identifies 'applications that require information about criminal antecedents' and there is a variable called "pre" that identifies 'whether the application was sent before the legislation was introduced'. In this dataset, the value 1 is being used to denote positive responses. Therefore, if we want to create the 2017 dataset, we would start by selecting only data where the value in these two variables equals 1 as shown below.
 
 
-```r
+``` r
 #We will store the results of filtering the data in a new object that I am calling aer  
 #(short for the name of the journal in which the paper was published)
 
@@ -502,7 +502,7 @@ Earlier, we said that real-life data may have hundreds of variables, and only a 
 The syntax of this function is easy. First, we name the data frame object ("aer2017"), and then we list the variables. The order in which we list the variables within the select function will determine the order in which those columns appear in the new data frame we are creating. So, this is a handy function to use if you want to change the order of your columns for some reason. Since I am pretty confident I am not making a mistake, I will transform the original "aer2017" tibble rather than creating an entirely new object.
 
 
-```r
+``` r
 aer2017 <- select(aer2017, crime, ged, empgap, black_f, response, daystoresponse)
 ```
 
@@ -516,7 +516,7 @@ First, we group the observations by criminal record in a new object, "by_anteced
 interpret labels than 0 and 1).
 
 
-```r
+``` r
 aer2017_by_antecedent <- group_by(aer2017, as_factor(crime))
 
 #Then we run the summarise function to provide some useful
@@ -550,7 +550,7 @@ So, what we see here is that about 13.6% of applicants with no criminal record r
 We have been looking at relationships so far between categorical variables, specifically between having a criminal record (yes or no), race (black or white), and receiving a positive response from employers (yes or no). Often, we may be interested in looking at the impact of a factor on a numerical outcome. The researchers measured such an outcome in the banbox object. The variable "daystoresponse" tells us how long it took the employers to provide a positive response. Let's look at this variable:
 
 
-```r
+``` r
 summary(banbox$daystoresponse)
 ```
 
@@ -564,7 +564,7 @@ The `summary()` function provides some useful stats for numerical variables. We 
 We could do as before and get results by groups. Let's look at the impact of race on days to response:
 
 
-```r
+``` r
 banbox_by_race <- group_by(banbox, black_f)
 results_2 <- summarise(banbox_by_race,
   avg_delay = mean(daystoresponse, na.rm = TRUE))
@@ -584,7 +584,7 @@ We can see that the average delay seems to be longer for 'Black' applicants than
 However, we could also try to represent these differences graphically. The problem with comparing groups on quantitative variables using numerical summaries, such as the mean, is that these comparisons hide more than they show. We want to see the full distribution, not just the mean. For this, we are going to use `ggplot2`, the main graphical package we will use this semester. We won't get into the details of this package or what the code below means, but just try to run it. We will cover graphics in R in the next section. This is just a taster for it.
 
 
-```r
+``` r
 library(ggplot2)
 ggplot(banbox, aes(y = daystoresponse, x = black_f)) + 
   geom_boxplot() 

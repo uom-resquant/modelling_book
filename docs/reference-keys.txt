@@ -78,11 +78,10 @@ residuals-r-squared
 is-this-the-same-as-last-week
 regression-assumptions
 lab-exercises-1
-regression-iii
+regression-iii-categorical-independent-variables-and-multiple-regression-models
 fitting-regression-with-categorical-predictors
 motivating-multiple-regression
 fitting-and-interpreting-a-multiple-regression-model
-presenting-your-regression-results.
 rescaling-input-variables-to-assist-interpretation
 testing-conditional-hypothesis-interactions
 multicollinearity

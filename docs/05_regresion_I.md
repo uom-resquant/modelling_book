@@ -8,11 +8,11 @@ In bivariate analysis, we always start with a **research question**. Do Black an
 
 To answer a research question, we formulate a research hypothesis (or sometimes several research hypotheses related to it). A research hypothesis is simply a proposed answer to our research question that we can test by carrying out some research. Research hypotheses can be directional and non-directional:
 
->"When the research hypothesis does not indicate a specific type of outcome, stating only that there is a relationship or a difference, we say that it is a **non-directional hypothesis**. However, in those cases where a researcher has a very clear idea of what to expect---based on prior research evidence and/or theory---the research hypothesis may be more precise. In this case, the researcher may specify the nature of the relationship that is expected. Such a research hypothesis is called a **directional hypothesis**. When a directional hypothesis is used, the researcher states at the outset that he or she is interested in a specific type of outcome -for example, that one group has more arrests than another. Suppose we are interested in comparing the arrest records of drug-involved offenders with those of offenders who do not use drugs. Our research hypothesis might be simply that the arrest records of drug-involved offenders and offenders who do not use drugs are different (a nondirectional hypothesis). But based on prior knowledge of criminal behaviour among drug-involved offenders, we might want to state a directional hypothesis -that drug-involved offenders have more serious arrest records than non-drug-involved offenders do. One problem with choosing the latter option is that if we state our research hypothesis as a directional hypothesis, we are stating that we are not interested in outcomes that fall in the opposite direction. In criminal justice research, we can often be surprised by what we learn in a study. Accordingly, researchers generally are cautious in defining a directional research hypothesis" (Weisburd and Britt, 2010: 120)
+>"When the research hypothesis does not indicate a specific type of outcome, stating only that there is a relationship or a difference, we say that it is a **non-directional hypothesis**. However, in those cases where a researcher has a very clear idea of what to expect---based on prior research evidence and/or theory---the research hypothesis may be more precise. In this case, the researcher may specify the nature of the relationship that is expected. Such a research hypothesis is called a **directional hypothesis**. When a directional hypothesis is used, the researcher states at the outset that he or she is interested in a specific type of outcome -for example, that one group has more arrests than another. Suppose we are interested in comparing the arrest records of drug-involved offenders with those of offenders who do not use drugs. Our research hypothesis might be simply that the arrest records of drug-involved offenders and offenders who do not use drugs are different (a nondirectional hypothesis). But based on prior knowledge of criminal behaviour among drug-involved offenders, we might want to state a directional hypothesis - that drug-involved offenders have more serious arrest records than non-drug-involved offenders do. One problem with choosing the latter option is that if we state our research hypothesis as a directional hypothesis, we are stating that we are not interested in outcomes that fall in the opposite direction. In criminal justice research, we can often be surprised by what we learn in a study. Accordingly, researchers generally are cautious in defining a directional research hypothesis" (Weisburd and Britt, 2010: 120)
 
-When formulating a research hypothesis, it is common practice to also formulate a *null hypotehsis*. We will return to this discussion in more detail in Chapter 9, when introducing statistical inference. For now, it suffices to say that in science we always take a sceptic approach and test hypotheses against empirical data. For example, consider the research question: do Black and other ethnic minority citizens experience police stops more often than White citizens? Based on prior research (e.g., [here](https://www.nature.com/articles/s41562-020-01029-w) or [here](https://www.cambridge.org/core/journals/american-political-science-review/article/administrative-records-mask-racially-biased-policing/66BC0F9998543868BB20F241796B79B8)), our research hypothesis could be that Black and other ethnic minority citizens are stopped by the police more frequently than White citizens. A sceptical approach, however, would begin with a null hypothesis: *there is no difference in the frequency of police stops experienced by Black and other minority citizens compared to White citizens*. We then test **test** this null hypothesis against empirical data to draw conclusions about the association between ethnicity and the experience of police stops. More details on the rationale behind null hypotheses and the principles of hypothesis testing will be provided in Chapter 9!
+When formulating a research hypothesis, it is common practice to also formulate a *null hypothesis*. We will return to this discussion in more detail in Chapter 9 when introducing statistical inference. For now, it suffices to say that science always takes a sceptical approach and tests hypotheses against empirical data. For example, consider the research question: do Black and other ethnic minority citizens experience police stops more often than White citizens? Based on prior research (e.g., [here](https://www.nature.com/articles/s41562-020-01029-w) or [here](https://www.cambridge.org/core/journals/american-political-science-review/article/administrative-records-mask-racially-biased-policing/66BC0F9998543868BB20F241796B79B8)), our research hypothesis could be that Black and other ethnic minority citizens are stopped by the police more frequently than White citizens. A sceptical approach, however, would begin with a null hypothesis: *there is no difference in the frequency of police stops experienced by Black and other minority citizens compared to White citizens*. We then **test** this null hypothesis against empirical data to draw conclusions about the association between ethnicity and the experience of police stops. More details on the rationale behind null hypotheses and the principles of hypothesis testing will be provided in Chapter 9!
 
-From the research question and the research hypothesis (as well as the null hypothesis), we identify two variables, each with a distinct role. One variable represents the *explanandum*, the phenomenon we aim to explain---this is called the **dependent variable** (also referred to as the *outcome variable* or *response variable*). The other variable is the *explanans*, the phenomenon used to explain it---this is called the **independent variable** (also known as the *explanatory variable* or *predictor variable*). For example, in the question we explored earlier---*Do Black and other ethnic minority citizens experience police stops more often than White citizens?*---we are examining how the frequency of police stops varies depending on a person’s ethnicity. In this case, the frequency of police stops is the dependent variable, as it is the phenomenon we want to explain. Ethnicity is the independent variable, as it is the factor we believe influences the dependent variable. From now on, we will consistently identify dependent and independent variables based on research questions and hypotheses.
+From the research question and the research hypothesis (as well as the null hypothesis), we identify two variables, each with a distinct role. One variable represents the *explanandum*, the phenomenon we aim to explain---this is called the **dependent variable** (also referred to as the *outcome variable* or *response variable*). The other variable is the *explanans*, the phenomenon used to explain it---this is called the **independent variable** (also known as the *explanatory variable* or *predictor variable*). For example, in the question we explored earlier---*Do Black and other ethnic minority citizens experience police stops more often than White citizens?*--- we are examining how the frequency of police stops varies depending on a person’s ethnicity. In this case, the frequency of police stops is the dependent variable, as it is the phenomenon we want to explain. Ethnicity is the independent variable, as it is the factor we believe influences the dependent variable. From now on, we will consistently identify dependent and independent variables based on research questions and hypotheses.
 
 <style>
 details {
@@ -101,7 +101,7 @@ Let's elaborate with an example. Let's start with the following research questio
 Based on previous research, our research hypothesis is that women are more afraid of violent crime than men. However, adopting a sceptical approach, our *null hypothesis* states that *there are no differences in fear of crime between men and women*. To test this, we must contrast this statement with empirical data. For this example, we will use data from the Crime Survey for England and Wales (2007–08), which provides a representative sample of the adult population living in England and Wales. This dataset includes information on respondents’ fear of crime, making it suitable for addressing our research question. Let’s begin by loading the dataset.
 
 
-```r
+``` r
 # load readr library and import the data using read_csv() function
 library(readr)
 csew_0708 <- read_csv("https://raw.githubusercontent.com/uom-resquant/modelling_book/refs/heads/master/datasets/BCS0708.csv")
@@ -110,7 +110,7 @@ csew_0708 <- read_csv("https://raw.githubusercontent.com/uom-resquant/modelling_
 The variables of interest in our analysis are `tcviolent` and `sex.` The variable `tcviolent` is an index of fear of violent crime, measured on a numerical scale where lower scores indicate less fear and higher scores indicate greater fear. To summarise this variable, we can use the `summary()` function. As shown below, the mean score is 0.05, with a minimum of -2.35 and a maximum of 3.81.
 
 
-```r
+``` r
 summary(csew_0708$tcviolent)
 ```
 
@@ -122,7 +122,7 @@ summary(csew_0708$tcviolent)
 In this dataset, `sex` is a binary variable---unfortunately, the survey instrument did not measure gender identification and is limited to responses recorded as 'male' or 'female'. We can use the `table()` and `prop.table()` functions to summarise this variable, which respectively provide counts and proportions of the number of observations in our data that take distinct values for a given variable. 6369 (55%) respondents were recorded as female, whereas 5307 (45%) were recorded as male.
 
 
-```r
+``` r
 table(csew_0708$sex)
 ```
 
@@ -132,7 +132,7 @@ table(csew_0708$sex)
 ##   6369   5307
 ```
 
-```r
+``` r
 prop.table(table(csew_0708$sex))
 ```
 
@@ -151,7 +151,7 @@ Given this, one straightforward strategy to assess whether women are more afraid
 To calculate the mean of a numerical variable for specific subgroups, we can use the `filter()` function from the `dplyr` package. The `filter()` function allows us to subset the data based on specified conditions. For example, we can use the `filter()` function to calculate the mean of fear of violent crime for women and the mean of fear of violent crime for men. Note that when using `filter()`, you need to use a double equals sign (`==`) to specify equality.
 
 
-```r
+``` r
 # Install the 'dplyr' package if you haven't already
 # install.packages("dplyr")
 
@@ -172,7 +172,7 @@ nrow(csew_0708_women)
 As expected, the `csew_0708_women` dataset contains 6369 rows. This is the number of female respondents we had obtained before.
 
 
-```r
+``` r
 # Subset the data for male respondents
 csew_0708_men <- filter(csew_0708, sex == "male")
 
@@ -189,7 +189,7 @@ Similarly, the `csew_0708_men` dataset contains 5307 rows, corresponding to the 
 Now, let’s calculate the mean level of fear of violent crime (`tcviolent`) for each subgroup:
 
 
-```r
+``` r
 # Calculate the mean of fear of violent crime for women
 mean_fear_women <- mean(csew_0708_women$tcviolent, na.rm = TRUE)
 
@@ -204,7 +204,7 @@ mean_fear_women
 ## [1] 0.3281656
 ```
 
-```r
+``` r
 # Display the mean of fear of violent crime for men
 mean_fear_men
 ```
@@ -218,7 +218,7 @@ The mean level of fear of violent crime among women is 0.33, while among men, it
 To refine our analysis, we can calculate the mean difference between the fear of violent crime scores for men and women. The mean difference is simply the result of subtracting one group’s mean from the other.
 
 
-```r
+``` r
 # Calculate the mean difference
 mean_difference <- mean_fear_men - mean_fear_women
 
@@ -233,12 +233,12 @@ mean_difference
 The mean difference is -0.6. This indicates that the average score of fear of violent crime among male respondents is 0.6 lower than the average score among female respondents.
 
 <details>
-<summary><b>Note:</b> the order of subtraction matters in interpreting the result, even though it does not change the numerical value.</summary>
+<summary><b>Note:</b> The order of subtraction matters in interpreting the result, even though it does not change the numerical value.</summary>
 
-Subtracting the mean for women from the mean for men highlights that men have lower fear scores, while reversing the subtraction would emphasize that women have higher fear scores. It is crucial to align the direction of subtraction with the focus of the research question or the narrative you wish to convey. For example:
+Subtracting the mean for women from the mean for men highlights that men have lower fear scores while reversing the subtraction would emphasize that women have higher fear scores. It is crucial to align the direction of subtraction with the focus of the research question or the narrative you wish to convey. For example:
 
 
-```r
+``` r
 # Calculate the mean difference using the alternative order 
 mean_difference_alternative <- mean_fear_women - mean_fear_men
 
@@ -254,14 +254,14 @@ In this case, the mean difference is 0.6. This indicates that the average score 
 
 </details>
 
-If the null hypothesis were true (i.e., adopting a sceptical approach), we would expect the means for both groups to be approximately the same, resulting in a mean difference close to zero. A mean difference of -0.6 suggests that women tend to report higher levels of fear of violent crime than men in the Crime Survey for England and Wales, providing some evidence that allows to address our research question.
+If the null hypothesis were true (i.e., adopting a sceptical approach), we would expect the means for both groups to be approximately the same, resulting in a mean difference close to zero. A mean difference of -0.6 suggests that women tend to report higher levels of fear of violent crime than men in the Crime Survey for England and Wales, providing some evidence that allows us to address our research question.
 
 ## Visual exploration
 
 One simple strategy to depict the association between a numerical dependent variable and a binary independent variable (i.e., the mean difference) involves using data visualisation techniques. We already covered this in Chapter 3! For example, when we want to visualise the distribution of a numerical variable, we can produce a histogram, a density plot, or a boxplot. If we want to graphically represent the distribution of a numerical variable across two groups, we can produce a grouped histogram, a grouped density plot, or a grouped boxplot. This allows us to assess the association between a numerical dependent variable and a binary independent variable by examining their mean difference.
 
 
-```r
+``` r
 # load the ggplot2 package
 library(ggplot2)
 
@@ -275,7 +275,7 @@ ggplot(csew_0708, aes(x = tcviolent, fill = sex)) +
 This grouped density plot shows that the distribution of *fear of violent crime* (`tcviolent`) scores among female respondents is slightly shifted to the right compared to the distribution among male respondents. This suggests an association between gender and fear of violent crime---as we already knew---as women in this sample have a higher average score than men. The same pattern can be visualised with a grouped boxplot.
 
 
-```r
+``` r
 # produce a grouped boxplot
 ggplot(csew_0708, aes(x = sex, y = tcviolent)) + 
   geom_boxplot()
@@ -288,7 +288,7 @@ ggplot(csew_0708, aes(x = sex, y = tcviolent)) +
 Calculating mean differences in `R` is straightforward, as demonstrated above. We first filter the dataset by the groups of interest, compute the mean of the dependent variable for each group, and then calculate the difference between the two group-specific means. While this step-by-step approach is effective, it can become time-consuming when repeated for multiple analyses. Fortunately, `R` offers a more efficient alternative: the `lm()` function.
 
 
-```r
+``` r
 lm(dependent_variable ~ independent variable, data = dataset)
 ```
 
@@ -298,10 +298,10 @@ The `lm()` function, short for *linear mode*l, streamlines the process by calcul
   + Follow it with a *tilde* ($\sim$).
   + Then, provide the independent variable and the dataset.
 
-When the dependent variable is numerical and the independent variable is binary, the `lm()` function automatically calculates the mean difference and saves time by performing all the necessary steps in one go. You can use it directly or save the output to an object for later use. For our example, the code would look like this:
+When the dependent variable is numerical and the independent variable is binary, the `lm()` function automatically calculates the mean difference. It saves time by performing all the necessary steps in one go. You can use it directly or save the output to an object for later use. For our example, the code would look like this:
 
 
-```r
+``` r
 # Linear model calculating the difference in fear of crime by sex
 mean_difference_lm <- lm(tcviolent ~ sex, data = csew_0708)
 ```
@@ -311,12 +311,12 @@ In this case:
   + `tcviolent` is the dependent variable (a numerical variable).
   + `sex` is the independent variable (a binary variable).
   + `csew_0708` is the dataset being analysed.
-  + `mean_difference_lm` is the name we assigned to the object storing the model's results. 
+  + `mean_difference_lm` is the name we assign to the object storing the model's results. 
   
 This single line of code computes the mean difference in fear of violent crime between men and women based on the dataset `csew_0708`, offering a more streamlined approach to the analysis. Now, let's examine the output.
 
 
-```r
+``` r
 # Display the results of the linear model
 mean_difference_lm
 ```
@@ -340,7 +340,7 @@ The output has two parts:
       + `(Intercept):` 0.3282
       + `sexmale:` -0.6020
     
-If you recall from above when we manually calculated everything, these numbers should look familiar! The average score of fear of violent crime among women (remember, we created the `mean_fear_women` object) was 0.3282---exactly what is reported as the *Intercept* in this output. And the mean difference (remember, we created the `mean_difference` object) was -0.602---exactly what is reported as the `sexmale` coefficient! This implies that male respondents have a fear score that is 0.3282 points lower than female respondents on average.
+If you recall from above, when we manually calculated everything, these numbers should look familiar! The average score of fear of violent crime among women (remember, we created the `mean_fear_women` object) was 0.3282---exactly what is reported as the *Intercept* in this output. And the mean difference (remember, we created the `mean_difference` object) was -0.602---exactly what is reported as the `sexmale` coefficient! This implies that male respondents have a fear score that is 0.3282 points lower than female respondents on average.
 
 <details>
 <summary><b>Note on how to figure out which comparisons the model is making:</b></summary>
@@ -360,7 +360,7 @@ The `lm()` function selects one category to be represented by the *Intercept*---
 **Changing the reference category**. If we wanted to treat *male* as the reference category, we could do one of the following:
 
 
-```r
+``` r
 # Create a logical variable that is TRUE if the respondent is female 
 # and FALSE if the respondent is male
 csew_0708 <- mutate(csew_0708, female_logical = sex == "female")
@@ -372,7 +372,7 @@ csew_0708 <- mutate(csew_0708, female_factor = factor(sex, levels = c("male", "f
 We can then estimate new regression models using the female_logical and female_factor variables:
 
 
-```r
+``` r
 # Estimate a linear regression using 'female_logical' as the independent variable
 lm(tcviolent ~ female_logical, data = csew_0708)
 ```
@@ -387,7 +387,7 @@ lm(tcviolent ~ female_logical, data = csew_0708)
 ##            -0.2738              0.6020
 ```
 
-```r
+``` r
 # Estimate a linear regression using 'female_factor' as the independent variable
 lm(tcviolent ~ female_factor, data = csew_0708)
 ```
@@ -431,7 +431,7 @@ Finally, the **error term** ($\epsilon$) accounts for the variability in $Y$ tha
 
 Linear regression is a widely used statistical model in the social sciences. Over the coming weeks, we will extend several aspects of this model. Regression models serve two main purposes: prediction and theory testing. These models allow us to specify research questions and translate them into statistical representations, assuming the model approximates the *data-generating process*. 
 
-In reality, we do not know the true data-generating process, and our statistical model may be incomplete. For example, factors beyond gender---such as prior victimisation (of oneself or family/friends), local crime rates, or individual personality traits---may also influence people's fear of violent crime. While these factors are not included in our current model, that's acceptable. As the saying goes, "all models are wrong, but some are useful." Our primary goal is not to explain all variation in the dependent variable (e.g., fear of crime) but to address our research question. In this case, we aim to determine whether women are more afraid of violent crime than men by estimating the difference in average fear scores between the two groups.
+In reality, we do not know the true data-generating process, and our statistical model may be incomplete. For example, factors beyond gender---such as prior victimisation (of oneself or family/friends), local crime rates, or individual personality traits---may also influence people's fear of violent crime. While these factors are not included in our current model, that's acceptable. As the saying goes, "all models are wrong, but some are useful." Our primary goal is not to explain all variations in the dependent variable (e.g., fear of crime) but to address our research question. In this case, we aim to determine whether women are more afraid of violent crime than men by estimating the difference in average fear scores between the two groups.
 
 Over the next few weeks, we will expand our understanding of linear regression models in various ways:
 
@@ -453,7 +453,7 @@ $$
 Here, `tcviolent` (a variable reflecting scores of fear of violent crime) is the dependent variable, and `sex` is the independent variable. We aim to estimate the parameters $\alpha$ (the intercept) and $\beta$ (the slope), which help us address the research question. Linear regression employs *ordinary least squares* (OLS)---a method we will study in more detail next week---to estimate $\alpha$ and $\beta$. The `lm()` function, introduced earlier, performs this estimation. Let's revisit the regression output:  
 
 
-```r
+``` r
 # Display the results of the linear model
 mean_difference_lm
 ```
@@ -525,14 +525,14 @@ $$
 Y = \alpha + \beta \cdot X + \epsilon
 $$
 
-Here, $\alpha$ and $\beta$ are *unknown* parameters that need to be estimated. We can attempt to estimate (e.g., calculate) them. A common method for estimating these linear regression coefficients is the method of *least squares*. However, because we don't know whether our estimates of $\alpha$ and $\beta$ perfectly match the unknown parameters, we need distinguish the estimates from the unknown values. That's where the "hats" come in.
+Here, $\alpha$ and $\beta$ are *unknown* parameters that need to be estimated. We can attempt to estimate (e.g., calculate) them. A common method for estimating these linear regression coefficients is the method of *least squares*. However, because we don't know whether our estimates of $\alpha$ and $\beta$ perfectly match the unknown parameters, we need to distinguish the estimates from the unknown values. That's where the "hats" come in.
 
   + $\widehat{\alpha}$ and $\widehat{\beta}$ represent the estimates (think *guesstimates*!) of $\alpha$ and $\beta$, respectively.
   + The "hat" indicates that these are estimated values, not the true parameters.
   
-We usually expect our estimator to do a good job in estimating parameters. To the extent that $\widehat{\alpha} = \alpha$ and $\widehat{\beta} = \beta$ can be proved, then we would have an *unbiased estimator*. (but don't worry, that's not something we need to worry about! That's a job for theoretical statisticians).
+We usually expect our estimator to do a good job of estimating parameters. To the extent that $\widehat{\alpha} = \alpha$ and $\widehat{\beta} = \beta$ can be proved, then we would have an *unbiased estimator*. (but don't worry, that's not something we need to worry about! That's a job for theoretical statisticians).
 
-Once we have estimated values of $\alpha$ and $\beta$, we can use them to *predict* the value of the dependent variable $Y$ for a given value of the independent variable $X$ (e.g., predict the value of fear of violent crime given respondents' sex). This *predicted value* (or *fitted value*) of *Y* is also and estimated value, therefore we denote it as $\widehat{Y}$. As such, we can write the regression function:
+Once we have estimated values of $\alpha$ and $\beta$, we can use them to *predict* the value of the dependent variable $Y$ for a given value of the independent variable $X$ (e.g., predict the value of fear of violent crime given respondents' sex). This *predicted value* (or *fitted value*) of *Y* is also an estimated value, therefore, we denote it as $\widehat{Y}$. As such, we can write the regression function:
 
 $$
 \widehat{Y} = \widehat{\alpha} + \widehat{\beta} \cdot x
@@ -558,16 +558,16 @@ In this chapter, we learned that when we have a numerical dependent variable and
 
 Is this enough, though? Does a mean difference of -0.6 imply a strong association? How large a difference would we need to observe to argue that there is a substantive difference? Let's say, *hypothetically*, that the mean score of fear of violent crime among men was 0.32, and among women it was 0.33. In this hypothetical case, the mean difference would be $0.01$. Would this mean difference be enough for us to conclude that there is an association? Technically, given that the mean difference is not $0$, an association exists... but how strong is it? How can we assess the actual strength of an association?
 
-The first step is looking at the scaling of the dependent variable. In our case, fear of violent crime (`tcviolent`) was measured using an artificial metric. It ranges from -2.35 to 3.81, with a range of 6.16 points. In this context, we can subjectively assess whether our estimated mean difference of -0.6 is weak or strong. In other words, considering a scale ranging from -2.35 to 3.81, female respondents have an mean score that is 0.6 higher than male respondents.
+The first step is looking at the scaling of the dependent variable. In our case, fear of violent crime (`tcviolent`) was measured using an artificial metric. It ranges from -2.35 to 3.81, with a range of 6.16 points. In this context, we can subjectively assess whether our estimated mean difference of -0.6 is weak or strong. In other words, considering a scale ranging from -2.35 to 3.81, female respondents have a mean score that is 0.6 higher than male respondents.
 
-If that subjective assessment is not enough to have an intuitive understanding of the magnitude of the observed association, we can always look at a **standardised measured of the effect size**. You will find a number of standardised measures of effect size. They aim to give you a sense of how large these differences are by using a standardised metric. We are just going to use one of them, Cohen’s d, for this scenario. We can obtain this measure with the `cohen.d()` function from the `effsize` package, which you will have to install.
+If that subjective assessment is not enough to have an intuitive understanding of the magnitude of the observed association, we can always look at a **standardised measure of the effect size**. You will find a number of standardised measures of effect size. They aim to give you a sense of how large these differences are by using a standardised metric. We are just going to use one of them, Cohen’s d, for this scenario. We can obtain this measure with the `cohen.d()` function from the `effsize` package, which you will have to install.
 
 
-```r
+``` r
 # install the 'effsize' package. Remember: you only have to do this once.
 # install.packages("effsize")
 
-# load the 'effsize' package. You have to do this everytime.
+# load the 'effsize' package. You have to do this every time.
 library(effsize)
 
 # compute the Cohen's d effect size
@@ -584,13 +584,13 @@ cohen.d(csew_0708$tcviolent ~ csew_0708$sex)
 ## 0.5843047 0.6719205
 ```
 
-The output suggests that the Cohen’s d estimate is a medium effect size. Cohen proposed a set of rules of thumb to interpret the d statistic: an effect size (in absolute value) of 0.2 to 0.3 might be a “small” effect, around 0.5 a “medium” effect and 0.8 to infinity, a “large” effect. However, keep in mind these rules are not absolute. In some fields of research and in relation to some problems the rules of thumb may be slightly different. You need, in professional practice, to be alert to those nuances by being familiar with the rules that other researchers use in your particular area of work.
+The output suggests that the Cohen’s d estimate is a medium effect size. Cohen proposed a set of rules of thumb to interpret the d statistic: an effect size (in absolute value) of 0.2 to 0.3 might be a “small” effect, around 0.5 a “medium” effect and 0.8 to infinity, a “large” effect. However, keep in mind these rules are not absolute. In some fields of research and in relation to some problems, the rules of thumb may be slightly different. You need, in professional practice, to be alert to those nuances by being familiar with the rules that other researchers use in your particular area of work.
 
 How do we write our results up? We could say the following:
 
 > On average, males have a lower score of fear of violent crime (mean = -0.27) than the female group (mean =0.33). Considering a normally distributed score ranging from -2.35 to 3.81, the mean difference of 0.60 suggests a moderate association between gender and fear of violent crime. For example, this association is represented by a medium-sized standardised effect (Cohen’s d=-0.63).
 
-This is what you would write in your “Findings” section. In your “Conclusions” you would need to discuss what the theoretical or practical implications of this finding are; connecting it to existing theoretical debates.
+This is what you would write in your “Findings” section. In your “Conclusions”, you would need to discuss what the theoretical or practical implications of this finding are; connecting it to existing theoretical debates.
 
 ## Lab Exercises
 
@@ -643,7 +643,7 @@ Null hypothesis: there is no difference in the level of perceived anti-social be
 <details>
 <summary><i>Reveal answer!</i></summary>
 
-Given that the dependent variable is numeric and the independent variable is binary, we can test the null hypothesis by estimating a mean difference. If the null hypothesis is true, we would expect the average level of perceived anti-social behaviour in the neihbourhood to be largely the same among both rural and urban residents.
+Given that the dependent variable is numeric and the independent variable is binary, we can test the null hypothesis by estimating a mean difference. If the null hypothesis is true, we would expect the average level of perceived anti-social behaviour in the neighbourhood to be largely the same among both rural and urban residents.
 
 </details>
 
@@ -655,7 +655,7 @@ Given that the dependent variable is numeric and the independent variable is bin
 Given that `tcarea` is a numerical variable, we can use the `summary()` function to describe it.
 
 
-```r
+``` r
 summary(csew_0708$tcarea)
 ```
 
@@ -676,7 +676,7 @@ Perceived anti-social behaviour in the neighbourhood is measured using a scale r
 Given that `rural2` is a binary variable, we can use the `table()` and the `prop.table()` functions to describe it.
 
 
-```r
+``` r
 table(csew_0708$rural2)
 ```
 
@@ -686,7 +686,7 @@ table(csew_0708$rural2)
 ##  2974  8702
 ```
 
-```r
+``` r
 prop.table(table(csew_0708$rural2))
 ```
 
@@ -706,7 +706,7 @@ prop.table(table(csew_0708$rural2))
 <summary><i>Reveal answer!</i></summary>
 
 
-```r
+``` r
 # Subset the data for respondents living in urban areas
 csew_0708_urban <- filter(csew_0708, rural2 == "urban")
 
@@ -721,7 +721,7 @@ mean_urban
 ## [1] 0.1598183
 ```
 
-```r
+``` r
 # Subset the data for respondents living in rural areas
 csew_0708_rural <- filter(csew_0708, rural2 == "rural")
 
@@ -736,7 +736,7 @@ mean_rural
 ## [1] -0.3403847
 ```
 
-```r
+``` r
 # Estimate the mean difference
 mean_urban - mean_rural
 ```
@@ -749,7 +749,7 @@ The average score of perceived anti-social behaviour among respondents who live 
 
 </details>
 
-9. Let's build a regression model. Replacing $Y$ with the name of your dependent variable, and $X$ with the name of your independent variable, write down the equation with the unknown parameters (i.e, $\alpha$ and $\beta$) that you want to estimate. *Note: this question does not involve any data analysis*.
+9. Let's build a regression model. Replacing $Y$ with the name of your dependent variable and $X$ with the name of your independent variable, write down the equation with the unknown parameters (i.e., $\alpha$ and $\beta$) that you want to estimate. *Note: this question does not involve any data analysis*.
 
 <details>
 <summary><i>Reveal answer!</i></summary>
@@ -760,13 +760,13 @@ $$
 
 </details>
 
-10. Using the `lm()` function, estimate the parameters of your linear regression model. Rewrite the equation above replacing unknown parameters with the estimated parameters.
+10. Using the `lm()` function, estimate the parameters of your linear regression model. Rewrite the equation above, replacing unknown parameters with the estimated parameters.
 
 <details>
 <summary><i>Reveal answer!</i></summary>
 
 
-```r
+``` r
 lm(tcarea ~ rural2, data = csew_0708)
 ```
 
@@ -806,7 +806,7 @@ The estimated slope coefficient $\widehat{\beta}=0.50$ indicates the mean differ
 <summary><i>Reveal answer!</i></summary>
 
 
-```r
+``` r
 cohen.d(csew_0708$tcarea ~ csew_0708$rural2)
 ```
 

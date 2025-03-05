@@ -5,7 +5,7 @@
 Notice that R is telling us that the minimum expected frequency is 41.68. Why? For the Chi-squared test to work, it assumes the cell counts are sufficiently large. Precisely what constitutes 'sufficiently large' is a matter of some debate. One rule of thumb is that all expected cell counts should be above 5. If we have small cells, one alternative is to rely on the Fisher's Exact Test rather than on the Chi-Square. We don't have to request it here. Our cells are large enough for Chi Square to work fine. But if we needed, we could obtain the Fisher's Exact Test with the following code:
 
 
-```r
+``` r
 BCS0708<-read.csv("https://raw.githubusercontent.com/uom-resquant/modelling_book/refs/heads/master/datasets/BCS0708.csv")
 library(gmodels)
 BCS0708$rubbcomm <- as.factor(BCS0708$rubbcomm)
@@ -37,7 +37,7 @@ Remember that we didn't need the Fisher test. However, as suggested above, there
 Another way of fitting a logistic regression and getting the odds ratio with less typing is to use the `Logit()` function in the `lessR` package (you will need to install it if you do not have it).
 
 
-```r
+``` r
 library(effects)
 data(Arrests, package="effects")
 
@@ -127,7 +127,7 @@ The deviance, on the other hand, is simply the log-likelihood multiplied by -2 a
 The difference between the -2LL for the model with no predictors and the -2LL for the model with all the predictors is the closer we get in logistic regression to the regression sum of squares. This difference is often called **model chi-squared**, and it provides a test of the null hypothesis that all the regression coefficients equal zero. It is, thus, equivalent to the F test in OLS regression.
 
 
-```r
+``` r
 fitl_1 <- glm(harsher ~ checks + colour + sex + employed, data=Arrests, family = "binomial")
 summary(fitl_1)
 ```
@@ -162,7 +162,7 @@ In our example, we saw that some measures of fit were printed below the table wi
 First, notice that the object we created has all the information we need already stored.
 
 
-```r
+``` r
 names(fitl_1)
 ```
 
@@ -182,7 +182,7 @@ names(fitl_1)
 So we can use this stored information in our calculations.
 
 
-```r
+``` r
 with(fitl_1, null.deviance - deviance)
 ```
 
@@ -193,7 +193,7 @@ with(fitl_1, null.deviance - deviance)
 Is 445.6 small? How much smaller is enough? This value has a chi-square distribution, and its significance can be easily computed. For this computation, we need to know the degrees of freedom for the model (which equal the number of predictors in the model) and can be obtained like this:
 
 
-```r
+``` r
 with(fitl_1, df.null - df.residual)
 ```
 
@@ -204,7 +204,7 @@ with(fitl_1, df.null - df.residual)
 Finally, the p-value can be obtained using the following code to invoke the Chi-Square distribution:
 
 
-```r
+``` r
 #When doing it yourself, this is all you really need 
 #(we present the code in a separate fashion above so that you understand better what the one here does)
 with(fitl_1, pchisq(null.deviance - deviance, df.null - df.residual, lower.tail = FALSE))
@@ -219,7 +219,7 @@ We can see that the model chi-square is highly significant. Our model as a whole
 Menard (2010) recommends also looking at the likelihood ratio R^2, which can be calculated as the difference between the null deviance and the residual deviance divided by the null deviance.
 
 
-```r
+``` r
 #Likelihood ratio R2
 with(fitl_1, (null.deviance - deviance)/null.deviance)
 ```
@@ -245,7 +245,7 @@ We may want to see what happens to sensitivity and specificity for different cut
 We can use the `pROC` package for this. We start by creating an object that contains the relevant information with the `roc()` function from the `pROC` package.
 
 
-```r
+``` r
 fitl_1_prob <- predict(fitl_1, type = "response") 
 library(pROC)
 rocCURVE <- roc(response = Arrests$harsher, 
@@ -255,7 +255,7 @@ rocCURVE <- roc(response = Arrests$harsher,
 Once we have the object with the information, we can plot the ROC curve.
 
 
-```r
+``` r
 plot(rocCURVE, legacy.axes = TRUE) #By default, the x-axis goes backwards; we can use the specified option legacy.axes=TRUE, to get 1-spec on the x-axis moving from 0 to 1.
 ```
 
@@ -264,7 +264,7 @@ plot(rocCURVE, legacy.axes = TRUE) #By default, the x-axis goes backwards; we ca
 We can see the trajectory of the curve is at first steep, suggesting that sensitivity increases at a greater pace than the decrease in specificity. However, we then reach a point at which specificity decreases at a greater rate than the sensitivity increases. If you want to select a cut-off that gives you the optimal cut-off point, you can use the `coords()` function of the pROC package. You can pass arguments to this function so that it returns the best sum of sensitivity and specificity.
 
 
-```r
+``` r
 alt_cutoff1 <- coords(rocCURVE, x = "best", best.method = "closest.topleft")
 #The x argument, in this case, is selecting the best cut-off using the "closest topleft" method 
 #(which identifies the point closest to the top-left part of the plot with perfect sensitivity or specificity). Another option is to use the "youden" method in the best.method argument.

@@ -9,7 +9,7 @@ As we learned during the first week, we can get results from R in various ways. 
 We will begin the session by loading again the BCS 2007/2008 data from previous weeks. 
 
 
-```r
+``` r
 BCS0708<-read.csv("https://raw.githubusercontent.com/uom-resquant/modelling_book/refs/heads/master/datasets/BCS0708.csv")
 ```
 
@@ -18,7 +18,7 @@ BCS0708<-read.csv("https://raw.githubusercontent.com/uom-resquant/modelling_book
 We will start by producing a cross-tabulation of victimisation ("bcsvictim"), a categorical unordered variable, by whether the presence of rubbish in the streets is a problem in the area of residence ("rubbcomm"), another categorical ordered variable. The broken windows theory would argue that we should see a relationship. We will use the following code:
 
 
-```r
+``` r
 library(gmodels)
 with(BCS0708, CrossTable(rubbcomm, bcsvictim, prop.chisq = FALSE, format = c("SPSS")))
 ```
@@ -65,7 +65,7 @@ with(BCS0708, CrossTable(rubbcomm, bcsvictim, prop.chisq = FALSE, format = c("SP
 ## 
 ```
 
-```r
+``` r
 #In CrossTable(), we are using the name of the variable defining the rows as our first argument, and as our second argument, the name of the variable defining the columns. We are also telling R that we don't yet want any test of statistical significance and that we want the table to look like it would in SPSS.
 ```
 
@@ -74,7 +74,7 @@ The cells for the central two columns represent the total number of cases in eac
 Let's check the level of measurement of the "rubbcomm" variable with the `class()` function:
 
 
-```r
+``` r
 class(BCS0708$rubbcomm)
 ```
 
@@ -85,14 +85,14 @@ class(BCS0708$rubbcomm)
 It is categorical, we know, but note that R considers this "character" rather than "factor", which is what we would like. To make sure that R knows this is a factor, we can convert it with the `as.factor()` function. PAY ATTENTION: we are *not* recoding, so we use `as.factor()` with a dot (as.dot.factor), and we are **not using** the `as_factor()` from the haven package, which we would use to recode if this were a *.dta file (it's not!). 
 
 
-```r
+``` r
 BCS0708$rubbcomm <- as.factor(BCS0708$rubbcomm)
 ```
 
 In the table above, we notice that although "rubbcomm" is an ordinal variable, the order in which it is printed does not make logical sense. We can check the order of the encoding using the `levels()` function.
 
 
-```r
+``` r
 levels(BCS0708$rubbcomm)
 ```
 
@@ -104,7 +104,7 @@ levels(BCS0708$rubbcomm)
 As we can see, the order makes little sense. We should reorder the factor levels to make them follow a logical order. There are multiple ways to do this, some of which we have already seen. This is one possible way of doing it.
 
 
-```r
+``` r
 BCS0708$rubbcomm <- factor(BCS0708$rubbcomm, 
                     levels = c("not at all common", 
                     "not very common", "fairly common",
@@ -120,7 +120,7 @@ To reiterate, there are two rules for producing and reading cross tabs the right
 To avoid confusion when looking at the table, you could also modify the code to only ask for the relevant percentages. In this case, we will ask for the row percentages. We can control what gets printed in the main console using the different options of the `CrossTable()` function. By default, this function prints all the percentages, but most of them are not terribly useful for our purposes here. So, we are going to modify the default options by asking R not to print the column or the total percentages. 
 
 
-```r
+``` r
 with(BCS0708, CrossTable(rubbcomm, bcsvictim, 
                          prop.chisq=FALSE, prop.c=FALSE, 
                          prop.t=FALSE, format=c("SPSS")))
@@ -172,7 +172,7 @@ So far, we have only described our sample. Can we infer that the differences we 
 To assess that possibility, we carry out a test of statistical significance. This test allows us to examine the null hypothesis. So, our hypothesis is that there is a relationship between the two variables, while our null hypothesis is that there is no relationship. In this case, the null hypothesis states that in the population from which this sample was drawn, victimisation and how common rubbish is in your area are independent events; that is, they are not related to each other. The materials you read as preparation explained the test appropriate for this case is the chi-square test. You should know that what this test does is to contrast the squared average difference between the observed frequencies and the expected frequencies (divided by the expected frequencies). We can see the expected frequencies for each cell modifying the options of the `CrossTable` function in the following manner:
 
 
-```r
+``` r
 with(BCS0708, CrossTable(rubbcomm, bcsvictim, 
               expected = TRUE, prop.c = FALSE, 
               prop.t = FALSE, format = c("SPSS")))
@@ -246,7 +246,7 @@ Asking for the expected frequencies with `CrossTable()` automatically prints the
 Notice that R is telling us that the minimum expected frequency is 41.68. Why? Find the answer in the [appendix](https://uom-resquant.github.io/modelling_book/appendix.html#expected-frequencies). <!-- APPENDIX For the Chi-squared test to work, it assumes the cell counts are sufficiently large. Precisely what constitutes 'sufficiently large' is a matter of some debate. One rule of thumb is that all expected cell counts should be above 5. If we have small cells, one alternative is to rely on the Fisher's Exact Test rather than on the Chi-Square. We don't have to request it here. Our cells are large enough for Chi Square to work fine. But if we needed, we could obtain the Fisher's Exact Test with the following code:
 
 
-```r
+``` r
 fisher.test(BCS0708$rubbcomm, BCS0708$bcsvictim, simulate.p.value=TRUE)
 ```
 
@@ -271,7 +271,7 @@ When you have two dichotomous nominal-level variables, which can take only two p
 They are the statistical equivalent of a tongue twister, so don't worry too much if you need to keep looking at this handout whenever you want to interpret them. We are going to look at the relationship between victimisation and living in a rural/urban setting: 
 
 
-```r
+``` r
 with(BCS0708, CrossTable(rural2, bcsvictim, prop.c = FALSE, 
                          prop.t = FALSE, expected = TRUE, 
                          format = c("SPSS")))
@@ -336,7 +336,7 @@ This is where odds ratios are handy. Before we get to them, I will discuss a sim
 Our table was set up in such a way that the rows are defined by our "risk factor" and the columns by our outcome. But, the first cell represents the intersection of the non-presence of the risk factor and the absence of the outcome. The easiest way to sort this out is to change the order of the levels in our categorical variable identifying the outcome ("bcsvictim"). If we ask R to print the levels of the bcsvictim variable, we will see that they are as follows:
 
 
-```r
+``` r
 print(levels(BCS0708$bcsvictim))
 ```
 
@@ -344,7 +344,7 @@ print(levels(BCS0708$bcsvictim))
 ## NULL
 ```
 
-```r
+``` r
 print(levels(BCS0708$rural2))
 ```
 
@@ -355,7 +355,7 @@ print(levels(BCS0708$rural2))
 You are seeing NULL because these variables are currently character vectors. So we must 1) change them both into factor variables and then 2) reverse the order of the levels. So, "victim of crime" becomes the first level (appears first in the printout), and "urban" becomes the first level as well. There are various ways of doing that with add-on packages; this is an easy way using base R:
 
 
-```r
+``` r
 BCS0708$bcsvictimR <- factor(BCS0708$bcsvictim, 
                              levels = c('victim of crime',
                                         'not a victim of crime'))
@@ -366,7 +366,7 @@ print(levels(BCS0708$bcsvictimR))
 ## [1] "victim of crime"       "not a victim of crime"
 ```
 
-```r
+``` r
 BCS0708$urban <- factor(BCS0708$rural2, 
                         levels = c('urban','rural'))
 print(levels(BCS0708$urban))
@@ -379,7 +379,7 @@ print(levels(BCS0708$urban))
 We can now rerun the previous cross-tabulation (with the newly created reordered factors), and the table will look as below:
 
 
-```r
+``` r
 with(BCS0708, CrossTable(urban, bcsvictimR, prop.c = FALSE, 
               prop.t = FALSE, expected = TRUE, 
               format = c("SPSS")))
@@ -438,7 +438,7 @@ The **odds ratio** is the ratio of these two odds. So, the odds ratio of victimi
 You can use R to obtain the odds ratios directly. We can use the `vcdExtra` package (which you may need to install and load). We first create an object with the table and then ask for the ordinary odds ratio using the following code:
 
 
-```r
+``` r
 library(vcd)
 mytable.1<-table(BCS0708$urban, BCS0708$bcsvictimR)
 oddsratio(mytable.1, stratum = NULL, log = FALSE) 
@@ -455,7 +455,7 @@ The  `oddsratio` function here asks for the odds ratio for the table data in the
 What would happen if we used the original variable instead of the recoded one ("bcsvictimR")?
 
 
-```r
+``` r
 mytable.2<-table(BCS0708$urban, BCS0708$bcsvictim)
 print(mytable.2)
 ```
@@ -467,7 +467,7 @@ print(mytable.2)
 ##   rural                  2561             413
 ```
 
-```r
+``` r
 oddsratio(mytable.2, stratum = NULL, log = FALSE)
 ```
 
@@ -504,7 +504,7 @@ With logistic regression, we model the probability of belonging to one of the le
 To illustrate logistic regression, we will use the `Arrests` data from the `effects` package. You can obtain details about this dataset and the variables included by using `help(Arrests, package="effects")`. If you don't have that package, you must install and load it.
 
 
-```r
+``` r
 library(effects)
 data(Arrests, package="effects")
 ```
@@ -516,7 +516,7 @@ This data includes information on police treatment of individuals arrested in To
 + Bring to the police station, held for bail, etc. - harsher treatment 
 
 
-```r
+``` r
 table(Arrests$released)
 ```
 
@@ -533,7 +533,7 @@ Most marijuana-possession arrestees are released with a summons. Let's see if we
 It is fairly straightforward to run a logistic model. Before you fit it, though, it is convenient to check what you are modelling. Remember that R orders the levels in a factor alphabetically (unless they have been reordered by the authors of the data frame). What that means is that when you run logistic regression, you will be predicting probabilities associated with the category in a higher alphabetical order.
 
 
-```r
+``` r
 levels(Arrests$released) 
 ```
 
@@ -541,7 +541,7 @@ levels(Arrests$released)
 ## [1] "No"  "Yes"
 ```
 
-```r
+``` r
 #Prints the levels, and you can see 
 #that "Yes" comes after "No" in alphabetical order
 contrasts(Arrests$released)
@@ -553,7 +553,7 @@ contrasts(Arrests$released)
 ## Yes   1
 ```
 
-```r
+``` r
 #This function shows you the contrasts 
 #associated with a factor. 
 #You can see that 1 is associated with "Yes". 
@@ -564,7 +564,7 @@ contrasts(Arrests$released)
 If, by any chance, the level of interest is not the one that R will select, we will need to reorder the factor levels. In this particular analysis, our goal is to check whether being Black predicts harsher treatment. So, let's reorder the factors so that the model is oriented towards predicting this harsher treatment. This will simply change the sign of the coefficients, which may enhance interpretation.
 
 
-```r
+``` r
 #Reverse the order
 Arrests$harsher <- relevel(Arrests$released, "Yes")
 #Rename the levels so that it is clear we now mean yes to harsher treatment
@@ -579,7 +579,7 @@ table(Arrests$harsher)
 ## 4334  892
 ```
 
-```r
+``` r
 #We will also reverse the order of the
 #"colour" variable so that the dummy 
 #uses Whites as the baseline
@@ -589,7 +589,7 @@ Arrests$colour <- relevel(Arrests$colour, "White")
 We use the `glm()` function to fit the model, specifying as an argument that we will be using a logit model (`family="binomial"`). As stated, we are going to run a model oriented primarily to assess to what degree race/ethnicity seems to matter even when we adjust for other factors (e.g., sex, employment, and previous police contacts (checks: number of police data records of previous arrests, previous convictions, parole status, etc. - 6 in all) on which the arrestee's name appeared; a numeric vector)).
 
 
-```r
+``` r
 fitl_1 <- glm(harsher ~ checks + colour + sex + employed, data=Arrests, family = "binomial")
 summary(fitl_1)
 ```
@@ -632,7 +632,7 @@ If we focus on the table of coefficients, we can see that all the inputs but *se
 We can also use the `confint()` function to obtain confidence intervals for the estimated coefficients.
 
 
-```r
+``` r
 confint(fitl_1)
 ```
 
@@ -650,7 +650,7 @@ So what does that actually mean?
 Interpreting the log odds scale is something some people do not find very intuitive. So, using **odd ratios** when interpreting logistic regression is common. To do this, all we need to do is to exponentiate the coefficients. To get the exponentiated coefficients, you tell R that you want to exponentiate (`exp()`), that the object you want to exponentiate is called coefficients, and it is part of the model you just run.
 
 
-```r
+``` r
 exp(coef(fitl_1))
 ```
 
@@ -662,7 +662,7 @@ exp(coef(fitl_1))
 You can use the same logic as for the confidence intervals.
 
 
-```r
+``` r
 exp(cbind(OR = coef(fitl_1), confint(fitl_1)))
 ```
 
@@ -675,7 +675,7 @@ exp(cbind(OR = coef(fitl_1), confint(fitl_1)))
 ## employedYes 0.4585312 0.3892103 0.5407210
 ```
 
-```r
+``` r
 #This will print both the OR and their 95% CI.
 ```
 
@@ -690,7 +690,7 @@ See [the appendix](https://uom-resquant.github.io/modelling_book/appendix.html#f
 Another way of getting the results with less typing is to use the `Logit()` function in the `lessR` package (you will need to install it if you do not have it).
 
 
-```r
+``` r
 library(lessR, quietly= TRUE)
 Logit(harsher ~ checks + colour + sex + employed, data=Arrests, brief=TRUE)
 ```
@@ -762,7 +762,7 @@ As with linear regression, the interpretation of regression coefficients is sens
 <!--Finally, you could, in the same way as we did in a previous session, use the `standardize()` function from the `arm` package.
 
 
-```r
+``` r
 library(arm)
 fitl_1_s <- standardize(fitl_1)
 display(fitl_1_s)
@@ -785,7 +785,7 @@ display(fitl_1_s)
 We can also use **forest plots** in much the same way as we did for linear regression. One way of doing this is using the `plot.model()` function of the `sjPlot` package. 
 
 
-```r
+``` r
 library(sjPlot)
 plot_model(fitl_1)
 ```
@@ -795,7 +795,7 @@ plot_model(fitl_1)
 Equally, we can produce effect plots using the `effects` package:
 
 
-```r
+``` r
 library(effects)
 plot(allEffects(fitl_1), ask=FALSE)
 ```
@@ -807,7 +807,7 @@ Effect plots in this context are particularly helpful because they summarise the
 We don't have to print them all. When we are primarily concerned with one of them, as in this case, that's the one we want to emphasise when presenting and discussing our results. There isn't much point in discussing the results for the variables we defined as control (given our research goal). So, in this case, we would ask for the plot for our input measuring race/ethnicity:
 
 
-```r
+``` r
 plot(effect("colour", fitl_1), multiline = FALSE, ylab = "Probability(harsher)")
 ```
 
@@ -816,7 +816,7 @@ plot(effect("colour", fitl_1), multiline = FALSE, ylab = "Probability(harsher)")
 We can use the `predict()` function to generate the predicted probability that the arrestees will be released, given what we know about their inputs in the model given the values of the predictors. By default, R will compute the probabilities for the dataset to which we fitted the model. Here, we have printed only the first ten probabilities, but the way we use the `predict()` function here will generate a predicted probability for each case in the dataset.
 
 
-```r
+``` r
 fitl_1_prob <- predict(fitl_1, type = "response") 
 #If you want to add this to your data frame, 
 #you could designate your object as Arrests$fitl_1_prob
@@ -877,7 +877,7 @@ In our example, we saw that some measures of fit were printed below the table wi
 First, notice that the object we created has all the information we need already stored.
 
 
-```r
+``` r
 names(fitl_1)
 ```
 
@@ -897,7 +897,7 @@ names(fitl_1)
 So we can use this stored information in our calculations.
 
 
-```r
+``` r
 with(fitl_1, null.deviance - deviance)
 ```
 
@@ -908,7 +908,7 @@ with(fitl_1, null.deviance - deviance)
 Is 445.6 small? How much smaller is enough? This value has a chi-square distribution, and its significance can be easily computed. For this computation, we need to know the degrees of freedom for the model (which equal the number of predictors in the model) and can be obtained like this:
 
 
-```r
+``` r
 with(fitl_1, df.null - df.residual)
 ```
 
@@ -919,7 +919,7 @@ with(fitl_1, df.null - df.residual)
 Finally, the p-value can be obtained using the following code to invoke the Chi-Square distribution:
 
 
-```r
+``` r
 #When doing it yourself, this is all you really need 
 #(we present the code in a separate fashion above so that you understand better what the one here does)
 with(fitl_1, pchisq(null.deviance - deviance, df.null - df.residual, lower.tail = FALSE))
@@ -934,7 +934,7 @@ We can see that the model chi-square is highly significant. Our model as a whole
 Menard (2010) recommends also looking at the likelihood ratio R^2, which can be calculated as the difference between the null deviance and the residual deviance divided by the null deviance.
 
 
-```r
+``` r
 #Likelihood ratio R2
 with(fitl_1, (null.deviance - deviance)/null.deviance)
 ```
@@ -968,7 +968,7 @@ The diagonal entries correspond to observations that are classified correctly ac
 There are various ways of producing a confusion matrix in R. The most basic one is to ask for the cross-tabulation of the predicted classes (determined by the cut-off criterion) versus the observed classes.
 
 
-```r
+``` r
 #First, we define the classes according to the cut-off
 fitl_1_pred_class <- fitl_1_prob > .5
 #This creates a logical vector that returns TRUE 
@@ -982,7 +982,7 @@ fitl_1_pred_class[1:10]
 ## FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ```
 
-```r
+``` r
 #Let's make this into a factor with the same levels as the original variable
 harsher_pred <- as.factor(fitl_1_pred_class)
 levels(harsher_pred) <- c("No","Yes")
@@ -995,7 +995,7 @@ table(harsher_pred)
 ## 5113  113
 ```
 
-```r
+``` r
 #Then we can produce the cross-tab
 tab0 <- table(harsher_pred, Arrests$harsher)
 tab0
@@ -1021,7 +1021,7 @@ In this case, this amounts to 4278 divided by 4278 plus 56. The **false positive
 We can generate these measures automatically from the table we produced. However, for this sort of thing, I prefer to use the `confusionMatrix()` function from the `caret` package. It produces a very detailed set of calibration measures that help indicate how well the model is classifying.
 
 
-```r
+``` r
 library(caret)
 confusionMatrix(data=harsher_pred, 
                 reference=Arrests$harsher, positive="Yes") 
@@ -1057,7 +1057,7 @@ confusionMatrix(data=harsher_pred,
 ## 
 ```
 
-```r
+``` r
 #The data argument specifies the vector 
 #with the predictions and the reference 
 #argument the vector with the observed 
@@ -1072,7 +1072,7 @@ One of the problems with taking this approach is that the choice of the cut-off 
 So if we use a different cut-off point, say .25, the classification table would look like this:
 
 
-```r
+``` r
 precision<-function(c) {
 tab1 <- table(fitl_1_prob>c, Arrests$harsher)
 out <- diag(tab1)/apply(tab1, 2, sum)
@@ -1105,7 +1105,7 @@ We may want to see what happens to sensitivity and specificity for different cut
 <!--We can use the `pROC` package for this. We start by creating an object that contains the relevant information with the `roc()` function from the `pROC` package.
 
 
-```r
+``` r
 library(pROC)
 ```
 
@@ -1130,7 +1130,7 @@ library(pROC)
 ##     cov, smooth, var
 ```
 
-```r
+``` r
 rocCURVE <- roc(response = Arrests$harsher, 
                 predictor = fitl_1_prob)
 ```
@@ -1146,7 +1146,7 @@ rocCURVE <- roc(response = Arrests$harsher,
 Once we have the object with the information, we can plot the ROC curve.
 
 
-```r
+``` r
 plot(rocCURVE, legacy.axes = TRUE) #By default, the x-axis goes backwards; we can use the specified option legacy.axes=TRUE, to get 1-spec on the x-axis moving from 0 to 1.
 ```
 
@@ -1155,7 +1155,7 @@ plot(rocCURVE, legacy.axes = TRUE) #By default, the x-axis goes backwards; we ca
 We can see the trajectory of the curve is at first steep, suggesting that sensitivity increases at a greater pace than the decrease in specificity. However, we then reach a point at which specificity decreases at a greater rate than the sensitivity increases. If you want to select a cut-off that gives you the optimal cut-off point, you can use the `coords()` function of the pROC package. You can pass arguments to this function so that it returns the best sum of sensitivity and specificity.
 
 
-```r
+``` r
 alt_cutoff1 <- coords(rocCURVE, x = "best", best.method = "closest.topleft")
 #The x argument, in this case, is selecting the best cut-off using the "closest topleft" method 
 #(which identifies the point closest to the top-left part of the plot with perfect sensitivity or specificity). Another option is to use the "youden" method in the best.method argument.
@@ -1176,7 +1176,7 @@ The ROC curve can also be used to develop a quantitative assessment of the model
 The data we have been using were obtained by the author of the `effects` package from [Michael Friendly](http://www.datavis.ca/), another prominent contributor to the development of R packages. The data are related to a series of stories revealed by the Toronto Star and further analysed by Professor Friendly as seen [here](http://www.datavis.ca/courses/VCD/vcd4-handout-2x2.pdf). In this further analysis, Friendly proposes a slightly more complex model than the one we have specified so far. This model adds three new predictors (citizenship, age, and year in which the case was processed) and also allows for interactions between race (colour) and year, as well as race and age.
 
 
-```r
+``` r
 fitl_2 <- glm(harsher ~ employed + citizen + checks + colour * year + colour * age, 
               family = binomial, data = Arrests) 
 #Notice this different way of including interactions
@@ -1215,7 +1215,7 @@ summary(fitl_2)
 What we see here is that the two interactions included are significant. To assist in the interpretation of interactions, it is helpful to look at effect plots.
 
 
-```r
+``` r
 plot(effect("colour:year", fitl_2))
 ```
 
@@ -1224,7 +1224,7 @@ plot(effect("colour:year", fitl_2))
 First, we see that up to 2000, there is strong evidence for differential treatment of blacks and whites. However, we also see evidence to support Police claims of the effect of training to reduce racial effects.
 
 
-```r
+``` r
 plot(effect("colour:age", fitl_2))
 ```
 
