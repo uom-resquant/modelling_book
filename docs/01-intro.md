@@ -91,7 +91,7 @@ So far, we have covered an introduction to the main interface you will be using 
 Let's write some very simple code using R to talk to your computer. First, open a new SCRIPT within the project you just created. Type the following instructions in the script window. After you are done, click in the top right corner where it says *Run* (if you prefer quick shortcuts, you can select the text and then press Ctrl +  Enter):
 
 
-``` r
+```r
 print("I love stats")
 ```
 
@@ -129,7 +129,7 @@ If you just installed R on your laptop, you will see a shortish list of packages
 We will install a package called "cowsay" to demonstrate the process. In the Packages panel, there is an *Install* menu that opens a dialogue box and allows you to install packages. Instead, we are going to use code to do this. Just cut and paste the code below into your script and then run it:
 
 
-``` r
+```r
 install.packages("cowsay")
 ```
 
@@ -146,7 +146,7 @@ Every beginner in R will find these help files a bit confusing. But after a whil
 Let's try to use some of the functions of this package. We will use the "say" function:
 
 
-``` r
+```r
 say("I love stats")
 ```
 
@@ -159,7 +159,7 @@ Think of it as a pair of shoes. You buy them once, but you have to take them fro
 To see what packages you currently have **loaded** in your session, you use the `search()` function (you do not need to pass it any arguments in this case).
 
 
-``` r
+```r
 search()
 ```
 
@@ -172,14 +172,14 @@ search()
 If you run this code, you will see that `cowsay` is not in the list of loaded packages. Therefore, your computer cannot use any of the functions associated with it until you load it. To load a package, we use the **library** function. So, if we want to load the new package we installed on our machine, we would need to use the following code:
 
 
-``` r
+```r
 library("cowsay")
 ```
 
 Run the `search` function again. You will see this package is listed now. So now we can try using the function "say" again.
 
 
-``` r
+```r
 say("I love stats")
 ```
 
@@ -201,7 +201,7 @@ say("I love stats")
 You get a random animal in the console repeating the text we passed as an argument. If we like a different animal, we could pass a new argument on to the "say" function. So, if we want to have a cow rather than a random animal, then we would pass the following arguments on to our function.
 
 
-``` r
+```r
 say("I love stats", "cow")
 ```
 
@@ -230,7 +230,7 @@ We have seen how the first argument that the "say" function takes is the text th
 An **object**? What do I mean? In the same way that everything you do in R you do with functions (your verbs), everything that exists in R is an object. You can think of objects as boxes where you put stuff. In this case, we are going to create an object called *my_text* and inside this object, we are going to store the text "I love stats". How do you do this? We will use the code below:
 
 
-``` r
+```r
 my_text <- "I love stats."
 ```
 
@@ -241,7 +241,7 @@ Run the code. Look now at the *Environment* window in the top right corner. We s
 Once we put things into these boxes or objects, we can use them as arguments for our functions. See the example below:
 
 
-``` r
+```r
 say(my_text, "cow")
 ```
 
@@ -272,7 +272,7 @@ As we have seen earlier, to create an object, you have to give it a name and the
 For example, if we want to create an object that we name "x", and we want it to represent the value of 5, we write:
 
 
-``` r
+```r
 x <- 5
 ```
 
@@ -281,7 +281,7 @@ We are simply telling R to create a **numeric object**, called `x`, with one ele
 You can see the content of the object `x` in the main console either by using the print function we used earlier or by auto-printing, that is, just typing the name of the object and running that as code:
 
 
-``` r
+```r
 x
 ```
 
@@ -292,7 +292,7 @@ x
 When writing expressions in R, you must understand that **R is case sensitive**. This could drive you nuts if you are not careful. More often than not, if you write an expression asking R to do something and R returns an error message, chances are that you used lowercase when uppercase was needed (or vice versa). So, always check for the right spelling. For example, see what happens if I use a capital 'X':
 
 
-``` r
+```r
 X
 ```
 
@@ -326,7 +326,7 @@ It is also important to remember that R will always treat numbers as numbers. Th
 If you want, give it a try. Try to create a variable called 12 and assign it the value "twelve". As we did in the sections above, we can assign something meaning by using the "<-" characters.
 
 
-``` r
+```r
 12 <- "twelve"
 ```
 
@@ -345,7 +345,7 @@ What is a vector? A vector is simply a set of elements *of the same class* (typi
 Typically, you will use the `c()` function (c stands for *concatenate*) to create vectors. The code below exemplifies how to create vectors of different classes (numeric, logical, character, etc.). Notice how the listed elements (to simplify, there are two elements in each vector below) are separated by commas `,`:
 
 
-``` r
+```r
 my_1st_vector <- c(0.5, 0.6) #creates a numeric vector with two elements
 my_2nd_vector <- c(1L, 2L) #creates an integer vector ("L" suffix specifies an integer type)
 my_3rd_vector <- c(TRUE, FALSE) #creates a logical vector
@@ -360,7 +360,7 @@ Cut and paste this code into your script and run it. You will see how all these 
 The beauty of an object-oriented statistical language like R is that once you have these objects, you can use them as **inputs** in functions, use them in operations, or create other objects. This makes R very flexible. See some examples below:
 
 
-``` r
+```r
 class(my_1st_vector) #a function to figure out the class of the vector
 ```
 
@@ -368,7 +368,7 @@ class(my_1st_vector) #a function to figure out the class of the vector
 ## [1] "numeric"
 ```
 
-``` r
+```r
 length(my_1st_vector) #a function to figure out the length of the vector
 ```
 
@@ -376,7 +376,7 @@ length(my_1st_vector) #a function to figure out the length of the vector
 ## [1] 2
 ```
 
-``` r
+```r
 my_1st_vector + 2 #Add a constant to each element of the vector
 ```
 
@@ -384,7 +384,7 @@ my_1st_vector + 2 #Add a constant to each element of the vector
 ## [1] 2.5 2.6
 ```
 
-``` r
+```r
 my_7th_vector <- my_1st_vector + 1 #Create a new vector that contains 
 #the elements of my1stvector plus a constant of 1
 my_1st_vector + my_7th_vector #Adds the two vectors and Auto-print 
@@ -394,14 +394,14 @@ my_1st_vector + my_7th_vector #Adds the two vectors and Auto-print
 ## [1] 2.0 2.2
 ```
 
-``` r
+```r
 #the results (note how the sum was done)
 ```
 
 As indicated earlier, when you create objects, you place them in your working memory or workspace. Each R session will be associated with a workspace (called "global environment" in R Studio). In R Studio you can visualise the objects you have created during a session in the **Global Environment** screen. But if you want to produce a list of what's there, you can use the `ls()` function (the results you get may differ from the ones below depending on what you actually have in your global environment).
 
 
-``` r
+```r
 ls() #list all objects in your global environment
 ```
 
@@ -414,21 +414,21 @@ ls() #list all objects in your global environment
 If you want to delete a particular object, you can do so using the `rm()` function.
 
 
-``` r
+```r
 rm(x) #remove x from your global environment
 ```
 
 It is also possible to remove all objects at once:
 
 
-``` r
+```r
 rm(list = ls()) #remove all objects from your global environment
 ```
 
 If you mix in vector elements of a different class (for example, numerical and logical), R will **coerce** to the minimum common denominator so that every element in the vector is of the same class. So, for example, if you input a number and a character, it will coerce the vector to be a character vector - see the example below and notice the use of the `class()` function to identify the class of an object. 
 
 
-``` r
+```r
 my_8th_vector <- c(0.5, "a")
 class(my_8th_vector) #The class() function will tell us the class of the vector
 ```
@@ -448,7 +448,7 @@ Data frames are *multiple vectors* of possibly different classes (e.g., numeric,
 Let's create a data frame with two variables:
 
 
-``` r
+```r
 #We create a data frame called mydata_1 with two variables, 
 #an integer vector called foo and a logical vector called bar
 mydata_1 <- data.frame(foo = 1:4, bar = c(T,T,F,F))
@@ -466,7 +466,7 @@ mydata_1
 Or alternatively, for the same result:
 
 
-``` r
+```r
 x <- 1:4
 y <- c(T, T, F, F)
 mydata_2 <- data.frame (foo = x, bar = y)
@@ -490,7 +490,7 @@ Let's have a look at some of them. We are going to look at some data that are pa
 Done? Ok, now we are going to look at the data sets that are included in this package. Remember, first, we have to **install** and **load** the package if we want to use it:
 
 
-``` r
+```r
 library(fivethirtyeight)
 ```
 
@@ -502,7 +502,7 @@ library(fivethirtyeight)
 ## 'https://fivethirtyeightdata.github.io/drat/', type = 'source')
 ```
 
-``` r
+```r
 #This function will return all the data frames that 
 #are available in the named package.
 data(package="fivethirtyeight") 
@@ -511,7 +511,7 @@ data(package="fivethirtyeight")
 Notice that this package has some data sets that relate to stories covered in this journal that had a criminological angle. Let's look, for example, at the hate_crimes data set. How do you do that? First, we have to load the data frame into our global environment. To do so, use the following code:
 
 
-``` r
+```r
 data("hate_crimes")
 ```
 
@@ -520,7 +520,7 @@ This function will search among all the *loaded* packages and locate the "hate_c
 Every object in R can have **attributes**. These are names; dimensions (for matrices and arrays: number of rows and columns) and dimensions names; class of object (numeric, character, etc.); length (for a vector, this will be the number of elements in the vector); and other user-defined. You can access the attributes of an object using the `attributes()` function. Let's query R for the attributes of this data frame.
 
 
-``` r
+```r
 attributes(hate_crimes)
 ```
 
@@ -557,7 +557,7 @@ Ok, let's now have a quick look at the data. There are so many different ways of
 Let's start with the *mean*. This function takes as an argument the numeric variable for which you want to obtain the mean. Because of the way that R works, you cannot simply put the name of the variable; you have to tell R as well which data frame that variable is located in. To do that, you write the name of the data frame, the dollar sign(`$`), and then the name of the variable you want to summarise. If you want to obtain the mean of the variable that gives us the proportion of people who voted for Donald Trump, you can use the following expression:
 
 
-``` r
+```r
 mean(hate_crimes$share_vote_trump)
 ```
 
@@ -570,7 +570,7 @@ This code is saying to look inside the "hate_crimes" dataset object and find the
 Another function you may want to use with numeric variables is `summary()`:
 
 
-``` r
+```r
 summary(hate_crimes$share_vote_trump)
 ```
 
@@ -584,7 +584,7 @@ This gives you the five-number summary (minimum, first quartile, median, third q
 You don't have to specify a variable; you can ask for these summaries from the whole data frame:
 
 
-``` r
+```r
 summary(hate_crimes)
 ```
 
@@ -636,7 +636,7 @@ You will need to install it before anything else. Use the code you have learnt t
 Once you have loaded the *skimr* package, you can use it. Its main function is *skim*. Like *summary* for data frames, skim presents results for all the columns, and the statistics will depend on the class of the variable. However, the results are displayed and stored in a nicer way - though we won't get into the details right now.
 
 
-``` r
+```r
 skim(hate_crimes)
 ```
 
@@ -668,7 +668,7 @@ Although you can use numbers to represent categories, *using factors with labels
 Factors can also be created with the `factor()` function concatenating a series of *character* elements. You will notice that it is printed differently from a simple character vector and that it tells us the levels of the factor (look at the second printed line).
 
 
-``` r
+```r
 the_smiths <- factor(c("Morrisey", "Marr", "Rourke", "Joyce")) #create a new factor
 the_smiths #auto-print the factor
 ```
@@ -680,7 +680,7 @@ the_smiths #auto-print the factor
 Alternatively, for similar results, use the as.factor() function. Here, you will create `the_smiths_char` object and then transform it to a factor variable, `the_smiths_f`.
 
 
-``` r
+```r
 the_smiths_char <- c("Morrisey", "Marr", "Rourke", "Joyce") #create a character vector
 the_smiths_f <- as.factor(the_smiths_char) #create a factor using a character vector
 the_smiths_f #auto-print factor
@@ -694,7 +694,7 @@ the_smiths_f #auto-print factor
 Factors in R can be seen as vectors with more information added. This extra information consists of a record of the distinct values in that vector, called **levels**. If you want to know the levels in a given factor, you can use the `levels()` function:
 
 
-``` r
+```r
 levels(the_smiths_f)
 ```
 
@@ -707,7 +707,7 @@ Notice that the levels appear printed in alphabetical order (Try `levels(the_smi
 Let's look at one more example here. Let's say we are making data about Hogwarts Houses, which are divided into four houses: Gryffindor, Hufflepuff, Ravenclaw and Slytherin. 
 
 
-``` r
+```r
 #We create a data frame called HarryPotter with two variables: 
 #a character vector called name and a character vector called house
 HarryPotter <- data.frame(name = c("Potter", "Malfoy", "Lovegood", "Chang", 
@@ -729,7 +729,7 @@ HarryPotter
 Use `str(HarryPotter$house)` and see what R says. R will list all observations in the variable and say it's a character variable, right? Now, we are going to convert `house`, a character variable, into a factor variable `house_f`, meaning that R will categorise the variable.
 
 
-``` r
+```r
 HarryPotter$house_f <- as.factor(HarryPotter$house)
 str(HarryPotter$house_f)
 ```
@@ -738,7 +738,7 @@ str(HarryPotter$house_f)
 ##  Factor w/ 4 levels "Gryffindor","Hufflepuff",..: 1 4 3 3 1 2
 ```
 
-``` r
+```r
 levels(HarryPotter$house_f) 
 ```
 
@@ -746,7 +746,7 @@ levels(HarryPotter$house_f)
 ## [1] "Gryffindor" "Hufflepuff" "Ravenclaw"  "Slytherin"
 ```
 
-``` r
+```r
 #try 'levels(HarryPotter$house)' and find the difference
 ```
 
@@ -765,7 +765,7 @@ So, if we're reading a CSV, we also need to specify *where* to read the CSV from
 Something like: 
 
 
-``` r
+```r
 my_dataframe <- read.csv('PATH_OR_URL_TO_CSV_FILE')
 ```
 
@@ -775,7 +775,7 @@ Tips! Please keep your folders simple. Just use one data folder for this module 
 All data we will use in the module are on the blackboard, but we will also provide the links to where we saved the data for you. You know when you right-click on the link, and select "Save As..." or whatever you click on to save? You could also select "Copy Link Address". This just copies the webpage where this data is stored. Give it a go! Copy the address, and then paste it into your browser. It will take you to a blank page where a forced download of the data will begin. So what if you pasted this into the `read.csv()` function? 
 
 
-``` r
+```r
 #example 1: when you download data directly from the webpage, 
 #you will use this code.
 my_dataframe <- read.csv("www.data.com/data you want to import.csv")

@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-03-05" />
+<meta name="date" content="2025-03-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -56,7 +56,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -485,12 +485,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>What is a vector? A vector is simply a set of elements <em>of the same class</em> (typically, these classes are character, numeric, integer, or logical -as in True/False). Vectors are the basic data structure in R.</p>
 <p>Typically, you will use the <code>c()</code> function (c stands for <em>concatenate</em>) to create vectors. The code below exemplifies how to create vectors of different classes (numeric, logical, character, etc.). Notice how the listed elements (to simplify, there are two elements in each vector below) are separated by commas <code>,</code>:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="a-first-lesson-about-r.html#cb22-1" tabindex="-1"></a>my_1st_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.6</span>) <span class="co">#creates a numeric vector with two elements</span></span>
-<span id="cb22-2"><a href="a-first-lesson-about-r.html#cb22-2" tabindex="-1"></a>my_2nd_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="dt">L</span>, <span class="dv">2</span><span class="dt">L</span>) <span class="co">#creates an integer vector (&quot;L&quot; suffix specifies an integer type)</span></span>
+<span id="cb22-2"><a href="a-first-lesson-about-r.html#cb22-2" tabindex="-1"></a>my_2nd_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(1L, 2L) <span class="co">#creates an integer vector (&quot;L&quot; suffix specifies an integer type)</span></span>
 <span id="cb22-3"><a href="a-first-lesson-about-r.html#cb22-3" tabindex="-1"></a>my_3rd_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>) <span class="co">#creates a logical vector</span></span>
 <span id="cb22-4"><a href="a-first-lesson-about-r.html#cb22-4" tabindex="-1"></a>my_4th_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(T, F) <span class="co">#creates a logical vector using abbreviations of True and False, </span></span>
 <span id="cb22-5"><a href="a-first-lesson-about-r.html#cb22-5" tabindex="-1"></a><span class="co">#but you should avoid this formulation and instead use the full word.</span></span>
 <span id="cb22-6"><a href="a-first-lesson-about-r.html#cb22-6" tabindex="-1"></a>my_5th_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>) <span class="co">#creates a character vector</span></span>
-<span id="cb22-7"><a href="a-first-lesson-about-r.html#cb22-7" tabindex="-1"></a>my_6th_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">+</span><span class="dv">0</span><span class="dt">i</span>, <span class="dv">2</span><span class="sc">+</span><span class="dv">4</span><span class="dt">i</span>) <span class="co">#creates a complex vector (we won&#39;t really use in this class)</span></span></code></pre></div>
+<span id="cb22-7"><a href="a-first-lesson-about-r.html#cb22-7" tabindex="-1"></a>my_6th_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">+</span>0i, <span class="dv">2</span><span class="sc">+</span>4i) <span class="co">#creates a complex vector (we won&#39;t really use in this class)</span></span></code></pre></div>
 <p>Cut and paste this code into your script and run it. You will see how all these vectors are added to your global environment and stored there.</p>
 <p>The beauty of an object-oriented statistical language like R is that once you have these objects, you can use them as <strong>inputs</strong> in functions, use them in operations, or create other objects. This makes R very flexible. See some examples below:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="a-first-lesson-about-r.html#cb23-1" tabindex="-1"></a><span class="fu">class</span>(my_1st_vector) <span class="co">#a function to figure out the class of the vector</span></span></code></pre></div>
@@ -522,7 +522,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">1.11</span> R object types: Data frame<a href="a-first-lesson-about-r.html#r-object-types-data-frame" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Ok, so now that you understand some of the basic types of objects you can use in R, let’s start talking about data frames. One of the most common objects you will work with, in this course, are <strong>data frames</strong>. Data frames can be created with the <code>data.frame()</code> function.</p>
 <p>Data frames are <em>multiple vectors</em> of possibly different classes (e.g., numeric, factors, character) but of the same length (e.g., all vectors or variables have the same number of rows). This may sound a bit too technical, but it is simply a way of saying that a data frame is what in other programs for data analysis gets represented as data sets, the tabular spreadsheets you have seen when using Excel.</p>
-<p><img src="imgs/df.png" style="width:80.0%" /></p>
+<p><img src="imgs/df.PNG" style="width:80.0%" /></p>
 <p>Let’s create a data frame with two variables:</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="a-first-lesson-about-r.html#cb38-1" tabindex="-1"></a><span class="co">#We create a data frame called mydata_1 with two variables, </span></span>
 <span id="cb38-2"><a href="a-first-lesson-about-r.html#cb38-2" tabindex="-1"></a><span class="co">#an integer vector called foo and a logical vector called bar</span></span>
