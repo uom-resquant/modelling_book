@@ -186,16 +186,22 @@ say("I love stats")
 ```
 ## 
 ##  -------------- 
-## < I love stats >
-##  -------------- 
+## I love stats 
+##  --------------
+##     \
 ##       \
-##        \
+##         \
+##             |\___/|
+##           ==) ^Y^ (==
+##             \  ^  /
+##              )=*=(
+##             /     \
+##             |     |
+##            /| | | |\
+##            \| | |_|/\
+##       jgs  //_// ___/
+##                \_)
 ## 
-##         ^__^ 
-##         (oo)\ ________ 
-##         (__)\         )\ /\ 
-##              ||------w|
-##              ||      ||
 ```
 
 You get a random animal in the console repeating the text we passed as an argument. If we like a different animal, we could pass a new argument on to the "say" function. So, if we want to have a cow rather than a random animal, then we would pass the following arguments on to our function.
@@ -207,14 +213,11 @@ say("I love stats", "cow")
 
 ```
 ## 
-##  -------------- 
-## < I love stats >
-##  -------------- 
-##       \
-##        \
-## 
-##         ^__^ 
-##         (oo)\ ________ 
+##  ----- 
+## I love stats 
+##  ------ 
+##     \   ^__^ 
+##      \  (oo)\ ________ 
 ##         (__)\         )\ /\ 
 ##              ||------w|
 ##              ||      ||
@@ -247,14 +250,11 @@ say(my_text, "cow")
 
 ```
 ## 
-##  --------------- 
-## < I love stats. >
-##  --------------- 
-##       \
-##        \
-## 
-##         ^__^ 
-##         (oo)\ ________ 
+##  ----- 
+## I love stats. 
+##  ------ 
+##     \   ^__^ 
+##      \  (oo)\ ________ 
 ##         (__)\         )\ /\ 
 ##              ||------w|
 ##              ||      ||
@@ -492,17 +492,6 @@ Done? Ok, now we are going to look at the data sets that are included in this pa
 
 ```r
 library(fivethirtyeight)
-```
-
-```
-## Some larger datasets need to be installed separately, like senators and
-## house_district_forecast. To install these, we recommend you install the
-## fivethirtyeightdata package by running:
-## install.packages('fivethirtyeightdata', repos =
-## 'https://fivethirtyeightdata.github.io/drat/', type = 'source')
-```
-
-```r
 #This function will return all the data frames that 
 #are available in the named package.
 data(package="fivethirtyeight") 

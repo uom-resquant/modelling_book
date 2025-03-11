@@ -1,522 +1,68 @@
-# Studying relationships between two factors
+# Categorical variables and logistic regression
+
+
+
+
+In previous weeks, we ventured into the world of bivariate analysis and even multivariate analysis. We learned that we always have a dependent variable (aka outcome or response variable), which measures the phenomenon we aim to explain, and one or more independent variables (aka explanatory or predictor variables), which represent the phenomena we think explain that.
+
+We essentially learned how to handle every possible scenario when the dependent variable is numerical. For instance, if the independent variable is binary, we are interested in the mean difference---i.e., the extent to which the average score of the dependent variable is different in one group in relation to the other group. If the independent variable is categorical with more than two groups, we are interested in the extent to which average scores of the dependent variable are different in each of the groups in relation to a reference group. If the independent variable is numerical, we are interested in the extent to which average scores of the dependent variable are expected to change based on every one-unit increase in the independent variable. In all these cases, we saw that the linear regression model provides a powerful framework for quantifying these relationships. In every scenario, the slope coefficient represents the association between any independent variable and a numerical variable.
+
+Now, however powerful and versatile linear regression models are, they rely on a key assumption: the dependent variable must be numerical. Models are very flexible as to what can go into the right-hand side of the linear equation, but the left-hand side is pretty restrictive. So, what do we do when we have a categorical dependent variable? That's our focus this week! This week is all about categorical variables. We begin by introducing a common method for *describing* relationships between any two categorical variables: cross-tabulations. We then move on and learn about a new type of regression model---one that is *very* similar to everything we already know about linear regression models, but designed to accommodate binary dependent variables: **logistic regression models**.
 
 ## Cross-tabulations
 
-In earlier sessions, we covered how to run frequency distributions using the `table()` function. Cross tabulations, also called **contingency tables**, are essentially crossed frequency distributions, where you plot the frequency distributions of more than one variable simultaneously. This semester, we are only going to explore **two-way cross-tabulations**, that is, contingency tables where we plot the frequency distribution of two variables at the same time. Frequency distributions are a useful way of exploring categorical variables that do not have too many categories. By extension, cross-tabulations are a useful way of exploring relationships between two categorical variables that do not have too many levels or categories.
+In earlier sessions, we covered how to run frequency distributions using the `table()` function. Cross tabulations, also called **contingency tables**, are essentially crossed frequency distributions, where you plot the frequency distributions of more than one categorical variable simultaneously. This semester, we are only going to explore **two-way cross-tabulations**, that is, contingency tables where we plot the frequency distribution of *two* categorical variables at the same time. Frequency distributions are a useful way of exploring categorical variables that do not have too many categories. By extension, cross-tabulations are a useful way of exploring relationships between two categorical variables that do not have too many levels or categories.
 
-As we learned during the first week, we can get results from R in various ways. You can produce basic tables with some of the core functions in R. However, I suggest you install and load the package `gmodels` to produce the sort of cross-tabs we will use. This package allows you to produce cross-tabulations in a format similar to the one used by commercial statistical packages SPSS and SAS. Since some of you may have previous experience with SPSS, we will use the SPSS format. Cross-tabs with this package are more useful for our purposes than the default you may get with the core R `table()` function.
-
-We will begin the session by loading again the BCS 2007/2008 data from previous weeks. 
+This week we will use the `Arrests` dataset from the `effects` package. You can obtain details about this dataset and the variables included by using `help(Arrests, package="effects")`. If you don't have that package, you must install and load it.
 
 
 ```r
-BCS0708<-read.csv("https://raw.githubusercontent.com/uom-resquant/modelling_book/refs/heads/master/datasets/BCS0708.csv")
-```
+# install package if you haven't done so
+## install.packages("effects")
 
-
-
-We will start by producing a cross-tabulation of victimisation ("bcsvictim"), a categorical unordered variable, by whether the presence of rubbish in the streets is a problem in the area of residence ("rubbcomm"), another categorical ordered variable. The broken windows theory would argue that we should see a relationship. We will use the following code:
-
-
-```r
-library(gmodels)
-with(BCS0708, CrossTable(rubbcomm, bcsvictim, prop.chisq = FALSE, format = c("SPSS")))
-```
-
-```
-## 
-##    Cell Contents
-## |-------------------------|
-## |                   Count |
-## |             Row Percent |
-## |          Column Percent |
-## |           Total Percent |
-## |-------------------------|
-## 
-## Total Observations in Table:  11065 
-## 
-##                   | bcsvictim 
-##          rubbcomm | not a victim of crime  |       victim of crime  |             Row Total | 
-## ------------------|-----------------------|-----------------------|-----------------------|
-##     fairly common |                  876  |                  368  |                 1244  | 
-##                   |               70.418% |               29.582% |               11.243% | 
-##                   |                9.950% |               16.276% |                       | 
-##                   |                7.917% |                3.326% |                       | 
-## ------------------|-----------------------|-----------------------|-----------------------|
-## not at all common |                 4614  |                  849  |                 5463  | 
-##                   |               84.459% |               15.541% |               49.372% | 
-##                   |               52.408% |               37.550% |                       | 
-##                   |               41.699% |                7.673% |                       | 
-## ------------------|-----------------------|-----------------------|-----------------------|
-##   not very common |                 3173  |                  981  |                 4154  | 
-##                   |               76.384% |               23.616% |               37.542% | 
-##                   |               36.040% |               43.388% |                       | 
-##                   |               28.676% |                8.866% |                       | 
-## ------------------|-----------------------|-----------------------|-----------------------|
-##       very common |                  141  |                   63  |                  204  | 
-##                   |               69.118% |               30.882% |                1.844% | 
-##                   |                1.602% |                2.786% |                       | 
-##                   |                1.274% |                0.569% |                       | 
-## ------------------|-----------------------|-----------------------|-----------------------|
-##      Column Total |                 8804  |                 2261  |                11065  | 
-##                   |               79.566% |               20.434% |                       | 
-## ------------------|-----------------------|-----------------------|-----------------------|
-## 
-## 
-```
-
-```r
-#In CrossTable(), we are using the name of the variable defining the rows as our first argument, and as our second argument, the name of the variable defining the columns. We are also telling R that we don't yet want any test of statistical significance and that we want the table to look like it would in SPSS.
-```
-
-The cells for the central two columns represent the total number of cases in each category, the **row percentages**, the **column percentages**, and the **total percentages**. So you have, for example, 63 people in the category "rubbish is very common" who were victims of a crime; this represents 30.88% of all the people in the "rubbish is very common" category (your row per cent), 2.79% of all the people in the "victim of a crime" category (your column per cent), and 0.57% of all the people in the sample.
-
-Let's check the level of measurement of the "rubbcomm" variable with the `class()` function:
-
-
-```r
-class(BCS0708$rubbcomm)
-```
-
-```
-## [1] "character"
-```
-
-It is categorical, we know, but note that R considers this "character" rather than "factor", which is what we would like. To make sure that R knows this is a factor, we can convert it with the `as.factor()` function. PAY ATTENTION: we are *not* recoding, so we use `as.factor()` with a dot (as.dot.factor), and we are **not using** the `as_factor()` from the haven package, which we would use to recode if this were a *.dta file (it's not!). 
-
-
-```r
-BCS0708$rubbcomm <- as.factor(BCS0708$rubbcomm)
-```
-
-In the table above, we notice that although "rubbcomm" is an ordinal variable, the order in which it is printed does not make logical sense. We can check the order of the encoding using the `levels()` function.
-
-
-```r
-levels(BCS0708$rubbcomm)
-```
-
-```
-## [1] "fairly common"     "not at all common" "not very common"  
-## [4] "very common"
-```
-
-As we can see, the order makes little sense. We should reorder the factor levels to make them follow a logical order. There are multiple ways to do this, some of which we have already seen. This is one possible way of doing it.
-
-
-```r
-BCS0708$rubbcomm <- factor(BCS0708$rubbcomm, 
-                    levels = c("not at all common", 
-                    "not very common", "fairly common",
-                    "very common"))
-```
-
-You are only interested in the proportions or percentages that allow you to make meaningful comparisons. Although you can do cross-tabs for variables in which a priori you don't think of one of them as the one doing the explaining (your independent variable) and another to be explained (your dependent variable), most often, you will already be thinking of them in this way. Here, we think of victimisation as the outcome we want to explain and "rubbish in the area" as the factor that may help us explain variation in victimisation.
-
-If you have a dependent variable, you need to request only the percentages that allow you to make comparisons across your independent variable (how common rubbish is) for the outcome of interest (victimisation). In this case, with our outcome (victimisation) defining the columns, we would request and compare the row percentages only. On the other hand, if our outcome were the variable defining the rows, we would be interested in the column percentages instead. Pay very close attention to this. It is a very common mistake to interpret a cross tab the wrong way if you don't do as explained here. 
-
-To reiterate, there are two rules for producing and reading cross tabs the right way. The first rule for reading cross-tabulations is that **if your dependent variable is defining the rows, then you ask for the column percentages. If, on the other hand, you decided that you preferred to have your dependent variable define the columns (as seen here), then you would need to ask for the row percentages**. Make sure you remember this.
-
-To avoid confusion when looking at the table, you could also modify the code to only ask for the relevant percentages. In this case, we will ask for the row percentages. We can control what gets printed in the main console using the different options of the `CrossTable()` function. By default, this function prints all the percentages, but most of them are not terribly useful for our purposes here. So, we are going to modify the default options by asking R not to print the column or the total percentages. 
-
-
-```r
-with(BCS0708, CrossTable(rubbcomm, bcsvictim, 
-                         prop.chisq=FALSE, prop.c=FALSE, 
-                         prop.t=FALSE, format=c("SPSS")))
-```
-
-```
-## 
-##    Cell Contents
-## |-------------------------|
-## |                   Count |
-## |             Row Percent |
-## |-------------------------|
-## 
-## Total Observations in Table:  11065 
-## 
-##                   | bcsvictim 
-##          rubbcomm | not a victim of crime  |       victim of crime  |             Row Total | 
-## ------------------|-----------------------|-----------------------|-----------------------|
-## not at all common |                 4614  |                  849  |                 5463  | 
-##                   |               84.459% |               15.541% |               49.372% | 
-## ------------------|-----------------------|-----------------------|-----------------------|
-##   not very common |                 3173  |                  981  |                 4154  | 
-##                   |               76.384% |               23.616% |               37.542% | 
-## ------------------|-----------------------|-----------------------|-----------------------|
-##     fairly common |                  876  |                  368  |                 1244  | 
-##                   |               70.418% |               29.582% |               11.243% | 
-## ------------------|-----------------------|-----------------------|-----------------------|
-##       very common |                  141  |                   63  |                  204  | 
-##                   |               69.118% |               30.882% |                1.844% | 
-## ------------------|-----------------------|-----------------------|-----------------------|
-##      Column Total |                 8804  |                 2261  |                11065  | 
-## ------------------|-----------------------|-----------------------|-----------------------|
-## 
-## 
-```
-
-Much less cluttered. Now, we only see the counts and the row percentages. **Marginal frequencies** appear along the right and the bottom. *Row marginals* show the total number of cases in each row: 204 people perceive rubbish as very common in the area they're living in, whereas 1244 perceive rubbish as fairly common in their area, etc. *Column marginals* indicate the total number of cases in each column: 8804 non-victims and 2261 victims.
-
-In the central cells, we see the total number for each combination of categories and now only the row percentage. So, the total in each of those cells is expressed as the percentage of cases in that row. So, for example, 63 people who perceive rubbish as very common in their area who are victims of a crime represent 30.88%% of all people in that row (n=204). If we had asked for the column percentages, the 63 people who live in areas where rubbish is very common and are victims would be divided by the 2261 victims in the study. *Changing the denominator when computing the percentage changes the meaning of the percentage*.
-
-This can sound a bit confusing now. But as long as you remember the first rule we gave you before, you should be fine: if your dependent defines the rows, ask for the column percentages; if your dependent defines the columns, ask for the row percentages. There are always students who get this wrong in the assignments and lose points as a result. Don't let it be you.
-
-The second rule for reading cross-tabulations the right way is this: **You make the comparisons across the right percentages (see first rule) in the direction where they do not add up to a hundred**. Another way of saying this is that you compare the percentages for each level of your dependent variable across the levels of your independent variable. In this case, we would, for example, compare "What percentage of people who perceive rubbish as common in their area are victims of crime?". We focus on the second column here (being a victim of a crime) because, typically, that's what we want to study; this is our outcome of interest (e.g., victimisation). We can see rubbish seems to matter a bit. For example, 30.88% of people who live in areas where rubbish is very common have been victimised. By contrast, only 15.54% of people who live in areas where rubbish is not at all common have been victimised in the previous year.
-
-## Expected frequencies and Chi-Square
-
-So far, we have only described our sample. Can we infer that the differences we observed in this sample can be generalised to the population from which this sample was drawn? Every time you draw a sample from the same population, the results will be slightly different, and we will have a different combination of people in these cells. 
-
-To assess that possibility, we carry out a test of statistical significance. This test allows us to examine the null hypothesis. So, our hypothesis is that there is a relationship between the two variables, while our null hypothesis is that there is no relationship. In this case, the null hypothesis states that in the population from which this sample was drawn, victimisation and how common rubbish is in your area are independent events; that is, they are not related to each other. The materials you read as preparation explained the test appropriate for this case is the chi-square test. You should know that what this test does is to contrast the squared average difference between the observed frequencies and the expected frequencies (divided by the expected frequencies). We can see the expected frequencies for each cell modifying the options of the `CrossTable` function in the following manner:
-
-
-```r
-with(BCS0708, CrossTable(rubbcomm, bcsvictim, 
-              expected = TRUE, prop.c = FALSE, 
-              prop.t = FALSE, format = c("SPSS")))
-```
-
-```
-## 
-##    Cell Contents
-## |-------------------------|
-## |                   Count |
-## |         Expected Values |
-## | Chi-square contribution |
-## |             Row Percent |
-## |-------------------------|
-## 
-## Total Observations in Table:  11065 
-## 
-##                   | bcsvictim 
-##          rubbcomm | not a victim of crime  |       victim of crime  |             Row Total | 
-## ------------------|-----------------------|-----------------------|-----------------------|
-## not at all common |                 4614  |                  849  |                 5463  | 
-##                   |             4346.701  |             1116.299  |                       | 
-##                   |               16.437  |               64.005  |                       | 
-##                   |               84.459% |               15.541% |               49.372% | 
-## ------------------|-----------------------|-----------------------|-----------------------|
-##   not very common |                 3173  |                  981  |                 4154  | 
-##                   |             3305.180  |              848.820  |                       | 
-##                   |                5.286  |               20.583  |                       | 
-##                   |               76.384% |               23.616% |               37.542% | 
-## ------------------|-----------------------|-----------------------|-----------------------|
-##     fairly common |                  876  |                  368  |                 1244  | 
-##                   |              989.804  |              254.196  |                       | 
-##                   |               13.085  |               50.950  |                       | 
-##                   |               70.418% |               29.582% |               11.243% | 
-## ------------------|-----------------------|-----------------------|-----------------------|
-##       very common |                  141  |                   63  |                  204  | 
-##                   |              162.315  |               41.685  |                       | 
-##                   |                2.799  |               10.899  |                       | 
-##                   |               69.118% |               30.882% |                1.844% | 
-## ------------------|-----------------------|-----------------------|-----------------------|
-##      Column Total |                 8804  |                 2261  |                11065  | 
-## ------------------|-----------------------|-----------------------|-----------------------|
-## 
-##  
-## Statistics for All Table Factors
-## 
-## 
-## Pearson's Chi-squared test 
-## ------------------------------------------------------------
-## Chi^2 =  184.0443     d.f. =  3     p =  1.180409e-39 
-## 
-## 
-##  
-##        Minimum expected frequency: 41.68495
-```
-
-For example, although 63 people lived in areas where rubbish was very common and experienced victimisation in the past year, under the null hypothesis of no relationship, we should expect this value to be 41.69. Thus, there are more people in this cell than we would expect under the null hypothesis. 
-
-The Chi-Square test 
-
-(1) compares these expected frequencies with the ones we actually observe in each of the cells; 
-(2) then averages the differences across the cells and 
-(3) produces a standardised value that 
-(4) we look at a Chi-Square distribution to see how probable/improbable it is. 
-
-If this absolute value is large, it will have a small p-value associated with it, and we will be in a position to reject the null hypothesis. We conclude that observing such a large chi-square is improbable if the null hypothesis is true. In practice, we don't actually do any of this. We just run the Chi-Square in our software and look at the p-value. But it is helpful to know what the test is actually doing.
-
-Asking for the expected frequencies with `CrossTable()` automatically prints the Chi-Square test results. In this case, you get a Chi-Square of 184.04, with 3 degrees of freedom. The probability associated with this particular value is nearly zero (1.180e-39). This value is considerably lower than the standard alpha level of .05. So these results would lead us to conclude that there is a statistically significant relationship between these two variables. We can reject the null hypothesis that these two variables are independent in the population from which this sample was drawn. In other words, this significant Chi-Square test means that we can assume that there was indeed a relationship between our indicator of broken windows (perceived disorder, here rubbish) and victimisation in the population of England and Wales in 2007/2008.
-
-
-Notice that R is telling us that the minimum expected frequency is 41.68. Why? Find the answer in the [appendix](https://uom-resquant.github.io/modelling_book/appendix.html#expected-frequencies). <!-- APPENDIX For the Chi-squared test to work, it assumes the cell counts are sufficiently large. Precisely what constitutes 'sufficiently large' is a matter of some debate. One rule of thumb is that all expected cell counts should be above 5. If we have small cells, one alternative is to rely on the Fisher's Exact Test rather than on the Chi-Square. We don't have to request it here. Our cells are large enough for Chi Square to work fine. But if we needed, we could obtain the Fisher's Exact Test with the following code:
-
-
-```r
-fisher.test(BCS0708$rubbcomm, BCS0708$bcsvictim, simulate.p.value=TRUE)
-```
-
-```
-## 
-## 	Fisher's Exact Test for Count Data with simulated p-value (based on
-## 	2000 replicates)
-## 
-## data:  BCS0708$rubbcomm and BCS0708$bcsvictim
-## p-value = 0.0004998
-## alternative hypothesis: two.sided
-```
-
-The p-value is still considerably lower than our alpha level of .05. So, we can still conclude that the relationship we observe can be generalised to the population. 
-
-Remember that we didn't need the Fisher test. However, as suggested above, there may be times when you need them.-->
-
-## Odds and odd ratios
-
-When you have two dichotomous nominal-level variables, which can take only two possible levels, odds ratios are one of the more commonly used measures to indicate the strength of an association. Odds ratios and relative risk are commonly used in public health and criminological research. If you have knowledge of betting, you may already know a thing or two about odds.
-
-They are the statistical equivalent of a tongue twister, so don't worry too much if you need to keep looking at this handout whenever you want to interpret them. We are going to look at the relationship between victimisation and living in a rural/urban setting: 
-
-
-```r
-with(BCS0708, CrossTable(rural2, bcsvictim, prop.c = FALSE, 
-                         prop.t = FALSE, expected = TRUE, 
-                         format = c("SPSS")))
-```
-
-```
-## 
-##    Cell Contents
-## |-------------------------|
-## |                   Count |
-## |         Expected Values |
-## | Chi-square contribution |
-## |             Row Percent |
-## |-------------------------|
-## 
-## Total Observations in Table:  11676 
-## 
-##              | bcsvictim 
-##       rural2 | not a victim of crime  |       victim of crime  |             Row Total | 
-## -------------|-----------------------|-----------------------|-----------------------|
-##        rural |                 2561  |                  413  |                 2974  | 
-##              |             2373.393  |              600.607  |                       | 
-##              |               14.830  |               58.602  |                       | 
-##              |               86.113% |               13.887% |               25.471% | 
-## -------------|-----------------------|-----------------------|-----------------------|
-##        urban |                 6757  |                 1945  |                 8702  | 
-##              |             6944.607  |             1757.393  |                       | 
-##              |                5.068  |               20.028  |                       | 
-##              |               77.649% |               22.351% |               74.529% | 
-## -------------|-----------------------|-----------------------|-----------------------|
-## Column Total |                 9318  |                 2358  |                11676  | 
-## -------------|-----------------------|-----------------------|-----------------------|
-## 
-##  
-## Statistics for All Table Factors
-## 
-## 
-## Pearson's Chi-squared test 
-## ------------------------------------------------------------
-## Chi^2 =  98.52709     d.f. =  1     p =  3.206093e-23 
-## 
-## Pearson's Chi-squared test with Yates' continuity correction 
-## ------------------------------------------------------------
-## Chi^2 =  98.00261     d.f. =  1     p =  4.178318e-23 
-## 
-##  
-##        Minimum expected frequency: 600.6074
-```
-
-So, we can see that 22% of urban dwellers, compared to 14% of those living in rural areas, have experienced victimisation in the previous year. Living in an urban environment seems to constitute a risk factor or is associated with victimisation. The Chi-Square we obtained has a low p-value, suggesting this association is statistically significant. That is, we can possibly infer that there is an association in the population from which the sample was drawn. But how large is this relationship? 
-
-This is where odds ratios are handy. Before we get to them, I will discuss a simple tip on layout. Risk ratios and odds ratios are commonly used in the public health tradition. In this tradition, researchers place the disease/condition defining the columns and the treatment or risk factor defining the rows, and they do so in such a way that the first cell corresponds to the intersection of the outcome and the risk factor. And the software that computes odds ratios tends to assume this is how your table is set up. So, whenever you are after the relative risks or odds ratios (that is, whenever you work with a 2X2 table), you should have the table shown like this as well. It will help interpretation:
-
-+-------------------+---------------------+-----------------+
-|                   | Outcome: Yes        | Outcome: No     |
-+-------------------+---------------------+-----------------+
-| Risk factor: Yes  |                     |                 |
-+-------------------+---------------------+-----------------+
-| Risk factor: No   |                     |                 |
-+-------------------+---------------------+-----------------+
-
-Our table was set up in such a way that the rows are defined by our "risk factor" and the columns by our outcome. But, the first cell represents the intersection of the non-presence of the risk factor and the absence of the outcome. The easiest way to sort this out is to change the order of the levels in our categorical variable identifying the outcome ("bcsvictim"). If we ask R to print the levels of the bcsvictim variable, we will see that they are as follows:
-
-
-```r
-print(levels(BCS0708$bcsvictim))
-```
-
-```
-## NULL
-```
-
-```r
-print(levels(BCS0708$rural2))
-```
-
-```
-## NULL
-```
-
-You are seeing NULL because these variables are currently character vectors. So we must 1) change them both into factor variables and then 2) reverse the order of the levels. So, "victim of crime" becomes the first level (appears first in the printout), and "urban" becomes the first level as well. There are various ways of doing that with add-on packages; this is an easy way using base R:
-
-
-```r
-BCS0708$bcsvictimR <- factor(BCS0708$bcsvictim, 
-                             levels = c('victim of crime',
-                                        'not a victim of crime'))
-print(levels(BCS0708$bcsvictimR))
-```
-
-```
-## [1] "victim of crime"       "not a victim of crime"
-```
-
-```r
-BCS0708$urban <- factor(BCS0708$rural2, 
-                        levels = c('urban','rural'))
-print(levels(BCS0708$urban))
-```
-
-```
-## [1] "urban" "rural"
-```
-
-We can now rerun the previous cross-tabulation (with the newly created reordered factors), and the table will look as below:
-
-
-```r
-with(BCS0708, CrossTable(urban, bcsvictimR, prop.c = FALSE, 
-              prop.t = FALSE, expected = TRUE, 
-              format = c("SPSS")))
-```
-
-```
-## 
-##    Cell Contents
-## |-------------------------|
-## |                   Count |
-## |         Expected Values |
-## | Chi-square contribution |
-## |             Row Percent |
-## |-------------------------|
-## 
-## Total Observations in Table:  11676 
-## 
-##              | bcsvictimR 
-##        urban |       victim of crime  | not a victim of crime  |             Row Total | 
-## -------------|-----------------------|-----------------------|-----------------------|
-##        urban |                 1945  |                 6757  |                 8702  | 
-##              |             1757.393  |             6944.607  |                       | 
-##              |               20.028  |                5.068  |                       | 
-##              |               22.351% |               77.649% |               74.529% | 
-## -------------|-----------------------|-----------------------|-----------------------|
-##        rural |                  413  |                 2561  |                 2974  | 
-##              |              600.607  |             2373.393  |                       | 
-##              |               58.602  |               14.830  |                       | 
-##              |               13.887% |               86.113% |               25.471% | 
-## -------------|-----------------------|-----------------------|-----------------------|
-## Column Total |                 2358  |                 9318  |                11676  | 
-## -------------|-----------------------|-----------------------|-----------------------|
-## 
-##  
-## Statistics for All Table Factors
-## 
-## 
-## Pearson's Chi-squared test 
-## ------------------------------------------------------------
-## Chi^2 =  98.52709     d.f. =  1     p =  3.206093e-23 
-## 
-## Pearson's Chi-squared test with Yates' continuity correction 
-## ------------------------------------------------------------
-## Chi^2 =  98.00261     d.f. =  1     p =  4.178318e-23 
-## 
-##  
-##        Minimum expected frequency: 600.6074
-```
-
-To understand odds ratios and relative risk, it is important to understand risks and odds first. The **risk** is simply the probability of the "outcome" we are concerned about (i.e., victimisation). So, the risk of victimisation for urban dwellers is simply the number of victimised urban dwellers (1945) divided by the total number of urban dwellers (8702). This is .2235. Similarly, we can look at the risk of victimisation for people living in rural areas: the number of victimised countryside residents (413) divided by the total number of residents in rural areas (2974).  This is .1388. The **relative risk** is simply the ratio of these two risks. In this case, this yields 1.60. This suggests that urban dwellers are 1.60 times more likely to be victimised than people who live in rural areas.
-
-The **odds**, on the other hand, contrast the number of individuals with the outcome with those without the outcome for each of the rows. Notice the difference compared to risk. So, the odds of victimisation for urban dwellers equal the number of victimised urban dwellers (1945) by the number of non-victimised urban dwellers (6757). This is .2878. There are .2878 victimised urban dwellers for every non-victimised urban dweller. The odds of victimisation for residents of rural areas equal the number of victimised rural residents (413) by the number of non-victimised rural residents (2561). This is .1612. There are .1612 victimised rural residents for every non-victimised rural resident.
-
-The **odds ratio** is the ratio of these two odds. So, the odds ratio of victimisation for urban dwellers to rural residents is the odds of victimisation for urban dwellers (.2878) divided by the odds of victimisation for rural residents (.1612). This yields 1.78. This means that the odds of victimisation are almost 1.78 times higher for urban dwellers than for residents in rural areas. 
-
-You can use R to obtain the odds ratios directly. We can use the `vcdExtra` package (which you may need to install and load). We first create an object with the table and then ask for the ordinary odds ratio using the following code:
-
-
-```r
-library(vcd)
-mytable.1<-table(BCS0708$urban, BCS0708$bcsvictimR)
-oddsratio(mytable.1, stratum = NULL, log = FALSE) 
-```
-
-```
-##  odds ratios for  and  
-## 
-## [1] 1.784947
-```
-
-The  `oddsratio` function here asks for the odds ratio for the table data in the object called *mytable.1*. The `log=FALSE` requests an ordinary odds ratio, and the `stratum` option clarifies that your data are not stratified.
-
-What would happen if we used the original variable instead of the recoded one ("bcsvictimR")?
-
-
-```r
-mytable.2<-table(BCS0708$urban, BCS0708$bcsvictim)
-print(mytable.2)
-```
-
-```
-##        
-##         not a victim of crime victim of crime
-##   urban                  6757            1945
-##   rural                  2561             413
-```
-
-```r
-oddsratio(mytable.2, stratum = NULL, log = FALSE)
-```
-
-```
-##  odds ratios for  and  
-## 
-## [1] 0.5602409
-```
-
-What's going on? Why do we have a different value here? If you look at the cross-tab, you should be able to understand. R is now computing the odds ratio for "not being a victim of a crime" (since this is what defines the first column). When an odds ratio is below 1, it indicates that the odds in the first row ("urban") are lower than in the second row ("rural"). Living in urban areas (as contrasted with living in rural areas) reduces the likelihood of non-victimisation. 
-
-How do you interpret odds ratios? Something important to keep in mind is that odds ratios (and relative risk) are non-negative values; that is, they cannot take negative values (i.e., -1, -3, etc.). They can go from 1 to infinite but only from 1 to zero. If the value is greater than 1, that means that, as in this case, living in an urban area increases the chances of the event, such as being a victim in this example. If the value were to be between 0 and 1, that would mean that the factor in question reduces the chances of the event you are trying to predict. Finally, a value of 1 means that there is no relationship between the two variables: it would mean that the odds or the risks are the same for the two groups.
-
-Whenever the odds ratio is between 0 and 1, that means that the odds of whatever it is defining the first column (in the more recent table we printed not being a victim) is lower for the first row (in this case, living in an urban area) than in the second row (in this case living in a rural area). To read an odds ratio between 0 and 1, you first need to take its inverse, so in this case, 1/0.5602 will give you 1.78. What this is telling you is that the odds of not being a victim of crime are 1.78 times less for 'rural dweller' than 'urban dweller', which is the same as saying that the odds of being a victim of assault are 1.78 more for 'urban dweller' than 'rural dweller'. That is, odds ratios are reciprocal.
-
-You may be confused by now. Look at [this video](https://www.youtube.com/watch?v=nFHL54yOniI); it may help to see an oral presentation of these ideas with a different example. Repeated practice will make it easier to understand. The fact that the interpretation of these quantities is contingent on the way we have laid out our table makes it particularly advisable to hand calculate them as explained above in relation to the outcome you are interested in until you are comfortable with them. This may help you to see more clearly what you are getting and how to interpret it. When looking at the R results for odds ratios, always remember that you are aware of the reference categories (what defines the first column and the first row) when reading and interpreting odds ratios. The R function we introduced will always give you the odds ratio for the event defined in the first column and will contrast the odds for the group defined by the first row with the odds defined by the second row. If the odds ratio is between 0 and 1, that would mean the odds are lower for the first row; if the odds are greater than 1, that would mean the odds are higher for the second row.
-
-It is also very important you distinguish the relative risk (a ratio of probabilities) from the odds ratio (a ratio of odds). Be very careful with the language you use when interpreting these quantities.
-
-Odds ratios are ratios of odds, not probability ratios. You cannot say that urban dwellers are 1.78 more likely to be victimised. All you can say with an odds ratio is that the odds of being victimised are 1.78 times higher for urban dwellers than for residents in rural areas. Odds and probabilities are different things.
-
-It is also very important that you interpret these quantities carefully. You will often see media reports announcing things such as that chocolate consumption will double your risk of some terrible disease. What that means is that the percentage of cases of individuals who take chocolate and present the condition is twice as large as those who do not take chocolate and present the condition. But you also need to know what those percentages are to put it in the right context. If those probabilities are very low to start with, well, does it really matter?
-
-![increased risk](https://www.explainxkcd.com/wiki/images/1/11/increased_risk.png)
-
-## Logistic regression
-
-In previous sessions, we covered linear regression models, which can be used to model variation in a numerical response variable. Here, we introduce logistic regression, a technique you may use when your outcome or response (or dependent) variable is categorical and has two possible levels.
-
-In criminology, very often, you will be interested in binary outcomes (e.g., victim/no victim, arrested/not arrested, etc.) and want to use a number of predictor variables to study these outcomes. It is, then, helpful to understand how to use these models. Logistic regression is part of a broader family of models called **generalised linear models**. You should read the Wikipedia entry for this concept [here](https://en.wikipedia.org/wiki/Generalized_linear_model).
-
-With logistic regression, we model the probability of belonging to one of the levels in the binary outcome. For any combination of values for our predictor variables, the model estimates the probability of presenting the outcome of interest. We use maximum likelihood to fit this model. Although the mathematics behind the method are important, this handout does not explain them. In this introductory module, we only provide an introduction to the technique.
-
-To illustrate logistic regression, we will use the `Arrests` data from the `effects` package. You can obtain details about this dataset and the variables included by using `help(Arrests, package="effects")`. If you don't have that package, you must install and load it.
-
-
-```r
+# load the 'effects' package
 library(effects)
-data(Arrests, package="effects")
+
+# load the dataset "Arrests"
+data(Arrests, package = "effects")
 ```
 
-This data includes information on police treatment of individuals arrested in Toronto for possession of marijuana. We will model variation on `released`, a factor with two levels indicating whether the arrestee was released with a summons. In this case, the police could:
-
-+ Release the arrestee with a summons - like a parking ticket 
-
-+ Bring to the police station, held for bail, etc. - harsher treatment 
+Please note that, when importing data into `R` using the `data()` function, the imported object may not immediately appear in the Environment panel. Worry not---if you didn't receive any error messages, the data frame `Arrests` (note the capitalised letter!) should be loaded into your `R` session. To double check, let's check the dimensions of this data frame.
 
 
 ```r
+# check the dimensions of the 'Arrests' object
+dim(Arrests)
+```
+
+```
+## [1] 5226    8
+```
+
+We can see that the data frame `Arrests` has 5226 observations and 8 columns. The unit of analysis here are individuals arrested in Toronto for possession of marijuana. For each of such 5226 individuals, we have information on eight characteristics. Let's check the names of the variables.
+
+
+```r
+# check the names of all columns in 'Arrests'
+names(Arrests)
+```
+
+```
+## [1] "released" "colour"   "year"     "age"      "sex"      "employed" "citizen" 
+## [8] "checks"
+```
+
+This dataset includes information on police treatment of individuals arrested in Toronto for possession of marijuana. For example, it includes information on whether they are White or Black (`colour`), the year (`year`), their age (`age`), their gender (`sex`), whether they are currently employed (`employed`), whether they are Canadian citizens (`citizen`), and the number of entries in the criminal justice system (`checks`). Crucially, the dataset also contains information indicating whether the arrestee was released with a summons. In this case, the police could:
+
++ Release the arrestee with a summons---like a parking ticket 
+
++ Bring to the police station, held for bail, etc.---harsher treatment 
+
+Let's use the `table()` function to examine the frequency distribution of this variable
+
+
+```r
+# produce frequency table
 table(Arrests$released)
 ```
 
@@ -526,311 +72,1979 @@ table(Arrests$released)
 ##  892 4334
 ```
 
-Most marijuana-possession arrestees are released with a summons. Let's see if we can develop an understanding of the factors that affect this outcome. In particular, let's assume our research goal is to investigate whether race is associated with harsher treatment. For this, we may run a logistic regression model.
-
-## Fitting logistic regression
-
-It is fairly straightforward to run a logistic model. Before you fit it, though, it is convenient to check what you are modelling. Remember that R orders the levels in a factor alphabetically (unless they have been reordered by the authors of the data frame). What that means is that when you run logistic regression, you will be predicting probabilities associated with the category in a higher alphabetical order.
+4334 arrestees were released with a summons, whereas 892 received a harsher treatment. As usual, when dealing with frequency tables, it is often better to examine results in relation to proportions (or percentages) instead of raw counts. We can obtain proportions using the `prop.table()` function (do note that the `prop.table()` function requires a `table()` object as its argument!).
 
 
 ```r
-levels(Arrests$released) 
+# store the frequency table under the name "table_released"
+table_released <- table(Arrests$released)
+
+# compute proportions of the frequency table
+prop.table(table_released)
 ```
 
 ```
-## [1] "No"  "Yes"
+## 
+##       No      Yes 
+## 0.170685 0.829315
 ```
 
-```r
-#Prints the levels, and you can see 
-#that "Yes" comes after "No" in alphabetical order
-contrasts(Arrests$released)
-```
+In other words, 82.93% of arrestees were released with a summons, and 17.07% received a harsher treatment. Let's see if we can develop an understanding of the factors that affect this outcome. In particular, let's assume our research goal is to investigate whether race is associated with harsher treatment. In this case, race is our independent variable and the treatment offered to the arrestees is our dependent variable. 
 
-```
-##     Yes
-## No    0
-## Yes   1
-```
-
-```r
-#This function shows you the contrasts 
-#associated with a factor. 
-#You can see that 1 is associated with "Yes". 
-#This is what our model will be predicting: 
-#the probability of a "Yes".
-```
-
-If, by any chance, the level of interest is not the one that R will select, we will need to reorder the factor levels. In this particular analysis, our goal is to check whether being Black predicts harsher treatment. So, let's reorder the factors so that the model is oriented towards predicting this harsher treatment. This will simply change the sign of the coefficients, which may enhance interpretation.
+Let's quickly examine our independent variable too.
 
 
 ```r
-#Reverse the order
-Arrests$harsher <- relevel(Arrests$released, "Yes")
-#Rename the levels so that it is clear we now mean yes to harsher treatment
-levels(Arrests$harsher) <- c("No","Yes")
-#Check that it matches in reverse the original variable
-table(Arrests$harsher)
+# store the frequency table under the name "table_colour"
+table_colour <- table(Arrests$colour)
+
+# print the frequency table
+table_colour
+```
+
+```
+## 
+## Black White 
+##  1288  3938
+```
+
+```r
+# compute proportions of the frequency table
+prop.table(table_colour)
+```
+
+```
+## 
+##   Black   White 
+## 0.24646 0.75354
+```
+ 
+Now we know that our sample contains 1288 (24.65%) Black arrestees and 3938 (75.35%) White arrestees.
+
+Given that they are both categorical variable, we can start producing a cross-tabulation. We can simply use the `table()` function and another variable as a second argument in the function. The first variable included in the function will be represented by rows, whereas the second variable will be represented by columns. Conventionally, we usually include the dependent variable in the columns and the independent variable in the rows
+
+
+```r
+# produce a cross-tabulation and store it under "crosstab_released"
+crosstab_released <- table(Arrests$colour, Arrests$released)
+
+# print the cross-tabulation
+crosstab_released
+```
+
+```
+##        
+##           No  Yes
+##   Black  333  955
+##   White  559 3379
+```
+
+By checking both frequency distributions at the same time, we can see that 333 arrestees are Black and received a harsher treatment, 955 are Black and were released with a summons, 559 are White and received a harsher treatment, and 3379 are White and were released with a summons. So, is there an association? Do we think that Black arrestees are treated more harshly than White arrestees?
+
+As before, just looking at the raw counts is tricky. A better approach is to look at *proportions*. But which proportions? If we simply use the `prop.table()` function, `R` will calculate the **total percentages**---but that is not very helpful to address our question.
+
+
+```r
+# compute total proportions of the cross-tabulation
+prop.table(crosstab_released)
+```
+
+```
+##        
+##                 No        Yes
+##   Black 0.06371986 0.18274015
+##   White 0.10696517 0.64657482
+```
+
+We can see now that 6.37% of all arrestees are Black and received a harsher treatment, 18.27% are Black and were released with a summons, 10.7% are White and received a harsher treatment, and 64.66% are White and were released with a summons. In other words, what the `prop.table()` function did was just divide the raw count in each cell of the contingency table by the total number of arrestees in the dataset (i.e., 5226). Not very helpful.
+
+Instead, we are only interested in the proportions that allow us to make meaningful comparisons. We already knew that Black arrestees were only 24.65% of our sample, so calculating *total percentages* does not seem to be very useful. Aside from *total percentages*, we can also compute **row percentages** and **column percentages**. For example, among only Black arrestees, what is the percentage that received a harsher treatment? What about among only White respondents? This is the idea of marginal frequencies and percentages!
+
+Given that we always have an independent variable doing the explanation and a dependent variable being explained, we only need percentages that allow us to make comparisons for the dependent variable across our independent variable. In this case, we want to examine percentages of police treatment across groups of racial identity. In other words, because we conventionally display the dependent variable in the columns and the independent variable in the rows, we only want to request **row percentages**. We can request row percentages by adding the argument `margin = 1` into the `prop.table()` function:
+
+
+```r
+# compute row percentages
+prop.table(crosstab_released, margin = 1)
+```
+
+```
+##        
+##                No       Yes
+##   Black 0.2585404 0.7414596
+##   White 0.1419502 0.8580498
+```
+
+What this argument does is calculate proportions one row at a time. Among Black arrestees only, 25.85% received a harsher treatment and 74.15% were released with a summons. Among White respondents only, 14.2% received a harsher treatment and 85.8% were received with a summons. Now, comparisons are easier to make! We can see that Black arrestees seem to be more likely to receive a harsher treatment than White arrestees (i.e., 25.85% vs. 14.2%); accordingly, White respondents are more likely to be released with a summons than Black respondents (i.e., 85.8% vs. 74.15%).
+
+<style>
+details {
+  margin-bottom: 1em; /* Adds space below each details block */
+}
+</style>
+
+<details>
+<summary><i>Attention! What about column percentages?</i></summary>
+
+We can also request column percentages by specifying `margin = 2` in the `prop.table()` function.
+
+
+```r
+# compute column percentages
+prop.table(crosstab_released, margin = 2)
+```
+
+```
+##        
+##                No       Yes
+##   Black 0.3733184 0.2203507
+##   White 0.6266816 0.7796493
+```
+
+For example, among all arrestees who received a harsher treatment, 37.33% are Black and 62.67% are White. Among all arrestees who were released with a summons, 62.67% are Black and 77.96% are White.
+
+This is of less substantial interest to us, as we are typically interested in assessing the distribution of the dependent variable across groups of the independent variable. If you include your dependent variable in the columns (which is not conventional), then you might want to compute column percentages. Pay very close attention to this. It is a very common mistake to interpret a cross tab the wrong way if you don't do as explained here. 
+
+To reiterate, there are two rules for producing and reading cross tabs the right way. The first rule for reading cross-tabulations is that **if your dependent variable is defining the rows, then you ask for the column percentages. If, on the other hand, you decided that you preferred to have your dependent variable define the columns (as seen here), then you would need to ask for the row percentages**. Make sure you remember this.
+
+<br>
+</details>
+
+
+While the `table()` and `prop.table()` functions do everything we need, some other functions in `R` allow a better formatted inspection of cross-tabulations. For example, the `tbl_cross()` function from the `gtsummary` package provides a neat table with all the information we need. This is how it works.
+
+
+```r
+# template for the tbl_cross() function
+tbl_cross(data = mydataset, row = independent_variable, col = dependent_variable, percent = "row")
+```
+
+In our case, we can now use the `tbl_cross()` function to produce a neat cross-tabulation!
+
+
+```r
+# remember to install the 'gtsummary' package
+## install.packages("gtsummary")
+
+# load the 'gtsummary' package
+library(gtsummary)
+
+# produce a neatly formatted cross-tabulation
+tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
+```
+
+```{=html}
+<div id="ojmtwezula" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ojmtwezula table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#ojmtwezula thead, #ojmtwezula tbody, #ojmtwezula tfoot, #ojmtwezula tr, #ojmtwezula td, #ojmtwezula th {
+  border-style: none;
+}
+
+#ojmtwezula p {
+  margin: 0;
+  padding: 0;
+}
+
+#ojmtwezula .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ojmtwezula .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#ojmtwezula .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ojmtwezula .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ojmtwezula .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ojmtwezula .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ojmtwezula .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ojmtwezula .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ojmtwezula .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ojmtwezula .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ojmtwezula .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ojmtwezula .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ojmtwezula .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#ojmtwezula .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#ojmtwezula .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ojmtwezula .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ojmtwezula .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ojmtwezula .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ojmtwezula .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ojmtwezula .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#ojmtwezula .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#ojmtwezula .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#ojmtwezula .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ojmtwezula .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#ojmtwezula .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#ojmtwezula .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ojmtwezula .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ojmtwezula .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ojmtwezula .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ojmtwezula .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ojmtwezula .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ojmtwezula .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ojmtwezula .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ojmtwezula .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ojmtwezula .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ojmtwezula .gt_left {
+  text-align: left;
+}
+
+#ojmtwezula .gt_center {
+  text-align: center;
+}
+
+#ojmtwezula .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ojmtwezula .gt_font_normal {
+  font-weight: normal;
+}
+
+#ojmtwezula .gt_font_bold {
+  font-weight: bold;
+}
+
+#ojmtwezula .gt_font_italic {
+  font-style: italic;
+}
+
+#ojmtwezula .gt_super {
+  font-size: 65%;
+}
+
+#ojmtwezula .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#ojmtwezula .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#ojmtwezula .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#ojmtwezula .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#ojmtwezula .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#ojmtwezula .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#ojmtwezula .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#ojmtwezula .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#ojmtwezula div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_col_headings gt_spanner_row">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id="label"></th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" scope="colgroup" id="released">
+        <div class="gt_column_spanner"><span class='gt_from_md'>released</span></div>
+      </th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="2" colspan="1" scope="col" id="stat_0"><span class='gt_from_md'>Total</span></th>
+    </tr>
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="stat_1"><span class='gt_from_md'>No</span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="stat_2"><span class='gt_from_md'>Yes</span></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="label" class="gt_row gt_left">colour</td>
+<td headers="stat_1" class="gt_row gt_center"><br /></td>
+<td headers="stat_2" class="gt_row gt_center"><br /></td>
+<td headers="stat_0" class="gt_row gt_center"><br /></td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    Black</td>
+<td headers="stat_1" class="gt_row gt_center">333 (26%)</td>
+<td headers="stat_2" class="gt_row gt_center">955 (74%)</td>
+<td headers="stat_0" class="gt_row gt_center">1,288 (100%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    White</td>
+<td headers="stat_1" class="gt_row gt_center">559 (14%)</td>
+<td headers="stat_2" class="gt_row gt_center">3,379 (86%)</td>
+<td headers="stat_0" class="gt_row gt_center">3,938 (100%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">Total</td>
+<td headers="stat_1" class="gt_row gt_center">892 (17%)</td>
+<td headers="stat_2" class="gt_row gt_center">4,334 (83%)</td>
+<td headers="stat_0" class="gt_row gt_center">5,226 (100%)</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+```
+
+Same information, but much better! Much less cluttered. We can see the frequency distribution *and* the **marginal frequencies**---i.e., totals by rows and columns which appear along the right and the bottom. We can also see the row percentages, which allows us to conclude that Black arrestees tend to receive a harsher treatment than White arrestees.
+
+This can sound a bit confusing now. But as long as you remember your dependent should always define the columns, and therefore you should ask for the row percentages, you should be fine. There are always students who get this wrong in the assignments and lose points as a result. Don't let it be you.
+
+The second rule for reading cross-tabulations the right way is this: **You make the comparisons across the right percentages in the direction where they do not add up to a hundred**. Another way of saying this is that you compare the percentages for each level of your dependent variable across the levels of your independent variable. In this case, we would, for example, compare the police decision to release arrestees with a summons or take them to the station. Looking at the first column only---arrestees who were not released, i.e., who received a harsher treatment---we can see that Black individuals are 26% and White individuals are 14%. Looking at the second column only---arrestees who were released with a summons---we can see that Black individuals are 74% and White individuals are 86%.
+
+**Your turn!** Using cross-tabulations, what do you conclude about the association between the following variables:
+
++ Do arrestees with a citizenship status tend to receive a harsher treatment by the police?
+
+<details>
+<summary><i>Reveal answer!</i></summary>
+
+In this case, police treatment is our dependent variable. We operationalise it using the `released` variable, which indicates whether arrestees were released with a summons or received a harsher treatment. Citizenship status is our independent variable, and the variable `citizen` indicates whether arrestees have are Canadian citizens or not. Given that they are both categorical (binary) variables, we produce a cross-tabulation to assess whether they are associated.
+
+We know that 17.07% arrestees received a harsher treatment and 82.93% were released with a summons. If citizenship status is not associated with police treatment (i.e., if the null hypothesis is true), we should expect roughly similar proportions among both citizens and non-citizens. If, however, proportions across citizens and non-citizens are different, that would serve as evidence that the two variables could be associated.
+
+Let's have a look at the cross-tabulation.
+
+
+```r
+# produce a cross-tabulation between 'citizen' and 'released'
+tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
+```
+
+```{=html}
+<div id="tuvndimgcc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#tuvndimgcc table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#tuvndimgcc thead, #tuvndimgcc tbody, #tuvndimgcc tfoot, #tuvndimgcc tr, #tuvndimgcc td, #tuvndimgcc th {
+  border-style: none;
+}
+
+#tuvndimgcc p {
+  margin: 0;
+  padding: 0;
+}
+
+#tuvndimgcc .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#tuvndimgcc .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#tuvndimgcc .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#tuvndimgcc .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#tuvndimgcc .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#tuvndimgcc .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tuvndimgcc .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#tuvndimgcc .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#tuvndimgcc .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#tuvndimgcc .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#tuvndimgcc .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#tuvndimgcc .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#tuvndimgcc .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#tuvndimgcc .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#tuvndimgcc .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#tuvndimgcc .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#tuvndimgcc .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#tuvndimgcc .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#tuvndimgcc .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tuvndimgcc .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#tuvndimgcc .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#tuvndimgcc .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#tuvndimgcc .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tuvndimgcc .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#tuvndimgcc .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#tuvndimgcc .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tuvndimgcc .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tuvndimgcc .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#tuvndimgcc .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tuvndimgcc .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#tuvndimgcc .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tuvndimgcc .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#tuvndimgcc .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tuvndimgcc .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#tuvndimgcc .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tuvndimgcc .gt_left {
+  text-align: left;
+}
+
+#tuvndimgcc .gt_center {
+  text-align: center;
+}
+
+#tuvndimgcc .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#tuvndimgcc .gt_font_normal {
+  font-weight: normal;
+}
+
+#tuvndimgcc .gt_font_bold {
+  font-weight: bold;
+}
+
+#tuvndimgcc .gt_font_italic {
+  font-style: italic;
+}
+
+#tuvndimgcc .gt_super {
+  font-size: 65%;
+}
+
+#tuvndimgcc .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#tuvndimgcc .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#tuvndimgcc .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#tuvndimgcc .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#tuvndimgcc .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#tuvndimgcc .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#tuvndimgcc .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#tuvndimgcc .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#tuvndimgcc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_col_headings gt_spanner_row">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id="label"></th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" scope="colgroup" id="released">
+        <div class="gt_column_spanner"><span class='gt_from_md'>released</span></div>
+      </th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="2" colspan="1" scope="col" id="stat_0"><span class='gt_from_md'>Total</span></th>
+    </tr>
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="stat_1"><span class='gt_from_md'>No</span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="stat_2"><span class='gt_from_md'>Yes</span></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="label" class="gt_row gt_left">citizen</td>
+<td headers="stat_1" class="gt_row gt_center"><br /></td>
+<td headers="stat_2" class="gt_row gt_center"><br /></td>
+<td headers="stat_0" class="gt_row gt_center"><br /></td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    No</td>
+<td headers="stat_1" class="gt_row gt_center">212 (27%)</td>
+<td headers="stat_2" class="gt_row gt_center">559 (73%)</td>
+<td headers="stat_0" class="gt_row gt_center">771 (100%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    Yes</td>
+<td headers="stat_1" class="gt_row gt_center">680 (15%)</td>
+<td headers="stat_2" class="gt_row gt_center">3,775 (85%)</td>
+<td headers="stat_0" class="gt_row gt_center">4,455 (100%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">Total</td>
+<td headers="stat_1" class="gt_row gt_center">892 (17%)</td>
+<td headers="stat_2" class="gt_row gt_center">4,334 (83%)</td>
+<td headers="stat_0" class="gt_row gt_center">5,226 (100%)</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+```
+
+The table indicates that, while among citizens only 15% arrestees received a harsher treatment, 27% of arrestees without a citizenship status had the same decision. Similarly, while 85% of those with citizenship status were released with a summons, only 73% of those without citizenship status were released. This suggests that citizenship status seems to be associated with police treatment, as non-citizen individuals appear to be more likely receive a harsher treatment.
+
+<br>
+</details>
+
++ Do male arrestees tend to receive a harsher treatment by the police?
+
+<details>
+<summary><i>Reveal answer!</i></summary>
+
+In this case, arrestees' gender is our independent variable, and the variable `sex` indicates whether arrestees are recorded as male or female. Given that they are both categorical (binary) variables, we produce a cross-tabulation to assess whether they are associated.
+
+We know that 17.07% arrestees received a harsher treatment and 82.93% were released with a summons. If gender is not associated with police treatment (i.e., if the null hypothesis is true), we should expect roughly similar proportions among both males and females. If, however, proportions across male and female arrestees are different, that would serve as evidence that the two variables could be associated.
+
+Let's have a look at the cross-tabulation.
+
+
+```r
+# produce a cross-tabulation between 'sex' and 'released'
+tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
+```
+
+```{=html}
+<div id="lgursrpkpq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#lgursrpkpq table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#lgursrpkpq thead, #lgursrpkpq tbody, #lgursrpkpq tfoot, #lgursrpkpq tr, #lgursrpkpq td, #lgursrpkpq th {
+  border-style: none;
+}
+
+#lgursrpkpq p {
+  margin: 0;
+  padding: 0;
+}
+
+#lgursrpkpq .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#lgursrpkpq .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#lgursrpkpq .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#lgursrpkpq .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#lgursrpkpq .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#lgursrpkpq .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#lgursrpkpq .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#lgursrpkpq .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#lgursrpkpq .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#lgursrpkpq .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#lgursrpkpq .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#lgursrpkpq .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#lgursrpkpq .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#lgursrpkpq .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#lgursrpkpq .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#lgursrpkpq .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#lgursrpkpq .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#lgursrpkpq .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#lgursrpkpq .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lgursrpkpq .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#lgursrpkpq .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#lgursrpkpq .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#lgursrpkpq .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lgursrpkpq .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#lgursrpkpq .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#lgursrpkpq .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#lgursrpkpq .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lgursrpkpq .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#lgursrpkpq .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#lgursrpkpq .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#lgursrpkpq .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#lgursrpkpq .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#lgursrpkpq .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lgursrpkpq .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#lgursrpkpq .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lgursrpkpq .gt_left {
+  text-align: left;
+}
+
+#lgursrpkpq .gt_center {
+  text-align: center;
+}
+
+#lgursrpkpq .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#lgursrpkpq .gt_font_normal {
+  font-weight: normal;
+}
+
+#lgursrpkpq .gt_font_bold {
+  font-weight: bold;
+}
+
+#lgursrpkpq .gt_font_italic {
+  font-style: italic;
+}
+
+#lgursrpkpq .gt_super {
+  font-size: 65%;
+}
+
+#lgursrpkpq .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#lgursrpkpq .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#lgursrpkpq .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#lgursrpkpq .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#lgursrpkpq .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#lgursrpkpq .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#lgursrpkpq .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#lgursrpkpq .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#lgursrpkpq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_col_headings gt_spanner_row">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id="label"></th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" scope="colgroup" id="released">
+        <div class="gt_column_spanner"><span class='gt_from_md'>released</span></div>
+      </th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="2" colspan="1" scope="col" id="stat_0"><span class='gt_from_md'>Total</span></th>
+    </tr>
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="stat_1"><span class='gt_from_md'>No</span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="stat_2"><span class='gt_from_md'>Yes</span></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="label" class="gt_row gt_left">sex</td>
+<td headers="stat_1" class="gt_row gt_center"><br /></td>
+<td headers="stat_2" class="gt_row gt_center"><br /></td>
+<td headers="stat_0" class="gt_row gt_center"><br /></td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    Female</td>
+<td headers="stat_1" class="gt_row gt_center">63 (14%)</td>
+<td headers="stat_2" class="gt_row gt_center">380 (86%)</td>
+<td headers="stat_0" class="gt_row gt_center">443 (100%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    Male</td>
+<td headers="stat_1" class="gt_row gt_center">829 (17%)</td>
+<td headers="stat_2" class="gt_row gt_center">3,954 (83%)</td>
+<td headers="stat_0" class="gt_row gt_center">4,783 (100%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">Total</td>
+<td headers="stat_1" class="gt_row gt_center">892 (17%)</td>
+<td headers="stat_2" class="gt_row gt_center">4,334 (83%)</td>
+<td headers="stat_0" class="gt_row gt_center">5,226 (100%)</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+```
+
+The table indicates that 17% of male arrestees and 14% of female arrestees received a harsher treatment, while 83% of male arrestees and 86% of female arrestees were released with a summons. These number are very similar, and approximately follow the overall tendencies of arrestees who were (83%) and who were not released with a summons (17%). This suggests that gender does not seem to be associated with police treatment.
+
+<br>
+</details>
+
+## Regression modelling: why not linear regression?
+
+<!--
+(Thiago) NOTE TO THE FUTURE
+
+LET'S JUST TEACH THEM LINEAR PROBABILITY MODELS! This should be a "Regression IV: Linear probability models" class. We can also teach logistic regression, but focus should be on the LPM
+
+This class could go: cross-tabs, odds ratios, LPMs. Done.
+-->
+
+Ok, great. If we have two categorical variables, we can produce a cross-tabulation. This cross-tabulation can be helpful in providing evidence for or against the hypothesis that those two variables are associated with each other. 
+
+But what if the independent variable is numerical? Or, what if we have more than one independent variable? Or, what if we need to control for a third common factor to remove confounding bias? Or, what if we have two independent variables whose effects on the dependent variable are conditional upon each other? We spent three weeks studying linear regression models. When the dependent variable is numerical, we already know how to handle all these scenarios. Now, we need to handle these scenarios when the dependent variable is not numerical as well.
+
+Can't we simply fit linear regression models with categorical dependent variables?
+
+No. Or rather, the short answer is no. The long answer is... sometimes. When the dependent variable is binary, in some circumstances, we can fit a linear regression model---these are called linear probability models. But that's beyond our scope this semester. As far as this course unit goes, let's stick to the short answer: no, we cannot.
+
+The reason why we cannot fit linear regression models with categorical dependent variables is simple: this violates some of the key assumptions in linear regression models. All assumptions somehow get back to the fact that the dependent variable is numerical and as close as possible to normally distributed. If the dependent variable is categorical, there is not much we can do...
+
+...in terms of *linear* regression. But there other types of regression models! One of them, **logistic regression models**, was designed specifically to handle categorical binary variables. That's our focus now!  We have binomial logistic regression models for binary dependent variables, ordinal logistic regression models for ordinal dependent variables, and multinomial logistic regression models for nominal (unordered) dependent variables. In this course unit, we are only going to learn about **binomial logistic regression models**---when the dependent variable is **binary**. Other types of categorical dependent variables will unfortunately not be covered this semester.
+
+Now, let's see how we can adapt everything we know about linear regression models!
+
+
+## Logistic regression
+
+In previous sessions, we covered linear regression models, which can be used to model variation in a numerical response variable. Here, we introduce logistic regression, a technique you may use when your dependent variable is binary---i.e., categorical and has two possible levels.
+
+In criminology, very often, you will be interested in binary outcomes---e.g., we might want to investigate why some people have been stopped by the police whereas others have not; or why some people have been victimised while others have not; or why some people engage in criminal conduct while others do not, etc.---and want to use a number of independent variables to study these outcomes. It is, then, helpful to understand how to use these models. Logistic regression is part of a broader family of models called **generalised linear models**---it's essentially a technical expansion of linear regression models for dependent variables that are not numerical and do not follow a normal distribution. You should read the Wikipedia entry for this concept [here](https://en.wikipedia.org/wiki/Generalized_linear_model).
+
+With logistic regression, we model the probability of belonging to one of the levels in the binary outcome. For any combination of values for our independent variables, the model estimates the probability of presenting the outcome of interest. The mathematics behind this estimation is beyond the scope of our course unit; it suffices to say that, while linear regression coefficients are estimated using *ordinary least squares* (see Chapter 6), logistic regression coefficients are estimated using **maximum likelihood**---one of the most important estimators in statistics.
+
+In logistic regression, we also start with a model in which variables of interest (e.g., $Y, X_1, X_2, ...$) are related to each other based on parameters that we need to estimate (e.g., $\alpha, \beta_1, \beta_2, ...$). Remember what the linear model looks like:
+
+$$
+Y = \alpha + \beta_1 \cdot X_1 + \beta_2 \cdot X_2 + ... + \beta_n\cdot X_n
+$$
+With logistic regression, we want to estimate a similar model. The right-hand side will remain unchanged: a combination of independent variables influencing the outcome based on estimated $\beta$ coefficients. However, the left-hand side of the equation does not work anymore. Because the dependent variable is now binary, the left-hand side of this linear model is no longer appropriate. If $Y$ is binary, that means that it can only have two values---e.g., 0 or 1. To avoid confusion and ensure that we know that this is a binary variable, let's call $p$ when $y=1$ and $1-p$ when $y=0$. If we were to simply estimate a linear model with a binary dependent variable, then this linear equation could end up yielding all sorts of values of $Y$---values that are not 0 or 1.^[If values were between 0 and 1, that wouldn't be so problematic. Scores between 0 and 1 would simply be treated as estimated probabilities, which is what the linear probability model does. The problem is that the model can also yield scores greater than 1 and lower 0, which are no longer interpretable as probabilities.]
+
+The logistic regression model solves this issue but modelling the *odds* of an event occurring. Unlike linear models, which directly model the dependent variable, logistic regression focuses on the ratio $\frac{p}{1-p}$, known as **odds**. If you are familiar with betting, you may already know a thing or two about odds. Odds represent how much more likely an event is to happen than not to happen.
+
+Let's go back to our example: marijuana-possession arrestees in Toronto. We know, from above, that most arrestees are released with a summons. Let's remember the numbers:
+
+
+```r
+# frequency table of variable 'released'
+table_released
 ```
 
 ```
 ## 
 ##   No  Yes 
-## 4334  892
+##  892 4334
 ```
 
+So, we know that $p=$ 4334 arrestees were released with a summons and that $1-p=$ 892 received a harsher treatment. If we want to calculate the **odds of being released with a summons**, we simply need to calculate the ratio $\frac{p}{1-p}=\frac{4334}{892}$. In this case, the odds are 4.86, which means that being released with a summons is 4.86 times more likely to occur than receiving a harsher treatment.
+
+Our goal will be to treat these odds as our main target! Is the colour of the arrestee associated with increases or decreases in the odds of being released with a summons? What about citizenship status, is it associated with increases or decreases in the odds of being released with a summons? Going back to the linear model above, we are going to put the odds of an event occurring in the left-hand side of the equation!
+
+Unfortunately, for a bunch of mathematical reasons that we don't need to worry about for now, we cannot simply put the odds $\frac{p}{1-p}$ in the left-hand side of the equation. Instead, we need to put the *natural logarithm of the odds* in the left-hand side of the equation:
+
+$$
+log \bigg( \frac{p}{1-p} \bigg) = \alpha + \beta_1 \cdot X_1 + \beta_2 \cdot X_2 + ... + \beta_n\cdot X_n
+$$
+Don't worry about that logarithm in the equation. We will get rid of it soon. For now, what we can see is that the right-hand side of the equation remains unchanged. And the left-hand side of the equation includes some stuff that we still don't know how to interpret. Let's give a name for the stuff on the left-hand side of the equation: let's call it **logit**. The *logit* of a binary variable is the natural logarithm of the odds of the event occurring. That's why this model is called **logistic regression**!
+
+But because the right-hand side of the equation remains unchanged, so will our interpretation! For instance, we can simply say that a one-unit increase in $X_1$ is associated with a $\beta_1$-increase in the *log-odds* of $Y$. The same applies for binary independent variables, categorical independent variables, multiple regression models, and interactions---everything that we learned about interpreting linear regression models applies here, as long we remember that everything refers to the *log-odds* of the dependent variable.
+
+So, that's great! Or almost... there's only one problem: what does an increase or decrease in the *log-odds* of a variable even mean? Interpreting the log odds-scale is something some people do not find very intuitive. To make thing more intuitive, we need to get rid of the logarithm and get back to odds! After all, what we want to know is the extent to which independent variables are associated with increases or decreases in the *odds* of an event occurring.
+
+How do we get rid of the log-odds scale? By exponentiating coefficients!
+
+<details>
+<summary><i>Don't remember logarithms? Don't worry! Click here for a quick refresher</i></summary>
+
+A logarithm is the inverse operation of exponentiation, meaning it undoes the effect of raising a number to a power. If we have an equation like $a^b = c$, the logarithm allows us to solve for $b$ by rewriting it as $\log_a(c) = b$. In other words, the logarithm tells us what exponent we need to raise the base $a$ to in order to get $c$. For example, since $2^3 = 8$, it follows that $\log_2(8) = 3$.  
+
+This inverse relationship is similar to how subtraction undoes addition or how division undoes multiplication. Logarithms are particularly useful in mathematics and science for handling exponential growth or decay, compressing large numbers into manageable scales, and solving equations where the exponent is the unknown. The most common logarithms are base 10 (common logarithm, $\log$), base $e$ (natural logarithm, $\ln$), and base 2 (binary logarithm, used in computing).
+
+In logistic regression, we use the natural logarithm---base $e$. Therefore, to get rid of the log-odds scale, we simply exponentiate coefficients: $e^{\beta_1}$, which we can obtain using the `R` function `exp()`.
+
+<br>
+</details>
+
+If we simply exponentiate the regression coefficients (e.g., $e^{\beta_1}$, which we can obtain using the `R` function `exp()`), we get rid of the log-odds scale and obtain what we call **odds ratios**. Using odds ratios when interpreting logistic regression coefficients is very common. The key word to remember here is **multiplies**. 
+
+
+<style>
+div {
+  margin-bottom: 1em; /* Adds space below each details block */
+}
+</style>
+
+<div style="border: 1px solid #ccc; padding: 10px; background-color: #f9f9f9;">
+<b>Interpreting logistic regression coefficients as odds rations</b>  
+
+<b>A one-unit increase in $X_1$ multiplies the odds of the event $Y$ occurring by $exp^{\beta_1}$</b>
+</div>
+
+Odds ratios, by definition, will always be greater than 0. Multiplying something by a number between 0 and 1 actually reduces the number: for example, if we multiply 10 by 0.4, the result is 4, a decrease of 60%. If we multiply something by 1, it stays the same: for example, if we multiply 10 by 1, the result is 1. If we multiply something by a number greater than 1, it implies an increase: for example, if we multiply 10 by 1.5, the result is 5, an increase of 50%.
+
++ An estimated odds ratio ($exp^{\beta}$) between 0 and 1 implies a negative association
++ An estimated odds ratio ($exp^{\beta}$) equal to 1 implies no association
++ An estimated odds ratio ($exp^{\beta}$) greater than 1 implies a positive association
+
+Let's practice all that seeking to understand what factors are associated with greater or lower odds of marijuana-possession arrestees being released with a summons!
+
+## Fitting logistic regression
+
+It is fairly straightforward to run a logistic model. Assuming that the dependent variable is binary, we can use the `glm()` function in `R`. It works exactly the same way as the `lm()` function---we only need to specify that we will be using a *logit* function link (we can do that by including the argument `family = binomial`).
+
+
 ```r
-#We will also reverse the order of the
-#"colour" variable so that the dummy 
-#uses Whites as the baseline
-Arrests$colour <- relevel(Arrests$colour, "White")
+glm(dependent_var ~ independent_var1 + independent_var2 + independent_var3, data = dataset, family = binomial)
 ```
 
-We use the `glm()` function to fit the model, specifying as an argument that we will be using a logit model (`family="binomial"`). As stated, we are going to run a model oriented primarily to assess to what degree race/ethnicity seems to matter even when we adjust for other factors (e.g., sex, employment, and previous police contacts (checks: number of police data records of previous arrests, previous convictions, parole status, etc. - 6 in all) on which the arrestee's name appeared; a numeric vector)).
+Now, let's fit a multiple logistic regression. The dependent variable, as before, indicates whether arrestees were released with a summons or not. Just to make sure that we are modelling the odds of being released with a summons (and not the odds of receiving a harsher treatment), let's recode the `released` variable accordingly. The comparison group group always be coded as 1, whereas the reference group should always be coded as 0.
 
 
 ```r
-fitl_1 <- glm(harsher ~ checks + colour + sex + employed, data=Arrests, family = "binomial")
-summary(fitl_1)
+# load the dplyr package
+library(dplyr)
+
+# recode the 'released' variable to ensure that the
+# comparison group is coded as 1
+Arrests <- mutate(Arrests, 
+                  released = case_when(
+                    released == "Yes" ~ 1,
+                    released == "No" ~ 0
+                  ))
+```
+
+Now we can fit the multiple logistic regression. As independent variables, let's include arrestees' racial identity (`colour`), gender (`sex`), the number of entries in the criminal justice system (`checks`), and whether they were employed at the time of arrest (`employed`).
+
+
+
+```r
+# fit a logistic regression model and store it under 'logistic_reg'
+logistic_reg <- glm(released ~ colour + sex + checks + employed, data = Arrests, family = binomial)
+
+# print the estimated coefficients
+logistic_reg
 ```
 
 ```
 ## 
-## Call:
-## glm(formula = harsher ~ checks + colour + sex + employed, family = "binomial", 
+## Call:  glm(formula = released ~ colour + sex + checks + employed, family = binomial, 
 ##     data = Arrests)
 ## 
 ## Coefficients:
-##             Estimate Std. Error z value Pr(>|z|)    
-## (Intercept) -1.90346    0.15999 -11.898  < 2e-16 ***
-## checks       0.35796    0.02580  13.875  < 2e-16 ***
-## colourBlack  0.49608    0.08264   6.003 1.94e-09 ***
-## sexMale      0.04215    0.14965   0.282    0.778    
-## employedYes -0.77973    0.08386  -9.298  < 2e-16 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## (Intercept)  colourWhite      sexMale       checks  employedYes  
+##     1.40739      0.49608     -0.04215     -0.35796      0.77973  
 ## 
-## (Dispersion parameter for binomial family taken to be 1)
-## 
-##     Null deviance: 4776.3  on 5225  degrees of freedom
-## Residual deviance: 4330.7  on 5221  degrees of freedom
-## AIC: 4340.7
-## 
-## Number of Fisher Scoring iterations: 5
+## Degrees of Freedom: 5225 Total (i.e. Null);  5221 Residual
+## Null Deviance:	    4776 
+## Residual Deviance: 4331 	AIC: 4341
 ```
 
-The table, as you will see, is similar to the one you get when running linear regression, but there are some differences we will discuss.
+The table, as you will see, is similar to the one you get when running linear regression. For now, we can ignore the new information at the very bottom of the output (these are fit indices, including the null and deviance residuals and the Akaike Information Criteria---AIC). Let's focus on the estimated coefficients. We could rewrite the logit equation with the estimated parameters now:
 
-The first thing you see in the output printed in the console is the model we run. Then, we see something called **the deviance residuals**, which are a measure of model fit. This part of the output shows the distribution of the deviance residuals for individual cases used in the model. Later, we discuss how to use summaries of the deviance statistics to assess model fit. 
+$$
+log \bigg( \frac{release\_summons}{harsher\_treatment} \bigg) = 1.407 + 0.496\cdot colour - 0.042\cdot sex - 0.358\cdot checks + 0.780\cdot employed
+$$
 
-Below the table of coefficients, at the very bottom, are fit indices (including the null and deviance residuals and the Akaike information criterion (AIC)). We will discuss this later. 
+Based on this, we can conclude that White arrestees' *log-odds* of being released with a summons are $\beta_1=0.496$ larger than Black arrestees' *log-odds* , controlling for sex, previous checks in the criminal justice system, and employment status; that male's *log-odds* of being released are $\beta_2=-0.042$ lower than females', controlling for race, previous checks in the criminal justice system, and employment status; that every additional check in the criminal justice system is associated with a decrease of $\beta_3=-0.358$ in the *log-odds* of being released, controlling for race, sex, and employment status; and that employed arrestees' *log-odds* are $\beta_4=0.780$ larger than the *log-odds* among unemployed arrestees, controlling for race, sex, and checks in the criminal justice system.
 
-The part in the middle of the output shows the coefficients, their standard errors, the statistics, and the associated p-values. The z statistic (sometimes called a Wald z-statistic) is a test of statistical significance assessing whether each input in the model is associated with the dependent variable.
-
-If we focus on the table of coefficients, we can see that all the inputs but *sex* were significant in the model. The estimates that get printed when you run logistic regression give you the change in the log odds of the outcome for a one-unit increase in the predictor. Here, we see that for every one unit increase in the number of previous police contacts (*checks*), the **log odds** of receiving harsher treatment (versus being released) increases by 0.36, adjusting for the other variables in the model. The reminder variables are categorical predictors with two levels. So, we see the coefficient for the dummy variables indicating the contrast with their respective baseline or reference category. For example, being Black increases the log odds of receiving harsher treatment by 0.49, whereas being employed decreases the log odds of being released by 0.77. As mentioned above, the coefficient for gender was not significant. What are log odds? We will discuss this in a bit.
-
-We can also use the `confint()` function to obtain confidence intervals for the estimated coefficients.
+So what does that actually mean? As mentioned above, interpreting the log odds scale is something some people do not find very intuitive. So, using **odd ratios** when interpreting logistic regression is common. To do this, all we need to do is to exponentiate the coefficients. To get the exponentiated coefficients, you tell `R` that you want to exponentiate (`exp()`), that the object you want to exponentiate is called coefficients, and it is part of the model you just run. We can do this in several steps or in one step.
 
 
 ```r
-confint(fitl_1)
+# store regression coefficients under 'coefficients'
+coefficients <- coef(logistic_reg)
+
+# exponentiate all coefficients to obtain odds ratios
+exp(coefficients)
 ```
 
 ```
-##                  2.5 %     97.5 %
-## (Intercept) -2.2241433 -1.5962775
-## checks       0.3075891  0.4087441
-## colourBlack  0.3334415  0.6574559
-## sexMale     -0.2445467  0.3429244
-## employedYes -0.9436356 -0.6148518
+## (Intercept) colourWhite     sexMale      checks employedYes 
+##   4.0852619   1.6422658   0.9587242   0.6990998   2.1808765
 ```
 
-So what does that actually mean?
+Much better! Now that we exponentiated the coefficients, we have **odds ratios**---which are much easier to interpret than coefficients in the *log-odds* scale.
 
-Interpreting the log odds scale is something some people do not find very intuitive. So, using **odd ratios** when interpreting logistic regression is common. To do this, all we need to do is to exponentiate the coefficients. To get the exponentiated coefficients, you tell R that you want to exponentiate (`exp()`), that the object you want to exponentiate is called coefficients, and it is part of the model you just run.
++ White arrestees' odds of being released with a summons are 64% higher than Black arrestees' odds of being released with a summons, controlling for sex, checks in the criminal justice system, and employment status.
+    - i.e., being White multiplies the odds of release with a summons by 1.64.
++ Male arrestees' odds of being released with a summons are 4.13% lower than female arrestees' odds of being released with a summons, controlling for race, checks in the criminal justice system, and employment status.
+    - i.e., being male multiplies the odds of release with a summons by 0.96.
++ Every additional check in the criminal justice system is associated with a decrease of 30.1% in the odds of being released with a summons, controlling for race, sex, and employment status
+    - i.e., every additional check in the criminal justice system multiplies the odds of being released with a summons by 0.70.
++ Employed arrestees' odds of being released with a summons are more than twice as higher than unemployed arrestees' odds of being released with a summons, controlling for race, sex, and employment status.
+    - i.e., being employed multiplies the odds of release with a summons by 2.18.
 
-
-```r
-exp(coef(fitl_1))
-```
-
-```
-## (Intercept)      checks colourBlack     sexMale employedYes 
-##   0.1490516   1.4304108   1.6422658   1.0430528   0.4585312
-```
-
-You can use the same logic as for the confidence intervals.
-
-
-```r
-exp(cbind(OR = coef(fitl_1), confint(fitl_1)))
-```
-
-```
-##                    OR     2.5 %    97.5 %
-## (Intercept) 0.1490516 0.1081600 0.2026495
-## checks      1.4304108 1.3601419 1.5049266
-## colourBlack 1.6422658 1.3957633 1.9298763
-## sexMale     1.0430528 0.7830594 1.4090622
-## employedYes 0.4585312 0.3892103 0.5407210
-```
-
-```r
-#This will print both the OR and their 95% CI.
-```
-
-Now, we can use the interpretation of odd ratios we introduced in a previous session. When the odd ratio is greater than 1, it indicates that the odds of receiving harsher treatment increases when the independent variable increases. We can say, for example, that previous police contacts increase the odds of harsher treatment by 43%, whereas being black increases the odds of harsher treatment by 64% (while adjusting for the other variables in the model). 
-
-Employment has an odd ratio of 0.45. When the odd ratio is between 0 and 1, it indicates a negative relationship. So employment reduces the odds of harsher treatment by 1/0.46, that is by a factor of 2.18. For more details on interpreting odd ratios in logistic regression, you may want to read [this](http://www.ats.ucla.edu/stat/mult_pkg/faq/general/odds_ratio.htm). Some people do not like odd ratios. For other ways of interpreting logistic regression coefficients, you may want to consult [chapter 5 of the book](http://www.cambridge.org/gb/academic/subjects/statistics-probability/statistical-theory-and-methods/data-analysis-using-regression-and-multilevelhierarchical-models?format=PB) by Gelman and Hill (2007).
+For more details on interpreting odd ratios in logistic regression, you may want to read [this](http://www.ats.ucla.edu/stat/mult_pkg/faq/general/odds_ratio.htm). Some people do not like odd ratios. For other ways of interpreting logistic regression coefficients, you may want to consult [chapter 5 of the book](http://www.cambridge.org/gb/academic/subjects/statistics-probability/statistical-theory-and-methods/data-analysis-using-regression-and-multilevelhierarchical-models?format=PB) by Gelman and Hill (2007).
 
 You can read more about how to interpret odd ratios in logistic regression [here](https://stats.idre.ucla.edu/other/mult-pkg/faq/general/faq-how-do-i-interpret-odds-ratios-in-logistic-regression/).
 
 See [the appendix](https://uom-resquant.github.io/modelling_book/appendix.html#fitting-logistic-regression-alternative) for an alternative way of getting the same results with less typing.
-<!--
-Another way of getting the results with less typing is to use the `Logit()` function in the `lessR` package (you will need to install it if you do not have it).
+
+As with linear regression, the interpretation of regression coefficients is sensitive to the scale of measurement of the predictors. This means one cannot compare the magnitude of the coefficients to compare the relevance of variables to predict the response variable. The same applies to the odd ratios. Tempting and common as this might be, unless the independent variables use the same metric (or maybe if they are all categorical), there is little point in comparing the magnitude of the odd ratios in logistic regression. Like the unstandardised logistic regression coefficients, odd ratios are **not** a measure of effect size that allows comparisons across inputs (Menard, 2012). 
+
+We can also produce effect plots using the `effects` package:
 
 
 ```r
-library(lessR, quietly= TRUE)
-Logit(harsher ~ checks + colour + sex + employed, data=Arrests, brief=TRUE)
-```
-
-```
-## 
-## >>> Note:  colour is not a numeric variable.
-##            Indicator variables are created and analyzed.
-## 
-## >>> Note:  sex is not a numeric variable.
-##            Indicator variables are created and analyzed.
-## 
-## >>> Note:  employed is not a numeric variable.
-##            Indicator variables are created and analyzed.
-## 
-## Response Variable:   harsher
-## Predictor Variable 1:  checks
-## Predictor Variable 2:  colourBlack
-## Predictor Variable 3:  sexMale
-## Predictor Variable 4:  employedYes
-## 
-## Number of cases (rows) of data:  5226 
-## Number of cases retained for analysis:  5226 
-## 
-## 
-##    BASIC ANALYSIS 
-## 
-## -- Estimated Model of harsher for the Logit of Reference Group Membership
-## 
-##              Estimate    Std Err  z-value  p-value   Lower 95%   Upper 95%
-## (Intercept)   -1.9035     0.1600  -11.898    0.000     -2.2170     -1.5899 
-##      checks    0.3580     0.0258   13.875    0.000      0.3074      0.4085 
-## colourBlack    0.4961     0.0826    6.003    0.000      0.3341      0.6580 
-##     sexMale    0.0422     0.1496    0.282    0.778     -0.2511      0.3355 
-## employedYes   -0.7797     0.0839   -9.298    0.000     -0.9441     -0.6154 
-## 
-## 
-## -- Odds Ratios and Confidence Intervals
-## 
-##              Odds Ratio   Lower 95%   Upper 95%
-## (Intercept)      0.1491      0.1089      0.2039 
-##      checks      1.4304      1.3599      1.5046 
-## colourBlack      1.6423      1.3967      1.9310 
-##     sexMale      1.0431      0.7779      1.3986 
-## employedYes      0.4585      0.3890      0.5404 
-## 
-## 
-## -- Model Fit
-## 
-##     Null deviance: 4776.258 on 5225 degrees of freedom
-## Residual deviance: 4330.699 on 5221 degrees of freedom
-## 
-## AIC: 4340.699 
-## 
-## Number of iterations to convergence: 5 
-## 
-## 
-## Collinearity
-## 
-##             Tolerance       VIF
-## checks          0.908     1.101
-## colourBlack     0.963     1.038
-## sexMale         0.982     1.019
-## employedYes     0.931     1.074
-```
--->
-As with linear regression, the interpretation of regression coefficients is sensitive to the scale of measurement of the predictors. This means one cannot compare the magnitude of the coefficients to compare the relevance of variables to predict the response variable. The same applies to the odd ratios. Tempting and common as this might be unless the predictors use the same metric (or maybe if they are all categorical), there is little point in comparing the magnitude of the odd ratios in logistic regression. Like the unstandardised logistic regression coefficients, odd ratios are **not** a measure of effect size that allows comparisons across inputs (Menard, 2012). 
-
-<!--Finally, you could, in the same way as we did in a previous session, use the `standardize()` function from the `arm` package.
-
-
-```r
-library(arm)
-fitl_1_s <- standardize(fitl_1)
-display(fitl_1_s)
-```
-
-```
-## glm(formula = harsher ~ z.checks + c.colour + c.sex + c.employed, 
-##     family = "binomial", data = Arrests)
-##             coef.est coef.se
-## (Intercept) -1.77     0.04  
-## z.checks     1.10     0.08  
-## c.colour     0.50     0.08  
-## c.sex        0.04     0.15  
-## c.employed  -0.78     0.08  
-## ---
-##   n = 5226, k = 5
-##   residual deviance = 4330.7, null deviance = 4776.3 (difference = 445.6)
-```
--->
-We can also use **forest plots** in much the same way as we did for linear regression. One way of doing this is using the `plot.model()` function of the `sjPlot` package. 
-
-
-```r
-library(sjPlot)
-plot_model(fitl_1)
-```
-
-<img src="08_logistic_regression_files/figure-html/unnamed-chunk-27-1.png" width="672" />
-
-Equally, we can produce effect plots using the `effects` package:
-
-
-```r
+# load the 'effects' package
 library(effects)
-plot(allEffects(fitl_1), ask=FALSE)
+
+# produce effect plots
+plot(allEffects(logistic_reg), ask = FALSE)
 ```
 
-<img src="08_logistic_regression_files/figure-html/unnamed-chunk-28-1.png" width="672" />
+<img src="08_logistic_regression_files/figure-html/unnamed-chunk-21-1.png" width="672" />
 
 Effect plots in this context are particularly helpful because they summarise the results using probabilities, which is what you see plotted on the y-axis.
 
-We don't have to print them all. When we are primarily concerned with one of them, as in this case, that's the one we want to emphasise when presenting and discussing our results. There isn't much point in discussing the results for the variables we defined as control (given our research goal). So, in this case, we would ask for the plot for our input measuring race/ethnicity:
+## Interactions
+
+The data we have been using were obtained by the author of the `effects` package from [Michael Friendly](http://www.datavis.ca/), another prominent contributor to the development of R packages. The data are related to a series of stories revealed by the Toronto Star and further analysed by Professor Friendly as seen [here](http://www.datavis.ca/courses/VCD/vcd4-handout-2x2.pdf). In this further analysis, Friendly proposes a slightly more complex model than the one we have specified so far. This model adds three new predictors (citizenship, age, and year in which the case was processed) and also allows for interactions between race (colour) and year, as well as race and age.
 
 
 ```r
-plot(effect("colour", fitl_1), multiline = FALSE, ylab = "Probability(harsher)")
+# fit new multiple logistic regression
+logistic_reg_2 <- glm(released ~ employed + citizen + checks + colour * year + colour * age, 
+              family = binomial, data = Arrests) 
+
+# print results
+logistic_reg_2
 ```
 
-<img src="08_logistic_regression_files/figure-html/unnamed-chunk-29-1.png" width="672" />
+```
+## 
+## Call:  glm(formula = released ~ employed + citizen + checks + colour * 
+##     year + colour * age, family = binomial, data = Arrests)
+## 
+## Coefficients:
+##      (Intercept)       employedYes        citizenYes            checks  
+##       -227.48053           0.74748           0.62016          -0.36472  
+##      colourWhite              year               age  colourWhite:year  
+##        361.66832           0.11391           0.02879          -0.18022  
+##  colourWhite:age  
+##         -0.03813  
+## 
+## Degrees of Freedom: 5225 Total (i.e. Null);  5217 Residual
+## Null Deviance:	    4776 
+## Residual Deviance: 4275 	AIC: 4293
+```
 
-We can use the `predict()` function to generate the predicted probability that the arrestees will be released, given what we know about their inputs in the model given the values of the predictors. By default, R will compute the probabilities for the dataset to which we fitted the model. Here, we have printed only the first ten probabilities, but the way we use the `predict()` function here will generate a predicted probability for each case in the dataset.
+What we see here is that the two interactions included are somewhat different from 0. To assist in the interpretation of interactions, it is helpful to look at effect plots.
 
 
 ```r
-fitl_1_prob <- predict(fitl_1, type = "response") 
-#If you want to add this to your data frame, 
-#you could designate your object as Arrests$fitl_1_prob
-fitl_1_prob[1:10]
+# produce effects plot to assess interaction effects
+plot(effect("colour:year", logistic_reg_2))
 ```
 
-```
-##          1          2          3          4          5          6          7 
-## 0.17262268 0.25519856 0.17262268 0.14344103 0.13833944 0.10091376 0.13455033 
-##          8          9         10 
-## 0.08905504 0.32891111 0.17262268
+<img src="08_logistic_regression_files/figure-html/unnamed-chunk-23-1.png" width="672" />
+
+First, we see that up to 2000, there is strong evidence for differential treatment of blacks and whites. However, we also see evidence to support Police claims of the effect of training to reduce racial effects.
+
+
+```r
+# produce effects plot to assess interaction effects
+plot(effect("colour:age", logistic_reg_2))
 ```
 
-It is important to understand that with this type of models, we usually generate two types of predictions. On the one hand, we are producing a continuous-valued prediction in the form of a probability, but we can also generate a predicted class for each case. In many applied settings, the latter will be relevant. A discrete category prediction may be required to make a decision. Imagine a probation officer evaluating the future risk of a client. She/He would want to know whether the case is high-risk or not.
+<img src="08_logistic_regression_files/figure-html/unnamed-chunk-24-1.png" width="672" />
+
+On the other hand, we see a significant interaction between race and age. Young blacks are treated more harshly than young whites. However, older blacks were treated less harshly than older whites.
+
+In a previous session, we discussed the difficulties of interpreting regression coefficients in models with interactions. Centring and standardising in the way discussed earlier can actually be of help for this purpose.
+
+
+## Further resources
+
+These are a set of useful external resources that may aid your comprehension (and I have partly relied upon myself, so credit to them!):
+
++ The [UCLA guide](http://www.ats.ucla.edu/stat/r/dae/logit.htm) to using logistic regression with R.
+
++ A [helpful list of resources](http://www.r-bloggers.com/some-r-resources-for-glms/) for general linear models with R.
+
+
+
+<!--## Lab Exercises
+
+**Your turn!** 
+-->
+
+
+
+
+
+
+
+
 <!--
 ## Assessing model fit I: deviance and pseudo r squared
 
@@ -847,30 +2061,6 @@ The deviance, on the other hand, is simply the log-likelihood multiplied by -2 a
 The difference between the -2LL for the model with no predictors and the -2LL for the model with all the predictors is the closer we get in logistic regression to the regression sum of squares. This difference is often called **model chi-squared**, and it provides a test of the null hypothesis that all the regression coefficients equal zero. It is, thus, equivalent to the F test in OLS regression.
 
 
-```
-## 
-## Call:
-## glm(formula = harsher ~ checks + colour + sex + employed, family = "binomial", 
-##     data = Arrests)
-## 
-## Coefficients:
-##             Estimate Std. Error z value             Pr(>|z|)    
-## (Intercept) -1.90346    0.15999 -11.898 < 0.0000000000000002 ***
-## checks       0.35796    0.02580  13.875 < 0.0000000000000002 ***
-## colourBlack  0.49608    0.08264   6.003        0.00000000194 ***
-## sexMale      0.04215    0.14965   0.282                0.778    
-## employedYes -0.77973    0.08386  -9.298 < 0.0000000000000002 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## (Dispersion parameter for binomial family taken to be 1)
-## 
-##     Null deviance: 4776.3  on 5225  degrees of freedom
-## Residual deviance: 4330.7  on 5221  degrees of freedom
-## AIC: 4340.7
-## 
-## Number of Fisher Scoring iterations: 5
-```
 
 In our example, we saw that some measures of fit were printed below the table with the coefficients. The **null deviance** is the deviance of the model with no predictors, and the **residual deviance** is simply the deviance of this model. You clearly want the residual deviance to be smaller than the null deviance. The difference between the null and the residual deviance is what we call the model chi-squared. In this case, this is 4776.3 minus 4330.7. We can ask R to do this for us.
 
@@ -878,42 +2068,21 @@ First, notice that the object we created has all the information we need already
 
 
 ```r
-names(fitl_1)
-```
-
-```
-##  [1] "coefficients"      "residuals"         "fitted.values"    
-##  [4] "effects"           "R"                 "rank"             
-##  [7] "qr"                "family"            "linear.predictors"
-## [10] "deviance"          "aic"               "null.deviance"    
-## [13] "iter"              "weights"           "prior.weights"    
-## [16] "df.residual"       "df.null"           "y"                
-## [19] "converged"         "boundary"          "model"            
-## [22] "call"              "formula"           "terms"            
-## [25] "data"              "offset"            "control"          
-## [28] "method"            "contrasts"         "xlevels"
+#names(fitl_1)
 ```
 
 So we can use this stored information in our calculations.
 
 
 ```r
-with(fitl_1, null.deviance - deviance)
-```
-
-```
-## [1] 445.5594
+#with(fitl_1, null.deviance - deviance)
 ```
 
 Is 445.6 small? How much smaller is enough? This value has a chi-square distribution, and its significance can be easily computed. For this computation, we need to know the degrees of freedom for the model (which equal the number of predictors in the model) and can be obtained like this:
 
 
 ```r
-with(fitl_1, df.null - df.residual)
-```
-
-```
-## [1] 4
+#with(fitl_1, df.null - df.residual)
 ```
 
 Finally, the p-value can be obtained using the following code to invoke the Chi-Square distribution:
@@ -922,11 +2091,7 @@ Finally, the p-value can be obtained using the following code to invoke the Chi-
 ```r
 #When doing it yourself, this is all you really need 
 #(we present the code in a separate fashion above so that you understand better what the one here does)
-with(fitl_1, pchisq(null.deviance - deviance, df.null - df.residual, lower.tail = FALSE))
-```
-
-```
-## [1] 3.961177e-95
+#with(fitl_1, pchisq(null.deviance - deviance, df.null - df.residual, lower.tail = FALSE))
 ```
 
 We can see that the model chi-square is highly significant. Our model as a whole fits significantly better than a model with no predictors.
@@ -936,11 +2101,7 @@ Menard (2010) recommends also looking at the likelihood ratio R^2, which can be 
 
 ```r
 #Likelihood ratio R2
-with(fitl_1, (null.deviance - deviance)/null.deviance)
-```
-
-```
-## [1] 0.09328629
+#with(fitl_1, (null.deviance - deviance)/null.deviance)
 ```
 
 Some authors refer to this as the Hosmer/Lemeshow R^2. It indicates how much the inclusion of the independent variables in the model reduces variation, as measured by the null deviance. It varies between 0 (when our prediction is catastrophically useless) and 1 (when we predict with total accuracy). There are many other pseudo R^2 measures that have been proposed, but Menard [based on research](http://www.tandfonline.com/doi/pdf/10.1080/00031305.2000.10474502) on the properties of various of these measures recommends the likelihood ratio R^2 because:
@@ -953,6 +2114,8 @@ Some authors refer to this as the Hosmer/Lemeshow R^2. It indicates how much the
 
 + And it can be used in other generalised linear models (models for categorical outcomes with more than two levels, which we don't cover here)-->
 
+
+<!--
 ## Assessing model fit: confusion matrix 
 
 If we are interested in "qualitative" prediction, we also need to consider other measures of fit. In many applied settings, such as in applied predictive modelling, this can be the case. Imagine you are developing a tool to be used to forecast the probability of repeat victimisation in cases of domestic violence. This type of prediction may then be used to determine the type of police response to cases defined as high-risk. Clearly, you want to make sure the classification you make is as accurate as possible.
@@ -970,42 +2133,18 @@ There are various ways of producing a confusion matrix in R. The most basic one 
 
 ```r
 #First, we define the classes according to the cut-off
-fitl_1_pred_class <- fitl_1_prob > .5
+#fitl_1_pred_class <- fitl_1_prob > .5
 #This creates a logical vector that returns TRUE 
 #when the condition is met (the subject is predicted to be released) and 
 #FALSE when the condition is not met (harsher treatment was delivered)
-fitl_1_pred_class[1:10]
-```
-
-```
-##     1     2     3     4     5     6     7     8     9    10 
-## FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-```
-
-```r
+#fitl_1_pred_class[1:10]
 #Let's make this into a factor with the same levels as the original variable
-harsher_pred <- as.factor(fitl_1_pred_class)
-levels(harsher_pred) <- c("No","Yes")
-table(harsher_pred)
-```
-
-```
-## harsher_pred
-##   No  Yes 
-## 5113  113
-```
-
-```r
+#harsher_pred <- as.factor(fitl_1_pred_class)
+#levels(harsher_pred) <- c("No","Yes")
+#table(harsher_pred)
 #Then we can produce the cross-tab
-tab0 <- table(harsher_pred, Arrests$harsher)
-tab0
-```
-
-```
-##             
-## harsher_pred   No  Yes
-##          No  4278  835
-##          Yes   56   57
+#tab0 <- table(harsher_pred, Arrests$harsher)
+#tab0
 ```
 
 We can derive various useful measures from classification tables. Two important ones are the **sensitivity** and the **specificity**. The model's sensitivity is the rate at which the event of interest (e.g., receiving harsher treatment) is predicted correctly for all cases having the event.
@@ -1022,42 +2161,9 @@ We can generate these measures automatically from the table we produced. However
 
 
 ```r
-library(caret)
-confusionMatrix(data=harsher_pred, 
-                reference=Arrests$harsher, positive="Yes") 
-```
-
-```
-## Confusion Matrix and Statistics
-## 
-##           Reference
-## Prediction   No  Yes
-##        No  4278  835
-##        Yes   56   57
-##                                              
-##                Accuracy : 0.8295             
-##                  95% CI : (0.819, 0.8396)    
-##     No Information Rate : 0.8293             
-##     P-Value [Acc > NIR] : 0.4943             
-##                                              
-##                   Kappa : 0.078              
-##                                              
-##  Mcnemar's Test P-Value : <0.0000000000000002
-##                                              
-##             Sensitivity : 0.06390            
-##             Specificity : 0.98708            
-##          Pos Pred Value : 0.50442            
-##          Neg Pred Value : 0.83669            
-##              Prevalence : 0.17069            
-##          Detection Rate : 0.01091            
-##    Detection Prevalence : 0.02162            
-##       Balanced Accuracy : 0.52549            
-##                                              
-##        'Positive' Class : Yes                
-## 
-```
-
-```r
+#library(caret)
+#confusionMatrix(data=harsher_pred, 
+#                reference=Arrests$harsher, positive="Yes") 
 #The data argument specifies the vector 
 #with the predictions and the reference 
 #argument the vector with the observed 
@@ -1073,25 +2179,13 @@ So if we use a different cut-off point, say .25, the classification table would 
 
 
 ```r
-precision<-function(c) {
-tab1 <- table(fitl_1_prob>c, Arrests$harsher)
-out <- diag(tab1)/apply(tab1, 2, sum)
-names(out) <- c('specificity', 'sensitivity')
-list(tab1, out)
-}
-precision(.25)
-```
-
-```
-## [[1]]
-##        
-##           No  Yes
-##   FALSE 3627  496
-##   TRUE   707  396
-## 
-## [[2]]
-## specificity sensitivity 
-##   0.8368713   0.4439462
+#precision<-function(c) {
+#tab1 <- table(fitl_1_prob>c, Arrests$harsher)
+#out <- diag(tab1)/apply(tab1, 2, sum)
+#names(out) <- c('specificity', 'sensitivity')
+#list(tab1, out)
+#}
+#precision(.25)
 ```
 
 Here, we are predicting, according to our model, that anybody with a probability above .25 receives harsher treatment. Our sensitivity goes up significantly, but our specificity goes down. You can see that the cut-off point will affect how many false positives and false negatives we have. With this cut-off point, we will be identifying many more cases as presenting the outcome of interest when, in fact, they won't present it (707 as opposed to 56 when using a cut-off of .5). On the other hand, we have improved the sensitivity, and now we are correctly identifying as positives 396 cases as opposed to just 57 cases). The overall accuracy is still the same, but we have shifted the balance between sensitivity and specificity. 
@@ -1100,151 +2194,39 @@ Potential trade-offs here may be appropriate when there are different penalties 
 
 Similarly, the criminal justice system is essentially built around the idea of avoiding false positives - that is, convicting people who are innocent. You will have heard many phrases like "innocent until proven guilty" or "It is far better that 10 guilty men go free than one innocent man is wrongfully convicted". This approach would incline us to err on the side of false negatives and avoid false positives (higher sensitivity, lower specificity).
 
-We may want to see what happens to sensitivity and specificity for different cut-off points. For this, we can look at **receiver operating characteristics** or simply [ROC curves](http://en.wikipedia.org/wiki/Receiver_operating_characteristic). This is essentially a tool for evaluating the sensitivity/specificity trade-off. The ROC curve can be used to investigate alternate cut-offs for class probabilities. [See the appendix for more info on the ROC curve](https://uom-resquant.github.io/modelling_book/appendix.html#assessing-model-fit-roc-curves). There are also other ways to assess a model's fit, such as deviance and pseudo r squared. For those interested, [you can read more in the appendix](https://uom-resquant.github.io/modelling_book/appendix.html#assessing-model-fit-deviance-and-pseudo-r-squared).
+We may want to see what happens to sensitivity and specificity for different cut-off points. For this, we can look at **receiver operating characteristics** or simply [ROC curves](http://en.wikipedia.org/wiki/Receiver_operating_characteristic). This is essentially a tool for evaluating the sensitivity/specificity trade-off. The ROC curve can be used to investigate alternate cut-offs for class probabilities. [See the appendix for more info on the ROC curve](https://uom-resquant.github.io/modelling_book/appendix.html#assessing-model-fit-roc-curves). There are also other ways to assess a model's fit, such as deviance and pseudo r squared. For those interested, [you can read more in the appendix](https://uom-resquant.github.io/modelling_book/appendix.html#assessing-model-fit-deviance-and-pseudo-r-squared).-->
 
 <!--We can use the `pROC` package for this. We start by creating an object that contains the relevant information with the `roc()` function from the `pROC` package.
 
 
 ```r
-library(pROC)
-```
-
-```
-## Type 'citation("pROC")' for a citation.
-```
-
-```
-## 
-## Attaching package: 'pROC'
-```
-
-```
-## The following object is masked from 'package:gmodels':
-## 
-##     ci
-```
-
-```
-## The following objects are masked from 'package:stats':
-## 
-##     cov, smooth, var
-```
-
-```r
-rocCURVE <- roc(response = Arrests$harsher, 
-                predictor = fitl_1_prob)
-```
-
-```
-## Setting levels: control = No, case = Yes
-```
-
-```
-## Setting direction: controls < cases
+#library(pROC)
+#rocCURVE <- roc(response = Arrests$harsher, 
+#                predictor = fitl_1_prob)
 ```
 
 Once we have the object with the information, we can plot the ROC curve.
 
 
 ```r
-plot(rocCURVE, legacy.axes = TRUE) #By default, the x-axis goes backwards; we can use the specified option legacy.axes=TRUE, to get 1-spec on the x-axis moving from 0 to 1.
+#plot(rocCURVE, legacy.axes = TRUE) #By default, the x-axis goes backwards; we can use the specified option legacy.axes=TRUE, to get 1-spec on the x-axis moving from 0 to 1.
 ```
-
-<img src="08_logistic_regression_files/figure-html/unnamed-chunk-41-1.png" width="672" />
 
 We can see the trajectory of the curve is at first steep, suggesting that sensitivity increases at a greater pace than the decrease in specificity. However, we then reach a point at which specificity decreases at a greater rate than the sensitivity increases. If you want to select a cut-off that gives you the optimal cut-off point, you can use the `coords()` function of the pROC package. You can pass arguments to this function so that it returns the best sum of sensitivity and specificity.
 
 
 ```r
-alt_cutoff1 <- coords(rocCURVE, x = "best", best.method = "closest.topleft")
+#alt_cutoff1 <- coords(rocCURVE, x = "best", best.method = "closest.topleft")
 #The x argument, in this case, is selecting the best cut-off using the "closest topleft" method 
 #(which identifies the point closest to the top-left part of the plot with perfect sensitivity or specificity). Another option is to use the "youden" method in the best.method argument.
-alt_cutoff1
-```
-
-```
-##   threshold specificity sensitivity
-## 1 0.1696539   0.6305953   0.7163677
+#alt_cutoff1
 ```
 
 Here, we can see that with a cut-off point of .16 we get a specificity of .63 and a sensitivity of .71. Notice how this is close to the base rate of harsher treatment in the sample (17% of individuals actually received harsher treatment). For a more informed discussion of cut-off points and costs of errors in applied predictive problems in criminal justice, I recommend reading [Berk (2012)](http://link.springer.com/book/10.1007%2F978-1-4614-3085-8). Often, the selection of cut-off may be motivated by practical considerations (e.g., selecting individuals for treatment in a situation where resources to do so are limited).
 
 The ROC curve can also be used to develop a quantitative assessment of the model. The perfect model is one where the curve reaches the top left corner of the plot. This would imply 100% sensitivity and specificity. On the other hand, a useless model would be one with a curve alongside the diagonal line splitting the plot in two, from the bottom right corner to the top right corner. You can also look at the **area under the curve** (AUC) and use it to compare models. An AUC of .5 corresponds to the situation where our predictors have no predictive utility. For a fuller discussion of how to compare these curves and the AUC, I recommend reading Chapter 11 of [Kuhn and Johnson (2014)](http://link.springer.com/book/10.1007/978-1-4614-6849-3).-->
 
-## Interactions
 
-The data we have been using were obtained by the author of the `effects` package from [Michael Friendly](http://www.datavis.ca/), another prominent contributor to the development of R packages. The data are related to a series of stories revealed by the Toronto Star and further analysed by Professor Friendly as seen [here](http://www.datavis.ca/courses/VCD/vcd4-handout-2x2.pdf). In this further analysis, Friendly proposes a slightly more complex model than the one we have specified so far. This model adds three new predictors (citizenship, age, and year in which the case was processed) and also allows for interactions between race (colour) and year, as well as race and age.
-
-
-```r
-fitl_2 <- glm(harsher ~ employed + citizen + checks + colour * year + colour * age, 
-              family = binomial, data = Arrests) 
-#Notice this different way of including interactions
-summary(fitl_2)
-```
-
-```
-## 
-## Call:
-## glm(formula = harsher ~ employed + citizen + checks + colour * 
-##     year + colour * age, family = binomial, data = Arrests)
-## 
-## Coefficients:
-##                     Estimate  Std. Error z value             Pr(>|z|)    
-## (Intercept)      -134.187783   69.287702  -1.937             0.052785 .  
-## employedYes        -0.747475    0.084601  -8.835 < 0.0000000000000002 ***
-## citizenYes         -0.620159    0.105164  -5.897         0.0000000037 ***
-## checks              0.364718    0.025949  14.055 < 0.0000000000000002 ***
-## colourBlack       361.668318  115.180289   3.140             0.001689 ** 
-## year                0.066318    0.034664   1.913             0.055722 .  
-## age                 0.009347    0.005495   1.701             0.088979 .  
-## colourBlack:year   -0.180225    0.057604  -3.129             0.001756 ** 
-## colourBlack:age    -0.038134    0.010161  -3.753             0.000175 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## (Dispersion parameter for binomial family taken to be 1)
-## 
-##     Null deviance: 4776.3  on 5225  degrees of freedom
-## Residual deviance: 4275.0  on 5217  degrees of freedom
-## AIC: 4293
-## 
-## Number of Fisher Scoring iterations: 5
-```
-
-What we see here is that the two interactions included are significant. To assist in the interpretation of interactions, it is helpful to look at effect plots.
-
-
-```r
-plot(effect("colour:year", fitl_2))
-```
-
-<img src="08_logistic_regression_files/figure-html/unnamed-chunk-44-1.png" width="672" />
-
-First, we see that up to 2000, there is strong evidence for differential treatment of blacks and whites. However, we also see evidence to support Police claims of the effect of training to reduce racial effects.
-
-
-```r
-plot(effect("colour:age", fitl_2))
-```
-
-<img src="08_logistic_regression_files/figure-html/unnamed-chunk-45-1.png" width="672" />
-
-On the other hand, we see a significant interaction between race and age. Young blacks are treated more harshly than young whites. However, older blacks were treated less harshly than older whites.
-
-In a previous session, we discussed the difficulties of interpreting regression coefficients in models with interactions. Centring and standardising in the way discussed earlier can actually be of help for this purpose.
-
-
-
-## Further resources
-
-These are a set of useful external resources that may aid your comprehension (and I have partly relied upon myself, so credit to them!):
-
-
-
-+ The [UCLA guide](http://www.ats.ucla.edu/stat/r/dae/logit.htm) to using logistic regression with R.
-
-+ A [helpful list of resources](http://www.r-bloggers.com/some-r-resources-for-glms/) for general linear models with R.
 
 <!--## Summary: exercise for this week
 Once you finish your lab session, don't forget to do this [Exercise](https://eonk.shinyapps.io/MCD_ex) and have a chance to sum-up this week's R codes.

@@ -85,13 +85,11 @@ fitting-and-interpreting-a-multiple-regression-model
 rescaling-input-variables-to-assist-interpretation
 testing-conditional-hypothesis-interactions
 multicollinearity
-studying-relationships-between-two-factors
+categorical-variables-and-logistic-regression
 cross-tabulations
-expected-frequencies-and-chi-square
-odds-and-odd-ratios
+regression-modelling-why-not-linear-regression
 logistic-regression
 fitting-logistic-regression
-assessing-model-fit-confusion-matrix
 interactions
 further-resources-2
 statistical-inference

@@ -786,13 +786,6 @@ Then we load `GGally)` and run the scatterplot matrix using the `ggpairs` functi
 
 ```r
 library(GGally)
-```
-
-```
-## Warning: package 'GGally' was built under R version 4.3.2
-```
-
-```r
 ggpairs(Boston_spm)
 ```
 
@@ -872,13 +865,6 @@ As we said earlier, `ggthemes` gives you additional themes you can use. For exam
 
 ```r
 library(ggthemes)
-```
-
-```
-## Warning: package 'ggthemes' was built under R version 4.3.2
-```
-
-```r
 ggplot(Boston, aes(x = medv, y = crim, colour = as.factor(chas))) +
   geom_point() +
   ggtitle("Fig 1.Crime, Property Value and River Proximity of Boston Towns") +
