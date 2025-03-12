@@ -25,7 +25,7 @@ This week we will use the `Arrests` dataset from the `effects` package. You can 
 library(effects)
 
 # load the dataset "Arrests"
-data(Arrests, package = "effects")
+data(Arrests)#, package = "effects")
 ```
 
 Please note that, when importing data into `R` using the `data()` function, the imported object may not immediately appear in the Environment panel. Worry not---if you didn't receive any error messages, the data frame `Arrests` (note the capitalised letter!) should be loaded into your `R` session. To double check, let's check the dimensions of this data frame.
@@ -134,7 +134,7 @@ For example, among all arrestees who received a harsher treatment, `r paste(prop
 
 This is of less substantial interest to us, as we are typically interested in assessing the distribution of the dependent variable across groups of the independent variable. If you include your dependent variable in the columns (which is not conventional), then you might want to compute column percentages. Pay very close attention to this. It is a very common mistake to interpret a cross tab the wrong way if you don't do as explained here. 
 
-To reiterate, there are two rules for producing and reading cross tabs the right way. The first rule for reading cross-tabulations is that **if your dependent variable is defining the rows, then you ask for the column percentages. If, on the other hand, you decided that you preferred to have your dependent variable define the columns (as seen here), then you would need to ask for the row percentages**. Make sure you remember this.
+To reiterate, there are two rules for producing and reading cross tabs the right way. The first rule for reading cross-tabulations is that ** if your dependent variable defines the columns (as seen here), then you would need to ask for the row percentages. If, on the other hand, you decided that you preferred to have your dependent variable defining the rows, then you ask for the column percentages.**. Make sure you remember this.
 
 <br>
 </details>
