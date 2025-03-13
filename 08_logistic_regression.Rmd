@@ -9,13 +9,13 @@ In previous weeks, we ventured into the world of bivariate analysis and even mul
 
 We essentially learned how to handle every possible scenario when the dependent variable is numerical. For instance, if the independent variable is binary, we are interested in the mean difference---i.e., the extent to which the average score of the dependent variable is different in one group in relation to the other group. If the independent variable is categorical with more than two groups, we are interested in the extent to which average scores of the dependent variable are different in each of the groups in relation to a reference group. If the independent variable is numerical, we are interested in the extent to which average scores of the dependent variable are expected to change based on every one-unit increase in the independent variable. In all these cases, we saw that the linear regression model provides a powerful framework for quantifying these relationships. In every scenario, the slope coefficient represents the association between any independent variable and a numerical variable.
 
-Now, however powerful and versatile linear regression models are, they rely on a key assumption: the dependent variable must be numerical. Models are very flexible as to what can go into the right-hand side of the linear equation, but the left-hand side is pretty restrictive. So, what do we do when we have a categorical dependent variable? That's our focus this week! This week is all about categorical variables. We begin by introducing a common method for *describing* relationships between any two categorical variables: cross-tabulations. We then move on and learn about a new type of regression model---one that is *very* similar to everything we already know about linear regression models, but designed to accommodate binary dependent variables: **logistic regression models**.
+Now, however powerful and versatile linear regression models are, they rely on a key assumption: the dependent variable must be numerical. Models are very flexible as to what can go into the right-hand side of the linear equation, but the left-hand side is pretty restrictive. So, what do we do when we have a categorical dependent variable? That's our focus this week! This week is all about categorical variables. We begin by introducing a common method for *describing* relationships between any two categorical variables: cross-tabulations. We then move on and learn about a new type of regression model---one that is *very* similar to everything we already know about linear regression models but designed to accommodate binary dependent variables: **logistic regression models**.
 
 ## Cross-tabulations
 
 In earlier sessions, we covered how to run frequency distributions using the `table()` function. Cross tabulations, also called **contingency tables**, are essentially crossed frequency distributions, where you plot the frequency distributions of more than one categorical variable simultaneously. This semester, we are only going to explore **two-way cross-tabulations**, that is, contingency tables where we plot the frequency distribution of *two* categorical variables at the same time. Frequency distributions are a useful way of exploring categorical variables that do not have too many categories. By extension, cross-tabulations are a useful way of exploring relationships between two categorical variables that do not have too many levels or categories.
 
-This week we will use the `Arrests` dataset from the `effects` package. You can obtain details about this dataset and the variables included by using `help(Arrests, package="effects")`. If you don't have that package, you must install and load it.
+This week, we will use the `Arrests` dataset from the `effects` package. You can obtain details about this dataset and the variables included by using `help(Arrests, package="effects")`. If you don't have that package, you must install and load it.
 
 ```{r, warning=FALSE, message=FALSE }
 # install package if you haven't done so
@@ -28,14 +28,14 @@ library(effects)
 data(Arrests)#, package = "effects")
 ```
 
-Please note that, when importing data into `R` using the `data()` function, the imported object may not immediately appear in the Environment panel. Worry not---if you didn't receive any error messages, the data frame `Arrests` (note the capitalised letter!) should be loaded into your `R` session. To double check, let's check the dimensions of this data frame.
+Please note that when importing data into `R` using the `data()` function, the imported object may not immediately appear in the Environment panel. Worry not---if you didn't receive any error messages, the data frame `Arrests` (note the capitalised letter!) should be loaded into your `R` session. To double-check, let's check the dimensions of this data frame.
 
 ```{r}
 # check the dimensions of the 'Arrests' object
 dim(Arrests)
 ```
 
-We can see that the data frame `Arrests` has 5226 observations and 8 columns. The unit of analysis here are individuals arrested in Toronto for possession of marijuana. For each of such 5226 individuals, we have information on eight characteristics. Let's check the names of the variables.
+We can see that the data frame `Arrests` has 5226 observations and 8 columns. The unit of analysis here is individuals arrested in Toronto for possession of marijuana. For each of these 5226 individuals, we have information on eight characteristics. Let's check the names of the variables.
 
 ```{r}
 # check the names of all columns in 'Arrests'
@@ -65,7 +65,7 @@ table_released <- table(Arrests$released)
 prop.table(table_released)
 ```
 
-In other words, `r paste(prop.table(table_released)[2] %>% round(4) * 100, "%", sep = "")` of arrestees were released with a summons, and `r paste(prop.table(table_released)[1] %>% round(4) * 100, "%", sep = "")` received a harsher treatment. Let's see if we can develop an understanding of the factors that affect this outcome. In particular, let's assume our research goal is to investigate whether race is associated with harsher treatment. In this case, race is our independent variable and the treatment offered to the arrestees is our dependent variable. 
+In other words, `r paste(prop.table(table_released)[2] %>% round(4) * 100, "%", sep = "")` of arrestees were released with a summons, and `r paste(prop.table(table_released)[1] %>% round(4) * 100, "%", sep = "")` received a harsher treatment. Let's see if we can develop an understanding of the factors that affect this outcome. In particular, let's assume our research goal is to investigate whether race is associated with harsher treatment. In this case, race is our independent variable, and the treatment offered to the arrestees is our dependent variable. 
 
 Let's quickly examine our independent variable too.
 
@@ -82,7 +82,7 @@ prop.table(table_colour)
  
 Now we know that our sample contains `r table_colour[1]` (`r paste(prop.table(table_colour)[1] %>% round(4) * 100, "%", sep = "")`) Black arrestees and `r table_colour[2]` (`r paste(prop.table(table_colour)[2] %>% round(4) * 100, "%", sep = "")`) White arrestees.
 
-Given that they are both categorical variable, we can start producing a cross-tabulation. We can simply use the `table()` function and another variable as a second argument in the function. The first variable included in the function will be represented by rows, whereas the second variable will be represented by columns. Conventionally, we usually include the dependent variable in the columns and the independent variable in the rows
+Given that they are both categorical variables, we can start producing a cross-tabulation. We can simply use the `table()` function and another variable as a second argument in the function. The first variable included in the function will be represented by rows, whereas the second variable will be represented by columns. Conventionally, we usually include the dependent variable in the columns and the independent variable in the rows
 
 ```{r}
 # produce a cross-tabulation and store it under "crosstab_released"
@@ -94,7 +94,7 @@ crosstab_released
 
 By checking both frequency distributions at the same time, we can see that `r crosstab_released[1,1]` arrestees are Black and received a harsher treatment, `r crosstab_released[1,2]` are Black and were released with a summons, `r crosstab_released[2,1]` are White and received a harsher treatment, and `r crosstab_released[2,2]` are White and were released with a summons. So, is there an association? Do we think that Black arrestees are treated more harshly than White arrestees?
 
-As before, just looking at the raw counts is tricky. A better approach is to look at *proportions*. But which proportions? If we simply use the `prop.table()` function, `R` will calculate the **total percentages**---but that is not very helpful to address our question.
+As before, just looking at the raw counts is tricky. A better approach is to look at *proportions*. But which proportions? If we simply use the `prop.table()` function, `R` will calculate the **total percentages**---but that is not very helpful in addressing our question.
 
 ```{r}
 # compute total proportions of the cross-tabulation
@@ -132,7 +132,7 @@ prop.table(crosstab_released, margin = 2)
 
 For example, among all arrestees who received a harsher treatment, `r paste(prop.table(crosstab_released,2)[1,1] %>% round(4) *100, "%", sep = "")` are Black and `r paste(prop.table(crosstab_released,2)[2,1] %>% round(4) *100, "%", sep = "")` are White. Among all arrestees who were released with a summons, `r paste(prop.table(crosstab_released,2)[2,1] %>% round(4) *100, "%", sep = "")` are Black and `r paste(prop.table(crosstab_released,2)[2,2] %>% round(4) *100, "%", sep = "")` are White.
 
-This is of less substantial interest to us, as we are typically interested in assessing the distribution of the dependent variable across groups of the independent variable. If you include your dependent variable in the columns (which is not conventional), then you might want to compute column percentages. Pay very close attention to this. It is a very common mistake to interpret a cross tab the wrong way if you don't do as explained here. 
+This is of less substantial interest to us, as we are typically interested in assessing the distribution of the dependent variable across groups of the independent variable. If you include your dependent variable in the columns (which is not conventional), then you might want to compute column percentages. Pay very close attention to this. It is a very common mistake to interpret a crosstab the wrong way if you don't do it as explained here. 
 
 To reiterate, there are two rules for producing and reading cross tabs the right way. The first rule for reading cross-tabulations is that ** if your dependent variable defines the columns (as seen here), then you would need to ask for the row percentages. If, on the other hand, you decided that you preferred to have your dependent variable defining the rows, then you ask for the column percentages.**. Make sure you remember this.
 
@@ -140,7 +140,7 @@ To reiterate, there are two rules for producing and reading cross tabs the right
 </details>
 
 
-While the `table()` and `prop.table()` functions do everything we need, some other functions in `R` allow a better formatted inspection of cross-tabulations. For example, the `tbl_cross()` function from the `gtsummary` package provides a neat table with all the information we need. This is how it works.
+While the `table()` and `prop.table()` functions do everything we need, some other functions in `R` allow a better-formatted inspection of cross-tabulations. For example, the `tbl_cross()` function from the `gtsummary` package provides a neat table with all the information we need. This is how it works.
 
 ```{r, eval = F}
 # template for the tbl_cross() function
@@ -160,20 +160,20 @@ library(gtsummary)
 tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
 ```
 
-Same information, but much better! Much less cluttered. We can see the frequency distribution *and* the **marginal frequencies**---i.e., totals by rows and columns which appear along the right and the bottom. We can also see the row percentages, which allows us to conclude that Black arrestees tend to receive a harsher treatment than White arrestees.
+It's the same information but much better! Much less cluttered. We can see the frequency distribution *and* the **marginal frequencies**---i.e., totals by rows and columns which appear along the right and the bottom. We can also see the row percentages, which allows us to conclude that Black arrestees tend to receive a harsher treatment than White arrestees.
 
-This can sound a bit confusing now. But as long as you remember your dependent should always define the columns, and therefore you should ask for the row percentages, you should be fine. There are always students who get this wrong in the assignments and lose points as a result. Don't let it be you.
+This can sound a bit confusing now. But as long as you remember, your dependent should always define the columns, and therefore, you should ask for the row percentages, and you should be fine. There are always students who get this wrong in the assignments and lose points as a result. Don't let it be you.
 
 The second rule for reading cross-tabulations the right way is this: **You make the comparisons across the right percentages in the direction where they do not add up to a hundred**. Another way of saying this is that you compare the percentages for each level of your dependent variable across the levels of your independent variable. In this case, we would, for example, compare the police decision to release arrestees with a summons or take them to the station. Looking at the first column only---arrestees who were not released, i.e., who received a harsher treatment---we can see that Black individuals are 26% and White individuals are 14%. Looking at the second column only---arrestees who were released with a summons---we can see that Black individuals are 74% and White individuals are 86%.
 
 **Your turn!** Using cross-tabulations, what do you conclude about the association between the following variables:
 
-+ Do arrestees with a citizenship status tend to receive a harsher treatment by the police?
++ Do arrestees with a citizenship status tend to receive harsher treatment by the police?
 
 <details>
 <summary><i>Reveal answer!</i></summary>
 
-In this case, police treatment is our dependent variable. We operationalise it using the `released` variable, which indicates whether arrestees were released with a summons or received a harsher treatment. Citizenship status is our independent variable, and the variable `citizen` indicates whether arrestees have are Canadian citizens or not. Given that they are both categorical (binary) variables, we produce a cross-tabulation to assess whether they are associated.
+In this case, police treatment is our dependent variable. We operationalise it using the `released` variable, which indicates whether arrestees were released with a summons or received harsher treatment. Citizenship status is our independent variable, and the variable `citizen` indicates whether arrestees are Canadian citizens or not. Given that they are both categorical (binary) variables, we produce a cross-tabulation to assess whether they are associated.
 
 We know that `r paste(prop.table(table_released)[1] %>% round(4) * 100, "%", sep = "")` arrestees received a harsher treatment and `r paste(prop.table(table_released)[2] %>% round(4) * 100, "%", sep = "")` were released with a summons. If citizenship status is not associated with police treatment (i.e., if the null hypothesis is true), we should expect roughly similar proportions among both citizens and non-citizens. If, however, proportions across citizens and non-citizens are different, that would serve as evidence that the two variables could be associated.
 
@@ -184,12 +184,12 @@ Let's have a look at the cross-tabulation.
 tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
 ```
 
-The table indicates that, while among citizens only 15% arrestees received a harsher treatment, 27% of arrestees without a citizenship status had the same decision. Similarly, while 85% of those with citizenship status were released with a summons, only 73% of those without citizenship status were released. This suggests that citizenship status seems to be associated with police treatment, as non-citizen individuals appear to be more likely receive a harsher treatment.
+The table indicates that, while only 15% of arrestees received harsher treatment among citizens, 27% of arrestees without citizenship status had the same decision. Similarly, while 85% of those with citizenship status were released with a summons, only 73% of those without citizenship status were released. This suggests that citizenship status seems to be associated with police treatment, as non-citizen individuals appear to be more likely to receive harsher treatment.
 
 <br>
 </details>
 
-+ Do male arrestees tend to receive a harsher treatment by the police?
++ Do male arrestees tend to receive harsher treatment by the police?
 
 <details>
 <summary><i>Reveal answer!</i></summary>
@@ -205,7 +205,7 @@ Let's have a look at the cross-tabulation.
 tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
 ```
 
-The table indicates that 17% of male arrestees and 14% of female arrestees received a harsher treatment, while 83% of male arrestees and 86% of female arrestees were released with a summons. These number are very similar, and approximately follow the overall tendencies of arrestees who were (83%) and who were not released with a summons (17%). This suggests that gender does not seem to be associated with police treatment.
+The table indicates that 17% of male arrestees and 14% of female arrestees received harsher treatment, while 83% of male arrestees and 86% of female arrestees were released with a summons. These numbers are very similar and approximately follow the overall tendencies of arrestees who were (83%) and who were not released with a summons (17%). This suggests that gender does not seem to be associated with police treatment.
 
 <br>
 </details>
@@ -226,11 +226,11 @@ But what if the independent variable is numerical? Or, what if we have more than
 
 Can't we simply fit linear regression models with categorical dependent variables?
 
-No. Or rather, the short answer is no. The long answer is... sometimes. When the dependent variable is binary, in some circumstances, we can fit a linear regression model---these are called linear probability models. But that's beyond our scope this semester. As far as this course unit goes, let's stick to the short answer: no, we cannot.
+No. Rather, the short answer is no. The long answer is... sometimes. When the dependent variable is binary, in some circumstances, we can fit a linear regression model---these are called linear probability models. But that's beyond our scope this semester. As far as this course unit goes, let's stick to the short answer: no, we cannot.
 
 The reason why we cannot fit linear regression models with categorical dependent variables is simple: this violates some of the key assumptions in linear regression models. All assumptions somehow get back to the fact that the dependent variable is numerical and as close as possible to normally distributed. If the dependent variable is categorical, there is not much we can do...
 
-...in terms of *linear* regression. But there other types of regression models! One of them, **logistic regression models**, was designed specifically to handle categorical binary variables. That's our focus now!  We have binomial logistic regression models for binary dependent variables, ordinal logistic regression models for ordinal dependent variables, and multinomial logistic regression models for nominal (unordered) dependent variables. In this course unit, we are only going to learn about **binomial logistic regression models**---when the dependent variable is **binary**. Other types of categorical dependent variables will unfortunately not be covered this semester.
+...in terms of *linear* regression. But there are other types of regression models! One of them, **logistic regression models**, was designed specifically to handle categorical binary variables. That's our focus now!  We have binomial logistic regression models for binary dependent variables, ordinal logistic regression models for ordinal dependent variables, and multinomial logistic regression models for nominal (unordered) dependent variables. In this course unit, we are only going to learn about **binomial logistic regression models**---when the dependent variable is **binary**. Other types of categorical dependent variables will, unfortunately, not be covered this semester.
 
 Now, let's see how we can adapt everything we know about linear regression models!
 
@@ -241,16 +241,16 @@ In previous sessions, we covered linear regression models, which can be used to 
 
 In criminology, very often, you will be interested in binary outcomes---e.g., we might want to investigate why some people have been stopped by the police whereas others have not; or why some people have been victimised while others have not; or why some people engage in criminal conduct while others do not, etc.---and want to use a number of independent variables to study these outcomes. It is, then, helpful to understand how to use these models. Logistic regression is part of a broader family of models called **generalised linear models**---it's essentially a technical expansion of linear regression models for dependent variables that are not numerical and do not follow a normal distribution. You should read the Wikipedia entry for this concept [here](https://en.wikipedia.org/wiki/Generalized_linear_model).
 
-With logistic regression, we model the probability of belonging to one of the levels in the binary outcome. For any combination of values for our independent variables, the model estimates the probability of presenting the outcome of interest. The mathematics behind this estimation is beyond the scope of our course unit; it suffices to say that, while linear regression coefficients are estimated using *ordinary least squares* (see Chapter 6), logistic regression coefficients are estimated using **maximum likelihood**---one of the most important estimators in statistics.
+With logistic regression, we model the probability of belonging to one of the levels in the binary outcome. For any combination of values for our independent variables, the model estimates the probability of presenting the outcome of interest. The mathematics behind this estimation is beyond the scope of our course unit; it suffices to say that while linear regression coefficients are estimated using *ordinary least squares* (see Chapter 6), logistic regression coefficients are estimated using **maximum likelihood**---one of the most important estimators in statistics.
 
 In logistic regression, we also start with a model in which variables of interest (e.g., $Y, X_1, X_2, ...$) are related to each other based on parameters that we need to estimate (e.g., $\alpha, \beta_1, \beta_2, ...$). Remember what the linear model looks like:
 
 $$
 Y = \alpha + \beta_1 \cdot X_1 + \beta_2 \cdot X_2 + ... + \beta_n\cdot X_n
 $$
-With logistic regression, we want to estimate a similar model. The right-hand side will remain unchanged: a combination of independent variables influencing the outcome based on estimated $\beta$ coefficients. However, the left-hand side of the equation does not work anymore. Because the dependent variable is now binary, the left-hand side of this linear model is no longer appropriate. If $Y$ is binary, that means that it can only have two values---e.g., 0 or 1. To avoid confusion and ensure that we know that this is a binary variable, let's call $p$ when $y=1$ and $1-p$ when $y=0$. If we were to simply estimate a linear model with a binary dependent variable, then this linear equation could end up yielding all sorts of values of $Y$---values that are not 0 or 1.^[If values were between 0 and 1, that wouldn't be so problematic. Scores between 0 and 1 would simply be treated as estimated probabilities, which is what the linear probability model does. The problem is that the model can also yield scores greater than 1 and lower 0, which are no longer interpretable as probabilities.]
+With logistic regression, we want to estimate a similar model. The right-hand side will remain unchanged: a combination of independent variables influencing the outcome based on estimated $\beta$ coefficients. However, the left-hand side of the equation does not work anymore. Because the dependent variable is now binary, the left-hand side of this linear model is no longer appropriate. If $Y$ is binary, that means that it can only have two values---e.g., 0 or 1. To avoid confusion and ensure that we know that this is a binary variable, let's call it $p$ when $y=1$ and $1-p$ when $y=0$. If we were to simply estimate a linear model with a binary dependent variable, then this linear equation could end up yielding all sorts of values of $Y$---values that are not 0 or 1.^[If values were between 0 and 1, that wouldn't be so problematic. Scores between 0 and 1 would simply be treated as estimated probabilities, which is what the linear probability model does. The problem is that the model can also yield scores greater than 1 and lower than 0, which are no longer interpretable as probabilities.]
 
-The logistic regression model solves this issue but modelling the *odds* of an event occurring. Unlike linear models, which directly model the dependent variable, logistic regression focuses on the ratio $\frac{p}{1-p}$, known as **odds**. If you are familiar with betting, you may already know a thing or two about odds. Odds represent how much more likely an event is to happen than not to happen.
+The logistic regression model solves this issue by modelling the *odds* of an event occurring. Unlike linear models, which directly model the dependent variable, logistic regression focuses on the ratio $\frac{p}{1-p}$, known as **odds**. If you are familiar with betting, you may already know a thing or two about odds. Odds represent how much more likely an event is to happen than not to happen.
 
 Let's go back to our example: marijuana-possession arrestees in Toronto. We know, from above, that most arrestees are released with a summons. Let's remember the numbers:
 
@@ -259,9 +259,9 @@ Let's go back to our example: marijuana-possession arrestees in Toronto. We know
 table_released
 ```
 
-So, we know that $p=$ `r table_released[2]` arrestees were released with a summons and that $1-p=$ `r table_released[1]` received a harsher treatment. If we want to calculate the **odds of being released with a summons**, we simply need to calculate the ratio $\frac{p}{1-p}=\frac{4334}{892}$. In this case, the odds are 4.86, which means that being released with a summons is 4.86 times more likely to occur than receiving a harsher treatment.
+So, we know that $p=$ `r table_released[2]` arrestees were released with a summons and that $1-p=$ `r table_released[1]` received a harsher treatment. If we want to calculate the **odds of being released with a summons**, we simply need to calculate the ratio $\frac{p}{1-p}=\frac{4334}{892}$. In this case, the odds are 4.86, which means that being released with a summons is 4.86 times more likely to occur than receiving harsher treatment.
 
-Our goal will be to treat these odds as our main target! Is the colour of the arrestee associated with increases or decreases in the odds of being released with a summons? What about citizenship status, is it associated with increases or decreases in the odds of being released with a summons? Going back to the linear model above, we are going to put the odds of an event occurring in the left-hand side of the equation!
+Our goal will be to treat these odds as our main target! Is the colour of the arrestee associated with increases or decreases in the odds of being released with a summons? What about citizenship status? Is it associated with increases or decreases in the odds of being released with a summons? Going back to the linear model above, we are going to put the odds of an event occurring in the left-hand side of the equation!
 
 Unfortunately, for a bunch of mathematical reasons that we don't need to worry about for now, we cannot simply put the odds $\frac{p}{1-p}$ in the left-hand side of the equation. Instead, we need to put the *natural logarithm of the odds* in the left-hand side of the equation:
 
@@ -270,9 +270,9 @@ log \bigg( \frac{p}{1-p} \bigg) = \alpha + \beta_1 \cdot X_1 + \beta_2 \cdot X_2
 $$
 Don't worry about that logarithm in the equation. We will get rid of it soon. For now, what we can see is that the right-hand side of the equation remains unchanged. And the left-hand side of the equation includes some stuff that we still don't know how to interpret. Let's give a name for the stuff on the left-hand side of the equation: let's call it **logit**. The *logit* of a binary variable is the natural logarithm of the odds of the event occurring. That's why this model is called **logistic regression**!
 
-But because the right-hand side of the equation remains unchanged, so will our interpretation! For instance, we can simply say that a one-unit increase in $X_1$ is associated with a $\beta_1$-increase in the *log-odds* of $Y$. The same applies for binary independent variables, categorical independent variables, multiple regression models, and interactions---everything that we learned about interpreting linear regression models applies here, as long we remember that everything refers to the *log-odds* of the dependent variable.
+But because the right-hand side of the equation remains unchanged, so will our interpretation! For instance, we can simply say that a one-unit increase in $X_1$ is associated with a $\beta_1$-increase in the *log-odds* of $Y$. The same applies to binary independent variables, categorical independent variables, multiple regression models, and interactions---everything that we learned about interpreting linear regression models applies here, as long we remember that everything refers to the *log-odds* of the dependent variable.
 
-So, that's great! Or almost... there's only one problem: what does an increase or decrease in the *log-odds* of a variable even mean? Interpreting the log odds-scale is something some people do not find very intuitive. To make thing more intuitive, we need to get rid of the logarithm and get back to odds! After all, what we want to know is the extent to which independent variables are associated with increases or decreases in the *odds* of an event occurring.
+So, that's great! Or almost... there's only one problem: what does an increase or decrease in the *log-odds* of a variable even mean? Interpreting the log odds-scale is something some people do not find very intuitive. To make things more intuitive, we need to get rid of the logarithm and get back to odds! After all, what we want to know is the extent to which independent variables are associated with increases or decreases in the *odds* of an event occurring.
 
 How do we get rid of the log-odds scale? By exponentiating coefficients!
 
@@ -298,7 +298,7 @@ div {
 </style>
 
 <div style="border: 1px solid #ccc; padding: 10px; background-color: #f9f9f9;">
-<b>Interpreting logistic regression coefficients as odds rations</b>  
+<b>Interpreting logistic regression coefficients as odds ratios </b>  
 
 <b>A one-unit increase in $X_1$ multiplies the odds of the event $Y$ occurring by $exp^{\beta_1}$</b>
 </div>
@@ -309,7 +309,7 @@ Odds ratios, by definition, will always be greater than 0. Multiplying something
 + An estimated odds ratio ($exp^{\beta}$) equal to 1 implies no association
 + An estimated odds ratio ($exp^{\beta}$) greater than 1 implies a positive association
 
-Let's practice all that seeking to understand what factors are associated with greater or lower odds of marijuana-possession arrestees being released with a summons!
+Let's practice all that, seeking to understand what factors are associated with greater or lower odds of marijuana-possession arrestees being released with a summons!
 
 ## Fitting logistic regression
 
@@ -319,7 +319,7 @@ It is fairly straightforward to run a logistic model. Assuming that the dependen
 glm(dependent_var ~ independent_var1 + independent_var2 + independent_var3, data = dataset, family = binomial)
 ```
 
-Now, let's fit a multiple logistic regression. The dependent variable, as before, indicates whether arrestees were released with a summons or not. Just to make sure that we are modelling the odds of being released with a summons (and not the odds of receiving a harsher treatment), let's recode the `released` variable accordingly. The comparison group group always be coded as 1, whereas the reference group should always be coded as 0.
+Now, let's fit a multiple logistic regression. The dependent variable, as before, indicates whether arrestees were released with a summons or not. Just to make sure that we are modelling the odds of being released with a summons (and not the odds of receiving a harsher treatment), let's recode the `released` variable accordingly. The comparison group will always be coded as 1, whereas the reference group should always be coded as 0.
 
 ```{r}
 # load the dplyr package
@@ -338,7 +338,7 @@ Now we can fit the multiple logistic regression. As independent variables, let's
 
 
 ```{r}
-# fit a logistic regression model and store it under 'logistic_reg'
+# Fit a logistic regression model and store it under 'logistic_reg'
 logistic_reg <- glm(released ~ colour + sex + checks + employed, data = Arrests, family = binomial)
 
 # print the estimated coefficients
@@ -351,9 +351,9 @@ $$
 log \bigg( \frac{release\_summons}{harsher\_treatment} \bigg) = 1.407 + 0.496\cdot colour - 0.042\cdot sex - 0.358\cdot checks + 0.780\cdot employed
 $$
 
-Based on this, we can conclude that White arrestees' *log-odds* of being released with a summons are $\beta_1=0.496$ larger than Black arrestees' *log-odds* , controlling for sex, previous checks in the criminal justice system, and employment status; that male's *log-odds* of being released are $\beta_2=-0.042$ lower than females', controlling for race, previous checks in the criminal justice system, and employment status; that every additional check in the criminal justice system is associated with a decrease of $\beta_3=-0.358$ in the *log-odds* of being released, controlling for race, sex, and employment status; and that employed arrestees' *log-odds* are $\beta_4=0.780$ larger than the *log-odds* among unemployed arrestees, controlling for race, sex, and checks in the criminal justice system.
+Based on this, we can conclude that White arrestees' *log-odds* of being released with a summons are $\beta_1=0.496$ larger than Black arrestees' *log-odds*, controlling for sex, previous checks in the criminal justice system, and employment status; that male's *log-odds* of being released are $\beta_2=-0.042$ lower than females', controlling for race, previous checks in the criminal justice system, and employment status; that every additional check in the criminal justice system is associated with a decrease of $\beta_3=-0.358$ in the *log-odds* of being released, controlling for race, sex, and employment status; and that employed arrestees' *log-odds* are $\beta_4=0.780$ larger than the *log-odds* among unemployed arrestees, controlling for race, sex, and checks in the criminal justice system.
 
-So what does that actually mean? As mentioned above, interpreting the log odds scale is something some people do not find very intuitive. So, using **odd ratios** when interpreting logistic regression is common. To do this, all we need to do is to exponentiate the coefficients. To get the exponentiated coefficients, you tell `R` that you want to exponentiate (`exp()`), that the object you want to exponentiate is called coefficients, and it is part of the model you just run. We can do this in several steps or in one step.
+So what does that actually mean? As mentioned above, interpreting the log odds scale is something some people do not find very intuitive. So, using **odd ratios** when interpreting logistic regression is common. To do this, all we need to do is to exponentiate the coefficients. To get the exponentiated coefficients, you tell `R` that you want to exponentiate (`exp()`), that the object you want to exponentiate is called coefficients, and it is part of the model you just ran. We can do this in several steps or in one step.
 
 ```{r}
 # store regression coefficients under 'coefficients'
@@ -363,7 +363,7 @@ coefficients <- coef(logistic_reg)
 exp(coefficients)
 ```
 
-Much better! Now that we exponentiated the coefficients, we have **odds ratios**---which are much easier to interpret than coefficients in the *log-odds* scale.
+Much better! Now that we have exponentiated the coefficients, we have **odds ratios**---, which are much easier to interpret than coefficients on the *log-odds* scale.
 
 + White arrestees' odds of being released with a summons are 64% higher than Black arrestees' odds of being released with a summons, controlling for sex, checks in the criminal justice system, and employment status.
     - i.e., being White multiplies the odds of release with a summons by 1.64.
@@ -371,7 +371,7 @@ Much better! Now that we exponentiated the coefficients, we have **odds ratios**
     - i.e., being male multiplies the odds of release with a summons by 0.96.
 + Every additional check in the criminal justice system is associated with a decrease of 30.1% in the odds of being released with a summons, controlling for race, sex, and employment status
     - i.e., every additional check in the criminal justice system multiplies the odds of being released with a summons by 0.70.
-+ Employed arrestees' odds of being released with a summons are more than twice as higher than unemployed arrestees' odds of being released with a summons, controlling for race, sex, and employment status.
++ Employed arrestees' odds of being released with a summons are more than twice as high as unemployed arrestees' odds of being released with a summons, controlling for race, sex, and employment status.
     - i.e., being employed multiplies the odds of release with a summons by 2.18.
 
 For more details on interpreting odd ratios in logistic regression, you may want to read [this](http://www.ats.ucla.edu/stat/mult_pkg/faq/general/odds_ratio.htm). Some people do not like odd ratios. For other ways of interpreting logistic regression coefficients, you may want to consult [chapter 5 of the book](http://www.cambridge.org/gb/academic/subjects/statistics-probability/statistical-theory-and-methods/data-analysis-using-regression-and-multilevelhierarchical-models?format=PB) by Gelman and Hill (2007).
@@ -451,17 +451,17 @@ These are a set of useful external resources that may aid your comprehension (an
 <!--
 ## Assessing model fit I: deviance and pseudo r squared
 
-As you may remember, when looking at linear models, we could use an F test to check the overall fit of the model, and we could evaluate R squared. When running logistic regression, we cannot obtain the R squared (although there is a collection of pseudo-R^2 measures that have been produced). In linear regression, things are a bit simpler. As Menard (2010: 43) explains:
+As you may remember, when looking at linear models, we could use the R squared to check the overall fit of the model. When running logistic regression, we cannot obtain the R squared (although there is a collection of pseudo-R^2 measures that have been produced). In linear regression, things are a bit simpler. As Menard (2010: 43) explains:
 
 > "there is only one reasonable residual variation criterion for quantitative variables in OLS, the familiar error sum of squares... but there are several possible residual variation criteria (entropy, squared error, qualitative difference) for binary variables. Another hindrance is the existence of numerous mathematical equivalents to R^2 in OLS, which are not necessarily mathematically (same formula) or conceptually (same meaning in the context of the model) equivalent to R^2 in logistic regression... Moreover, in logistic regression, we must choose whether we are more interested in qualitative prediction (whether predicitons are correct or incorrect), quantitative prediction (how close predictions are to being correct), or both, because different measures of explained variation are appropriate for these two different types of prediction"
 
 A common starting point for assessing model fit is to look at the **log-likelihood statistic** and the **deviance** (also referred to as -2LL). 
 
-The log-likelihood aims to provide a measure of how much-unexplained variation there is after you fit the mode. Large values indicate poor fit. 
+The log-likelihood aims to provide a measure of how much-unexplained variation there is after you fit the mode. Large values indicate a poor fit. 
 
 The deviance, on the other hand, is simply the log-likelihood multiplied by -2 and is generally abbreviated as -2LL. The deviance will be a positive value, and *larger values indicate worse prediction* of the response variable. It is analogous to the error sum of squares in linear regression. In the same way that OLS linear regression tries to minimise the error sum of squares, maximum likelihood logistic regression tries to minimise the -2LL.
 
-The difference between the -2LL for the model with no predictors and the -2LL for the model with all the predictors is the closer we get in logistic regression to the regression sum of squares. This difference is often called **model chi-squared**, and it provides a test of the null hypothesis that all the regression coefficients equal zero. It is, thus, equivalent to the F test in OLS regression.
+The difference between the -2LL for the model with no predictors and the -2LL for the model with all the predictors is the closer we get in logistic regression to the regression sum of squares. This difference is often called **model chi-squared**, and it provides a test of the null hypothesis that all the regression coefficients equal zero. <!--It is, thus, equivalent to the F test in OLS regression.--->
 
 ```{r, echo=FALSE}
 #summary(fitl_1)
