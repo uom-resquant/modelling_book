@@ -234,23 +234,23 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
 ```
 
 ```{=html}
-<div id="dpnjcmpret" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#dpnjcmpret table {
+<div id="vwnbyzphtk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vwnbyzphtk table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#dpnjcmpret thead, #dpnjcmpret tbody, #dpnjcmpret tfoot, #dpnjcmpret tr, #dpnjcmpret td, #dpnjcmpret th {
+#vwnbyzphtk thead, #vwnbyzphtk tbody, #vwnbyzphtk tfoot, #vwnbyzphtk tr, #vwnbyzphtk td, #vwnbyzphtk th {
   border-style: none;
 }
 
-#dpnjcmpret p {
+#vwnbyzphtk p {
   margin: 0;
   padding: 0;
 }
 
-#dpnjcmpret .gt_table {
+#vwnbyzphtk .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -276,12 +276,12 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   border-left-color: #D3D3D3;
 }
 
-#dpnjcmpret .gt_caption {
+#vwnbyzphtk .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#dpnjcmpret .gt_title {
+#vwnbyzphtk .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -293,7 +293,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   border-bottom-width: 0;
 }
 
-#dpnjcmpret .gt_subtitle {
+#vwnbyzphtk .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -305,7 +305,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   border-top-width: 0;
 }
 
-#dpnjcmpret .gt_heading {
+#vwnbyzphtk .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -317,13 +317,13 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   border-right-color: #D3D3D3;
 }
 
-#dpnjcmpret .gt_bottom_border {
+#vwnbyzphtk .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#dpnjcmpret .gt_col_headings {
+#vwnbyzphtk .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -338,7 +338,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   border-right-color: #D3D3D3;
 }
 
-#dpnjcmpret .gt_col_heading {
+#vwnbyzphtk .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -358,7 +358,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   overflow-x: hidden;
 }
 
-#dpnjcmpret .gt_column_spanner_outer {
+#vwnbyzphtk .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -370,15 +370,15 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   padding-right: 4px;
 }
 
-#dpnjcmpret .gt_column_spanner_outer:first-child {
+#vwnbyzphtk .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#dpnjcmpret .gt_column_spanner_outer:last-child {
+#vwnbyzphtk .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#dpnjcmpret .gt_column_spanner {
+#vwnbyzphtk .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -390,11 +390,11 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   width: 100%;
 }
 
-#dpnjcmpret .gt_spanner_row {
+#vwnbyzphtk .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#dpnjcmpret .gt_group_heading {
+#vwnbyzphtk .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -420,7 +420,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   text-align: left;
 }
 
-#dpnjcmpret .gt_empty_group_heading {
+#vwnbyzphtk .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -435,15 +435,15 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   vertical-align: middle;
 }
 
-#dpnjcmpret .gt_from_md > :first-child {
+#vwnbyzphtk .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#dpnjcmpret .gt_from_md > :last-child {
+#vwnbyzphtk .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#dpnjcmpret .gt_row {
+#vwnbyzphtk .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -462,7 +462,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   overflow-x: hidden;
 }
 
-#dpnjcmpret .gt_stub {
+#vwnbyzphtk .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -475,7 +475,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#dpnjcmpret .gt_stub_row_group {
+#vwnbyzphtk .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -489,15 +489,15 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   vertical-align: top;
 }
 
-#dpnjcmpret .gt_row_group_first td {
+#vwnbyzphtk .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#dpnjcmpret .gt_row_group_first th {
+#vwnbyzphtk .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#dpnjcmpret .gt_summary_row {
+#vwnbyzphtk .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -507,16 +507,16 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#dpnjcmpret .gt_first_summary_row {
+#vwnbyzphtk .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#dpnjcmpret .gt_first_summary_row.thick {
+#vwnbyzphtk .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#dpnjcmpret .gt_last_summary_row {
+#vwnbyzphtk .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -526,7 +526,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   border-bottom-color: #D3D3D3;
 }
 
-#dpnjcmpret .gt_grand_summary_row {
+#vwnbyzphtk .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -536,7 +536,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#dpnjcmpret .gt_first_grand_summary_row {
+#vwnbyzphtk .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -546,7 +546,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   border-top-color: #D3D3D3;
 }
 
-#dpnjcmpret .gt_last_grand_summary_row_top {
+#vwnbyzphtk .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -556,11 +556,11 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   border-bottom-color: #D3D3D3;
 }
 
-#dpnjcmpret .gt_striped {
+#vwnbyzphtk .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#dpnjcmpret .gt_table_body {
+#vwnbyzphtk .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -569,7 +569,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   border-bottom-color: #D3D3D3;
 }
 
-#dpnjcmpret .gt_footnotes {
+#vwnbyzphtk .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -583,7 +583,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   border-right-color: #D3D3D3;
 }
 
-#dpnjcmpret .gt_footnote {
+#vwnbyzphtk .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -592,7 +592,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#dpnjcmpret .gt_sourcenotes {
+#vwnbyzphtk .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -606,7 +606,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   border-right-color: #D3D3D3;
 }
 
-#dpnjcmpret .gt_sourcenote {
+#vwnbyzphtk .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -614,72 +614,72 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#dpnjcmpret .gt_left {
+#vwnbyzphtk .gt_left {
   text-align: left;
 }
 
-#dpnjcmpret .gt_center {
+#vwnbyzphtk .gt_center {
   text-align: center;
 }
 
-#dpnjcmpret .gt_right {
+#vwnbyzphtk .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#dpnjcmpret .gt_font_normal {
+#vwnbyzphtk .gt_font_normal {
   font-weight: normal;
 }
 
-#dpnjcmpret .gt_font_bold {
+#vwnbyzphtk .gt_font_bold {
   font-weight: bold;
 }
 
-#dpnjcmpret .gt_font_italic {
+#vwnbyzphtk .gt_font_italic {
   font-style: italic;
 }
 
-#dpnjcmpret .gt_super {
+#vwnbyzphtk .gt_super {
   font-size: 65%;
 }
 
-#dpnjcmpret .gt_footnote_marks {
+#vwnbyzphtk .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#dpnjcmpret .gt_asterisk {
+#vwnbyzphtk .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#dpnjcmpret .gt_indent_1 {
+#vwnbyzphtk .gt_indent_1 {
   text-indent: 5px;
 }
 
-#dpnjcmpret .gt_indent_2 {
+#vwnbyzphtk .gt_indent_2 {
   text-indent: 10px;
 }
 
-#dpnjcmpret .gt_indent_3 {
+#vwnbyzphtk .gt_indent_3 {
   text-indent: 15px;
 }
 
-#dpnjcmpret .gt_indent_4 {
+#vwnbyzphtk .gt_indent_4 {
   text-indent: 20px;
 }
 
-#dpnjcmpret .gt_indent_5 {
+#vwnbyzphtk .gt_indent_5 {
   text-indent: 25px;
 }
 
-#dpnjcmpret .katex-display {
+#vwnbyzphtk .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#dpnjcmpret div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#vwnbyzphtk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -747,23 +747,23 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
 ```
 
 ```{=html}
-<div id="sarkocfpbq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#sarkocfpbq table {
+<div id="xurylihxjk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xurylihxjk table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#sarkocfpbq thead, #sarkocfpbq tbody, #sarkocfpbq tfoot, #sarkocfpbq tr, #sarkocfpbq td, #sarkocfpbq th {
+#xurylihxjk thead, #xurylihxjk tbody, #xurylihxjk tfoot, #xurylihxjk tr, #xurylihxjk td, #xurylihxjk th {
   border-style: none;
 }
 
-#sarkocfpbq p {
+#xurylihxjk p {
   margin: 0;
   padding: 0;
 }
 
-#sarkocfpbq .gt_table {
+#xurylihxjk .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -789,12 +789,12 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   border-left-color: #D3D3D3;
 }
 
-#sarkocfpbq .gt_caption {
+#xurylihxjk .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#sarkocfpbq .gt_title {
+#xurylihxjk .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -806,7 +806,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   border-bottom-width: 0;
 }
 
-#sarkocfpbq .gt_subtitle {
+#xurylihxjk .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -818,7 +818,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   border-top-width: 0;
 }
 
-#sarkocfpbq .gt_heading {
+#xurylihxjk .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -830,13 +830,13 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   border-right-color: #D3D3D3;
 }
 
-#sarkocfpbq .gt_bottom_border {
+#xurylihxjk .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#sarkocfpbq .gt_col_headings {
+#xurylihxjk .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -851,7 +851,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   border-right-color: #D3D3D3;
 }
 
-#sarkocfpbq .gt_col_heading {
+#xurylihxjk .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -871,7 +871,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   overflow-x: hidden;
 }
 
-#sarkocfpbq .gt_column_spanner_outer {
+#xurylihxjk .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -883,15 +883,15 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   padding-right: 4px;
 }
 
-#sarkocfpbq .gt_column_spanner_outer:first-child {
+#xurylihxjk .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#sarkocfpbq .gt_column_spanner_outer:last-child {
+#xurylihxjk .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#sarkocfpbq .gt_column_spanner {
+#xurylihxjk .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -903,11 +903,11 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   width: 100%;
 }
 
-#sarkocfpbq .gt_spanner_row {
+#xurylihxjk .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#sarkocfpbq .gt_group_heading {
+#xurylihxjk .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -933,7 +933,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   text-align: left;
 }
 
-#sarkocfpbq .gt_empty_group_heading {
+#xurylihxjk .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -948,15 +948,15 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   vertical-align: middle;
 }
 
-#sarkocfpbq .gt_from_md > :first-child {
+#xurylihxjk .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#sarkocfpbq .gt_from_md > :last-child {
+#xurylihxjk .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#sarkocfpbq .gt_row {
+#xurylihxjk .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -975,7 +975,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   overflow-x: hidden;
 }
 
-#sarkocfpbq .gt_stub {
+#xurylihxjk .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -988,7 +988,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#sarkocfpbq .gt_stub_row_group {
+#xurylihxjk .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1002,15 +1002,15 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   vertical-align: top;
 }
 
-#sarkocfpbq .gt_row_group_first td {
+#xurylihxjk .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#sarkocfpbq .gt_row_group_first th {
+#xurylihxjk .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#sarkocfpbq .gt_summary_row {
+#xurylihxjk .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1020,16 +1020,16 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#sarkocfpbq .gt_first_summary_row {
+#xurylihxjk .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#sarkocfpbq .gt_first_summary_row.thick {
+#xurylihxjk .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#sarkocfpbq .gt_last_summary_row {
+#xurylihxjk .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1039,7 +1039,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   border-bottom-color: #D3D3D3;
 }
 
-#sarkocfpbq .gt_grand_summary_row {
+#xurylihxjk .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1049,7 +1049,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#sarkocfpbq .gt_first_grand_summary_row {
+#xurylihxjk .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1059,7 +1059,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   border-top-color: #D3D3D3;
 }
 
-#sarkocfpbq .gt_last_grand_summary_row_top {
+#xurylihxjk .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1069,11 +1069,11 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   border-bottom-color: #D3D3D3;
 }
 
-#sarkocfpbq .gt_striped {
+#xurylihxjk .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#sarkocfpbq .gt_table_body {
+#xurylihxjk .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1082,7 +1082,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   border-bottom-color: #D3D3D3;
 }
 
-#sarkocfpbq .gt_footnotes {
+#xurylihxjk .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1096,7 +1096,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   border-right-color: #D3D3D3;
 }
 
-#sarkocfpbq .gt_footnote {
+#xurylihxjk .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1105,7 +1105,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#sarkocfpbq .gt_sourcenotes {
+#xurylihxjk .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1119,7 +1119,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   border-right-color: #D3D3D3;
 }
 
-#sarkocfpbq .gt_sourcenote {
+#xurylihxjk .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1127,72 +1127,72 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#sarkocfpbq .gt_left {
+#xurylihxjk .gt_left {
   text-align: left;
 }
 
-#sarkocfpbq .gt_center {
+#xurylihxjk .gt_center {
   text-align: center;
 }
 
-#sarkocfpbq .gt_right {
+#xurylihxjk .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#sarkocfpbq .gt_font_normal {
+#xurylihxjk .gt_font_normal {
   font-weight: normal;
 }
 
-#sarkocfpbq .gt_font_bold {
+#xurylihxjk .gt_font_bold {
   font-weight: bold;
 }
 
-#sarkocfpbq .gt_font_italic {
+#xurylihxjk .gt_font_italic {
   font-style: italic;
 }
 
-#sarkocfpbq .gt_super {
+#xurylihxjk .gt_super {
   font-size: 65%;
 }
 
-#sarkocfpbq .gt_footnote_marks {
+#xurylihxjk .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#sarkocfpbq .gt_asterisk {
+#xurylihxjk .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#sarkocfpbq .gt_indent_1 {
+#xurylihxjk .gt_indent_1 {
   text-indent: 5px;
 }
 
-#sarkocfpbq .gt_indent_2 {
+#xurylihxjk .gt_indent_2 {
   text-indent: 10px;
 }
 
-#sarkocfpbq .gt_indent_3 {
+#xurylihxjk .gt_indent_3 {
   text-indent: 15px;
 }
 
-#sarkocfpbq .gt_indent_4 {
+#xurylihxjk .gt_indent_4 {
   text-indent: 20px;
 }
 
-#sarkocfpbq .gt_indent_5 {
+#xurylihxjk .gt_indent_5 {
   text-indent: 25px;
 }
 
-#sarkocfpbq .katex-display {
+#xurylihxjk .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#sarkocfpbq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#xurylihxjk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1257,23 +1257,23 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
 ```
 
 ```{=html}
-<div id="vfdcjmuapi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#vfdcjmuapi table {
+<div id="giybgzuadc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#giybgzuadc table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#vfdcjmuapi thead, #vfdcjmuapi tbody, #vfdcjmuapi tfoot, #vfdcjmuapi tr, #vfdcjmuapi td, #vfdcjmuapi th {
+#giybgzuadc thead, #giybgzuadc tbody, #giybgzuadc tfoot, #giybgzuadc tr, #giybgzuadc td, #giybgzuadc th {
   border-style: none;
 }
 
-#vfdcjmuapi p {
+#giybgzuadc p {
   margin: 0;
   padding: 0;
 }
 
-#vfdcjmuapi .gt_table {
+#giybgzuadc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1299,12 +1299,12 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   border-left-color: #D3D3D3;
 }
 
-#vfdcjmuapi .gt_caption {
+#giybgzuadc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#vfdcjmuapi .gt_title {
+#giybgzuadc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1316,7 +1316,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   border-bottom-width: 0;
 }
 
-#vfdcjmuapi .gt_subtitle {
+#giybgzuadc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1328,7 +1328,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   border-top-width: 0;
 }
 
-#vfdcjmuapi .gt_heading {
+#giybgzuadc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1340,13 +1340,13 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   border-right-color: #D3D3D3;
 }
 
-#vfdcjmuapi .gt_bottom_border {
+#giybgzuadc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vfdcjmuapi .gt_col_headings {
+#giybgzuadc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1361,7 +1361,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   border-right-color: #D3D3D3;
 }
 
-#vfdcjmuapi .gt_col_heading {
+#giybgzuadc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1381,7 +1381,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   overflow-x: hidden;
 }
 
-#vfdcjmuapi .gt_column_spanner_outer {
+#giybgzuadc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1393,15 +1393,15 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   padding-right: 4px;
 }
 
-#vfdcjmuapi .gt_column_spanner_outer:first-child {
+#giybgzuadc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vfdcjmuapi .gt_column_spanner_outer:last-child {
+#giybgzuadc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vfdcjmuapi .gt_column_spanner {
+#giybgzuadc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1413,11 +1413,11 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   width: 100%;
 }
 
-#vfdcjmuapi .gt_spanner_row {
+#giybgzuadc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#vfdcjmuapi .gt_group_heading {
+#giybgzuadc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1443,7 +1443,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   text-align: left;
 }
 
-#vfdcjmuapi .gt_empty_group_heading {
+#giybgzuadc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1458,15 +1458,15 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   vertical-align: middle;
 }
 
-#vfdcjmuapi .gt_from_md > :first-child {
+#giybgzuadc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vfdcjmuapi .gt_from_md > :last-child {
+#giybgzuadc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vfdcjmuapi .gt_row {
+#giybgzuadc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1485,7 +1485,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   overflow-x: hidden;
 }
 
-#vfdcjmuapi .gt_stub {
+#giybgzuadc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1498,7 +1498,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#vfdcjmuapi .gt_stub_row_group {
+#giybgzuadc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1512,15 +1512,15 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   vertical-align: top;
 }
 
-#vfdcjmuapi .gt_row_group_first td {
+#giybgzuadc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#vfdcjmuapi .gt_row_group_first th {
+#giybgzuadc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#vfdcjmuapi .gt_summary_row {
+#giybgzuadc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1530,16 +1530,16 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#vfdcjmuapi .gt_first_summary_row {
+#giybgzuadc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#vfdcjmuapi .gt_first_summary_row.thick {
+#giybgzuadc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#vfdcjmuapi .gt_last_summary_row {
+#giybgzuadc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1549,7 +1549,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   border-bottom-color: #D3D3D3;
 }
 
-#vfdcjmuapi .gt_grand_summary_row {
+#giybgzuadc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1559,7 +1559,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#vfdcjmuapi .gt_first_grand_summary_row {
+#giybgzuadc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1569,7 +1569,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   border-top-color: #D3D3D3;
 }
 
-#vfdcjmuapi .gt_last_grand_summary_row_top {
+#giybgzuadc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1579,11 +1579,11 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   border-bottom-color: #D3D3D3;
 }
 
-#vfdcjmuapi .gt_striped {
+#giybgzuadc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vfdcjmuapi .gt_table_body {
+#giybgzuadc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1592,7 +1592,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   border-bottom-color: #D3D3D3;
 }
 
-#vfdcjmuapi .gt_footnotes {
+#giybgzuadc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1606,7 +1606,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   border-right-color: #D3D3D3;
 }
 
-#vfdcjmuapi .gt_footnote {
+#giybgzuadc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1615,7 +1615,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#vfdcjmuapi .gt_sourcenotes {
+#giybgzuadc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1629,7 +1629,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   border-right-color: #D3D3D3;
 }
 
-#vfdcjmuapi .gt_sourcenote {
+#giybgzuadc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1637,72 +1637,72 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#vfdcjmuapi .gt_left {
+#giybgzuadc .gt_left {
   text-align: left;
 }
 
-#vfdcjmuapi .gt_center {
+#giybgzuadc .gt_center {
   text-align: center;
 }
 
-#vfdcjmuapi .gt_right {
+#giybgzuadc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vfdcjmuapi .gt_font_normal {
+#giybgzuadc .gt_font_normal {
   font-weight: normal;
 }
 
-#vfdcjmuapi .gt_font_bold {
+#giybgzuadc .gt_font_bold {
   font-weight: bold;
 }
 
-#vfdcjmuapi .gt_font_italic {
+#giybgzuadc .gt_font_italic {
   font-style: italic;
 }
 
-#vfdcjmuapi .gt_super {
+#giybgzuadc .gt_super {
   font-size: 65%;
 }
 
-#vfdcjmuapi .gt_footnote_marks {
+#giybgzuadc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#vfdcjmuapi .gt_asterisk {
+#giybgzuadc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#vfdcjmuapi .gt_indent_1 {
+#giybgzuadc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#vfdcjmuapi .gt_indent_2 {
+#giybgzuadc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#vfdcjmuapi .gt_indent_3 {
+#giybgzuadc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#vfdcjmuapi .gt_indent_4 {
+#giybgzuadc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#vfdcjmuapi .gt_indent_5 {
+#giybgzuadc .gt_indent_5 {
   text-indent: 25px;
 }
 
-#vfdcjmuapi .katex-display {
+#giybgzuadc .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#vfdcjmuapi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#giybgzuadc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1814,11 +1814,11 @@ Unfortunately, for a bunch of mathematical reasons that we don't need to worry a
 $$
 log \bigg( \frac{p}{1-p} \bigg) = \alpha + \beta_1 \cdot X_1 + \beta_2 \cdot X_2 + ... + \beta_n\cdot X_n
 $$
-Don't worry about that logarithm in the equation. We will get rid of it soon. For now, what we can see is that the right-hand side of the equation remains unchanged. And the left-hand side of the equation includes some stuff that we still don't know how to interpret. Let's give a name for the stuff on the left-hand side of the equation: let's call it **logit**. The *logit* of a binary variable is the natural logarithm of the odds of the event occurring. That's why this model is called **logistic regression**!
+Don't worry about that logarithm in the equation. We will get rid of it soon. For now, what we can see is that the right-hand side of the equation remains unchanged, and the left-hand side of the equation includes some stuff that we still don't know how to interpret. Let's give a name for the stuff on the left-hand side of the equation: let's call it **logit**. The *logit* of a binary variable is the natural logarithm of the odds of the event occurring. That's why this model is called **logistic regression**!
 
 But because the right-hand side of the equation remains unchanged, so will our interpretation! For instance, we can simply say that a one-unit increase in $X_1$ is associated with a $\beta_1$-increase in the *log-odds* of $Y$. The same applies to binary independent variables, categorical independent variables, multiple regression models, and interactions---everything that we learned about interpreting linear regression models applies here, as long we remember that everything refers to the *log-odds* of the dependent variable.
 
-So, that's great! Or almost... there's only one problem: what does an increase or decrease in the *log-odds* of a variable even mean? Interpreting the log odds-scale is something some people do not find very intuitive. To make things more intuitive, we need to get rid of the logarithm and get back to odds! After all, what we want to know is the extent to which independent variables are associated with increases or decreases in the *odds* of an event occurring.
+So, that's great! Or almost... there's only one problem: what does an increase or decrease in the *log-odds* of a variable even mean? Interpreting the log odds scale is something some people do not find very intuitive. To make things more intuitive, we need to get rid of the logarithm and get back to odds! After all, what we want to know is the extent to which independent variables are associated with increases or decreases in the *odds* of an event occurring.
 
 How do we get rid of the log-odds scale? By exponentiating coefficients!
 
@@ -1866,9 +1866,9 @@ It is fairly straightforward to run a logistic model. Assuming that the dependen
 glm(dependent_var ~ independent_var1 + independent_var2 + independent_var3, data = dataset, family = binomial)
 ```
 
-Now, let’s fit a multiple logistic regression. The dependent variable, as before, indicates whether arrestees were released with a summons or not. To ensure that we are modeling the odds of being released with a summons (and not the odds of receiving harsher treatment), we recode the released variable so that "Yes" (released) is coded as 1 and "No" (not released) is coded as 0.
+Now, let’s fit a multiple logistic regression. The dependent variable, as before, indicates whether arrestees were released with a summons or not. To ensure that we are modeling the odds of being released with a summons (and not the odds of receiving harsher treatment), we recoded the released variable so that "Yes" (released) is coded as 1 and "No" (not released) is coded as 0.
 
-In logistic regression, the event coded as 1 is the comparison group (the outcome we are modeling the odds for), and the group coded as 0 serves as the reference category.
+In logistic regression, the event coded as 1 is the comparison group (the outcome for which we are modeling the odds), and the group coded as 0 serves as the reference category.
 
 
 ```r
@@ -1945,7 +1945,7 @@ Much better! Now that we have exponentiated the coefficients, we have **odds rat
 + Employed arrestees' odds of being released with a summons are more than twice as high as unemployed arrestees' odds of being released with a summons, controlling for race, sex, and employment status.
     - i.e., being employed multiplies the odds of release with a summons by 2.18.
 
-For more details on interpreting odd ratios in logistic regression, you may want to read [this](http://www.ats.ucla.edu/stat/mult_pkg/faq/general/odds_ratio.htm). Some people do not like odd ratios. For other ways of interpreting logistic regression coefficients, you may want to consult [chapter 5 of the book](http://www.cambridge.org/gb/academic/subjects/statistics-probability/statistical-theory-and-methods/data-analysis-using-regression-and-multilevelhierarchical-models?format=PB) by Gelman and Hill (2007).
+For more details on interpreting odd ratios in logistic regression, you may want to read [this](https://stats.oarc.ucla.edu/other/mult-pkg/faq/general/faq-how-do-i-interpret-odds-ratios-in-logistic-regression/). Some people do not like odd ratios. For other ways of interpreting logistic regression coefficients, you may want to consult [chapter 5 of the book](http://www.cambridge.org/gb/academic/subjects/statistics-probability/statistical-theory-and-methods/data-analysis-using-regression-and-multilevelhierarchical-models?format=PB) by Gelman and Hill (2007).
 
 You can read more about how to interpret odd ratios in logistic regression [here](https://stats.idre.ucla.edu/other/mult-pkg/faq/general/faq-how-do-i-interpret-odds-ratios-in-logistic-regression/).
 
@@ -1968,7 +1968,7 @@ plot(allEffects(logistic_reg), ask = FALSE)
 
 Effect plots in this context are particularly helpful because they summarise the results using probabilities, which is what you see plotted on the y-axis.
 
-We don’t have to print them all. When we are primarily concerned with one of them, as in this case, that’s the one we want to emphasise when presenting and discussing our results. There isn’t much point discussing the results for the variables we simply defined as control (given what our research goal was). So in this case we would ask for the plot for our input measuring race/ethnicity:
+We don’t have to print them all. When we are primarily concerned with one of them, as in this case, that’s the one we want to emphasise when presenting and discussing our results. There isn’t much point in discussing the results for the variables we simply defined as control (given what our research goal was). So, in this case, we would ask for the plot for our input measuring race/ethnicity:
 
 
 
@@ -1978,11 +1978,11 @@ plot(effect("colour", logistic_reg), multiline = FALSE, ylab = "Probability(hars
 
 <img src="08_logistic_regression_files/figure-html/unnamed-chunk-22-1.png" width="672" />
 
-We can use the predict() function to generate the predicted probability that the arrestess will be released given what we know about their inputs in the model, given values of the predictors. By default R will compute the probabilities for the dataset we fitted the model to. Here we have printed only the first ten probabilities, but the way we use the predict() function here will generate a predicted probability for each case in the dataset.
+We can use the predict() function to generate the predicted probability that the arrestees will be released given what we know about their inputs in the model, given values of the predictors. By default, R will compute the probabilities for the dataset we fitted the model with. Here, we have printed only the first ten probabilities, but the way we use the predict() function here will generate a predicted probability for each case in the dataset.
 
 
 ```r
-logistic_reg_prob <- predict(logistic_reg, type = "response") #If you want to add this to your dataframe you could designate your object as Arrests$fitl_1_prob
+logistic_reg_prob <- predict(logistic_reg, type = "response") #If you want to add this to your dataframe, you could designate your object as Arrests$fitl_1_prob
 logistic_reg_prob[1:10]
 ```
 
@@ -1993,9 +1993,7 @@ logistic_reg_prob[1:10]
 ## 0.6710889 0.8273773
 ```
 
-It is important to understand that with this type of models we usually generate two types of predictions. One the one hand, we are producing a continuous valued prediction in the form of a probability but we can also generate a predicted class for each case. In many applied settings, the latter will be relevant. A discrete category prediction may be required in order to make a decision. Imagine of a probation officer evaluating the future risk of a client. She/He would want to know whether the case is high risk or not.
-
-
+It is important to understand that with this type of model, we usually generate two types of predictions. On the one hand, we are producing a continuous valued prediction in the form of a probability, but we can also generate a predicted class for each case. In many applied settings, the latter will be relevant. A discrete category prediction may be required in order to make a decision. Imagine a probation officer evaluating the future risk of a client. She/He would want to know whether the case is high risk or not.
 
 ## Interactions
 
@@ -2058,7 +2056,7 @@ In a previous session, we discussed the difficulties of interpreting regression 
 
 If we are interested in "qualitative" prediction, we also need to consider other measures of fit. In many applied settings, such as in applied predictive modelling, this can be the case. Imagine you are developing a tool to be used to forecast the probability of repeat victimisation in cases of domestic violence. This type of prediction may then be used to determine the type of police response to cases defined as high-risk. Clearly, you want to make sure the classification you make is as accurate as possible.
 
-In these contexts, it is common to start from a **classification table** or [**confusion matrix**](http://en.wikipedia.org/wiki/Confusion_matrix). A confusion matrix is simply a cross-tabulation of the observed outcome in relation to the predicted outcome. We saw earlier how the `predict()` function generated a set of predicted probabilities for each of the subjects in the study. To produce a classification table in this context, we must define a **cut-off point**, a particular probability that we will use to classify cases. Anybody above that cut-off we will define as belonging to the level of interest and anybody below we will define as not. We could, for example, say that anybody with a probability larger than .5 should be predicted to receive harsher treatment.
+In these contexts, it is common to start from a **classification table** or [**confusion matrix**](http://en.wikipedia.org/wiki/Confusion_matrix). A confusion matrix is simply a cross-tabulation of the observed outcome in relation to the predicted outcome. We saw earlier how the `predict()` function generated a set of predicted probabilities for each of the subjects in the study. To produce a classification table in this context, we must define a **cut-off point**, a particular probability that we will use to classify cases. We will define anybody above that cut-off as belonging to the level of interest and anybody below we will define as not. We could, for example, say that anybody with a probability larger than .5 should be predicted to receive harsher treatment.
 
 The confusion matrix typically follows this layout:
 
@@ -2121,7 +2119,7 @@ We can derive various useful measures from classification tables. Two important 
 
 Sensitivity = number of cases with the event and predicted to have the event/number of samples actually presenting the event
 
-In this case, this amounts to 4278 divided by 56 plus 4278. The sensitivity is sometimes also considered the **true positive rate** since it measures the accuracy in the event population. On the other hand, the specificity is defined as:
+In this case, this amounts to 4278 divided by 56 plus 4278. The sensitivity is sometimes also considered the **true positive rate** since it measures the accuracy in the event population. On the other hand, specificity is defined as:
 
 Specificity = number of cases without the events and predicted as non-events/number of cases without the event
 
@@ -2174,7 +2172,7 @@ confusionMatrix(data=released_pred,
 #identifies the level of interest in the factor.
 ```
 
-We can see first the **accuracy**. The overall accuracy rate gives us the agreement between the observed and predicted classes. However, the overall accuracy is often not the most useful measure. **Kappa** is also a measure that is often used with values ranging between 0.30 and 0.50 considered to indicate reasonable agreement. However, for many applications, it will be of interest to focus on the sensitivity and the specificity as defined above. In this case, we can see that our sensitivity, or the true positive rate, is good. However, our Kappa is not. the model can predict the those who are released with summons, but is not doing so well predicting harsh treatment with the select cut-off.
+We can see first the **accuracy**. The overall accuracy rate gives us the agreement between the observed and predicted classes. However, the overall accuracy is often not the most useful measure. **Kappa** is also a measure that is often used with values ranging between 0.30 and 0.50 considered to indicate reasonable agreement. However, for many applications, it will be of interest to focus on the sensitivity and the specificity as defined above. In this case, we can see that our sensitivity, or the true positive rate, is good. However, our Kappa is not. The model can predict those who are released with summons but is not doing so well predicting harsh treatment with the selected cut-off point.
 
 One of the problems with taking this approach is that the choice of the cut-off point can be arbitrary, and yet this cut-off point will impact the sensitivity and specificity of the model. There is a trade-off between sensitivity and specificity. Given a fixed accuracy, more of one will result in less of the other.
 
@@ -2203,62 +2201,25 @@ precision(.75)
 ##   0.4439462   0.8368713
 ```
 
-Here, we are predicting, according to our model, that anybody with a probability above .75 will be released with summons. Our sensitivity- decreases, but our specificity goes up. You can see that the cut-off point will affect how many false positives and false negatives we have. The overall accuracy is still the same, but we have shifted the balance between sensitivity and specificity. 
+Here, we are predicting, according to our model, that anybody with a probability above .75 will be released with summons. Our sensitivity decreases, but our specificity goes up. You can see that the cut-off point will affect how many false positives and false negatives we have. The overall accuracy is still the same, but we have shifted the balance between sensitivity and specificity. 
 
-Potential trade-offs here may be appropriate when there are different penalties or costs associated with each type of error. For example, if you are trying to predict a homicide as part of an intervention or prevention program, you may give more importance to not making a false negative error. That is, you want to identify as many potential homicide victims as possible, even if that means that you will identify as victims individuals that, in the end, won't be (false positives). On the other hand, if you have limited resources to attend to all the cases that you will predict as positives, you also need to factor this into the equation. You don't want to use a cut-off point that will lead you to identify more cases as potential homicide victims that you can possibly work with.
+Potential trade-offs here may be appropriate when there are different penalties or costs associated with each type of error. For example, if you are trying to predict a homicide as part of an intervention or prevention program, you may give more importance to not making a false negative error. That is, you want to identify as many potential homicide victims as possible, even if that means that you will identify as victims individuals that, in the end, won't be (false positives). On the other hand, if you have limited resources to attend to all the cases that you will predict as positives, you also need to factor this into the equation. You don't want to use a cut-off point that will lead you to identify more cases as potential homicide victims than you can possibly work with.
 
 Similarly, the criminal justice system is essentially built around the idea of avoiding false positives - that is, convicting people who are innocent. You will have heard many phrases like "innocent until proven guilty" or "It is far better that 10 guilty men go free than one innocent man is wrongfully convicted". This approach would incline us to err on the side of false negatives and avoid false positives (higher sensitivity, lower specificity).
 
 We may want to see what happens to sensitivity and specificity for different cut-off points. For this, we can look at **receiver operating characteristics** or simply [ROC curves](http://en.wikipedia.org/wiki/Receiver_operating_characteristic). This is essentially a tool for evaluating the sensitivity/specificity trade-off. The ROC curve can be used to investigate alternate cut-offs for class probabilities. [See the appendix for more info on the ROC curve](https://uom-resquant.github.io/modelling_book/appendix.html#assessing-model-fit-roc-curves). There are also other ways to assess a model's fit, such as deviance and pseudo r squared. For those interested, [you can read more in the appendix](https://uom-resquant.github.io/modelling_book/appendix.html#assessing-model-fit-deviance-and-pseudo-r-squared).-->
 
-<!--We can use the `pROC` package for this. We start by creating an object that contains the relevant information with the `roc()` function from the `pROC` package.
-
-
-```r
-#library(pROC)
-#rocCURVE <- roc(response = Arrests$harsher, 
-#                predictor = logistic_reg_prob)
-```
-
-Once we have the object with the information, we can plot the ROC curve.
-
-
-```r
-#plot(rocCURVE, legacy.axes = TRUE) #By default, the x-axis goes backwards; we can use the specified option legacy.axes=TRUE, to get 1-spec on the x-axis moving from 0 to 1.
-```
-
-We can see the trajectory of the curve is at first steep, suggesting that sensitivity increases at a greater pace than the decrease in specificity. However, we then reach a point at which specificity decreases at a greater rate than the sensitivity increases. If you want to select a cut-off that gives you the optimal cut-off point, you can use the `coords()` function of the pROC package. You can pass arguments to this function so that it returns the best sum of sensitivity and specificity.
-
-
-```r
-#alt_cutoff1 <- coords(rocCURVE, x = "best", best.method = "closest.topleft")
-#The x argument, in this case, is selecting the best cut-off using the "closest topleft" method 
-#(which identifies the point closest to the top-left part of the plot with perfect sensitivity or specificity). Another option is to use the "youden" method in the best.method argument.
-#alt_cutoff1
-```
-
-Here, we can see that with a cut-off point of .16 we get a specificity of .63 and a sensitivity of .71. Notice how this is close to the base rate of harsher treatment in the sample (17% of individuals actually received harsher treatment). For a more informed discussion of cut-off points and costs of errors in applied predictive problems in criminal justice, I recommend reading [Berk (2012)](http://link.springer.com/book/10.1007%2F978-1-4614-3085-8). Often, the selection of cut-off may be motivated by practical considerations (e.g., selecting individuals for treatment in a situation where resources to do so are limited).
-
-The ROC curve can also be used to develop a quantitative assessment of the model. The perfect model is one where the curve reaches the top left corner of the plot. This would imply 100% sensitivity and specificity. On the other hand, a useless model would be one with a curve alongside the diagonal line splitting the plot in two, from the bottom right corner to the top right corner. You can also look at the **area under the curve** (AUC) and use it to compare models. An AUC of .5 corresponds to the situation where our predictors have no predictive utility. For a fuller discussion of how to compare these curves and the AUC, I recommend reading Chapter 11 of [Kuhn and Johnson (2014)](http://link.springer.com/book/10.1007/978-1-4614-6849-3).-->
-
-## Further resources
-
-These are a set of useful external resources that may aid your comprehension (and I have partly relied upon myself, so credit to them!):
-
-+ The [UCLA guide](http://www.ats.ucla.edu/stat/r/dae/logit.htm) to using logistic regression with R.
-
-+ A [helpful list of resources](http://www.r-bloggers.com/some-r-resources-for-glms/) for general linear models with R.
 
 ## Lab Exercises
 
 **Your turn!** In the lab session, answer the following questions. Note that not all questions necessarily require analysing data in R. After you finish, click on ‘Reveal answer!’ to check your answers.
 
-We start by revisiting the - ‘Ban the Box: fair chance recruitment’ practices in the UK - dataset from Week 2. We first load, select need variables and cary out any data transformation required.
+We start by revisiting the ‘Ban the Box: fair chance recruitment’ practices in the UK, a dataset from Week 2. We first load, select the needed variables, and carry out any data transformation required.
 
 ```r
 library(haven)
 banbox <- read_dta("https://dataverse.harvard.edu/api/access/datafile/3036350")
-#if you have issues with loadingt the data
+#if you have issues with loading the data
 #see section 2.2 on how to get the data
 
 #select needed variables
@@ -2268,7 +2229,7 @@ banbox <- banbox %>% select (response, black, crime, empgap)
 banbox$black_f <- factor(banbox$black, levels = c(0, 1), labels = c("non-Black", "Black"))
 ```
 
-Using the above data we want to assess whether receiving a positive answer to a job application is associated with having a criminal record. Your variables of interest are `response` - Application received Positive Response; `empgap` - Applicant has Employment Gap; `crime` - Applicant has Criminal Record; and `black` - whether someone is black or not.
+Using the above data, we want to assess whether receiving a positive answer to a job application is associated with having a criminal record. Your variables of interest are `response` - Application received Positive Response; `empgap` - Applicant has Employment Gap; `crime` - Applicant has Criminal Record; and `black` - whether someone is black or not.
 
 
 1. Based on your research hypothesis, what are your dependent and independent variables?
@@ -2298,7 +2259,7 @@ The independent variable, Applicant has Criminal Record (`crime`), is also a bin
 <details>
 <summary><i>Reveal answer!</i></summary>
 
-Null hypothesis: There is no association between having a criminal record and receiving a callback (response). In other words, the odds of receiving a positive response are the same for applicants with criminal record and those without a criminal record. 
+Null hypothesis: There is no association between having a criminal record and receiving a callback (response). In other words, the odds of receiving a positive response are the same for applicants with criminal records and those without criminal records. 
 </details>
 
 4. Examine the relationship between your dependent and your independent variable using the appropriate visualisation strategies
@@ -2306,7 +2267,7 @@ Null hypothesis: There is no association between having a criminal record and re
 <details>
 <summary><i>Reveal answer!</i></summary>
 
-We can produce a barchart to assess the relationship
+We can produce a bar chart to assess the relationship
 
 
 ```r
@@ -2319,12 +2280,12 @@ ggplot(banbox, aes(x = as_factor(crime), fill = factor(response, levels = c(0, 1
   theme_minimal()
 ```
 
-<img src="08_logistic_regression_files/figure-html/unnamed-chunk-34-1.png" width="672" />
+<img src="08_logistic_regression_files/figure-html/unnamed-chunk-31-1.png" width="672" />
 
 
 </details>
 
-5. Let’s build a logistic regression model. Replacing $Y$ with the name of your dependent variable, and $X$ with the name of your independent variable, write down the equation with the unknown parameters (i.e, $\alpha$ and $\beta$) that you want to estimate. *Note: this question does not involve any data analysis*.
+5. Let’s build a logistic regression model. Replacing $Y$ with the name of your dependent variable and $X$ with the name of your independent variable, write down the equation with the unknown parameters (i.e, $\alpha$ and $\beta$) that you want to estimate. *Note: This question does not involve any data analysis*.
 
 <details>
 <summary><i>Reveal answer!</i></summary>
@@ -2335,7 +2296,7 @@ $$
 
 </details>
 
-6. Using the `glm()` function, estimate the parameters of your logistic regression model. Rewrite the equation above replacing unknown parameters with the estimated parameters.
+6. Using the `glm()` function, estimate the parameters of your logistic regression model. Rewrite the equation above by replacing unknown parameters with the estimated parameters.
 
 <details>
 <summary><i>Reveal answer!</i></summary>
@@ -2453,6 +2414,24 @@ confusionMatrix(data=response_pred,
 A specificity of 1 means the model makes zero false positive errors — it never says "Yes" when the correct answer is "No." Does this mean the model is a good one? Depends on what we are interested in predicting. Could other independent variables be added to the model? 
 
 </details>
+
+
+
+## Further resources
+
+These are a set of useful external resources that may aid your comprehension (and I have partly relied upon myself, so credit to them!):
+
++ The [UCLA guide](https://stats.oarc.ucla.edu/r/dae/logit-regression/) to using logistic regression with R.
+
++ A [helpful list of resources](http://www.r-bloggers.com/some-r-resources-for-glms/) for general linear models with R.
+
+
+
+
+
+
+
+
 
 <!--
 ## Assessing model fit I: deviance and pseudo r squared
