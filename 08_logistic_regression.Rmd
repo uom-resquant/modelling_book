@@ -567,10 +567,155 @@ These are a set of useful external resources that may aid your comprehension (an
 
 + A [helpful list of resources](http://www.r-bloggers.com/some-r-resources-for-glms/) for general linear models with R.
 
-<!--## Lab Exercises
+## Lab Exercises
 
-**Your turn!** 
--->
+**Your turn!** In the lab session, answer the following questions. Note that not all questions necessarily require analysing data in R. After you finish, click on ‘Reveal answer!’ to check your answers.
+
+We start by revisiting the - ‘Ban the Box: fair chance recruitment’ practices in the UK - dataset from Week 2. We first load, select need variables and cary out any data transformation required.
+```{r}
+library(haven)
+banbox <- read_dta("https://dataverse.harvard.edu/api/access/datafile/3036350")
+#if you have issues with loadingt the data
+#see section 2.2 on how to get the data
+
+#select needed variables
+banbox <- banbox %>% select (response, black, crime, empgap)
+
+#data transformation
+banbox$black_f <- factor(banbox$black, levels = c(0, 1), labels = c("non-Black", "Black"))
+
+```
+
+Using the above data we want to assess whether receiving a positive answer to a job application is associated with having a criminal record. Your variables of interest are `response` - Application received Positive Response; `empgap` - Applicant has Employment Gap; `crime` - Applicant has Criminal Record; and `black` - whether someone is black or not.
+
+
+1. Based on your research hypothesis, what are your dependent and independent variables?
+
+<details>
+<summary><i>Reveal answer!</i></summary>
+
+Dependent variable: Application received Positive Response, i.e., `response`.
+
+Independent variable: Applicant has Criminal Record, i.e., `crime`.
+
+</details>
+
+2. Is your dependent variable numerical or categorical? If categorical, is it binary, ordinal, or multinomial? What about the independent variable?
+
+<details>
+<summary><i>Reveal answer!</i></summary>
+
+The dependent variable, Application received Positive Response (`responce`), is a binary variable.
+
+The independent variable, Applicant has Criminal Record (`crime`), is also a binary variable.
+
+</details>
+
+3. Using your dependent and independent variables, what is your null hypothesis?
+
+<details>
+<summary><i>Reveal answer!</i></summary>
+
+Null hypothesis: There is no association between having a criminal record and receiving a callback (response). In other words, the odds of receiving a positive response are the same for applicants with criminal record and those without a criminal record. 
+</details>
+
+4. Examine the relationship between your dependent and your independent variable using the appropriate visualisation strategies
+
+<details>
+<summary><i>Reveal answer!</i></summary>
+
+We can produce a barchart to assess the relationship
+
+```{r}
+# produce barchart
+library(ggplot2)
+
+ggplot(banbox, aes(x = as_factor(crime), fill = factor(response, levels = c(0, 1), labels = c("No", "Yes")))) +
+  geom_bar(position = "fill") +
+  labs(y = "Proportion", fill = "Response", x = "criminal record") +
+  theme_minimal()
+```
+
+
+</details>
+
+5. Let’s build a logistic regression model. Replacing $Y$ with the name of your dependent variable, and $X$ with the name of your independent variable, write down the equation with the unknown parameters (i.e, $\alpha$ and $\beta$) that you want to estimate. *Note: this question does not involve any data analysis*.
+
+<details>
+<summary><i>Reveal answer!</i></summary>
+
+$$
+\log \left( \frac{P(\text{response} = 1)}{1 - P(\text{response} = 1)} \right) = \alpha + \beta \times \text{crime}
+$$
+
+</details>
+
+6. Using the `glm()` function, estimate the parameters of your logistic regression model. Rewrite the equation above replacing unknown parameters with the estimated parameters.
+
+<details>
+<summary><i>Reveal answer!</i></summary>
+
+```{r}
+# fit logistic regression model
+log_reg <- glm(response ~ crime, data = banbox, family = binomial)
+log_reg
+```
+
+Based on the results of the linear regression model, we can rewrite the equation in the following way:
+
+$$
+\log \left( \frac{P(\text{response} = 1)}{1 - P(\text{response} = 1)} \right) = -1.939 +  -0.149 \times \text{crime}
+$$
+
+Applicants with a criminal record are less likely to receive a callback than applicants without a record. 
+
+</details>
+
+7. After fitting your logistic regression model to predict whether applicants receive a positive response (response), create a confusion matrix comparing predicted responses to actual responses. Use 0.5 as the cut-off point.
+
+<details>
+<summary><i>Reveal answer!</i></summary>
+
+
+```{r}
+# fit regression model
+log_reg_prob <- predict(log_reg, type = "response")
+
+log_reg_pred_class <- log_reg_prob > .5
+response_pred <- as.factor(log_reg_pred_class)
+levels(response_pred) <- c("No","Yes")
+
+
+banbox <- mutate(banbox, 
+                  response = case_when(
+                    response == 1 ~ "Yes",
+                    response == 0 ~ "No"
+                  ),
+                  response = as.factor(response))
+
+
+#Then we can produce the cross-tab
+table(response_pred, banbox$response)
+
+```
+
+
+</details>
+
+
+8. What is the specificity of your logistic regression model predictions?
+
+<details>
+<summary><i>Reveal answer!</i></summary>
+
+```{r}
+library(caret)
+confusionMatrix(data=response_pred, 
+               reference=banbox$response, positive="Yes") 
+```
+A specificity of 1 means the model makes zero false positive errors — it never says "Yes" when the correct answer is "No." Does this mean the model is a good one? Depends on what we are interested in predicting. Could other independent variables be added to the model? 
+
+</details>
 
 <!--
 ## Assessing model fit I: deviance and pseudo r squared

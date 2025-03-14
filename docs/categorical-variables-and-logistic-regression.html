@@ -257,6 +257,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.5" data-path="categorical-variables-and-logistic-regression.html"><a href="categorical-variables-and-logistic-regression.html#interactions"><i class="fa fa-check"></i><b>8.5</b> Interactions</a></li>
 <li class="chapter" data-level="8.6" data-path="categorical-variables-and-logistic-regression.html"><a href="categorical-variables-and-logistic-regression.html#assessing-model-fit-confusion-matrix"><i class="fa fa-check"></i><b>8.6</b> Assessing model fit: confusion matrix</a></li>
 <li class="chapter" data-level="8.7" data-path="categorical-variables-and-logistic-regression.html"><a href="categorical-variables-and-logistic-regression.html#further-resources-2"><i class="fa fa-check"></i><b>8.7</b> Further resources</a></li>
+<li class="chapter" data-level="8.8" data-path="categorical-variables-and-logistic-regression.html"><a href="categorical-variables-and-logistic-regression.html#lab-exercises-2"><i class="fa fa-check"></i><b>8.8</b> Lab Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="statistical-inference.html"><a href="statistical-inference.html"><i class="fa fa-check"></i><b>9</b> Statistical Inference</a></li>
 <li class="chapter" data-level="10" data-path="wrapping-up.html"><a href="wrapping-up.html"><i class="fa fa-check"></i><b>10</b> Wrapping up</a></li>
@@ -413,23 +414,23 @@ details {
 <span id="cb518-6"><a href="categorical-variables-and-logistic-regression.html#cb518-6" tabindex="-1"></a></span>
 <span id="cb518-7"><a href="categorical-variables-and-logistic-regression.html#cb518-7" tabindex="-1"></a><span class="co"># produce a neatly formatted cross-tabulation</span></span>
 <span id="cb518-8"><a href="categorical-variables-and-logistic-regression.html#cb518-8" tabindex="-1"></a><span class="fu">tbl_cross</span>(<span class="at">data =</span> Arrests, <span class="at">row =</span> colour, <span class="at">col =</span> released, <span class="at">percent =</span> <span class="st">&quot;row&quot;</span>)</span></code></pre></div>
-<div id="ervwggsspw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ervwggsspw table {
+<div id="dpnjcmpret" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#dpnjcmpret table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ervwggsspw thead, #ervwggsspw tbody, #ervwggsspw tfoot, #ervwggsspw tr, #ervwggsspw td, #ervwggsspw th {
+#dpnjcmpret thead, #dpnjcmpret tbody, #dpnjcmpret tfoot, #dpnjcmpret tr, #dpnjcmpret td, #dpnjcmpret th {
   border-style: none;
 }
 
-#ervwggsspw p {
+#dpnjcmpret p {
   margin: 0;
   padding: 0;
 }
 
-#ervwggsspw .gt_table {
+#dpnjcmpret .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -455,12 +456,12 @@ details {
   border-left-color: #D3D3D3;
 }
 
-#ervwggsspw .gt_caption {
+#dpnjcmpret .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ervwggsspw .gt_title {
+#dpnjcmpret .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -472,7 +473,7 @@ details {
   border-bottom-width: 0;
 }
 
-#ervwggsspw .gt_subtitle {
+#dpnjcmpret .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -484,7 +485,7 @@ details {
   border-top-width: 0;
 }
 
-#ervwggsspw .gt_heading {
+#dpnjcmpret .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -496,13 +497,13 @@ details {
   border-right-color: #D3D3D3;
 }
 
-#ervwggsspw .gt_bottom_border {
+#dpnjcmpret .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ervwggsspw .gt_col_headings {
+#dpnjcmpret .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -517,7 +518,7 @@ details {
   border-right-color: #D3D3D3;
 }
 
-#ervwggsspw .gt_col_heading {
+#dpnjcmpret .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -537,7 +538,7 @@ details {
   overflow-x: hidden;
 }
 
-#ervwggsspw .gt_column_spanner_outer {
+#dpnjcmpret .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -549,15 +550,15 @@ details {
   padding-right: 4px;
 }
 
-#ervwggsspw .gt_column_spanner_outer:first-child {
+#dpnjcmpret .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ervwggsspw .gt_column_spanner_outer:last-child {
+#dpnjcmpret .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ervwggsspw .gt_column_spanner {
+#dpnjcmpret .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -569,11 +570,11 @@ details {
   width: 100%;
 }
 
-#ervwggsspw .gt_spanner_row {
+#dpnjcmpret .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ervwggsspw .gt_group_heading {
+#dpnjcmpret .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -599,7 +600,7 @@ details {
   text-align: left;
 }
 
-#ervwggsspw .gt_empty_group_heading {
+#dpnjcmpret .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -614,15 +615,15 @@ details {
   vertical-align: middle;
 }
 
-#ervwggsspw .gt_from_md > :first-child {
+#dpnjcmpret .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ervwggsspw .gt_from_md > :last-child {
+#dpnjcmpret .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ervwggsspw .gt_row {
+#dpnjcmpret .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -641,7 +642,7 @@ details {
   overflow-x: hidden;
 }
 
-#ervwggsspw .gt_stub {
+#dpnjcmpret .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -654,7 +655,7 @@ details {
   padding-right: 5px;
 }
 
-#ervwggsspw .gt_stub_row_group {
+#dpnjcmpret .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -668,15 +669,15 @@ details {
   vertical-align: top;
 }
 
-#ervwggsspw .gt_row_group_first td {
+#dpnjcmpret .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ervwggsspw .gt_row_group_first th {
+#dpnjcmpret .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ervwggsspw .gt_summary_row {
+#dpnjcmpret .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -686,16 +687,16 @@ details {
   padding-right: 5px;
 }
 
-#ervwggsspw .gt_first_summary_row {
+#dpnjcmpret .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ervwggsspw .gt_first_summary_row.thick {
+#dpnjcmpret .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ervwggsspw .gt_last_summary_row {
+#dpnjcmpret .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -705,7 +706,7 @@ details {
   border-bottom-color: #D3D3D3;
 }
 
-#ervwggsspw .gt_grand_summary_row {
+#dpnjcmpret .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -715,7 +716,7 @@ details {
   padding-right: 5px;
 }
 
-#ervwggsspw .gt_first_grand_summary_row {
+#dpnjcmpret .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -725,7 +726,7 @@ details {
   border-top-color: #D3D3D3;
 }
 
-#ervwggsspw .gt_last_grand_summary_row_top {
+#dpnjcmpret .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -735,11 +736,11 @@ details {
   border-bottom-color: #D3D3D3;
 }
 
-#ervwggsspw .gt_striped {
+#dpnjcmpret .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ervwggsspw .gt_table_body {
+#dpnjcmpret .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -748,7 +749,7 @@ details {
   border-bottom-color: #D3D3D3;
 }
 
-#ervwggsspw .gt_footnotes {
+#dpnjcmpret .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -762,7 +763,7 @@ details {
   border-right-color: #D3D3D3;
 }
 
-#ervwggsspw .gt_footnote {
+#dpnjcmpret .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -771,7 +772,7 @@ details {
   padding-right: 5px;
 }
 
-#ervwggsspw .gt_sourcenotes {
+#dpnjcmpret .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -785,7 +786,7 @@ details {
   border-right-color: #D3D3D3;
 }
 
-#ervwggsspw .gt_sourcenote {
+#dpnjcmpret .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -793,72 +794,72 @@ details {
   padding-right: 5px;
 }
 
-#ervwggsspw .gt_left {
+#dpnjcmpret .gt_left {
   text-align: left;
 }
 
-#ervwggsspw .gt_center {
+#dpnjcmpret .gt_center {
   text-align: center;
 }
 
-#ervwggsspw .gt_right {
+#dpnjcmpret .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ervwggsspw .gt_font_normal {
+#dpnjcmpret .gt_font_normal {
   font-weight: normal;
 }
 
-#ervwggsspw .gt_font_bold {
+#dpnjcmpret .gt_font_bold {
   font-weight: bold;
 }
 
-#ervwggsspw .gt_font_italic {
+#dpnjcmpret .gt_font_italic {
   font-style: italic;
 }
 
-#ervwggsspw .gt_super {
+#dpnjcmpret .gt_super {
   font-size: 65%;
 }
 
-#ervwggsspw .gt_footnote_marks {
+#dpnjcmpret .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ervwggsspw .gt_asterisk {
+#dpnjcmpret .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ervwggsspw .gt_indent_1 {
+#dpnjcmpret .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ervwggsspw .gt_indent_2 {
+#dpnjcmpret .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ervwggsspw .gt_indent_3 {
+#dpnjcmpret .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ervwggsspw .gt_indent_4 {
+#dpnjcmpret .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ervwggsspw .gt_indent_5 {
+#dpnjcmpret .gt_indent_5 {
   text-indent: 25px;
 }
 
-#ervwggsspw .katex-display {
+#dpnjcmpret .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#ervwggsspw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#dpnjcmpret div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -914,23 +915,23 @@ details {
 <p>Let’s have a look at the cross-tabulation.</p>
 <div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb519-1"><a href="categorical-variables-and-logistic-regression.html#cb519-1" tabindex="-1"></a><span class="co"># produce a cross-tabulation between &#39;citizen&#39; and &#39;released&#39;</span></span>
 <span id="cb519-2"><a href="categorical-variables-and-logistic-regression.html#cb519-2" tabindex="-1"></a><span class="fu">tbl_cross</span>(<span class="at">data =</span> Arrests, <span class="at">row =</span> citizen, <span class="at">col =</span> released, <span class="at">percent =</span> <span class="st">&quot;row&quot;</span>)</span></code></pre></div>
-<div id="aceucorkpu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#aceucorkpu table {
+<div id="sarkocfpbq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#sarkocfpbq table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#aceucorkpu thead, #aceucorkpu tbody, #aceucorkpu tfoot, #aceucorkpu tr, #aceucorkpu td, #aceucorkpu th {
+#sarkocfpbq thead, #sarkocfpbq tbody, #sarkocfpbq tfoot, #sarkocfpbq tr, #sarkocfpbq td, #sarkocfpbq th {
   border-style: none;
 }
 
-#aceucorkpu p {
+#sarkocfpbq p {
   margin: 0;
   padding: 0;
 }
 
-#aceucorkpu .gt_table {
+#sarkocfpbq .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -956,12 +957,12 @@ details {
   border-left-color: #D3D3D3;
 }
 
-#aceucorkpu .gt_caption {
+#sarkocfpbq .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#aceucorkpu .gt_title {
+#sarkocfpbq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -973,7 +974,7 @@ details {
   border-bottom-width: 0;
 }
 
-#aceucorkpu .gt_subtitle {
+#sarkocfpbq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -985,7 +986,7 @@ details {
   border-top-width: 0;
 }
 
-#aceucorkpu .gt_heading {
+#sarkocfpbq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -997,13 +998,13 @@ details {
   border-right-color: #D3D3D3;
 }
 
-#aceucorkpu .gt_bottom_border {
+#sarkocfpbq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#aceucorkpu .gt_col_headings {
+#sarkocfpbq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1018,7 +1019,7 @@ details {
   border-right-color: #D3D3D3;
 }
 
-#aceucorkpu .gt_col_heading {
+#sarkocfpbq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1038,7 +1039,7 @@ details {
   overflow-x: hidden;
 }
 
-#aceucorkpu .gt_column_spanner_outer {
+#sarkocfpbq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1050,15 +1051,15 @@ details {
   padding-right: 4px;
 }
 
-#aceucorkpu .gt_column_spanner_outer:first-child {
+#sarkocfpbq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#aceucorkpu .gt_column_spanner_outer:last-child {
+#sarkocfpbq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#aceucorkpu .gt_column_spanner {
+#sarkocfpbq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1070,11 +1071,11 @@ details {
   width: 100%;
 }
 
-#aceucorkpu .gt_spanner_row {
+#sarkocfpbq .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#aceucorkpu .gt_group_heading {
+#sarkocfpbq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1100,7 +1101,7 @@ details {
   text-align: left;
 }
 
-#aceucorkpu .gt_empty_group_heading {
+#sarkocfpbq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1115,15 +1116,15 @@ details {
   vertical-align: middle;
 }
 
-#aceucorkpu .gt_from_md > :first-child {
+#sarkocfpbq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#aceucorkpu .gt_from_md > :last-child {
+#sarkocfpbq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#aceucorkpu .gt_row {
+#sarkocfpbq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1142,7 +1143,7 @@ details {
   overflow-x: hidden;
 }
 
-#aceucorkpu .gt_stub {
+#sarkocfpbq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1155,7 +1156,7 @@ details {
   padding-right: 5px;
 }
 
-#aceucorkpu .gt_stub_row_group {
+#sarkocfpbq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1169,15 +1170,15 @@ details {
   vertical-align: top;
 }
 
-#aceucorkpu .gt_row_group_first td {
+#sarkocfpbq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#aceucorkpu .gt_row_group_first th {
+#sarkocfpbq .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#aceucorkpu .gt_summary_row {
+#sarkocfpbq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1187,16 +1188,16 @@ details {
   padding-right: 5px;
 }
 
-#aceucorkpu .gt_first_summary_row {
+#sarkocfpbq .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#aceucorkpu .gt_first_summary_row.thick {
+#sarkocfpbq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#aceucorkpu .gt_last_summary_row {
+#sarkocfpbq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1206,7 +1207,7 @@ details {
   border-bottom-color: #D3D3D3;
 }
 
-#aceucorkpu .gt_grand_summary_row {
+#sarkocfpbq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1216,7 +1217,7 @@ details {
   padding-right: 5px;
 }
 
-#aceucorkpu .gt_first_grand_summary_row {
+#sarkocfpbq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1226,7 +1227,7 @@ details {
   border-top-color: #D3D3D3;
 }
 
-#aceucorkpu .gt_last_grand_summary_row_top {
+#sarkocfpbq .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1236,11 +1237,11 @@ details {
   border-bottom-color: #D3D3D3;
 }
 
-#aceucorkpu .gt_striped {
+#sarkocfpbq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#aceucorkpu .gt_table_body {
+#sarkocfpbq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1249,7 +1250,7 @@ details {
   border-bottom-color: #D3D3D3;
 }
 
-#aceucorkpu .gt_footnotes {
+#sarkocfpbq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1263,7 +1264,7 @@ details {
   border-right-color: #D3D3D3;
 }
 
-#aceucorkpu .gt_footnote {
+#sarkocfpbq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1272,7 +1273,7 @@ details {
   padding-right: 5px;
 }
 
-#aceucorkpu .gt_sourcenotes {
+#sarkocfpbq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1286,7 +1287,7 @@ details {
   border-right-color: #D3D3D3;
 }
 
-#aceucorkpu .gt_sourcenote {
+#sarkocfpbq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1294,72 +1295,72 @@ details {
   padding-right: 5px;
 }
 
-#aceucorkpu .gt_left {
+#sarkocfpbq .gt_left {
   text-align: left;
 }
 
-#aceucorkpu .gt_center {
+#sarkocfpbq .gt_center {
   text-align: center;
 }
 
-#aceucorkpu .gt_right {
+#sarkocfpbq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#aceucorkpu .gt_font_normal {
+#sarkocfpbq .gt_font_normal {
   font-weight: normal;
 }
 
-#aceucorkpu .gt_font_bold {
+#sarkocfpbq .gt_font_bold {
   font-weight: bold;
 }
 
-#aceucorkpu .gt_font_italic {
+#sarkocfpbq .gt_font_italic {
   font-style: italic;
 }
 
-#aceucorkpu .gt_super {
+#sarkocfpbq .gt_super {
   font-size: 65%;
 }
 
-#aceucorkpu .gt_footnote_marks {
+#sarkocfpbq .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#aceucorkpu .gt_asterisk {
+#sarkocfpbq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#aceucorkpu .gt_indent_1 {
+#sarkocfpbq .gt_indent_1 {
   text-indent: 5px;
 }
 
-#aceucorkpu .gt_indent_2 {
+#sarkocfpbq .gt_indent_2 {
   text-indent: 10px;
 }
 
-#aceucorkpu .gt_indent_3 {
+#sarkocfpbq .gt_indent_3 {
   text-indent: 15px;
 }
 
-#aceucorkpu .gt_indent_4 {
+#sarkocfpbq .gt_indent_4 {
   text-indent: 20px;
 }
 
-#aceucorkpu .gt_indent_5 {
+#sarkocfpbq .gt_indent_5 {
   text-indent: 25px;
 }
 
-#aceucorkpu .katex-display {
+#sarkocfpbq .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#aceucorkpu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#sarkocfpbq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1414,23 +1415,23 @@ details {
 <p>Let’s have a look at the cross-tabulation.</p>
 <div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="categorical-variables-and-logistic-regression.html#cb520-1" tabindex="-1"></a><span class="co"># produce a cross-tabulation between &#39;sex&#39; and &#39;released&#39;</span></span>
 <span id="cb520-2"><a href="categorical-variables-and-logistic-regression.html#cb520-2" tabindex="-1"></a><span class="fu">tbl_cross</span>(<span class="at">data =</span> Arrests, <span class="at">row =</span> sex, <span class="at">col =</span> released, <span class="at">percent =</span> <span class="st">&quot;row&quot;</span>)</span></code></pre></div>
-<div id="bpgiamhgvf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#bpgiamhgvf table {
+<div id="vfdcjmuapi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vfdcjmuapi table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#bpgiamhgvf thead, #bpgiamhgvf tbody, #bpgiamhgvf tfoot, #bpgiamhgvf tr, #bpgiamhgvf td, #bpgiamhgvf th {
+#vfdcjmuapi thead, #vfdcjmuapi tbody, #vfdcjmuapi tfoot, #vfdcjmuapi tr, #vfdcjmuapi td, #vfdcjmuapi th {
   border-style: none;
 }
 
-#bpgiamhgvf p {
+#vfdcjmuapi p {
   margin: 0;
   padding: 0;
 }
 
-#bpgiamhgvf .gt_table {
+#vfdcjmuapi .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1456,12 +1457,12 @@ details {
   border-left-color: #D3D3D3;
 }
 
-#bpgiamhgvf .gt_caption {
+#vfdcjmuapi .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#bpgiamhgvf .gt_title {
+#vfdcjmuapi .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1473,7 +1474,7 @@ details {
   border-bottom-width: 0;
 }
 
-#bpgiamhgvf .gt_subtitle {
+#vfdcjmuapi .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1485,7 +1486,7 @@ details {
   border-top-width: 0;
 }
 
-#bpgiamhgvf .gt_heading {
+#vfdcjmuapi .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1497,13 +1498,13 @@ details {
   border-right-color: #D3D3D3;
 }
 
-#bpgiamhgvf .gt_bottom_border {
+#vfdcjmuapi .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#bpgiamhgvf .gt_col_headings {
+#vfdcjmuapi .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1518,7 +1519,7 @@ details {
   border-right-color: #D3D3D3;
 }
 
-#bpgiamhgvf .gt_col_heading {
+#vfdcjmuapi .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1538,7 +1539,7 @@ details {
   overflow-x: hidden;
 }
 
-#bpgiamhgvf .gt_column_spanner_outer {
+#vfdcjmuapi .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1550,15 +1551,15 @@ details {
   padding-right: 4px;
 }
 
-#bpgiamhgvf .gt_column_spanner_outer:first-child {
+#vfdcjmuapi .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#bpgiamhgvf .gt_column_spanner_outer:last-child {
+#vfdcjmuapi .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#bpgiamhgvf .gt_column_spanner {
+#vfdcjmuapi .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1570,11 +1571,11 @@ details {
   width: 100%;
 }
 
-#bpgiamhgvf .gt_spanner_row {
+#vfdcjmuapi .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#bpgiamhgvf .gt_group_heading {
+#vfdcjmuapi .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1600,7 +1601,7 @@ details {
   text-align: left;
 }
 
-#bpgiamhgvf .gt_empty_group_heading {
+#vfdcjmuapi .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1615,15 +1616,15 @@ details {
   vertical-align: middle;
 }
 
-#bpgiamhgvf .gt_from_md > :first-child {
+#vfdcjmuapi .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#bpgiamhgvf .gt_from_md > :last-child {
+#vfdcjmuapi .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#bpgiamhgvf .gt_row {
+#vfdcjmuapi .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1642,7 +1643,7 @@ details {
   overflow-x: hidden;
 }
 
-#bpgiamhgvf .gt_stub {
+#vfdcjmuapi .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1655,7 +1656,7 @@ details {
   padding-right: 5px;
 }
 
-#bpgiamhgvf .gt_stub_row_group {
+#vfdcjmuapi .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1669,15 +1670,15 @@ details {
   vertical-align: top;
 }
 
-#bpgiamhgvf .gt_row_group_first td {
+#vfdcjmuapi .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#bpgiamhgvf .gt_row_group_first th {
+#vfdcjmuapi .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#bpgiamhgvf .gt_summary_row {
+#vfdcjmuapi .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1687,16 +1688,16 @@ details {
   padding-right: 5px;
 }
 
-#bpgiamhgvf .gt_first_summary_row {
+#vfdcjmuapi .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#bpgiamhgvf .gt_first_summary_row.thick {
+#vfdcjmuapi .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#bpgiamhgvf .gt_last_summary_row {
+#vfdcjmuapi .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1706,7 +1707,7 @@ details {
   border-bottom-color: #D3D3D3;
 }
 
-#bpgiamhgvf .gt_grand_summary_row {
+#vfdcjmuapi .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1716,7 +1717,7 @@ details {
   padding-right: 5px;
 }
 
-#bpgiamhgvf .gt_first_grand_summary_row {
+#vfdcjmuapi .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1726,7 +1727,7 @@ details {
   border-top-color: #D3D3D3;
 }
 
-#bpgiamhgvf .gt_last_grand_summary_row_top {
+#vfdcjmuapi .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1736,11 +1737,11 @@ details {
   border-bottom-color: #D3D3D3;
 }
 
-#bpgiamhgvf .gt_striped {
+#vfdcjmuapi .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#bpgiamhgvf .gt_table_body {
+#vfdcjmuapi .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1749,7 +1750,7 @@ details {
   border-bottom-color: #D3D3D3;
 }
 
-#bpgiamhgvf .gt_footnotes {
+#vfdcjmuapi .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1763,7 +1764,7 @@ details {
   border-right-color: #D3D3D3;
 }
 
-#bpgiamhgvf .gt_footnote {
+#vfdcjmuapi .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1772,7 +1773,7 @@ details {
   padding-right: 5px;
 }
 
-#bpgiamhgvf .gt_sourcenotes {
+#vfdcjmuapi .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1786,7 +1787,7 @@ details {
   border-right-color: #D3D3D3;
 }
 
-#bpgiamhgvf .gt_sourcenote {
+#vfdcjmuapi .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1794,72 +1795,72 @@ details {
   padding-right: 5px;
 }
 
-#bpgiamhgvf .gt_left {
+#vfdcjmuapi .gt_left {
   text-align: left;
 }
 
-#bpgiamhgvf .gt_center {
+#vfdcjmuapi .gt_center {
   text-align: center;
 }
 
-#bpgiamhgvf .gt_right {
+#vfdcjmuapi .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#bpgiamhgvf .gt_font_normal {
+#vfdcjmuapi .gt_font_normal {
   font-weight: normal;
 }
 
-#bpgiamhgvf .gt_font_bold {
+#vfdcjmuapi .gt_font_bold {
   font-weight: bold;
 }
 
-#bpgiamhgvf .gt_font_italic {
+#vfdcjmuapi .gt_font_italic {
   font-style: italic;
 }
 
-#bpgiamhgvf .gt_super {
+#vfdcjmuapi .gt_super {
   font-size: 65%;
 }
 
-#bpgiamhgvf .gt_footnote_marks {
+#vfdcjmuapi .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#bpgiamhgvf .gt_asterisk {
+#vfdcjmuapi .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#bpgiamhgvf .gt_indent_1 {
+#vfdcjmuapi .gt_indent_1 {
   text-indent: 5px;
 }
 
-#bpgiamhgvf .gt_indent_2 {
+#vfdcjmuapi .gt_indent_2 {
   text-indent: 10px;
 }
 
-#bpgiamhgvf .gt_indent_3 {
+#vfdcjmuapi .gt_indent_3 {
   text-indent: 15px;
 }
 
-#bpgiamhgvf .gt_indent_4 {
+#vfdcjmuapi .gt_indent_4 {
   text-indent: 20px;
 }
 
-#bpgiamhgvf .gt_indent_5 {
+#vfdcjmuapi .gt_indent_5 {
   text-indent: 25px;
 }
 
-#bpgiamhgvf .katex-display {
+#vfdcjmuapi .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#bpgiamhgvf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#vfdcjmuapi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2240,10 +2241,174 @@ The ROC curve can also be used to develop a quantitative assessment of the model
 <li><p>The <a href="http://www.ats.ucla.edu/stat/r/dae/logit.htm">UCLA guide</a> to using logistic regression with R.</p></li>
 <li><p>A <a href="http://www.r-bloggers.com/some-r-resources-for-glms/">helpful list of resources</a> for general linear models with R.</p></li>
 </ul>
-<!--## Lab Exercises
-
-**Your turn!** 
--->
+</div>
+<div id="lab-exercises-2" class="section level2 hasAnchor" number="8.8">
+<h2><span class="header-section-number">8.8</span> Lab Exercises<a href="categorical-variables-and-logistic-regression.html#lab-exercises-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Your turn!</strong> In the lab session, answer the following questions. Note that not all questions necessarily require analysing data in R. After you finish, click on ‘Reveal answer!’ to check your answers.</p>
+<p>We start by revisiting the - ‘Ban the Box: fair chance recruitment’ practices in the UK - dataset from Week 2. We first load, select need variables and cary out any data transformation required.</p>
+<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb548-1"><a href="categorical-variables-and-logistic-regression.html#cb548-1" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb548-2"><a href="categorical-variables-and-logistic-regression.html#cb548-2" tabindex="-1"></a>banbox <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">&quot;https://dataverse.harvard.edu/api/access/datafile/3036350&quot;</span>)</span>
+<span id="cb548-3"><a href="categorical-variables-and-logistic-regression.html#cb548-3" tabindex="-1"></a><span class="co">#if you have issues with loadingt the data</span></span>
+<span id="cb548-4"><a href="categorical-variables-and-logistic-regression.html#cb548-4" tabindex="-1"></a><span class="co">#see section 2.2 on how to get the data</span></span>
+<span id="cb548-5"><a href="categorical-variables-and-logistic-regression.html#cb548-5" tabindex="-1"></a></span>
+<span id="cb548-6"><a href="categorical-variables-and-logistic-regression.html#cb548-6" tabindex="-1"></a><span class="co">#select needed variables</span></span>
+<span id="cb548-7"><a href="categorical-variables-and-logistic-regression.html#cb548-7" tabindex="-1"></a>banbox <span class="ot">&lt;-</span> banbox <span class="sc">%&gt;%</span> <span class="fu">select</span> (response, black, crime, empgap)</span>
+<span id="cb548-8"><a href="categorical-variables-and-logistic-regression.html#cb548-8" tabindex="-1"></a></span>
+<span id="cb548-9"><a href="categorical-variables-and-logistic-regression.html#cb548-9" tabindex="-1"></a><span class="co">#data transformation</span></span>
+<span id="cb548-10"><a href="categorical-variables-and-logistic-regression.html#cb548-10" tabindex="-1"></a>banbox<span class="sc">$</span>black_f <span class="ot">&lt;-</span> <span class="fu">factor</span>(banbox<span class="sc">$</span>black, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;non-Black&quot;</span>, <span class="st">&quot;Black&quot;</span>))</span></code></pre></div>
+<p>Using the above data we want to assess whether receiving a positive answer to a job application is associated with having a criminal record. Your variables of interest are <code>response</code> - Application received Positive Response; <code>empgap</code> - Applicant has Employment Gap; <code>crime</code> - Applicant has Criminal Record; and <code>black</code> - whether someone is black or not.</p>
+<ol style="list-style-type: decimal">
+<li>Based on your research hypothesis, what are your dependent and independent variables?</li>
+</ol>
+<details>
+<summary>
+<i>Reveal answer!</i>
+</summary>
+<p>Dependent variable: Application received Positive Response, i.e., <code>response</code>.</p>
+<p>Independent variable: Applicant has Criminal Record, i.e., <code>crime</code>.</p>
+</details>
+<ol start="2" style="list-style-type: decimal">
+<li>Is your dependent variable numerical or categorical? If categorical, is it binary, ordinal, or multinomial? What about the independent variable?</li>
+</ol>
+<details>
+<summary>
+<i>Reveal answer!</i>
+</summary>
+<p>The dependent variable, Application received Positive Response (<code>responce</code>), is a binary variable.</p>
+<p>The independent variable, Applicant has Criminal Record (<code>crime</code>), is also a binary variable.</p>
+</details>
+<ol start="3" style="list-style-type: decimal">
+<li>Using your dependent and independent variables, what is your null hypothesis?</li>
+</ol>
+<details>
+<summary>
+<i>Reveal answer!</i>
+</summary>
+Null hypothesis: There is no association between having a criminal record and receiving a callback (response). In other words, the odds of receiving a positive response are the same for applicants with criminal record and those without a criminal record.
+</details>
+<ol start="4" style="list-style-type: decimal">
+<li>Examine the relationship between your dependent and your independent variable using the appropriate visualisation strategies</li>
+</ol>
+<details>
+<summary>
+<i>Reveal answer!</i>
+</summary>
+<p>We can produce a barchart to assess the relationship</p>
+<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb549-1"><a href="categorical-variables-and-logistic-regression.html#cb549-1" tabindex="-1"></a><span class="co"># produce barchart</span></span>
+<span id="cb549-2"><a href="categorical-variables-and-logistic-regression.html#cb549-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb549-3"><a href="categorical-variables-and-logistic-regression.html#cb549-3" tabindex="-1"></a></span>
+<span id="cb549-4"><a href="categorical-variables-and-logistic-regression.html#cb549-4" tabindex="-1"></a><span class="fu">ggplot</span>(banbox, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as_factor</span>(crime), <span class="at">fill =</span> <span class="fu">factor</span>(response, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>, <span class="st">&quot;Yes&quot;</span>)))) <span class="sc">+</span></span>
+<span id="cb549-5"><a href="categorical-variables-and-logistic-regression.html#cb549-5" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">&quot;fill&quot;</span>) <span class="sc">+</span></span>
+<span id="cb549-6"><a href="categorical-variables-and-logistic-regression.html#cb549-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Proportion&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Response&quot;</span>, <span class="at">x =</span> <span class="st">&quot;criminal record&quot;</span>) <span class="sc">+</span></span>
+<span id="cb549-7"><a href="categorical-variables-and-logistic-regression.html#cb549-7" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="08_logistic_regression_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+</details>
+<ol start="5" style="list-style-type: decimal">
+<li>Let’s build a logistic regression model. Replacing <span class="math inline">\(Y\)</span> with the name of your dependent variable, and <span class="math inline">\(X\)</span> with the name of your independent variable, write down the equation with the unknown parameters (i.e, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>) that you want to estimate. <em>Note: this question does not involve any data analysis</em>.</li>
+</ol>
+<details>
+<summary>
+<i>Reveal answer!</i>
+</summary>
+<p><span class="math display">\[
+\log \left( \frac{P(\text{response} = 1)}{1 - P(\text{response} = 1)} \right) = \alpha + \beta \times \text{crime}
+\]</span></p>
+</details>
+<ol start="6" style="list-style-type: decimal">
+<li>Using the <code>glm()</code> function, estimate the parameters of your logistic regression model. Rewrite the equation above replacing unknown parameters with the estimated parameters.</li>
+</ol>
+<details>
+<summary>
+<i>Reveal answer!</i>
+</summary>
+<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb550-1"><a href="categorical-variables-and-logistic-regression.html#cb550-1" tabindex="-1"></a><span class="co"># fit logistic regression model</span></span>
+<span id="cb550-2"><a href="categorical-variables-and-logistic-regression.html#cb550-2" tabindex="-1"></a>log_reg <span class="ot">&lt;-</span> <span class="fu">glm</span>(response <span class="sc">~</span> crime, <span class="at">data =</span> banbox, <span class="at">family =</span> binomial)</span>
+<span id="cb550-3"><a href="categorical-variables-and-logistic-regression.html#cb550-3" tabindex="-1"></a>log_reg</span></code></pre></div>
+<pre><code>## 
+## Call:  glm(formula = response ~ crime, family = binomial, data = banbox)
+## 
+## Coefficients:
+## (Intercept)        crime  
+##      -1.939       -0.149  
+## 
+## Degrees of Freedom: 14812 Total (i.e. Null);  14811 Residual
+## Null Deviance:       10750 
+## Residual Deviance: 10740     AIC: 10740</code></pre>
+<p>Based on the results of the linear regression model, we can rewrite the equation in the following way:</p>
+<p><span class="math display">\[
+\log \left( \frac{P(\text{response} = 1)}{1 - P(\text{response} = 1)} \right) = -1.939 +  -0.149 \times \text{crime}
+\]</span></p>
+<p>Applicants with a criminal record are less likely to receive a callback than applicants without a record.</p>
+</details>
+<ol start="7" style="list-style-type: decimal">
+<li>After fitting your logistic regression model to predict whether applicants receive a positive response (response), create a confusion matrix comparing predicted responses to actual responses. Use 0.5 as the cut-off point.</li>
+</ol>
+<details>
+<summary>
+<i>Reveal answer!</i>
+</summary>
+<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb552-1"><a href="categorical-variables-and-logistic-regression.html#cb552-1" tabindex="-1"></a><span class="co"># fit regression model</span></span>
+<span id="cb552-2"><a href="categorical-variables-and-logistic-regression.html#cb552-2" tabindex="-1"></a>log_reg_prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(log_reg, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb552-3"><a href="categorical-variables-and-logistic-regression.html#cb552-3" tabindex="-1"></a></span>
+<span id="cb552-4"><a href="categorical-variables-and-logistic-regression.html#cb552-4" tabindex="-1"></a>log_reg_pred_class <span class="ot">&lt;-</span> log_reg_prob <span class="sc">&gt;</span> .<span class="dv">5</span></span>
+<span id="cb552-5"><a href="categorical-variables-and-logistic-regression.html#cb552-5" tabindex="-1"></a>response_pred <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(log_reg_pred_class)</span>
+<span id="cb552-6"><a href="categorical-variables-and-logistic-regression.html#cb552-6" tabindex="-1"></a><span class="fu">levels</span>(response_pred) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)</span>
+<span id="cb552-7"><a href="categorical-variables-and-logistic-regression.html#cb552-7" tabindex="-1"></a></span>
+<span id="cb552-8"><a href="categorical-variables-and-logistic-regression.html#cb552-8" tabindex="-1"></a></span>
+<span id="cb552-9"><a href="categorical-variables-and-logistic-regression.html#cb552-9" tabindex="-1"></a>banbox <span class="ot">&lt;-</span> <span class="fu">mutate</span>(banbox, </span>
+<span id="cb552-10"><a href="categorical-variables-and-logistic-regression.html#cb552-10" tabindex="-1"></a>                  <span class="at">response =</span> <span class="fu">case_when</span>(</span>
+<span id="cb552-11"><a href="categorical-variables-and-logistic-regression.html#cb552-11" tabindex="-1"></a>                    response <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">&quot;Yes&quot;</span>,</span>
+<span id="cb552-12"><a href="categorical-variables-and-logistic-regression.html#cb552-12" tabindex="-1"></a>                    response <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">&quot;No&quot;</span></span>
+<span id="cb552-13"><a href="categorical-variables-and-logistic-regression.html#cb552-13" tabindex="-1"></a>                  ),</span>
+<span id="cb552-14"><a href="categorical-variables-and-logistic-regression.html#cb552-14" tabindex="-1"></a>                  <span class="at">response =</span> <span class="fu">as.factor</span>(response))</span>
+<span id="cb552-15"><a href="categorical-variables-and-logistic-regression.html#cb552-15" tabindex="-1"></a></span>
+<span id="cb552-16"><a href="categorical-variables-and-logistic-regression.html#cb552-16" tabindex="-1"></a></span>
+<span id="cb552-17"><a href="categorical-variables-and-logistic-regression.html#cb552-17" tabindex="-1"></a><span class="co">#Then we can produce the cross-tab</span></span>
+<span id="cb552-18"><a href="categorical-variables-and-logistic-regression.html#cb552-18" tabindex="-1"></a><span class="fu">table</span>(response_pred, banbox<span class="sc">$</span>response)</span></code></pre></div>
+<pre><code>##              
+## response_pred    No   Yes
+##           No  13066  1747
+##           Yes     0     0</code></pre>
+</details>
+<ol start="8" style="list-style-type: decimal">
+<li>What is the specificity of your logistic regression model predictions?</li>
+</ol>
+<details>
+<summary>
+<i>Reveal answer!</i>
+</summary>
+<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb554-1"><a href="categorical-variables-and-logistic-regression.html#cb554-1" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb554-2"><a href="categorical-variables-and-logistic-regression.html#cb554-2" tabindex="-1"></a><span class="fu">confusionMatrix</span>(<span class="at">data=</span>response_pred, </span>
+<span id="cb554-3"><a href="categorical-variables-and-logistic-regression.html#cb554-3" tabindex="-1"></a>               <span class="at">reference=</span>banbox<span class="sc">$</span>response, <span class="at">positive=</span><span class="st">&quot;Yes&quot;</span>) </span></code></pre></div>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction    No   Yes
+##        No  13066  1747
+##        Yes     0     0
+##                                           
+##                Accuracy : 0.8821          
+##                  95% CI : (0.8768, 0.8872)
+##     No Information Rate : 0.8821          
+##     P-Value [Acc &gt; NIR] : 0.5064          
+##                                           
+##                   Kappa : 0               
+##                                           
+##  Mcnemar&#39;s Test P-Value : &lt;2e-16          
+##                                           
+##             Sensitivity : 0.0000          
+##             Specificity : 1.0000          
+##          Pos Pred Value :    NaN          
+##          Neg Pred Value : 0.8821          
+##              Prevalence : 0.1179          
+##          Detection Rate : 0.0000          
+##    Detection Prevalence : 0.0000          
+##       Balanced Accuracy : 0.5000          
+##                                           
+##        &#39;Positive&#39; Class : Yes             
+## </code></pre>
+<p>A specificity of 1 means the model makes zero false positive errors — it never says “Yes” when the correct answer is “No.” Does this mean the model is a good one? Depends on what we are interested in predicting. Could other independent variables be added to the model?</p>
+</details>
 <!--
 ## Assessing model fit I: deviance and pseudo r squared
 

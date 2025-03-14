@@ -93,6 +93,7 @@ fitting-logistic-regression
 interactions
 assessing-model-fit-confusion-matrix
 further-resources-2
+lab-exercises-2
 statistical-inference
 wrapping-up
 appendix
