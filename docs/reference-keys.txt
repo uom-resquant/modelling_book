@@ -91,6 +91,7 @@ regression-modelling-why-not-linear-regression
 logistic-regression
 fitting-logistic-regression
 interactions
+assessing-model-fit-confusion-matrix
 further-resources-2
 statistical-inference
 wrapping-up
