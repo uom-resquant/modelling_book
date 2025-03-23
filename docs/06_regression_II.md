@@ -29,13 +29,7 @@ There are many more variables here that we are going to need, so let's do some f
 ```r
 # load the dplyr package for data cleaning
 library(dplyr)
-```
 
-```
-## Warning: package 'dplyr' was built under R version 4.3.3
-```
-
-```r
 # create a new object, 'df', that only includes
 # observations from 2012
 df <- filter(communitycrime, year == "2012")

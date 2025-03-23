@@ -157,13 +157,7 @@ To calculate the mean of a numerical variable for specific subgroups, we can use
 
 # Load the dplyr package
 library(dplyr)
-```
 
-```
-## Warning: package 'dplyr' was built under R version 4.3.3
-```
-
-```r
 # Subset the data for female respondents
 csew_0708_women <- filter(csew_0708, sex == "female")
 

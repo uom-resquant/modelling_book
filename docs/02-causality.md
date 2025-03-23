@@ -443,10 +443,6 @@ library(dplyr)
 ```
 
 ```
-## Warning: package 'dplyr' was built under R version 4.3.3
-```
-
-```
 ## 
 ## Attaching package: 'dplyr'
 ```

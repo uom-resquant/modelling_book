@@ -1067,13 +1067,6 @@ The *mode* helps give an idea of what is the most typical value in the distribut
 
 ```r
 library(modeest)
-```
-
-```
-## Warning: package 'modeest' was built under R version 4.3.2
-```
-
-```r
 mlv(df$occup_f)
 ```
 
