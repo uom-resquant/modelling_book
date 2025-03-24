@@ -98,9 +98,6 @@ statistical-inference
 introduction-4
 brief-theoretical-overview
 statistical-inference-in-practice
-statistical-significance-vs.-substantive-significance
-presenting-results-from-regression-analysis
-lab-exercises-3
 wrapping-up
 appendix
 expected-frequencies

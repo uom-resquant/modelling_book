@@ -459,7 +459,7 @@ You can learn more about this distribution and the work of Gosset in the suggest
 
 It is fairly straightforward to get the confidence intervals using `R`. *In order to use the t-Student distribution we need to assume the data were randomly sampled and that the population distribution is unimodal and symmetric.*
 
-In the following subsections, we are going to rely on data from the British Crime Survey 2007-08 and revisit everything we studied this semester applying statistical inference tools. Let's start loading the data:
+In the following subsections, we are going to rely on data from the Crime Survey for England and Wales 2007-08 and revisit everything we studied this semester applying statistical inference tools. Let's start loading the data:
 
 
 ```r
@@ -470,23 +470,688 @@ library(readr)
 csew_0708 <- read_csv("https://raw.githubusercontent.com/uom-resquant/modelling_book/refs/heads/master/datasets/BCS0708.csv")
 ```
 
+As we know, this is a representative sample of people aged 16 or older living in England and Wales. While we are analysing data from this sample, what we really care about is the population. Therefore, we can use sample-level data to make population-level conclusions.
+
 ### Means and proportions {-}
 
+As we did a few weeks ago, let's start looking at the variable `tcviolent`, which measures fear of violent crime.
 
+
+```r
+# describe the 'tcviolent' variable
+summary(csew_0708$tcviolent)
+```
+
+```
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+##  -2.350  -0.672  -0.117   0.046   0.540   3.805    3242
+```
+
+This is an index indicating how fearful of violent crime each individual is. The lowest score in the scale is -2.35, indicating no fear of violent crime whatsoever, and the highest score is 3.81, reflecting very high levels of fear of violent of crime.
+
+The average score is 0.05. Now, this is when things get interesting... 0.05 is the *sample mean*. We don't know what the *population mean* is! Yet, that's our target, that's the number we actually want to know. Because we don't know, we can only guess. And the best, most educated guess we can have is the sample mean. Therefore, we treat the sample mean as our estimate (i.e., best guess) of the population mean.
+
+Still, we could be wrong. The CSEW sample is just one out of infinite possible samples drawn from the population aged 16 or older living in England and Wales. While we know that *most* samples will do a good job in estimating the population mean, *some* will be relatively off. Therefore, rather than simply using our point estimate---i.e., rather than simply saying that the population mean is exactly 0.05, we can model the uncertainty and compute a confidence interval around our estimate. Following standard conventions, we can compute a 95% confidence interval.
+
+To do that, we simply use the `t.test()` function in `R`. 
+
+
+```r
+# compute a 95% confidence interval around the mean of 'tcviolent'
+t.test(csew_0708$tcviolent)
+```
+
+```
+## 
+## 	One Sample t-test
+## 
+## data:  csew_0708$tcviolent
+## t = 4.1679, df = 8433, p-value = 3.104e-05
+## alternative hypothesis: true mean is not equal to 0
+## 95 percent confidence interval:
+##  0.02414414 0.06702001
+## sample estimates:
+##  mean of x 
+## 0.04558207
+```
+
+Let's have a closer look at this output. To make our lives easier, let's analyse the output bottom-up. 
+
++ First, under "sample estimates", we have the expression "mean of x" indicating sample mean of the variable `tcviolent`, which is 0.05, as we already knew. 
++ Above that, under "95 percent confidence interval", we have two numbers. They the lower bound and the upper bound of the 95% confidence interval, respectively. Therefore, the 95% confidence interval is $[$ 0.02 ; 0.07 $]$.
+
+So, we can say that we are 95% confident that the population mean is somewhere within the $[$ 0.02 ; 0.07 $]$ range. More accurately, we can conclude that, if we were able to draw several other random samples from the population aged 16 or older in England and Wales, 95% of those samples will yield sample estimates between 0.02 and 0.07.
+
+From a hypothesis testing point of view, the null hypothesis here is that the population mean is 0. Given that the confidence interval does not cross 0, we can reject this null hypothesis with a 95% confidence level. This is not a meaningful null hypothesis.
+
+We can also look at the first row of the output.
+
++ $t = 4.1679$ indicates the *t statistic*. This is obtained by dividing the sample mean by the standard error (which was estimated but not reported). In a nutshell, it measures how distant (in standard errors) the sample mean is from the population mean under the null hypothesis. Give that the null hypothesis states that the population mean is 0, this implies that the sample mean (i.e., 0.05) is $t = 4.1679$ standard errors distant from 0.
++ $df = 8433$ indicates the number of degrees of freedom. In this case, it is given by the total number of observations utilised in the test minus 1.
++ p-value = 3.104e-05 indicates the estimated p-value. This implies that $p=0.00003104$. The expression "e-05" uses scientific notation to indicate the number of decimal points before the first character. In this case, there are five decimal points before '3', therefore $p=0.00003104$.
+
+This set of information is about all about hypothesis testing. The *t-statistic*, degrees of freedom, and *p-value* are all directly related. We use this information as evidence on whether we can, or cannot, reject the null hypothesis. In this case, because the p-value is lower than our significance level (i.e., $0.00003104 < 0.05$), we reject the null hypothesis.
+
+If you want a different confidence interval, say 99%, you can pass an additional argument to change the default in the `t.test()` function. In this case, when saying `.99` we are saying that if we were to repeat the procedure 99% of the confidence intervals would cover the population parameter.
+
+
+```r
+# compute a 99% confidence interval around the mean of 'tcviolent'
+t.test(csew_0708$tcviolent, conf.level = .99)
+```
+
+```
+## 
+## 	One Sample t-test
+## 
+## data:  csew_0708$tcviolent
+## t = 4.1679, df = 8433, p-value = 3.104e-05
+## alternative hypothesis: true mean is not equal to 0
+## 99 percent confidence interval:
+##  0.01740552 0.07375863
+## sample estimates:
+##  mean of x 
+## 0.04558207
+```
+
+The 99% confidence level is $[$ 0.02 ; 0.07 $]$.
+
+Now, suppose that instead of analysing scores of fear of violent crime, you want to analyse the proportion of individuals who have been victimised. 
+
+
+```r
+# sample proportion of victimisation
+table(csew_0708$bcsvictim) %>% prop.table
+```
+
+```
+## 
+## not a victim of crime       victim of crime 
+##             0.7980473             0.2019527
+```
+
+The sample percentage of individuals who have been victimised is 20.2%. Yet, this is only true for our sample. The number we actually want to find out is the *population* percentage of individuals who have been victimised. Since this is a population parameters, it is unknown. We can only guess. Our best guess is to use the sample statistic. Therefore, we *estimate* that the population percentage of individuals who have been victimised is 20.2%.
+
+Still, we could be wrong. We don't know what the population parameter is, and our estimate could be very far off from the population proportion. Therefore, we compute a 95% confidence interval. We can use the `prop.test()` function in these cases:
+
+
+```r
+# We want to estimate the proportion of respondents who have been victimised, 
+# which is why we specifically ask for those classified as "victim of crime"
+prop.test(csew_0708$bcsvictim == "victim of crime")
+```
+
+```
+## 
+## 	1-sample proportions test with continuity correction
+## 
+## data:  ==  [with success = TRUE]csew_0708$bcsvictim  [with success = TRUE]victim of crime  [with success = TRUE]
+## X-squared = 4147.6, df = 1, p-value < 2.2e-16
+## alternative hypothesis: true p is not equal to 0.5
+## 95 percent confidence interval:
+##  0.1947272 0.2093754
+## sample estimates:
+##         p 
+## 0.2019527
+```
+
+Very similar output as before. We have the sample estimate of 0.202 and a 95% confidence interval ranging from 0.195 to 0.209.
+
+So, we can say that we are 95% confident that the population proportion is somewhere within the $[$ 0.195; 0.209 $]$ range.
+
+The hypothesis testing part works exactly the same way. We already knew we could reject the null hypothesis (under a 5% significance level) that the population proportion is 0 because the 95% confidence interval does not cross 0. We can also look at the first row of the output, which works in a similar way---instead of a *t-statistic*, we have a *X-squared* statistic, given that we now have a proportion, and a p-value really, really low: $p = 0.000000000000000022$. This hypothesis testing is not substantially relevant either.
+
+As before, You can also specify a different confidence level:
+
+
+```r
+# Computing a 99% confidence interval for the sample proportion
+prop.test(csew_0708$bcsvictim == "victim of crime", conf.level = .99)
+```
+
+```
+## 
+## 	1-sample proportions test with continuity correction
+## 
+## data:  ==  [with success = TRUE]csew_0708$bcsvictim  [with success = TRUE]victim of crime  [with success = TRUE]
+## X-squared = 4147.6, df = 1, p-value < 2.2e-16
+## alternative hypothesis: true p is not equal to 0.5
+## 99 percent confidence interval:
+##  0.1925112 0.2117343
+## sample estimates:
+##         p 
+## 0.2019527
+```
 
 ### Statistical inference in linear regression models {-}
 
+Now, following the logic of the course outline, say we are interested in a bivariate relationship; say, for instance, we want to know whether individuals who have previously been victimised have higher scores of fear of violent crime than individuals who have not been victimised. In this case, fear of violent crime (`tcviolent`), a numerical variable, is our dependent variable, and crime victimisation, `bcsvictim`, a binary variable, is our independent variable. We know that to test this association we just need to estimate the mean difference---i.e., the difference between the average score of fear of violent crime among those who have been victims and the average scores of fear of violent crime among those who have not been victims. We also know that the linear regression framework calculates the mean difference for us.
+
+
+```r
+# use regression to calculate the mean difference in 'tcviolent' across groups of 'bcsvictim'
+linear_regression_1 <- lm(tcviolent ~ bcsvictim, data = csew_0708)
+
+# print results
+linear_regression_1
+```
+
+```
+## 
+## Call:
+## lm(formula = tcviolent ~ bcsvictim, data = csew_0708)
+## 
+## Coefficients:
+##              (Intercept)  bcsvictimvictim of crime  
+##                  0.02483                   0.09812
+```
+
+Based on the regression output above, we know that the average score of fear of crime among respondents who have *not* been victims of crime is $\widehat{\alpha} = 0.025$, and we know that respondents who *have* been previously victimised have an average score of fear of crime that is $\widehat{\beta} = 0.098$ higher than non-victims. 
+
+That's great, but those numbers are also only true in our sample! What we want to know is the mean difference *in the population*. Because it is a population parameter, we do not know what it is. We can only guess. As ever, our best, most educated guess is the sample mean difference. But we can also handle the uncertainty around our point estimate and compute a confidence interval and conduct hypothesis testing. The null hypothesis, in this case, is that the mean difference *in the population* is 0.
+
+So, how can test the null hypothesis? The linear regression framework already does it for us! Yes, that's great. Every single parameter in the regression model---i.e., $\alpha$ and $\beta$ have their own statistical test conducted. Aside from the point estimate (i.e., the estimates of $\alpha$ and $\beta$), the `lm()` function will automatically estimate a standard error, which can be used to compute a t-statistic and the p-value. From that, we can also derive confidence intervals. 
+
+And the good news is, we don't need to do anything new. We just use the `summary()` function when printing the regression model.
+
+
+```r
+# print results from the regression model with all information
+summary(linear_regression_1)
+```
+
+```
+## 
+## Call:
+## lm(formula = tcviolent ~ bcsvictim, data = csew_0708)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.4732 -0.7326 -0.1665  0.4900  3.7806 
+## 
+## Coefficients:
+##                          Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)               0.02483    0.01231   2.017 0.043696 *  
+## bcsvictimvictim of crime  0.09812    0.02676   3.667 0.000247 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.004 on 8432 degrees of freedom
+##   (3242 observations deleted due to missingness)
+## Multiple R-squared:  0.001592,	Adjusted R-squared:  0.001474 
+## F-statistic: 13.45 on 1 and 8432 DF,  p-value: 0.0002472
+```
+
+Let's focus on the "Coefficients:" part of the output. For each estimated parameter---in this case, the intercept $\widehat{\alpha}$ ("*(Intercept)*") and the slope coefficient $\widehat{\beta}$ ("*bcsvictim of crime*")---there are now four columns available. The column "Estimate" just provides the point estimate, exactly as before. The three new columns---Std. Error, t value, and Pr(>|t|)---yield information that allow us to make statistical inference.
+
+We can see, for example, that the estimated mean difference is 0.098. We already knew that. But now we also know the standard error of this estimate, which is 0.027. If we simply divide the Estimate by its standard error ($\frac{0.098}{0.027}$), we obtain the t-statistic, which in this case is 3.667. So, we know that our sample mean difference is 3.667 standard errors distant from 0 (i.e., the population mean under the null hypothesis). Finally, and crucially, we can see that the p-value is $p=0.000247$. We are adopting a 5% significance level. Given that the estimated p-value is lower than 0.05, we can confidently reject the null the hypothesis. We can then say that the estimated mean difference is statistically significantly different from 0---implying that we are confident that that population mean difference is not zero.
+
+We could do the same analysis for the estimated intercept (although, in reality, we are usually interested in the slope coefficient). 
+
+Similarly, we can also calculate confidence intervals for each estimate. We could manually calculate those intervals with the information available above (remember? The lower bound of the 95% confidence interval is given by $Estimate - 1.96 * standard\_error$ and the upper bound is $Estimate + 1.96 * standard\_error$), but we can also ask `R` to do it for us.
+
+
+```r
+# compute 95% confidence interval of regression estimates
+confint(linear_regression_1)
+```
+
+```
+##                                 2.5 %     97.5 %
+## (Intercept)              0.0007021627 0.04895231
+## bcsvictimvictim of crime 0.0456649822 0.15057526
+```
+
+The 95% confidence interval of the mean difference is $[0.046; 0.151]$. We can also calculate other confidence intervals.
+
+
+```r
+# compute 99% confidence interval of regression estimates
+confint(linear_regression_1, level = 0.99)
+```
+
+```
+##                                 0.5 %     99.5 %
+## (Intercept)              -0.006881111 0.05653558
+## bcsvictimvictim of crime  0.029176673 0.16706357
+```
+
+What if the independent variable is numerical, and not binary? Exactly the same logic applies. Say we want to assess the association between people's perceptions of anti-social behaviour in their neighbourhood, `tcarea`, and fear of violent crime. The hypothesis here is that people who live in areas characterised by more social disorganisation will be more fearful of violent crime. `tcarea`, as we know, is a numerical variable.
+
+
+```r
+# describe the 'tcarea' variable
+summary(csew_0708$tcarea)
+```
+
+```
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+## -2.6735 -0.7943 -0.0942  0.0303  0.6420  4.1883     677
+```
+
+This index is measured on a scale that ranges from -2.67, indicating people who do not perceive anti-social behaviour in their area at all, to 4.19, indicating people who perceive high levels of anti-social behaviour in their neighbourhood.
+
+We can fit a regression model in which `tcviolent` is the dependent variable and `tcarea` is the independent variable. This model should tell us something about the association between both variables.
+
+
+```r
+# fit linear regression model assessting the association between 'tcarea' and 'tcviolent'
+linear_regression_2 <- lm(tcviolent ~ tcarea, data = csew_0708)
+
+# print results
+linear_regression_2
+```
+
+```
+## 
+## Call:
+## lm(formula = tcviolent ~ tcarea, data = csew_0708)
+## 
+## Coefficients:
+## (Intercept)       tcarea  
+##     0.03159      0.30921
+```
+
+Now, the estimated slope coefficient is $\widehat{\beta}=0.309$, indicating that every one-unit increase in the scale of `tcarea` is associated with an increase of 0.309 in the expected score of `tcviolent`.
+
+Again, however, $\widehat{\beta}=0.309$ is only true in our sample. What we actually want to know is the population parameter, which is unknown. We can start with the null hypothesis: the slope coefficient is 0 in the population. We can then conduct a statistical test that provides evidence for or against the null hypothesis.
+
+
+```r
+# print results from the regression model with all information
+summary(linear_regression_2)
+```
+
+```
+## 
+## Call:
+## lm(formula = tcviolent ~ tcarea, data = csew_0708)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.9336 -0.6354 -0.1317  0.4731  3.9777 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  0.03159    0.01065   2.965  0.00303 ** 
+## tcarea       0.30921    0.01081  28.595  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9536 on 8010 degrees of freedom
+##   (3664 observations deleted due to missingness)
+## Multiple R-squared:  0.09263,	Adjusted R-squared:  0.09251 
+## F-statistic: 817.7 on 1 and 8010 DF,  p-value: < 2.2e-16
+```
+
+Now, not only do we have a sample estimate of our regression coefficient, but we also have the estimated standard error, 0.011. This allows us to compute the t-statistic, indicating that our sample estimate is 28.6 standard errors distant from 0 (the assumed population parameter under the null hypothesis), and a p-value of $p = 0.000000000000000022$. Given that the p-value is lower than our significance level of 5% (i.e., $0.000000000000000022 < 0.05$), we can confidently reject the null hypothesis and conclude that, under a 95% confidence level, the slope coefficient is not zero in the population (it is also true under other confidence levels, such as 99% and 99.9%, but conventionally we use the standard 95% level). The association between `tcarea` and `tcviolent` is *statistically significant*.
+
 ### Statistical inference in multiple linear regression models {-}
+
+What about multiple linear regressions? No difference whatsoever. Each estimated parameter has its own (conditional) null hypothesis and its own statistical test. For example, let's estimate a regression model in which fear of violent crime is the dependent variable and `tcarea`, `bcsvictim`, and `rural2` are all independent variables.
+
+
+```r
+# estimate a multiple linear regression
+linear_regression_3 <- lm(tcviolent ~ tcarea + bcsvictim + rural2, data = csew_0708)
+
+# print results
+linear_regression_3
+```
+
+```
+## 
+## Call:
+## lm(formula = tcviolent ~ tcarea + bcsvictim + rural2, data = csew_0708)
+## 
+## Coefficients:
+##              (Intercept)                    tcarea  bcsvictimvictim of crime  
+##                 -0.06606                   0.29992                  -0.08577  
+##              rural2urban  
+##                  0.16274
+```
+We can see that, controlling for victimisation and urban dwelling, every unit increase in `tcarea` is associated with an expected increase of 0.30 scores in `tcviolent`. We can also see that, controlling for perceived anti-social behaviour and urban dwelling, the expected score of fear of crime among victims is 0.089 scores *lower* than among non-victims (interesting flip sign in the multivariate model!). Finally, controlling for perceived anti-social behaviour and crime victimisation, the expected score of fear of crime among urban residents is 0.163 scores higher than among rural residents.
+
+Yet, all of those coefficients are only true in the sample---they are sample estimates. They are a good guess for the population parameters, but we need to model the uncertainty around those estimates. Therefore, for each point estimate (i.e., for each coefficient), we also estimate a standard error, which we use to calculate the t-statistic and the p-value. 
+
+
+```r
+# print results from the regression model with all information
+summary(linear_regression_3)
+```
+
+```
+## 
+## Call:
+## lm(formula = tcviolent ~ tcarea + bcsvictim + rural2, data = csew_0708)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.7890 -0.6346 -0.1353  0.4820  3.9065 
+## 
+## Coefficients:
+##                          Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)              -0.06606    0.02066  -3.198  0.00139 ** 
+## tcarea                    0.29992    0.01133  26.479  < 2e-16 ***
+## bcsvictimvictim of crime -0.08577    0.02681  -3.199  0.00138 ** 
+## rural2urban               0.16274    0.02413   6.744 1.65e-11 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9505 on 8008 degrees of freedom
+##   (3664 observations deleted due to missingness)
+## Multiple R-squared:  0.09864,	Adjusted R-squared:  0.09831 
+## F-statistic: 292.1 on 3 and 8008 DF,  p-value: < 2.2e-16
+```
+We can see that all three coefficients are statistically significant, as they all yield estimated p-values lower than our significance level of 0.05. Therefore, we conclude that all three null hypotheses can be rejected at the 5% significance level (or at the 95% confidence level), implying that we are confident that neither of those parameters is 0 in the population.
+
+[This blog post](http://www.sumsar.net/blog/2013/12/an-animation-of-the-construction-of-a-confidence-interval/) provides a nice animation of the confidence interval and hypothesis testing.
+
+### Presenting results from regression analysis {-}
+
+Communicating your results in a clear manner is incredibly important. We have seen the tabular results produced by `R`. If you want to use them in a paper (e.g., your final coursework!), you may need to do some tidying up of those results. There are a number of packages (e.g., `textreg`, `stargazer`) that automatise that process. They take your `lm` objects and produce tables that you can put straight away in your reports or papers. One popular trend in presenting results is the **coefficient plot** as an alternative to the table of regression coefficients. There are various ways of producing coefficient plots with `R` for a variety of models. See [here](https://www.r-statistics.com/2010/07/visualization-of-regression-coefficients-in-r/), for example.
+
+We are going to use instead the `plot_model()` function of the `sjPlot` package, that makes it easier to produce this sort of plots. You can find a more detailed tutorial about this function [here](http://rpubs.com/sjPlot/sjplm). See below for an example:
+
+
+```r
+# install package if you haven't yet
+## install.packages("sjPlot")
+
+# load sjPlot package
+library(sjPlot)
+```
+
+We can then use the `plot_model()` function to plot produce a coefficient plot.
+
+
+```r
+# produce a coefficient plot
+plot_model(linear_regression_3)
+```
+
+<img src="09_statistical_inference_files/figure-html/unnamed-chunk-34-1.png" width="672" />
+
+You can further customise this:
+
+
+```r
+# add a title to the coefficient plot
+plot_model(linear_regression_3, title = "Fear of violent crime")
+```
+
+<img src="09_statistical_inference_files/figure-html/unnamed-chunk-35-1.png" width="672" />
+
+What you see plotted here is the point estimates (the circles), the confidence intervals around those estimates (the longer the line, the less precise the estimate), and the colours represent whether the statistical effect is negative (red) or positive (blue). There are other packages that also provide similar functionality, like the `dotwhisker` package that you may want to explore, see more details [here](https://cran.r-project.org/web/packages/dotwhisker/vignettes/dotwhisker-vignette.html).
+
+The `sjPlot` package also allows you to produce html tables for more professional presentation of your regression tables. For this we use the `tab_model()` function. This kind of tabulation may be particularly helpful for your final assignment.
+
+
+```r
+# produce a nice looking table
+tab_model(linear_regression_3)
+```
+
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">&nbsp;</th>
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">tcviolent</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">Predictors</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">Estimates</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">CI</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">p</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">(Intercept)</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.07</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.11&nbsp;&ndash;&nbsp;-0.03</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>0.001</strong></td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">tcarea</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.30</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.28&nbsp;&ndash;&nbsp;0.32</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">bcsvictim [victim of<br>crime]</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.09</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.14&nbsp;&ndash;&nbsp;-0.03</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>0.001</strong></td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">rural2 [urban]</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.16</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.12&nbsp;&ndash;&nbsp;0.21</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">Observations</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">8012</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">0.099 / 0.098</td>
+</tr>
+
+</table>
+
+As before you can further customise this table. Let's change for example the name that is displayed for the dependent variable.
+
+
+```r
+tab_model(linear_regression_3, dv.labels = "Fear of violent crime")
+```
+
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">&nbsp;</th>
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">Fear of violent crime</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">Predictors</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">Estimates</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">CI</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">p</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">(Intercept)</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.07</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.11&nbsp;&ndash;&nbsp;-0.03</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>0.001</strong></td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">tcarea</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.30</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.28&nbsp;&ndash;&nbsp;0.32</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">bcsvictim [victim of<br>crime]</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.09</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.14&nbsp;&ndash;&nbsp;-0.03</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>0.001</strong></td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">rural2 [urban]</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.16</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.12&nbsp;&ndash;&nbsp;0.21</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">Observations</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">8012</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">0.099 / 0.098</td>
+</tr>
+
+</table>
+
+Or you could change the labels for the independent variables:
+
+
+```r
+tab_model(linear_regression_3, 
+          pred.labels = c("Intercept", "Perceived anti-social behaviour", "Crime victimisation", "Urban residents"), 
+          dv.labels = "Fear of violent crime")
+```
+
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">&nbsp;</th>
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">Fear of violent crime</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">Predictors</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">Estimates</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">CI</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">p</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Intercept</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.07</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.11&nbsp;&ndash;&nbsp;-0.03</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>0.001</strong></td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Perceived anti-social behaviour</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.30</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.28&nbsp;&ndash;&nbsp;0.32</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Crime victimisation</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.09</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.14&nbsp;&ndash;&nbsp;-0.03</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>0.001</strong></td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Urban residents</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.16</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.12&nbsp;&ndash;&nbsp;0.21</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">Observations</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">8012</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">0.099 / 0.098</td>
+</tr>
+
+</table>
+
+It is **crucial** that you always report sample estimates with measures of uncertainty (e.g., standard errors, confidence intervals, p-values, and/or t-statistics).
 
 ### Statistical inference in logistic regression models {-}
 
-
-## Statistical significance vs. Substantive significance
-
-
-## Presenting results from regression analysis
+When is comes to the logistic regression, the same logic applies. Let's again use the `Arrests` dataset from the `effects` package, as we did last week.
 
 
-## Lab exercises
+```r
+# install package if you haven't done so
+## install.packages("effects")
+
+# load the 'effects' package
+library(effects)
+
+# load the dataset "Arrests"
+data(Arrests)
+```
+
+Let's fit the same logistic regression as we did last week, examining the (log) odds of being released with a summons instead of receiving a harsher treatment. We want to assess the extent to which ethnicity, sex, previous number of entries in the criminal justice system, and employment status are associated with highler or lower odds of being released with a summons.
 
 
+```r
+# Fit a logistic regression model and store it under 'logistic_reg'
+logistic_reg <- glm(released ~ colour + sex + checks + employed, data = Arrests, family = binomial)
+
+# print the estimated coefficients
+logistic_reg
+```
+
+```
+## 
+## Call:  glm(formula = released ~ colour + sex + checks + employed, family = binomial, 
+##     data = Arrests)
+## 
+## Coefficients:
+## (Intercept)  colourWhite      sexMale       checks  employedYes  
+##     1.40739      0.49608     -0.04215     -0.35796      0.77973  
+## 
+## Degrees of Freedom: 5225 Total (i.e. Null);  5221 Residual
+## Null Deviance:	    4776 
+## Residual Deviance: 4331 	AIC: 4341
+```
+
+Yet, as we have repeatedly learned today, these coefficients are only true in our sample. We can use them to *estimate* the population parameters, but such parameters will remain unknown. Therefore, accompanying each regression coefficient, we can also estimate standard errors. Such standard errors can be used to compute useful statistical inference tools, such as the confidence intervals and the p-value.
+
+
+```r
+# print results from the regression model with all information
+summary(logistic_reg)
+```
+
+```
+## 
+## Call:
+## glm(formula = released ~ colour + sex + checks + employed, family = binomial, 
+##     data = Arrests)
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(>|z|)    
+## (Intercept)  1.40739    0.17243   8.162 3.30e-16 ***
+## colourWhite  0.49608    0.08264   6.003 1.94e-09 ***
+## sexMale     -0.04215    0.14965  -0.282    0.778    
+## checks      -0.35796    0.02580 -13.875  < 2e-16 ***
+## employedYes  0.77973    0.08386   9.298  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 4776.3  on 5225  degrees of freedom
+## Residual deviance: 4330.7  on 5221  degrees of freedom
+## AIC: 4340.7
+## 
+## Number of Fisher Scoring iterations: 5
+```
+
+With logistic regression, we do not compute a *t-statistic*. Instead, we compute a *z-statistic*. This is because the underlying test uses the standard normal distribution instead of the t-student distribution. We do not need to get into that; with large sample sizes (our sample sizes our usually large enough!), they are exactly the same. We obtain z-statistics by dividing each estimated coefficient by its standard error, and the z-statistic will simply indicate how distant the sample estimate is from 0 (i.e., the assumed population parameter under the null hypothesis).
+
+We can see, for example, that even though males have lower log-odds of being released with a summons than females ($\widehat{\beta}=-0.042$), the standard error around this estimate is fairly large. Crucially, the p-value is also large---more specifically, larger than our significance level of 5% (i.e., $0.778 > 0.05$). Therefore, we fail to reject that null hypothesis and conclude that the association between sex and the log-odds of being released with a summons is not statistically significant---i.e., the coefficient could possibly be 0 in the population.
+
+We also learned that coefficients in logistic regression are not directly interpretable, and that it is common to use **odds ratios** when interpreting such models. In the interest of modelling and communicating uncertainty around our estimates, it is common practice to produce confidence intervals around odds ratios.
+
+
+```r
+# produce odds ratios and 95% confidence intervals of odds ratios
+exp(cbind(OR = coef(logistic_reg), confint(logistic_reg))) 
+```
+
+```
+## Waiting for profiling to be done...
+```
+
+```
+##                    OR     2.5 %    97.5 %
+## (Intercept) 4.0852619 2.9299967 5.7638450
+## colourWhite 1.6422658 1.3957633 1.9298763
+## sexMale     0.9587242 0.7096919 1.2770423
+## checks      0.6990998 0.6644842 0.7352174
+## employedYes 2.1808765 1.8493825 2.5693054
+```
+Finally, we can also use *coefficient plots* in much the same way than we did for linear regression. One way of doing this is using the `plot_model()` function of the `sjPlot` package. Notice that the `plot_model()` function already produces a plot with odds ratios! 
+
+
+```r
+# produce a coefficient plot
+plot_model(logistic_reg, title = "Odds of being released with a summons")
+```
+
+<img src="09_statistical_inference_files/figure-html/unnamed-chunk-43-1.png" width="672" />

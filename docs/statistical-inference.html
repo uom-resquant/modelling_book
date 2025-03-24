@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-03-23" />
+<meta name="date" content="2025-03-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -273,11 +273,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="statistical-inference.html"><a href="statistical-inference.html#means-and-proportions"><i class="fa fa-check"></i>Means and proportions</a></li>
 <li class="chapter" data-level="" data-path="statistical-inference.html"><a href="statistical-inference.html#statistical-inference-in-linear-regression-models"><i class="fa fa-check"></i>Statistical inference in linear regression models</a></li>
 <li class="chapter" data-level="" data-path="statistical-inference.html"><a href="statistical-inference.html#statistical-inference-in-multiple-linear-regression-models"><i class="fa fa-check"></i>Statistical inference in multiple linear regression models</a></li>
+<li class="chapter" data-level="" data-path="statistical-inference.html"><a href="statistical-inference.html#presenting-results-from-regression-analysis"><i class="fa fa-check"></i>Presenting results from regression analysis</a></li>
 <li class="chapter" data-level="" data-path="statistical-inference.html"><a href="statistical-inference.html#statistical-inference-in-logistic-regression-models"><i class="fa fa-check"></i>Statistical inference in logistic regression models</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="statistical-inference.html"><a href="statistical-inference.html#statistical-significance-vs.-substantive-significance"><i class="fa fa-check"></i><b>9.4</b> Statistical significance vs. Substantive significance</a></li>
-<li class="chapter" data-level="9.5" data-path="statistical-inference.html"><a href="statistical-inference.html#presenting-results-from-regression-analysis"><i class="fa fa-check"></i><b>9.5</b> Presenting results from regression analysis</a></li>
-<li class="chapter" data-level="9.6" data-path="statistical-inference.html"><a href="statistical-inference.html#lab-exercises-3"><i class="fa fa-check"></i><b>9.6</b> Lab exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="wrapping-up.html"><a href="wrapping-up.html"><i class="fa fa-check"></i><b>10</b> Wrapping up</a></li>
 <li class="chapter" data-level="11" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i><b>11</b> Appendix</a>
@@ -621,34 +619,638 @@ details {
 <p>It is important, though, that you know that this approach works reasonably well when applying the Normal probability model to large samples. But with small samples using the sample standard deviation as an estimate of the standard error (so that we can compute the confidence interval) is problematic. The sample standard deviation also varies from sample to sample and this extra variation in smaller samples will mess up the computation of the margin of errors. William Gosset’s suggested we needed to use a different probability distribution for this cases, the <em>t Student distribution</em>.</p>
 <p>You can learn more about this distribution and the work of Gosset in the suggested reading. The t-Student distribution and the normal distribution are almost indistinguishable for large samples. In essence that means you will still multiply by 1.96. But with smaller sample sizes that value will be different if you use a normal distribution or a t student distribution. Refer to the recommended textbooks for further clarification.</p>
 <p>It is fairly straightforward to get the confidence intervals using <code>R</code>. <em>In order to use the t-Student distribution we need to assume the data were randomly sampled and that the population distribution is unimodal and symmetric.</em></p>
-<p>In the following subsections, we are going to rely on data from the British Crime Survey 2007-08 and revisit everything we studied this semester applying statistical inference tools. Let’s start loading the data:</p>
+<p>In the following subsections, we are going to rely on data from the Crime Survey for England and Wales 2007-08 and revisit everything we studied this semester applying statistical inference tools. Let’s start loading the data:</p>
 <div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb565-1"><a href="statistical-inference.html#cb565-1" tabindex="-1"></a><span class="co"># load readr package</span></span>
 <span id="cb565-2"><a href="statistical-inference.html#cb565-2" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
 <span id="cb565-3"><a href="statistical-inference.html#cb565-3" tabindex="-1"></a></span>
 <span id="cb565-4"><a href="statistical-inference.html#cb565-4" tabindex="-1"></a><span class="co"># import the data using read_csv() function</span></span>
 <span id="cb565-5"><a href="statistical-inference.html#cb565-5" tabindex="-1"></a>csew_0708 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/uom-resquant/modelling_book/refs/heads/master/datasets/BCS0708.csv&quot;</span>)</span></code></pre></div>
+<p>As we know, this is a representative sample of people aged 16 or older living in England and Wales. While we are analysing data from this sample, what we really care about is the population. Therefore, we can use sample-level data to make population-level conclusions.</p>
 <div id="means-and-proportions" class="section level3 unnumbered hasAnchor">
 <h3>Means and proportions<a href="statistical-inference.html#means-and-proportions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As we did a few weeks ago, let’s start looking at the variable <code>tcviolent</code>, which measures fear of violent crime.</p>
+<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="statistical-inference.html#cb566-1" tabindex="-1"></a><span class="co"># describe the &#39;tcviolent&#39; variable</span></span>
+<span id="cb566-2"><a href="statistical-inference.html#cb566-2" tabindex="-1"></a><span class="fu">summary</span>(csew_0708<span class="sc">$</span>tcviolent)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+##  -2.350  -0.672  -0.117   0.046   0.540   3.805    3242</code></pre>
+<p>This is an index indicating how fearful of violent crime each individual is. The lowest score in the scale is -2.35, indicating no fear of violent crime whatsoever, and the highest score is 3.81, reflecting very high levels of fear of violent of crime.</p>
+<p>The average score is 0.05. Now, this is when things get interesting… 0.05 is the <em>sample mean</em>. We don’t know what the <em>population mean</em> is! Yet, that’s our target, that’s the number we actually want to know. Because we don’t know, we can only guess. And the best, most educated guess we can have is the sample mean. Therefore, we treat the sample mean as our estimate (i.e., best guess) of the population mean.</p>
+<p>Still, we could be wrong. The CSEW sample is just one out of infinite possible samples drawn from the population aged 16 or older living in England and Wales. While we know that <em>most</em> samples will do a good job in estimating the population mean, <em>some</em> will be relatively off. Therefore, rather than simply using our point estimate—i.e., rather than simply saying that the population mean is exactly 0.05, we can model the uncertainty and compute a confidence interval around our estimate. Following standard conventions, we can compute a 95% confidence interval.</p>
+<p>To do that, we simply use the <code>t.test()</code> function in <code>R</code>.</p>
+<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb568-1"><a href="statistical-inference.html#cb568-1" tabindex="-1"></a><span class="co"># compute a 95% confidence interval around the mean of &#39;tcviolent&#39;</span></span>
+<span id="cb568-2"><a href="statistical-inference.html#cb568-2" tabindex="-1"></a><span class="fu">t.test</span>(csew_0708<span class="sc">$</span>tcviolent)</span></code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  csew_0708$tcviolent
+## t = 4.1679, df = 8433, p-value = 3.104e-05
+## alternative hypothesis: true mean is not equal to 0
+## 95 percent confidence interval:
+##  0.02414414 0.06702001
+## sample estimates:
+##  mean of x 
+## 0.04558207</code></pre>
+<p>Let’s have a closer look at this output. To make our lives easier, let’s analyse the output bottom-up.</p>
+<ul>
+<li>First, under “sample estimates”, we have the expression “mean of x” indicating sample mean of the variable <code>tcviolent</code>, which is 0.05, as we already knew.</li>
+<li>Above that, under “95 percent confidence interval”, we have two numbers. They the lower bound and the upper bound of the 95% confidence interval, respectively. Therefore, the 95% confidence interval is <span class="math inline">\([\)</span> 0.02 ; 0.07 <span class="math inline">\(]\)</span>.</li>
+</ul>
+<p>So, we can say that we are 95% confident that the population mean is somewhere within the <span class="math inline">\([\)</span> 0.02 ; 0.07 <span class="math inline">\(]\)</span> range. More accurately, we can conclude that, if we were able to draw several other random samples from the population aged 16 or older in England and Wales, 95% of those samples will yield sample estimates between 0.02 and 0.07.</p>
+<p>From a hypothesis testing point of view, the null hypothesis here is that the population mean is 0. Given that the confidence interval does not cross 0, we can reject this null hypothesis with a 95% confidence level. This is not a meaningful null hypothesis.</p>
+<p>We can also look at the first row of the output.</p>
+<ul>
+<li><span class="math inline">\(t = 4.1679\)</span> indicates the <em>t statistic</em>. This is obtained by dividing the sample mean by the standard error (which was estimated but not reported). In a nutshell, it measures how distant (in standard errors) the sample mean is from the population mean under the null hypothesis. Give that the null hypothesis states that the population mean is 0, this implies that the sample mean (i.e., 0.05) is <span class="math inline">\(t = 4.1679\)</span> standard errors distant from 0.</li>
+<li><span class="math inline">\(df = 8433\)</span> indicates the number of degrees of freedom. In this case, it is given by the total number of observations utilised in the test minus 1.</li>
+<li>p-value = 3.104e-05 indicates the estimated p-value. This implies that <span class="math inline">\(p=0.00003104\)</span>. The expression “e-05” uses scientific notation to indicate the number of decimal points before the first character. In this case, there are five decimal points before ‘3’, therefore <span class="math inline">\(p=0.00003104\)</span>.</li>
+</ul>
+<p>This set of information is about all about hypothesis testing. The <em>t-statistic</em>, degrees of freedom, and <em>p-value</em> are all directly related. We use this information as evidence on whether we can, or cannot, reject the null hypothesis. In this case, because the p-value is lower than our significance level (i.e., <span class="math inline">\(0.00003104 &lt; 0.05\)</span>), we reject the null hypothesis.</p>
+<p>If you want a different confidence interval, say 99%, you can pass an additional argument to change the default in the <code>t.test()</code> function. In this case, when saying <code>.99</code> we are saying that if we were to repeat the procedure 99% of the confidence intervals would cover the population parameter.</p>
+<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="statistical-inference.html#cb570-1" tabindex="-1"></a><span class="co"># compute a 99% confidence interval around the mean of &#39;tcviolent&#39;</span></span>
+<span id="cb570-2"><a href="statistical-inference.html#cb570-2" tabindex="-1"></a><span class="fu">t.test</span>(csew_0708<span class="sc">$</span>tcviolent, <span class="at">conf.level =</span> .<span class="dv">99</span>)</span></code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  csew_0708$tcviolent
+## t = 4.1679, df = 8433, p-value = 3.104e-05
+## alternative hypothesis: true mean is not equal to 0
+## 99 percent confidence interval:
+##  0.01740552 0.07375863
+## sample estimates:
+##  mean of x 
+## 0.04558207</code></pre>
+<p>The 99% confidence level is <span class="math inline">\([\)</span> 0.02 ; 0.07 <span class="math inline">\(]\)</span>.</p>
+<p>Now, suppose that instead of analysing scores of fear of violent crime, you want to analyse the proportion of individuals who have been victimised.</p>
+<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb572-1"><a href="statistical-inference.html#cb572-1" tabindex="-1"></a><span class="co"># sample proportion of victimisation</span></span>
+<span id="cb572-2"><a href="statistical-inference.html#cb572-2" tabindex="-1"></a><span class="fu">table</span>(csew_0708<span class="sc">$</span>bcsvictim) <span class="sc">%&gt;%</span> prop.table</span></code></pre></div>
+<pre><code>## 
+## not a victim of crime       victim of crime 
+##             0.7980473             0.2019527</code></pre>
+<p>The sample percentage of individuals who have been victimised is 20.2%. Yet, this is only true for our sample. The number we actually want to find out is the <em>population</em> percentage of individuals who have been victimised. Since this is a population parameters, it is unknown. We can only guess. Our best guess is to use the sample statistic. Therefore, we <em>estimate</em> that the population percentage of individuals who have been victimised is 20.2%.</p>
+<p>Still, we could be wrong. We don’t know what the population parameter is, and our estimate could be very far off from the population proportion. Therefore, we compute a 95% confidence interval. We can use the <code>prop.test()</code> function in these cases:</p>
+<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="statistical-inference.html#cb574-1" tabindex="-1"></a><span class="co"># We want to estimate the proportion of respondents who have been victimised, </span></span>
+<span id="cb574-2"><a href="statistical-inference.html#cb574-2" tabindex="-1"></a><span class="co"># which is why we specifically ask for those classified as &quot;victim of crime&quot;</span></span>
+<span id="cb574-3"><a href="statistical-inference.html#cb574-3" tabindex="-1"></a><span class="fu">prop.test</span>(csew_0708<span class="sc">$</span>bcsvictim <span class="sc">==</span> <span class="st">&quot;victim of crime&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+##  1-sample proportions test with continuity correction
+## 
+## data:  ==  [with success = TRUE]csew_0708$bcsvictim  [with success = TRUE]victim of crime  [with success = TRUE]
+## X-squared = 4147.6, df = 1, p-value &lt; 2.2e-16
+## alternative hypothesis: true p is not equal to 0.5
+## 95 percent confidence interval:
+##  0.1947272 0.2093754
+## sample estimates:
+##         p 
+## 0.2019527</code></pre>
+<p>Very similar output as before. We have the sample estimate of 0.202 and a 95% confidence interval ranging from 0.195 to 0.209.</p>
+<p>So, we can say that we are 95% confident that the population proportion is somewhere within the <span class="math inline">\([\)</span> 0.195; 0.209 <span class="math inline">\(]\)</span> range.</p>
+<p>The hypothesis testing part works exactly the same way. We already knew we could reject the null hypothesis (under a 5% significance level) that the population proportion is 0 because the 95% confidence interval does not cross 0. We can also look at the first row of the output, which works in a similar way—instead of a <em>t-statistic</em>, we have a <em>X-squared</em> statistic, given that we now have a proportion, and a p-value really, really low: <span class="math inline">\(p = 0.000000000000000022\)</span>. This hypothesis testing is not substantially relevant either.</p>
+<p>As before, You can also specify a different confidence level:</p>
+<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="statistical-inference.html#cb576-1" tabindex="-1"></a><span class="co"># Computing a 99% confidence interval for the sample proportion</span></span>
+<span id="cb576-2"><a href="statistical-inference.html#cb576-2" tabindex="-1"></a><span class="fu">prop.test</span>(csew_0708<span class="sc">$</span>bcsvictim <span class="sc">==</span> <span class="st">&quot;victim of crime&quot;</span>, <span class="at">conf.level =</span> .<span class="dv">99</span>)</span></code></pre></div>
+<pre><code>## 
+##  1-sample proportions test with continuity correction
+## 
+## data:  ==  [with success = TRUE]csew_0708$bcsvictim  [with success = TRUE]victim of crime  [with success = TRUE]
+## X-squared = 4147.6, df = 1, p-value &lt; 2.2e-16
+## alternative hypothesis: true p is not equal to 0.5
+## 99 percent confidence interval:
+##  0.1925112 0.2117343
+## sample estimates:
+##         p 
+## 0.2019527</code></pre>
 </div>
 <div id="statistical-inference-in-linear-regression-models" class="section level3 unnumbered hasAnchor">
 <h3>Statistical inference in linear regression models<a href="statistical-inference.html#statistical-inference-in-linear-regression-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Now, following the logic of the course outline, say we are interested in a bivariate relationship; say, for instance, we want to know whether individuals who have previously been victimised have higher scores of fear of violent crime than individuals who have not been victimised. In this case, fear of violent crime (<code>tcviolent</code>), a numerical variable, is our dependent variable, and crime victimisation, <code>bcsvictim</code>, a binary variable, is our independent variable. We know that to test this association we just need to estimate the mean difference—i.e., the difference between the average score of fear of violent crime among those who have been victims and the average scores of fear of violent crime among those who have not been victims. We also know that the linear regression framework calculates the mean difference for us.</p>
+<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="statistical-inference.html#cb578-1" tabindex="-1"></a><span class="co"># use regression to calculate the mean difference in &#39;tcviolent&#39; across groups of &#39;bcsvictim&#39;</span></span>
+<span id="cb578-2"><a href="statistical-inference.html#cb578-2" tabindex="-1"></a>linear_regression_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(tcviolent <span class="sc">~</span> bcsvictim, <span class="at">data =</span> csew_0708)</span>
+<span id="cb578-3"><a href="statistical-inference.html#cb578-3" tabindex="-1"></a></span>
+<span id="cb578-4"><a href="statistical-inference.html#cb578-4" tabindex="-1"></a><span class="co"># print results</span></span>
+<span id="cb578-5"><a href="statistical-inference.html#cb578-5" tabindex="-1"></a>linear_regression_1</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = tcviolent ~ bcsvictim, data = csew_0708)
+## 
+## Coefficients:
+##              (Intercept)  bcsvictimvictim of crime  
+##                  0.02483                   0.09812</code></pre>
+<p>Based on the regression output above, we know that the average score of fear of crime among respondents who have <em>not</em> been victims of crime is <span class="math inline">\(\widehat{\alpha} = 0.025\)</span>, and we know that respondents who <em>have</em> been previously victimised have an average score of fear of crime that is <span class="math inline">\(\widehat{\beta} = 0.098\)</span> higher than non-victims.</p>
+<p>That’s great, but those numbers are also only true in our sample! What we want to know is the mean difference <em>in the population</em>. Because it is a population parameter, we do not know what it is. We can only guess. As ever, our best, most educated guess is the sample mean difference. But we can also handle the uncertainty around our point estimate and compute a confidence interval and conduct hypothesis testing. The null hypothesis, in this case, is that the mean difference <em>in the population</em> is 0.</p>
+<p>So, how can test the null hypothesis? The linear regression framework already does it for us! Yes, that’s great. Every single parameter in the regression model—i.e., <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> have their own statistical test conducted. Aside from the point estimate (i.e., the estimates of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>), the <code>lm()</code> function will automatically estimate a standard error, which can be used to compute a t-statistic and the p-value. From that, we can also derive confidence intervals.</p>
+<p>And the good news is, we don’t need to do anything new. We just use the <code>summary()</code> function when printing the regression model.</p>
+<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb580-1"><a href="statistical-inference.html#cb580-1" tabindex="-1"></a><span class="co"># print results from the regression model with all information</span></span>
+<span id="cb580-2"><a href="statistical-inference.html#cb580-2" tabindex="-1"></a><span class="fu">summary</span>(linear_regression_1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = tcviolent ~ bcsvictim, data = csew_0708)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.4732 -0.7326 -0.1665  0.4900  3.7806 
+## 
+## Coefficients:
+##                          Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)               0.02483    0.01231   2.017 0.043696 *  
+## bcsvictimvictim of crime  0.09812    0.02676   3.667 0.000247 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.004 on 8432 degrees of freedom
+##   (3242 observations deleted due to missingness)
+## Multiple R-squared:  0.001592,   Adjusted R-squared:  0.001474 
+## F-statistic: 13.45 on 1 and 8432 DF,  p-value: 0.0002472</code></pre>
+<p>Let’s focus on the “Coefficients:” part of the output. For each estimated parameter—in this case, the intercept <span class="math inline">\(\widehat{\alpha}\)</span> (“<em>(Intercept)</em>”) and the slope coefficient <span class="math inline">\(\widehat{\beta}\)</span> (“<em>bcsvictim of crime</em>”)—there are now four columns available. The column “Estimate” just provides the point estimate, exactly as before. The three new columns—Std. Error, t value, and Pr(&gt;|t|)—yield information that allow us to make statistical inference.</p>
+<p>We can see, for example, that the estimated mean difference is 0.098. We already knew that. But now we also know the standard error of this estimate, which is 0.027. If we simply divide the Estimate by its standard error (<span class="math inline">\(\frac{0.098}{0.027}\)</span>), we obtain the t-statistic, which in this case is 3.667. So, we know that our sample mean difference is 3.667 standard errors distant from 0 (i.e., the population mean under the null hypothesis). Finally, and crucially, we can see that the p-value is <span class="math inline">\(p=0.000247\)</span>. We are adopting a 5% significance level. Given that the estimated p-value is lower than 0.05, we can confidently reject the null the hypothesis. We can then say that the estimated mean difference is statistically significantly different from 0—implying that we are confident that that population mean difference is not zero.</p>
+<p>We could do the same analysis for the estimated intercept (although, in reality, we are usually interested in the slope coefficient).</p>
+<p>Similarly, we can also calculate confidence intervals for each estimate. We could manually calculate those intervals with the information available above (remember? The lower bound of the 95% confidence interval is given by <span class="math inline">\(Estimate - 1.96 * standard\_error\)</span> and the upper bound is <span class="math inline">\(Estimate + 1.96 * standard\_error\)</span>), but we can also ask <code>R</code> to do it for us.</p>
+<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb582-1"><a href="statistical-inference.html#cb582-1" tabindex="-1"></a><span class="co"># compute 95% confidence interval of regression estimates</span></span>
+<span id="cb582-2"><a href="statistical-inference.html#cb582-2" tabindex="-1"></a><span class="fu">confint</span>(linear_regression_1)</span></code></pre></div>
+<pre><code>##                                 2.5 %     97.5 %
+## (Intercept)              0.0007021627 0.04895231
+## bcsvictimvictim of crime 0.0456649822 0.15057526</code></pre>
+<p>The 95% confidence interval of the mean difference is <span class="math inline">\([0.046; 0.151]\)</span>. We can also calculate other confidence intervals.</p>
+<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb584-1"><a href="statistical-inference.html#cb584-1" tabindex="-1"></a><span class="co"># compute 99% confidence interval of regression estimates</span></span>
+<span id="cb584-2"><a href="statistical-inference.html#cb584-2" tabindex="-1"></a><span class="fu">confint</span>(linear_regression_1, <span class="at">level =</span> <span class="fl">0.99</span>)</span></code></pre></div>
+<pre><code>##                                 0.5 %     99.5 %
+## (Intercept)              -0.006881111 0.05653558
+## bcsvictimvictim of crime  0.029176673 0.16706357</code></pre>
+<p>What if the independent variable is numerical, and not binary? Exactly the same logic applies. Say we want to assess the association between people’s perceptions of anti-social behaviour in their neighbourhood, <code>tcarea</code>, and fear of violent crime. The hypothesis here is that people who live in areas characterised by more social disorganisation will be more fearful of violent crime. <code>tcarea</code>, as we know, is a numerical variable.</p>
+<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb586-1"><a href="statistical-inference.html#cb586-1" tabindex="-1"></a><span class="co"># describe the &#39;tcarea&#39; variable</span></span>
+<span id="cb586-2"><a href="statistical-inference.html#cb586-2" tabindex="-1"></a><span class="fu">summary</span>(csew_0708<span class="sc">$</span>tcarea)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+## -2.6735 -0.7943 -0.0942  0.0303  0.6420  4.1883     677</code></pre>
+<p>This index is measured on a scale that ranges from -2.67, indicating people who do not perceive anti-social behaviour in their area at all, to 4.19, indicating people who perceive high levels of anti-social behaviour in their neighbourhood.</p>
+<p>We can fit a regression model in which <code>tcviolent</code> is the dependent variable and <code>tcarea</code> is the independent variable. This model should tell us something about the association between both variables.</p>
+<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb588-1"><a href="statistical-inference.html#cb588-1" tabindex="-1"></a><span class="co"># fit linear regression model assessting the association between &#39;tcarea&#39; and &#39;tcviolent&#39;</span></span>
+<span id="cb588-2"><a href="statistical-inference.html#cb588-2" tabindex="-1"></a>linear_regression_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(tcviolent <span class="sc">~</span> tcarea, <span class="at">data =</span> csew_0708)</span>
+<span id="cb588-3"><a href="statistical-inference.html#cb588-3" tabindex="-1"></a></span>
+<span id="cb588-4"><a href="statistical-inference.html#cb588-4" tabindex="-1"></a><span class="co"># print results</span></span>
+<span id="cb588-5"><a href="statistical-inference.html#cb588-5" tabindex="-1"></a>linear_regression_2</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = tcviolent ~ tcarea, data = csew_0708)
+## 
+## Coefficients:
+## (Intercept)       tcarea  
+##     0.03159      0.30921</code></pre>
+<p>Now, the estimated slope coefficient is <span class="math inline">\(\widehat{\beta}=0.309\)</span>, indicating that every one-unit increase in the scale of <code>tcarea</code> is associated with an increase of 0.309 in the expected score of <code>tcviolent</code>.</p>
+<p>Again, however, <span class="math inline">\(\widehat{\beta}=0.309\)</span> is only true in our sample. What we actually want to know is the population parameter, which is unknown. We can start with the null hypothesis: the slope coefficient is 0 in the population. We can then conduct a statistical test that provides evidence for or against the null hypothesis.</p>
+<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb590-1"><a href="statistical-inference.html#cb590-1" tabindex="-1"></a><span class="co"># print results from the regression model with all information</span></span>
+<span id="cb590-2"><a href="statistical-inference.html#cb590-2" tabindex="-1"></a><span class="fu">summary</span>(linear_regression_2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = tcviolent ~ tcarea, data = csew_0708)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.9336 -0.6354 -0.1317  0.4731  3.9777 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.03159    0.01065   2.965  0.00303 ** 
+## tcarea       0.30921    0.01081  28.595  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.9536 on 8010 degrees of freedom
+##   (3664 observations deleted due to missingness)
+## Multiple R-squared:  0.09263,    Adjusted R-squared:  0.09251 
+## F-statistic: 817.7 on 1 and 8010 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Now, not only do we have a sample estimate of our regression coefficient, but we also have the estimated standard error, 0.011. This allows us to compute the t-statistic, indicating that our sample estimate is 28.6 standard errors distant from 0 (the assumed population parameter under the null hypothesis), and a p-value of <span class="math inline">\(p = 0.000000000000000022\)</span>. Given that the p-value is lower than our significance level of 5% (i.e., <span class="math inline">\(0.000000000000000022 &lt; 0.05\)</span>), we can confidently reject the null hypothesis and conclude that, under a 95% confidence level, the slope coefficient is not zero in the population (it is also true under other confidence levels, such as 99% and 99.9%, but conventionally we use the standard 95% level). The association between <code>tcarea</code> and <code>tcviolent</code> is <em>statistically significant</em>.</p>
 </div>
 <div id="statistical-inference-in-multiple-linear-regression-models" class="section level3 unnumbered hasAnchor">
 <h3>Statistical inference in multiple linear regression models<a href="statistical-inference.html#statistical-inference-in-multiple-linear-regression-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>What about multiple linear regressions? No difference whatsoever. Each estimated parameter has its own (conditional) null hypothesis and its own statistical test. For example, let’s estimate a regression model in which fear of violent crime is the dependent variable and <code>tcarea</code>, <code>bcsvictim</code>, and <code>rural2</code> are all independent variables.</p>
+<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb592-1"><a href="statistical-inference.html#cb592-1" tabindex="-1"></a><span class="co"># estimate a multiple linear regression</span></span>
+<span id="cb592-2"><a href="statistical-inference.html#cb592-2" tabindex="-1"></a>linear_regression_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(tcviolent <span class="sc">~</span> tcarea <span class="sc">+</span> bcsvictim <span class="sc">+</span> rural2, <span class="at">data =</span> csew_0708)</span>
+<span id="cb592-3"><a href="statistical-inference.html#cb592-3" tabindex="-1"></a></span>
+<span id="cb592-4"><a href="statistical-inference.html#cb592-4" tabindex="-1"></a><span class="co"># print results</span></span>
+<span id="cb592-5"><a href="statistical-inference.html#cb592-5" tabindex="-1"></a>linear_regression_3</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = tcviolent ~ tcarea + bcsvictim + rural2, data = csew_0708)
+## 
+## Coefficients:
+##              (Intercept)                    tcarea  bcsvictimvictim of crime  
+##                 -0.06606                   0.29992                  -0.08577  
+##              rural2urban  
+##                  0.16274</code></pre>
+<p>We can see that, controlling for victimisation and urban dwelling, every unit increase in <code>tcarea</code> is associated with an expected increase of 0.30 scores in <code>tcviolent</code>. We can also see that, controlling for perceived anti-social behaviour and urban dwelling, the expected score of fear of crime among victims is 0.089 scores <em>lower</em> than among non-victims (interesting flip sign in the multivariate model!). Finally, controlling for perceived anti-social behaviour and crime victimisation, the expected score of fear of crime among urban residents is 0.163 scores higher than among rural residents.</p>
+<p>Yet, all of those coefficients are only true in the sample—they are sample estimates. They are a good guess for the population parameters, but we need to model the uncertainty around those estimates. Therefore, for each point estimate (i.e., for each coefficient), we also estimate a standard error, which we use to calculate the t-statistic and the p-value.</p>
+<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb594-1"><a href="statistical-inference.html#cb594-1" tabindex="-1"></a><span class="co"># print results from the regression model with all information</span></span>
+<span id="cb594-2"><a href="statistical-inference.html#cb594-2" tabindex="-1"></a><span class="fu">summary</span>(linear_regression_3)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = tcviolent ~ tcarea + bcsvictim + rural2, data = csew_0708)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.7890 -0.6346 -0.1353  0.4820  3.9065 
+## 
+## Coefficients:
+##                          Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)              -0.06606    0.02066  -3.198  0.00139 ** 
+## tcarea                    0.29992    0.01133  26.479  &lt; 2e-16 ***
+## bcsvictimvictim of crime -0.08577    0.02681  -3.199  0.00138 ** 
+## rural2urban               0.16274    0.02413   6.744 1.65e-11 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.9505 on 8008 degrees of freedom
+##   (3664 observations deleted due to missingness)
+## Multiple R-squared:  0.09864,    Adjusted R-squared:  0.09831 
+## F-statistic: 292.1 on 3 and 8008 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>We can see that all three coefficients are statistically significant, as they all yield estimated p-values lower than our significance level of 0.05. Therefore, we conclude that all three null hypotheses can be rejected at the 5% significance level (or at the 95% confidence level), implying that we are confident that neither of those parameters is 0 in the population.</p>
+<p><a href="http://www.sumsar.net/blog/2013/12/an-animation-of-the-construction-of-a-confidence-interval/">This blog post</a> provides a nice animation of the confidence interval and hypothesis testing.</p>
+</div>
+<div id="presenting-results-from-regression-analysis" class="section level3 unnumbered hasAnchor">
+<h3>Presenting results from regression analysis<a href="statistical-inference.html#presenting-results-from-regression-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Communicating your results in a clear manner is incredibly important. We have seen the tabular results produced by <code>R</code>. If you want to use them in a paper (e.g., your final coursework!), you may need to do some tidying up of those results. There are a number of packages (e.g., <code>textreg</code>, <code>stargazer</code>) that automatise that process. They take your <code>lm</code> objects and produce tables that you can put straight away in your reports or papers. One popular trend in presenting results is the <strong>coefficient plot</strong> as an alternative to the table of regression coefficients. There are various ways of producing coefficient plots with <code>R</code> for a variety of models. See <a href="https://www.r-statistics.com/2010/07/visualization-of-regression-coefficients-in-r/">here</a>, for example.</p>
+<p>We are going to use instead the <code>plot_model()</code> function of the <code>sjPlot</code> package, that makes it easier to produce this sort of plots. You can find a more detailed tutorial about this function <a href="http://rpubs.com/sjPlot/sjplm">here</a>. See below for an example:</p>
+<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb596-1"><a href="statistical-inference.html#cb596-1" tabindex="-1"></a><span class="co"># install package if you haven&#39;t yet</span></span>
+<span id="cb596-2"><a href="statistical-inference.html#cb596-2" tabindex="-1"></a><span class="do">## install.packages(&quot;sjPlot&quot;)</span></span>
+<span id="cb596-3"><a href="statistical-inference.html#cb596-3" tabindex="-1"></a></span>
+<span id="cb596-4"><a href="statistical-inference.html#cb596-4" tabindex="-1"></a><span class="co"># load sjPlot package</span></span>
+<span id="cb596-5"><a href="statistical-inference.html#cb596-5" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span></code></pre></div>
+<p>We can then use the <code>plot_model()</code> function to plot produce a coefficient plot.</p>
+<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb597-1"><a href="statistical-inference.html#cb597-1" tabindex="-1"></a><span class="co"># produce a coefficient plot</span></span>
+<span id="cb597-2"><a href="statistical-inference.html#cb597-2" tabindex="-1"></a><span class="fu">plot_model</span>(linear_regression_3)</span></code></pre></div>
+<p><img src="09_statistical_inference_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<p>You can further customise this:</p>
+<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb598-1"><a href="statistical-inference.html#cb598-1" tabindex="-1"></a><span class="co"># add a title to the coefficient plot</span></span>
+<span id="cb598-2"><a href="statistical-inference.html#cb598-2" tabindex="-1"></a><span class="fu">plot_model</span>(linear_regression_3, <span class="at">title =</span> <span class="st">&quot;Fear of violent crime&quot;</span>)</span></code></pre></div>
+<p><img src="09_statistical_inference_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<p>What you see plotted here is the point estimates (the circles), the confidence intervals around those estimates (the longer the line, the less precise the estimate), and the colours represent whether the statistical effect is negative (red) or positive (blue). There are other packages that also provide similar functionality, like the <code>dotwhisker</code> package that you may want to explore, see more details <a href="https://cran.r-project.org/web/packages/dotwhisker/vignettes/dotwhisker-vignette.html">here</a>.</p>
+<p>The <code>sjPlot</code> package also allows you to produce html tables for more professional presentation of your regression tables. For this we use the <code>tab_model()</code> function. This kind of tabulation may be particularly helpful for your final assignment.</p>
+<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb599-1"><a href="statistical-inference.html#cb599-1" tabindex="-1"></a><span class="co"># produce a nice looking table</span></span>
+<span id="cb599-2"><a href="statistical-inference.html#cb599-2" tabindex="-1"></a><span class="fu">tab_model</span>(linear_regression_3)</span></code></pre></div>
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
+ 
+</th>
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+tcviolent
+</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
+Predictors
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+Estimates
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+CI
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+p
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+(Intercept)
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.07
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.11 – -0.03
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+tcarea
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.30
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.28 – 0.32
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+bcsvictim [victim of<br>crime]
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.09
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.14 – -0.03
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+rural2 [urban]
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.16
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.12 – 0.21
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
+Observations
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
+8012
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+R<sup>2</sup> / R<sup>2</sup> adjusted
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+0.099 / 0.098
+</td>
+</tr>
+</table>
+<p>As before you can further customise this table. Let’s change for example the name that is displayed for the dependent variable.</p>
+<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb600-1"><a href="statistical-inference.html#cb600-1" tabindex="-1"></a><span class="fu">tab_model</span>(linear_regression_3, <span class="at">dv.labels =</span> <span class="st">&quot;Fear of violent crime&quot;</span>)</span></code></pre></div>
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
+ 
+</th>
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+Fear of violent crime
+</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
+Predictors
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+Estimates
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+CI
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+p
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+(Intercept)
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.07
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.11 – -0.03
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+tcarea
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.30
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.28 – 0.32
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+bcsvictim [victim of<br>crime]
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.09
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.14 – -0.03
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+rural2 [urban]
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.16
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.12 – 0.21
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
+Observations
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
+8012
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+R<sup>2</sup> / R<sup>2</sup> adjusted
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+0.099 / 0.098
+</td>
+</tr>
+</table>
+<p>Or you could change the labels for the independent variables:</p>
+<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb601-1"><a href="statistical-inference.html#cb601-1" tabindex="-1"></a><span class="fu">tab_model</span>(linear_regression_3, </span>
+<span id="cb601-2"><a href="statistical-inference.html#cb601-2" tabindex="-1"></a>          <span class="at">pred.labels =</span> <span class="fu">c</span>(<span class="st">&quot;Intercept&quot;</span>, <span class="st">&quot;Perceived anti-social behaviour&quot;</span>, <span class="st">&quot;Crime victimisation&quot;</span>, <span class="st">&quot;Urban residents&quot;</span>), </span>
+<span id="cb601-3"><a href="statistical-inference.html#cb601-3" tabindex="-1"></a>          <span class="at">dv.labels =</span> <span class="st">&quot;Fear of violent crime&quot;</span>)</span></code></pre></div>
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
+ 
+</th>
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+Fear of violent crime
+</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
+Predictors
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+Estimates
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+CI
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+p
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Intercept
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.07
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.11 – -0.03
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Perceived anti-social behaviour
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.30
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.28 – 0.32
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Crime victimisation
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.09
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.14 – -0.03
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Urban residents
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.16
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.12 – 0.21
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
+Observations
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
+8012
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+R<sup>2</sup> / R<sup>2</sup> adjusted
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+0.099 / 0.098
+</td>
+</tr>
+</table>
+<p>It is <strong>crucial</strong> that you always report sample estimates with measures of uncertainty (e.g., standard errors, confidence intervals, p-values, and/or t-statistics).</p>
 </div>
 <div id="statistical-inference-in-logistic-regression-models" class="section level3 unnumbered hasAnchor">
 <h3>Statistical inference in logistic regression models<a href="statistical-inference.html#statistical-inference-in-logistic-regression-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-</div>
-</div>
-<div id="statistical-significance-vs.-substantive-significance" class="section level2 hasAnchor" number="9.4">
-<h2><span class="header-section-number">9.4</span> Statistical significance vs. Substantive significance<a href="statistical-inference.html#statistical-significance-vs.-substantive-significance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-</div>
-<div id="presenting-results-from-regression-analysis" class="section level2 hasAnchor" number="9.5">
-<h2><span class="header-section-number">9.5</span> Presenting results from regression analysis<a href="statistical-inference.html#presenting-results-from-regression-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-</div>
-<div id="lab-exercises-3" class="section level2 hasAnchor" number="9.6">
-<h2><span class="header-section-number">9.6</span> Lab exercises<a href="statistical-inference.html#lab-exercises-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>When is comes to the logistic regression, the same logic applies. Let’s again use the <code>Arrests</code> dataset from the <code>effects</code> package, as we did last week.</p>
+<div class="sourceCode" id="cb602"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb602-1"><a href="statistical-inference.html#cb602-1" tabindex="-1"></a><span class="co"># install package if you haven&#39;t done so</span></span>
+<span id="cb602-2"><a href="statistical-inference.html#cb602-2" tabindex="-1"></a><span class="do">## install.packages(&quot;effects&quot;)</span></span>
+<span id="cb602-3"><a href="statistical-inference.html#cb602-3" tabindex="-1"></a></span>
+<span id="cb602-4"><a href="statistical-inference.html#cb602-4" tabindex="-1"></a><span class="co"># load the &#39;effects&#39; package</span></span>
+<span id="cb602-5"><a href="statistical-inference.html#cb602-5" tabindex="-1"></a><span class="fu">library</span>(effects)</span>
+<span id="cb602-6"><a href="statistical-inference.html#cb602-6" tabindex="-1"></a></span>
+<span id="cb602-7"><a href="statistical-inference.html#cb602-7" tabindex="-1"></a><span class="co"># load the dataset &quot;Arrests&quot;</span></span>
+<span id="cb602-8"><a href="statistical-inference.html#cb602-8" tabindex="-1"></a><span class="fu">data</span>(Arrests)</span></code></pre></div>
+<p>Let’s fit the same logistic regression as we did last week, examining the (log) odds of being released with a summons instead of receiving a harsher treatment. We want to assess the extent to which ethnicity, sex, previous number of entries in the criminal justice system, and employment status are associated with highler or lower odds of being released with a summons.</p>
+<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb603-1"><a href="statistical-inference.html#cb603-1" tabindex="-1"></a><span class="co"># Fit a logistic regression model and store it under &#39;logistic_reg&#39;</span></span>
+<span id="cb603-2"><a href="statistical-inference.html#cb603-2" tabindex="-1"></a>logistic_reg <span class="ot">&lt;-</span> <span class="fu">glm</span>(released <span class="sc">~</span> colour <span class="sc">+</span> sex <span class="sc">+</span> checks <span class="sc">+</span> employed, <span class="at">data =</span> Arrests, <span class="at">family =</span> binomial)</span>
+<span id="cb603-3"><a href="statistical-inference.html#cb603-3" tabindex="-1"></a></span>
+<span id="cb603-4"><a href="statistical-inference.html#cb603-4" tabindex="-1"></a><span class="co"># print the estimated coefficients</span></span>
+<span id="cb603-5"><a href="statistical-inference.html#cb603-5" tabindex="-1"></a>logistic_reg</span></code></pre></div>
+<pre><code>## 
+## Call:  glm(formula = released ~ colour + sex + checks + employed, family = binomial, 
+##     data = Arrests)
+## 
+## Coefficients:
+## (Intercept)  colourWhite      sexMale       checks  employedYes  
+##     1.40739      0.49608     -0.04215     -0.35796      0.77973  
+## 
+## Degrees of Freedom: 5225 Total (i.e. Null);  5221 Residual
+## Null Deviance:       4776 
+## Residual Deviance: 4331  AIC: 4341</code></pre>
+<p>Yet, as we have repeatedly learned today, these coefficients are only true in our sample. We can use them to <em>estimate</em> the population parameters, but such parameters will remain unknown. Therefore, accompanying each regression coefficient, we can also estimate standard errors. Such standard errors can be used to compute useful statistical inference tools, such as the confidence intervals and the p-value.</p>
+<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb605-1"><a href="statistical-inference.html#cb605-1" tabindex="-1"></a><span class="co"># print results from the regression model with all information</span></span>
+<span id="cb605-2"><a href="statistical-inference.html#cb605-2" tabindex="-1"></a><span class="fu">summary</span>(logistic_reg)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = released ~ colour + sex + checks + employed, family = binomial, 
+##     data = Arrests)
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  1.40739    0.17243   8.162 3.30e-16 ***
+## colourWhite  0.49608    0.08264   6.003 1.94e-09 ***
+## sexMale     -0.04215    0.14965  -0.282    0.778    
+## checks      -0.35796    0.02580 -13.875  &lt; 2e-16 ***
+## employedYes  0.77973    0.08386   9.298  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 4776.3  on 5225  degrees of freedom
+## Residual deviance: 4330.7  on 5221  degrees of freedom
+## AIC: 4340.7
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>With logistic regression, we do not compute a <em>t-statistic</em>. Instead, we compute a <em>z-statistic</em>. This is because the underlying test uses the standard normal distribution instead of the t-student distribution. We do not need to get into that; with large sample sizes (our sample sizes our usually large enough!), they are exactly the same. We obtain z-statistics by dividing each estimated coefficient by its standard error, and the z-statistic will simply indicate how distant the sample estimate is from 0 (i.e., the assumed population parameter under the null hypothesis).</p>
+<p>We can see, for example, that even though males have lower log-odds of being released with a summons than females (<span class="math inline">\(\widehat{\beta}=-0.042\)</span>), the standard error around this estimate is fairly large. Crucially, the p-value is also large—more specifically, larger than our significance level of 5% (i.e., <span class="math inline">\(0.778 &gt; 0.05\)</span>). Therefore, we fail to reject that null hypothesis and conclude that the association between sex and the log-odds of being released with a summons is not statistically significant—i.e., the coefficient could possibly be 0 in the population.</p>
+<p>We also learned that coefficients in logistic regression are not directly interpretable, and that it is common to use <strong>odds ratios</strong> when interpreting such models. In the interest of modelling and communicating uncertainty around our estimates, it is common practice to produce confidence intervals around odds ratios.</p>
+<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb607-1"><a href="statistical-inference.html#cb607-1" tabindex="-1"></a><span class="co"># produce odds ratios and 95% confidence intervals of odds ratios</span></span>
+<span id="cb607-2"><a href="statistical-inference.html#cb607-2" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">cbind</span>(<span class="at">OR =</span> <span class="fu">coef</span>(logistic_reg), <span class="fu">confint</span>(logistic_reg))) </span></code></pre></div>
+<pre><code>## Waiting for profiling to be done...</code></pre>
+<pre><code>##                    OR     2.5 %    97.5 %
+## (Intercept) 4.0852619 2.9299967 5.7638450
+## colourWhite 1.6422658 1.3957633 1.9298763
+## sexMale     0.9587242 0.7096919 1.2770423
+## checks      0.6990998 0.6644842 0.7352174
+## employedYes 2.1808765 1.8493825 2.5693054</code></pre>
+<p>Finally, we can also use <em>coefficient plots</em> in much the same way than we did for linear regression. One way of doing this is using the <code>plot_model()</code> function of the <code>sjPlot</code> package. Notice that the <code>plot_model()</code> function already produces a plot with odds ratios!</p>
+<div class="sourceCode" id="cb610"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb610-1"><a href="statistical-inference.html#cb610-1" tabindex="-1"></a><span class="co"># produce a coefficient plot</span></span>
+<span id="cb610-2"><a href="statistical-inference.html#cb610-2" tabindex="-1"></a><span class="fu">plot_model</span>(logistic_reg, <span class="at">title =</span> <span class="st">&quot;Odds of being released with a summons&quot;</span>)</span></code></pre></div>
+<p><img src="09_statistical_inference_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
 
+</div>
 </div>
 </div>
 <div class="footnotes">
