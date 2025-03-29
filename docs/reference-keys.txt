@@ -99,6 +99,9 @@ introduction-4
 brief-theoretical-overview
 statistical-inference-in-practice
 wrapping-up
+tips-for-the-assignment
+summarising-your-variables
+some-final-words
 appendix
 expected-frequencies
 logistic-regression-1
