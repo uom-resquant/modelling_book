@@ -25,7 +25,13 @@ There are many more variables here than we will need, so let's do some filtering
 ```r
 # load the dplyr package for data cleaning
 library(dplyr)
+```
 
+```
+## Warning: package 'dplyr' was built under R version 4.3.3
+```
+
+```r
 # create a new object, 'df', that only includes observations from 2012
 # and removes missing observations from the variable 'region'
 df <- filter(communitycrime, year == "2012", !is.na(region))
@@ -96,7 +102,13 @@ Great, we know that the average violence rate in cities in the East Coast is 790
 ```r
 # load the 'ggplot2' package
 library(ggplot2)
+```
 
+```
+## Warning: package 'ggplot2' was built under R version 4.3.2
+```
+
+```r
 # produce a grouped boxplot assessing the distribution of
 # 'viol_r' across groups of 'region'
 ggplot(data = df, aes(x = region, y = viol_r)) +
@@ -514,6 +526,10 @@ library(effects)
 ```
 
 ```
+## Warning: package 'effects' was built under R version 4.3.3
+```
+
+```
 ## Loading required package: carData
 ```
 
@@ -740,11 +756,7 @@ library(corrplot, quietly = TRUE, warn.conflicts = FALSE)
 ```
 
 ```
-## Warning: package 'corrplot' was built under R version 4.3.3
-```
-
-```
-## corrplot 0.95 loaded
+## corrplot 0.92 loaded
 ```
 
 ```r

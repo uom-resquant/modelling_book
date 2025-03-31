@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Regression I: Mean differences | Modelling Criminological Data CRIM20452</title>
   <meta name="description" content="This is the course material for Modelling Criminological Data CRIM20452." />
-  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Regression I: Mean differences | Modelling Criminological Data CRIM20452" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-03-29" />
+<meta name="date" content="2025-03-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -423,19 +423,19 @@ div {
 </div>
 <p>Let’s elaborate with an example. Let’s start with the following research question: <em>are women more afraid of violent crime than men?</em> Previous research has consistently demonstrated a gender disparity in fear of crime, with women reporting higher levels of fear compared to men (e.g., <a href="https://www.tandfonline.com/doi/full/10.1080/07352166.2021.1923372?utm_source=chatgpt.com">here</a>, <a href="https://academic.oup.com/bjc/article-abstract/51/1/58/344723?redirectedFrom=fulltext&amp;login=false&amp;utm_source=chatgpt.com">here</a>, <a href="https://academic.oup.com/bjc/article-abstract/44/6/946/397351">here</a>). While the dynamics of crime victimisation risk differ between men and women, the fear-gender gap persists across various contexts.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
 <p>Based on previous research, our research hypothesis is that women are more afraid of violent crime than men. However, adopting a sceptical approach, our <em>null hypothesis</em> states that <em>there are no differences in fear of crime between men and women</em>. To test this, we must contrast this statement with empirical data. For this example, we will use data from the Crime Survey for England and Wales (2007–08), which provides a representative sample of the adult population living in England and Wales. This dataset includes information on respondents’ fear of crime, making it suitable for addressing our research question. Let’s begin by loading the dataset.</p>
-<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="regression-i-mean-differences.html#cb323-1" tabindex="-1"></a><span class="co"># load readr library and import the data using read_csv() function</span></span>
-<span id="cb323-2"><a href="regression-i-mean-differences.html#cb323-2" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb323-3"><a href="regression-i-mean-differences.html#cb323-3" tabindex="-1"></a>csew_0708 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/uom-resquant/modelling_book/refs/heads/master/datasets/BCS0708.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="regression-i-mean-differences.html#cb334-1" tabindex="-1"></a><span class="co"># load readr library and import the data using read_csv() function</span></span>
+<span id="cb334-2"><a href="regression-i-mean-differences.html#cb334-2" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb334-3"><a href="regression-i-mean-differences.html#cb334-3" tabindex="-1"></a>csew_0708 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/uom-resquant/modelling_book/refs/heads/master/datasets/BCS0708.csv&quot;</span>)</span></code></pre></div>
 <p>The variables of interest in our analysis are <code>tcviolent</code> and <code>sex.</code> The variable <code>tcviolent</code> is an index of fear of violent crime, measured on a numerical scale where lower scores indicate less fear and higher scores indicate greater fear. To summarise this variable, we can use the <code>summary()</code> function. As shown below, the mean score is 0.05, with a minimum of -2.35 and a maximum of 3.81.</p>
-<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="regression-i-mean-differences.html#cb324-1" tabindex="-1"></a><span class="fu">summary</span>(csew_0708<span class="sc">$</span>tcviolent)</span></code></pre></div>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="regression-i-mean-differences.html#cb335-1" tabindex="-1"></a><span class="fu">summary</span>(csew_0708<span class="sc">$</span>tcviolent)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
 ##  -2.350  -0.672  -0.117   0.046   0.540   3.805    3242</code></pre>
 <p>In this dataset, <code>sex</code> is a binary variable—unfortunately, the survey instrument did not measure gender identification and is limited to responses recorded as ‘male’ or ‘female’. We can use the <code>table()</code> and <code>prop.table()</code> functions to summarise this variable, which respectively provide counts and proportions of the number of observations in our data that take distinct values for a given variable. 6369 (55%) respondents were recorded as female, whereas 5307 (45%) were recorded as male.</p>
-<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="regression-i-mean-differences.html#cb326-1" tabindex="-1"></a><span class="fu">table</span>(csew_0708<span class="sc">$</span>sex)</span></code></pre></div>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="regression-i-mean-differences.html#cb337-1" tabindex="-1"></a><span class="fu">table</span>(csew_0708<span class="sc">$</span>sex)</span></code></pre></div>
 <pre><code>## 
 ## female   male 
 ##   6369   5307</code></pre>
-<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="regression-i-mean-differences.html#cb328-1" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(csew_0708<span class="sc">$</span>sex))</span></code></pre></div>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="regression-i-mean-differences.html#cb339-1" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(csew_0708<span class="sc">$</span>sex))</span></code></pre></div>
 <pre><code>## 
 ##    female      male 
 ## 0.5454779 0.4545221</code></pre>
@@ -445,46 +445,46 @@ div {
 <p>Now, how can we examine whether women are more afraid of violent crime than men? To address this research question, we need to evaluate the association between the variables <code>tcviolent</code> and <code>sex</code>. This process builds on concepts introduced in Chapter 3. In Chapter 3, we learned how to describe numerical variables using measures of central tendency (such as the mean and the median) and measures of dispersion (such as the standard deviation and the range). Among these, the mean is particularly effective for summarising symmetric and normally distributed data.</p>
 <p>Given this, one straightforward strategy to assess whether women are more afraid of violent crime than men is to calculate the mean level of fear of violent crime <em>only among women</em> and compare it to the mean level of fear <em>only among men</em>. Adopting a sceptical approach—recalling the null hypothesis, which states that <em>there are no differences in fear of crime between men and women</em>—we would expect these two means to be roughly equal. If the means differ, this would provide <em>evidence against the null hypothesis</em>, suggesting that fear of violent crime varies between men and women and that the two variables (<code>tcviolent</code> and <code>sex</code>) are associated. In this context, the <strong>mean difference serves as the measure of association between a numerical dependent variable (</strong><code>tcviolent</code><strong>) and a binary independent variable (</strong><code>sex</code><strong>)</strong>.</p>
 <p>To calculate the mean of a numerical variable for specific subgroups, we can use the <code>filter()</code> function from the <code>dplyr</code> package. The <code>filter()</code> function allows us to subset the data based on specified conditions. For example, we can use the <code>filter()</code> function to calculate the mean of fear of violent crime for women and the mean of fear of violent crime for men. Note that when using <code>filter()</code>, you need to use a double equals sign (<code>==</code>) to specify equality.</p>
-<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="regression-i-mean-differences.html#cb330-1" tabindex="-1"></a><span class="co"># Install the &#39;dplyr&#39; package if you haven&#39;t already</span></span>
-<span id="cb330-2"><a href="regression-i-mean-differences.html#cb330-2" tabindex="-1"></a><span class="co"># install.packages(&quot;dplyr&quot;)</span></span>
-<span id="cb330-3"><a href="regression-i-mean-differences.html#cb330-3" tabindex="-1"></a></span>
-<span id="cb330-4"><a href="regression-i-mean-differences.html#cb330-4" tabindex="-1"></a><span class="co"># Load the dplyr package</span></span>
-<span id="cb330-5"><a href="regression-i-mean-differences.html#cb330-5" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb330-6"><a href="regression-i-mean-differences.html#cb330-6" tabindex="-1"></a></span>
-<span id="cb330-7"><a href="regression-i-mean-differences.html#cb330-7" tabindex="-1"></a><span class="co"># Subset the data for female respondents</span></span>
-<span id="cb330-8"><a href="regression-i-mean-differences.html#cb330-8" tabindex="-1"></a>csew_0708_women <span class="ot">&lt;-</span> <span class="fu">filter</span>(csew_0708, sex <span class="sc">==</span> <span class="st">&quot;female&quot;</span>)</span>
-<span id="cb330-9"><a href="regression-i-mean-differences.html#cb330-9" tabindex="-1"></a></span>
-<span id="cb330-10"><a href="regression-i-mean-differences.html#cb330-10" tabindex="-1"></a><span class="co"># Check the number of rows in the filtered dataset</span></span>
-<span id="cb330-11"><a href="regression-i-mean-differences.html#cb330-11" tabindex="-1"></a><span class="fu">nrow</span>(csew_0708_women)</span></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="regression-i-mean-differences.html#cb341-1" tabindex="-1"></a><span class="co"># Install the &#39;dplyr&#39; package if you haven&#39;t already</span></span>
+<span id="cb341-2"><a href="regression-i-mean-differences.html#cb341-2" tabindex="-1"></a><span class="co"># install.packages(&quot;dplyr&quot;)</span></span>
+<span id="cb341-3"><a href="regression-i-mean-differences.html#cb341-3" tabindex="-1"></a></span>
+<span id="cb341-4"><a href="regression-i-mean-differences.html#cb341-4" tabindex="-1"></a><span class="co"># Load the dplyr package</span></span>
+<span id="cb341-5"><a href="regression-i-mean-differences.html#cb341-5" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.3.3</code></pre>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="regression-i-mean-differences.html#cb343-1" tabindex="-1"></a><span class="co"># Subset the data for female respondents</span></span>
+<span id="cb343-2"><a href="regression-i-mean-differences.html#cb343-2" tabindex="-1"></a>csew_0708_women <span class="ot">&lt;-</span> <span class="fu">filter</span>(csew_0708, sex <span class="sc">==</span> <span class="st">&quot;female&quot;</span>)</span>
+<span id="cb343-3"><a href="regression-i-mean-differences.html#cb343-3" tabindex="-1"></a></span>
+<span id="cb343-4"><a href="regression-i-mean-differences.html#cb343-4" tabindex="-1"></a><span class="co"># Check the number of rows in the filtered dataset</span></span>
+<span id="cb343-5"><a href="regression-i-mean-differences.html#cb343-5" tabindex="-1"></a><span class="fu">nrow</span>(csew_0708_women)</span></code></pre></div>
 <pre><code>## [1] 6369</code></pre>
 <p>As expected, the <code>csew_0708_women</code> dataset contains 6369 rows. This is the number of female respondents we had obtained before.</p>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="regression-i-mean-differences.html#cb332-1" tabindex="-1"></a><span class="co"># Subset the data for male respondents</span></span>
-<span id="cb332-2"><a href="regression-i-mean-differences.html#cb332-2" tabindex="-1"></a>csew_0708_men <span class="ot">&lt;-</span> <span class="fu">filter</span>(csew_0708, sex <span class="sc">==</span> <span class="st">&quot;male&quot;</span>)</span>
-<span id="cb332-3"><a href="regression-i-mean-differences.html#cb332-3" tabindex="-1"></a></span>
-<span id="cb332-4"><a href="regression-i-mean-differences.html#cb332-4" tabindex="-1"></a><span class="co"># Check the number of rows in the filtered dataset</span></span>
-<span id="cb332-5"><a href="regression-i-mean-differences.html#cb332-5" tabindex="-1"></a><span class="fu">nrow</span>(csew_0708_men)</span></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="regression-i-mean-differences.html#cb345-1" tabindex="-1"></a><span class="co"># Subset the data for male respondents</span></span>
+<span id="cb345-2"><a href="regression-i-mean-differences.html#cb345-2" tabindex="-1"></a>csew_0708_men <span class="ot">&lt;-</span> <span class="fu">filter</span>(csew_0708, sex <span class="sc">==</span> <span class="st">&quot;male&quot;</span>)</span>
+<span id="cb345-3"><a href="regression-i-mean-differences.html#cb345-3" tabindex="-1"></a></span>
+<span id="cb345-4"><a href="regression-i-mean-differences.html#cb345-4" tabindex="-1"></a><span class="co"># Check the number of rows in the filtered dataset</span></span>
+<span id="cb345-5"><a href="regression-i-mean-differences.html#cb345-5" tabindex="-1"></a><span class="fu">nrow</span>(csew_0708_men)</span></code></pre></div>
 <pre><code>## [1] 5307</code></pre>
 <p>Similarly, the <code>csew_0708_men</code> dataset contains 5307 rows, corresponding to the number of male respondents in the dataset.</p>
 <p>Now, let’s calculate the mean level of fear of violent crime (<code>tcviolent</code>) for each subgroup:</p>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="regression-i-mean-differences.html#cb334-1" tabindex="-1"></a><span class="co"># Calculate the mean of fear of violent crime for women</span></span>
-<span id="cb334-2"><a href="regression-i-mean-differences.html#cb334-2" tabindex="-1"></a>mean_fear_women <span class="ot">&lt;-</span> <span class="fu">mean</span>(csew_0708_women<span class="sc">$</span>tcviolent, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb334-3"><a href="regression-i-mean-differences.html#cb334-3" tabindex="-1"></a></span>
-<span id="cb334-4"><a href="regression-i-mean-differences.html#cb334-4" tabindex="-1"></a><span class="co"># Calculate the mean of fear of violent crime for men</span></span>
-<span id="cb334-5"><a href="regression-i-mean-differences.html#cb334-5" tabindex="-1"></a>mean_fear_men <span class="ot">&lt;-</span> <span class="fu">mean</span>(csew_0708_men<span class="sc">$</span>tcviolent, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb334-6"><a href="regression-i-mean-differences.html#cb334-6" tabindex="-1"></a></span>
-<span id="cb334-7"><a href="regression-i-mean-differences.html#cb334-7" tabindex="-1"></a><span class="co"># Display the mean of fear of violent crime for women</span></span>
-<span id="cb334-8"><a href="regression-i-mean-differences.html#cb334-8" tabindex="-1"></a>mean_fear_women</span></code></pre></div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="regression-i-mean-differences.html#cb347-1" tabindex="-1"></a><span class="co"># Calculate the mean of fear of violent crime for women</span></span>
+<span id="cb347-2"><a href="regression-i-mean-differences.html#cb347-2" tabindex="-1"></a>mean_fear_women <span class="ot">&lt;-</span> <span class="fu">mean</span>(csew_0708_women<span class="sc">$</span>tcviolent, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb347-3"><a href="regression-i-mean-differences.html#cb347-3" tabindex="-1"></a></span>
+<span id="cb347-4"><a href="regression-i-mean-differences.html#cb347-4" tabindex="-1"></a><span class="co"># Calculate the mean of fear of violent crime for men</span></span>
+<span id="cb347-5"><a href="regression-i-mean-differences.html#cb347-5" tabindex="-1"></a>mean_fear_men <span class="ot">&lt;-</span> <span class="fu">mean</span>(csew_0708_men<span class="sc">$</span>tcviolent, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb347-6"><a href="regression-i-mean-differences.html#cb347-6" tabindex="-1"></a></span>
+<span id="cb347-7"><a href="regression-i-mean-differences.html#cb347-7" tabindex="-1"></a><span class="co"># Display the mean of fear of violent crime for women</span></span>
+<span id="cb347-8"><a href="regression-i-mean-differences.html#cb347-8" tabindex="-1"></a>mean_fear_women</span></code></pre></div>
 <pre><code>## [1] 0.3281656</code></pre>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="regression-i-mean-differences.html#cb336-1" tabindex="-1"></a><span class="co"># Display the mean of fear of violent crime for men</span></span>
-<span id="cb336-2"><a href="regression-i-mean-differences.html#cb336-2" tabindex="-1"></a>mean_fear_men</span></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="regression-i-mean-differences.html#cb349-1" tabindex="-1"></a><span class="co"># Display the mean of fear of violent crime for men</span></span>
+<span id="cb349-2"><a href="regression-i-mean-differences.html#cb349-2" tabindex="-1"></a>mean_fear_men</span></code></pre></div>
 <pre><code>## [1] -0.2738322</code></pre>
 <p>The mean level of fear of violent crime among women is 0.33, while among men, it is -0.27. As anticipated, women report higher levels of fear of violent crime than men (since 0.33 <span class="math inline">\(&gt;\)</span> -0.27), providing evidence that gender differences in fear of crime exist.</p>
 <p>To refine our analysis, we can calculate the mean difference between the fear of violent crime scores for men and women. The mean difference is simply the result of subtracting one group’s mean from the other.</p>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="regression-i-mean-differences.html#cb338-1" tabindex="-1"></a><span class="co"># Calculate the mean difference</span></span>
-<span id="cb338-2"><a href="regression-i-mean-differences.html#cb338-2" tabindex="-1"></a>mean_difference <span class="ot">&lt;-</span> mean_fear_men <span class="sc">-</span> mean_fear_women</span>
-<span id="cb338-3"><a href="regression-i-mean-differences.html#cb338-3" tabindex="-1"></a></span>
-<span id="cb338-4"><a href="regression-i-mean-differences.html#cb338-4" tabindex="-1"></a><span class="co"># Display the mean difference</span></span>
-<span id="cb338-5"><a href="regression-i-mean-differences.html#cb338-5" tabindex="-1"></a>mean_difference</span></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="regression-i-mean-differences.html#cb351-1" tabindex="-1"></a><span class="co"># Calculate the mean difference</span></span>
+<span id="cb351-2"><a href="regression-i-mean-differences.html#cb351-2" tabindex="-1"></a>mean_difference <span class="ot">&lt;-</span> mean_fear_men <span class="sc">-</span> mean_fear_women</span>
+<span id="cb351-3"><a href="regression-i-mean-differences.html#cb351-3" tabindex="-1"></a></span>
+<span id="cb351-4"><a href="regression-i-mean-differences.html#cb351-4" tabindex="-1"></a><span class="co"># Display the mean difference</span></span>
+<span id="cb351-5"><a href="regression-i-mean-differences.html#cb351-5" tabindex="-1"></a>mean_difference</span></code></pre></div>
 <pre><code>## [1] -0.6019978</code></pre>
 <p>The mean difference is -0.6. This indicates that the average score of fear of violent crime among male respondents is 0.6 lower than the average score among female respondents.</p>
 <details>
@@ -492,11 +492,11 @@ div {
 <b>Note:</b> The order of subtraction matters in interpreting the result, even though it does not change the numerical value.
 </summary>
 <p>Subtracting the mean for women from the mean for men highlights that men have lower fear scores while reversing the subtraction would emphasize that women have higher fear scores. It is crucial to align the direction of subtraction with the focus of the research question or the narrative you wish to convey. For example:</p>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="regression-i-mean-differences.html#cb340-1" tabindex="-1"></a><span class="co"># Calculate the mean difference using the alternative order </span></span>
-<span id="cb340-2"><a href="regression-i-mean-differences.html#cb340-2" tabindex="-1"></a>mean_difference_alternative <span class="ot">&lt;-</span> mean_fear_women <span class="sc">-</span> mean_fear_men</span>
-<span id="cb340-3"><a href="regression-i-mean-differences.html#cb340-3" tabindex="-1"></a></span>
-<span id="cb340-4"><a href="regression-i-mean-differences.html#cb340-4" tabindex="-1"></a><span class="co"># Display the mean difference</span></span>
-<span id="cb340-5"><a href="regression-i-mean-differences.html#cb340-5" tabindex="-1"></a>mean_difference_alternative</span></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="regression-i-mean-differences.html#cb353-1" tabindex="-1"></a><span class="co"># Calculate the mean difference using the alternative order </span></span>
+<span id="cb353-2"><a href="regression-i-mean-differences.html#cb353-2" tabindex="-1"></a>mean_difference_alternative <span class="ot">&lt;-</span> mean_fear_women <span class="sc">-</span> mean_fear_men</span>
+<span id="cb353-3"><a href="regression-i-mean-differences.html#cb353-3" tabindex="-1"></a></span>
+<span id="cb353-4"><a href="regression-i-mean-differences.html#cb353-4" tabindex="-1"></a><span class="co"># Display the mean difference</span></span>
+<span id="cb353-5"><a href="regression-i-mean-differences.html#cb353-5" tabindex="-1"></a>mean_difference_alternative</span></code></pre></div>
 <pre><code>## [1] 0.6019978</code></pre>
 <p>In this case, the mean difference is 0.6. This indicates that the average score of fear of crime among female respondents is 0.6 higher than the average score among male respondents.</p>
 </details>
@@ -505,23 +505,23 @@ div {
 <div id="visual-exploration" class="section level2 hasAnchor" number="5.4">
 <h2><span class="header-section-number">5.4</span> Visual exploration<a href="regression-i-mean-differences.html#visual-exploration" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>One simple strategy to depict the association between a numerical dependent variable and a binary independent variable (i.e., the mean difference) involves using data visualisation techniques. We already covered this in Chapter 3! For example, when we want to visualise the distribution of a numerical variable, we can produce a histogram, a density plot, or a boxplot. If we want to graphically represent the distribution of a numerical variable across two groups, we can produce a grouped histogram, a grouped density plot, or a grouped boxplot. This allows us to assess the association between a numerical dependent variable and a binary independent variable by examining their mean difference.</p>
-<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="regression-i-mean-differences.html#cb342-1" tabindex="-1"></a><span class="co"># load the ggplot2 package</span></span>
-<span id="cb342-2"><a href="regression-i-mean-differences.html#cb342-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb342-3"><a href="regression-i-mean-differences.html#cb342-3" tabindex="-1"></a></span>
-<span id="cb342-4"><a href="regression-i-mean-differences.html#cb342-4" tabindex="-1"></a><span class="co"># produce a grouped density plot</span></span>
-<span id="cb342-5"><a href="regression-i-mean-differences.html#cb342-5" tabindex="-1"></a><span class="fu">ggplot</span>(csew_0708, <span class="fu">aes</span>(<span class="at">x =</span> tcviolent, <span class="at">fill =</span> sex)) <span class="sc">+</span> </span>
-<span id="cb342-6"><a href="regression-i-mean-differences.html#cb342-6" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> .<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="regression-i-mean-differences.html#cb355-1" tabindex="-1"></a><span class="co"># load the ggplot2 package</span></span>
+<span id="cb355-2"><a href="regression-i-mean-differences.html#cb355-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb355-3"><a href="regression-i-mean-differences.html#cb355-3" tabindex="-1"></a></span>
+<span id="cb355-4"><a href="regression-i-mean-differences.html#cb355-4" tabindex="-1"></a><span class="co"># produce a grouped density plot</span></span>
+<span id="cb355-5"><a href="regression-i-mean-differences.html#cb355-5" tabindex="-1"></a><span class="fu">ggplot</span>(csew_0708, <span class="fu">aes</span>(<span class="at">x =</span> tcviolent, <span class="at">fill =</span> sex)) <span class="sc">+</span> </span>
+<span id="cb355-6"><a href="regression-i-mean-differences.html#cb355-6" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> .<span class="dv">3</span>)</span></code></pre></div>
 <p><img src="05_regresion_I_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>This grouped density plot shows that the distribution of <em>fear of violent crime</em> (<code>tcviolent</code>) scores among female respondents is slightly shifted to the right compared to the distribution among male respondents. This suggests an association between gender and fear of violent crime—as we already knew—as women in this sample have a higher average score than men. The same pattern can be visualised with a grouped boxplot.</p>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="regression-i-mean-differences.html#cb343-1" tabindex="-1"></a><span class="co"># produce a grouped boxplot</span></span>
-<span id="cb343-2"><a href="regression-i-mean-differences.html#cb343-2" tabindex="-1"></a><span class="fu">ggplot</span>(csew_0708, <span class="fu">aes</span>(<span class="at">x =</span> sex, <span class="at">y =</span> tcviolent)) <span class="sc">+</span> </span>
-<span id="cb343-3"><a href="regression-i-mean-differences.html#cb343-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="regression-i-mean-differences.html#cb356-1" tabindex="-1"></a><span class="co"># produce a grouped boxplot</span></span>
+<span id="cb356-2"><a href="regression-i-mean-differences.html#cb356-2" tabindex="-1"></a><span class="fu">ggplot</span>(csew_0708, <span class="fu">aes</span>(<span class="at">x =</span> sex, <span class="at">y =</span> tcviolent)) <span class="sc">+</span> </span>
+<span id="cb356-3"><a href="regression-i-mean-differences.html#cb356-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
 <p><img src="05_regresion_I_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 </div>
 <div id="using-linear-regression-to-calculate-mean-differences" class="section level2 hasAnchor" number="5.5">
 <h2><span class="header-section-number">5.5</span> Using linear regression to calculate mean differences<a href="regression-i-mean-differences.html#using-linear-regression-to-calculate-mean-differences" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Calculating mean differences in <code>R</code> is straightforward, as demonstrated above. We first filter the dataset by the groups of interest, compute the mean of the dependent variable for each group, and then calculate the difference between the two group-specific means. While this step-by-step approach is effective, it can become time-consuming when repeated for multiple analyses. Fortunately, <code>R</code> offers a more efficient alternative: the <code>lm()</code> function.</p>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="regression-i-mean-differences.html#cb344-1" tabindex="-1"></a><span class="fu">lm</span>(dependent_variable <span class="sc">~</span> independent variable, <span class="at">data =</span> dataset)</span></code></pre></div>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="regression-i-mean-differences.html#cb357-1" tabindex="-1"></a><span class="fu">lm</span>(dependent_variable <span class="sc">~</span> independent variable, <span class="at">data =</span> dataset)</span></code></pre></div>
 <p>The <code>lm()</code> function, short for <em>linear mode</em>l, streamlines the process by calculating the mean difference directly. The function’s structure is simple:</p>
 <ul>
 <li>Specify the dependent variable first.</li>
@@ -529,8 +529,8 @@ div {
 <li>Then, provide the independent variable and the dataset.</li>
 </ul>
 <p>When the dependent variable is numerical and the independent variable is binary, the <code>lm()</code> function automatically calculates the mean difference. It saves time by performing all the necessary steps in one go. You can use it directly or save the output to an object for later use. For our example, the code would look like this:</p>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="regression-i-mean-differences.html#cb345-1" tabindex="-1"></a><span class="co"># Linear model calculating the difference in fear of crime by sex</span></span>
-<span id="cb345-2"><a href="regression-i-mean-differences.html#cb345-2" tabindex="-1"></a>mean_difference_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(tcviolent <span class="sc">~</span> sex, <span class="at">data =</span> csew_0708)</span></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="regression-i-mean-differences.html#cb358-1" tabindex="-1"></a><span class="co"># Linear model calculating the difference in fear of crime by sex</span></span>
+<span id="cb358-2"><a href="regression-i-mean-differences.html#cb358-2" tabindex="-1"></a>mean_difference_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(tcviolent <span class="sc">~</span> sex, <span class="at">data =</span> csew_0708)</span></code></pre></div>
 <p>In this case:</p>
 <ul>
 <li><code>tcviolent</code> is the dependent variable (a numerical variable).</li>
@@ -539,8 +539,8 @@ div {
 <li><code>mean_difference_lm</code> is the name we assign to the object storing the model’s results.</li>
 </ul>
 <p>This single line of code computes the mean difference in fear of violent crime between men and women based on the dataset <code>csew_0708</code>, offering a more streamlined approach to the analysis. Now, let’s examine the output.</p>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="regression-i-mean-differences.html#cb346-1" tabindex="-1"></a><span class="co"># Display the results of the linear model</span></span>
-<span id="cb346-2"><a href="regression-i-mean-differences.html#cb346-2" tabindex="-1"></a>mean_difference_lm</span></code></pre></div>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="regression-i-mean-differences.html#cb359-1" tabindex="-1"></a><span class="co"># Display the results of the linear model</span></span>
+<span id="cb359-2"><a href="regression-i-mean-differences.html#cb359-2" tabindex="-1"></a>mean_difference_lm</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = tcviolent ~ sex, data = csew_0708)
@@ -573,15 +573,15 @@ div {
 <li><strong>Logical Variables:</strong> If the independent variable is <code>logical</code> (i.e., <code>TRUE</code> or <code>FALSE</code>), <code>FALSE</code> is automatically set as the reference category.</li>
 </ol>
 <p><strong>Changing the reference category</strong>. If we wanted to treat <em>male</em> as the reference category, we could do one of the following:</p>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="regression-i-mean-differences.html#cb348-1" tabindex="-1"></a><span class="co"># Create a logical variable that is TRUE if the respondent is female </span></span>
-<span id="cb348-2"><a href="regression-i-mean-differences.html#cb348-2" tabindex="-1"></a><span class="co"># and FALSE if the respondent is male</span></span>
-<span id="cb348-3"><a href="regression-i-mean-differences.html#cb348-3" tabindex="-1"></a>csew_0708 <span class="ot">&lt;-</span> <span class="fu">mutate</span>(csew_0708, <span class="at">female_logical =</span> sex <span class="sc">==</span> <span class="st">&quot;female&quot;</span>)</span>
-<span id="cb348-4"><a href="regression-i-mean-differences.html#cb348-4" tabindex="-1"></a></span>
-<span id="cb348-5"><a href="regression-i-mean-differences.html#cb348-5" tabindex="-1"></a><span class="co"># Create a factor variable with &#39;male&#39; as the reference category</span></span>
-<span id="cb348-6"><a href="regression-i-mean-differences.html#cb348-6" tabindex="-1"></a>csew_0708 <span class="ot">&lt;-</span> <span class="fu">mutate</span>(csew_0708, <span class="at">female_factor =</span> <span class="fu">factor</span>(sex, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="regression-i-mean-differences.html#cb361-1" tabindex="-1"></a><span class="co"># Create a logical variable that is TRUE if the respondent is female </span></span>
+<span id="cb361-2"><a href="regression-i-mean-differences.html#cb361-2" tabindex="-1"></a><span class="co"># and FALSE if the respondent is male</span></span>
+<span id="cb361-3"><a href="regression-i-mean-differences.html#cb361-3" tabindex="-1"></a>csew_0708 <span class="ot">&lt;-</span> <span class="fu">mutate</span>(csew_0708, <span class="at">female_logical =</span> sex <span class="sc">==</span> <span class="st">&quot;female&quot;</span>)</span>
+<span id="cb361-4"><a href="regression-i-mean-differences.html#cb361-4" tabindex="-1"></a></span>
+<span id="cb361-5"><a href="regression-i-mean-differences.html#cb361-5" tabindex="-1"></a><span class="co"># Create a factor variable with &#39;male&#39; as the reference category</span></span>
+<span id="cb361-6"><a href="regression-i-mean-differences.html#cb361-6" tabindex="-1"></a>csew_0708 <span class="ot">&lt;-</span> <span class="fu">mutate</span>(csew_0708, <span class="at">female_factor =</span> <span class="fu">factor</span>(sex, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>)))</span></code></pre></div>
 <p>We can then estimate new regression models using the female_logical and female_factor variables:</p>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="regression-i-mean-differences.html#cb349-1" tabindex="-1"></a><span class="co"># Estimate a linear regression using &#39;female_logical&#39; as the independent variable</span></span>
-<span id="cb349-2"><a href="regression-i-mean-differences.html#cb349-2" tabindex="-1"></a><span class="fu">lm</span>(tcviolent <span class="sc">~</span> female_logical, <span class="at">data =</span> csew_0708)</span></code></pre></div>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="regression-i-mean-differences.html#cb362-1" tabindex="-1"></a><span class="co"># Estimate a linear regression using &#39;female_logical&#39; as the independent variable</span></span>
+<span id="cb362-2"><a href="regression-i-mean-differences.html#cb362-2" tabindex="-1"></a><span class="fu">lm</span>(tcviolent <span class="sc">~</span> female_logical, <span class="at">data =</span> csew_0708)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = tcviolent ~ female_logical, data = csew_0708)
@@ -589,8 +589,8 @@ div {
 ## Coefficients:
 ##        (Intercept)  female_logicalTRUE  
 ##            -0.2738              0.6020</code></pre>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="regression-i-mean-differences.html#cb351-1" tabindex="-1"></a><span class="co"># Estimate a linear regression using &#39;female_factor&#39; as the independent variable</span></span>
-<span id="cb351-2"><a href="regression-i-mean-differences.html#cb351-2" tabindex="-1"></a><span class="fu">lm</span>(tcviolent <span class="sc">~</span> female_factor, <span class="at">data =</span> csew_0708)</span></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="regression-i-mean-differences.html#cb364-1" tabindex="-1"></a><span class="co"># Estimate a linear regression using &#39;female_factor&#39; as the independent variable</span></span>
+<span id="cb364-2"><a href="regression-i-mean-differences.html#cb364-2" tabindex="-1"></a><span class="fu">lm</span>(tcviolent <span class="sc">~</span> female_factor, <span class="at">data =</span> csew_0708)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = tcviolent ~ female_factor, data = csew_0708)
@@ -641,8 +641,8 @@ Y = \underbrace{\alpha}_{\text{Intercept}} + \underbrace{\beta \cdot}_{\text{Slo
 \widehat{tcviolent} = \widehat{\alpha} + \widehat{\beta} \cdot sex
 \]</span></p>
 <p>Here, <code>tcviolent</code> (a variable reflecting scores of fear of violent crime) is the dependent variable, and <code>sex</code> is the independent variable. We aim to estimate the parameters <span class="math inline">\(\alpha\)</span> (the intercept) and <span class="math inline">\(\beta\)</span> (the slope), which help us address the research question. Linear regression employs <em>ordinary least squares</em> (OLS)—a method we will study in more detail next week—to estimate <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>. The <code>lm()</code> function, introduced earlier, performs this estimation. Let’s revisit the regression output:</p>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="regression-i-mean-differences.html#cb353-1" tabindex="-1"></a><span class="co"># Display the results of the linear model</span></span>
-<span id="cb353-2"><a href="regression-i-mean-differences.html#cb353-2" tabindex="-1"></a>mean_difference_lm</span></code></pre></div>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="regression-i-mean-differences.html#cb366-1" tabindex="-1"></a><span class="co"># Display the results of the linear model</span></span>
+<span id="cb366-2"><a href="regression-i-mean-differences.html#cb366-2" tabindex="-1"></a>mean_difference_lm</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = tcviolent ~ sex, data = csew_0708)
@@ -722,14 +722,14 @@ Y = \alpha + \beta \cdot X + \epsilon
 <p>Is this enough, though? Does a mean difference of -0.6 imply a strong association? How large a difference would we need to observe to argue that there is a substantive difference? Let’s say, <em>hypothetically</em>, that the mean score of fear of violent crime among men was 0.32, and among women it was 0.33. In this hypothetical case, the mean difference would be <span class="math inline">\(0.01\)</span>. Would this mean difference be enough for us to conclude that there is an association? Technically, given that the mean difference is not <span class="math inline">\(0\)</span>, an association exists… but how strong is it? How can we assess the actual strength of an association?</p>
 <p>The first step is looking at the scaling of the dependent variable. In our case, fear of violent crime (<code>tcviolent</code>) was measured using an artificial metric. It ranges from -2.35 to 3.81, with a range of 6.16 points. In this context, we can subjectively assess whether our estimated mean difference of -0.6 is weak or strong. In other words, considering a scale ranging from -2.35 to 3.81, female respondents have a mean score that is 0.6 higher than male respondents.</p>
 <p>If that subjective assessment is not enough to have an intuitive understanding of the magnitude of the observed association, we can always look at a <strong>standardised measure of the effect size</strong>. You will find a number of standardised measures of effect size. They aim to give you a sense of how large these differences are by using a standardised metric. We are just going to use one of them, Cohen’s d, for this scenario. We can obtain this measure with the <code>cohen.d()</code> function from the <code>effsize</code> package, which you will have to install.</p>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="regression-i-mean-differences.html#cb355-1" tabindex="-1"></a><span class="co"># install the &#39;effsize&#39; package. Remember: you only have to do this once.</span></span>
-<span id="cb355-2"><a href="regression-i-mean-differences.html#cb355-2" tabindex="-1"></a><span class="co"># install.packages(&quot;effsize&quot;)</span></span>
-<span id="cb355-3"><a href="regression-i-mean-differences.html#cb355-3" tabindex="-1"></a></span>
-<span id="cb355-4"><a href="regression-i-mean-differences.html#cb355-4" tabindex="-1"></a><span class="co"># load the &#39;effsize&#39; package. You have to do this every time.</span></span>
-<span id="cb355-5"><a href="regression-i-mean-differences.html#cb355-5" tabindex="-1"></a><span class="fu">library</span>(effsize)</span>
-<span id="cb355-6"><a href="regression-i-mean-differences.html#cb355-6" tabindex="-1"></a></span>
-<span id="cb355-7"><a href="regression-i-mean-differences.html#cb355-7" tabindex="-1"></a><span class="co"># compute the Cohen&#39;s d effect size</span></span>
-<span id="cb355-8"><a href="regression-i-mean-differences.html#cb355-8" tabindex="-1"></a><span class="fu">cohen.d</span>(csew_0708<span class="sc">$</span>tcviolent <span class="sc">~</span> csew_0708<span class="sc">$</span>sex)</span></code></pre></div>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="regression-i-mean-differences.html#cb368-1" tabindex="-1"></a><span class="co"># install the &#39;effsize&#39; package. Remember: you only have to do this once.</span></span>
+<span id="cb368-2"><a href="regression-i-mean-differences.html#cb368-2" tabindex="-1"></a><span class="co"># install.packages(&quot;effsize&quot;)</span></span>
+<span id="cb368-3"><a href="regression-i-mean-differences.html#cb368-3" tabindex="-1"></a></span>
+<span id="cb368-4"><a href="regression-i-mean-differences.html#cb368-4" tabindex="-1"></a><span class="co"># load the &#39;effsize&#39; package. You have to do this every time.</span></span>
+<span id="cb368-5"><a href="regression-i-mean-differences.html#cb368-5" tabindex="-1"></a><span class="fu">library</span>(effsize)</span>
+<span id="cb368-6"><a href="regression-i-mean-differences.html#cb368-6" tabindex="-1"></a></span>
+<span id="cb368-7"><a href="regression-i-mean-differences.html#cb368-7" tabindex="-1"></a><span class="co"># compute the Cohen&#39;s d effect size</span></span>
+<span id="cb368-8"><a href="regression-i-mean-differences.html#cb368-8" tabindex="-1"></a><span class="fu">cohen.d</span>(csew_0708<span class="sc">$</span>tcviolent <span class="sc">~</span> csew_0708<span class="sc">$</span>sex)</span></code></pre></div>
 <pre><code>## 
 ## Cohen&#39;s d
 ## 
@@ -803,7 +803,7 @@ Y = \alpha + \beta \cdot X + \epsilon
 <i>Reveal answer!</i>
 </summary>
 <p>Given that <code>tcarea</code> is a numerical variable, we can use the <code>summary()</code> function to describe it.</p>
-<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="regression-i-mean-differences.html#cb357-1" tabindex="-1"></a><span class="fu">summary</span>(csew_0708<span class="sc">$</span>tcarea)</span></code></pre></div>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="regression-i-mean-differences.html#cb370-1" tabindex="-1"></a><span class="fu">summary</span>(csew_0708<span class="sc">$</span>tcarea)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
 ## -2.6735 -0.7943 -0.0942  0.0303  0.6420  4.1883     677</code></pre>
 <p>Perceived anti-social behaviour in the neighbourhood is measured using a scale ranging from -2.67 to 4.19. The mean is 0.03, with a median of -0.09.</p>
@@ -816,11 +816,11 @@ Y = \alpha + \beta \cdot X + \epsilon
 <i>Reveal answer!</i>
 </summary>
 <p>Given that <code>rural2</code> is a binary variable, we can use the <code>table()</code> and the <code>prop.table()</code> functions to describe it.</p>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="regression-i-mean-differences.html#cb359-1" tabindex="-1"></a><span class="fu">table</span>(csew_0708<span class="sc">$</span>rural2)</span></code></pre></div>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="regression-i-mean-differences.html#cb372-1" tabindex="-1"></a><span class="fu">table</span>(csew_0708<span class="sc">$</span>rural2)</span></code></pre></div>
 <pre><code>## 
 ## rural urban 
 ##  2974  8702</code></pre>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="regression-i-mean-differences.html#cb361-1" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(csew_0708<span class="sc">$</span>rural2))</span></code></pre></div>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="regression-i-mean-differences.html#cb374-1" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(csew_0708<span class="sc">$</span>rural2))</span></code></pre></div>
 <pre><code>## 
 ##     rural     urban 
 ## 0.2547105 0.7452895</code></pre>
@@ -833,26 +833,26 @@ Y = \alpha + \beta \cdot X + \epsilon
 <summary>
 <i>Reveal answer!</i>
 </summary>
-<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="regression-i-mean-differences.html#cb363-1" tabindex="-1"></a><span class="co"># Subset the data for respondents living in urban areas</span></span>
-<span id="cb363-2"><a href="regression-i-mean-differences.html#cb363-2" tabindex="-1"></a>csew_0708_urban <span class="ot">&lt;-</span> <span class="fu">filter</span>(csew_0708, rural2 <span class="sc">==</span> <span class="st">&quot;urban&quot;</span>)</span>
-<span id="cb363-3"><a href="regression-i-mean-differences.html#cb363-3" tabindex="-1"></a></span>
-<span id="cb363-4"><a href="regression-i-mean-differences.html#cb363-4" tabindex="-1"></a><span class="co"># Calculate the average perceived ASB in the neighbourhood among urban residents</span></span>
-<span id="cb363-5"><a href="regression-i-mean-differences.html#cb363-5" tabindex="-1"></a>mean_urban <span class="ot">&lt;-</span> <span class="fu">mean</span>(csew_0708_urban<span class="sc">$</span>tcarea, <span class="at">na.rm =</span> T)</span>
-<span id="cb363-6"><a href="regression-i-mean-differences.html#cb363-6" tabindex="-1"></a></span>
-<span id="cb363-7"><a href="regression-i-mean-differences.html#cb363-7" tabindex="-1"></a><span class="co"># Display results</span></span>
-<span id="cb363-8"><a href="regression-i-mean-differences.html#cb363-8" tabindex="-1"></a>mean_urban</span></code></pre></div>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="regression-i-mean-differences.html#cb376-1" tabindex="-1"></a><span class="co"># Subset the data for respondents living in urban areas</span></span>
+<span id="cb376-2"><a href="regression-i-mean-differences.html#cb376-2" tabindex="-1"></a>csew_0708_urban <span class="ot">&lt;-</span> <span class="fu">filter</span>(csew_0708, rural2 <span class="sc">==</span> <span class="st">&quot;urban&quot;</span>)</span>
+<span id="cb376-3"><a href="regression-i-mean-differences.html#cb376-3" tabindex="-1"></a></span>
+<span id="cb376-4"><a href="regression-i-mean-differences.html#cb376-4" tabindex="-1"></a><span class="co"># Calculate the average perceived ASB in the neighbourhood among urban residents</span></span>
+<span id="cb376-5"><a href="regression-i-mean-differences.html#cb376-5" tabindex="-1"></a>mean_urban <span class="ot">&lt;-</span> <span class="fu">mean</span>(csew_0708_urban<span class="sc">$</span>tcarea, <span class="at">na.rm =</span> T)</span>
+<span id="cb376-6"><a href="regression-i-mean-differences.html#cb376-6" tabindex="-1"></a></span>
+<span id="cb376-7"><a href="regression-i-mean-differences.html#cb376-7" tabindex="-1"></a><span class="co"># Display results</span></span>
+<span id="cb376-8"><a href="regression-i-mean-differences.html#cb376-8" tabindex="-1"></a>mean_urban</span></code></pre></div>
 <pre><code>## [1] 0.1598183</code></pre>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="regression-i-mean-differences.html#cb365-1" tabindex="-1"></a><span class="co"># Subset the data for respondents living in rural areas</span></span>
-<span id="cb365-2"><a href="regression-i-mean-differences.html#cb365-2" tabindex="-1"></a>csew_0708_rural <span class="ot">&lt;-</span> <span class="fu">filter</span>(csew_0708, rural2 <span class="sc">==</span> <span class="st">&quot;rural&quot;</span>)</span>
-<span id="cb365-3"><a href="regression-i-mean-differences.html#cb365-3" tabindex="-1"></a></span>
-<span id="cb365-4"><a href="regression-i-mean-differences.html#cb365-4" tabindex="-1"></a><span class="co"># Calculate the average perceived ASB in the neighbourhood among rural residents</span></span>
-<span id="cb365-5"><a href="regression-i-mean-differences.html#cb365-5" tabindex="-1"></a>mean_rural <span class="ot">&lt;-</span> <span class="fu">mean</span>(csew_0708_rural<span class="sc">$</span>tcarea, <span class="at">na.rm =</span> T)</span>
-<span id="cb365-6"><a href="regression-i-mean-differences.html#cb365-6" tabindex="-1"></a></span>
-<span id="cb365-7"><a href="regression-i-mean-differences.html#cb365-7" tabindex="-1"></a><span class="co"># Display results</span></span>
-<span id="cb365-8"><a href="regression-i-mean-differences.html#cb365-8" tabindex="-1"></a>mean_rural</span></code></pre></div>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="regression-i-mean-differences.html#cb378-1" tabindex="-1"></a><span class="co"># Subset the data for respondents living in rural areas</span></span>
+<span id="cb378-2"><a href="regression-i-mean-differences.html#cb378-2" tabindex="-1"></a>csew_0708_rural <span class="ot">&lt;-</span> <span class="fu">filter</span>(csew_0708, rural2 <span class="sc">==</span> <span class="st">&quot;rural&quot;</span>)</span>
+<span id="cb378-3"><a href="regression-i-mean-differences.html#cb378-3" tabindex="-1"></a></span>
+<span id="cb378-4"><a href="regression-i-mean-differences.html#cb378-4" tabindex="-1"></a><span class="co"># Calculate the average perceived ASB in the neighbourhood among rural residents</span></span>
+<span id="cb378-5"><a href="regression-i-mean-differences.html#cb378-5" tabindex="-1"></a>mean_rural <span class="ot">&lt;-</span> <span class="fu">mean</span>(csew_0708_rural<span class="sc">$</span>tcarea, <span class="at">na.rm =</span> T)</span>
+<span id="cb378-6"><a href="regression-i-mean-differences.html#cb378-6" tabindex="-1"></a></span>
+<span id="cb378-7"><a href="regression-i-mean-differences.html#cb378-7" tabindex="-1"></a><span class="co"># Display results</span></span>
+<span id="cb378-8"><a href="regression-i-mean-differences.html#cb378-8" tabindex="-1"></a>mean_rural</span></code></pre></div>
 <pre><code>## [1] -0.3403847</code></pre>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="regression-i-mean-differences.html#cb367-1" tabindex="-1"></a><span class="co"># Estimate the mean difference</span></span>
-<span id="cb367-2"><a href="regression-i-mean-differences.html#cb367-2" tabindex="-1"></a>mean_urban <span class="sc">-</span> mean_rural</span></code></pre></div>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="regression-i-mean-differences.html#cb380-1" tabindex="-1"></a><span class="co"># Estimate the mean difference</span></span>
+<span id="cb380-2"><a href="regression-i-mean-differences.html#cb380-2" tabindex="-1"></a>mean_urban <span class="sc">-</span> mean_rural</span></code></pre></div>
 <pre><code>## [1] 0.500203</code></pre>
 <p>The average score of perceived anti-social behaviour among respondents who live in urban areas is 0.16, whereas the average score of perceived anti-social behaviour among respondents who live in rural areas is -0.34. The mean difference is 0.5</p>
 </details>
@@ -874,7 +874,7 @@ tcarea = \alpha + \beta \cdot rural2
 <summary>
 <i>Reveal answer!</i>
 </summary>
-<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="regression-i-mean-differences.html#cb369-1" tabindex="-1"></a><span class="fu">lm</span>(tcarea <span class="sc">~</span> rural2, <span class="at">data =</span> csew_0708)</span></code></pre></div>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="regression-i-mean-differences.html#cb382-1" tabindex="-1"></a><span class="fu">lm</span>(tcarea <span class="sc">~</span> rural2, <span class="at">data =</span> csew_0708)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = tcarea ~ rural2, data = csew_0708)
@@ -904,7 +904,7 @@ tcarea = -0.34 + 0.50 \cdot rural2
 <summary>
 <i>Reveal answer!</i>
 </summary>
-<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="regression-i-mean-differences.html#cb371-1" tabindex="-1"></a><span class="fu">cohen.d</span>(csew_0708<span class="sc">$</span>tcarea <span class="sc">~</span> csew_0708<span class="sc">$</span>rural2)</span></code></pre></div>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="regression-i-mean-differences.html#cb384-1" tabindex="-1"></a><span class="fu">cohen.d</span>(csew_0708<span class="sc">$</span>tcarea <span class="sc">~</span> csew_0708<span class="sc">$</span>rural2)</span></code></pre></div>
 <pre><code>## 
 ## Cohen&#39;s d
 ## 

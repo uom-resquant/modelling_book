@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 9 Statistical Inference | Modelling Criminological Data CRIM20452</title>
   <meta name="description" content="This is the course material for Modelling Criminological Data CRIM20452." />
-  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 9 Statistical Inference | Modelling Criminological Data CRIM20452" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-03-29" />
+<meta name="date" content="2025-03-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -444,110 +444,110 @@ details {
 <p>Let’s take a closer look at this idea. To help us better understand some of the theoretical concepts we’re introducing this week, we will generate some fictitious data. We will use <code>R</code> to create this data, which we will treat as the population data. This is artificial because, in reality, we never have access to complete population-level data. From this fictitious population, we will then draw a number of random samples. Again, this is artificial because, in practice, we only have a single sample that is supposed to represent the population.</p>
 <p><strong>Important</strong>: <em>this analysis is not something we typically perform in regular data analysis workflows, nor is it something you will be required to do for your final coursework. It’s simply designed to help us better understand some concepts related to statistical inference</em>.</p>
 <p>Let’s start by creating this fictional dataset with 100,000 observations and treat it as our fake population. We can do this using the <code>rnbinom()</code> function, which will randomly generate a variable following a skewed distribution (the technical term is a <em>negative binomial</em> distribution, which is a discrete probability distribution). This is useful because we often work with severely skewed data in criminology. Because the <code>rnbinom()</code> function <em>randomly</em> generates a dataset, we would get a slightly different distribution every time we run the code; so, to ensure that we all get exactly the same results, we can use the <code>set.seed()</code> function—if we all set the same “seed”, we’ll get the same randomly generated distribution.</p>
-<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb537-1"><a href="statistical-inference.html#cb537-1" tabindex="-1"></a><span class="co"># set seed to ensure we all have the same results</span></span>
-<span id="cb537-2"><a href="statistical-inference.html#cb537-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
-<span id="cb537-3"><a href="statistical-inference.html#cb537-3" tabindex="-1"></a></span>
-<span id="cb537-4"><a href="statistical-inference.html#cb537-4" tabindex="-1"></a><span class="co"># generate a fictional dataset with 100,000 observations</span></span>
-<span id="cb537-5"><a href="statistical-inference.html#cb537-5" tabindex="-1"></a>fake_population <span class="ot">&lt;-</span> <span class="fu">rnbinom</span>(<span class="dv">100000</span>, <span class="at">mu =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="fl">0.15</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb556-1"><a href="statistical-inference.html#cb556-1" tabindex="-1"></a><span class="co"># set seed to ensure we all have the same results</span></span>
+<span id="cb556-2"><a href="statistical-inference.html#cb556-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb556-3"><a href="statistical-inference.html#cb556-3" tabindex="-1"></a></span>
+<span id="cb556-4"><a href="statistical-inference.html#cb556-4" tabindex="-1"></a><span class="co"># generate a fictional dataset with 100,000 observations</span></span>
+<span id="cb556-5"><a href="statistical-inference.html#cb556-5" tabindex="-1"></a>fake_population <span class="ot">&lt;-</span> <span class="fu">rnbinom</span>(<span class="dv">100000</span>, <span class="at">mu =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="fl">0.15</span>) </span></code></pre></div>
 <p>The code above creates data that follow a negative binomial distribution, essentially a highly skewed distribution. Don’t worry too much about the other parameters we are using as arguments at this stage, but if curious look at <code>?rnbinom</code>.</p>
 <p>We can also summarise and get the standard deviation for this object using the <code>summary()</code> and <code>sd()</code> functions, respectively:</p>
-<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb538-1"><a href="statistical-inference.html#cb538-1" tabindex="-1"></a><span class="co"># describe the fictitious distribution</span></span>
-<span id="cb538-2"><a href="statistical-inference.html#cb538-2" tabindex="-1"></a><span class="fu">summary</span>(fake_population)</span></code></pre></div>
+<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb557-1"><a href="statistical-inference.html#cb557-1" tabindex="-1"></a><span class="co"># describe the fictitious distribution</span></span>
+<span id="cb557-2"><a href="statistical-inference.html#cb557-2" tabindex="-1"></a><span class="fu">summary</span>(fake_population)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##  0.0000  0.0000  0.0000  0.9873  1.0000 65.0000</code></pre>
-<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb540-1"><a href="statistical-inference.html#cb540-1" tabindex="-1"></a><span class="co"># calculate the standard deviation of the fictitious distribution</span></span>
-<span id="cb540-2"><a href="statistical-inference.html#cb540-2" tabindex="-1"></a><span class="fu">sd</span>(fake_population)</span></code></pre></div>
+<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb559-1"><a href="statistical-inference.html#cb559-1" tabindex="-1"></a><span class="co"># calculate the standard deviation of the fictitious distribution</span></span>
+<span id="cb559-2"><a href="statistical-inference.html#cb559-2" tabindex="-1"></a><span class="fu">sd</span>(fake_population)</span></code></pre></div>
 <pre><code>## [1] 2.744007</code></pre>
 <p>So, we can see that this generated variable, which we are treating as the population, ranges from 0 to 65, with a standard deviation of 2.74. The average score is 0.99. Let’s remember this number.</p>
 <p>We can also see what the shape of the distribution looks like:</p>
-<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb542-1"><a href="statistical-inference.html#cb542-1" tabindex="-1"></a><span class="co"># load the ggplot2 package</span></span>
-<span id="cb542-2"><a href="statistical-inference.html#cb542-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb542-3"><a href="statistical-inference.html#cb542-3" tabindex="-1"></a></span>
-<span id="cb542-4"><a href="statistical-inference.html#cb542-4" tabindex="-1"></a><span class="co"># plot the histogram of the generated distribution</span></span>
-<span id="cb542-5"><a href="statistical-inference.html#cb542-5" tabindex="-1"></a><span class="fu">qplot</span>(fake_population)</span></code></pre></div>
+<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb561-1"><a href="statistical-inference.html#cb561-1" tabindex="-1"></a><span class="co"># load the ggplot2 package</span></span>
+<span id="cb561-2"><a href="statistical-inference.html#cb561-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb561-3"><a href="statistical-inference.html#cb561-3" tabindex="-1"></a></span>
+<span id="cb561-4"><a href="statistical-inference.html#cb561-4" tabindex="-1"></a><span class="co"># plot the histogram of the generated distribution</span></span>
+<span id="cb561-5"><a href="statistical-inference.html#cb561-5" tabindex="-1"></a><span class="fu">qplot</span>(fake_population)</span></code></pre></div>
 <p><img src="09_statistical_inference_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>To make our lives a bit easier, let’s pretend this object contains population-level information on whether individuals have previously engaged in offending behaviour in the previous year. So, this is a population of 100,000 individuals, and the distribution indicates how many offences each of these individuals have committed. As expected, the majority of the population has committed 0 crimes, whereas some individuals have engaged in one or more criminal behaviours. Let’s see how many offenders we have in this fake population.</p>
-<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb543-1"><a href="statistical-inference.html#cb543-1" tabindex="-1"></a><span class="co"># check how many observations are greater than 0</span></span>
-<span id="cb543-2"><a href="statistical-inference.html#cb543-2" tabindex="-1"></a><span class="fu">sum</span>(fake_population <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb562-1"><a href="statistical-inference.html#cb562-1" tabindex="-1"></a><span class="co"># check how many observations are greater than 0</span></span>
+<span id="cb562-2"><a href="statistical-inference.html#cb562-2" tabindex="-1"></a><span class="fu">sum</span>(fake_population <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code></pre></div>
 <pre><code>## [1] 26078</code></pre>
 <p>26078 individuals have committed at least one crime in the previous year. That implies 26.08% of the population. Let’s remember this number too.</p>
 <p>We are now going to put this variable in a <code>data.frame</code> object. We are also going to create a new categorical variable identifying whether someone offended over the past year (e.g., anybody with a count of crime higher than 0). Let’s start by creating a new data frame (<code>fake_population</code>) with the skewed variable we created rebaptised as <code>crimecount</code>.</p>
-<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb545-1"><a href="statistical-inference.html#cb545-1" tabindex="-1"></a><span class="co"># create new data.frame object</span></span>
-<span id="cb545-2"><a href="statistical-inference.html#cb545-2" tabindex="-1"></a>fake_population <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">crimecount =</span> fake_population)</span></code></pre></div>
+<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb564-1"><a href="statistical-inference.html#cb564-1" tabindex="-1"></a><span class="co"># create new data.frame object</span></span>
+<span id="cb564-2"><a href="statistical-inference.html#cb564-2" tabindex="-1"></a>fake_population <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">crimecount =</span> fake_population)</span></code></pre></div>
 <p>Then let’s define all values above 0 as “Yes” in a variable identifying offenders and everybody else as “No”. We use the <code>mutate</code> and the <code>case_when()</code> functions from the <code>dplyr</code> package for this.</p>
-<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb546-1"><a href="statistical-inference.html#cb546-1" tabindex="-1"></a><span class="co"># load the dplyr package</span></span>
-<span id="cb546-2"><a href="statistical-inference.html#cb546-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb546-3"><a href="statistical-inference.html#cb546-3" tabindex="-1"></a></span>
-<span id="cb546-4"><a href="statistical-inference.html#cb546-4" tabindex="-1"></a><span class="co"># create new variable called &quot;offender&quot; that indicates whether each</span></span>
-<span id="cb546-5"><a href="statistical-inference.html#cb546-5" tabindex="-1"></a><span class="co"># respondent has committed at least one crime in the previous year</span></span>
-<span id="cb546-6"><a href="statistical-inference.html#cb546-6" tabindex="-1"></a>fake_population <span class="ot">&lt;-</span> <span class="fu">mutate</span>(fake_population, <span class="at">offender =</span> <span class="fu">case_when</span>(crimecount <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">&quot;Yes&quot;</span>,</span>
-<span id="cb546-7"><a href="statistical-inference.html#cb546-7" tabindex="-1"></a>                                                                crimecount <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">&quot;No&quot;</span>))</span>
-<span id="cb546-8"><a href="statistical-inference.html#cb546-8" tabindex="-1"></a></span>
-<span id="cb546-9"><a href="statistical-inference.html#cb546-9" tabindex="-1"></a><span class="co"># Let&#39;s check the results</span></span>
-<span id="cb546-10"><a href="statistical-inference.html#cb546-10" tabindex="-1"></a><span class="fu">table</span>(fake_population<span class="sc">$</span>offender)</span></code></pre></div>
+<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb565-1"><a href="statistical-inference.html#cb565-1" tabindex="-1"></a><span class="co"># load the dplyr package</span></span>
+<span id="cb565-2"><a href="statistical-inference.html#cb565-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb565-3"><a href="statistical-inference.html#cb565-3" tabindex="-1"></a></span>
+<span id="cb565-4"><a href="statistical-inference.html#cb565-4" tabindex="-1"></a><span class="co"># create new variable called &quot;offender&quot; that indicates whether each</span></span>
+<span id="cb565-5"><a href="statistical-inference.html#cb565-5" tabindex="-1"></a><span class="co"># respondent has committed at least one crime in the previous year</span></span>
+<span id="cb565-6"><a href="statistical-inference.html#cb565-6" tabindex="-1"></a>fake_population <span class="ot">&lt;-</span> <span class="fu">mutate</span>(fake_population, <span class="at">offender =</span> <span class="fu">case_when</span>(crimecount <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">&quot;Yes&quot;</span>,</span>
+<span id="cb565-7"><a href="statistical-inference.html#cb565-7" tabindex="-1"></a>                                                                crimecount <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">&quot;No&quot;</span>))</span>
+<span id="cb565-8"><a href="statistical-inference.html#cb565-8" tabindex="-1"></a></span>
+<span id="cb565-9"><a href="statistical-inference.html#cb565-9" tabindex="-1"></a><span class="co"># Let&#39;s check the results</span></span>
+<span id="cb565-10"><a href="statistical-inference.html#cb565-10" tabindex="-1"></a><span class="fu">table</span>(fake_population<span class="sc">$</span>offender)</span></code></pre></div>
 <pre><code>## 
 ##    No   Yes 
 ## 73922 26078</code></pre>
 <p>Good. So, we have a population in which 26.08% of the individuals have committed at least one offence in the previous year and the average number of offences committed by each individual is 0.99.</p>
 <p>However, as mentioned before, we <em>never</em> have access to population-level data. We only have access to samples—and we use sample-level information to draw conclusions about the population. So, let’s <code>R</code> to generate random samples from the <code>fake_population</code> population. We can then compare our sample means with the population mean! They should be similar, right?</p>
 <p>Let’s start creating a probability sample of 1000 observations randomly obtained from the <code>fake_population</code> dataset. Note that we need the <code>sample()</code> function from the <code>mosaic</code> package.</p>
-<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb548-1"><a href="statistical-inference.html#cb548-1" tabindex="-1"></a><span class="co"># install the &#39;mosaic&#39; package if you haven&#39;t yet</span></span>
-<span id="cb548-2"><a href="statistical-inference.html#cb548-2" tabindex="-1"></a><span class="do">## install.packages(&quot;mosaic&quot;)</span></span>
-<span id="cb548-3"><a href="statistical-inference.html#cb548-3" tabindex="-1"></a></span>
-<span id="cb548-4"><a href="statistical-inference.html#cb548-4" tabindex="-1"></a><span class="co"># load the &#39;mosaic&#39; package</span></span>
-<span id="cb548-5"><a href="statistical-inference.html#cb548-5" tabindex="-1"></a><span class="fu">library</span>(mosaic)</span>
-<span id="cb548-6"><a href="statistical-inference.html#cb548-6" tabindex="-1"></a></span>
-<span id="cb548-7"><a href="statistical-inference.html#cb548-7" tabindex="-1"></a><span class="co"># obtain a random sample with 1000 observations from the fake_population object</span></span>
-<span id="cb548-8"><a href="statistical-inference.html#cb548-8" tabindex="-1"></a>fake_sample_1 <span class="ot">&lt;-</span> mosaic<span class="sc">::</span><span class="fu">sample</span>(fake_population, <span class="dv">1000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="statistical-inference.html#cb567-1" tabindex="-1"></a><span class="co"># install the &#39;mosaic&#39; package if you haven&#39;t yet</span></span>
+<span id="cb567-2"><a href="statistical-inference.html#cb567-2" tabindex="-1"></a><span class="do">## install.packages(&quot;mosaic&quot;)</span></span>
+<span id="cb567-3"><a href="statistical-inference.html#cb567-3" tabindex="-1"></a></span>
+<span id="cb567-4"><a href="statistical-inference.html#cb567-4" tabindex="-1"></a><span class="co"># load the &#39;mosaic&#39; package</span></span>
+<span id="cb567-5"><a href="statistical-inference.html#cb567-5" tabindex="-1"></a><span class="fu">library</span>(mosaic)</span>
+<span id="cb567-6"><a href="statistical-inference.html#cb567-6" tabindex="-1"></a></span>
+<span id="cb567-7"><a href="statistical-inference.html#cb567-7" tabindex="-1"></a><span class="co"># obtain a random sample with 1000 observations from the fake_population object</span></span>
+<span id="cb567-8"><a href="statistical-inference.html#cb567-8" tabindex="-1"></a>fake_sample_1 <span class="ot">&lt;-</span> mosaic<span class="sc">::</span><span class="fu">sample</span>(fake_population, <span class="dv">1000</span>)</span></code></pre></div>
 <p>We have a new dataset called <code>fake_sample_1</code> in our environment now. It has 1000 observations and 3 columns. Do note the <code>fake_sample_1</code> object has an additional column named <code>orig.id</code>, which indicates the row number of the sampled observation in the original <code>fake_population</code> object.</p>
 <p>For starters, let’s check the average number of offences <em>sampled</em> individuals have committed. We expect it to be similar to the <em>population mean</em> of 0.99.</p>
-<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb549-1"><a href="statistical-inference.html#cb549-1" tabindex="-1"></a><span class="co"># check the sample mean of the variable &#39;crimecount&#39; in the fake_sample_1 dataset</span></span>
-<span id="cb549-2"><a href="statistical-inference.html#cb549-2" tabindex="-1"></a><span class="fu">mean</span>(fake_sample_1<span class="sc">$</span>crimecount)</span></code></pre></div>
+<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb568-1"><a href="statistical-inference.html#cb568-1" tabindex="-1"></a><span class="co"># check the sample mean of the variable &#39;crimecount&#39; in the fake_sample_1 dataset</span></span>
+<span id="cb568-2"><a href="statistical-inference.html#cb568-2" tabindex="-1"></a><span class="fu">mean</span>(fake_sample_1<span class="sc">$</span>crimecount)</span></code></pre></div>
 <pre><code>## [1] 0.99</code></pre>
 <p>It is almost identical to the population mean! That’s great. Now let’s check the proportion of individuals who have committed at least one offence. We expect it to be similar to the <em>population proportion</em> of 26.08%.</p>
-<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb551-1"><a href="statistical-inference.html#cb551-1" tabindex="-1"></a><span class="co"># check the sample proportion of the variable &#39;offender&#39; in the fake_sample_1 dataset</span></span>
-<span id="cb551-2"><a href="statistical-inference.html#cb551-2" tabindex="-1"></a><span class="fu">table</span>(fake_sample_1<span class="sc">$</span>offender) <span class="sc">%&gt;%</span> <span class="fu">prop.table</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="statistical-inference.html#cb570-1" tabindex="-1"></a><span class="co"># check the sample proportion of the variable &#39;offender&#39; in the fake_sample_1 dataset</span></span>
+<span id="cb570-2"><a href="statistical-inference.html#cb570-2" tabindex="-1"></a><span class="fu">table</span>(fake_sample_1<span class="sc">$</span>offender) <span class="sc">%&gt;%</span> <span class="fu">prop.table</span>()</span></code></pre></div>
 <pre><code>## 
 ##    No   Yes 
 ## 0.734 0.266</code></pre>
 <p>Again, <em>very</em> similar to the population proportion!</p>
 <p>But hang on. That was just one possible random sample drawn from the population. As we mentioned earlier, there are infinite possible random sample that could be drawn from the same population. Is it possible that a different sample would have different estimates?</p>
 <p>Let’s generate more samples and check their estimates.</p>
-<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb553-1"><a href="statistical-inference.html#cb553-1" tabindex="-1"></a><span class="co"># obtain several random samples with 1000 observations each from the fake_population object</span></span>
-<span id="cb553-2"><a href="statistical-inference.html#cb553-2" tabindex="-1"></a>fake_sample_2 <span class="ot">&lt;-</span> mosaic<span class="sc">::</span><span class="fu">sample</span>(fake_population, <span class="dv">1000</span>)</span>
-<span id="cb553-3"><a href="statistical-inference.html#cb553-3" tabindex="-1"></a>fake_sample_3 <span class="ot">&lt;-</span> mosaic<span class="sc">::</span><span class="fu">sample</span>(fake_population, <span class="dv">1000</span>)</span>
-<span id="cb553-4"><a href="statistical-inference.html#cb553-4" tabindex="-1"></a>fake_sample_4 <span class="ot">&lt;-</span> mosaic<span class="sc">::</span><span class="fu">sample</span>(fake_population, <span class="dv">1000</span>)</span>
-<span id="cb553-5"><a href="statistical-inference.html#cb553-5" tabindex="-1"></a>fake_sample_5 <span class="ot">&lt;-</span> mosaic<span class="sc">::</span><span class="fu">sample</span>(fake_population, <span class="dv">1000</span>)</span>
-<span id="cb553-6"><a href="statistical-inference.html#cb553-6" tabindex="-1"></a>fake_sample_6 <span class="ot">&lt;-</span> mosaic<span class="sc">::</span><span class="fu">sample</span>(fake_population, <span class="dv">1000</span>)</span>
-<span id="cb553-7"><a href="statistical-inference.html#cb553-7" tabindex="-1"></a>fake_sample_7 <span class="ot">&lt;-</span> mosaic<span class="sc">::</span><span class="fu">sample</span>(fake_population, <span class="dv">1000</span>)</span>
-<span id="cb553-8"><a href="statistical-inference.html#cb553-8" tabindex="-1"></a>fake_sample_8 <span class="ot">&lt;-</span> mosaic<span class="sc">::</span><span class="fu">sample</span>(fake_population, <span class="dv">1000</span>)</span>
-<span id="cb553-9"><a href="statistical-inference.html#cb553-9" tabindex="-1"></a>fake_sample_9 <span class="ot">&lt;-</span> mosaic<span class="sc">::</span><span class="fu">sample</span>(fake_population, <span class="dv">1000</span>)</span>
-<span id="cb553-10"><a href="statistical-inference.html#cb553-10" tabindex="-1"></a>fake_sample_10 <span class="ot">&lt;-</span> mosaic<span class="sc">::</span><span class="fu">sample</span>(fake_population, <span class="dv">1000</span>)</span>
-<span id="cb553-11"><a href="statistical-inference.html#cb553-11" tabindex="-1"></a></span>
-<span id="cb553-12"><a href="statistical-inference.html#cb553-12" tabindex="-1"></a><span class="co"># print the sample means of the variable &#39;crimecounts&#39; across all ten samples</span></span>
-<span id="cb553-13"><a href="statistical-inference.html#cb553-13" tabindex="-1"></a>purrr<span class="sc">::</span><span class="fu">map_dbl</span>(<span class="fu">list</span>(fake_sample_1, fake_sample_2, fake_sample_3, fake_sample_4, fake_sample_5,</span>
-<span id="cb553-14"><a href="statistical-inference.html#cb553-14" tabindex="-1"></a>                    fake_sample_6, fake_sample_7, fake_sample_8, fake_sample_9, fake_sample_10),</span>
-<span id="cb553-15"><a href="statistical-inference.html#cb553-15" tabindex="-1"></a>               <span class="sc">~</span> <span class="fu">mean</span>(.x<span class="sc">$</span>crimecount, <span class="at">na.rm =</span> T))</span></code></pre></div>
+<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb572-1"><a href="statistical-inference.html#cb572-1" tabindex="-1"></a><span class="co"># obtain several random samples with 1000 observations each from the fake_population object</span></span>
+<span id="cb572-2"><a href="statistical-inference.html#cb572-2" tabindex="-1"></a>fake_sample_2 <span class="ot">&lt;-</span> mosaic<span class="sc">::</span><span class="fu">sample</span>(fake_population, <span class="dv">1000</span>)</span>
+<span id="cb572-3"><a href="statistical-inference.html#cb572-3" tabindex="-1"></a>fake_sample_3 <span class="ot">&lt;-</span> mosaic<span class="sc">::</span><span class="fu">sample</span>(fake_population, <span class="dv">1000</span>)</span>
+<span id="cb572-4"><a href="statistical-inference.html#cb572-4" tabindex="-1"></a>fake_sample_4 <span class="ot">&lt;-</span> mosaic<span class="sc">::</span><span class="fu">sample</span>(fake_population, <span class="dv">1000</span>)</span>
+<span id="cb572-5"><a href="statistical-inference.html#cb572-5" tabindex="-1"></a>fake_sample_5 <span class="ot">&lt;-</span> mosaic<span class="sc">::</span><span class="fu">sample</span>(fake_population, <span class="dv">1000</span>)</span>
+<span id="cb572-6"><a href="statistical-inference.html#cb572-6" tabindex="-1"></a>fake_sample_6 <span class="ot">&lt;-</span> mosaic<span class="sc">::</span><span class="fu">sample</span>(fake_population, <span class="dv">1000</span>)</span>
+<span id="cb572-7"><a href="statistical-inference.html#cb572-7" tabindex="-1"></a>fake_sample_7 <span class="ot">&lt;-</span> mosaic<span class="sc">::</span><span class="fu">sample</span>(fake_population, <span class="dv">1000</span>)</span>
+<span id="cb572-8"><a href="statistical-inference.html#cb572-8" tabindex="-1"></a>fake_sample_8 <span class="ot">&lt;-</span> mosaic<span class="sc">::</span><span class="fu">sample</span>(fake_population, <span class="dv">1000</span>)</span>
+<span id="cb572-9"><a href="statistical-inference.html#cb572-9" tabindex="-1"></a>fake_sample_9 <span class="ot">&lt;-</span> mosaic<span class="sc">::</span><span class="fu">sample</span>(fake_population, <span class="dv">1000</span>)</span>
+<span id="cb572-10"><a href="statistical-inference.html#cb572-10" tabindex="-1"></a>fake_sample_10 <span class="ot">&lt;-</span> mosaic<span class="sc">::</span><span class="fu">sample</span>(fake_population, <span class="dv">1000</span>)</span>
+<span id="cb572-11"><a href="statistical-inference.html#cb572-11" tabindex="-1"></a></span>
+<span id="cb572-12"><a href="statistical-inference.html#cb572-12" tabindex="-1"></a><span class="co"># print the sample means of the variable &#39;crimecounts&#39; across all ten samples</span></span>
+<span id="cb572-13"><a href="statistical-inference.html#cb572-13" tabindex="-1"></a>purrr<span class="sc">::</span><span class="fu">map_dbl</span>(<span class="fu">list</span>(fake_sample_1, fake_sample_2, fake_sample_3, fake_sample_4, fake_sample_5,</span>
+<span id="cb572-14"><a href="statistical-inference.html#cb572-14" tabindex="-1"></a>                    fake_sample_6, fake_sample_7, fake_sample_8, fake_sample_9, fake_sample_10),</span>
+<span id="cb572-15"><a href="statistical-inference.html#cb572-15" tabindex="-1"></a>               <span class="sc">~</span> <span class="fu">mean</span>(.x<span class="sc">$</span>crimecount, <span class="at">na.rm =</span> T))</span></code></pre></div>
 <pre><code>##  [1] 0.990 0.983 1.025 0.879 1.103 0.996 1.012 0.991 0.994 0.893</code></pre>
 <p>As we can see, not all sample means are exactly the same. Some of them are <em>very</em> similar to the population mean, like <code>fake_sample_1</code> and <code>fake_sample_2</code>, whereas other are slightly more different, such as <code>fake_sample_3</code> and <code>fake_sample_4</code>.</p>
 <p>Your exact results may differ from those shown here, but you can surely see the point. We may have a problem with using sample means as a guess for the population mean. Your guesses (or estimates, or <em>guesstimates</em>) will vary. How much of a problem is this? <a href="http://www.nytimes.com/2014/05/02/upshot/how-not-to-be-misled-by-the-jobs-report.html?_r=0">This excellent piece and demonstration</a> by New York Times reporters illustrate the problem well. We are going to learn that something called the <strong>central limit theorem</strong> is of great assistance here.</p>
 <p>Say we decided to draw more samples from the same population. Instead of just 10 samples, we decide to draw hundreds, or maybe thousands of samples. In reality, there are infinite possible random samples, but let’s say we were able to draw all of them—every single random sample (with the same sample size, in our case, <span class="math inline">\(n = 1000\)</span>) from the population. The distribution of all possible random samples obtained from the population is called <strong>sampling distribution</strong>. It is <em>the distribution of the statistic for all possible samples from the same population of a given size</em>.</p>
 <p>This is a very abstract concept… but let’s try to make sense of it. Let’s generate <strong>50,000</strong> samples (of size <span class="math inline">\(n=1000\)</span>, as before) instead of just 10 as before. Then, for each one of those 50,000 samples, we compute the sample mean indicating the average number of offences individuals have committed. This strategy is called a <em>sampling experiment</em>.</p>
 <p>This is computationally intensive (after all, we’re obtaining 50,000 random samples from the fake population!)—so may take a bit. Wait until you see the object appear in your environment.</p>
-<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb555-1"><a href="statistical-inference.html#cb555-1" tabindex="-1"></a><span class="co"># generate 50,000 random samples from the fake_population object and</span></span>
-<span id="cb555-2"><a href="statistical-inference.html#cb555-2" tabindex="-1"></a><span class="co"># compute the mean of &#39;crimecount&#39;</span></span>
-<span id="cb555-3"><a href="statistical-inference.html#cb555-3" tabindex="-1"></a>samples_50k_crimecount <span class="ot">&lt;-</span> <span class="fu">do</span>(<span class="dv">50000</span>) <span class="sc">*</span> <span class="fu">with</span>(<span class="fu">sample</span>(fake_population, <span class="dv">1000</span>), <span class="fu">mean</span>(crimecount))</span></code></pre></div>
+<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="statistical-inference.html#cb574-1" tabindex="-1"></a><span class="co"># generate 50,000 random samples from the fake_population object and</span></span>
+<span id="cb574-2"><a href="statistical-inference.html#cb574-2" tabindex="-1"></a><span class="co"># compute the mean of &#39;crimecount&#39;</span></span>
+<span id="cb574-3"><a href="statistical-inference.html#cb574-3" tabindex="-1"></a>samples_50k_crimecount <span class="ot">&lt;-</span> <span class="fu">do</span>(<span class="dv">50000</span>) <span class="sc">*</span> <span class="fu">with</span>(<span class="fu">sample</span>(fake_population, <span class="dv">1000</span>), <span class="fu">mean</span>(crimecount))</span></code></pre></div>
 <p>So now we have 50,000 sample means from samples of size 1000 taken from our fake population. Let’s visually explore the distribution of the sample means.</p>
-<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb556-1"><a href="statistical-inference.html#cb556-1" tabindex="-1"></a><span class="co"># Plot the distribution of 50,000 sample means</span></span>
-<span id="cb556-2"><a href="statistical-inference.html#cb556-2" tabindex="-1"></a><span class="fu">qplot</span>(samples_50k_crimecount<span class="sc">$</span>with, <span class="at">xlab =</span> <span class="st">&quot;Distribution of means from samples of size 1000&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb575-1"><a href="statistical-inference.html#cb575-1" tabindex="-1"></a><span class="co"># Plot the distribution of 50,000 sample means</span></span>
+<span id="cb575-2"><a href="statistical-inference.html#cb575-2" tabindex="-1"></a><span class="fu">qplot</span>(samples_50k_crimecount<span class="sc">$</span>with, <span class="at">xlab =</span> <span class="st">&quot;Distribution of means from samples of size 1000&quot;</span>)</span></code></pre></div>
 <p><img src="09_statistical_inference_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>The sampling distribution follows a normal distribution! When you (1) take many random samples from a variable; (2) compute the means for each of these samples; and (3) plot the means of each of these samples, you end up with something (i.e., the sampling distribution) that is also normally distributed. And what is the mean of the sampling distribution—i.e., if we analyse the means obtained from each one of the 50,000 samples we generated and computed their overall mean, what would it be? Let’s check it:</p>
-<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb557-1"><a href="statistical-inference.html#cb557-1" tabindex="-1"></a><span class="co"># computes mean of the sample means</span></span>
-<span id="cb557-2"><a href="statistical-inference.html#cb557-2" tabindex="-1"></a><span class="fu">mean</span>(samples_50k_crimecount<span class="sc">$</span>with) </span></code></pre></div>
+<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="statistical-inference.html#cb576-1" tabindex="-1"></a><span class="co"># computes mean of the sample means</span></span>
+<span id="cb576-2"><a href="statistical-inference.html#cb576-2" tabindex="-1"></a><span class="fu">mean</span>(samples_50k_crimecount<span class="sc">$</span>with) </span></code></pre></div>
 <pre><code>## [1] 0.9872288</code></pre>
 <p>Wait a minute, we remember this number! This exactly the same as the population mean, isn’t it?</p>
-<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb559-1"><a href="statistical-inference.html#cb559-1" tabindex="-1"></a><span class="co"># computes population mean of the variable &quot;crimecount&quot;</span></span>
-<span id="cb559-2"><a href="statistical-inference.html#cb559-2" tabindex="-1"></a><span class="fu">mean</span>(fake_population<span class="sc">$</span>crimecount)</span></code></pre></div>
+<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="statistical-inference.html#cb578-1" tabindex="-1"></a><span class="co"># computes population mean of the variable &quot;crimecount&quot;</span></span>
+<span id="cb578-2"><a href="statistical-inference.html#cb578-2" tabindex="-1"></a><span class="fu">mean</span>(fake_population<span class="sc">$</span>crimecount)</span></code></pre></div>
 <pre><code>## [1] 0.98726</code></pre>
 <p>Wow! What we have observed is part of something called the <strong>central limit theorem</strong>, a concept from probability theory. One of the first things that the central limit theorem tells us is that <strong>the mean of the sampling distribution of the means should equal the mean of the population</strong>.</p>
 <p>The beauty of it is that, if the sampling distribution (i) is a normal distribution and (ii) has a mean that is the same as the population mean, we can use properties about the normal distribution to help us link data obtained from a random sample to the underlying population—allowing us to make statistical inference! What’s even more impressive is that the original variable does not need to be normally distributed. Our variable today, <code>crimecount</code>, follows a highly skewed distribution (in the population and in each random sample); and yet, the sampling distribution of the several means of <code>crimecount</code> obtained from several samples is normally distributed.</p>
@@ -560,8 +560,8 @@ details {
 <div id="statistical-inference-confidence-intervals" class="section level3 unnumbered hasAnchor">
 <h3>Statistical inference: confidence intervals<a href="statistical-inference.html#statistical-inference-confidence-intervals" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Now, let’s take a closer look at this idea of <em>standard errors</em>. If the standard error is the standard deviation of the sampling distribution, in the case of our sampling experiment, we can simply compute the standard deviation of the <code>samples_50k_crimcount</code> object. (<em>Note</em>: usually, the standard error needs to be guessed/estimated as well, as in practice we only have data from a single sample).</p>
-<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb561-1"><a href="statistical-inference.html#cb561-1" tabindex="-1"></a><span class="co"># check the standard deviation of the sampling procedure</span></span>
-<span id="cb561-2"><a href="statistical-inference.html#cb561-2" tabindex="-1"></a><span class="fu">sd</span>(samples_50k_crimecount<span class="sc">$</span>with)</span></code></pre></div>
+<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb580-1"><a href="statistical-inference.html#cb580-1" tabindex="-1"></a><span class="co"># check the standard deviation of the sampling procedure</span></span>
+<span id="cb580-2"><a href="statistical-inference.html#cb580-2" tabindex="-1"></a><span class="fu">sd</span>(samples_50k_crimecount<span class="sc">$</span>with)</span></code></pre></div>
 <pre><code>## [1] 0.08585455</code></pre>
 <p>The standard error was 0.09. If we multiply 0.09 by 1.96, we obtain `r 0.17. This means that 95% of the samples in this sampling distribution will have an error that won’t be bigger than that. They will only at most differ from the mean of the sampling distribution by (plus and minus) 0.17. However, 5% of the samples will have a margin of error bigger than that (in absolute terms).</p>
 <p>The wonderful thing is that we can use the margin of error to provide information about the degree to which our sample estimate may vary from the population mean. We can use it to give a measure of the uncertainty in our estimation. How?</p>
@@ -575,8 +575,8 @@ details {
 <li>Lower limit: sample mean <span class="math inline">\(- 1.96*\)</span> standard error</li>
 </ul>
 <p>This will be clearer with a complete example. Let’s have a look at <code>fake_sample_4</code>, a random sample of 1000 observations drawn from the <code>fake_population</code>. (<em>Feel free to try this with other samples!</em>).</p>
-<div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb563-1"><a href="statistical-inference.html#cb563-1" tabindex="-1"></a><span class="co"># check the sample mean of &#39;crimecount&#39; in fake_sample_4</span></span>
-<span id="cb563-2"><a href="statistical-inference.html#cb563-2" tabindex="-1"></a><span class="fu">mean</span>(fake_sample_4<span class="sc">$</span>crimecount)</span></code></pre></div>
+<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb582-1"><a href="statistical-inference.html#cb582-1" tabindex="-1"></a><span class="co"># check the sample mean of &#39;crimecount&#39; in fake_sample_4</span></span>
+<span id="cb582-2"><a href="statistical-inference.html#cb582-2" tabindex="-1"></a><span class="fu">mean</span>(fake_sample_4<span class="sc">$</span>crimecount)</span></code></pre></div>
 <pre><code>## [1] 0.879</code></pre>
 <p>The mean of <code>crimecount</code> in <code>fake_sample_4</code> is 0.88. In this case, we know that this is slightly different but still fairly close to the population mean of NA, but in real-life scenarios we only see the sample mean—never the population mean.</p>
 <p>So, we can estimate the confidence interval. Because we want the 95% confidence interval, we define the interval as a range <span class="math inline">\(1.96 *\)</span> the standard error below and above our sample mean of 0.88. Given that the standard error in this case is 0.17, the lower bound of the 95% confidence interval is simply 0.88 <span class="math inline">\(- 1.96 *\)</span> 0.09 <span class="math inline">\(=\)</span> 0.55, whereas the upper bound of the 95% confidence interval is 0.88 <span class="math inline">\(+ 1.96 *\)</span> 0.09 <span class="math inline">\(=\)</span> 1.21.</p>
@@ -625,25 +625,25 @@ details {
 <p>You can learn more about this distribution and the work of Gosset in the suggested reading. The t-Student distribution and the normal distribution are almost indistinguishable for large samples. In essence that means you will still multiply by 1.96. But with smaller sample sizes that value will be different if you use a normal distribution or a t student distribution. Refer to the recommended textbooks for further clarification.</p>
 <p>It is fairly straightforward to get the confidence intervals using <code>R</code>. <em>In order to use the t-Student distribution we need to assume the data were randomly sampled and that the population distribution is unimodal and symmetric.</em></p>
 <p>In the following subsections, we are going to rely on data from the Crime Survey for England and Wales 2007-08 and revisit everything we studied this semester applying statistical inference tools. Let’s start loading the data:</p>
-<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb565-1"><a href="statistical-inference.html#cb565-1" tabindex="-1"></a><span class="co"># load readr package</span></span>
-<span id="cb565-2"><a href="statistical-inference.html#cb565-2" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb565-3"><a href="statistical-inference.html#cb565-3" tabindex="-1"></a></span>
-<span id="cb565-4"><a href="statistical-inference.html#cb565-4" tabindex="-1"></a><span class="co"># import the data using read_csv() function</span></span>
-<span id="cb565-5"><a href="statistical-inference.html#cb565-5" tabindex="-1"></a>csew_0708 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/uom-resquant/modelling_book/refs/heads/master/datasets/BCS0708.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb584-1"><a href="statistical-inference.html#cb584-1" tabindex="-1"></a><span class="co"># load readr package</span></span>
+<span id="cb584-2"><a href="statistical-inference.html#cb584-2" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb584-3"><a href="statistical-inference.html#cb584-3" tabindex="-1"></a></span>
+<span id="cb584-4"><a href="statistical-inference.html#cb584-4" tabindex="-1"></a><span class="co"># import the data using read_csv() function</span></span>
+<span id="cb584-5"><a href="statistical-inference.html#cb584-5" tabindex="-1"></a>csew_0708 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/uom-resquant/modelling_book/refs/heads/master/datasets/BCS0708.csv&quot;</span>)</span></code></pre></div>
 <p>As we know, this is a representative sample of people aged 16 or older living in England and Wales. While we are analysing data from this sample, what we really care about is the population. Therefore, we can use sample-level data to make population-level conclusions.</p>
 <div id="means-and-proportions" class="section level3 unnumbered hasAnchor">
 <h3>Means and proportions<a href="statistical-inference.html#means-and-proportions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>As we did a few weeks ago, let’s start looking at the variable <code>tcviolent</code>, which measures fear of violent crime.</p>
-<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="statistical-inference.html#cb566-1" tabindex="-1"></a><span class="co"># describe the &#39;tcviolent&#39; variable</span></span>
-<span id="cb566-2"><a href="statistical-inference.html#cb566-2" tabindex="-1"></a><span class="fu">summary</span>(csew_0708<span class="sc">$</span>tcviolent)</span></code></pre></div>
+<div class="sourceCode" id="cb585"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb585-1"><a href="statistical-inference.html#cb585-1" tabindex="-1"></a><span class="co"># describe the &#39;tcviolent&#39; variable</span></span>
+<span id="cb585-2"><a href="statistical-inference.html#cb585-2" tabindex="-1"></a><span class="fu">summary</span>(csew_0708<span class="sc">$</span>tcviolent)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
 ##  -2.350  -0.672  -0.117   0.046   0.540   3.805    3242</code></pre>
 <p>This is an index indicating how fearful of violent crime each individual is. The lowest score in the scale is -2.35, indicating no fear of violent crime whatsoever, and the highest score is 3.81, reflecting very high levels of fear of violent of crime.</p>
 <p>The average score is 0.05. Now, this is when things get interesting… 0.05 is the <em>sample mean</em>. We don’t know what the <em>population mean</em> is! Yet, that’s our target, that’s the number we actually want to know. Because we don’t know, we can only guess. And the best, most educated guess we can have is the sample mean. Therefore, we treat the sample mean as our estimate (i.e., best guess) of the population mean.</p>
 <p>Still, we could be wrong. The CSEW sample is just one out of infinite possible samples drawn from the population aged 16 or older living in England and Wales. While we know that <em>most</em> samples will do a good job in estimating the population mean, <em>some</em> will be relatively off. Therefore, rather than simply using our point estimate—i.e., rather than simply saying that the population mean is exactly 0.05, we can model the uncertainty and compute a confidence interval around our estimate. Following standard conventions, we can compute a 95% confidence interval.</p>
 <p>To do that, we simply use the <code>t.test()</code> function in <code>R</code>.</p>
-<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb568-1"><a href="statistical-inference.html#cb568-1" tabindex="-1"></a><span class="co"># compute a 95% confidence interval around the mean of &#39;tcviolent&#39;</span></span>
-<span id="cb568-2"><a href="statistical-inference.html#cb568-2" tabindex="-1"></a><span class="fu">t.test</span>(csew_0708<span class="sc">$</span>tcviolent)</span></code></pre></div>
+<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb587-1"><a href="statistical-inference.html#cb587-1" tabindex="-1"></a><span class="co"># compute a 95% confidence interval around the mean of &#39;tcviolent&#39;</span></span>
+<span id="cb587-2"><a href="statistical-inference.html#cb587-2" tabindex="-1"></a><span class="fu">t.test</span>(csew_0708<span class="sc">$</span>tcviolent)</span></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
 ## 
@@ -670,8 +670,8 @@ details {
 </ul>
 <p>This set of information is about all about hypothesis testing. The <em>t-statistic</em>, degrees of freedom, and <em>p-value</em> are all directly related. We use this information as evidence on whether we can, or cannot, reject the null hypothesis. In this case, because the p-value is lower than our significance level (i.e., <span class="math inline">\(0.00003104 &lt; 0.05\)</span>), we reject the null hypothesis.</p>
 <p>If you want a different confidence interval, say 99%, you can pass an additional argument to change the default in the <code>t.test()</code> function. In this case, when saying <code>.99</code> we are saying that if we were to repeat the procedure 99% of the confidence intervals would cover the population parameter.</p>
-<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="statistical-inference.html#cb570-1" tabindex="-1"></a><span class="co"># compute a 99% confidence interval around the mean of &#39;tcviolent&#39;</span></span>
-<span id="cb570-2"><a href="statistical-inference.html#cb570-2" tabindex="-1"></a><span class="fu">t.test</span>(csew_0708<span class="sc">$</span>tcviolent, <span class="at">conf.level =</span> .<span class="dv">99</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb589-1"><a href="statistical-inference.html#cb589-1" tabindex="-1"></a><span class="co"># compute a 99% confidence interval around the mean of &#39;tcviolent&#39;</span></span>
+<span id="cb589-2"><a href="statistical-inference.html#cb589-2" tabindex="-1"></a><span class="fu">t.test</span>(csew_0708<span class="sc">$</span>tcviolent, <span class="at">conf.level =</span> .<span class="dv">99</span>)</span></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
 ## 
@@ -685,16 +685,16 @@ details {
 ## 0.04558207</code></pre>
 <p>The 99% confidence level is <span class="math inline">\([\)</span> 0.02 ; 0.07 <span class="math inline">\(]\)</span>.</p>
 <p>Now, suppose that instead of analysing scores of fear of violent crime, you want to analyse the proportion of individuals who have been victimised.</p>
-<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb572-1"><a href="statistical-inference.html#cb572-1" tabindex="-1"></a><span class="co"># sample proportion of victimisation</span></span>
-<span id="cb572-2"><a href="statistical-inference.html#cb572-2" tabindex="-1"></a><span class="fu">table</span>(csew_0708<span class="sc">$</span>bcsvictim) <span class="sc">%&gt;%</span> prop.table</span></code></pre></div>
+<div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb591-1"><a href="statistical-inference.html#cb591-1" tabindex="-1"></a><span class="co"># sample proportion of victimisation</span></span>
+<span id="cb591-2"><a href="statistical-inference.html#cb591-2" tabindex="-1"></a><span class="fu">table</span>(csew_0708<span class="sc">$</span>bcsvictim) <span class="sc">%&gt;%</span> prop.table</span></code></pre></div>
 <pre><code>## 
 ## not a victim of crime       victim of crime 
 ##             0.7980473             0.2019527</code></pre>
 <p>The sample percentage of individuals who have been victimised is 20.2%. Yet, this is only true for our sample. The number we actually want to find out is the <em>population</em> percentage of individuals who have been victimised. Since this is a population parameters, it is unknown. We can only guess. Our best guess is to use the sample statistic. Therefore, we <em>estimate</em> that the population percentage of individuals who have been victimised is 20.2%.</p>
 <p>Still, we could be wrong. We don’t know what the population parameter is, and our estimate could be very far off from the population proportion. Therefore, we compute a 95% confidence interval. We can use the <code>prop.test()</code> function in these cases:</p>
-<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="statistical-inference.html#cb574-1" tabindex="-1"></a><span class="co"># We want to estimate the proportion of respondents who have been victimised, </span></span>
-<span id="cb574-2"><a href="statistical-inference.html#cb574-2" tabindex="-1"></a><span class="co"># which is why we specifically ask for those classified as &quot;victim of crime&quot;</span></span>
-<span id="cb574-3"><a href="statistical-inference.html#cb574-3" tabindex="-1"></a><span class="fu">prop.test</span>(csew_0708<span class="sc">$</span>bcsvictim <span class="sc">==</span> <span class="st">&quot;victim of crime&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb593-1"><a href="statistical-inference.html#cb593-1" tabindex="-1"></a><span class="co"># We want to estimate the proportion of respondents who have been victimised, </span></span>
+<span id="cb593-2"><a href="statistical-inference.html#cb593-2" tabindex="-1"></a><span class="co"># which is why we specifically ask for those classified as &quot;victim of crime&quot;</span></span>
+<span id="cb593-3"><a href="statistical-inference.html#cb593-3" tabindex="-1"></a><span class="fu">prop.test</span>(csew_0708<span class="sc">$</span>bcsvictim <span class="sc">==</span> <span class="st">&quot;victim of crime&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  1-sample proportions test with continuity correction
 ## 
@@ -710,8 +710,8 @@ details {
 <p>So, we can say that we are 95% confident that the population proportion is somewhere within the <span class="math inline">\([\)</span> 0.195; 0.209 <span class="math inline">\(]\)</span> range.</p>
 <p>The hypothesis testing part works exactly the same way. We already knew we could reject the null hypothesis (under a 5% significance level) that the population proportion is 0 because the 95% confidence interval does not cross 0. We can also look at the first row of the output, which works in a similar way—instead of a <em>t-statistic</em>, we have a <em>X-squared</em> statistic, given that we now have a proportion, and a p-value really, really low: <span class="math inline">\(p = 0.000000000000000022\)</span>. This hypothesis testing is not substantially relevant either.</p>
 <p>As before, You can also specify a different confidence level:</p>
-<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="statistical-inference.html#cb576-1" tabindex="-1"></a><span class="co"># Computing a 99% confidence interval for the sample proportion</span></span>
-<span id="cb576-2"><a href="statistical-inference.html#cb576-2" tabindex="-1"></a><span class="fu">prop.test</span>(csew_0708<span class="sc">$</span>bcsvictim <span class="sc">==</span> <span class="st">&quot;victim of crime&quot;</span>, <span class="at">conf.level =</span> .<span class="dv">99</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb595-1"><a href="statistical-inference.html#cb595-1" tabindex="-1"></a><span class="co"># Computing a 99% confidence interval for the sample proportion</span></span>
+<span id="cb595-2"><a href="statistical-inference.html#cb595-2" tabindex="-1"></a><span class="fu">prop.test</span>(csew_0708<span class="sc">$</span>bcsvictim <span class="sc">==</span> <span class="st">&quot;victim of crime&quot;</span>, <span class="at">conf.level =</span> .<span class="dv">99</span>)</span></code></pre></div>
 <pre><code>## 
 ##  1-sample proportions test with continuity correction
 ## 
@@ -727,11 +727,11 @@ details {
 <div id="statistical-inference-in-linear-regression-models" class="section level3 unnumbered hasAnchor">
 <h3>Statistical inference in linear regression models<a href="statistical-inference.html#statistical-inference-in-linear-regression-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Now, following the logic of the course outline, say we are interested in a bivariate relationship; say, for instance, we want to know whether individuals who have previously been victimised have higher scores of fear of violent crime than individuals who have not been victimised. In this case, fear of violent crime (<code>tcviolent</code>), a numerical variable, is our dependent variable, and crime victimisation, <code>bcsvictim</code>, a binary variable, is our independent variable. We know that to test this association we just need to estimate the mean difference—i.e., the difference between the average score of fear of violent crime among those who have been victims and the average scores of fear of violent crime among those who have not been victims. We also know that the linear regression framework calculates the mean difference for us.</p>
-<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="statistical-inference.html#cb578-1" tabindex="-1"></a><span class="co"># use regression to calculate the mean difference in &#39;tcviolent&#39; across groups of &#39;bcsvictim&#39;</span></span>
-<span id="cb578-2"><a href="statistical-inference.html#cb578-2" tabindex="-1"></a>linear_regression_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(tcviolent <span class="sc">~</span> bcsvictim, <span class="at">data =</span> csew_0708)</span>
-<span id="cb578-3"><a href="statistical-inference.html#cb578-3" tabindex="-1"></a></span>
-<span id="cb578-4"><a href="statistical-inference.html#cb578-4" tabindex="-1"></a><span class="co"># print results</span></span>
-<span id="cb578-5"><a href="statistical-inference.html#cb578-5" tabindex="-1"></a>linear_regression_1</span></code></pre></div>
+<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb597-1"><a href="statistical-inference.html#cb597-1" tabindex="-1"></a><span class="co"># use regression to calculate the mean difference in &#39;tcviolent&#39; across groups of &#39;bcsvictim&#39;</span></span>
+<span id="cb597-2"><a href="statistical-inference.html#cb597-2" tabindex="-1"></a>linear_regression_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(tcviolent <span class="sc">~</span> bcsvictim, <span class="at">data =</span> csew_0708)</span>
+<span id="cb597-3"><a href="statistical-inference.html#cb597-3" tabindex="-1"></a></span>
+<span id="cb597-4"><a href="statistical-inference.html#cb597-4" tabindex="-1"></a><span class="co"># print results</span></span>
+<span id="cb597-5"><a href="statistical-inference.html#cb597-5" tabindex="-1"></a>linear_regression_1</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = tcviolent ~ bcsvictim, data = csew_0708)
@@ -743,8 +743,8 @@ details {
 <p>That’s great, but those numbers are also only true in our sample! What we want to know is the mean difference <em>in the population</em>. Because it is a population parameter, we do not know what it is. We can only guess. As ever, our best, most educated guess is the sample mean difference. But we can also handle the uncertainty around our point estimate and compute a confidence interval and conduct hypothesis testing. The null hypothesis, in this case, is that the mean difference <em>in the population</em> is 0.</p>
 <p>So, how can test the null hypothesis? The linear regression framework already does it for us! Yes, that’s great. Every single parameter in the regression model—i.e., <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> have their own statistical test conducted. Aside from the point estimate (i.e., the estimates of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>), the <code>lm()</code> function will automatically estimate a standard error, which can be used to compute a t-statistic and the p-value. From that, we can also derive confidence intervals.</p>
 <p>And the good news is, we don’t need to do anything new. We just use the <code>summary()</code> function when printing the regression model.</p>
-<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb580-1"><a href="statistical-inference.html#cb580-1" tabindex="-1"></a><span class="co"># print results from the regression model with all information</span></span>
-<span id="cb580-2"><a href="statistical-inference.html#cb580-2" tabindex="-1"></a><span class="fu">summary</span>(linear_regression_1)</span></code></pre></div>
+<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb599-1"><a href="statistical-inference.html#cb599-1" tabindex="-1"></a><span class="co"># print results from the regression model with all information</span></span>
+<span id="cb599-2"><a href="statistical-inference.html#cb599-2" tabindex="-1"></a><span class="fu">summary</span>(linear_regression_1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = tcviolent ~ bcsvictim, data = csew_0708)
@@ -768,29 +768,29 @@ details {
 <p>We can see, for example, that the estimated mean difference is 0.098. We already knew that. But now we also know the standard error of this estimate, which is 0.027. If we simply divide the Estimate by its standard error (<span class="math inline">\(\frac{0.098}{0.027}\)</span>), we obtain the t-statistic, which in this case is 3.667. So, we know that our sample mean difference is 3.667 standard errors distant from 0 (i.e., the population mean under the null hypothesis). Finally, and crucially, we can see that the p-value is <span class="math inline">\(p=0.000247\)</span>. We are adopting a 5% significance level. Given that the estimated p-value is lower than 0.05, we can confidently reject the null the hypothesis. We can then say that the estimated mean difference is statistically significantly different from 0—implying that we are confident that that population mean difference is not zero.</p>
 <p>We could do the same analysis for the estimated intercept (although, in reality, we are usually interested in the slope coefficient).</p>
 <p>Similarly, we can also calculate confidence intervals for each estimate. We could manually calculate those intervals with the information available above (remember? The lower bound of the 95% confidence interval is given by <span class="math inline">\(Estimate - 1.96 * standard\_error\)</span> and the upper bound is <span class="math inline">\(Estimate + 1.96 * standard\_error\)</span>), but we can also ask <code>R</code> to do it for us.</p>
-<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb582-1"><a href="statistical-inference.html#cb582-1" tabindex="-1"></a><span class="co"># compute 95% confidence interval of regression estimates</span></span>
-<span id="cb582-2"><a href="statistical-inference.html#cb582-2" tabindex="-1"></a><span class="fu">confint</span>(linear_regression_1)</span></code></pre></div>
+<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb601-1"><a href="statistical-inference.html#cb601-1" tabindex="-1"></a><span class="co"># compute 95% confidence interval of regression estimates</span></span>
+<span id="cb601-2"><a href="statistical-inference.html#cb601-2" tabindex="-1"></a><span class="fu">confint</span>(linear_regression_1)</span></code></pre></div>
 <pre><code>##                                 2.5 %     97.5 %
 ## (Intercept)              0.0007021627 0.04895231
 ## bcsvictimvictim of crime 0.0456649822 0.15057526</code></pre>
 <p>The 95% confidence interval of the mean difference is <span class="math inline">\([0.046; 0.151]\)</span>. We can also calculate other confidence intervals.</p>
-<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb584-1"><a href="statistical-inference.html#cb584-1" tabindex="-1"></a><span class="co"># compute 99% confidence interval of regression estimates</span></span>
-<span id="cb584-2"><a href="statistical-inference.html#cb584-2" tabindex="-1"></a><span class="fu">confint</span>(linear_regression_1, <span class="at">level =</span> <span class="fl">0.99</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb603-1"><a href="statistical-inference.html#cb603-1" tabindex="-1"></a><span class="co"># compute 99% confidence interval of regression estimates</span></span>
+<span id="cb603-2"><a href="statistical-inference.html#cb603-2" tabindex="-1"></a><span class="fu">confint</span>(linear_regression_1, <span class="at">level =</span> <span class="fl">0.99</span>)</span></code></pre></div>
 <pre><code>##                                 0.5 %     99.5 %
 ## (Intercept)              -0.006881111 0.05653558
 ## bcsvictimvictim of crime  0.029176673 0.16706357</code></pre>
 <p>What if the independent variable is numerical, and not binary? Exactly the same logic applies. Say we want to assess the association between people’s perceptions of anti-social behaviour in their neighbourhood, <code>tcarea</code>, and fear of violent crime. The hypothesis here is that people who live in areas characterised by more social disorganisation will be more fearful of violent crime. <code>tcarea</code>, as we know, is a numerical variable.</p>
-<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb586-1"><a href="statistical-inference.html#cb586-1" tabindex="-1"></a><span class="co"># describe the &#39;tcarea&#39; variable</span></span>
-<span id="cb586-2"><a href="statistical-inference.html#cb586-2" tabindex="-1"></a><span class="fu">summary</span>(csew_0708<span class="sc">$</span>tcarea)</span></code></pre></div>
+<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb605-1"><a href="statistical-inference.html#cb605-1" tabindex="-1"></a><span class="co"># describe the &#39;tcarea&#39; variable</span></span>
+<span id="cb605-2"><a href="statistical-inference.html#cb605-2" tabindex="-1"></a><span class="fu">summary</span>(csew_0708<span class="sc">$</span>tcarea)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
 ## -2.6735 -0.7943 -0.0942  0.0303  0.6420  4.1883     677</code></pre>
 <p>This index is measured on a scale that ranges from -2.67, indicating people who do not perceive anti-social behaviour in their area at all, to 4.19, indicating people who perceive high levels of anti-social behaviour in their neighbourhood.</p>
 <p>We can fit a regression model in which <code>tcviolent</code> is the dependent variable and <code>tcarea</code> is the independent variable. This model should tell us something about the association between both variables.</p>
-<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb588-1"><a href="statistical-inference.html#cb588-1" tabindex="-1"></a><span class="co"># fit linear regression model assessting the association between &#39;tcarea&#39; and &#39;tcviolent&#39;</span></span>
-<span id="cb588-2"><a href="statistical-inference.html#cb588-2" tabindex="-1"></a>linear_regression_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(tcviolent <span class="sc">~</span> tcarea, <span class="at">data =</span> csew_0708)</span>
-<span id="cb588-3"><a href="statistical-inference.html#cb588-3" tabindex="-1"></a></span>
-<span id="cb588-4"><a href="statistical-inference.html#cb588-4" tabindex="-1"></a><span class="co"># print results</span></span>
-<span id="cb588-5"><a href="statistical-inference.html#cb588-5" tabindex="-1"></a>linear_regression_2</span></code></pre></div>
+<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb607-1"><a href="statistical-inference.html#cb607-1" tabindex="-1"></a><span class="co"># fit linear regression model assessting the association between &#39;tcarea&#39; and &#39;tcviolent&#39;</span></span>
+<span id="cb607-2"><a href="statistical-inference.html#cb607-2" tabindex="-1"></a>linear_regression_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(tcviolent <span class="sc">~</span> tcarea, <span class="at">data =</span> csew_0708)</span>
+<span id="cb607-3"><a href="statistical-inference.html#cb607-3" tabindex="-1"></a></span>
+<span id="cb607-4"><a href="statistical-inference.html#cb607-4" tabindex="-1"></a><span class="co"># print results</span></span>
+<span id="cb607-5"><a href="statistical-inference.html#cb607-5" tabindex="-1"></a>linear_regression_2</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = tcviolent ~ tcarea, data = csew_0708)
@@ -800,8 +800,8 @@ details {
 ##     0.03159      0.30921</code></pre>
 <p>Now, the estimated slope coefficient is <span class="math inline">\(\widehat{\beta}=0.309\)</span>, indicating that every one-unit increase in the scale of <code>tcarea</code> is associated with an increase of 0.309 in the expected score of <code>tcviolent</code>.</p>
 <p>Again, however, <span class="math inline">\(\widehat{\beta}=0.309\)</span> is only true in our sample. What we actually want to know is the population parameter, which is unknown. We can start with the null hypothesis: the slope coefficient is 0 in the population. We can then conduct a statistical test that provides evidence for or against the null hypothesis.</p>
-<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb590-1"><a href="statistical-inference.html#cb590-1" tabindex="-1"></a><span class="co"># print results from the regression model with all information</span></span>
-<span id="cb590-2"><a href="statistical-inference.html#cb590-2" tabindex="-1"></a><span class="fu">summary</span>(linear_regression_2)</span></code></pre></div>
+<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb609-1"><a href="statistical-inference.html#cb609-1" tabindex="-1"></a><span class="co"># print results from the regression model with all information</span></span>
+<span id="cb609-2"><a href="statistical-inference.html#cb609-2" tabindex="-1"></a><span class="fu">summary</span>(linear_regression_2)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = tcviolent ~ tcarea, data = csew_0708)
@@ -826,11 +826,11 @@ details {
 <div id="statistical-inference-in-multiple-linear-regression-models" class="section level3 unnumbered hasAnchor">
 <h3>Statistical inference in multiple linear regression models<a href="statistical-inference.html#statistical-inference-in-multiple-linear-regression-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>What about multiple linear regressions? No difference whatsoever. Each estimated parameter has its own (conditional) null hypothesis and its own statistical test. For example, let’s estimate a regression model in which fear of violent crime is the dependent variable and <code>tcarea</code>, <code>bcsvictim</code>, and <code>rural2</code> are all independent variables.</p>
-<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb592-1"><a href="statistical-inference.html#cb592-1" tabindex="-1"></a><span class="co"># estimate a multiple linear regression</span></span>
-<span id="cb592-2"><a href="statistical-inference.html#cb592-2" tabindex="-1"></a>linear_regression_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(tcviolent <span class="sc">~</span> tcarea <span class="sc">+</span> bcsvictim <span class="sc">+</span> rural2, <span class="at">data =</span> csew_0708)</span>
-<span id="cb592-3"><a href="statistical-inference.html#cb592-3" tabindex="-1"></a></span>
-<span id="cb592-4"><a href="statistical-inference.html#cb592-4" tabindex="-1"></a><span class="co"># print results</span></span>
-<span id="cb592-5"><a href="statistical-inference.html#cb592-5" tabindex="-1"></a>linear_regression_3</span></code></pre></div>
+<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb611-1"><a href="statistical-inference.html#cb611-1" tabindex="-1"></a><span class="co"># estimate a multiple linear regression</span></span>
+<span id="cb611-2"><a href="statistical-inference.html#cb611-2" tabindex="-1"></a>linear_regression_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(tcviolent <span class="sc">~</span> tcarea <span class="sc">+</span> bcsvictim <span class="sc">+</span> rural2, <span class="at">data =</span> csew_0708)</span>
+<span id="cb611-3"><a href="statistical-inference.html#cb611-3" tabindex="-1"></a></span>
+<span id="cb611-4"><a href="statistical-inference.html#cb611-4" tabindex="-1"></a><span class="co"># print results</span></span>
+<span id="cb611-5"><a href="statistical-inference.html#cb611-5" tabindex="-1"></a>linear_regression_3</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = tcviolent ~ tcarea + bcsvictim + rural2, data = csew_0708)
@@ -842,8 +842,8 @@ details {
 ##                  0.16274</code></pre>
 <p>We can see that, controlling for victimisation and urban dwelling, every unit increase in <code>tcarea</code> is associated with an expected increase of 0.30 scores in <code>tcviolent</code>. We can also see that, controlling for perceived anti-social behaviour and urban dwelling, the expected score of fear of crime among victims is 0.089 scores <em>lower</em> than among non-victims (interesting flip sign in the multivariate model!). Finally, controlling for perceived anti-social behaviour and crime victimisation, the expected score of fear of crime among urban residents is 0.163 scores higher than among rural residents.</p>
 <p>Yet, all of those coefficients are only true in the sample—they are sample estimates. They are a good guess for the population parameters, but we need to model the uncertainty around those estimates. Therefore, for each point estimate (i.e., for each coefficient), we also estimate a standard error, which we use to calculate the t-statistic and the p-value.</p>
-<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb594-1"><a href="statistical-inference.html#cb594-1" tabindex="-1"></a><span class="co"># print results from the regression model with all information</span></span>
-<span id="cb594-2"><a href="statistical-inference.html#cb594-2" tabindex="-1"></a><span class="fu">summary</span>(linear_regression_3)</span></code></pre></div>
+<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb613-1"><a href="statistical-inference.html#cb613-1" tabindex="-1"></a><span class="co"># print results from the regression model with all information</span></span>
+<span id="cb613-2"><a href="statistical-inference.html#cb613-2" tabindex="-1"></a><span class="fu">summary</span>(linear_regression_3)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = tcviolent ~ tcarea + bcsvictim + rural2, data = csew_0708)
@@ -872,23 +872,23 @@ details {
 <h3>Presenting results from regression analysis<a href="statistical-inference.html#presenting-results-from-regression-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Communicating your results in a clear manner is incredibly important. We have seen the tabular results produced by <code>R</code>. If you want to use them in a paper (e.g., your final coursework!), you may need to do some tidying up of those results. There are a number of packages (e.g., <code>textreg</code>, <code>stargazer</code>) that automatise that process. They take your <code>lm</code> objects and produce tables that you can put straight away in your reports or papers. One popular trend in presenting results is the <strong>coefficient plot</strong> as an alternative to the table of regression coefficients. There are various ways of producing coefficient plots with <code>R</code> for a variety of models. See <a href="https://www.r-statistics.com/2010/07/visualization-of-regression-coefficients-in-r/">here</a>, for example.</p>
 <p>We are going to use instead the <code>plot_model()</code> function of the <code>sjPlot</code> package, that makes it easier to produce this sort of plots. You can find a more detailed tutorial about this function <a href="http://rpubs.com/sjPlot/sjplm">here</a>. See below for an example:</p>
-<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb596-1"><a href="statistical-inference.html#cb596-1" tabindex="-1"></a><span class="co"># install package if you haven&#39;t yet</span></span>
-<span id="cb596-2"><a href="statistical-inference.html#cb596-2" tabindex="-1"></a><span class="do">## install.packages(&quot;sjPlot&quot;)</span></span>
-<span id="cb596-3"><a href="statistical-inference.html#cb596-3" tabindex="-1"></a></span>
-<span id="cb596-4"><a href="statistical-inference.html#cb596-4" tabindex="-1"></a><span class="co"># load sjPlot package</span></span>
-<span id="cb596-5"><a href="statistical-inference.html#cb596-5" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span></code></pre></div>
+<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb615-1"><a href="statistical-inference.html#cb615-1" tabindex="-1"></a><span class="co"># install package if you haven&#39;t yet</span></span>
+<span id="cb615-2"><a href="statistical-inference.html#cb615-2" tabindex="-1"></a><span class="do">## install.packages(&quot;sjPlot&quot;)</span></span>
+<span id="cb615-3"><a href="statistical-inference.html#cb615-3" tabindex="-1"></a></span>
+<span id="cb615-4"><a href="statistical-inference.html#cb615-4" tabindex="-1"></a><span class="co"># load sjPlot package</span></span>
+<span id="cb615-5"><a href="statistical-inference.html#cb615-5" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span></code></pre></div>
 <p>We can then use the <code>plot_model()</code> function to plot produce a coefficient plot.</p>
-<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb597-1"><a href="statistical-inference.html#cb597-1" tabindex="-1"></a><span class="co"># produce a coefficient plot</span></span>
-<span id="cb597-2"><a href="statistical-inference.html#cb597-2" tabindex="-1"></a><span class="fu">plot_model</span>(linear_regression_3)</span></code></pre></div>
+<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb616-1"><a href="statistical-inference.html#cb616-1" tabindex="-1"></a><span class="co"># produce a coefficient plot</span></span>
+<span id="cb616-2"><a href="statistical-inference.html#cb616-2" tabindex="-1"></a><span class="fu">plot_model</span>(linear_regression_3)</span></code></pre></div>
 <p><img src="09_statistical_inference_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
 <p>You can further customise this:</p>
-<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb598-1"><a href="statistical-inference.html#cb598-1" tabindex="-1"></a><span class="co"># add a title to the coefficient plot</span></span>
-<span id="cb598-2"><a href="statistical-inference.html#cb598-2" tabindex="-1"></a><span class="fu">plot_model</span>(linear_regression_3, <span class="at">title =</span> <span class="st">&quot;Fear of violent crime&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="statistical-inference.html#cb617-1" tabindex="-1"></a><span class="co"># add a title to the coefficient plot</span></span>
+<span id="cb617-2"><a href="statistical-inference.html#cb617-2" tabindex="-1"></a><span class="fu">plot_model</span>(linear_regression_3, <span class="at">title =</span> <span class="st">&quot;Fear of violent crime&quot;</span>)</span></code></pre></div>
 <p><img src="09_statistical_inference_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
 <p>What you see plotted here is the point estimates (the circles), the confidence intervals around those estimates (the longer the line, the less precise the estimate), and the colours represent whether the statistical effect is negative (red) or positive (blue). There are other packages that also provide similar functionality, like the <code>dotwhisker</code> package that you may want to explore, see more details <a href="https://cran.r-project.org/web/packages/dotwhisker/vignettes/dotwhisker-vignette.html">here</a>.</p>
 <p>The <code>sjPlot</code> package also allows you to produce html tables for more professional presentation of your regression tables. For this we use the <code>tab_model()</code> function. This kind of tabulation may be particularly helpful for your final assignment.</p>
-<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb599-1"><a href="statistical-inference.html#cb599-1" tabindex="-1"></a><span class="co"># produce a nice looking table</span></span>
-<span id="cb599-2"><a href="statistical-inference.html#cb599-2" tabindex="-1"></a><span class="fu">tab_model</span>(linear_regression_3)</span></code></pre></div>
+<div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb618-1"><a href="statistical-inference.html#cb618-1" tabindex="-1"></a><span class="co"># produce a nice looking table</span></span>
+<span id="cb618-2"><a href="statistical-inference.html#cb618-2" tabindex="-1"></a><span class="fu">tab_model</span>(linear_regression_3)</span></code></pre></div>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
@@ -986,7 +986,7 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 </tr>
 </table>
 <p>As before you can further customise this table. Let’s change for example the name that is displayed for the dependent variable.</p>
-<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb600-1"><a href="statistical-inference.html#cb600-1" tabindex="-1"></a><span class="fu">tab_model</span>(linear_regression_3, <span class="at">dv.labels =</span> <span class="st">&quot;Fear of violent crime&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="statistical-inference.html#cb619-1" tabindex="-1"></a><span class="fu">tab_model</span>(linear_regression_3, <span class="at">dv.labels =</span> <span class="st">&quot;Fear of violent crime&quot;</span>)</span></code></pre></div>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
@@ -1084,9 +1084,9 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 </tr>
 </table>
 <p>Or you could change the labels for the independent variables:</p>
-<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb601-1"><a href="statistical-inference.html#cb601-1" tabindex="-1"></a><span class="fu">tab_model</span>(linear_regression_3, </span>
-<span id="cb601-2"><a href="statistical-inference.html#cb601-2" tabindex="-1"></a>          <span class="at">pred.labels =</span> <span class="fu">c</span>(<span class="st">&quot;Intercept&quot;</span>, <span class="st">&quot;Perceived anti-social behaviour&quot;</span>, <span class="st">&quot;Crime victimisation&quot;</span>, <span class="st">&quot;Urban residents&quot;</span>), </span>
-<span id="cb601-3"><a href="statistical-inference.html#cb601-3" tabindex="-1"></a>          <span class="at">dv.labels =</span> <span class="st">&quot;Fear of violent crime&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb620-1"><a href="statistical-inference.html#cb620-1" tabindex="-1"></a><span class="fu">tab_model</span>(linear_regression_3, </span>
+<span id="cb620-2"><a href="statistical-inference.html#cb620-2" tabindex="-1"></a>          <span class="at">pred.labels =</span> <span class="fu">c</span>(<span class="st">&quot;Intercept&quot;</span>, <span class="st">&quot;Perceived anti-social behaviour&quot;</span>, <span class="st">&quot;Crime victimisation&quot;</span>, <span class="st">&quot;Urban residents&quot;</span>), </span>
+<span id="cb620-3"><a href="statistical-inference.html#cb620-3" tabindex="-1"></a>          <span class="at">dv.labels =</span> <span class="st">&quot;Fear of violent crime&quot;</span>)</span></code></pre></div>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
@@ -1188,20 +1188,20 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <div id="statistical-inference-in-logistic-regression-models" class="section level3 unnumbered hasAnchor">
 <h3>Statistical inference in logistic regression models<a href="statistical-inference.html#statistical-inference-in-logistic-regression-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>When is comes to the logistic regression, the same logic applies. Let’s again use the <code>Arrests</code> dataset from the <code>effects</code> package, as we did last week.</p>
-<div class="sourceCode" id="cb602"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb602-1"><a href="statistical-inference.html#cb602-1" tabindex="-1"></a><span class="co"># install package if you haven&#39;t done so</span></span>
-<span id="cb602-2"><a href="statistical-inference.html#cb602-2" tabindex="-1"></a><span class="do">## install.packages(&quot;effects&quot;)</span></span>
-<span id="cb602-3"><a href="statistical-inference.html#cb602-3" tabindex="-1"></a></span>
-<span id="cb602-4"><a href="statistical-inference.html#cb602-4" tabindex="-1"></a><span class="co"># load the &#39;effects&#39; package</span></span>
-<span id="cb602-5"><a href="statistical-inference.html#cb602-5" tabindex="-1"></a><span class="fu">library</span>(effects)</span>
-<span id="cb602-6"><a href="statistical-inference.html#cb602-6" tabindex="-1"></a></span>
-<span id="cb602-7"><a href="statistical-inference.html#cb602-7" tabindex="-1"></a><span class="co"># load the dataset &quot;Arrests&quot;</span></span>
-<span id="cb602-8"><a href="statistical-inference.html#cb602-8" tabindex="-1"></a><span class="fu">data</span>(Arrests)</span></code></pre></div>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="statistical-inference.html#cb621-1" tabindex="-1"></a><span class="co"># install package if you haven&#39;t done so</span></span>
+<span id="cb621-2"><a href="statistical-inference.html#cb621-2" tabindex="-1"></a><span class="do">## install.packages(&quot;effects&quot;)</span></span>
+<span id="cb621-3"><a href="statistical-inference.html#cb621-3" tabindex="-1"></a></span>
+<span id="cb621-4"><a href="statistical-inference.html#cb621-4" tabindex="-1"></a><span class="co"># load the &#39;effects&#39; package</span></span>
+<span id="cb621-5"><a href="statistical-inference.html#cb621-5" tabindex="-1"></a><span class="fu">library</span>(effects)</span>
+<span id="cb621-6"><a href="statistical-inference.html#cb621-6" tabindex="-1"></a></span>
+<span id="cb621-7"><a href="statistical-inference.html#cb621-7" tabindex="-1"></a><span class="co"># load the dataset &quot;Arrests&quot;</span></span>
+<span id="cb621-8"><a href="statistical-inference.html#cb621-8" tabindex="-1"></a><span class="fu">data</span>(Arrests)</span></code></pre></div>
 <p>Let’s fit the same logistic regression as we did last week, examining the (log) odds of being released with a summons instead of receiving a harsher treatment. We want to assess the extent to which ethnicity, sex, previous number of entries in the criminal justice system, and employment status are associated with highler or lower odds of being released with a summons.</p>
-<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb603-1"><a href="statistical-inference.html#cb603-1" tabindex="-1"></a><span class="co"># Fit a logistic regression model and store it under &#39;logistic_reg&#39;</span></span>
-<span id="cb603-2"><a href="statistical-inference.html#cb603-2" tabindex="-1"></a>logistic_reg <span class="ot">&lt;-</span> <span class="fu">glm</span>(released <span class="sc">~</span> colour <span class="sc">+</span> sex <span class="sc">+</span> checks <span class="sc">+</span> employed, <span class="at">data =</span> Arrests, <span class="at">family =</span> binomial)</span>
-<span id="cb603-3"><a href="statistical-inference.html#cb603-3" tabindex="-1"></a></span>
-<span id="cb603-4"><a href="statistical-inference.html#cb603-4" tabindex="-1"></a><span class="co"># print the estimated coefficients</span></span>
-<span id="cb603-5"><a href="statistical-inference.html#cb603-5" tabindex="-1"></a>logistic_reg</span></code></pre></div>
+<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb622-1"><a href="statistical-inference.html#cb622-1" tabindex="-1"></a><span class="co"># Fit a logistic regression model and store it under &#39;logistic_reg&#39;</span></span>
+<span id="cb622-2"><a href="statistical-inference.html#cb622-2" tabindex="-1"></a>logistic_reg <span class="ot">&lt;-</span> <span class="fu">glm</span>(released <span class="sc">~</span> colour <span class="sc">+</span> sex <span class="sc">+</span> checks <span class="sc">+</span> employed, <span class="at">data =</span> Arrests, <span class="at">family =</span> binomial)</span>
+<span id="cb622-3"><a href="statistical-inference.html#cb622-3" tabindex="-1"></a></span>
+<span id="cb622-4"><a href="statistical-inference.html#cb622-4" tabindex="-1"></a><span class="co"># print the estimated coefficients</span></span>
+<span id="cb622-5"><a href="statistical-inference.html#cb622-5" tabindex="-1"></a>logistic_reg</span></code></pre></div>
 <pre><code>## 
 ## Call:  glm(formula = released ~ colour + sex + checks + employed, family = binomial, 
 ##     data = Arrests)
@@ -1214,8 +1214,8 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 ## Null Deviance:       4776 
 ## Residual Deviance: 4331  AIC: 4341</code></pre>
 <p>Yet, as we have repeatedly learned today, these coefficients are only true in our sample. We can use them to <em>estimate</em> the population parameters, but such parameters will remain unknown. Therefore, accompanying each regression coefficient, we can also estimate standard errors. Such standard errors can be used to compute useful statistical inference tools, such as the confidence intervals and the p-value.</p>
-<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb605-1"><a href="statistical-inference.html#cb605-1" tabindex="-1"></a><span class="co"># print results from the regression model with all information</span></span>
-<span id="cb605-2"><a href="statistical-inference.html#cb605-2" tabindex="-1"></a><span class="fu">summary</span>(logistic_reg)</span></code></pre></div>
+<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="statistical-inference.html#cb624-1" tabindex="-1"></a><span class="co"># print results from the regression model with all information</span></span>
+<span id="cb624-2"><a href="statistical-inference.html#cb624-2" tabindex="-1"></a><span class="fu">summary</span>(logistic_reg)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = released ~ colour + sex + checks + employed, family = binomial, 
@@ -1241,8 +1241,8 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <p>With logistic regression, we do not compute a <em>t-statistic</em>. Instead, we compute a <em>z-statistic</em>. This is because the underlying test uses the standard normal distribution instead of the t-student distribution. We do not need to get into that; with large sample sizes (our sample sizes our usually large enough!), they are exactly the same. We obtain z-statistics by dividing each estimated coefficient by its standard error, and the z-statistic will simply indicate how distant the sample estimate is from 0 (i.e., the assumed population parameter under the null hypothesis).</p>
 <p>We can see, for example, that even though males have lower log-odds of being released with a summons than females (<span class="math inline">\(\widehat{\beta}=-0.042\)</span>), the standard error around this estimate is fairly large. Crucially, the p-value is also large—more specifically, larger than our significance level of 5% (i.e., <span class="math inline">\(0.778 &gt; 0.05\)</span>). Therefore, we fail to reject that null hypothesis and conclude that the association between sex and the log-odds of being released with a summons is not statistically significant—i.e., the coefficient could possibly be 0 in the population.</p>
 <p>We also learned that coefficients in logistic regression are not directly interpretable, and that it is common to use <strong>odds ratios</strong> when interpreting such models. In the interest of modelling and communicating uncertainty around our estimates, it is common practice to produce confidence intervals around odds ratios.</p>
-<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb607-1"><a href="statistical-inference.html#cb607-1" tabindex="-1"></a><span class="co"># produce odds ratios and 95% confidence intervals of odds ratios</span></span>
-<span id="cb607-2"><a href="statistical-inference.html#cb607-2" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">cbind</span>(<span class="at">OR =</span> <span class="fu">coef</span>(logistic_reg), <span class="fu">confint</span>(logistic_reg))) </span></code></pre></div>
+<div class="sourceCode" id="cb626"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb626-1"><a href="statistical-inference.html#cb626-1" tabindex="-1"></a><span class="co"># produce odds ratios and 95% confidence intervals of odds ratios</span></span>
+<span id="cb626-2"><a href="statistical-inference.html#cb626-2" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">cbind</span>(<span class="at">OR =</span> <span class="fu">coef</span>(logistic_reg), <span class="fu">confint</span>(logistic_reg))) </span></code></pre></div>
 <pre><code>## Waiting for profiling to be done...</code></pre>
 <pre><code>##                    OR     2.5 %    97.5 %
 ## (Intercept) 4.0852619 2.9299967 5.7638450
@@ -1251,8 +1251,8 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 ## checks      0.6990998 0.6644842 0.7352174
 ## employedYes 2.1808765 1.8493825 2.5693054</code></pre>
 <p>Finally, we can also use <em>coefficient plots</em> in much the same way than we did for linear regression. One way of doing this is using the <code>plot_model()</code> function of the <code>sjPlot</code> package. Notice that the <code>plot_model()</code> function already produces a plot with odds ratios!</p>
-<div class="sourceCode" id="cb610"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb610-1"><a href="statistical-inference.html#cb610-1" tabindex="-1"></a><span class="co"># produce a coefficient plot</span></span>
-<span id="cb610-2"><a href="statistical-inference.html#cb610-2" tabindex="-1"></a><span class="fu">plot_model</span>(logistic_reg, <span class="at">title =</span> <span class="st">&quot;Odds of being released with a summons&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb629-1"><a href="statistical-inference.html#cb629-1" tabindex="-1"></a><span class="co"># produce a coefficient plot</span></span>
+<span id="cb629-2"><a href="statistical-inference.html#cb629-2" tabindex="-1"></a><span class="fu">plot_model</span>(logistic_reg, <span class="at">title =</span> <span class="st">&quot;Odds of being released with a summons&quot;</span>)</span></code></pre></div>
 <p><img src="09_statistical_inference_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
 
 </div>
