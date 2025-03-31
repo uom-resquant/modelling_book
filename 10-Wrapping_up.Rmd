@@ -35,7 +35,7 @@ Here, we are going to cover a few things you can do to make this presentation mo
 
 The paper by Melde and Esbensen (2009) cited above provides an example of how you may want to describe your variables in the text. As noted, you may not have as much space to get into so much detail, but the core idea you need to take home is that the reader needs to know what variables you are using and how they are measured. You will also need to provide a succinct summary of the descriptive measures for your variables. Look at [this paper](https://journals.sagepub.com/doi/10.1177/1477370808095123) by Andromachi Tseloni and Christina Zarafonitou (2008). Below I reproduce a table from the pre-print version of this article with a summary of the variables they are using in their analysis:
 
-![](imgs/variabledescription.PNG) 
+![](imgs/variabledescription.png) 
 
 This is a very succinct way of describing the distribution of your variables when all are categorical. If you have numerical variables as well, you could add another column with the mean and the standard deviation (the latter enclosed in brackets)-- -which would only have this information for your quantitative variables.
 
@@ -45,7 +45,7 @@ Notice that information about the total sample size is provided as well. Remembe
 
 As we have said, we want you to look at whether your variables are associated before you run your multiple regression model. We do this so that we can evaluate if you have learnt how to choose the right tests and measures of effect size. 
 
-![](imgs/tableexample.PNG) 
+![](imgs/tableexample.png) 
 
 Above, I am reproducing an example of how you could do this. The example assumes you have a categorical dependent variable with four different categories (non-gang, gang only at T1, etc.). You can see how the categories define the column in this table (there is also one for the total sample; if you have something like this, you are essentially providing the summary descriptives for the whole). You can see that the rows define the levels for two categorical variables (gender and race/ethnicity) and two quantitative variables (age and a score for crime). For the categorical variables, we have the appropriate percentages (as discussed in week 7), and for the quantitative variables, we have the means and standard deviations. Remember how you set this table may differ depending on the nature of your variables, but hopefully, you get the idea. You can find a way to summarise the information. You could add a column to a table like this with the p values for your statistical tests (somehow indicating what that test was: chi-square, F, etc.). Then, you could discuss the more relevant of this in the narrative discussing your table.
 
