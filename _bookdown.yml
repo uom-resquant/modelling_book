@@ -5,3 +5,17 @@ language:
   ui:
     chapter_name: "Chapter "
 output_dir: "docs"
+
+rmd_files:
+  - index.Rmd
+  - 01-intro.Rmd
+  # - 02-causality.Rmd
+  # - 03-visualisation.Rmd
+  # - 04-carpentry.Rmd
+  # - 05-regresion_I.Rmd
+  # - 06-regression_II.Rmd
+  # - 07-regression_III.Rmd
+  # - 08_logistic_regressiion.Rmd
+  # - 09_statistical_inference.Rmd
+  # - 10-Wrapping_up.Rmd
+  - Appendix.Rmd
