@@ -11,7 +11,7 @@ description: "This is the course material for Modelling Criminological Data CRIM
 
 # Preface {-}
 
-This study material is designed to introduce Criminology students at the University of Manchester to the use of data science in crime research and practice. This is an improved version of [the material](https://jjmedinaariza.github.io/modelling_book/) originally developed by Juanjo Medina and Reka Solymosi, and is currently being updated and maintained by Thiago Oliveira - thiago.oliveira@manchester.ac.uk and Ana Nicoriciu - anamaria.nicoriciu@manchester.ac.uk.
+This study material is designed to introduce Criminology students at the University of Manchester to the use of data science in crime research and practice. This is an improved version of [the material](https://jjmedinaariza.github.io/modelling_book/) originally developed by Juanjo Medina and Reka Solymosi, and is currently being updated and maintained by Ana Nicoriciu - anamaria.nicoriciu@manchester.ac.uk and Sam Langton - samuel.langton@manchester.ac.uk.
 
 This lab note is a work in process. If you have any suggestions or find any errors, please don't hesitate to contact us by submitting an issue to the [GitHub repository](https://github.com/uom-resquant/modelling_book). We appreciate your feedback and will use it to improve the material for future students.
 

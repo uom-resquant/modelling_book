@@ -317,9 +317,9 @@ class(my_8th_vector) #The class() function will tell us the class of the vector
 
 Ok, so now that you understand some of the basic types of objects you can use in R, let's start talking about data frames. One of the most common objects you will work with, in this course, are **data frames**. Data frames can be created with the `data.frame()` function. 
 
-Data frames are *multiple vectors* of possibly different classes (e.g., numeric, factors, character) but of the same length (e.g., all vectors or variables have the same number of rows). This may sound a bit too technical, but it is simply a way of saying that a data frame is what in other programs for data analysis gets represented as data sets, the tabular spreadsheets you have seen when using Excel.
+Data frames are *multiple vectors* of possibly different classes (e.g., numeric, factors, character) but of the same length (e.g., all vectors or variables have the same number of rows). This may sound a bit too technical, but it is simply a way of saying that a data frame is what in other programs for data analysis gets represented as data sets, like the tabular spreadsheets you have seen when using Excel. 
 
-![](imgs/df.PNG){width=80%}
+![](imgs/df_example.png){width=80%}
 
 Let's create a data frame with two variables:
 
