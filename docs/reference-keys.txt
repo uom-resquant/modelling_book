@@ -16,9 +16,3 @@ how-to-import-data
 how-to-use-comment
 how-to-quit-rstudio
 summary
-appendix
-expected-frequencies
-logistic-regression
-fitting-logistic-regression-alternative
-assessing-model-fit-deviance-and-pseudo-r-squared
-assessing-model-fit-roc-curves

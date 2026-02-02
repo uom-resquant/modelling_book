@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="index.html"/>
-<link rel="next" href="appendix.html"/>
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -55,9 +55,8 @@
 
 
 <style type="text/css">
-html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -67,7 +66,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -138,7 +137,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Modelling Criminological Data</a></li>
+<div class="logo">
+   <img src="imgs/logo.png" style="height:80px; margin-bottom:10px;">
+ </div>
+ 
+ <li><a href="./">Modelling Criminological Data</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
@@ -161,16 +164,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.15" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#how-to-use-comment"><i class="fa fa-check"></i><b>1.15</b> How to use ‘comment’</a></li>
 <li class="chapter" data-level="1.16" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#how-to-quit-rstudio"><i class="fa fa-check"></i><b>1.16</b> How to Quit RStudio</a></li>
 <li class="chapter" data-level="1.17" data-path="a-first-lesson-about-r.html"><a href="a-first-lesson-about-r.html#summary"><i class="fa fa-check"></i><b>1.17</b> Summary</a></li>
-</ul></li>
-<li class="chapter" data-level="2" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i><b>2</b> Appendix</a>
-<ul>
-<li class="chapter" data-level="2.0.1" data-path="appendix.html"><a href="appendix.html#expected-frequencies"><i class="fa fa-check"></i><b>2.0.1</b> Expected frequencies</a></li>
-<li class="chapter" data-level="2.1" data-path="appendix.html"><a href="appendix.html#logistic-regression"><i class="fa fa-check"></i><b>2.1</b> Logistic regression</a>
-<ul>
-<li class="chapter" data-level="2.1.1" data-path="appendix.html"><a href="appendix.html#fitting-logistic-regression-alternative"><i class="fa fa-check"></i><b>2.1.1</b> Fitting logistic regression: alternative</a></li>
-<li class="chapter" data-level="2.1.2" data-path="appendix.html"><a href="appendix.html#assessing-model-fit-deviance-and-pseudo-r-squared"><i class="fa fa-check"></i><b>2.1.2</b> Assessing model fit: deviance and pseudo r squared</a></li>
-<li class="chapter" data-level="2.1.3" data-path="appendix.html"><a href="appendix.html#assessing-model-fit-roc-curves"><i class="fa fa-check"></i><b>2.1.3</b> Assessing model fit: ROC curves</a></li>
-</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -199,6 +192,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We recommend using your laptops for this course. If you have not already, then please download and install R and RStudio onto your laptops.
 - click <a href="https://www.youtube.com/watch?v=rHZ9MGWxU5I&amp;list=PLkIselvEzpM73U-0ONpe7eHp2WCuItVWQ&amp;index=2&amp;ab_channel=OpenIntroOrg">here</a> for instructions using Windows or
 - <a href="https://www.youtube.com/watch?v=AEebOXiMyyI&amp;list=PLkIselvEzpM73U-0ONpe7eHp2WCuItVWQ&amp;ab_channel=OpenIntroOrg">here</a> for instructions using a Mac. If you are using a Mac it would be convenient that you use the most up-to-date version of OS or at least one compatible with the most recent version of R. Read <a href="https://support.apple.com/en-gb/109033#:~:text=From%20the%20Apple%20menu%20%EF%A3%BF,version%20number%20to%20see%20it.">this</a> if you want to check how to do that.</p>
+<p>You can access the download links for both R and RStudio here: <a href="https://posit.co/download/rstudio-desktop/">https://posit.co/download/rstudio-desktop/</a></p>
 <p>If you prefer, you can always use any of the PCs in the computer cluster. All of them already have the software installed.</p>
 </div>
 <div id="open-up-and-explore-rstudio" class="section level2 hasAnchor" number="1.2">
@@ -216,27 +210,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In the diagonally opposite corner, the top left, you should now have an open script window. The <strong>script</strong> is where you write your programming code - the instructions you send to your computer. A script is nothing but a text file that you can write in. Unlike other programs for data analysis you may have used in the past (Excel, SPSS), you need to interact with R by writing down instructions and asking R to evaluate those instructions. R is an <em>interpreted</em> programming language: you write instructions (code) that the R engine has to interpret in order to do something. All the instructions we write can and should be saved in a script, which you can later return to and continue working on.</p>
 <p>One of the key advantages of doing data analysis this way is that you are producing a written record of every step you take in the analysis. The challenge, though, is that you need to learn this language in order to be able to use it. That will be the main focus of this course, teaching you to write R code for data analysis purposes.</p>
 <p>As with any language, the more you practice it, the easier it will become. More often than not, you will be cutting and pasting chunks of code we will give you. But we will also expect you to develop a basic understanding of what these bits of code do. It is a bit like cooking. At first, you will just follow recipes as they are given to you, but as you become more comfortable in your “kitchen”, you will feel more comfortable experimenting.</p>
-<p>The advantage of doing analysis this way is that once you have written your instructions and saved them in a file, you will be able to share them with others and run them every time you want in a matter of seconds. This creates a <em>reproducible</em> record of your analysis: something that your collaborators or someone else anywhere (including your future self, the one that will have forgotten how to do the stuff) could run and get the same results as you did at some point earlier. This makes science more transparent, and transparency brings many advantages. For example, it makes your research more trustworthy. Don’t underestimate how critical this is. <strong>Reproducibility</strong> is becoming a key criterion for assessing good quality research. And tools like R allow us to enhance it. You may want to read more about reproducible research <a href="http://theconversation.com/the-science-reproducibility-crisis-and-what-can-be-done-about-it-74198">here</a>.</p>
+<p>The advantage of doing the analysis this way is that once you have written your instructions and saved them in a file, you will be able to share them with others and run them every time you want in a matter of seconds. This creates a <em>reproducible</em> record of your analysis: something that your collaborators or someone else anywhere (including your future self, the one that will have forgotten how to do the stuff) could run and get the same results as you did at some point earlier. This makes science more transparent, and transparency brings many advantages. For example, it makes your research more trustworthy. Don’t underestimate how critical this is. <strong>Reproducibility</strong> is becoming a key criterion for assessing good quality research. And tools like R allow us to enhance it. You may want to read more about reproducible research <a href="http://theconversation.com/the-science-reproducibility-crisis-and-what-can-be-done-about-it-74198">here</a>.</p>
 </div>
 <div id="customising-the-rstudio-look" class="section level2 hasAnchor" number="1.3">
 <h2><span class="header-section-number">1.3</span> Customising the RStudio look<a href="a-first-lesson-about-r.html#customising-the-rstudio-look" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>RStudio allows you to customise the way it looks. For example, working with white backgrounds is not generally a good idea if you care about your eyesight. If you don’t want to end up with dry eyes, not only is it good for you to follow the 20-20-20 rule (every 20 minutes, look for 20 seconds to an object located 20 feet away from you), but it may also be a good idea to use more eye-friendly screen displays.</p>
+<p>RStudio allows you to customise the way it looks. For example, working with white backgrounds is not generally a good idea if you care about your eyesight. If you don’t want to end up with dry eyes, not only is it good for you to follow the 20-20-20 rule (every 20 minutes, look for 20 seconds at an object located 20 feet away from you), but it may also be a good idea to use more eye-friendly screen displays.</p>
 <p>Click in the <em>Tools</em> menu and select <em>Global options</em>. This will open up a pop-up window with various options. Select <em>Appearance</em>. In this section, you can change the font type and size, as well as the kind of theme background that R will use in the various windows. I suffer from poor sight, so I often increase the font type. I also use the <em>Tomorrow Night Bright</em> theme to prevent my eyes from going too dry from the effort of reading a lightened screen, but you may prefer a different one. You can preview them and then click apply to select the one you like. This will not change your results or analysis. This is just something you may want to do in order to make things look better and healthier for you.</p>
 </div>
 <div id="getting-organised-r-projects" class="section level2 hasAnchor" number="1.4">
 <h2><span class="header-section-number">1.4</span> Getting organised: R Projects<a href="a-first-lesson-about-r.html#getting-organised-r-projects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Whenever you do analysis, you will be working with a variety of files. You may have an Excel data set (or some other type of data set file, like CSV, for example), a Microsoft Word file where you are writing down the essay with your results, but also a script with all the programming code you have been using. R needs to know where all these files are on your computer. Often you will get error messages because you are expecting R to find one of these files in the wrong location. <strong>It is absolutely critical that you understand how your computer organises and stores files.</strong> Please watch the video below to understand the basics of file management and file paths:</p>
+<p>Whenever you do analysis, you will be working with a variety of files. You may have an Excel data set (or some other type of data set file, like CSV, for example), a Microsoft Word file where you are writing down the essay with your results, but also a script with all the programming code you have been using. R needs to know where all these files are on your computer. Often, you will get error messages because you are expecting R to find one of these files in the wrong location. <strong>It is absolutely critical that you understand how your computer organises and stores files.</strong> Please watch the video below to understand the basics of file management and file paths:</p>
 <p><a href="https://www.youtube.com/watch?v=k-EID5_2D9U">Windows users</a></p>
 <p><a href="https://www.switchingtomac.com/tutorials/osx/5-ways-to-reveal-the-path-of-a-file-on-macos/">MAC users</a></p>
 <p>The best way to avoid problems with file management in R is using what RStudio calls <strong>R Projects</strong>.</p>
-<p>Technically, a RStudio project is just a directory (a folder) with the name of the project and a few files and folders created by R Studio for internal purposes. This is where you should hold your scripts, your data, and your reports. You can manage this folder with your own operating system manager (e.g., Windows Explorer) or through the R Studio file manager (which you access in the bottom right corner of the Windows set in R Studio).</p>
-<p>When a project is reopened, R Studio opens every file and data view that was open when the project was closed last time around. Let’s learn how to create a project. Go to the <em>File</em> drown menu and select <em>New Project</em>.</p>
+<p>Technically, a RStudio project is just a directory (a folder) with the name of the project and a few files and folders created by RStudio for internal purposes. This is where you should hold your scripts, your data, and your reports. You can manage this folder with your own operating system manager (e.g., Windows Explorer) or through the RStudio file manager (which you access in the bottom right corner of the Windows set in RStudio).</p>
+<p>When a project is reopened, RStudio opens every file and data view that were open when the project was closed last time around. Let’s learn how to create a project. Go to the <em>File</em> drop-down menu and select <em>New Project</em>.</p>
 <p><img src="imgs/newproject.png" style="width:80.0%" /></p>
-<p>That will open a dialogue box where you ask to specify what kind of directory you want to create. Select a new working directory in this dialogue box.</p>
+<p>That will open a dialogue box where you are asked to specify what kind of directory you want to create. Select a new working directory in this dialogue box.</p>
 <p><img src="https://user-images.githubusercontent.com/98951792/215291834-4b1ef9b9-7423-4f1f-8df3-316c3b520875.png"></p>
 <p>Now, you get another dialogue box where you have to specify what kind of project you want to create. Select the first option <em>New Project</em>.</p>
 <p><img src="https://user-images.githubusercontent.com/98951792/215292002-901f94d9-ac91-472d-8e08-0367dedb8a7b.png"></p>
-<p>Finally, you get to select a name for your project (in the image below, I use the code for this course unit, but you can use any sensible name you prefer), and you will need to specify the folder/directory in which to place this directory. If you are using a cluster machine, use the P: drive; otherwise, select what you prefer on your laptop (preferably a folder that you created specifically for this course and to avoid problems later, not your desktop).</p>
+<p>Finally, you get to select a name for your project (in the image below, I use the code for this course unit, but you can use any sensible name you prefer), and you will need to specify the folder/directory in which to place this directory. Preferably select a folder that you created specifically for this course, and to avoid problems later, not your desktop.</p>
 <!--<img src="https://user-images.githubusercontent.com/98951792/215292026-e843c5d4-8c9a-433a-bcc8-009bf46d8de9.png">-->
 <p><img src="imgs/R_project_nameing.png" /></p>
 <p>With simple projects, a single script file and a data file are all you may have. But with more complex projects, things can rapidly become messy. So, you may want to create subdirectories within this project folder. I typically use the following structure in my own work to put all files of a certain type in the same subdirectory:</p>
@@ -259,7 +253,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Congratulations!!! You just run your first line of R code! 👏👏</p>
 <p>In these handouts, you will see grey boxes with bits of code. You can cut and paste this code into your script window and run the code from it to reproduce our results. As we go along, we will be covering new bits of code.</p>
 <p>Sometimes, in these lab notes, you will see the results of running the code, which is what you see printed in your console or in your plot viewer. The results will appear enclosed in a box as above.</p>
-<p>The R language uses <strong>functions</strong> to tell the computer what to do. In the R <em>language</em> functions are the <em>verbs</em>. You can think of functions as predefined commands that somebody has already programmed into R and tell R what to do. Here, you learnt your first R function: <em>print</em>. All this function does is ask R to print whatever you want in the main console (see the window in the bottom left corner).</p>
+<p>The R language uses <strong>functions</strong> to tell the computer what to do. In the R <em>language</em>, functions are the <em>verbs</em>. You can think of functions as predefined commands that somebody has already programmed into R and tell R what to do. Here, you learnt your first R function: <em>print</em>. All this function does is ask R to print whatever you want in the main console (see the window in the bottom left corner).</p>
 <p>In R, you can pass a number of <strong>arguments</strong> to any function. These arguments control what the function will do in each case. The arguments appear between brackets. Here, we passed the text “I love stats” as an argument. Once you execute the program by clicking on <em>Run</em>, the R engine sends this to your machine’s CPU in the form of binary code, and this produces a result. In this case, we see that the result is printed on the main console.</p>
 <p>Every R function admits different kinds of arguments. Learning R involves not only learning different functions but also learning the valid arguments you can pass to each function.</p>
 <p><img src="imgs/consoleresults.png" style="width:80.0%" /></p>
@@ -268,14 +262,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="more-on-packages" class="section level2 hasAnchor" number="1.6">
 <h2><span class="header-section-number">1.6</span> More on packages<a href="a-first-lesson-about-r.html#more-on-packages" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Before, we described packages as elements that add the functionality of R. Most packages introduce new functions that allow you to ask R to do different things.</p>
-<p>Anybody can write a package, so consequently, R packages vary in quality and complexity. You can find packages in different places, as well, from official repositories (which means they have passed a minimum of quality control), something called GitHub (a webpage where software developers post work in progress), to personal webpages (danger, danger!). In early 2017 we passed the 10,000 packages mark just in the main official package repository, so the number of things that can be done with R grows exponentially every day as people keep adding new packages.</p>
-<p>When you install R, you only install a set of basic packages, not the full 10,000 plus. So, if you want to use any of these added packages that are not part of the basic installation, you first need to install them. You can see what packages are available for your local installation by looking at the <em>packages</em> tab in the bottom right corner panel. Click there and check. We are going to install a package that is not there so that you can see how the installation is done.</p>
+<p>Anybody can write a package, so consequently, R packages vary in quality and complexity. You can find packages in different places, as well, from official repositories (which means they have passed a minimum of quality control), something called GitHub (a webpage where software developers post work in progress), to personal webpages (danger, danger!). In early 2017, we passed the 10,000 packages mark just in the main official package repository, so the number of things that can be done with R grows exponentially every day as people keep adding new packages.</p>
+<p>When you install R, you only install a set of basic packages, not the full 10,000-plus. So, if you want to use any of these added packages that are not part of the basic installation, you first need to install them. You can see what packages are available for your local installation by looking at the <em>packages</em> tab in the bottom right corner panel. Click there and check. We are going to install a package that is not there so that you can see how the installation is done.</p>
 <p><img src="imgs/packages.png" style="width:80.0%" /></p>
 <p>If you just installed R on your laptop, you will see a shortish list of packages that constitute the basic installation of R. If you are using one of the machines in the computer cluster, this list is a bit longer because we asked IT to install some of the most commonly used packages. But knowing how to install packages is essential since you will want to do it very often.</p>
 <p>We will install a package called “cowsay” to demonstrate the process. In the Packages panel, there is an <em>Install</em> menu that opens a dialogue box and allows you to install packages. Instead, we are going to use code to do this. Just cut and paste the code below into your script and then run it:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="a-first-lesson-about-r.html#cb3-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;cowsay&quot;</span>)</span></code></pre></div>
 <p>Here, we are introducing a new function, “install.packages” and what we have passed as an argument is the name of the package that we want to install. This is how we install a package <em>that is available in the official CRAN repository</em>. Given that you are connecting to an online repository, you will need an internet connection every time you want to install a package. <a href="https://cran.r-project.org/">CRAN</a> is an official repository that has a collection of R packages that meet a minimum set of quality criteria. It’s a fairly safe place to get packages from. If we wanted to install a package from somewhere else, we would have to adapt the code. Later this semester, you will see how we install packages from GitHub.</p>
-<p>This line of code (as it is currently written) will install this package in a personal library that will be located in your P: drive if you are using a cluster machine. If you are using a Windows machine this code will place this package within a personal library in your Documents folder. Once you install a package, it will remain in the machine/location where you installed it until you physically delete it.</p>
+<p>This line of code (as it is currently written) will install this package in a personal library that will be located in your P: drive if you are using a cluster machine. If you are using a Windows machine, this code will place this package within a personal library in your Documents folder. Once you install a package, it will remain in the machine/location where you installed it until you physically delete it.</p>
 <p>How do you find out what a package does? You look at the relevant documentation. In the Packages window, scroll down until you find the new package we installed. Here, you will see the name of the package (cowsay), the source of the package (i.e., where got it from, CRAN). and the package version. The version I have for cowsay is 1.2.2. Yours may be older or newer. It doesn’t matter much at this point.</p>
 <p>Click in the name <em>cowsay</em>. You will see that R Studio has now brought you to the Help tab. Here is where you find the help files for this package, including all the available documentation.</p>
 <p>Every beginner in R will find these help files a bit confusing. But after a while, their format and structure will begin to make sense to you. Click where it says <em>User guides, package vignettes, and other documentation</em>. Documentation in R has become much better since people started to write <strong>vignettes</strong> for their packages. They are little tutorials that explain with examples what each package does. Click on the <em>cowsay::cowsay_tutorial</em> that you see listed here. You will find a page that gives you a detailed tutorial on this package. You don’t need to read it now, but remember that this is one way to find help when using R.</p>
@@ -319,7 +313,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##         (__)\         )\ /\ 
 ##              ||------w|
 ##              ||      ||</code></pre>
-<p>This is an important feature of arguments in functions. We said how different functions admit different arguments. Here, by specifying <code>cow</code>, the function prints that particular animal. But why is it that when we didn’t specify a particular kind of animal, we still got a result? That happened because functions always have default arguments that are necessary for them to run and that you do not have to make explicit. Default arguments are implicit and do not have to be typed. The <code>say</code> function has a default argument, <code>random</code>, which will print a random character or animal. It is only when you want to change the default that you need to make an alternative animal explicit.</p>
+<p>This is an important feature of arguments in functions. We said how different functions admit different arguments. Here, by specifying <code>cow</code>, the function prints that particular animal. But why is it that when we didn’t specify a particular kind of animal, we still got a result? That happened because functions always have default arguments that are necessary for them to run, and that you do not have to make explicit. Default arguments are implicit and do not have to be typed. The <code>say</code> function has a default argument, <code>random</code>, which will print a random character or animal. It is only when you want to change the default that you need to make an alternative animal explicit.</p>
 <p>Remember, you only have to install a package that has not been installed ONCE. But if you want to use it in a given session, you will have to load it within that session using the <code>library</code> function. Once you load it within a session, the package will remain loaded until you terminate your session (for example, by closing R Studio). Do not forget this!</p>
 </div>
 <div id="objects-creating-an-object" class="section level2 hasAnchor" number="1.7">
@@ -346,8 +340,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="more-on-objects" class="section level2 hasAnchor" number="1.8">
 <h2><span class="header-section-number">1.8</span> More on objects<a href="a-first-lesson-about-r.html#more-on-objects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Now that we have covered some of the preliminaries, we can move on to the data. In Excel, you are used to seeing your data in spreadsheet format. If you need some recap, you should review some of the materials from previous modules. This <a href="https://uom-resquant.github.io/MSCD_labs/week1.html#data-variables-and-observations">chapter</a> will be helpful to have a better understanding of the notion of a data set, levels of measurement, and tidy data.</p>
-<p>R is considerably more flexible than Excel. Most of the work we do here will use data sets or <strong>data frames</strong> as they are called in R. But as you have seen earlier, you can have <em>objects</em> other than data frames in R. These objects can relate to external files or simple textual information (“I love stats”). This flexibility is a big asset because, among other things, it allows us to break down data frames or the results from doing analysis on them to their constitutive parts (this will become clearer as we go along).</p>
+<p>Now that we have covered some of the preliminaries, we can move on to the data. In Excel, you are used to seeing your data in spreadsheet format. If you need a recap, you should review some of the materials from previous modules.</p>
+<p>R is considerably more flexible than Excel. Most of the work we do here will use data sets or <strong>data frames</strong> as they are called in R. But as you have seen earlier, you can have <em>objects</em> other than data frames in R. These objects can relate to external files or simple textual information (“I love stats”). This flexibility is a big asset because, among other things, it allows us to break down data frames or the results from doing analysis on them into their constitutive parts (this will become clearer as we go along).</p>
 <p>As we have seen earlier, to create an object, you have to give it a name and then use the assignment operator (the <code>&lt;-</code> symbol) to assign it some value.</p>
 <p>For example, if we want to create an object that we name “x”, and we want it to represent the numerical value of 5, we write:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="a-first-lesson-about-r.html#cb15-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">5</span></span></code></pre></div>
@@ -359,7 +353,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="a-first-lesson-about-r.html#cb18-1" tabindex="-1"></a>X</span></code></pre></div>
 <pre><code>## Error: object &#39;X&#39; not found</code></pre>
 <p>You will get the following message: <code>"Error in eval(expr, envir, enclos): object 'X' not found"</code>. R is telling us that <code>X</code> does not exist. There isn’t an object <code>X</code> (upper case), but there is an object <code>x</code> (lower case).</p>
-<p>Remember, computers are very literal. They are like dogs. You can tell a dog to “sit”, and if it has been trained, it will sit. But if you tell a dog, “Would you be so kind as to relax a bit and lay down on the sofa?” it won’t have a clue what you are saying and will stare at you like you have gone mad. Error messages are computers’ ways of telling us, “I really want to help you, but I don’t really understand what you mean” (never take them personally; computers don’t hate you).</p>
+<p>Remember, computers are very literal. They are like dogs. You can tell a dog to “sit”, and if it has been trained, it will sit. But if you tell a dog, “Would you be so kind as to relax a bit and lie down on the sofa?” it won’t have a clue what you are saying and will stare at you like you have gone mad. Error messages are computers’ ways of telling us, “I really want to help you, but I don’t really understand what you mean” (never take them personally; computers don’t hate you).</p>
 <p>When you get an error message or implausible results, you want to look back at your code to figure out what the problem is. This process is called <strong>debugging</strong>. There are some proper systematic ways to write code that facilitate debugging, but we won’t get into that here. R is very good with automatic error handling at the levels we’ll be using it at. Very often, the solution will simply involve correcting the spelling or checking you’ve used the correct placement and number of brackets or commas (you will find this out later, the hard way).</p>
 <p>A handy tip is to cut and paste the error message into Google and find a solution. If anybody had given me a penny for every time I had to do that myself, I would be Bill Gates by now. You’re probably not the first person to make your mistake, after all, and someone on the internet has surely already found a solution to your issue. People make mistakes all the time. It’s how we learn. Don’t get frustrated, don’t get stuck. Instead, look for a solution. These days, we have Google. We didn’t back in the day. Now, you have the answer to your frustration within quick reach. Use it to your advantage.</p>
 </div>
@@ -954,8 +948,8 @@ Once you finish your lab session, don't forget to do this [Exercise](https://eon
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="appendix.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
