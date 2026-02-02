@@ -5,6 +5,8 @@ We recommend using your laptops for this course. If you have not already, then p
 - click [here](https://www.youtube.com/watch?v=rHZ9MGWxU5I&list=PLkIselvEzpM73U-0ONpe7eHp2WCuItVWQ&index=2&ab_channel=OpenIntroOrg) for instructions using Windows or
 - [here](https://www.youtube.com/watch?v=AEebOXiMyyI&list=PLkIselvEzpM73U-0ONpe7eHp2WCuItVWQ&ab_channel=OpenIntroOrg) for instructions using a Mac. If you are using a Mac it would be convenient that you use the most up-to-date version of OS or at least one compatible with the most recent version of R. Read [this](https://support.apple.com/en-gb/109033#:~:text=From%20the%20Apple%20menu%20%EF%A3%BF,version%20number%20to%20see%20it.) if you want to check how to do that.
 
+You can access the download links for both R and RStudio here: [https://posit.co/download/rstudio-desktop/](https://posit.co/download/rstudio-desktop/)
+
 If you prefer, you can always use any of the PCs in the computer cluster. All of them already have the software installed. 
 
 ## Open up and explore RStudio
@@ -34,15 +36,15 @@ One of the key advantages of doing data analysis this way is that you are produc
 
 As with any language, the more you practice it, the easier it will become. More often than not, you will be cutting and pasting chunks of code we will give you. But we will also expect you to develop a basic understanding of what these bits of code do. It is a bit like cooking. At first, you will just follow recipes as they are given to you, but as you become more comfortable in your "kitchen", you will feel more comfortable experimenting.
 
-The advantage of doing analysis this way is that once you have written your instructions and saved them in a file, you will be able to share them with others and run them every time you want in a matter of seconds. This creates a *reproducible* record of your analysis: something that your collaborators or someone else anywhere (including your future self, the one that will have forgotten how to do the stuff) could run and get the same results as you did at some point earlier. This makes science more transparent, and transparency brings many advantages. For example, it makes your research more trustworthy. Don't underestimate how critical this is. **Reproducibility** is becoming a key criterion for assessing good quality research. And tools like R allow us to enhance it. You may want to read more about reproducible research [here](http://theconversation.com/the-science-reproducibility-crisis-and-what-can-be-done-about-it-74198).
+The advantage of doing the analysis this way is that once you have written your instructions and saved them in a file, you will be able to share them with others and run them every time you want in a matter of seconds. This creates a *reproducible* record of your analysis: something that your collaborators or someone else anywhere (including your future self, the one that will have forgotten how to do the stuff) could run and get the same results as you did at some point earlier. This makes science more transparent, and transparency brings many advantages. For example, it makes your research more trustworthy. Don't underestimate how critical this is. **Reproducibility** is becoming a key criterion for assessing good quality research. And tools like R allow us to enhance it. You may want to read more about reproducible research [here](http://theconversation.com/the-science-reproducibility-crisis-and-what-can-be-done-about-it-74198).
 
 ## Customising the RStudio look
-RStudio allows you to customise the way it looks. For example, working with white backgrounds is not generally a good idea if you care about your eyesight. If you don't want to end up with dry eyes, not only is it good for you to follow the 20-20-20 rule (every 20 minutes, look for 20 seconds to an object located 20 feet away from you), but it may also be a good idea to use more eye-friendly screen displays. 
+RStudio allows you to customise the way it looks. For example, working with white backgrounds is not generally a good idea if you care about your eyesight. If you don't want to end up with dry eyes, not only is it good for you to follow the 20-20-20 rule (every 20 minutes, look for 20 seconds at an object located 20 feet away from you), but it may also be a good idea to use more eye-friendly screen displays. 
 
 Click in the *Tools* menu and select *Global options*. This will open up a pop-up window with various options. Select *Appearance*. In this section, you can change the font type and size, as well as the kind of theme background that R will use in the various windows. I suffer from poor sight, so I often increase the font type. I also use the *Tomorrow Night Bright* theme to prevent my eyes from going too dry from the effort of reading a lightened screen, but you may prefer a different one. You can preview them and then click apply to select the one you like. This will not change your results or analysis. This is just something you may want to do in order to make things look better and healthier for you.
 
 ## Getting organised: R Projects
-Whenever you do analysis, you will be working with a variety of files. You may have an Excel data set (or some other type of data set file, like CSV, for example), a Microsoft Word file where you are writing down the essay with your results, but also a script with all the programming code you have been using. R needs to know where all these files are on your computer. Often you will get error messages because you are expecting R to find one of these files in the wrong location. **It is absolutely critical that you understand how your computer organises and stores files.** Please watch the video below to understand the basics of file management and file paths: 
+Whenever you do analysis, you will be working with a variety of files. You may have an Excel data set (or some other type of data set file, like CSV, for example), a Microsoft Word file where you are writing down the essay with your results, but also a script with all the programming code you have been using. R needs to know where all these files are on your computer. Often, you will get error messages because you are expecting R to find one of these files in the wrong location. **It is absolutely critical that you understand how your computer organises and stores files.** Please watch the video below to understand the basics of file management and file paths: 
 
 [Windows users](https://www.youtube.com/watch?v=k-EID5_2D9U)
 
@@ -50,13 +52,13 @@ Whenever you do analysis, you will be working with a variety of files. You may h
 
 The best way to avoid problems with file management in R is using what RStudio calls **R Projects**.
 
-Technically, a RStudio project is just a directory (a folder) with the name of the project and a few files and folders created by R Studio for internal purposes. This is where you should hold your scripts, your data, and your reports. You can manage this folder with your own operating system manager (e.g., Windows Explorer) or through the R Studio file manager (which you access in the bottom right corner of the Windows set in R Studio).
+Technically, a RStudio project is just a directory (a folder) with the name of the project and a few files and folders created by RStudio for internal purposes. This is where you should hold your scripts, your data, and your reports. You can manage this folder with your own operating system manager (e.g., Windows Explorer) or through the RStudio file manager (which you access in the bottom right corner of the Windows set in RStudio).
 
-When a project is reopened, R Studio opens every file and data view that was open when the project was closed last time around. Let's learn how to create a project. Go to the *File* drown menu and select *New Project*.
+When a project is reopened, RStudio opens every file and data view that were open when the project was closed last time around. Let's learn how to create a project. Go to the *File* drop-down menu and select *New Project*.
 
 ![](imgs/newproject.png){width=80%}
 
-That will open a dialogue box where you ask to specify what kind of directory you want to create. Select a new working directory in this dialogue box.
+That will open a dialogue box where you are asked to specify what kind of directory you want to create. Select a new working directory in this dialogue box.
 
 <img src="https://user-images.githubusercontent.com/98951792/215291834-4b1ef9b9-7423-4f1f-8df3-316c3b520875.png">
 
@@ -64,7 +66,7 @@ Now, you get another dialogue box where you have to specify what kind of project
 
 <img src="https://user-images.githubusercontent.com/98951792/215292002-901f94d9-ac91-472d-8e08-0367dedb8a7b.png">
 
-Finally, you get to select a name for your project (in the image below, I use the code for this course unit, but you can use any sensible name you prefer), and you will need to specify the folder/directory in which to place this directory. If you are using a cluster machine, use the P: drive; otherwise, select what you prefer on your laptop (preferably a folder that you created specifically for this course and to avoid problems later, not your desktop).
+Finally, you get to select a name for your project (in the image below, I use the code for this course unit, but you can use any sensible name you prefer), and you will need to specify the folder/directory in which to place this directory. Preferably select a folder that you created specifically for this course, and to avoid problems later, not your desktop.
 
 <!--<img src="https://user-images.githubusercontent.com/98951792/215292026-e843c5d4-8c9a-433a-bcc8-009bf46d8de9.png">-->
 ![](imgs/R_project_nameing.png)
@@ -100,7 +102,7 @@ In these handouts, you will see grey boxes with bits of code. You can cut and pa
 
 Sometimes, in these lab notes, you will see the results of running the code, which is what you see printed in your console or in your plot viewer. The results will appear enclosed in a box as above.
 
-The R language uses **functions** to tell the computer what to do. In the R *language* functions are the *verbs*. You can think of functions as predefined commands that somebody has already programmed into R and tell R what to do. Here, you learnt your first R function: *print*. All this function does is ask R to print whatever you want in the main console (see the window in the bottom left corner). 
+The R language uses **functions** to tell the computer what to do. In the R *language*, functions are the *verbs*. You can think of functions as predefined commands that somebody has already programmed into R and tell R what to do. Here, you learnt your first R function: *print*. All this function does is ask R to print whatever you want in the main console (see the window in the bottom left corner). 
 
 In R, you can pass a number of **arguments** to any function. These arguments control what the function will do in each case. The arguments appear between brackets. Here, we passed the text "I love stats" as an argument. Once you execute the program by clicking on *Run*, the R engine sends this to your machine's CPU in the form of binary code, and this produces a result. In this case, we see that the result is printed on the main console.
 
@@ -113,9 +115,9 @@ As indicated above, the window in the bottom left corner is the main **console**
 ## More on packages
 Before, we described packages as elements that add the functionality of R. Most packages introduce new functions that allow you to ask R to do different things.
 
-Anybody can write a package, so consequently, R packages vary in quality and complexity. You can find packages in different places, as well, from official repositories (which means they have passed a minimum of quality control), something called GitHub (a webpage where software developers post work in progress), to personal webpages (danger, danger!). In early 2017 we passed the 10,000 packages mark just in the main official package repository, so the number of things that can be done with R grows exponentially every day as people keep adding new packages.
+Anybody can write a package, so consequently, R packages vary in quality and complexity. You can find packages in different places, as well, from official repositories (which means they have passed a minimum of quality control), something called GitHub (a webpage where software developers post work in progress), to personal webpages (danger, danger!). In early 2017, we passed the 10,000 packages mark just in the main official package repository, so the number of things that can be done with R grows exponentially every day as people keep adding new packages.
 
-When you install R, you only install a set of basic packages, not the full 10,000 plus. So, if you want to use any of these added packages that are not part of the basic installation, you first need to install them. You can see what packages are available for your local installation by looking at the *packages* tab in the bottom right corner panel. Click there and check. We are going to install a package that is not there so that you can see how the installation is done. 
+When you install R, you only install a set of basic packages, not the full 10,000-plus. So, if you want to use any of these added packages that are not part of the basic installation, you first need to install them. You can see what packages are available for your local installation by looking at the *packages* tab in the bottom right corner panel. Click there and check. We are going to install a package that is not there so that you can see how the installation is done. 
 
 ![](imgs/packages.png){width=80%}
 
@@ -129,7 +131,7 @@ install.packages("cowsay")
 
 Here, we are introducing a new function, "install.packages" and what we have passed as an argument is the name of the package that we want to install. This is how we install a package *that is available in the official CRAN repository*. Given that you are connecting to an online repository, you will need an internet connection every time you want to install a package. [CRAN](https://cran.r-project.org/) is an official repository that has a collection of R packages that meet a minimum set of quality criteria. It's a fairly safe place to get packages from. If we wanted to install a package from somewhere else, we would have to adapt the code. Later this semester, you will see how we install packages from GitHub.
 
-This line of code (as it is currently written) will install this package in a personal library that will be located in your P: drive if you are using a cluster machine. If you are using a Windows machine this code will place this package within a personal library in your Documents folder. Once you install a package, it will remain in the machine/location where you installed it until you physically delete it.
+This line of code (as it is currently written) will install this package in a personal library that will be located in your P: drive if you are using a cluster machine. If you are using a Windows machine, this code will place this package within a personal library in your Documents folder. Once you install a package, it will remain in the machine/location where you installed it until you physically delete it.
 
 How do you find out what a package does? You look at the relevant documentation. In the Packages window, scroll down until you find the new package we installed. Here, you will see the name of the package (cowsay), the source of the package (i.e., where got it from, CRAN). and the package version. The version I have for cowsay is 1.2.2. Yours may be older or newer. It doesn't matter much at this point. 
 
@@ -173,7 +175,7 @@ You get a random animal in the console repeating the text we passed as an argume
 say("I love stats", "cow")
 ```
 
-This is an important feature of arguments in functions. We said how different functions admit different arguments. Here, by specifying `cow`, the function prints that particular animal. But why is it that when we didn't specify a particular kind of animal, we still got a result? That happened because functions always have default arguments that are necessary for them to run and that you do not have to make explicit. Default arguments are implicit and do not have to be typed. The `say` function has a default argument, `random`, which will print a random character or animal. It is only when you want to change the default that you need to make an alternative animal explicit.
+This is an important feature of arguments in functions. We said how different functions admit different arguments. Here, by specifying `cow`, the function prints that particular animal. But why is it that when we didn't specify a particular kind of animal, we still got a result? That happened because functions always have default arguments that are necessary for them to run, and that you do not have to make explicit. Default arguments are implicit and do not have to be typed. The `say` function has a default argument, `random`, which will print a random character or animal. It is only when you want to change the default that you need to make an alternative animal explicit.
 
 Remember, you only have to install a package that has not been installed ONCE. But if you want to use it in a given session, you will have to load it within that session using the `library` function. Once you load it within a session, the package will remain loaded until you terminate your session (for example, by closing R Studio). Do not forget this!
 
@@ -197,9 +199,9 @@ say(my_text, "cow")
 ```
 
 ## More on objects 
-Now that we have covered some of the preliminaries, we can move on to the data. In Excel, you are used to seeing your data in spreadsheet format. If you need some recap, you should review some of the materials from previous modules. This [chapter](https://uom-resquant.github.io/MSCD_labs/week1.html#data-variables-and-observations) will be helpful to have a better understanding of the notion of a data set, levels of measurement, and tidy data.
+Now that we have covered some of the preliminaries, we can move on to the data. In Excel, you are used to seeing your data in spreadsheet format. If you need a recap, you should review some of the materials from previous modules.
 
-R is considerably more flexible than Excel. Most of the work we do here will use data sets or **data frames** as they are called in R. But as you have seen earlier, you can have *objects* other than data frames in R. These objects can relate to external files or simple textual information ("I love stats"). This flexibility is a big asset because, among other things, it allows us to break down data frames or the results from doing analysis on them to their constitutive parts (this will become clearer as we go along).
+R is considerably more flexible than Excel. Most of the work we do here will use data sets or **data frames** as they are called in R. But as you have seen earlier, you can have *objects* other than data frames in R. These objects can relate to external files or simple textual information ("I love stats"). This flexibility is a big asset because, among other things, it allows us to break down data frames or the results from doing analysis on them into their constitutive parts (this will become clearer as we go along).
 
 As we have seen earlier, to create an object, you have to give it a name and then use the assignment operator (the `<-` symbol) to assign it some value. 
 
@@ -225,7 +227,7 @@ X
 
 You will get the following message: `"Error in eval(expr, envir, enclos): object 'X' not found"`. R is telling us that `X` does not exist. There isn't an object `X` (upper case), but there is an object `x` (lower case). 
 
-Remember, computers are very literal. They are like dogs. You can tell a dog to "sit", and if it has been trained, it will sit. But if you tell a dog, "Would you be so kind as to relax a bit and lay down on the sofa?" it won't have a clue what you are saying and will stare at you like you have gone mad. Error messages are computers' ways of telling us, "I really want to help you, but I don't really understand what you mean" (never take them personally; computers don't hate you).
+Remember, computers are very literal. They are like dogs. You can tell a dog to "sit", and if it has been trained, it will sit. But if you tell a dog, "Would you be so kind as to relax a bit and lie down on the sofa?" it won't have a clue what you are saying and will stare at you like you have gone mad. Error messages are computers' ways of telling us, "I really want to help you, but I don't really understand what you mean" (never take them personally; computers don't hate you).
 
 When you get an error message or implausible results, you want to look back at your code to figure out what the problem is. This process is called **debugging**. There are some proper systematic ways to write code that facilitate debugging, but we won't get into that here. R is very good with automatic error handling at the levels we'll be using it at. Very often, the solution will simply involve correcting the spelling or checking you've used the correct placement and number of brackets or commas (you will find this out later, the hard way).
 
