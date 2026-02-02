@@ -503,7 +503,10 @@ my_dataframe <- read.csv("www.data.com/data you want to import.csv")
 #file.choose() brings up a file explorer window that allows
 #you to interactively choose a file path to work with.
 my_dataframe <- read.csv(file.choose())
-#example 3: if you can't find a URL from Canvas to use yet, you can try this random dataset. The dataset itself is irrelevant (although it is about UFO sightings - pretty interesting if you ask me), but it does show you how to load data in from a real URL.
+#example 3: if you can't find a URL from Canvas to use yet,
+#you can try this random dataset. The dataset itself is irrelevant
+#(although it is about UFO sightings - pretty interesting if you ask me),
+#but it does show you how to load data in from a real URL.
 ufo_sightings <- read.csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-06-20/ufo_sightings.csv')
 ```
 

@@ -4,13 +4,13 @@
 
 In today's session, we will refresh themes you have explored in previous research methods courses, specifically causality. This is a central concept in empirical research. We often do research because we want to make causal inferences. We want to be in a position where we establish whether an intervention or a social process is causally linked to crime or some other relevant criminological outcome.
 
-Making causal inferences often involves making comparisons. For example, between cases that have been subject to an intervention and cases that have not been subject to the causal process we are trying to investigate. But you should already know that not all kinds of research comparisons are the same. In previous methods courses, you must have discussed the differences between experimental and observational studies. These different kinds of research designs have a bearing on your ability to make causal inferences.
+Making causal inferences often involves making comparisons. For example, between cases that have been subject to an intervention and cases that have _not_ been subject to the intervention (the causal process we are trying to investigate). But you should already know that not all kinds of research comparisons are the same. In previous methods courses, you must have discussed the differences between experimental and observational studies. These different kinds of research designs have a bearing on your ability to make causal inferences.
 
-Let's think about a specific case so that this makes more sense. Is there discrimination against former offenders in the labour market? In other words, are offenders less likely to find employment after release because of prejudice among employers? Or can we say that the fact that former offenders are less likely to be in employment may be due to other factors? Perhaps they are less skilled. Perhaps they have less social capital, people they know that can help them to get jobs or to learn about job opportunities. Perhaps they are less interested in finding employment? 
+Let's think about a specific case so that this makes more sense. Is there discrimination against former offenders in the labour market? In other words, are offenders less likely to find employment after release because of prejudice among employers? Or can we say that the fact that former offenders are less likely to be in employment may be due to other factors? Perhaps they are less skilled. Perhaps they have less social capital: people they know that can help them to get jobs or to learn about job opportunities. Perhaps they are less interested in finding employment? 
 
 Only in comparisons, when other things are equal, can you make causal inferences. It would only be fair to compare John, an ex-offender with a high school degree and X number of personal connections and Y numbers of professional experience, with Peter, a non-ex-offender, with the same educational and professional credentials as John (and everything else that matters when getting jobs also being equal between Peter and John). 
 
-How can you do that? How can you create situations when other things are equal? Well, that's what courses in research design are oriented to teach you. What is important for you to remember is that the way data are generated and the way you do your study will, of course, affect the kind of interpretations that you make from your statistical comparisons. And not all studies are created equal. Some research designs put you in a better position than others to make causal inferences.
+How can you do that? How can you create situations when other things are equal? Well, that's what courses in research design are designed to teach you. What is important for you to remember is that the way data are generated and the way you do your study will, of course, affect the kind of interpretations that you make from your statistical comparisons. And not all studies are created equal. Some research designs put you in a better position than others to make causal inferences.
 
 You should have learnt by now that the ["bronze" standard](https://link.springer.com/article/10.1007/s11292-005-3538-2) for establishing causality in the social sciences is the randomised experiment. In a randomised trial, the researchers change the causal variable of interest for a group using something like a coin toss. As Angrist and Pischke (2015: xiii) highlight:
 
@@ -22,7 +22,7 @@ In this session, we will look at data from a randomised trial that tried to esta
 
 ## Getting data thanks to reproducibility
 
-Last week we introduced the notion of reproducible research and said that using and publishing code (particularly if using open-source tools like R) is the way that [many researchers](https://osf.io/?gclid=EAIaIQobChMIq-jM6MuY2QIV7Z3tCh04vAycEAAYASAAEgLptPD_BwE) around the world think that science ought to be done. This way of operating makes research more open, more credible, and more legitimate. It also means that we can more easily access the data used in published research. For this session, we are going to use the data from [this](https://academic.oup.com/qje/article/133/1/191/4060073) and [this paper](https://pubs.aeaweb.org/doi/pdfplus/10.1257/aer.p20171003) study. In this research project, the authors tried to answer the question of whether criminal antecedents and other personal characteristics have an impact on access to employment. You can find more details about this work in [episode 8](https://www.probablecausation.com/podcasts/episode-8-amanda-agan) of *Probable Causation*, the criminology podcast.
+Last week we introduced the notion of reproducible research and said that using and publishing code (particularly if using open-source tools like R) is the way that [many researchers](https://osf.io/?gclid=EAIaIQobChMIq-jM6MuY2QIV7Z3tCh04vAycEAAYASAAEgLptPD_BwE) around the world think that science ought to be done. This way of operating makes research more open, more credible, and more legitimate. It also means that we can more easily access the data used in published research. For this session, we are going to use the data from [this](https://academic.oup.com/qje/article/133/1/191/4060073) and [this paper](https://pubs.aeaweb.org/doi/pdfplus/10.1257/aer.p20171003) study. In this research project, the authors tried to answer the question of whether criminal antecedents (e.g., prior convinctions) and other personal characteristics have an impact on access to employment. You can find more details about this work in [episode 8](https://www.probablecausation.com/podcasts/episode-8-amanda-agan) of *Probable Causation*, the criminology podcast.
 
 If you want to know more about 'Ban the Box: fair chance recruitment’ practices in the UK, you can find more information [here](https://recruit.unlock.org.uk/homepage/fair-chance-recruitment/) and also can watch this short video from Leo Burnett who helped promote giving people a chance to explain their past. This could give you a better understanding of this issue.
 
@@ -36,7 +36,7 @@ Because Amanda Agan and Sonja Starr conformed to reproducible standards when doi
 
 ![](imgs/harvarddataverse.PNG) 
 
-On this page, you can see a download section and some files that can be accessed. One of them contains analytic code pertaining to the study, and the other contains the data. You also see a link called **metadata**. Metadata is data about data, it simply provides you with some information about the data. If you click on metadata, you will see a reference to the software the authors used (STATA) at the bottom. So we know these files are in [STATA](https://www.stata.com/) proprietary format. Let's download the data file and then read the data into R.
+On this page, you can see a download section and some files that can be accessed. One of them contains analytic code pertaining to the study, and the other contains the data. You also see a link called **metadata**. Metadata is data about data -- it provides you with some information about the data. If you click on metadata, you will see a reference to the software the authors used (STATA) at the bottom. So we know these files are in [STATA](https://www.stata.com/), a proprietary format. Let's download the data file and then read the data into R.
 
 You could just click "download" and then place the file in your project directory. Alternatively, and preferably, you may want to use code to make your whole work more reproducible. Think of it this way: every time you click or use drop-down menus, you are doing things that others cannot reproduce because there won't be a written record of your steps. You will need to do some clicking to find the required URL for writing your code. The file we want is the `AganStarrQJEData.dta`. Click on the name of this file. You will be taken to another webpage. You will see the download URL on it. Copy and paste this URL into your code below.
 
@@ -46,11 +46,11 @@ library(haven)
 banbox <- read_dta("https://dataverse.harvard.edu/api/access/datafile/3036350")
 
 ##Window users! R in Windows has some problems with HTTPS addresses; 
-#that's why we need to do this first:
+#see below for some tips on this!
 
 ```
 
-This  data file is a STATA.dta file in our working directory. To read STATA files, we will need the *haven* package. This is a package developed to import different kinds of data files into R. If you don't have it, you will need to install it. And then load it.
+This data file is a STATA.dta file in our working directory. To read STATA files, we will need the *haven* package. This is a package developed to import different kinds of data files into R. If you don't have it, you will need to install it. And then load it.
 
 ```{r}
 ##IF THE CODE ABOVE DOES NOT WORK, USE THIS CODE.
@@ -64,7 +64,7 @@ library(haven)
 banbox <- read_dta(url(urlfile))
 ```
 
-You will need to pay attention to the file extension to find the appropriate function to read in your file. For example, if something has the extension `.sav`, it is a file used by the software SPSS. To read this, you would use the `read_spss()` function in the haven package. 
+You will need to pay attention to the file extension to find the appropriate function to read in your file. For example, if something has the extension `.sav`, it is a file used by the software SPSS. To read this, for example, you would use the `read_spss()` function in the haven package. 
 
 Some other file types need other packages. For example, to read in comma-separated values or `.csv` files, you can use the `read_csv()` function from the `readr` package. To read in Excel files, you would use the appropriate function from the `readxl` package, which might be `read_xls()` or `read_xlsx()`, depending on the file extension. 
 
@@ -110,7 +110,7 @@ You also want to understand what the banbox object actually is. You can do that 
 class(banbox)
 ```
 
-What does `tbl` stand for? It refers to **tibbles**. This is essentially a new type of data structure introduced into R. Tibbles *are* data frames, but a particular type. Not all data frames we encounter in R are tibbles.
+What does `tbl` stand for? It refers to **tibbles**. This is essentially a new type of data structure introduced into R. Tibbles *are* data frames, but a particular type. There are some advantages to tibbles, but honestly, they're not that important. For now, you can just think of tibbles as data frames (and vice versa).
 
 The R language has been around for a while, and sometimes, things that made sense a couple of decades ago make less sense now. A number of programmers are trying to create code that is more modern and more useful today. They are doing this by introducing a set of packages that speak to each other in order to modernise R without breaking existing code. You can think of it as an easier and more efficient modern dialect of R. This set of packages is called the **tidyverse**. Tibbles are data frames that have been optimised for use with this new set of packages. You can read a bit more about tibbles [here](http://r4ds.had.co.nz/tibbles.html).
 
@@ -245,7 +245,7 @@ The result is a logical vector that tells us if it is true that there is missing
 sum(is.na(banbox$response_black)) 
 ```
 
-This is asking R to sum up how many cases are TRUE NA in this variable. When reading a logical vector like the one we are creating, R will treat the FALSE elements as 0s and the TRUE elements as 1s. So basically, the sum() function will count the number of TRUE cases returned by the is.na() function.
+The above is asking R to sum up how many cases are TRUE NA in this variable. When reading a logical vector like the one we are creating, R will treat the FALSE elements as 0s and the TRUE elements as 1s. So basically, the sum() function will count the number of TRUE cases returned by the is.na() function.
 
 You can use a bit of a hack to get the proportion of missing cases instead of the count:
 
@@ -253,7 +253,9 @@ You can use a bit of a hack to get the proportion of missing cases instead of th
 mean(is.na(banbox$response_black))
 ```
 
-This code exploits the mathematical fact that the mean of binary outcomes (0 or 1) gives you the proportion of ones in your data. As a rule of thumb, if you see more than 5% of the cases declared as NA, you need to start thinking about the implications of this. Beware of formulaic application of rules of thumb such as this, though! In this case, we know that 49%% of the observations have missing values in this variable. When you see things like this the first thing to do is to look at the codebook or documentation to try to get some clues as to why there are so many missing cases. With survey data, you often have questions that are simply not asked to everybody, so it's not necessarily that something went very wrong with the data collection but simply that the variable in question was only used with a subset of the sample. Therefore, any analysis you do using this question will only relate to that particular subset of cases.
+This code exploits the mathematical fact that the mean of binary outcomes (0 or 1) gives you the proportion of ones in your data. You could verify this in R using a different method, if you'd like (remember that trying stuff out, making mistakes and getting errors is just part of the process of learning R!).
+
+As a rule of thumb, if you see more than 5% of the cases declared as NA, you need to start thinking about the implications of this. Beware of formulaic application of rules of thumb such as this, though! In this case, we know that 49%% of the observations have missing values in this variable. When you see things like this the first thing to do is to look at the codebook or documentation to try to get some clues as to why there are so many missing cases. With survey data, you often have questions that are simply not asked to everybody, so it's not necessarily that something went very wrong with the data collection but simply that the variable in question was only used with a subset of the sample. Therefore, any analysis you do using this question will only relate to that particular subset of cases.
 
 There is a whole field of statistics devoted to doing analysis when missing data is a problem. R has extensive capabilities for dealing with missing data -see, for example [here](https://www.routledge.com/Flexible-Imputation-of-Missing-Data-Second-Edition/Buuren/p/book/9781032178639). For the purpose of this introductory course, however, we only explain how to do analysis that ignores missing data. This is often referred to as a **full/complete case analysis** because you only use observations for which you have full information in all the variables you employ. You would cover techniques for dealing with this sort of issue in more advanced courses.
 
@@ -265,7 +267,7 @@ The data analysis workflow has a number of stages. The diagram below (produced b
 
 We have started to see different ways of bringing data into R. And we have also started to see how we can explore our data. It is now time we start discussing one of the following stages, **transform**. A good deal of time and effort, in data analysis, is devoted to this. You get your data, and then you have to transform it so that you can answer the questions you want to address in your research. We have already seen, for example, how to turn variables into factors, but there are other things you may want to do.
 
-R offers a great deal of flexibility in how to transform your data; here, we are going to illustrate some of the functionality of the *dplyr* package for data carpentry (a term people use to refer to this kind of operation). This package is part of the tydiverse and it aims to provide a friendly and modern take on how to work with data frames (or tibbles) in R. It offers, as the authors of the package put it, "a flexible grammar of data manipulation". 
+R offers a great deal of flexibility in how to transform your data; here, we are going to illustrate some of the functionality of the *dplyr* package for data carpentry (a term people use to refer to this kind of operation). This package is part of the tidyverse and it aims to provide a friendly and modern take on how to work with data frames (or tibbles) in R. It offers, as the authors of the package put it, "a flexible grammar of data manipulation". 
 
 Dplyr aims to provide a function for each basic verb of data manipulation:
 
@@ -307,7 +309,7 @@ One of the first operations you may want to carry out when working with data fra
 
 For this kind of operation, we use the `filter()` function. Like all single verbs in dplyr, the first argument is the tibble (or data frame). The second and subsequent arguments refer to variables within that data frame, selecting rows where the expression is TRUE. 
 
-Ok, let's filter out some information we are interested in from `bandbox`. If we look at the dataset, we can see that there is a variable called "crimbox" that identifies 'applications that require information about criminal antecedents' and there is a variable called "pre" that identifies 'whether the application was sent before the legislation was introduced'. In this dataset, the value 1 is being used to denote positive responses. Therefore, if we want to create the 2017 dataset, we would start by selecting only data where the value in these two variables equals 1 as shown below.
+Ok, let's filter out some information we are interested in from `bandbox`. If we look at the dataset, we can see that there is a variable called "crimbox" that identifies 'applications that require information about criminal antecedents' and there is a variable called "pre" that identifies 'whether the application was sent before the legislation was introduced'. In this dataset, the value 1 is being used to denote positive responses. Therefore, if we want to create the 2017 dataset, we would start by selecting only data where the value in these two variables equals 1, as shown below.
 
 ```{r}
 #We will store the results of filtering the data in a new object that I am calling aer  
@@ -334,7 +336,7 @@ If you now look at the global environment, you will see that the "aer2017" tibbl
 
 So far, we have used `dplyr` single verbs for ungrouped operations. However, we can also use some of the functionality of `dplyr` to obtain answers to questions that relate to groups of cases within our data frame. Imagine that you want to know if applicants with a criminal record are less likely to receive a positive response from employers. How could you figure that one out? To answer this kind of question, we can use the `group_by()` function in conjunction with other `dplyr` functions. In particular, we are going to look at the `summarise` function.
 
-First, we group the observations by criminal record in a new object, "by_antecedents", by using `as_factor()` in the call to the crime variable the results will be labelled later on (even though we are not changing the crime variable in the aer2017 data frame). Keep in mind we are using `as_factor()` because the column crime is a labelled vector rather than a factor or a character vector, and we do this to aid interpretation (it is easier to
+First, we group the observations by criminal record in a new object, "aer2017_by_antecedent". By using `as_factor()` in the call to the crime variable the results will be labelled later on (even though we are not changing the crime variable in the aer2017 data frame). Keep in mind that we are using `as_factor()` because the column crime is a labelled vector rather than a factor or a character vector, and we do this to aid interpretation (it is easier to
 interpret labels than 0 and 1).
 
 ```{r}
