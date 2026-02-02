@@ -113,7 +113,7 @@ As indicated above, the window in the bottom left corner is the main **console**
 ## More on packages
 Before, we described packages as elements that add the functionality of R. Most packages introduce new functions that allow you to ask R to do different things.
 
-Anybody can write a package, so consequently, R packages vary in quality and complexity. You can find packages in different places, as well, from official repositories (which means they have passed a minimum of quality control), something called GitHub (a webpage where software developers post work in progress), to personal webpages (danger, danger!). In early 2017 we passed the 10,000 mark just in the main official repository, so the number of things that can be done with R grows exponentially every day as people keep adding new packages.
+Anybody can write a package, so consequently, R packages vary in quality and complexity. You can find packages in different places, as well, from official repositories (which means they have passed a minimum of quality control), something called GitHub (a webpage where software developers post work in progress), to personal webpages (danger, danger!). In early 2017 we passed the 10,000 packages mark just in the main official package repository, so the number of things that can be done with R grows exponentially every day as people keep adding new packages.
 
 When you install R, you only install a set of basic packages, not the full 10,000 plus. So, if you want to use any of these added packages that are not part of the basic installation, you first need to install them. You can see what packages are available for your local installation by looking at the *packages* tab in the bottom right corner panel. Click there and check. We are going to install a package that is not there so that you can see how the installation is done. 
 
@@ -131,11 +131,11 @@ Here, we are introducing a new function, "install.packages" and what we have pas
 
 This line of code (as it is currently written) will install this package in a personal library that will be located in your P: drive if you are using a cluster machine. If you are using a Windows machine this code will place this package within a personal library in your Documents folder. Once you install a package, it will remain in the machine/location where you installed it until you physically delete it.
 
-How do you find out what a package does? You look at the relevant documentation. In the Packages window, scroll down until you find the new package we installed listed. Here, you will see the name of the package (cowsay), a brief description of what the program is about, and the version you have installed (an indication that a package is a good package is that it has gone through several versions, that means that someone is making sure the package gets regular updates and improvements). The version I have for cowsay is 0.7.0. Yours may be older or newer. It doesn't matter much at this point. 
+How do you find out what a package does? You look at the relevant documentation. In the Packages window, scroll down until you find the new package we installed. Here, you will see the name of the package (cowsay), the source of the package (i.e., where got it from, CRAN). and the package version. The version I have for cowsay is 1.2.2. Yours may be older or newer. It doesn't matter much at this point. 
 
 Click in the name *cowsay*. You will see that R Studio has now brought you to the Help tab. Here is where you find the help files for this package, including all the available documentation.
 
-Every beginner in R will find these help files a bit confusing. But after a while, their format and structure will begin to make sense to you. Click where it says *User guides, package vignettes, and other documentation*. Documentation in R has become much better since people started to write **vignettes** for their packages. They are little tutorials that explain with examples what each package does. Click on the *cowsay::cowsay_tutorial* that you see listed here. You will find an HTML file that gives you a detailed tutorial on this package. You don't need to read it now, but remember that this is one way to find help when using R. 
+Every beginner in R will find these help files a bit confusing. But after a while, their format and structure will begin to make sense to you. Click where it says *User guides, package vignettes, and other documentation*. Documentation in R has become much better since people started to write **vignettes** for their packages. They are little tutorials that explain with examples what each package does. Click on the *cowsay::cowsay_tutorial* that you see listed here. You will find a page that gives you a detailed tutorial on this package. You don't need to read it now, but remember that this is one way to find help when using R. 
 
 Let's try to use some of the functions of this package. We will use the "say" function:
 
@@ -143,11 +143,11 @@ Let's try to use some of the functions of this package. We will use the "say" fu
 say("I love stats")
 ```
 
-You will get an error message telling you that this function could not be found. What happened?? This will be the first of many error messages you will get. An error message is the computer's way of telling you that your instructions are somehow incomplete or problematic and, thus, are unable to do what you ask. It is frustrating to get these messages, and a critical skill for you this semester will be to overcome that frustration and try to understand why the computer cannot do what you ask. These labs are all about finding out the source of the error and solving it. There is nothing wrong with getting errors. The problem is if you give up and let your frustration get the best of you.
+You will get an error message telling you that this function could not be found. What happened?? This will be the first of many error messages you will get. An error message is the computer's way of telling you that your instructions are somehow incomplete or problematic and, thus, are unable to do what you ask. It is frustrating to get these messages, and a critical skill for you this semester will be to overcome that frustration and try to understand why the computer cannot do what you ask. These labs are all about finding out the source of the error and solving it. There is nothing wrong with getting errors. The problem is if you give up and let your frustration get the best of you!
 
 So why are we getting this error? Installing a package is only the first step. The next step, when you want to use it in a given session, is to **load** it. 
 
-Think of it as a pair of shoes. You buy them once, but you have to take them from your closet and put them on when you want to use them. Same with packages, you only install once, but need to load it from your library every time you want to use it -within a given session (once loaded, it will remain loaded until you finish your session).
+Think of it as a pair of shoes. You buy them once, but you have to take them from your closet and put them on when you want to use them. Same with packages: you only install once, but you need to load it from your library every time you want to use it -within a given session (once loaded, it will remain loaded until you finish your session by closing RStudio).
 
 To see what packages you currently have **loaded** in your session, you use the `search()` function (you do not need to pass it any arguments in this case).
 
@@ -175,12 +175,12 @@ say("I love stats", "cow")
 
 This is an important feature of arguments in functions. We said how different functions admit different arguments. Here, by specifying `cow`, the function prints that particular animal. But why is it that when we didn't specify a particular kind of animal, we still got a result? That happened because functions always have default arguments that are necessary for them to run and that you do not have to make explicit. Default arguments are implicit and do not have to be typed. The `say` function has a default argument, `random`, which will print a random character or animal. It is only when you want to change the default that you need to make an alternative animal explicit.
 
-Remember, you only have to install a package that has not been installed ONCE. But if you want to use it in a given session, you will have to load it within that session using the `library` function. Once you load it within a session, the package will remain loaded until you terminate your session (for example, by closing R Studio). Do not forget this.
+Remember, you only have to install a package that has not been installed ONCE. But if you want to use it in a given session, you will have to load it within that session using the `library` function. Once you load it within a session, the package will remain loaded until you terminate your session (for example, by closing R Studio). Do not forget this!
 
 ## Objects: creating an object
 We have seen how the first argument that the "say" function takes is the text that we want to convert into speech for our given animal. We could write the text directly into the function (as we did above), but now we are going to do something different. We are going to create an object to store the text.
 
-An **object**? What do I mean? In the same way that everything you do in R you do with functions (your verbs), everything that exists in R is an object. You can think of objects as boxes where you put stuff. In this case, we are going to create an object called *my_text* and inside this object, we are going to store the text "I love stats". How do you do this? We will use the code below:
+An **object**? What do I mean? In the same way that everything you do in R you do with functions (your verbs), everything that exists in R is an object. You can think of objects as boxes where you put stuff. In this case, we are going to create an object called *my_text*, and inside this object, we are going to store the text "I love stats". How do you do this? We will use the code below:
 
 ```{r}
 my_text <- "I love stats."
@@ -201,17 +201,15 @@ Now that we have covered some of the preliminaries, we can move on to the data. 
 
 R is considerably more flexible than Excel. Most of the work we do here will use data sets or **data frames** as they are called in R. But as you have seen earlier, you can have *objects* other than data frames in R. These objects can relate to external files or simple textual information ("I love stats"). This flexibility is a big asset because, among other things, it allows us to break down data frames or the results from doing analysis on them to their constitutive parts (this will become clearer as we go along).
 
-Technically, R is an *Object Oriented language*. Object-oriented programming (OOP) is a programming language model organized around objects rather than "actions" and data rather than logic.
-
 As we have seen earlier, to create an object, you have to give it a name and then use the assignment operator (the `<-` symbol) to assign it some value. 
 
-For example, if we want to create an object that we name "x", and we want it to represent the value of 5, we write:
+For example, if we want to create an object that we name "x", and we want it to represent the numerical value of 5, we write:
 
 ```{r}
 x <- 5
 ```
 
-We are simply telling R to create a **numeric object**, called `x`, with one element (5) or of length 1. It is numeric because we are putting a number inside this object. The length is 1 because it only has one element on it, the number 5.
+We are simply telling R to create a **numeric object**, called `x`, with one element (5), of length 1. It is numeric because we are putting a number inside this object. The length is 1 because it only has one element in it, the number 5.
 
 You can see the content of the object `x` in the main console either by using the print function we used earlier or by auto-printing, that is, just typing the name of the object and running that as code:
 
@@ -225,16 +223,16 @@ When writing expressions in R, you must understand that **R is case sensitive**.
 X
 ```
 
-You will get the following message: `"Error in eval(expr, envir, enclos): object 'X' not found"`. R is telling us that `X` does not exist. There isn't an object `X` (upper case), but there is an object `x` (lower case). Error messages in R are pretty good at telling you exactly what went wrong.
+You will get the following message: `"Error in eval(expr, envir, enclos): object 'X' not found"`. R is telling us that `X` does not exist. There isn't an object `X` (upper case), but there is an object `x` (lower case). 
 
 Remember, computers are very literal. They are like dogs. You can tell a dog to "sit", and if it has been trained, it will sit. But if you tell a dog, "Would you be so kind as to relax a bit and lay down on the sofa?" it won't have a clue what you are saying and will stare at you like you have gone mad. Error messages are computers' ways of telling us, "I really want to help you, but I don't really understand what you mean" (never take them personally; computers don't hate you).
 
-When you get an error message or implausible results, you want to look back at your code to figure out what the problem is. This process is called **debugging**. There are some proper systematic ways to write code that facilitate debugging, but we won't get into that here. R is very good with automatic error handling at the levels we'll be using it at. Very often, the solution will simply involve correcting the spelling.
+When you get an error message or implausible results, you want to look back at your code to figure out what the problem is. This process is called **debugging**. There are some proper systematic ways to write code that facilitate debugging, but we won't get into that here. R is very good with automatic error handling at the levels we'll be using it at. Very often, the solution will simply involve correcting the spelling or checking you've used the correct placement and number of brackets or commas (you will find this out later, the hard way).
 
 A handy tip is to cut and paste the error message into Google and find a solution. If anybody had given me a penny for every time I had to do that myself, I would be Bill Gates by now. You’re probably not the first person to make your mistake, after all, and someone on the internet has surely already found a solution to your issue. People make mistakes all the time. It's how we learn. Don't get frustrated, don't get stuck. Instead, look for a solution. These days, we have Google. We didn't back in the day. Now, you have the answer to your frustration within quick reach. Use it to your advantage.
 
 ## Naming conventions for objects in R
-You may have noticed the various names I have used to designate objects (`my_1st_vector`, `the_smiths`, etc.). You can use almost any names you want for your objects. Objects in R can have names of any length consisting of letters, numbers, underscores ("_") or the period (".") and should begin with a letter. In addition, when naming objects, you need to remember: 
+You may have noticed the various names I have used to designate objects (`x`, `my_text`, etc.). You can use almost any names you want for your objects. Objects in R can have names of any length consisting of letters, numbers, underscores ("_") or the period (".") and should begin with a letter. In addition, when naming objects, you need to remember: 
 
 + *Some names are forbidden*. These include words such as FALSE and TRUE, logical operators, and programming words like Inf, for, else, break, function, and words for special entities like NA and NaN.
 
@@ -260,7 +258,7 @@ You get an error!
 
 In R, there are different kinds of objects. We will start with **vectors**. 
 
-What is a vector? A vector is simply a set of elements *of the same class* (typically, these classes are character, numeric, integer, or logical -as in True/False). Vectors are the basic data structure in R. 
+What is a vector? A vector is simply a set of elements *of the same class*. Typically, these classes are character (i.e., text), numeric, integer, or logical (i.e., True or False). Vectors are the basic data structure in R. 
 
 Typically, you will use the `c()` function (c stands for *concatenate*) to create vectors. The code below exemplifies how to create vectors of different classes (numeric, logical, character, etc.). Notice how the listed elements (to simplify, there are two elements in each vector below) are separated by commas `,`:
 
@@ -429,9 +427,9 @@ Apart from summary statistics, last semester, we discussed a variety of ways to 
 
 An important thing to understand in R is that categorical (ordered, also called ordinal, or unordered, also called nominal) data are *typically* encoded as **factors**, which are just a special type of vector.  A factor is simply an integer vector that can contain *only predefined values* (this bit is very important) and is used to store categorical data. Factors are treated specially by many data analytic and visualisation functions. This makes sense because they are essentially different from quantitative variables.
 
-Although you can use numbers to represent categories, *using factors with labels is better than using integers to represent categories* because factors are self-describing (having a variable that has values "Male" and "Female" is better than a variable that has values "1" and "2" to represent male and female). When R reads data in other formats (e.g., comma-separated), it will automatically convert all character variables into factors by default. If you would rather keep these variables as simple character vectors, you need to explicitly ask R to do so. We will come back to this next week with some examples.
+Although you can use numbers to represent categories, *using factors with labels is better than using integers to represent categories* because factors are self-describing (having a variable that has values "Male" and "Female" is better than a variable that has values "1" and "2" to represent male and female). When R reads data in other formats (e.g., comma-separated), it will usually convert all character variables into factors by default. If you would rather keep these variables as simple character vectors, you need to explicitly ask R to do so. We will come back to this next week with some examples.
 
-Factors can also be created with the `factor()` function concatenating a series of *character* elements. You will notice that it is printed differently from a simple character vector and that it tells us the levels of the factor (look at the second printed line).
+Factors can also be created with the `factor()` function concatenating a series of *character* elements. You will notice that it is printed differently from a simple character vector and that it tells us the _levels_ of the factor (i.e., each unique value in the factor).
 
 ```{r}
 the_smiths <- factor(c("Morrisey", "Marr", "Rourke", "Joyce")) #create a new factor
@@ -494,17 +492,19 @@ my_dataframe <- read.csv('PATH_OR_URL_TO_CSV_FILE')
 Well, what if your data does not live on your laptop or PC? Well, if there is a way that R can still access this data just by following a path, then this approach will still work! 
 Tips! Please keep your folders simple. Just use one data folder for this module and do not create multiple folders such as 'data for week 1', 'data for week 2', or something like this. 
 
-All data we will use in the module are on the blackboard, but we will also provide the links to where we saved the data for you. You know when you right-click on the link, and select "Save As..." or whatever you click on to save? You could also select "Copy Link Address". This just copies the webpage where this data is stored. Give it a go! Copy the address, and then paste it into your browser. It will take you to a blank page where a forced download of the data will begin. So what if you pasted this into the `read.csv()` function? 
+All data we will use in the module are on Canvas, but we will also provide the links to where we saved the data for you. You know when you right-click on the link, and select "Save As..." or whatever you click on to save? You could also select "Copy Link Address". This just copies the webpage where this data is stored. If you want, find a csv file from a previous module on Canvas, and give this a go. Copy the address, and then paste it into your browser. It will take you to a blank page where a forced download of the data will begin. So what if you pasted this into the `read.csv()` function? 
 
 ```{r, eval=FALSE}
 #example 1: when you download data directly from the webpage, 
 #you will use this code.
 my_dataframe <- read.csv("www.data.com/data you want to import.csv")
-#example 2: when you download data from BB and save it to your 
+#example 2: when you download data from Canvas and save it to your 
 #computer, you can use file.choose() 
 #file.choose() brings up a file explorer window that allows
 #you to interactively choose a file path to work with.
 my_dataframe <- read.csv(file.choose())
+#example 3: if you can't find a URL from Canvas to use yet, you can try this random dataset. The dataset itself is irrelevant (although it is about UFO sightings - pretty interesting if you ask me), but it does show you how to load data in from a real URL.
+ufo_sightings <- read.csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-06-20/ufo_sightings.csv')
 ```
 
 In the first example, the my_dataframe object would be assigned the value returned from the read.csv() function reading in the file from the 'URL' link you provided. File path is no mysterious thing, file path is simply the *path* to the *file* you want to read. If this is a website, then so be it. 
