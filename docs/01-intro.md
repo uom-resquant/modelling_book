@@ -776,15 +776,11 @@ All data we will use in the module are on Canvas, but we will also provide the l
 
 
 ``` r
-#example 1: when you download data directly from the webpage, 
+#example: when you download data directly from the webpage, 
 #you will use this code.
 my_dataframe <- read.csv("www.data.com/data you want to import.csv")
-#example 2: when you download data from Canvas and save it to your 
-#computer, you can use file.choose() 
-#file.choose() brings up a file explorer window that allows
-#you to interactively choose a file path to work with.
-my_dataframe <- read.csv(file.choose())
-#example 3: if you can't find a URL from Canvas to use yet,
+
+#example : if you can't find a URL from Canvas to use yet,
 #you can try this random dataset. The dataset itself is irrelevant
 #(although it is about UFO sightings - pretty interesting if you ask me),
 #but it does show you how to load data in from a real URL.
