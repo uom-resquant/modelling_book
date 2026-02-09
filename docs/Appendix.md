@@ -259,7 +259,7 @@ Once we have the object with the information, we can plot the ROC curve.
 plot(rocCURVE, legacy.axes = TRUE) #By default, the x-axis goes backwards; we can use the specified option legacy.axes=TRUE, to get 1-spec on the x-axis moving from 0 to 1.
 ```
 
-![](Appendix_files/figure-epub3/unnamed-chunk-10-1.png)<!-- -->
+<img src="Appendix_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
 We can see the trajectory of the curve is at first steep, suggesting that sensitivity increases at a greater pace than the decrease in specificity. However, we then reach a point at which specificity decreases at a greater rate than the sensitivity increases. If you want to select a cut-off that gives you the optimal cut-off point, you can use the `coords()` function of the pROC package. You can pass arguments to this function so that it returns the best sum of sensitivity and specificity.
 

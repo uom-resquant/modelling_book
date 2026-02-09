@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Getting to know your data | Modelling Criminological Data CRIM20452</title>
   <meta name="description" content="This is the course material for Modelling Criminological Data CRIM20452." />
-  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Getting to know your data | Modelling Criminological Data CRIM20452" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-03-31" />
+<meta name="date" content="2026-02-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="a-first-lesson-about-r.html"/>
-<link rel="next" href="data-visualisation-with-r.html"/>
+<link rel="next" href="appendix.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -55,6 +55,7 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -137,7 +138,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Modelling Criminological Data</a></li>
+<div class="logo">
+   <img src="imgs/logo.png" style="height:80px; margin-bottom:10px;">
+ </div>
+ 
+ <li><a href="./">Modelling Criminological Data</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
@@ -178,119 +183,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.7" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#making-comparisons-with-numerical-outcomes"><i class="fa fa-check"></i><b>2.7</b> Making comparisons with numerical outcomes</a></li>
 <li class="chapter" data-level="2.8" data-path="getting-to-know-your-data.html"><a href="getting-to-know-your-data.html#summary-1"><i class="fa fa-check"></i><b>2.8</b> Summary</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html"><i class="fa fa-check"></i><b>3</b> Data visualisation with R</a>
+<li class="chapter" data-level="3" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i><b>3</b> Appendix</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
-<li class="chapter" data-level="3.2" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#anatomy-of-a-plot"><i class="fa fa-check"></i><b>3.2</b> Anatomy of a plot</a></li>
-<li class="chapter" data-level="3.3" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#what-graph-should-i-use"><i class="fa fa-check"></i><b>3.3</b> What graph should I use?</a></li>
-<li class="chapter" data-level="3.4" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#visualising-numerical-variables-histograms"><i class="fa fa-check"></i><b>3.4</b> Visualising numerical variables: Histograms</a></li>
-<li class="chapter" data-level="3.5" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#visualising-numerical-variables-density-plots"><i class="fa fa-check"></i><b>3.5</b> Visualising numerical variables: Density plots</a></li>
-<li class="chapter" data-level="3.6" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#visualising-numerical-variables-box-plots"><i class="fa fa-check"></i><b>3.6</b> Visualising numerical variables: Box plots</a></li>
-<li class="chapter" data-level="3.7" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#exploring-relationships-between-two-quantitative-variables-scatterplots"><i class="fa fa-check"></i><b>3.7</b> Exploring relationships between two quantitative variables: scatterplots</a></li>
-<li class="chapter" data-level="3.8" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#scatterplots-conditioning-in-a-third-variable"><i class="fa fa-check"></i><b>3.8</b> Scatterplots conditioning in a third variable</a></li>
-<li class="chapter" data-level="3.9" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#scatterplot-matrix"><i class="fa fa-check"></i><b>3.9</b> Scatterplot matrix</a></li>
-<li class="chapter" data-level="3.10" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#titles-legends-and-themes-in-ggplot2"><i class="fa fa-check"></i><b>3.10</b> Titles, legends, and themes in ggplot2</a></li>
-<li class="chapter" data-level="3.11" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#plotting-categorical-data-bar-charts"><i class="fa fa-check"></i><b>3.11</b> Plotting categorical data: bar charts</a></li>
-<li class="chapter" data-level="3.12" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#further-resources"><i class="fa fa-check"></i><b>3.12</b> Further resources</a></li>
-<li class="chapter" data-level="3.13" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#summary-2"><i class="fa fa-check"></i><b>3.13</b> Summary</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html"><i class="fa fa-check"></i><b>4</b> Refresher on descriptive statistics &amp; data carpentry</a>
+<li class="chapter" data-level="3.0.1" data-path="appendix.html"><a href="appendix.html#expected-frequencies"><i class="fa fa-check"></i><b>3.0.1</b> Expected frequencies</a></li>
+<li class="chapter" data-level="3.1" data-path="appendix.html"><a href="appendix.html#logistic-regression"><i class="fa fa-check"></i><b>3.1</b> Logistic regression</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#getting-some-data-from-eurobarometer"><i class="fa fa-check"></i><b>4.2</b> Getting some data from Eurobarometer</a></li>
-<li class="chapter" data-level="4.3" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#thinking-about-your-data-filtering-cases"><i class="fa fa-check"></i><b>4.3</b> Thinking about your data: filtering cases</a></li>
-<li class="chapter" data-level="4.4" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#selecting-variables-using-dplyrselect"><i class="fa fa-check"></i><b>4.4</b> Selecting variables: using <code>dplyr::select</code></a></li>
-<li class="chapter" data-level="4.5" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#creating-summated-scales"><i class="fa fa-check"></i><b>4.5</b> Creating summated scales</a></li>
-<li class="chapter" data-level="4.6" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#collapsing-categories-in-character-variables"><i class="fa fa-check"></i><b>4.6</b> Collapsing categories in character variables</a></li>
-<li class="chapter" data-level="4.7" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#working-with-apparently-cryptic-variable-names-and-levels"><i class="fa fa-check"></i><b>4.7</b> Working with apparently cryptic variable names and levels</a></li>
-<li class="chapter" data-level="4.8" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#recoding-factors"><i class="fa fa-check"></i><b>4.8</b> Recoding factors</a></li>
-<li class="chapter" data-level="4.9" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#understanding-missing-data"><i class="fa fa-check"></i><b>4.9</b> Understanding missing data</a></li>
-<li class="chapter" data-level="4.10" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#exploring-data-frames-visually"><i class="fa fa-check"></i><b>4.10</b> Exploring data frames visually</a></li>
-<li class="chapter" data-level="4.11" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#a-quick-recap-on-descriptive-statistics"><i class="fa fa-check"></i><b>4.11</b> A quick recap on descriptive statistics</a>
-<ul>
-<li class="chapter" data-level="4.11.1" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#central-tendency"><i class="fa fa-check"></i><b>4.11.1</b> Central Tendency</a></li>
-<li class="chapter" data-level="4.11.2" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#dispersion"><i class="fa fa-check"></i><b>4.11.2</b> Dispersion</a></li>
-<li class="chapter" data-level="4.11.3" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#bivariate-analysis"><i class="fa fa-check"></i><b>4.11.3</b> Bivariate analysis</a></li>
-</ul></li>
-<li class="chapter" data-level="4.12" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#further-resources-1"><i class="fa fa-check"></i><b>4.12</b> Further resources</a></li>
-<li class="chapter" data-level="4.13" data-path="refresher-on-descriptive-statistics-data-carpentry.html"><a href="refresher-on-descriptive-statistics-data-carpentry.html#summary-3"><i class="fa fa-check"></i><b>4.13</b> Summary</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html"><i class="fa fa-check"></i><b>5</b> Regression I: Mean differences</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#introduction-2"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
-<li class="chapter" data-level="5.2" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#dependent-variable-numerical-independent-variable-binary"><i class="fa fa-check"></i><b>5.2</b> Dependent variable: numerical | Independent variable: binary</a></li>
-<li class="chapter" data-level="5.3" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#calculating-mean-differences-in-r"><i class="fa fa-check"></i><b>5.3</b> Calculating mean differences in <code>R</code></a></li>
-<li class="chapter" data-level="5.4" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#visual-exploration"><i class="fa fa-check"></i><b>5.4</b> Visual exploration</a></li>
-<li class="chapter" data-level="5.5" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#using-linear-regression-to-calculate-mean-differences"><i class="fa fa-check"></i><b>5.5</b> Using linear regression to calculate mean differences</a>
-<ul>
-<li class="chapter" data-level="5.5.1" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#linear-regression"><i class="fa fa-check"></i><b>5.5.1</b> Linear Regression</a></li>
-<li class="chapter" data-level="5.5.2" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#linear-regression-as-a-difference-in-means-estimator"><i class="fa fa-check"></i><b>5.5.2</b> Linear Regression as a Difference-in-Means Estimator</a></li>
-</ul></li>
-<li class="chapter" data-level="5.6" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#effect-size"><i class="fa fa-check"></i><b>5.6</b> Effect size</a></li>
-<li class="chapter" data-level="5.7" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#lab-exercises"><i class="fa fa-check"></i><b>5.7</b> Lab Exercises</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="regression-ii-numerical-independent-variables.html"><a href="regression-ii-numerical-independent-variables.html"><i class="fa fa-check"></i><b>6</b> Regression II: numerical independent variables</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="regression-ii-numerical-independent-variables.html"><a href="regression-ii-numerical-independent-variables.html#introduction-3"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
-<li class="chapter" data-level="6.2" data-path="regression-ii-numerical-independent-variables.html"><a href="regression-ii-numerical-independent-variables.html#motivating-regression"><i class="fa fa-check"></i><b>6.2</b> Motivating regression</a></li>
-<li class="chapter" data-level="6.3" data-path="regression-ii-numerical-independent-variables.html"><a href="regression-ii-numerical-independent-variables.html#fitting-a-simple-regression-model"><i class="fa fa-check"></i><b>6.3</b> Fitting a simple regression model</a></li>
-<li class="chapter" data-level="6.4" data-path="regression-ii-numerical-independent-variables.html"><a href="regression-ii-numerical-independent-variables.html#residuals-r-squared"><i class="fa fa-check"></i><b>6.4</b> Residuals: R squared</a></li>
-<li class="chapter" data-level="6.5" data-path="regression-ii-numerical-independent-variables.html"><a href="regression-ii-numerical-independent-variables.html#is-this-the-same-as-last-week"><i class="fa fa-check"></i><b>6.5</b> Is this the same as last week?</a></li>
-<li class="chapter" data-level="6.6" data-path="regression-ii-numerical-independent-variables.html"><a href="regression-ii-numerical-independent-variables.html#regression-assumptions"><i class="fa fa-check"></i><b>6.6</b> Regression assumptions</a></li>
-<li class="chapter" data-level="6.7" data-path="regression-ii-numerical-independent-variables.html"><a href="regression-ii-numerical-independent-variables.html#lab-exercises-1"><i class="fa fa-check"></i><b>6.7</b> Lab Exercises</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="regression-iii-categorical-independent-variables-and-multiple-regression-models.html"><a href="regression-iii-categorical-independent-variables-and-multiple-regression-models.html"><i class="fa fa-check"></i><b>7</b> Regression III: categorical independent variables and multiple regression models</a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="regression-iii-categorical-independent-variables-and-multiple-regression-models.html"><a href="regression-iii-categorical-independent-variables-and-multiple-regression-models.html#fitting-regression-with-categorical-predictors"><i class="fa fa-check"></i><b>7.1</b> Fitting regression with categorical predictors</a></li>
-<li class="chapter" data-level="7.2" data-path="regression-iii-categorical-independent-variables-and-multiple-regression-models.html"><a href="regression-iii-categorical-independent-variables-and-multiple-regression-models.html#motivating-multiple-regression"><i class="fa fa-check"></i><b>7.2</b> Motivating multiple regression</a></li>
-<li class="chapter" data-level="7.3" data-path="regression-iii-categorical-independent-variables-and-multiple-regression-models.html"><a href="regression-iii-categorical-independent-variables-and-multiple-regression-models.html#fitting-and-interpreting-a-multiple-regression-model"><i class="fa fa-check"></i><b>7.3</b> Fitting and interpreting a multiple regression model</a></li>
-<li class="chapter" data-level="7.4" data-path="regression-iii-categorical-independent-variables-and-multiple-regression-models.html"><a href="regression-iii-categorical-independent-variables-and-multiple-regression-models.html#rescaling-input-variables-to-assist-interpretation"><i class="fa fa-check"></i><b>7.4</b> Rescaling input variables to assist interpretation</a></li>
-<li class="chapter" data-level="7.5" data-path="regression-iii-categorical-independent-variables-and-multiple-regression-models.html"><a href="regression-iii-categorical-independent-variables-and-multiple-regression-models.html#testing-conditional-hypothesis-interactions"><i class="fa fa-check"></i><b>7.5</b> Testing conditional hypothesis: interactions</a></li>
-<li class="chapter" data-level="7.6" data-path="regression-iii-categorical-independent-variables-and-multiple-regression-models.html"><a href="regression-iii-categorical-independent-variables-and-multiple-regression-models.html#multicollinearity"><i class="fa fa-check"></i><b>7.6</b> Multicollinearity</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="categorical-variables-and-logistic-regression.html"><a href="categorical-variables-and-logistic-regression.html"><i class="fa fa-check"></i><b>8</b> Categorical variables and logistic regression</a>
-<ul>
-<li class="chapter" data-level="8.1" data-path="categorical-variables-and-logistic-regression.html"><a href="categorical-variables-and-logistic-regression.html#cross-tabulations"><i class="fa fa-check"></i><b>8.1</b> Cross-tabulations</a></li>
-<li class="chapter" data-level="8.2" data-path="categorical-variables-and-logistic-regression.html"><a href="categorical-variables-and-logistic-regression.html#regression-modelling-why-not-linear-regression"><i class="fa fa-check"></i><b>8.2</b> Regression modelling: why not linear regression?</a></li>
-<li class="chapter" data-level="8.3" data-path="categorical-variables-and-logistic-regression.html"><a href="categorical-variables-and-logistic-regression.html#logistic-regression"><i class="fa fa-check"></i><b>8.3</b> Logistic regression</a></li>
-<li class="chapter" data-level="8.4" data-path="categorical-variables-and-logistic-regression.html"><a href="categorical-variables-and-logistic-regression.html#fitting-logistic-regression"><i class="fa fa-check"></i><b>8.4</b> Fitting logistic regression</a></li>
-<li class="chapter" data-level="8.5" data-path="categorical-variables-and-logistic-regression.html"><a href="categorical-variables-and-logistic-regression.html#interactions"><i class="fa fa-check"></i><b>8.5</b> Interactions</a></li>
-<li class="chapter" data-level="8.6" data-path="categorical-variables-and-logistic-regression.html"><a href="categorical-variables-and-logistic-regression.html#assessing-model-fit-confusion-matrix"><i class="fa fa-check"></i><b>8.6</b> Assessing model fit: confusion matrix</a></li>
-<li class="chapter" data-level="8.7" data-path="categorical-variables-and-logistic-regression.html"><a href="categorical-variables-and-logistic-regression.html#lab-exercises-2"><i class="fa fa-check"></i><b>8.7</b> Lab Exercises</a></li>
-<li class="chapter" data-level="8.8" data-path="categorical-variables-and-logistic-regression.html"><a href="categorical-variables-and-logistic-regression.html#further-resources-2"><i class="fa fa-check"></i><b>8.8</b> Further resources</a></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="statistical-inference.html"><a href="statistical-inference.html"><i class="fa fa-check"></i><b>9</b> Statistical Inference</a>
-<ul>
-<li class="chapter" data-level="9.1" data-path="statistical-inference.html"><a href="statistical-inference.html#introduction-4"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
-<li class="chapter" data-level="9.2" data-path="statistical-inference.html"><a href="statistical-inference.html#brief-theoretical-overview"><i class="fa fa-check"></i><b>9.2</b> Brief theoretical overview</a>
-<ul>
-<li class="chapter" data-level="" data-path="statistical-inference.html"><a href="statistical-inference.html#sampling-distribution-central-limit-theorem"><i class="fa fa-check"></i>Sampling distribution &amp; Central limit theorem</a></li>
-<li class="chapter" data-level="" data-path="statistical-inference.html"><a href="statistical-inference.html#statistical-inference-confidence-intervals"><i class="fa fa-check"></i>Statistical inference: confidence intervals</a></li>
-<li class="chapter" data-level="" data-path="statistical-inference.html"><a href="statistical-inference.html#statistical-inference-hypothesis-testing"><i class="fa fa-check"></i>Statistical inference: hypothesis testing</a></li>
-</ul></li>
-<li class="chapter" data-level="9.3" data-path="statistical-inference.html"><a href="statistical-inference.html#statistical-inference-in-practice"><i class="fa fa-check"></i><b>9.3</b> Statistical inference in practice</a>
-<ul>
-<li class="chapter" data-level="" data-path="statistical-inference.html"><a href="statistical-inference.html#means-and-proportions"><i class="fa fa-check"></i>Means and proportions</a></li>
-<li class="chapter" data-level="" data-path="statistical-inference.html"><a href="statistical-inference.html#statistical-inference-in-linear-regression-models"><i class="fa fa-check"></i>Statistical inference in linear regression models</a></li>
-<li class="chapter" data-level="" data-path="statistical-inference.html"><a href="statistical-inference.html#statistical-inference-in-multiple-linear-regression-models"><i class="fa fa-check"></i>Statistical inference in multiple linear regression models</a></li>
-<li class="chapter" data-level="" data-path="statistical-inference.html"><a href="statistical-inference.html#presenting-results-from-regression-analysis"><i class="fa fa-check"></i>Presenting results from regression analysis</a></li>
-<li class="chapter" data-level="" data-path="statistical-inference.html"><a href="statistical-inference.html#statistical-inference-in-logistic-regression-models"><i class="fa fa-check"></i>Statistical inference in logistic regression models</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="wrapping-up.html"><a href="wrapping-up.html"><i class="fa fa-check"></i><b>10</b> Wrapping up</a>
-<ul>
-<li class="chapter" data-level="10.1" data-path="wrapping-up.html"><a href="wrapping-up.html#tips-for-the-assignment"><i class="fa fa-check"></i><b>10.1</b> Tips for the assignment</a></li>
-<li class="chapter" data-level="10.2" data-path="wrapping-up.html"><a href="wrapping-up.html#summarising-your-variables"><i class="fa fa-check"></i><b>10.2</b> Summarising your variables</a></li>
-<li class="chapter" data-level="10.3" data-path="wrapping-up.html"><a href="wrapping-up.html#some-final-words"><i class="fa fa-check"></i><b>10.3</b> Some final words</a></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i><b>11</b> Appendix</a>
-<ul>
-<li class="chapter" data-level="11.0.1" data-path="appendix.html"><a href="appendix.html#expected-frequencies"><i class="fa fa-check"></i><b>11.0.1</b> Expected frequencies</a></li>
-<li class="chapter" data-level="11.1" data-path="appendix.html"><a href="appendix.html#logistic-regression-1"><i class="fa fa-check"></i><b>11.1</b> Logistic regression</a>
-<ul>
-<li class="chapter" data-level="11.1.1" data-path="appendix.html"><a href="appendix.html#fitting-logistic-regression-alternative"><i class="fa fa-check"></i><b>11.1.1</b> Fitting logistic regression: alternative</a></li>
-<li class="chapter" data-level="11.1.2" data-path="appendix.html"><a href="appendix.html#assessing-model-fit-deviance-and-pseudo-r-squared"><i class="fa fa-check"></i><b>11.1.2</b> Assessing model fit: deviance and pseudo r squared</a></li>
-<li class="chapter" data-level="11.1.3" data-path="appendix.html"><a href="appendix.html#assessing-model-fit-roc-curves"><i class="fa fa-check"></i><b>11.1.3</b> Assessing model fit: ROC curves</a></li>
+<li class="chapter" data-level="3.1.1" data-path="appendix.html"><a href="appendix.html#fitting-logistic-regression-alternative"><i class="fa fa-check"></i><b>3.1.1</b> Fitting logistic regression: alternative</a></li>
+<li class="chapter" data-level="3.1.2" data-path="appendix.html"><a href="appendix.html#assessing-model-fit-deviance-and-pseudo-r-squared"><i class="fa fa-check"></i><b>3.1.2</b> Assessing model fit: deviance and pseudo r squared</a></li>
+<li class="chapter" data-level="3.1.3" data-path="appendix.html"><a href="appendix.html#assessing-model-fit-roc-curves"><i class="fa fa-check"></i><b>3.1.3</b> Assessing model fit: ROC curves</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -318,10 +218,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="causality-in-social-sciences" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> Causality in Social Sciences<a href="getting-to-know-your-data.html#causality-in-social-sciences" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In today’s session, we will refresh themes you have explored in previous research methods courses, specifically causality. This is a central concept in empirical research. We often do research because we want to make causal inferences. We want to be in a position where we establish whether an intervention or a social process is causally linked to crime or some other relevant criminological outcome.</p>
-<p>Making causal inferences often involves making comparisons. For example, between cases that have been subject to an intervention and cases that have not been subject to the causal process we are trying to investigate. But you should already know that not all kinds of research comparisons are the same. In previous methods courses, you must have discussed the differences between experimental and observational studies. These different kinds of research designs have a bearing on your ability to make causal inferences.</p>
-<p>Let’s think about a specific case so that this makes more sense. Is there discrimination against former offenders in the labour market? In other words, are offenders less likely to find employment after release because of prejudice among employers? Or can we say that the fact that former offenders are less likely to be in employment may be due to other factors? Perhaps they are less skilled. Perhaps they have less social capital, people they know that can help them to get jobs or to learn about job opportunities. Perhaps they are less interested in finding employment?</p>
+<p>Making causal inferences often involves making comparisons. For example, between cases that have been subject to an intervention and cases that have <em>not</em> been subject to the intervention (the causal process we are trying to investigate). But you should already know that not all kinds of research comparisons are the same. In previous methods courses, you must have discussed the differences between experimental and observational studies. These different kinds of research designs have a bearing on your ability to make causal inferences.</p>
+<p>Let’s think about a specific case so that this makes more sense. Is there discrimination against former offenders in the labour market? In other words, are offenders less likely to find employment after release because of prejudice among employers? Or can we say that the fact that former offenders are less likely to be in employment may be due to other factors? Perhaps they are less skilled. Perhaps they have less social capital: people they know that can help them to get jobs or to learn about job opportunities. Perhaps they are less interested in finding employment?</p>
 <p>Only in comparisons, when other things are equal, can you make causal inferences. It would only be fair to compare John, an ex-offender with a high school degree and X number of personal connections and Y numbers of professional experience, with Peter, a non-ex-offender, with the same educational and professional credentials as John (and everything else that matters when getting jobs also being equal between Peter and John).</p>
-<p>How can you do that? How can you create situations when other things are equal? Well, that’s what courses in research design are oriented to teach you. What is important for you to remember is that the way data are generated and the way you do your study will, of course, affect the kind of interpretations that you make from your statistical comparisons. And not all studies are created equal. Some research designs put you in a better position than others to make causal inferences.</p>
+<p>How can you do that? How can you create situations when other things are equal? Well, that’s what courses in research design are designed to teach you. What is important for you to remember is that the way data are generated and the way you do your study will, of course, affect the kind of interpretations that you make from your statistical comparisons. And not all studies are created equal. Some research designs put you in a better position than others to make causal inferences.</p>
 <p>You should have learnt by now that the <a href="https://link.springer.com/article/10.1007/s11292-005-3538-2">“bronze” standard</a> for establishing causality in the social sciences is the randomised experiment. In a randomised trial, the researchers change the causal variable of interest for a group using something like a coin toss. As Angrist and Pischke (2015: xiii) highlight:</p>
 <p><em>“By changing circumstances randomly, we make it highly likely that the variable of interest is unrelated to the many other factors determining the outcomes we mean to study… Random manipulation makes other things equal hold on average across the groups that did and did not experience manipulation”</em></p>
 <p>So, say you want to establish whether arresting a perpetrator may have a deterrent effect on subsequent domestic abuse. You could randomise, basically using the equivalent of a lottery, to decide whether the police officer is going to arrest the perpetrator or not and then compare those you arrest with those you don’t arrest. Because you are randomising your treatment (the arrest), on average, the treatment and the control group, in the long run, should be fairly similar, and any differences you observe between them in the outcome of interest (domestic abuse recidivism) you could link it to your intervention -if you are interested in the answer to this you can read about it <a href="https://www.ojp.gov/pdffiles1/nij/188199.pdf">here</a>.</p>
@@ -329,21 +229,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="getting-data-thanks-to-reproducibility" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Getting data thanks to reproducibility<a href="getting-to-know-your-data.html#getting-data-thanks-to-reproducibility" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Last week we introduced the notion of reproducible research and said that using and publishing code (particularly if using open-source tools like R) is the way that <a href="https://osf.io/?gclid=EAIaIQobChMIq-jM6MuY2QIV7Z3tCh04vAycEAAYASAAEgLptPD_BwE">many researchers</a> around the world think that science ought to be done. This way of operating makes research more open, more credible, and more legitimate. It also means that we can more easily access the data used in published research. For this session, we are going to use the data from <a href="https://academic.oup.com/qje/article/133/1/191/4060073">this</a> and <a href="https://pubs.aeaweb.org/doi/pdfplus/10.1257/aer.p20171003">this paper</a> study. In this research project, the authors tried to answer the question of whether criminal antecedents and other personal characteristics have an impact on access to employment. You can find more details about this work in <a href="https://www.probablecausation.com/podcasts/episode-8-amanda-agan">episode 8</a> of <em>Probable Causation</em>, the criminology podcast.</p>
+<p>Last week we introduced the notion of reproducible research and said that using and publishing code (particularly if using open-source tools like R) is the way that <a href="https://osf.io/?gclid=EAIaIQobChMIq-jM6MuY2QIV7Z3tCh04vAycEAAYASAAEgLptPD_BwE">many researchers</a> around the world think that science ought to be done. This way of operating makes research more open, more credible, and more legitimate. It also means that we can more easily access the data used in published research. For this session, we are going to use the data from <a href="https://academic.oup.com/qje/article/133/1/191/4060073">this</a> and <a href="https://pubs.aeaweb.org/doi/pdfplus/10.1257/aer.p20171003">this paper</a> study. In this research project, the authors tried to answer the question of whether criminal antecedents (e.g., prior convinctions) and other personal characteristics have an impact on access to employment. You can find more details about this work in <a href="https://www.probablecausation.com/podcasts/episode-8-amanda-agan">episode 8</a> of <em>Probable Causation</em>, the criminology podcast.</p>
 <p>If you want to know more about ‘Ban the Box: fair chance recruitment’ practices in the UK, you can find more information <a href="https://recruit.unlock.org.uk/homepage/fair-chance-recruitment/">here</a> and also can watch this short video from Leo Burnett who helped promote giving people a chance to explain their past. This could give you a better understanding of this issue.</p>
 <iframe src="https://www.youtube.com/embed/eM1nVA6hwlI" width="672" height="400px" data-external="1">
 </iframe>
 <p><a href="https://economics.cornell.edu/amanda-agan">Amanda Agan</a> and <a href="https://www.law.uchicago.edu/faculty/starr">Sonja Starr</a> developed a randomised experiment in which they created 15,220 fake resumes randomly generating these critical characteristics (such as having a criminal record) and used these resumes to send online job applications to low-skill, entry-level job openings in New Jersey and New York City. All the fictitious applicants were male and about 21 to 22 years old. These kinds of experiments are very common among researchers who want to explore through these “audits” whether some personal characteristics are discriminated against in the labour market.</p>
 <p>Because Amanda Agan and Sonja Starr conformed to reproducible standards when doing their research, we can access this data from the <em>Harvard Dataverse</em> (a repository for open research data). Click <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/VPHMNT">here</a> to locate the data.</p>
 <p><img src="imgs/harvarddataverse.PNG" /></p>
-<p>On this page, you can see a download section and some files that can be accessed. One of them contains analytic code pertaining to the study, and the other contains the data. You also see a link called <strong>metadata</strong>. Metadata is data about data, it simply provides you with some information about the data. If you click on metadata, you will see a reference to the software the authors used (STATA) at the bottom. So we know these files are in <a href="https://www.stata.com/">STATA</a> proprietary format. Let’s download the data file and then read the data into R.</p>
+<p>On this page, you can see a download section and some files that can be accessed. One of them contains analytic code pertaining to the study, and the other contains the data. You also see a link called <strong>metadata</strong>. Metadata is data about data – it provides you with some information about the data. If you click on metadata, you will see a reference to the software the authors used (STATA) at the bottom. So we know these files are in <a href="https://www.stata.com/">STATA</a>, a proprietary format. Let’s download the data file and then read the data into R.</p>
 <p>You could just click “download” and then place the file in your project directory. Alternatively, and preferably, you may want to use code to make your whole work more reproducible. Think of it this way: every time you click or use drop-down menus, you are doing things that others cannot reproduce because there won’t be a written record of your steps. You will need to do some clicking to find the required URL for writing your code. The file we want is the <code>AganStarrQJEData.dta</code>. Click on the name of this file. You will be taken to another webpage. You will see the download URL on it. Copy and paste this URL into your code below.</p>
 <div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="getting-to-know-your-data.html#cb70-1" tabindex="-1"></a><span class="co">#First, let&#39;s import the data using an URL address:</span></span>
 <span id="cb70-2"><a href="getting-to-know-your-data.html#cb70-2" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
 <span id="cb70-3"><a href="getting-to-know-your-data.html#cb70-3" tabindex="-1"></a>banbox <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">&quot;https://dataverse.harvard.edu/api/access/datafile/3036350&quot;</span>)</span>
 <span id="cb70-4"><a href="getting-to-know-your-data.html#cb70-4" tabindex="-1"></a></span>
 <span id="cb70-5"><a href="getting-to-know-your-data.html#cb70-5" tabindex="-1"></a><span class="do">##Window users! R in Windows has some problems with HTTPS addresses; </span></span>
-<span id="cb70-6"><a href="getting-to-know-your-data.html#cb70-6" tabindex="-1"></a><span class="co">#that&#39;s why we need to do this first:</span></span></code></pre></div>
+<span id="cb70-6"><a href="getting-to-know-your-data.html#cb70-6" tabindex="-1"></a><span class="co">#see below for some tips on this!</span></span></code></pre></div>
 <p>This data file is a STATA.dta file in our working directory. To read STATA files, we will need the <em>haven</em> package. This is a package developed to import different kinds of data files into R. If you don’t have it, you will need to install it. And then load it.</p>
 <div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="getting-to-know-your-data.html#cb71-1" tabindex="-1"></a><span class="do">##IF THE CODE ABOVE DOES NOT WORK, USE THIS CODE.</span></span>
 <span id="cb71-2"><a href="getting-to-know-your-data.html#cb71-2" tabindex="-1"></a><span class="do">##Window users! R in Windows have some problems with https addresses, </span></span>
@@ -354,7 +254,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb71-7"><a href="getting-to-know-your-data.html#cb71-7" tabindex="-1"></a><span class="co">#Now we can use the &#39;read_dta&#39; and &#39;url&#39; functions and import the data in the urlfile link</span></span>
 <span id="cb71-8"><a href="getting-to-know-your-data.html#cb71-8" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
 <span id="cb71-9"><a href="getting-to-know-your-data.html#cb71-9" tabindex="-1"></a>banbox <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="fu">url</span>(urlfile))</span></code></pre></div>
-<p>You will need to pay attention to the file extension to find the appropriate function to read in your file. For example, if something has the extension <code>.sav</code>, it is a file used by the software SPSS. To read this, you would use the <code>read_spss()</code> function in the haven package.</p>
+<p>You will need to pay attention to the file extension to find the appropriate function to read in your file. For example, if something has the extension <code>.sav</code>, it is a file used by the software SPSS. To read this, for example, you would use the <code>read_spss()</code> function in the haven package.</p>
 <p>Some other file types need other packages. For example, to read in comma-separated values or <code>.csv</code> files, you can use the <code>read_csv()</code> function from the <code>readr</code> package. To read in Excel files, you would use the appropriate function from the <code>readxl</code> package, which might be <code>read_xls()</code> or <code>read_xlsx()</code>, depending on the file extension.</p>
 </div>
 <div id="getting-a-sense-of-your-data" class="section level2 hasAnchor" number="2.3">
@@ -400,7 +300,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>You also want to understand what the banbox object actually is. You can do that using the <code>class()</code> function:</p>
 <div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="getting-to-know-your-data.html#cb77-1" tabindex="-1"></a><span class="fu">class</span>(banbox)</span></code></pre></div>
 <pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
-<p>What does <code>tbl</code> stand for? It refers to <strong>tibbles</strong>. This is essentially a new type of data structure introduced into R. Tibbles <em>are</em> data frames, but a particular type. Not all data frames we encounter in R are tibbles.</p>
+<p>What does <code>tbl</code> stand for? It refers to <strong>tibbles</strong>. This is essentially a new type of data structure introduced into R. Tibbles <em>are</em> data frames, but a particular type. There are some advantages to tibbles, but honestly, they’re not that important. For now, you can just think of tibbles as data frames (and vice versa).</p>
 <p>The R language has been around for a while, and sometimes, things that made sense a couple of decades ago make less sense now. A number of programmers are trying to create code that is more modern and more useful today. They are doing this by introducing a set of packages that speak to each other in order to modernise R without breaking existing code. You can think of it as an easier and more efficient modern dialect of R. This set of packages is called the <strong>tidyverse</strong>. Tibbles are data frames that have been optimised for use with this new set of packages. You can read a bit more about tibbles <a href="http://r4ds.had.co.nz/tibbles.html">here</a>.</p>
 <p>You can also look at the class of each individual column. As discussed, the class of the variable lets us know, for example, if it is an integer (number), character, or factor.</p>
 <p>To get the class of one variable, you pass it to the <code>class()</code> function. For example:</p>
@@ -516,11 +416,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The result is a logical vector that tells us if it is true that there is missing (NA) data for each of those first ten observations. You can see that there are 6 observations out of those 10 that have missing values for this variable.</p>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="getting-to-know-your-data.html#cb111-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(banbox<span class="sc">$</span>response_black)) </span></code></pre></div>
 <pre><code>## [1] 7406</code></pre>
-<p>This is asking R to sum up how many cases are TRUE NA in this variable. When reading a logical vector like the one we are creating, R will treat the FALSE elements as 0s and the TRUE elements as 1s. So basically, the sum() function will count the number of TRUE cases returned by the is.na() function.</p>
+<p>The above is asking R to sum up how many cases are TRUE NA in this variable. When reading a logical vector like the one we are creating, R will treat the FALSE elements as 0s and the TRUE elements as 1s. So basically, the sum() function will count the number of TRUE cases returned by the is.na() function.</p>
 <p>You can use a bit of a hack to get the proportion of missing cases instead of the count:</p>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="getting-to-know-your-data.html#cb113-1" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">is.na</span>(banbox<span class="sc">$</span>response_black))</span></code></pre></div>
 <pre><code>## [1] 0.4999662</code></pre>
-<p>This code exploits the mathematical fact that the mean of binary outcomes (0 or 1) gives you the proportion of ones in your data. As a rule of thumb, if you see more than 5% of the cases declared as NA, you need to start thinking about the implications of this. Beware of formulaic application of rules of thumb such as this, though! In this case, we know that 49%% of the observations have missing values in this variable. When you see things like this the first thing to do is to look at the codebook or documentation to try to get some clues as to why there are so many missing cases. With survey data, you often have questions that are simply not asked to everybody, so it’s not necessarily that something went very wrong with the data collection but simply that the variable in question was only used with a subset of the sample. Therefore, any analysis you do using this question will only relate to that particular subset of cases.</p>
+<p>This code exploits the mathematical fact that the mean of binary outcomes (0 or 1) gives you the proportion of ones in your data. You could verify this in R using a different method, if you’d like (remember that trying stuff out, making mistakes and getting errors is just part of the process of learning R!).</p>
+<p>As a rule of thumb, if you see more than 5% of the cases declared as NA, you need to start thinking about the implications of this. Beware of formulaic application of rules of thumb such as this, though! In this case, we know that 49%% of the observations have missing values in this variable. When you see things like this the first thing to do is to look at the codebook or documentation to try to get some clues as to why there are so many missing cases. With survey data, you often have questions that are simply not asked to everybody, so it’s not necessarily that something went very wrong with the data collection but simply that the variable in question was only used with a subset of the sample. Therefore, any analysis you do using this question will only relate to that particular subset of cases.</p>
 <p>There is a whole field of statistics devoted to doing analysis when missing data is a problem. R has extensive capabilities for dealing with missing data -see, for example <a href="https://www.routledge.com/Flexible-Imputation-of-Missing-Data-Second-Edition/Buuren/p/book/9781032178639">here</a>. For the purpose of this introductory course, however, we only explain how to do analysis that ignores missing data. This is often referred to as a <strong>full/complete case analysis</strong> because you only use observations for which you have full information in all the variables you employ. You would cover techniques for dealing with this sort of issue in more advanced courses.</p>
 </div>
 </div>
@@ -529,7 +430,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The data analysis workflow has a number of stages. The diagram below (produced by Hadley Wickham) is a nice illustration of this process:</p>
 <p><img src="imgs/data-science-explore.png" /></p>
 <p>We have started to see different ways of bringing data into R. And we have also started to see how we can explore our data. It is now time we start discussing one of the following stages, <strong>transform</strong>. A good deal of time and effort, in data analysis, is devoted to this. You get your data, and then you have to transform it so that you can answer the questions you want to address in your research. We have already seen, for example, how to turn variables into factors, but there are other things you may want to do.</p>
-<p>R offers a great deal of flexibility in how to transform your data; here, we are going to illustrate some of the functionality of the <em>dplyr</em> package for data carpentry (a term people use to refer to this kind of operation). This package is part of the tydiverse and it aims to provide a friendly and modern take on how to work with data frames (or tibbles) in R. It offers, as the authors of the package put it, “a flexible grammar of data manipulation”.</p>
+<p>R offers a great deal of flexibility in how to transform your data; here, we are going to illustrate some of the functionality of the <em>dplyr</em> package for data carpentry (a term people use to refer to this kind of operation). This package is part of the tidyverse and it aims to provide a friendly and modern take on how to work with data frames (or tibbles) in R. It offers, as the authors of the package put it, “a flexible grammar of data manipulation”.</p>
 <p>Dplyr aims to provide a function for each basic verb of data manipulation:</p>
 <ul>
 <li><code>filter()</code> to select cases based on their values.</li>
@@ -542,7 +443,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In this session, we will introduce and practice some of these. But we won’t have time to cover everything. There is, however, a very nice set of vignettes for this package in the help files, so you can try to go through those if you want a greater degree of detail or more practice.</p>
 <p>Now, let’s load the package:</p>
 <div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="getting-to-know-your-data.html#cb115-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.3.3</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;dplyr&#39;</code></pre>
 <pre><code>## The following objects are masked from &#39;package:stats&#39;:
@@ -552,50 +452,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
 <p>Notice that when you run this package you get a series of warnings in the console. It is telling us that some functions from certain packages are being “masked”. One of the things with a language like R is that sometimes packages introduce functions that have the same name as others that are already loaded into your session. When that happens, the newly loaded ones will override the previous ones. You can still use them, but you will have to refer to them explicitly. Otherwise, R will assume you are using the function most recently loaded:</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="getting-to-know-your-data.html#cb120-1" tabindex="-1"></a><span class="co">#Example:</span></span>
-<span id="cb120-2"><a href="getting-to-know-your-data.html#cb120-2" tabindex="-1"></a><span class="co">#If you use load dplyr and then invoke the *filter()* function</span></span>
-<span id="cb120-3"><a href="getting-to-know-your-data.html#cb120-3" tabindex="-1"></a><span class="co">#R will assume you are using the filter function from dplyr</span></span>
-<span id="cb120-4"><a href="getting-to-know-your-data.html#cb120-4" tabindex="-1"></a><span class="co">#rather than the *filter()* function that exist in the *stats*</span></span>
-<span id="cb120-5"><a href="getting-to-know-your-data.html#cb120-5" tabindex="-1"></a><span class="co">#package, which is part of the basic installation of R. If </span></span>
-<span id="cb120-6"><a href="getting-to-know-your-data.html#cb120-6" tabindex="-1"></a><span class="co">#after loading dplyr you want to use the filter function from</span></span>
-<span id="cb120-7"><a href="getting-to-know-your-data.html#cb120-7" tabindex="-1"></a><span class="co">#the stats package, you will have to invoke it like this:</span></span>
-<span id="cb120-8"><a href="getting-to-know-your-data.html#cb120-8" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">filter</span>()</span>
-<span id="cb120-9"><a href="getting-to-know-your-data.html#cb120-9" tabindex="-1"></a><span class="co">#Notice the grammar, first you write the name of the package,</span></span>
-<span id="cb120-10"><a href="getting-to-know-your-data.html#cb120-10" tabindex="-1"></a><span class="co">#then colon twice, and then the name of the function. Don&#39;t </span></span>
-<span id="cb120-11"><a href="getting-to-know-your-data.html#cb120-11" tabindex="-1"></a><span class="co">#run this code. You would need to pass some valid arguments</span></span>
-<span id="cb120-12"><a href="getting-to-know-your-data.html#cb120-12" tabindex="-1"></a><span class="co">#for this to produce meaningful results.</span></span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="getting-to-know-your-data.html#cb119-1" tabindex="-1"></a><span class="co">#Example:</span></span>
+<span id="cb119-2"><a href="getting-to-know-your-data.html#cb119-2" tabindex="-1"></a><span class="co">#If you use load dplyr and then invoke the *filter()* function</span></span>
+<span id="cb119-3"><a href="getting-to-know-your-data.html#cb119-3" tabindex="-1"></a><span class="co">#R will assume you are using the filter function from dplyr</span></span>
+<span id="cb119-4"><a href="getting-to-know-your-data.html#cb119-4" tabindex="-1"></a><span class="co">#rather than the *filter()* function that exist in the *stats*</span></span>
+<span id="cb119-5"><a href="getting-to-know-your-data.html#cb119-5" tabindex="-1"></a><span class="co">#package, which is part of the basic installation of R. If </span></span>
+<span id="cb119-6"><a href="getting-to-know-your-data.html#cb119-6" tabindex="-1"></a><span class="co">#after loading dplyr you want to use the filter function from</span></span>
+<span id="cb119-7"><a href="getting-to-know-your-data.html#cb119-7" tabindex="-1"></a><span class="co">#the stats package, you will have to invoke it like this:</span></span>
+<span id="cb119-8"><a href="getting-to-know-your-data.html#cb119-8" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">filter</span>()</span>
+<span id="cb119-9"><a href="getting-to-know-your-data.html#cb119-9" tabindex="-1"></a><span class="co">#Notice the grammar, first you write the name of the package,</span></span>
+<span id="cb119-10"><a href="getting-to-know-your-data.html#cb119-10" tabindex="-1"></a><span class="co">#then colon twice, and then the name of the function. Don&#39;t </span></span>
+<span id="cb119-11"><a href="getting-to-know-your-data.html#cb119-11" tabindex="-1"></a><span class="co">#run this code. You would need to pass some valid arguments</span></span>
+<span id="cb119-12"><a href="getting-to-know-your-data.html#cb119-12" tabindex="-1"></a><span class="co">#for this to produce meaningful results.</span></span></code></pre></div>
 </div>
 <div id="using-dplyr-single-verbs" class="section level2 hasAnchor" number="2.5">
 <h2><span class="header-section-number">2.5</span> Using dplyr single verbs<a href="getting-to-know-your-data.html#using-dplyr-single-verbs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>One of the first operations you may want to carry out when working with data frames is to subset them based on the values of particular variables. Say we want to replicate the results reported by Agan and Starr in 2017. In this earlier paper, these researchers only used data from the period prior to the introduction of Ban the Box legislation and only used data from businesses that asked about criminal records in their online applications. How can we recreate this dataset?</p>
 <p>For this kind of operation, we use the <code>filter()</code> function. Like all single verbs in dplyr, the first argument is the tibble (or data frame). The second and subsequent arguments refer to variables within that data frame, selecting rows where the expression is TRUE.</p>
-<p>Ok, let’s filter out some information we are interested in from <code>bandbox</code>. If we look at the dataset, we can see that there is a variable called “crimbox” that identifies ‘applications that require information about criminal antecedents’ and there is a variable called “pre” that identifies ‘whether the application was sent before the legislation was introduced’. In this dataset, the value 1 is being used to denote positive responses. Therefore, if we want to create the 2017 dataset, we would start by selecting only data where the value in these two variables equals 1 as shown below.</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="getting-to-know-your-data.html#cb121-1" tabindex="-1"></a><span class="co">#We will store the results of filtering the data in a new object that I am calling aer  </span></span>
-<span id="cb121-2"><a href="getting-to-know-your-data.html#cb121-2" tabindex="-1"></a><span class="co">#(short for the name of the journal in which the paper was published)</span></span>
-<span id="cb121-3"><a href="getting-to-know-your-data.html#cb121-3" tabindex="-1"></a></span>
-<span id="cb121-4"><a href="getting-to-know-your-data.html#cb121-4" tabindex="-1"></a>aer2017<span class="ot">&lt;-</span> <span class="fu">filter</span>(banbox, crimbox <span class="sc">==</span> <span class="dv">1</span>, pre <span class="sc">==</span> <span class="dv">1</span>)</span></code></pre></div>
+<p>Ok, let’s filter out some information we are interested in from <code>bandbox</code>. If we look at the dataset, we can see that there is a variable called “crimbox” that identifies ‘applications that require information about criminal antecedents’ and there is a variable called “pre” that identifies ‘whether the application was sent before the legislation was introduced’. In this dataset, the value 1 is being used to denote positive responses. Therefore, if we want to create the 2017 dataset, we would start by selecting only data where the value in these two variables equals 1, as shown below.</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="getting-to-know-your-data.html#cb120-1" tabindex="-1"></a><span class="co">#We will store the results of filtering the data in a new object that I am calling aer  </span></span>
+<span id="cb120-2"><a href="getting-to-know-your-data.html#cb120-2" tabindex="-1"></a><span class="co">#(short for the name of the journal in which the paper was published)</span></span>
+<span id="cb120-3"><a href="getting-to-know-your-data.html#cb120-3" tabindex="-1"></a></span>
+<span id="cb120-4"><a href="getting-to-know-your-data.html#cb120-4" tabindex="-1"></a>aer2017<span class="ot">&lt;-</span> <span class="fu">filter</span>(banbox, crimbox <span class="sc">==</span> <span class="dv">1</span>, pre <span class="sc">==</span> <span class="dv">1</span>)</span></code></pre></div>
 <p>Notice that the number of cases equals the number of cases reported by the authors in their 2017 paper. That’s cool! So far, we have replicated the results.</p>
 <p>You may have noticed in the code above that I wrote “<code>==</code>” instead of “<code>=</code>”. Logical operators in R are not written exactly the same way as in normal practice. Keep this in mind when you get error messages when running your code. Often, the source of your error may be that you are writing the logical operators the wrong way (as far as R is concerned). Look <a href="https://www.statmethods.net/management/operators.html">here</a> for valid logic operators in R.</p>
 <p>Earlier, we said that real-life data may have hundreds of variables, and only a few of them may be relevant to your analysis. For this week’s analysis, we want to select only a few variables that might be highly related to ‘Discrimination in Employment’. Say you only want “crime”, “ged” (a ged is a high school equivalence diploma rather than a proper high school diploma and is sometimes seen as inferior), “empgap” (a gap year on employment), “black_f”, “response”, and “daystoresponse” from this dataset. For this kind of operation, you use the <code>select()</code> function.</p>
 <p>The syntax of this function is easy. First, we name the data frame object (“aer2017”), and then we list the variables. The order in which we list the variables within the select function will determine the order in which those columns appear in the new data frame we are creating. So, this is a handy function to use if you want to change the order of your columns for some reason. Since I am pretty confident I am not making a mistake, I will transform the original “aer2017” tibble rather than creating an entirely new object.</p>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="getting-to-know-your-data.html#cb122-1" tabindex="-1"></a>aer2017 <span class="ot">&lt;-</span> <span class="fu">select</span>(aer2017, crime, ged, empgap, black_f, response, daystoresponse)</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="getting-to-know-your-data.html#cb121-1" tabindex="-1"></a>aer2017 <span class="ot">&lt;-</span> <span class="fu">select</span>(aer2017, crime, ged, empgap, black_f, response, daystoresponse)</span></code></pre></div>
 <p>If you now look at the global environment, you will see that the “aer2017” tibble has reduced in size and now only has 6 columns. If you view the data, you will see the 6 variables we selected.</p>
 </div>
 <div id="using-dplyr-for-grouped-operations" class="section level2 hasAnchor" number="2.6">
 <h2><span class="header-section-number">2.6</span> Using dplyr for grouped operations<a href="getting-to-know-your-data.html#using-dplyr-for-grouped-operations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>So far, we have used <code>dplyr</code> single verbs for ungrouped operations. However, we can also use some of the functionality of <code>dplyr</code> to obtain answers to questions that relate to groups of cases within our data frame. Imagine that you want to know if applicants with a criminal record are less likely to receive a positive response from employers. How could you figure that one out? To answer this kind of question, we can use the <code>group_by()</code> function in conjunction with other <code>dplyr</code> functions. In particular, we are going to look at the <code>summarise</code> function.</p>
-<p>First, we group the observations by criminal record in a new object, “by_antecedents”, by using <code>as_factor()</code> in the call to the crime variable the results will be labelled later on (even though we are not changing the crime variable in the aer2017 data frame). Keep in mind we are using <code>as_factor()</code> because the column crime is a labelled vector rather than a factor or a character vector, and we do this to aid interpretation (it is easier to
+<p>First, we group the observations by criminal record in a new object, “aer2017_by_antecedent”. By using <code>as_factor()</code> in the call to the crime variable the results will be labelled later on (even though we are not changing the crime variable in the aer2017 data frame). Keep in mind that we are using <code>as_factor()</code> because the column crime is a labelled vector rather than a factor or a character vector, and we do this to aid interpretation (it is easier to
 interpret labels than 0 and 1).</p>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="getting-to-know-your-data.html#cb123-1" tabindex="-1"></a>aer2017_by_antecedent <span class="ot">&lt;-</span> <span class="fu">group_by</span>(aer2017, <span class="fu">as_factor</span>(crime))</span>
-<span id="cb123-2"><a href="getting-to-know-your-data.html#cb123-2" tabindex="-1"></a></span>
-<span id="cb123-3"><a href="getting-to-know-your-data.html#cb123-3" tabindex="-1"></a><span class="co">#Then we run the summarise function to provide some useful</span></span>
-<span id="cb123-4"><a href="getting-to-know-your-data.html#cb123-4" tabindex="-1"></a><span class="co">#summaries of the groups we are using: the number of cases</span></span>
-<span id="cb123-5"><a href="getting-to-know-your-data.html#cb123-5" tabindex="-1"></a><span class="co">#and the mean of the response variable</span></span>
-<span id="cb123-6"><a href="getting-to-know-your-data.html#cb123-6" tabindex="-1"></a>results_1 <span class="ot">&lt;-</span> <span class="fu">summarise</span>(aer2017_by_antecedent,</span>
-<span id="cb123-7"><a href="getting-to-know-your-data.html#cb123-7" tabindex="-1"></a>  <span class="at">count =</span> <span class="fu">n</span>(),</span>
-<span id="cb123-8"><a href="getting-to-know-your-data.html#cb123-8" tabindex="-1"></a>  <span class="at">outcome =</span> <span class="fu">mean</span>(response, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb123-9"><a href="getting-to-know-your-data.html#cb123-9" tabindex="-1"></a></span>
-<span id="cb123-10"><a href="getting-to-know-your-data.html#cb123-10" tabindex="-1"></a>results_1 <span class="co">#auto-print the results stored in the newly created object</span></span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="getting-to-know-your-data.html#cb122-1" tabindex="-1"></a>aer2017_by_antecedent <span class="ot">&lt;-</span> <span class="fu">group_by</span>(aer2017, <span class="fu">as_factor</span>(crime))</span>
+<span id="cb122-2"><a href="getting-to-know-your-data.html#cb122-2" tabindex="-1"></a></span>
+<span id="cb122-3"><a href="getting-to-know-your-data.html#cb122-3" tabindex="-1"></a><span class="co">#Then we run the summarise function to provide some useful</span></span>
+<span id="cb122-4"><a href="getting-to-know-your-data.html#cb122-4" tabindex="-1"></a><span class="co">#summaries of the groups we are using: the number of cases</span></span>
+<span id="cb122-5"><a href="getting-to-know-your-data.html#cb122-5" tabindex="-1"></a><span class="co">#and the mean of the response variable</span></span>
+<span id="cb122-6"><a href="getting-to-know-your-data.html#cb122-6" tabindex="-1"></a>results_1 <span class="ot">&lt;-</span> <span class="fu">summarise</span>(aer2017_by_antecedent,</span>
+<span id="cb122-7"><a href="getting-to-know-your-data.html#cb122-7" tabindex="-1"></a>  <span class="at">count =</span> <span class="fu">n</span>(),</span>
+<span id="cb122-8"><a href="getting-to-know-your-data.html#cb122-8" tabindex="-1"></a>  <span class="at">outcome =</span> <span class="fu">mean</span>(response, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb122-9"><a href="getting-to-know-your-data.html#cb122-9" tabindex="-1"></a></span>
+<span id="cb122-10"><a href="getting-to-know-your-data.html#cb122-10" tabindex="-1"></a>results_1 <span class="co">#auto-print the results stored in the newly created object</span></span></code></pre></div>
 <pre><code>## # A tibble: 2 × 3
 ##   `as_factor(crime)` count outcome
 ##   &lt;fct&gt;              &lt;int&gt;   &lt;dbl&gt;
@@ -607,15 +507,15 @@ interpret labels than 0 and 1).</p>
 <div id="making-comparisons-with-numerical-outcomes" class="section level2 hasAnchor" number="2.7">
 <h2><span class="header-section-number">2.7</span> Making comparisons with numerical outcomes<a href="getting-to-know-your-data.html#making-comparisons-with-numerical-outcomes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We have been looking at relationships so far between categorical variables, specifically between having a criminal record (yes or no), race (black or white), and receiving a positive response from employers (yes or no). Often, we may be interested in looking at the impact of a factor on a numerical outcome. The researchers measured such an outcome in the banbox object. The variable “daystoresponse” tells us how long it took the employers to provide a positive response. Let’s look at this variable:</p>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="getting-to-know-your-data.html#cb125-1" tabindex="-1"></a><span class="fu">summary</span>(banbox<span class="sc">$</span>daystoresponse)</span></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="getting-to-know-your-data.html#cb124-1" tabindex="-1"></a><span class="fu">summary</span>(banbox<span class="sc">$</span>daystoresponse)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
 ##    0.00    3.00   10.00   19.48   28.00  153.00   14361</code></pre>
 <p>The <code>summary()</code> function provides some useful stats for numerical variables. We obtain the minimum and maximum values, the 25th percentile, the median, the mean, the 75th percentile, and the number of missing data (NA). You can see the massive amount of missing data here. Most cases have missing data on this variable. Clearly, this is a function of, first and foremost, the fact that the number of days to receive a positive response will only be collected in cases where there was a positive response! However, even accounting for that, it is clear that this information is also missing in many cases that received a positive response. So, given all of this, we need to be very careful when interpreting this variable. However, because it is the only numeric variable here, we will use it to illustrate some handy functions.</p>
 <p>We could do as before and get results by groups. Let’s look at the impact of race on days to response:</p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="getting-to-know-your-data.html#cb127-1" tabindex="-1"></a>banbox_by_race <span class="ot">&lt;-</span> <span class="fu">group_by</span>(banbox, black_f)</span>
-<span id="cb127-2"><a href="getting-to-know-your-data.html#cb127-2" tabindex="-1"></a>results_2 <span class="ot">&lt;-</span> <span class="fu">summarise</span>(banbox_by_race,</span>
-<span id="cb127-3"><a href="getting-to-know-your-data.html#cb127-3" tabindex="-1"></a>  <span class="at">avg_delay =</span> <span class="fu">mean</span>(daystoresponse, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb127-4"><a href="getting-to-know-your-data.html#cb127-4" tabindex="-1"></a>results_2</span></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="getting-to-know-your-data.html#cb126-1" tabindex="-1"></a>banbox_by_race <span class="ot">&lt;-</span> <span class="fu">group_by</span>(banbox, black_f)</span>
+<span id="cb126-2"><a href="getting-to-know-your-data.html#cb126-2" tabindex="-1"></a>results_2 <span class="ot">&lt;-</span> <span class="fu">summarise</span>(banbox_by_race,</span>
+<span id="cb126-3"><a href="getting-to-know-your-data.html#cb126-3" tabindex="-1"></a>  <span class="at">avg_delay =</span> <span class="fu">mean</span>(daystoresponse, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb126-4"><a href="getting-to-know-your-data.html#cb126-4" tabindex="-1"></a>results_2</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 2
 ##   black_f   avg_delay
 ##   &lt;fct&gt;         &lt;dbl&gt;
@@ -623,9 +523,9 @@ interpret labels than 0 and 1).</p>
 ## 2 Black          20.4</code></pre>
 <p>We can see that the average delay seems to be longer for ‘Black’ applicants than ‘White’ applicants.</p>
 <p>However, we could also try to represent these differences graphically. The problem with comparing groups on quantitative variables using numerical summaries, such as the mean, is that these comparisons hide more than they show. We want to see the full distribution, not just the mean. For this, we are going to use <code>ggplot2</code>, the main graphical package we will use this semester. We won’t get into the details of this package or what the code below means, but just try to run it. We will cover graphics in R in the next section. This is just a taster for it.</p>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="getting-to-know-your-data.html#cb129-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb129-2"><a href="getting-to-know-your-data.html#cb129-2" tabindex="-1"></a><span class="fu">ggplot</span>(banbox, <span class="fu">aes</span>(<span class="at">y =</span> daystoresponse, <span class="at">x =</span> black_f)) <span class="sc">+</span> </span>
-<span id="cb129-3"><a href="getting-to-know-your-data.html#cb129-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="getting-to-know-your-data.html#cb128-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb128-2"><a href="getting-to-know-your-data.html#cb128-2" tabindex="-1"></a><span class="fu">ggplot</span>(banbox, <span class="fu">aes</span>(<span class="at">y =</span> daystoresponse, <span class="at">x =</span> black_f)) <span class="sc">+</span> </span>
+<span id="cb128-3"><a href="getting-to-know-your-data.html#cb128-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() </span></code></pre></div>
 <p><img src="02-causality_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
 <p>Watch <a href="https://www.khanacademy.org/math/probability/data-distributions-a1/box--whisker-plots-a1/v/reading-box-and-whisker-plots">this video</a> and see if you can interpret the results portrayed here. What do you think?</p>
 <p>Overall, the outcomes are worse for ‘Black’ applicants, and in fact, the authors find that employers substantially increase discrimination on the basis of race after ban the box goes into effect. You can now replicate these findings with the data provided. by applying the new skills you’ve learned this week!</p>
@@ -677,7 +577,7 @@ Once you finish your lab session, don't forget to do this [Exercise](https://eon
         </div>
       </div>
 <a href="a-first-lesson-about-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-visualisation-with-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="appendix.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -691,60 +591,46 @@ Once you finish your lab session, don't forget to do this [Exercise](https://eon
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": {},
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": {},
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>
