@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2026-02-09" />
+<meta name="date" content="2026-02-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -902,19 +902,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Well, what if your data does not live on your laptop or PC? Well, if there is a way that R can still access this data just by following a path, then this approach will still work!
 Tips! Please keep your folders simple. Just use one data folder for this module and do not create multiple folders such as ‘data for week 1’, ‘data for week 2’, or something like this.</p>
 <p>All data we will use in the module are on Canvas, but we will also provide the links to where we saved the data for you. You know when you right-click on the link, and select “Save As…” or whatever you click on to save? You could also select “Copy Link Address”. This just copies the webpage where this data is stored. If you want, find a csv file from a previous module on Canvas, and give this a go. Copy the address, and then paste it into your browser. It will take you to a blank page where a forced download of the data will begin. So what if you pasted this into the <code>read.csv()</code> function?</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="a-first-lesson-about-r.html#cb69-1" tabindex="-1"></a><span class="co">#example 1: when you download data directly from the webpage, </span></span>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="a-first-lesson-about-r.html#cb69-1" tabindex="-1"></a><span class="co">#example: when you download data directly from the webpage, </span></span>
 <span id="cb69-2"><a href="a-first-lesson-about-r.html#cb69-2" tabindex="-1"></a><span class="co">#you will use this code.</span></span>
 <span id="cb69-3"><a href="a-first-lesson-about-r.html#cb69-3" tabindex="-1"></a>my_dataframe <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;www.data.com/data you want to import.csv&quot;</span>)</span>
-<span id="cb69-4"><a href="a-first-lesson-about-r.html#cb69-4" tabindex="-1"></a><span class="co">#example 2: when you download data from Canvas and save it to your </span></span>
-<span id="cb69-5"><a href="a-first-lesson-about-r.html#cb69-5" tabindex="-1"></a><span class="co">#computer, you can use file.choose() </span></span>
-<span id="cb69-6"><a href="a-first-lesson-about-r.html#cb69-6" tabindex="-1"></a><span class="co">#file.choose() brings up a file explorer window that allows</span></span>
-<span id="cb69-7"><a href="a-first-lesson-about-r.html#cb69-7" tabindex="-1"></a><span class="co">#you to interactively choose a file path to work with.</span></span>
-<span id="cb69-8"><a href="a-first-lesson-about-r.html#cb69-8" tabindex="-1"></a>my_dataframe <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">file.choose</span>())</span>
-<span id="cb69-9"><a href="a-first-lesson-about-r.html#cb69-9" tabindex="-1"></a><span class="co">#example 3: if you can&#39;t find a URL from Canvas to use yet,</span></span>
-<span id="cb69-10"><a href="a-first-lesson-about-r.html#cb69-10" tabindex="-1"></a><span class="co">#you can try this random dataset. The dataset itself is irrelevant</span></span>
-<span id="cb69-11"><a href="a-first-lesson-about-r.html#cb69-11" tabindex="-1"></a><span class="co">#(although it is about UFO sightings - pretty interesting if you ask me),</span></span>
-<span id="cb69-12"><a href="a-first-lesson-about-r.html#cb69-12" tabindex="-1"></a><span class="co">#but it does show you how to load data in from a real URL.</span></span>
-<span id="cb69-13"><a href="a-first-lesson-about-r.html#cb69-13" tabindex="-1"></a>ufo_sightings <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-06-20/ufo_sightings.csv&#39;</span>)</span></code></pre></div>
+<span id="cb69-4"><a href="a-first-lesson-about-r.html#cb69-4" tabindex="-1"></a></span>
+<span id="cb69-5"><a href="a-first-lesson-about-r.html#cb69-5" tabindex="-1"></a><span class="co">#example : if you can&#39;t find a URL from Canvas to use yet,</span></span>
+<span id="cb69-6"><a href="a-first-lesson-about-r.html#cb69-6" tabindex="-1"></a><span class="co">#you can try this random dataset. The dataset itself is irrelevant</span></span>
+<span id="cb69-7"><a href="a-first-lesson-about-r.html#cb69-7" tabindex="-1"></a><span class="co">#(although it is about UFO sightings - pretty interesting if you ask me),</span></span>
+<span id="cb69-8"><a href="a-first-lesson-about-r.html#cb69-8" tabindex="-1"></a><span class="co">#but it does show you how to load data in from a real URL.</span></span>
+<span id="cb69-9"><a href="a-first-lesson-about-r.html#cb69-9" tabindex="-1"></a>ufo_sightings <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-06-20/ufo_sightings.csv&#39;</span>)</span></code></pre></div>
 <p>In the first example, the my_dataframe object would be assigned the value returned from the read.csv() function reading in the file from the ‘URL’ link you provided. File path is no mysterious thing, file path is simply the <em>path</em> to the <em>file</em> you want to read. If this is a website, then so be it.</p>
 <p>R also can read Stata (.dta) files using the <code>read_dta()</code> function in the Haven package and SPSS (.sav) files using the <code>read_spss()</code> function also in the Haven Package. There are so many different codes we can use to import data into R. In this course, you will learn one by one!</p>
 </div>
