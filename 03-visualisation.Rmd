@@ -66,22 +66,22 @@ library(readr)
 fbo <- read_csv("https://raw.githubusercontent.com/uom-resquant/modelling_book/refs/heads/master/datasets/FootbalBanningOrders.csv")
 ```
 
-You can also find this on the Blackboard page for this week's learning materials. If you download it from there, make sure to save it in your project directory, possibly in a subfolder called "Datasets." Then, you can read it from there.
+You can also find this on the Canvas page for this week's learning materials. If you download it from there, make sure to save it in your project directory, possibly in a subfolder called "Data". Then, you can read it from there.
 
-One thing we mentioned from the first lab is conventions in the naming of objects. This also applies to the names of your variables (i.e. your column names) within your data. If you look at the fbo data frame, either with the `View()` function or by printing the names of the columns with the `names()` function, you can see this dataset violates that requirement: 
+One thing we mentioned in the first lab was the conventions for naming objects. This also applies to the names of your variables (i.e. your column names) within your data. If you look at the fbo data frame, either with the `View()` function or by printing the names of the columns with the `names()` function, you can see this dataset violates that requirement: 
 
 ```{r}
 names(fbo)
 ```
 
-To address this, we can use a function called `clean_names()`, which lives inside the `janitor` package. This will replace any spaces with an underscore and turn capital letters into lowercase. Much more tidy!
+To address this, we can use a function called `clean_names()`, which lives inside the `janitor` package. This will replace spaces with underscores and convert capital letters to lowercase. Much more tidy!
 
 ```{r, message=FALSE, warning=FALSE}
 library(janitor)
 fbo <- clean_names(fbo)
 ```
 
-Now let's explore the question of the number of banning orders for clubs in different leagues. But as a first step, let's just plot the number of banning orders for each club. Let's build this plot:
+Now, let's explore the question of how many banning orders are issued to clubs across different leagues. But as a first step, let's just plot the number of banning orders for each club. Let's build this plot:
 
 ```{r}
 ggplot(data = fbo, aes(x = club_supported, y=banning_orders)) + #data
@@ -89,11 +89,11 @@ ggplot(data = fbo, aes(x = club_supported, y=banning_orders)) + #data
   theme_bw()                     #backgroud coordinate system
 ```
 
-The first line above begins a plot by calling the `ggplot()` function and putting the data into it. You have to name your data frame with the `data` argument, and then, within the `aes()` command, you pass the specific variables that you want to plot. In this case, we only want to see the distribution of one variable, banning orders, on the y-axis, and we will plot the club supported on the x-axis. 
+The first line above begins a plot by calling the `ggplot()` function and putting the data into it. You have to name your data frame with the `data` argument, and then, within the `aes()` command, you pass the specific variables that you want to plot. In this case, we want to see the distribution of one variable, banning orders, on the y-axis, with the club supported on the x-axis. 
 
 The second line is where we add the *geometry*. This is where we tell R what we want the graph to be. Here we say we want it to be points by using `geom_points`. You can see a list of all possible geoms [here](https://ggplot2.tidyverse.org/reference/). 
 
-The third line is where we can tweak the display of the graph. Here, I used `theme_bw()`, a nice clean theme. You can try with other themes. To get a list of themes, you can also see the resource [here](https://ggplot2.tidyverse.org/reference/ggtheme.html). If you want more variety, you can explore the package [`ggthemes`](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/). 
+The third line is where we can tweak the display of the graph. Here, I used `theme_bw()`, a nice, clean theme. You can try with other themes. To get a list of themes, you can also see the resource [here](https://ggplot2.tidyverse.org/reference/ggtheme.html). If you want more variety, you can explore the package [`ggthemes`](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/). 
 
 ```{r}
 ggplot(data = fbo, aes(x = club_supported, y=banning_orders)) +     #data
@@ -140,11 +140,11 @@ ggplot(data = fbo, aes(x = club_supported, y=banning_orders)) +  #data
   theme(axis.text.x = element_text(angle = 90, hjust = 1))       #backgroud coordinate system
 ```
 
-This is basically all you need to know to build a graph! So far, we have introduced a lot of code, some of which you may not fully understand. Don't worry too much; we just wanted to give you a quick introduction to some of the possibilities. Later in the session, we will go back to some of these functions in a slower way. The takeaway from this section is to understand the basic elements of the grammar of graphics.
+This is basically all you need to know to build a graph! So far, we have introduced a lot of code, some of which you may not fully understand. Don't worry too much; we just wanted to give you a quick introduction to some of the possibilities. Later in the session, we will revisit some of these functions more slowly. The takeaway from this section is to understand the basic elements of the grammar of graphics.
 
 ## What graph should I use?
 
-There are a lot of points to consider when you are choosing what graph to use to visually represent your data. There are some best practice guidelines, but at the end of the day, you need to consider what is best for your data. What do you want to show? What graph will best communicate your message? Is it a comparison between groups? Is it the frequency distribution of 1 variable? 
+There are many points to consider when choosing which graph to use to visually represent your data. There are some best-practice guidelines, but ultimately, you need to consider what is best for your data. What do you want to show? What graph will best communicate your message? Is it a comparison between groups? Is it the frequency distribution of 1 variable? 
 
 As some guidance, you can use the below [cheatsheet, taken from Nathan Yau's blog Flowingdata](https://flowingdata.com/2009/01/15/flow-chart-shows-you-what-chart-to-use/):
 
@@ -152,20 +152,20 @@ As some guidance, you can use the below [cheatsheet, taken from Nathan Yau's blo
 
 However, keep in mind that this is more of a guideline aimed to nudge you in the right direction. There are many ways to visualise the same data, and sometimes, you might want to experiment with some of these and see what the differences are. 
 
-There is also a vast amount of research into what works in displaying quantitative information. The classic book is by Edward Tufte[^1], but since then, there have been many other researchers as well who focus on approaches to displaying data. Two useful books you may want to consider are Few (2012)[^2] and Cairo (2016)[^3]. Claus Wilke is also producing a textbook that is freely available [on the internet](https://clauswilke.com/dataviz/).
+There is also extensive research on how to display quantitative information effectively. The classic book is by Edward Tufte[^1], but since then, many other researchers have focused on approaches to displaying data. Two useful books to consider are Few (2012)[^2] and Cairo (2016)[^3]. Claus Wilke is also producing a textbook that is freely available [on the internet](https://clauswilke.com/dataviz/).
 These authors tend to produce recommendations on what to use (and not use) in certain contexts.  
 
-For example, most data visualisation experts agree that you should not use 3D graphics unless there is a meaning to the third dimension. So using 3D graphics just for decoration, as in [this case](https://mir-s3-cdn-cf.behance.net/project_modules/disp/2505dd10837923.56030acd2ef20.jpg) is normally frowned upon. However, there are cases when including a third dimension is vital to communicating your findings. See this [example](http://www.visualisingdata.com/2015/03/when-3d-works/).
+For example, most data visualisation experts agree that you should not use 3D graphics unless there is a meaning to the third dimension. So using 3D graphics just for decoration, as in [this case](https://mir-s3-cdn-cf.behance.net/project_modules/disp/2505dd10837923.56030acd2ef20.jpg), is normally frowned upon. However, there are cases when including a third dimension is vital to communicating your findings. See this [example](http://www.visualisingdata.com/2015/03/when-3d-works/).
 
-Also, often, certain chart types are vilified. For example, the [*pie chart*](https://en.wikipedia.org/wiki/Pie_chart) is one such example. A lot of people (including your course leader) really dislike pie charts, e.g. see [here](http://www.storytellingwithdata.com/blog/2011/07/death-to-pie-charts). If you want to display proportion, research indicates that a square pie chart is more likely to be interpreted correctly by viewers. See [here](https://eagereyes.org/blog/2016/a-reanalysis-of-a-study-about-square-pie-charts-from-2009).
+Also, often, certain chart types are vilified. For example, the [*pie chart*](https://en.wikipedia.org/wiki/Pie_chart) is one such example. Many people (including your lecturers) really dislike pie charts; see [here](http://www.storytellingwithdata.com/blog/2011/07/death-to-pie-charts). If you want to display proportion, research indicates that a square pie chart is more likely to be interpreted correctly by viewers. See [here](https://eagereyes.org/blog/2016/a-reanalysis-of-a-study-about-square-pie-charts-from-2009).
 
 Also, in some cases, bar plots (if used to visualise quantitative variables) can hide important features of your data and might not be the most appropriate means for comparison: 
 
 ![](imgs/barbarplots.jpg)
 
-This has led to a [kickstarter campaign](https://www.kickstarter.com/projects/1474588473/barbarplots/description) around actually banning bar plots...!
+This has led to a [Kickstarter campaign](https://www.kickstarter.com/projects/1474588473/barbarplots/description) around actually banning bar plots...!
 
-So, choosing the right plot and how to design the different elements of a plot is somehow an art that requires practice and a good understanding of the data visualisation literature. Here, we can only provide you with an introduction to some of these issues. At the end of the chapter, we will also highlight additional resources you may want to explore on your own.
+So, choosing the right plot and designing its elements is, in a sense, an art that requires practice and a good understanding of the data visualisation literature. Here, we can only provide you with an introduction to some of these issues. At the end of the chapter, we will also highlight additional resources you may want to explore on your own.
 
 An important consideration is that the plot that you use depends on the data you are plotting, as well as the message you want to convey with the plot, the audience that it is intended for, and even the format in which it will be presented (a website, a printed report, a PowerPoint presentation, etc.). So, for example, returning to the difference in the number of banning orders between clubs in different leagues, what are some ways of plotting these?
 
@@ -176,7 +176,7 @@ ggplot(data = fbo, aes(x = banning_orders)) +
   geom_histogram()
 ```
 
-Now to split this by *league_of_the_club_supported*, you use `facet_wrap()` in the coordinate layer of the plot.
+Now, to split this by *league_of_the_club_supported*, you use `facet_wrap()` in the coordinate layer of the plot.
 
 ```{r, message=FALSE}
 ggplot(data = fbo, aes(x = banning_orders)) + 
@@ -192,7 +192,7 @@ ggplot(data = fbo, aes(x = league_of_the_club_supported, y = banning_orders)) +
   geom_boxplot() 
 ```
 
-This makes the comparison significantly easier, right? But the order is strange! Remember we talked about factors in previous weeks? Well, the good thing about factors is that we can arrange them in their natural order. If we don't describe an order, then R uses the alphabetical order. So, let's reorder our factor. To do that, we specify the levels in the order in which we want to be embedded within the factor. We use the code we introduced last week to do this.
+This makes the comparison significantly easier, right? But the order is strange! Remember, we talked about factors in previous weeks? Well, the good thing about factors is that we can arrange them in their natural order. If we don't describe an order, then R uses alphabetical order. So, let's reorder our factor. To do that, we specify the levels in the order in which we want to be embedded within the factor. We use the code we introduced last week to do this.
 
 ```{r}
 fbo$league_of_the_club_supported <- factor(fbo$league_of_the_club_supported, 
@@ -209,15 +209,15 @@ ggplot(data = fbo, aes(x = league_of_the_club_supported, y = banning_orders)) +
 
 Now, this is great! We can see that the higher the league, the more banning orders they have. Any ideas why?
 
-We'll now go through some examples of graphs made using the `ggplot2` package, stopping a bit more on each of them. 
+We'll now go through some examples of graphs made with the `ggplot2` package, spending a bit more time on each. 
 
 ## Visualising numerical variables: Histograms
 
 Histograms are useful ways of representing quantitative variables visually. 
 
-As mentioned earlier, we will emphasise in this course the use of the `ggplot()` function. With `ggplot()`, you start with a blank canvas and keep adding specific layers. The `ggplot()` function can specify the dataset and the aesthetics (the visual characteristics that represent the data). 
+As mentioned earlier, we will emphasise the use of the `ggplot()` function in this course. With `ggplot()`, you start with a blank canvas and keep adding specific layers. The `ggplot()` function can specify the dataset and the aesthetics (the visual characteristics that represent the data). 
 
-To get the data we're going to use here, load up the package `MASS` and then call the *Boston* data into your environment.
+To get the data we're going to use here, load the `MASS` package and then load the *Boston* data into your environment.
 
 ```{r}
 library(MASS)
@@ -226,7 +226,7 @@ data(Boston)
 
 This package has a dataframe called *Boston*. This data shows housing values in the suburbs of Boston (USA). To access the codebook (how you find out what variables are), use the "?", `?Boxton`.
 
-OK so let's make a graph about the variable which represents the per capita crime rate by town (*crim*).
+OK, so let's make a graph about the variable which represents the per capita crime rate by town (*crim*).
 
 If you want to produce a histogram with the `ggplot` function, you would use the following code:
 
@@ -795,7 +795,7 @@ There are other tools sometimes used for visualising categorical data. Pie chart
 ![cute pie chart](imgs/piechart.jpg)
 
 
-What I would use instead are **waffle charts**. They're super easy to make with the "waffle" package, but I don't think there's time for them at this point but look into them [here](https://www.r-bloggers.com/making-waffle-charts-in-r-with-the-new-waffle-package/). 
+What I would use instead are **waffle charts**. They're super easy to make with the "waffle" package, but I don't think there's time for them at this point, but look into them [here](https://www.r-bloggers.com/making-waffle-charts-in-r-with-the-new-waffle-package/). 
 
 ## Further resources
 
@@ -803,10 +803,10 @@ By now, you should know the path to data analysis, but wisdom will take time. Th
 
 First **MOOCS (Massive Online Open Courses)**. There are loads of useful MOOCS that provide training in data visualisation for free (well, you can pay if you want a certificate, but you can also use the resources and learn for free).
 
-Second, **online tutorials**. One of the things you will also soon discover is that R users are keen to write "how to" guides in some of the [750 R devoted blogs](http://www.r-bloggers.com/) or as part of [Rpubs](https://rpubs.com/). Using Google or similar, you will often find solutions to almost any problem you will encounter using R. For example, in this blog, there are a few tutorials that you may want to look to complement my own:
+Second, **online tutorials**. One of the things you will also soon discover is that R users are keen to write "how to" guides in some of the [750 R devoted blogs](http://www.r-bloggers.com/) or as part of [Rpubs](https://rpubs.com/). Using Google or similar, you will often find solutions to almost any problem you will encounter using R. For example, in this blog, there are a few tutorials that you may want to look at:
 
 + [Cheatsheet for visualising scatterplots](http://rforpublichealth.blogspot.co.uk/2013/11/ggplot2-cheatsheet-for-scatterplots.html)  
-+ [Cheatsheet for visualizing distributions](http://rforpublichealth.blogspot.co.uk/2014/02/ggplot2-cheatsheet-for-visualizing.html)  
++ [Cheatsheet for visualising distributions](http://rforpublichealth.blogspot.co.uk/2014/02/ggplot2-cheatsheet-for-visualizing.html)  
 + [Cheatsheet for barplots](http://rforpublichealth.blogspot.co.uk/2014_01_01_archive.html)  
 
 Third, *blogs on data visualisation*. If you use [Feedly](https://feedly.com/index.html#discover) or a similar blog aggregator, you should add the following blogs to your reading list. They are written by leading people in the field and are full of useful advice:
