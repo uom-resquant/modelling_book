@@ -850,7 +850,7 @@ This week, we used the following R functions:
 
 **create a categorical variable using a numeric variable**
 
-- Boston$lowval[Boston$medv <= 17.02] <- "Low value"
+- `Boston$lowval[Boston$medv <= 17.02] <- "Low value"`
 
 
 <!--## Summary: exercise for this week
