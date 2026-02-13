@@ -447,9 +447,9 @@ Each point represents a case in our dataset, and the coordinates attached to it 
 
 What do you look for in a scatterplot? You want to assess global and local patterns, as well as deviations. We can clearly see that at low levels of *medv*, there is a higher probability in this data that the level of crime is higher. Once the median value of the property hits $30,000, the crime rate will be nearly zero for all towns. So far, it's so good and surely predictable. The first reason why we look at scatterplots is to check our hypothesis (e.g., poorer areas, more crime).
 
-However, something odd seems to be going on when the median property value is around $50,000. All of a sudden, the variability in crime increases. We seem to have some of the more expensive areas also exhibiting some fairly decent level of crime. In fact, there is quite a break in the distribution. What's going on? To be honest, I have no clue. However, the pattern at the higher level of property value is indeed odd; it is just too abrupt to be natural. 
+However, something odd seems to be going on when the median property value is around $50,000. All of a sudden, the variability in crime increases. We seem to have some of the more expensive areas also exhibiting some fairly decent levels of crime. In fact, there is quite a break in the distribution. What's going on? To be honest, I have no clue. However, the pattern at the higher level of property value is indeed odd; it is just too abrupt to be natural. 
 
-This is the second reason why you want to plot your data before you do anything else. It helps you to detect apparent anomalies. I say this is an anomaly because the break-in pattern is quite noticeable and abrupt. It is hard to think of a natural process that would generate this sudden radical increase in crime once the median property value reaches the 50k dollars mark. If you were analysing this for real, you would want to know what's really driving this pattern (e.g., find out about the original data collection, the codebook, etc.): perhaps the maximum median value was capped at 50K dollars, and we are seeing this as a dramatic increase when the picture is more complex? For now, we are going to let this rest.
+This is the second reason why you want to plot your data before you do anything else. It helps you to detect apparent anomalies. I say this is an anomaly because the break-in pattern is quite noticeable and abrupt. It is hard to think of a natural process that would generate this sudden, radical increase in crime once the median property value reaches the 50k dollars mark. If you were analysing this for real, you would want to know what's really driving this pattern (e.g., find out about the original data collection, the codebook, etc.): perhaps the maximum median value was capped at 50K dollars, and we are seeing this as a dramatic increase when the picture is more complex? For now, we are going to let this rest.
 
 One of the things you may notice with a scatterplot is that even with a smallish dataset such as this, with just about 500 cases, **overplotting** may be a problem. When you have many cases with similar (or, even worse, the same) values, it is difficult to tell them apart. Imagine there is only 1 case with a particular combination of X and Y values. What do you see? A single point. Then imagine you have 500 cases with that same combination of values for X and Y. What do you see? Still a single point. There are a variety of ways to deal with overplotting. One possibility is to add some **transparency** to the points:
 
@@ -474,7 +474,7 @@ The second plot gives us a better idea of where the observations seem to concent
 
 Overplotting can occur when a continuous measurement is rounded to some convenient unit. This has the effect of changing a continuous variable into a discrete ordinal variable. For example, age is measured in years, and body weight is measured in pounds or kilograms. Age is a discrete variable; it only takes integer values. That's why you see the points lined up in parallel vertical lines. This also contributes to the overplotting in this case. 
 
-One way of dealing with this particular problem is by **jittering**. Jittering is the act of adding random noise to data in order to prevent overplotting in statistical graphs. In `ggplot`, one way of doing this is by passing an argument to `geom_point` specifying you want to jitter the points. This will introduce some random noise so that *age* looks less discrete.
+One way of dealing with this particular problem is by **jittering**. Jittering is the act of adding random noise to data in order to prevent overplotting in statistical graphs. In `ggplot`, one way of doing this is by passing an argument to `geom_point` specifying that you want to jitter the points. This will introduce some random noise so that *age* looks less discrete.
 
 ```{r, message=FALSE, warning=FALSE}
 ggplot(BCS0708, aes(x = age, y = tcviolent)) +
@@ -499,7 +499,7 @@ ggplot(BCS0708, aes(x = age, y = tcviolent)) +
 
 What this is doing is creating boxes within the two-dimensional plane, counting the number of points within those boxes, and attaching a colour to the box in function of the density of points within each of the rectangles.
 
-When looking at scatterplots, sometimes it is useful to summarise the relationships by means of drawing lines. You could, for example, add a line representing the **conditional mean**. A conditional mean is simply the mean of your Y variable for each value of X. Let's go back to the Boston dataset. We can ask R to plot a line connecting these means using `geom_line()` and specifying you want the conditional means.
+When looking at scatterplots, sometimes it is useful to summarise the relationships by means of drawing lines. You could, for example, add a line representing the **conditional mean**. A conditional mean is simply the mean of your Y variable for each value of X. Let's go back to the Boston dataset. We can ask R to plot a line connecting these means using `geom_line()` and specifying that you want the conditional means.
 
 ```{r, message=FALSE}
 ggplot(Boston, aes(x = medv, y = crim)) +
@@ -541,19 +541,19 @@ As before, you can add smooth lines to capture the relationship. What happens no
 ```{r, message=FALSE}
 ggplot(Boston, aes(x = medv, y = crim, colour = as.factor(chas))) +
   geom_point(alpha=.4) + #I am making the points semi-transparent to see the lines better
-  geom_smooth(se=FALSE, size=1) #I am doing the lines thicker to see them better
+  geom_smooth(se=FALSE, size=1) #I am making the lines thicker to see them better
 ```
 
-You can see how the relationship between crime and property values is more marked for areas not bordering the river, mostly because you have considerably fewer cheaper areas bordering the river. Notice as well the upward trend in the green line at high values of *medv*. As we saw, there seem to be quite a few of those particularly more expensive areas that have high crime and seem to be by the river.
+You can see how the relationship between crime and property values is more marked for areas not bordering the river, mostly because you have considerably fewer cheaper areas bordering the river. Notice as well the upward trend in the green line at high values of *medv*. As we saw, there seem to be quite a few of those, particularly more expensive areas that have high crime and seem to be by the river.
 
-We can also map a quantitative variable to the colour aesthetic. When we do that, instead of different colours for each category we have a gradation in colour from darker to lighter depending on the value of the quantitative variable. Below, we display the relationship between crime and property values conditioning on the status of the area (high values in *lstat* represent lower status).
+We can also map a quantitative variable to the colour aesthetic. When we do that, instead of different colours for each category, we have a gradation in colour from darker to lighter depending on the value of the quantitative variable. Below, we display the relationship between crime and property values, conditioning on the status of the area (high values in *lstat* represent lower status).
 
 ```{r}
 ggplot(Boston, aes(x = medv, y = crim, colour = lstat)) +
   geom_point() 
 ```
 
-As one could predict *lstat* and *medv* seem to be correlated. The areas with low status tend to be the areas with cheaper properties (and more crime), and the areas with higher status tend to be the areas with more expensive properties (and less crime).
+As one could predict, *lstat* and *medv* seem to be correlated. The areas with low status tend to be the areas with cheaper properties (and more crime), and the areas with higher status tend to be the areas with more expensive properties (and less crime).
 
 You could map the third variable to a different aesthetic (rather than colour). For example, you could map *lstat* to the size of the points. This is called a **bubblechart**. The problem with this, however, is that it can sometimes cause overplotting to become more acute.
 
@@ -562,7 +562,7 @@ ggplot(Boston, aes(x = medv, y = crim, size = lstat)) +
   geom_point() #You may want to add alpha for some transparency here.
 ```
 
-If you have larger samples and the patterns are not clear (as we saw when looking at the relationship between age and worry of violent crime), conditioning in a third variable can produce hard-to-read scatterplots (even if you use transparencies and jittering). Let's look at the relationship between worry of violent crime and age conditioned on victimisation during the previous year:
+If you have larger samples and the patterns are not clear (as we saw when looking at the relationship between age and worry of violent crime), conditioning on a third variable can produce hard-to-read scatterplots (even if you use transparencies and jittering). Let's look at the relationship between worry of violent crime and age, conditioned on victimisation during the previous year:
 
 ```{r, message=FALSE, warning=FALSE}
 ggplot(BCS0708, aes(x = age, y = tcviolent, colour = bcsvictim)) +
@@ -589,7 +589,7 @@ What we see here is that, for the most part, the relationship between age and wo
 
 ## Scatterplot matrix
 
-Sometimes, you want to produce many scatterplots simultaneously to have a first peak at the relationship between the various variables in your data frame. The way to do this is by using a scatterplot matrix. There are some packages that are particularly good for this. One of them is `GGally`, basically an extension for `ggplot2`.
+Sometimes, you want to produce many scatterplots simultaneously to have a first peek at the relationship between the various variables in your data frame. The way to do this is by using a scatterplot matrix. There are some packages that are particularly good for this. One of them is `GGally`, basically an extension for `ggplot2`.
 
 Not to overcomplicate things, we will only use a few variables from the *Boston* dataset:
 
@@ -600,14 +600,14 @@ Not to overcomplicate things, we will only use a few variables from the *Boston*
 Boston_spm <- dplyr::select(Boston, crim, medv, lstat)
 ```
 
-Then we load `GGally)` and run the scatterplot matrix using the `ggpairs` function:
+Then we load `GGally` and run the scatterplot matrix using the `ggpairs` function:
 
 ```{r,message=FALSE }
 library(GGally)
 ggpairs(Boston_spm)
 ```
 
-The diagonal set of boxes that go from the top left to the bottom right gives you the univariate density plot for each of the variables. So, for example, at the very top left, you have the density plot for the *crim* variable. If you look underneath this one, you see a scatterplot between *crim* and *medv*. In this case, *crim* defines the X axis and *medv* the Y axis, which is why it looks a bit different from the one we saw earlier. The labels at the top and the left tell you what variables are plotted in each faceted rectangle. In the top right-hand side of this matrix, you see that the rectangles say "corr" and then give you a number. These numbers are **correlation coefficients**, which are a metric we use to indicate the strength of a relationship between two quantitative or numeric variables. The closer to 1.000 (whether positive or negative) this value is, the stronger the relationship is. The closer to zero, the weaker the relationship. The stronger relationship here is between *medv* and *istat* (correlation coefficient value: -0.738). The fact that it is negative indicates that as the values in one increase, the values in the other tend to decrease. So, high crime values correspond to low property prices, as we saw earlier. This coefficient is a summary number of this relationship. We will come back to it later on. For now, keep in mind this metric only works well if the relationship shown in the scatterplot is well represented by a straight line. If the relationship is curvilinear, it will be a very bad metric that you should not trust.
+The diagonal set of boxes that goes from the top left to the bottom right gives you the univariate density plot for each of the variables. So, for example, at the very top left, you have the density plot for the *crim* variable. If you look underneath this one, you see a scatterplot between *crim* and *medv*. In this case, *crim* defines the X axis and *medv* the Y axis, which is why it looks a bit different from the one we saw earlier. The labels at the top and the left tell you what variables are plotted in each faceted rectangle. In the top right-hand side of this matrix, you see that the rectangles say "corr" and then give you a number. These numbers are **correlation coefficients**, which are a metric we use to indicate the strength of a relationship between two quantitative or numeric variables. The closer to 1.000 (whether positive or negative) this value is, the stronger the relationship is. The closer to zero, the weaker the relationship. The stronger relationship here is between *medv* and *istat* (correlation coefficient value: -0.738). The fact that it is negative indicates that as the values in one increase, the values in the other tend to decrease. So, high crime values correspond to low property prices, as we saw earlier. This coefficient is a summary number of this relationship. We will come back to it later on. For now, keep in mind this metric only works well if the relationship shown in the scatterplot is well represented by a straight line. If the relationship is curvilinear, it will be a very bad metric that you should not trust.
 
 ![](imgs/ggpairs.png){width=80%}
 
@@ -620,14 +620,14 @@ library(car)
 spm(Boston_spm, regLine=FALSE)
 ```
 
-This is a bit different from the one above because rather than displaying the values of the correlation coefficient, you get another set of scatterplots with the Y and X axes rotated. You can see the matrix is symmetrical. So, the first scatterplot that you see in the top row (second column from the left) shows the relationship between *medv* (in the X axis) and *crim* (in the Y axis). This is the same relationship shown in the first scatterplot in the second row (first column); only here, *crim* defines the X axis and *medv* the Y axis. In this scatterplot, you can see, although not very well, that smoothed lines representing the relationship have been added to the plots.
+This is a bit different from the one above because, rather than displaying the values of the correlation coefficient, you get another set of scatterplots with the Y and X axes rotated. You can see the matrix is symmetrical. So, the first scatterplot that you see in the top row (second column from the left) shows the relationship between *medv* (in the X axis) and *crim* (in the Y axis). This is the same relationship shown in the first scatterplot in the second row (first column); only here, *crim* defines the X axis and *medv* the Y axis. In this scatterplot, you can see, although not very well, that smoothed lines representing the relationship have been added to the plots.
 
 ```{r}
 library(car)
 spm(Boston_spm, smooth=list(col.smooth="red"), regLine=FALSE)
 ```
 
-You can also condition in a third variable. For example, we could condition on whether the areas bound the Charles River (variable *chas*).
+You can also condition on a third variable. For example, we could condition on whether the areas bound the Charles River (variable *chas*).
 
 ```{r}
 Boston_spm <- dplyr::select(Boston, crim, medv, lstat, chas)
@@ -635,11 +635,11 @@ spm(~crim+medv+lstat, data=Boston_spm, groups=Boston_spm$chas,
 by.groups=TRUE, smooth=FALSE, regLine=FALSE)
 ```
 
-Getting results, once you get the knack of it, is only half of the way. The other, and more important, half is trying to make sense of the results. What are the stories this data is telling us?  R cannot do that for you. For this, you need to use a better tool: **your brain** (scepticism, curiosity, creativity, a lifetime of knowledge) and what Kaiser Fung calls ["numbersense"](http://www.amazon.co.uk/Numbersense-How-Data-Your-Advantage/dp/0071799664).
+Getting results, once you get the knack of it, is only half the way. The other, and more important, half is trying to make sense of the results. What are the stories this data is telling us? R cannot do that for you. For this, you need to use a better tool: **your brain** (scepticism, curiosity, creativity, a lifetime of knowledge) and what Kaiser Fung calls ["numbersense"](http://www.amazon.co.uk/Numbersense-How-Data-Your-Advantage/dp/0071799664).
 
 ## Titles, legends, and themes in ggplot2
 
-We have introduced a number of various graphical tools, but what if you want to customise the way the produced graphic looks like? Here I am just going to give you some code for how to modify the titles and legends you use. To add a title to a `ggplot` graph, you use `ggtitle()`.
+We have introduced several graphical tools, but what if you want to customise how the produced graphic looks? Here, I am just going to give you some code to modify the titles and legends you use. To add a title to a `ggplot` graph, you use `ggtitle()`.
 
 ```{r}
 #Notice how here we are using an additional function 
@@ -652,7 +652,7 @@ ggplot(Boston, aes(x = medv, y = crim, colour = as.factor(chas))) +
   ggtitle("Fig 1.Crime, Property Value and River Proximity of Boston Towns")
 ```
 
-If you don't like the default background theme for `ggplot` you can use a theme as discussed at the start, for example, creating a black and white background by adding `theme_bw()` as a layer:
+If you don't like the default background theme for `ggplot`, you can use a theme as discussed at the start, for example, creating a black and white background by adding `theme_bw()` as a layer:
 
 ```{r}
 ggplot(Boston, aes(x = medv, y = crim, colour = as.factor(chas))) +
@@ -671,7 +671,7 @@ ggplot(Boston, aes(x = medv, y = crim, colour = as.factor(chas))) +
   theme_economist()
 ```
 
-Using `labs()`, you can change the text of axis labels (and the legend title), which may be handy if your variables have cryptic names. Equally, you can manually name the labels in a legend. The values for *chas* are 0 and 1. This is not informative. We can change that.
+Using `labs()`, you can change the text of axis labels (and the legend title), which may be handy if your variables have cryptic names. You can also manually name the labels in a legend. The values for *chas* are 0 and 1. This is not informative. We can change that.
 
 ```{r}
 ggplot(Boston, aes(x = medv, y = crim, colour = as.factor(chas))) +
@@ -683,7 +683,7 @@ ggplot(Boston, aes(x = medv, y = crim, colour = as.factor(chas))) +
   scale_colour_discrete(labels = c("No", "Yes"))
 ```
 
-Sometimes, you may want to present several plots together. For this, the `gridExtra` package is very good. You will first need to install it and then load it. You can then create several plots and put them all in the same image.
+Sometimes, you may want to present several plots together. For this, the `gridExtra` package is very good. You will first need to install it and then load it. You can then create several plots and combine them into a single image.
 
 ```{r, message=FALSE, warning=FALSE}
 #You may need to install it first with install.packages("gridExtra")
@@ -702,16 +702,16 @@ We don't have time to get into the details of all the customisation features ava
 
 ## Plotting categorical data: bar charts
 
-You may be wondering, 'What about categorical data'? So far, we have only discussed various visualisations where at least one of your variables is quantitative. When your variable is categorical, you can use bar plots (similar to histograms). We map the factor variable in the aesthetics and then use the `geom_bar()` function to ask for a bar chart.
+You may be wondering, 'What about categorical data'? So far, we have discussed only visualisations in which at least one of your variables is quantitative. When your variable is categorical, you can use bar plots (similar to histograms). We map the factor variable to aesthetics, then use the `geom_bar()` function to create a bar chart.
 
 ```{r}
 ggplot(BCS0708, aes(x=walkday)) +
   geom_bar()
 ```
 
-You can see the label *count* on the Y-axis. This is not a variable in your data. When you run a `geom_bar` like this you are invoking as a hidden default a call to the `stat_` function. In this case, what is happening is that this function is *counting* the number of cases in each of the levels of *walkday*, and this count is what is used to map the height of each of the bars.
+You can see the label *count* on the Y-axis. This is not a variable in your data. When you run a `geom_bar` like this, you are invoking a hidden default call to the `stat_` function. In this case, what is happening is that this function is *counting* the number of cases in each of the levels of *walkday*, and this count is what is used to map the height of each of the bars.
 
-The `stat_` function, apart from counting the cases in each level, computes their relative frequency and proportion and stores this information in a temporal variable called *..prop..*. If we want this variable to be represented in the Y-axis, we can change the code as shown below:
+The `stat_` function, apart from counting the cases in each level, computes their relative frequency and proportion and stores this information in a temporal variable called *..prop..*. If we want this variable to be represented on the Y-axis, we can change the code as shown below:
 
 ```{r}
 ggplot(BCS0708, aes(x=walkday)) +
@@ -726,7 +726,7 @@ ggplot(BCS0708, aes(x=walkday)) +
   geom_bar(mapping = aes(y = ..prop.., group = 1))
 ```
 
-Unfortunately, the levels in this factor are ordered in alphabetical order, which is confusing. We can modify this by reordering the factors' levels first -- click [here](http://www.cookbook-r.com/Manipulating_data/Changing_the_order_of_levels_of_a_factor/) for more details. You could do this within the `ggplot` function (just for the visualisation), but in real life, you would want to sort out your factor levels in an appropriate manner more permanently. As discussed last week, this is the sort of thing you do as part of pre-processing your data. And then plot.
+Unfortunately, the levels in this factor are ordered alphabetically, which is confusing. We can modify this by reordering the factor levels first — click [here](http://www.cookbook-r.com/Manipulating_data/Changing_the_order_of_levels_of_a_factor/) for more details. You could do this within the `ggplot` function (just for the visualisation), but in real life, you would want to sort out your factor levels in an appropriate manner more permanently. As discussed last week, this is the sort of thing you do during data preprocessing. And then plot.
 
 ```{r}
 #Print the original order
@@ -755,7 +755,7 @@ ggplot(data=bcs_bar, aes(x=walkdayR, fill=ethgrp2)) +
   geom_bar()
 ```
 
-These types of stacked bar charts are not terribly helpful if you are interested in understanding the relationship between these two variables. It is hard to see if any group is proportionally more likely to feel safe or not.
+These stacked bar charts are not particularly helpful if you are interested in understanding the relationship between the two variables. It is hard to tell whether any group is more likely to feel safe or not.
 
 Instead, what you want is a different kind of stacked bar chart that gives you the proportion of your "explanatory variable" (ethnicity) within each of the levels of your "response variable" (here, feelings of safety).
 
@@ -774,7 +774,7 @@ p <- ggplot(data=bcs_bar, aes(x=walkdayR, fill=ethgrp2)) + geom_bar(position = "
 p
 ```
 
-Now, we have a bar chart where the values of ethnicity are broken down across the levels of fear of crime, with a proportion showing on the y-axis. Looking at the bars, you will see that they do not sum to one within each level of fear. Instead, the bars for any particular ethnicity sum to one across all the levels of fear. You can see, for example, that nearly 75% of the White respondents are in the "Very Safe" level, whereas, for example, less than 60% of the Black respondents feel "Very Safe".
+Now, we have a bar chart where ethnicity values are broken down by fear-of-crime level, with proportions shown on the y-axis. Looking at the bars, you will see that they do not sum to one within each level of fear. Instead, the bars for any particular ethnicity sum to one across all the levels of fear. You can see, for example, that nearly 75% of the White respondents are in the "Very Safe" level, whereas, for example, less than 60% of the Black respondents feel "Very Safe".
 
 Sometimes, you may want to flip the axis so that the bars are displayed horizontally. You can use the `coord_flip()` function for that.
 
@@ -795,13 +795,13 @@ There are other tools sometimes used for visualising categorical data. Pie chart
 ![cute pie chart](imgs/piechart.jpg)
 
 
-What I would use instead are **waffle charts**. They're super easy to make with the "waffle" package, but I don't think there's time for them at this point, but look into them [here](https://www.r-bloggers.com/making-waffle-charts-in-r-with-the-new-waffle-package/). 
+What I would use instead is a **waffle chart**. They're super easy to make with the "waffle" package, but I don't think there's time for them right now. You can have a look on your own [here](https://www.r-bloggers.com/making-waffle-charts-in-r-with-the-new-waffle-package/). 
 
 ## Further resources
 
-By now, you should know the path to data analysis, but wisdom will take time. The good news is that we live in a time where there are multiple (very often free) resources to help you along the way. The time when this knowledge was just the preserve of a few is long distant. If you are a motivated and disciplined person, there is a lot that you can do to consolidate and expand your data visualisation skills further without spending money. I have already recommended the excellent `ggplot2` online documentation to you. Here, we just want to point you to a few useful resources that you can pursue in the future. 
+By now, you should know the path to data analysis, but wisdom will take time. The good news is that we live in a time when there are many (often free) resources to help you along the way. The time when this knowledge was just the preserve of a few is long distant. If you are a motivated, disciplined person, there is a lot you can do to further consolidate and expand your data visualisation skills without spending money. I have already recommended the excellent `ggplot2` online documentation to you. Here, we want to point you to a few useful resources you can explore in the future. 
 
-First **MOOCS (Massive Online Open Courses)**. There are loads of useful MOOCS that provide training in data visualisation for free (well, you can pay if you want a certificate, but you can also use the resources and learn for free).
+First **MOOCS (Massive Online Open Courses)**. There are many useful MOOCs that provide free training in data visualisation (you can pay for a certificate, but you can also use the resources and learn for free).
 
 Second, **online tutorials**. One of the things you will also soon discover is that R users are keen to write "how to" guides in some of the [750 R devoted blogs](http://www.r-bloggers.com/) or as part of [Rpubs](https://rpubs.com/). Using Google or similar, you will often find solutions to almost any problem you will encounter using R. For example, in this blog, there are a few tutorials that you may want to look at:
 
@@ -812,12 +812,11 @@ Second, **online tutorials**. One of the things you will also soon discover is t
 Third, *blogs on data visualisation*. If you use [Feedly](https://feedly.com/index.html#discover) or a similar blog aggregator, you should add the following blogs to your reading list. They are written by leading people in the field and are full of useful advice:
 + [Flowing Data](http://flowingdata.com/)
 + [Visual Business Intelligence](http://www.perceptualedge.com/blog/)
-+ [chartsnthings](https://kpq.github.io/chartsnthings/)
 + [Data Revelations](http://www.datarevelations.com/category/blog)
 
-Fourth, **resources for visualisations we don't have the time to cover**. R is way ahead of some of the more popular data analysis programs you may be more familiar with (e.g. SPSS or Excel). There are many things you can do. 
+Fourth, **resources for visualisations we don't have time to cover**. R is way ahead of some of the more popular data analysis programs you may be more familiar with (e.g. SPSS or Excel). There are many things you can do. 
 
-For example, if you like maps, **R can also be used to produce visualisations of spatial data**. There are various resources to learn how to do this, and we will teach this in our *Crime Mapping* module in the third year.
+For example, if you like maps, **R can also be used to produce visualisations of spatial data**. There are various resources for learning how to do this, and we will cover it in our *Crime Mapping* module in the third year.
 
 ## Summary 
 
