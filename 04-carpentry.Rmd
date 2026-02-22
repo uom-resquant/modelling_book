@@ -40,7 +40,7 @@ You can access the data for this Eurobarometer [here](https://search.gesis.org/r
 
 You will see here that there are links to the files with the data in SPSS and STATA format. You can also see a tab where you can obtain the questionnaire for the survey. Once you are registered, download the STATA (.dta) version of the file and the English version of the questionnaire. Make sure you place the file in your working directory/ datasets folder. Once you do this, you should be able to use the code we are using in this session.
 
-First, we will load the data into our session. Since the data is in STATA format, we will need to read the data into R using the `haven` package. Specifically, we will use the `read_dta()` function to import STATA data into R. As an argument, we need to write the name of the file with the data (and if it is not in your working directory, the appropriate path file).
+First, we will load the data into our session. Since the data is in STATA format, we will need to read the data into R using the `haven` package. Specifically, we will use the `read_dta()` function to import STATA data into R. As an argument, we need to write the name of the file with the data (and if it is not in your working directory, then write the appropriate path file). You can also acess the dataset from Canvas.
 
 ```{r}
 library(haven)

@@ -11,7 +11,7 @@ rmd_files:
   - 01-intro.Rmd
   - 02-causality.Rmd
   - 03-visualisation.Rmd
-  # - 04-carpentry.Rmd
+  - 04-carpentry.Rmd
   # - 05-regresion_I.Rmd
   # - 06-regression_II.Rmd
   # - 07-regression_III.Rmd
