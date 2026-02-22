@@ -228,7 +228,7 @@ Pay attention to the code above. When we want to recode based on a condition, we
 
 Notice that once we do the recoding and rerun the frequency distribution, you will see that we achieved what we wanted. Now, all those missing cases are not counted as zero.
 
-Summated scales like the one we created here are quick and not the most kosher way of combining several questions into a single measure. In research methods, you probably learnt that we often work with theoretical constructs that we do not observe directly (e.g., self-control, anomie, collective efficacy, etc.). We often call these **latent variables**. In order to study these constructs, we create measures or scales that are based on **observed variables** (those we actually include and ask in the survey). [This](https://www.ismanet.org/doctoryourspirit/pdfs/Beck-Depression-Inventory-BDI.pdf) is a famous measure of *depression* often used in research. As you can see we have different questions (our observed variables) that we think are related to our latent or not observed (directly) variable (*depression*). You can also see there are several items or questions all of which we researchers think are linked to depression in this scale. If you provide positive answers to many of these questions, we may think that you have this unobserved thing we call *depression*.
+Summated scales like the one we created here are quick and not the most kosher way of combining several questions into a single measure. In research methods, you probably learnt that we often work with theoretical constructs that we do not observe directly (e.g., self-control, anomie, collective efficacy, etc.). We often call these **latent variables**. In order to study these constructs, we create measures or scales that are based on **observed variables** (those we actually include and ask in the survey). [This](https://www.ismanet.org/doctoryourspirit/pdfs/Beck-Depression-Inventory-BDI.pdf) is a famous measure of *depression* often used in research. As you can see, we have different questions (our observed variables) that we think are related to our latent or not observed (directly) variable (*depression*). You can also see there are several items or questions, all of which we researchers think are linked to depression in this scale. If you provide positive answers to many of these questions, we may think that you have this unobserved thing we call *depression*.
 
 When measuring latent variables, it is a good idea to have multiple items that all capture aspects of the unobserved variable we are really interested in measuring. There is a whole field of statistics that focuses on how to analyse if your observed variables are good indicators of your unobserved variable (**psychometry** is how we call this field in psychology) and also that focuses on how to best combine the answers to our observed variables in a single score (**latent variable modelling**). Some of the scores in the Crime Survey for England and Wales that you may use for your essay have been created with these more advanced methods (some of the measures on confidence in the police, for example). Summated scales are not really the best way to do this. However, these are more advanced topics that are covered in upper-level undergraduate or postgraduate courses. So, for now, we will use summated scales as a convenient, if imperfect, way of aggregating observed variables.
 
@@ -241,7 +241,7 @@ One of the variables we selected is the country in which the participant lives. 
 table(df$isocntry)
 ```
 
-There are 30 countries in the sample. You may consider that, for the purposes of your analysis maybe that is too much. For the sake of this tutorial, let's say that maybe you are not really interested in national differences but in regional differences across different parts of Europe. Say you may want to explore whether these attitudes are different across Western/Central Europe, Scandinavian countries, Mediterranean countries, and Eastern Europe. You do not have a variable with these categories, but since you have a variable that gives you the nations, you could create such a variable. How would you do that?
+There are 30 countries in the sample. You may consider that, for the purposes of your analysis, maybe that is too much. For the sake of this tutorial, let's say that maybe you are not really interested in national differences but in regional differences across different parts of Europe. Say you may want to explore whether these attitudes are different across Western/Central Europe, Scandinavian countries, Mediterranean countries, and Eastern Europe. You do not have a variable with these categories, but since you have a variable that gives you the nations, you could create such a variable. How would you do that?
 
 First, you need to consider what the new categories are going to be and how you are going to distribute the countries in your sample across those categories. You may do that on a piece of paper. Then, you would need to write the code to have a new variable with this information.
 
@@ -253,7 +253,7 @@ Then you need to figure out what kind of variable we are dealing with here:
 class(df$isocntry)
 ```
 
-Ok, this is a categorical unordered variable; we know that. But these kinds of variables could be encoded into R as either *character* vectors, *factor* variables, or, as we have seen, as well as *haven_labelled*. How you recode a variable is contingent on how it is encoded. Here we are going to show you how you would do the recoding with a *character* variable such as *isocntry* into another character variable we will call *region*. We will see later examples of how to recode *factors*.
+Ok, this is a categorical unordered variable; we know that. But these kinds of variables could be encoded into R as either *character* vectors, *factor* variables, or, as we have seen, as well as *haven_labelled*. How you recode a variable is contingent on how it is encoded. Here we are going to show you how you would do the recoding with a *character* variable, such as *isocntry*, into another character variable we will call *region*. We will see later examples of how to recode *factors*.
 
 We will have a variable with four new categories (Western, Southern, Eastern, and Northern) whenever the right conditions are met. For this, we can use the `case_when()` function from the `dplyr` package. What this does is it goes through every *case*, and does something *when* it is true. We wrap this in the `mutate()` function, which allows us to create a new variable. We'll call this new variable "region". 
 
@@ -314,7 +314,7 @@ Of course, we need to change the names to be valid ones. So, adapting that code,
 colnames(df)[colnames(df)=="d10"] <- "gender"
 ```
 
-If you prefer the *tydiverse* dialect (that aims to save you typing, among other things), then you would use the `rename` function as below (beware, if you already renamed *d10* using `colnames`, there will be no longer a *d10* variable and therefore R will return an error).
+If you prefer the *tydiverse* dialect (that aims to save you typing, among other things), then you would use the `rename` function as below (beware, if you already renamed *d10* using `colnames`, there will no longer be a *d10* variable and therefore R will return an error).
 
 ```{r}
 #option 2: to change a variable name
@@ -368,7 +368,7 @@ class(df$occup_f)
 table(df$occup_f)
 ```
 
-Now you have easier to interpret the output.
+Now you have it easier to interpret the output.
 
 ## Recoding factors
 
@@ -431,14 +431,14 @@ sum(is.na(df$politics))
 ```
 
 ![](imgs/leftrighta.png) 
-This is the question as it was asked from the survey respondents. Notice the difference in the response options and the categories in *politics*. We know that those that see themselves further to the left will have answer 1, and those that see themselves further to the right will have answer 10. According to the codebook, 97 refers to 'Refusal' and 98 means 'DK (don't know)'. However, if you look at the 'df' data, you will see that those two 'Refusal' or 'DK (don't know)' *in the questionnaire* are shown as just NA. In sum, they both are shown as 'NA', but actually it has two levels: 'Refusal' and 'DK (don't know)'. Run the code below, and check we are not lying. 
+This is the question as it was asked of the survey respondents. Notice the difference in the response options and the categories in *politics*. We know that those who see themselves further to the left will have answer 1, and those who see themselves further to the right will have answer 10. According to the codebook, 97 refers to 'Refusal' and 98 means 'DK (don't know)'. However, if you look at the 'df' data, you will see that those two 'Refusal' or 'DK (don't know)' *in the questionnaire* are shown as just NA. In sum, they both are shown as 'NA', but actually, it has two levels: 'Refusal' and 'DK (don't know)'. Run the code below, and check we are not lying. 
 
 Let’s look closer at the attributes:
 ```{r, message=FALSE, eval=FALSE}
 attributes(df$politics)
 ```
 
-A tip if you don’t want to see as much output. If you want to access directly only some of the attributes, you can call them directly by modifying the code as below:
+A tip: if you don’t want to see as much output. If you want to access directly only some of the attributes, you can call them directly by modifying the code as below:
 
 ```{r, eval=FALSE}
 #option 1: to see labels only
@@ -486,7 +486,7 @@ library(labelled)
 val_labels(df)
 ```
 
-Notice that in *urban*, there are explicit codes 'DK (don't know)' (not two labels 'Refusal' and 'DK (don't know)' like the `politics` variable) for missing data but that these values won't be treated as such, at least we do something. Let's see how many cases we have in this scenario:
+Notice that in *urban*, there are explicit codes 'DK (don't know)' (not two labels 'Refusal' and 'DK (don't know)' like the `politics` variable) for missing data, but that these values won't be treated as such, at least we do something. Let's see how many cases we have in this scenario:
 
 ```{r}
 summary(df$urban)
@@ -499,7 +499,7 @@ df$urban_f <- as_factor(df$urban)
 attributes(df$urban_f)
 ```
 
-You can see that even though the data is NA, the levels 'DK (don't know)' appears printed in the output and shows 18 missing values. This is still a valid level:
+You can see that even though the data is NA, the level 'DK (don't know)' appears in the output and shows 18 missing values. This is still a valid level:
 
 ```{r}
 levels(df$urban_f)
@@ -525,7 +525,7 @@ df_f <- select(df, uniqid, at_sexviol, gender_f, age, politics_n,
                urban_f, occup_f, region)
 ```
 
-We are going to explore NA further. Let's create a new variable that identifies the cases that have missing data in at least one of the columns in the data with the final variables for our analysis. For this, we can use the `complete.cases` function that creates a logical vector indicating whether any of the cases has missing values in at least one column:
+We are going to explore NA further. Let's create a new variable that identifies the cases that have missing data in at least one of the columns in the data, with the final variables for our analysis. For this, we can use the `complete.cases` function that creates a logical vector indicating whether any of the cases have missing values in at least one column:
 
 ```{r}
 df_f$complete <- complete.cases((df_f))
@@ -553,7 +553,7 @@ Now, we have a dataset ready to start our analysis.
 
 ## Exploring data frames visually
 
-We have now covered a number of functions you can use to explore your data, such as `skimr::skim()`, `str()`, `summary()`, `table()`, or `dplyr::glimpse()`. But sometimes is useful to get a more panoramic way. For this, we can use the `visdat` package to visualise whole data frames, and its main function is `vis_dat()`.
+We have now covered a number of functions you can use to explore your data, such as `skimr::skim()`, `str()`, `summary()`, `table()`, or `dplyr::glimpse()`. But sometimes it is useful to get a more panoramic view. For this, we can use the `visdat` package to visualise whole data frames, and its main function is `vis_dat()`.
 
 ```{r}
 library(visdat)
@@ -572,7 +572,7 @@ We can also see we have age, a quantitative variable, *age*, encoded as `haven_l
 df_f$age <- as.numeric(df_f$age)
 ```
 
-What we do with *at_sexviol* depends on how we decide to treat it. But for argument's sake let's say we are going to treat it as numerical.
+What we do with *at_sexviol* depends on how we decide to treat it. But for argument's sake, let's say we are going to treat it as numerical.
 
 ```{r}
 df_f$at_sexviol <- as.numeric(df_f$at_sexviol)
@@ -593,7 +593,7 @@ This was covered extensively last semester, and we have also touched on this in 
 
 Central tendency refers to a descriptive summary of the centre of the data’s distribution; it takes the form of a single number that is meant to represent the middle or average of the data. The **mean**, **median**, and **mode** are common statistics of the central tendency. 
 
-The *mean* is the average and it is useful when we want to summarise a variable quickly. Its disadvantage is that it is sensitive to extreme values, so the mean can be distorted easily. 
+The *mean* is the average, and it is useful when we want to summarise a variable quickly. Its disadvantage is that it is sensitive to extreme values, so the mean can be distorted easily. 
 
 For example, the mean value for our political scale variable is: 
 
@@ -607,7 +607,7 @@ To address this sensitivity, the *median* is a better measure because it is a ro
 median(df$politics_n, na.rm = TRUE)
 ```
 
-The *mode* helps give an idea of what is the most typical value in the distribution, which is the most frequently occurring case in the data. While mean and median apply to numeric variables, the mode is most useful when describing categorical variables. For example, you may want to know the most frequently occurring category. To query the mode, we use the function `mlv()` (acronym for **m**ost **l**ikely **v**alues) from the `modeest` package to answer this question: 
+The *mode* gives an idea of the most typical value in the distribution, i.e., the most frequently occurring case in the data. While mean and median apply to numeric variables, the mode is most useful when describing categorical variables. For example, you may want to know the most frequently occurring category. To query the mode, we use the function `mlv()` (acronym for **m**ost **l**ikely **v**alues) from the `modeest` package to answer this question: 
 <br>
 
 ```{r}
@@ -661,7 +661,7 @@ max(df$politics_n, na.rm = TRUE) - min(df$politics_n, na.rm = TRUE)
 ```
 
 
-You also want to talk about the **variance** ( $s^2$ ), which tells you about spread, specifically the sum of the squared deviations from the mean, which is then divided by the total number of observations. You will then also come across **standard deviation** (SD), which is the square root of the variance. You can find these with the `sd()` and the `var()` functions: 
+You also want to talk about the **variance** ( $s^2$ ), which tells you about the spread, specifically the sum of the squared deviations from the mean, which is then divided by the total number of observations. You will then also come across **standard deviation** (SD), which is the square root of the variance. You can find these with the `sd()` and the `var()` functions: 
 
 ```{r}
 var(df$politics_n, na.rm = TRUE)
@@ -674,7 +674,7 @@ Visual representations of dispersions, such as a histogram, are also handy for g
 
 ### Bivariate analysis
 
-We've touched on this already in week two, when we looked at using the `group_by()` and `summarise()` functions. Look back at week 2 for more detail. But for example, if we wanted to know what is the mean political score broken down by occupation, we would answer that question using these two functions: 
+We've touched on this already in week two, when we looked at using the `group_by()` and `summarise()` functions. Look back at week 2 for more details. But, for example, if we wanted to know what the mean political score is, broken down by occupation, we would answer that question using these two functions: 
 
 
 ```{r}
@@ -731,7 +731,7 @@ This week, we used the following R functions:
 - select()
 - mutate()
 
-**manpulate data: missing variable**
+**manipulate data: missing variable**
 
 - na.omit()
 - colMeans(is.na())
