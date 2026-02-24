@@ -232,7 +232,7 @@ Calculating mean differences in `R` is straightforward, as demonstrated above. W
 lm(dependent_variable ~ independent variable, data = dataset)
 ```
 
-The `lm()` function, short for *linear mode*l, streamlines the process by calculating the mean difference directly. The function's structure is simple:
+The `lm()` function, short for *linear model*, streamlines the process by calculating the mean difference directly. The function's structure is simple:
 
   + Specify the dependent variable first.
   + Follow it with a *tilde* ($\sim$).
