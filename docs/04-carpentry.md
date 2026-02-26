@@ -775,13 +775,6 @@ Now, we are going to learn how to remove labels. Run the code below, look at the
 
 ``` r
 library(labelled)
-```
-
-```
-## Warning: package 'labelled' was built under R version 4.5.2
-```
-
-``` r
 val_labels(df)
 ```
 
@@ -1000,13 +993,6 @@ We have now covered a number of functions you can use to explore your data, such
 
 ``` r
 library(visdat)
-```
-
-```
-## Warning: package 'visdat' was built under R version 4.5.2
-```
-
-``` r
 vis_dat(df_f)
 ```
 
@@ -1081,13 +1067,6 @@ The *mode* gives an idea of the most typical value in the distribution, i.e., th
 
 ``` r
 library(modeest)
-```
-
-```
-## Warning: package 'modeest' was built under R version 4.5.2
-```
-
-``` r
 mlv(df$occup_f)
 ```
 

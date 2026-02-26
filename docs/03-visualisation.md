@@ -786,13 +786,6 @@ Then we load `GGally` and run the scatterplot matrix using the `ggpairs` functio
 
 ``` r
 library(GGally)
-```
-
-```
-## Warning: package 'GGally' was built under R version 4.5.2
-```
-
-``` r
 ggpairs(Boston_spm)
 ```
 
@@ -807,6 +800,13 @@ R gives you a lot of flexibility, and there are often competing packages that ai
 
 ``` r
 library(car)
+```
+
+```
+## Warning: package 'car' was built under R version 4.5.2
+```
+
+``` r
  #The regLine argument is used to avoid displaying 
 #something we will cover in regression analysis.
 spm(Boston_spm, regLine=FALSE)

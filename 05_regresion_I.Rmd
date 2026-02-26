@@ -20,7 +20,7 @@ details {
 }
 </style>
 
-**Your turn!** In the research questions below, identify the dependent variable and the independent variable:
+**Your turn!** In the research questions below, identify the dependent variable and the independent variable. Try to also think about what the unit of analysis might be.
 
 + Are violent crimes more common in low-income countries than in high-income countries?
 
