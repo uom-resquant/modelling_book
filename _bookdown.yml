@@ -12,7 +12,7 @@ rmd_files:
   - 02-causality.Rmd
   - 03-visualisation.Rmd
   - 04-carpentry.Rmd
-  # - 05_regresion_I.Rmd
+  - 05_regresion_I.Rmd
   # - 06-regression_II.Rmd
   # - 07-regression_III.Rmd
   # - 08_logistic_regressiion.Rmd

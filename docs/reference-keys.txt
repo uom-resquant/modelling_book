@@ -60,3 +60,13 @@ dispersion
 bivariate-analysis
 further-resources-1
 summary-3
+regression-i-mean-differences
+introduction-2
+dependent-variable-numerical-independent-variable-binary
+calculating-mean-differences-in-r
+visual-exploration
+using-linear-regression-to-calculate-mean-differences
+linear-regression
+linear-regression-as-a-difference-in-means-estimator
+effect-size
+lab-exercises
