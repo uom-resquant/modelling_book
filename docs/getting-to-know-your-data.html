@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2026-03-02" />
+<meta name="date" content="2026-03-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,9 +55,8 @@
 
 
 <style type="text/css">
-html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -67,7 +66,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -484,6 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In this session, we will introduce and practice some of these. But we won’t have time to cover everything. There is, however, a very nice set of vignettes for this package in the help files, so you can try to go through those if you want a greater degree of detail or more practice.</p>
 <p>Now, let’s load the package:</p>
 <div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="getting-to-know-your-data.html#cb115-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.5.2</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;dplyr&#39;</code></pre>
 <pre><code>## The following objects are masked from &#39;package:stats&#39;:
@@ -493,33 +493,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
 <p>Notice that when you run this package you get a series of warnings in the console. It is telling us that some functions from certain packages are being “masked”. One of the things with a language like R is that sometimes packages introduce functions that have the same name as others that are already loaded into your session. When that happens, the newly loaded ones will override the previous ones. You can still use them, but you will have to refer to them explicitly. Otherwise, R will assume you are using the function most recently loaded:</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="getting-to-know-your-data.html#cb119-1" tabindex="-1"></a><span class="co">#Example:</span></span>
-<span id="cb119-2"><a href="getting-to-know-your-data.html#cb119-2" tabindex="-1"></a><span class="co">#If you use load dplyr and then invoke the *filter()* function</span></span>
-<span id="cb119-3"><a href="getting-to-know-your-data.html#cb119-3" tabindex="-1"></a><span class="co">#R will assume you are using the filter function from dplyr</span></span>
-<span id="cb119-4"><a href="getting-to-know-your-data.html#cb119-4" tabindex="-1"></a><span class="co">#rather than the *filter()* function that exist in the *stats*</span></span>
-<span id="cb119-5"><a href="getting-to-know-your-data.html#cb119-5" tabindex="-1"></a><span class="co">#package, which is part of the basic installation of R. If </span></span>
-<span id="cb119-6"><a href="getting-to-know-your-data.html#cb119-6" tabindex="-1"></a><span class="co">#after loading dplyr you want to use the filter function from</span></span>
-<span id="cb119-7"><a href="getting-to-know-your-data.html#cb119-7" tabindex="-1"></a><span class="co">#the stats package, you will have to invoke it like this:</span></span>
-<span id="cb119-8"><a href="getting-to-know-your-data.html#cb119-8" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">filter</span>()</span>
-<span id="cb119-9"><a href="getting-to-know-your-data.html#cb119-9" tabindex="-1"></a><span class="co">#Notice the grammar, first you write the name of the package,</span></span>
-<span id="cb119-10"><a href="getting-to-know-your-data.html#cb119-10" tabindex="-1"></a><span class="co">#then colon twice, and then the name of the function. Don&#39;t </span></span>
-<span id="cb119-11"><a href="getting-to-know-your-data.html#cb119-11" tabindex="-1"></a><span class="co">#run this code. You would need to pass some valid arguments</span></span>
-<span id="cb119-12"><a href="getting-to-know-your-data.html#cb119-12" tabindex="-1"></a><span class="co">#for this to produce meaningful results.</span></span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="getting-to-know-your-data.html#cb120-1" tabindex="-1"></a><span class="co">#Example:</span></span>
+<span id="cb120-2"><a href="getting-to-know-your-data.html#cb120-2" tabindex="-1"></a><span class="co">#If you use load dplyr and then invoke the *filter()* function</span></span>
+<span id="cb120-3"><a href="getting-to-know-your-data.html#cb120-3" tabindex="-1"></a><span class="co">#R will assume you are using the filter function from dplyr</span></span>
+<span id="cb120-4"><a href="getting-to-know-your-data.html#cb120-4" tabindex="-1"></a><span class="co">#rather than the *filter()* function that exist in the *stats*</span></span>
+<span id="cb120-5"><a href="getting-to-know-your-data.html#cb120-5" tabindex="-1"></a><span class="co">#package, which is part of the basic installation of R. If </span></span>
+<span id="cb120-6"><a href="getting-to-know-your-data.html#cb120-6" tabindex="-1"></a><span class="co">#after loading dplyr you want to use the filter function from</span></span>
+<span id="cb120-7"><a href="getting-to-know-your-data.html#cb120-7" tabindex="-1"></a><span class="co">#the stats package, you will have to invoke it like this:</span></span>
+<span id="cb120-8"><a href="getting-to-know-your-data.html#cb120-8" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">filter</span>()</span>
+<span id="cb120-9"><a href="getting-to-know-your-data.html#cb120-9" tabindex="-1"></a><span class="co">#Notice the grammar, first you write the name of the package,</span></span>
+<span id="cb120-10"><a href="getting-to-know-your-data.html#cb120-10" tabindex="-1"></a><span class="co">#then colon twice, and then the name of the function. Don&#39;t </span></span>
+<span id="cb120-11"><a href="getting-to-know-your-data.html#cb120-11" tabindex="-1"></a><span class="co">#run this code. You would need to pass some valid arguments</span></span>
+<span id="cb120-12"><a href="getting-to-know-your-data.html#cb120-12" tabindex="-1"></a><span class="co">#for this to produce meaningful results.</span></span></code></pre></div>
 </div>
 <div id="using-dplyr-single-verbs" class="section level2 hasAnchor" number="2.5">
 <h2><span class="header-section-number">2.5</span> Using dplyr single verbs<a href="getting-to-know-your-data.html#using-dplyr-single-verbs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>One of the first operations you may want to carry out when working with data frames is to subset them based on the values of particular variables. Say we want to replicate the results reported by Agan and Starr in 2017. In this earlier paper, these researchers only used data from the period prior to the introduction of Ban the Box legislation and only used data from businesses that asked about criminal records in their online applications. How can we recreate this dataset?</p>
 <p>For this kind of operation, we use the <code>filter()</code> function. Like all single verbs in dplyr, the first argument is the tibble (or data frame). The second and subsequent arguments refer to variables within that data frame, selecting rows where the expression is TRUE.</p>
 <p>Ok, let’s filter out some information we are interested in from <code>bandbox</code>. If we look at the dataset, we can see that there is a variable called “crimbox” that identifies ‘applications that require information about criminal antecedents’ and there is a variable called “pre” that identifies ‘whether the application was sent before the legislation was introduced’. In this dataset, the value 1 is being used to denote positive responses. Therefore, if we want to create the 2017 dataset, we would start by selecting only data where the value in these two variables equals 1, as shown below.</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="getting-to-know-your-data.html#cb120-1" tabindex="-1"></a><span class="co">#We will store the results of filtering the data in a new object that I am calling aer  </span></span>
-<span id="cb120-2"><a href="getting-to-know-your-data.html#cb120-2" tabindex="-1"></a><span class="co">#(short for the name of the journal in which the paper was published)</span></span>
-<span id="cb120-3"><a href="getting-to-know-your-data.html#cb120-3" tabindex="-1"></a></span>
-<span id="cb120-4"><a href="getting-to-know-your-data.html#cb120-4" tabindex="-1"></a>aer2017<span class="ot">&lt;-</span> <span class="fu">filter</span>(banbox, crimbox <span class="sc">==</span> <span class="dv">1</span>, pre <span class="sc">==</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="getting-to-know-your-data.html#cb121-1" tabindex="-1"></a><span class="co">#We will store the results of filtering the data in a new object that I am calling aer  </span></span>
+<span id="cb121-2"><a href="getting-to-know-your-data.html#cb121-2" tabindex="-1"></a><span class="co">#(short for the name of the journal in which the paper was published)</span></span>
+<span id="cb121-3"><a href="getting-to-know-your-data.html#cb121-3" tabindex="-1"></a></span>
+<span id="cb121-4"><a href="getting-to-know-your-data.html#cb121-4" tabindex="-1"></a>aer2017<span class="ot">&lt;-</span> <span class="fu">filter</span>(banbox, crimbox <span class="sc">==</span> <span class="dv">1</span>, pre <span class="sc">==</span> <span class="dv">1</span>)</span></code></pre></div>
 <p>Notice that the number of cases equals the number of cases reported by the authors in their 2017 paper. That’s cool! So far, we have replicated the results.</p>
 <p>You may have noticed in the code above that I wrote “<code>==</code>” instead of “<code>=</code>”. Logical operators in R are not written exactly the same way as in normal practice. Keep this in mind when you get error messages when running your code. Often, the source of your error may be that you are writing the logical operators the wrong way (as far as R is concerned). Look <a href="https://www.statmethods.net/management/operators.html">here</a> for valid logic operators in R.</p>
 <p>Earlier, we said that real-life data may have hundreds of variables, and only a few of them may be relevant to your analysis. For this week’s analysis, we want to select only a few variables that might be highly related to ‘Discrimination in Employment’. Say you only want “crime”, “ged” (a ged is a high school equivalence diploma rather than a proper high school diploma and is sometimes seen as inferior), “empgap” (a gap year on employment), “black_f”, “response”, and “daystoresponse” from this dataset. For this kind of operation, you use the <code>select()</code> function.</p>
 <p>The syntax of this function is easy. First, we name the data frame object (“aer2017”), and then we list the variables. The order in which we list the variables within the select function will determine the order in which those columns appear in the new data frame we are creating. So, this is a handy function to use if you want to change the order of your columns for some reason. Since I am pretty confident I am not making a mistake, I will transform the original “aer2017” tibble rather than creating an entirely new object.</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="getting-to-know-your-data.html#cb121-1" tabindex="-1"></a>aer2017 <span class="ot">&lt;-</span> <span class="fu">select</span>(aer2017, crime, ged, empgap, black_f, response, daystoresponse)</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="getting-to-know-your-data.html#cb122-1" tabindex="-1"></a>aer2017 <span class="ot">&lt;-</span> <span class="fu">select</span>(aer2017, crime, ged, empgap, black_f, response, daystoresponse)</span></code></pre></div>
 <p>If you now look at the global environment, you will see that the “aer2017” tibble has reduced in size and now only has 6 columns. If you view the data, you will see the 6 variables we selected.</p>
 </div>
 <div id="using-dplyr-for-grouped-operations" class="section level2 hasAnchor" number="2.6">
@@ -527,16 +527,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>So far, we have used <code>dplyr</code> single verbs for ungrouped operations. However, we can also use some of the functionality of <code>dplyr</code> to obtain answers to questions that relate to groups of cases within our data frame. Imagine that you want to know if applicants with a criminal record are less likely to receive a positive response from employers. How could you figure that one out? To answer this kind of question, we can use the <code>group_by()</code> function in conjunction with other <code>dplyr</code> functions. In particular, we are going to look at the <code>summarise</code> function.</p>
 <p>First, we group the observations by criminal record in a new object, “aer2017_by_antecedent”. By using <code>as_factor()</code> in the call to the crime variable the results will be labelled later on (even though we are not changing the crime variable in the aer2017 data frame). Keep in mind that we are using <code>as_factor()</code> because the column crime is a labelled vector rather than a factor or a character vector, and we do this to aid interpretation (it is easier to
 interpret labels than 0 and 1).</p>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="getting-to-know-your-data.html#cb122-1" tabindex="-1"></a>aer2017_by_antecedent <span class="ot">&lt;-</span> <span class="fu">group_by</span>(aer2017, <span class="fu">as_factor</span>(crime))</span>
-<span id="cb122-2"><a href="getting-to-know-your-data.html#cb122-2" tabindex="-1"></a></span>
-<span id="cb122-3"><a href="getting-to-know-your-data.html#cb122-3" tabindex="-1"></a><span class="co">#Then we run the summarise function to provide some useful</span></span>
-<span id="cb122-4"><a href="getting-to-know-your-data.html#cb122-4" tabindex="-1"></a><span class="co">#summaries of the groups we are using: the number of cases</span></span>
-<span id="cb122-5"><a href="getting-to-know-your-data.html#cb122-5" tabindex="-1"></a><span class="co">#and the mean of the response variable</span></span>
-<span id="cb122-6"><a href="getting-to-know-your-data.html#cb122-6" tabindex="-1"></a>results_1 <span class="ot">&lt;-</span> <span class="fu">summarise</span>(aer2017_by_antecedent,</span>
-<span id="cb122-7"><a href="getting-to-know-your-data.html#cb122-7" tabindex="-1"></a>  <span class="at">count =</span> <span class="fu">n</span>(),</span>
-<span id="cb122-8"><a href="getting-to-know-your-data.html#cb122-8" tabindex="-1"></a>  <span class="at">outcome =</span> <span class="fu">mean</span>(response, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb122-9"><a href="getting-to-know-your-data.html#cb122-9" tabindex="-1"></a></span>
-<span id="cb122-10"><a href="getting-to-know-your-data.html#cb122-10" tabindex="-1"></a>results_1 <span class="co">#auto-print the results stored in the newly created object</span></span></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="getting-to-know-your-data.html#cb123-1" tabindex="-1"></a>aer2017_by_antecedent <span class="ot">&lt;-</span> <span class="fu">group_by</span>(aer2017, <span class="fu">as_factor</span>(crime))</span>
+<span id="cb123-2"><a href="getting-to-know-your-data.html#cb123-2" tabindex="-1"></a></span>
+<span id="cb123-3"><a href="getting-to-know-your-data.html#cb123-3" tabindex="-1"></a><span class="co">#Then we run the summarise function to provide some useful</span></span>
+<span id="cb123-4"><a href="getting-to-know-your-data.html#cb123-4" tabindex="-1"></a><span class="co">#summaries of the groups we are using: the number of cases</span></span>
+<span id="cb123-5"><a href="getting-to-know-your-data.html#cb123-5" tabindex="-1"></a><span class="co">#and the mean of the response variable</span></span>
+<span id="cb123-6"><a href="getting-to-know-your-data.html#cb123-6" tabindex="-1"></a>results_1 <span class="ot">&lt;-</span> <span class="fu">summarise</span>(aer2017_by_antecedent,</span>
+<span id="cb123-7"><a href="getting-to-know-your-data.html#cb123-7" tabindex="-1"></a>  <span class="at">count =</span> <span class="fu">n</span>(),</span>
+<span id="cb123-8"><a href="getting-to-know-your-data.html#cb123-8" tabindex="-1"></a>  <span class="at">outcome =</span> <span class="fu">mean</span>(response, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb123-9"><a href="getting-to-know-your-data.html#cb123-9" tabindex="-1"></a></span>
+<span id="cb123-10"><a href="getting-to-know-your-data.html#cb123-10" tabindex="-1"></a>results_1 <span class="co">#auto-print the results stored in the newly created object</span></span></code></pre></div>
 <pre><code>## # A tibble: 2 × 3
 ##   `as_factor(crime)` count outcome
 ##   &lt;fct&gt;              &lt;int&gt;   &lt;dbl&gt;
@@ -548,15 +548,15 @@ interpret labels than 0 and 1).</p>
 <div id="making-comparisons-with-numerical-outcomes" class="section level2 hasAnchor" number="2.7">
 <h2><span class="header-section-number">2.7</span> Making comparisons with numerical outcomes<a href="getting-to-know-your-data.html#making-comparisons-with-numerical-outcomes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We have been looking at relationships so far between categorical variables, specifically between having a criminal record (yes or no), race (black or white), and receiving a positive response from employers (yes or no). Often, we may be interested in looking at the impact of a factor on a numerical outcome. The researchers measured such an outcome in the banbox object. The variable “daystoresponse” tells us how long it took the employers to provide a positive response. Let’s look at this variable:</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="getting-to-know-your-data.html#cb124-1" tabindex="-1"></a><span class="fu">summary</span>(banbox<span class="sc">$</span>daystoresponse)</span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="getting-to-know-your-data.html#cb125-1" tabindex="-1"></a><span class="fu">summary</span>(banbox<span class="sc">$</span>daystoresponse)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
 ##    0.00    3.00   10.00   19.48   28.00  153.00   14361</code></pre>
 <p>The <code>summary()</code> function provides some useful stats for numerical variables. We obtain the minimum and maximum values, the 25th percentile, the median, the mean, the 75th percentile, and the number of missing data (NA). You can see the massive amount of missing data here. Most cases have missing data on this variable. Clearly, this is a function of, first and foremost, the fact that the number of days to receive a positive response will only be collected in cases where there was a positive response! However, even accounting for that, it is clear that this information is also missing in many cases that received a positive response. So, given all of this, we need to be very careful when interpreting this variable. However, because it is the only numeric variable here, we will use it to illustrate some handy functions.</p>
 <p>We could do as before and get results by groups. Let’s look at the impact of race on days to response:</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="getting-to-know-your-data.html#cb126-1" tabindex="-1"></a>banbox_by_race <span class="ot">&lt;-</span> <span class="fu">group_by</span>(banbox, black_f)</span>
-<span id="cb126-2"><a href="getting-to-know-your-data.html#cb126-2" tabindex="-1"></a>results_2 <span class="ot">&lt;-</span> <span class="fu">summarise</span>(banbox_by_race,</span>
-<span id="cb126-3"><a href="getting-to-know-your-data.html#cb126-3" tabindex="-1"></a>  <span class="at">avg_delay =</span> <span class="fu">mean</span>(daystoresponse, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb126-4"><a href="getting-to-know-your-data.html#cb126-4" tabindex="-1"></a>results_2</span></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="getting-to-know-your-data.html#cb127-1" tabindex="-1"></a>banbox_by_race <span class="ot">&lt;-</span> <span class="fu">group_by</span>(banbox, black_f)</span>
+<span id="cb127-2"><a href="getting-to-know-your-data.html#cb127-2" tabindex="-1"></a>results_2 <span class="ot">&lt;-</span> <span class="fu">summarise</span>(banbox_by_race,</span>
+<span id="cb127-3"><a href="getting-to-know-your-data.html#cb127-3" tabindex="-1"></a>  <span class="at">avg_delay =</span> <span class="fu">mean</span>(daystoresponse, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb127-4"><a href="getting-to-know-your-data.html#cb127-4" tabindex="-1"></a>results_2</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 2
 ##   black_f   avg_delay
 ##   &lt;fct&gt;         &lt;dbl&gt;
@@ -564,9 +564,9 @@ interpret labels than 0 and 1).</p>
 ## 2 Black          20.4</code></pre>
 <p>We can see that the average delay seems to be longer for ‘Black’ applicants than ‘White’ applicants.</p>
 <p>However, we could also try to represent these differences graphically. The problem with comparing groups on quantitative variables using numerical summaries, such as the mean, is that these comparisons hide more than they show. We want to see the full distribution, not just the mean. For this, we are going to use <code>ggplot2</code>, the main graphical package we will use this semester. We won’t get into the details of this package or what the code below means, but just try to run it. We will cover graphics in R in the next section. This is just a taster for it.</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="getting-to-know-your-data.html#cb128-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb128-2"><a href="getting-to-know-your-data.html#cb128-2" tabindex="-1"></a><span class="fu">ggplot</span>(banbox, <span class="fu">aes</span>(<span class="at">y =</span> daystoresponse, <span class="at">x =</span> black_f)) <span class="sc">+</span> </span>
-<span id="cb128-3"><a href="getting-to-know-your-data.html#cb128-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="getting-to-know-your-data.html#cb129-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb129-2"><a href="getting-to-know-your-data.html#cb129-2" tabindex="-1"></a><span class="fu">ggplot</span>(banbox, <span class="fu">aes</span>(<span class="at">y =</span> daystoresponse, <span class="at">x =</span> black_f)) <span class="sc">+</span> </span>
+<span id="cb129-3"><a href="getting-to-know-your-data.html#cb129-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() </span></code></pre></div>
 <p><img src="02-causality_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
 <p>Watch <a href="https://www.khanacademy.org/math/probability/data-distributions-a1/box--whisker-plots-a1/v/reading-box-and-whisker-plots">this video</a> and see if you can interpret the results portrayed here. What do you think?</p>
 <p>Overall, the outcomes are worse for ‘Black’ applicants, and in fact, the authors find that employers substantially increase discrimination on the basis of race after ban the box goes into effect. You can now replicate these findings with the data provided. by applying the new skills you’ve learned this week!</p>

@@ -242,7 +242,7 @@ When the dependent variable is numerical and the independent variable is binary,
 
 ### Linear Regression
 
-In the previous section, we used the `lm()` function to estimate mean differences and learned that `lm` stands for *linear model*. This function provides a way to estimate relationships using a statistical model, specifically the most basic and widely used model: **linear regression**. At its core, linear regression characterises the relationship between a dependent variable and one (or more) independent variable(s) using a *linear model*:  
+The `lm()` function can be used to estimate mean differences and stands for *linear model*. This function provides a way to estimate relationships using a statistical model, specifically the most basic and widely used model: **linear regression**. At its core, linear regression characterises the relationship between a dependent variable and one (or more) independent variable(s) using a *linear model*:  
 
 $$
 Y = \underbrace{\alpha}_{\text{Intercept}} + \underbrace{\beta \cdot}_{\text{Slope}} \! X + \!\!\!\!\! \underbrace{\epsilon}_{\text{Error Term}}
@@ -286,7 +286,6 @@ $$
 
 Here, `tcviolent` (a variable reflecting scores of fear of violent crime) is the dependent variable, and `sex` is the independent variable. We aim to estimate the parameters $\alpha$ (the intercept) and $\beta$ (the slope), which help us address the research question. Linear regression employs *ordinary least squares* (OLS)---a method we will study in more detail next week---to estimate $\alpha$ and $\beta$. The `lm()` function, introduced earlier, performs this estimation.
 
-##########################################################
 For our example, the code would look like this:
 
 ```{r}
@@ -316,15 +315,12 @@ In our example, we get the following information from the output:
 
 
 
-###########################################
-
-
   + The intercept is `r round(coef(mean_difference_lm)[1], 4)`, meaning $\widehat{\alpha} =$ `r round(coef(mean_difference_lm)[1], 4)`.
   + The slope is `r round(coef(mean_difference_lm)[2], 4)`, meaning $\widehat{\beta} =$ `r round(coef(mean_difference_lm)[2], 4)`.
 
 If you recall from above, when we manually calculated everything, these numbers should look familiar! The average score of fear of violent crime among women (remember, we created the `mean_fear_women` object) was `r round(mean_fear_women, 4)`---exactly what is reported as the *Intercept* in this output. And the mean difference (remember, we created the `mean_difference` object) was `r round(mean_difference, 3)`---exactly what is reported as the `sexmale` coefficient! This implies that male respondents have a fear score that is `r round(coef(mean_difference_lm)[1], 4)` points lower than female respondents on average.
 
-Thus, we can rewrite the regression equation as:
+Given the `lm` output, we can rewrite the regression equation as:
 
 $$
 \widehat{tcviolent} = 0.3282 - 0.6020 \cdot sex
@@ -366,6 +362,8 @@ The residual ($\widehat{\epsilon}$) is essentially the "error" in prediction. It
 
 The distinction between the error term ($\epsilon$) and the residual ($\widehat{\epsilon}$), as well as the role of $\widehat{Y}$ versus $Y$, will become clearer as we explore these concepts further next week!
 
+**End of extra explanation on "Why do we include "hats" in the parameters"**
+
 </details>
 
 However, `sex` is not a numerical variable; it is a binary variable with two possible values: *female* and *male.* How can we incorporate such a variable into an equation?
@@ -378,11 +376,11 @@ The trick lies in treating binary variables as a special type of numerical varia
 Conventionally, the group assigned a value of `0` is the *reference group* (or sometimes referred to as the *control group*), while the group assigned a value of *1* is called the *comparison group* (or sometimes the *treatment group*).
 
 <details>
-<summary><b>Note on how to figure out which comparisons the model is making:</b></summary>
+<summary><b>How to figure out which comparisons the model is making:</b></summary>
 
 As we discussed above, there are two possible comparisons. They are numerically equivalent (i.e., only the sign differs), but the interpretation changes. We can calculate `mean_fear_men - mean_fear_women`, which gives a mean difference of `r round(coef(mean_difference_lm)[2], 4)`. Alternatively, we can calculate `mean_fear_women - mean_fear_men`, as we did when we created the `mean_difference_alternative` object, which gives a mean difference of `r round(mean_difference_alternative, 4)`. While these values are numerically the same, their interpretation focuses on different groups.
 
-#### How to determine which comparison `lm()` is performing {-}
+**How to determine which comparison `lm()` is performing**
 
 The `lm()` function selects one category to be represented by the *Intercept*---this is known as the *reference category*. The reference category is the group being compared against, i.e., the right-hand side of the subtraction equation. The `lm()` function then calculates the difference between the other category and the reference category. This is visible in the output. For example, in the output above, the coefficient is labelled `sexmale`. This implies that *female* is the reference category, and the comparison being made is `mean_fear_men - mean_fear_women`. The coefficient `sexmale:` `r round(coef(mean_difference_lm)[2], 4)` therefore indicates that male respondents, on average, have a fear score `r round(coef(mean_difference_lm)[2], 4)` points lower than female respondents.
 
@@ -414,6 +412,7 @@ lm(tcviolent ~ female_factor, data = csew_0708)
 ```
 
 For both models, the outputs are identical. The *Intercept* now reflects the mean of fear of violent crime among male respondents (`r round(mean_fear_men, 2)`), as *male* is the reference category. The coefficient is also identical to the value stored in the `mean_difference_alternative` object (`r round(mean_difference_alternative, 2)`). This coefficient is numerically equivalent to the previously estimated `sexmale` coefficient (`r round(coef(mean_difference_lm)[2], 2)`), but the sign changes. With *male* as the reference group, the output reflects that female respondents have a fear score `r round(mean_difference_alternative, 2)` points higher than male respondents on average.
+**End of extra explanation on "how to figure out which comparisons the model is making"**
 
 </details>
 

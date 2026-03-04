@@ -457,6 +457,13 @@ They can be produced with the `ggridges` package. Before we dichotomise the vari
 
 ``` r
 library(dplyr)
+```
+
+```
+## Warning: package 'dplyr' was built under R version 4.5.2
+```
+
+``` r
 Boston <- mutate(Boston, dec_medv = ntile(medv, 10))
 ```
 
@@ -786,6 +793,13 @@ Then we load `GGally` and run the scatterplot matrix using the `ggpairs` functio
 
 ``` r
 library(GGally)
+```
+
+```
+## Warning: package 'GGally' was built under R version 4.5.2
+```
+
+``` r
 ggpairs(Boston_spm)
 ```
 
@@ -800,13 +814,6 @@ R gives you a lot of flexibility, and there are often competing packages that ai
 
 ``` r
 library(car)
-```
-
-```
-## Warning: package 'car' was built under R version 4.5.2
-```
-
-``` r
  #The regLine argument is used to avoid displaying 
 #something we will cover in regression analysis.
 spm(Boston_spm, regLine=FALSE)
@@ -950,7 +957,7 @@ ggplot(BCS0708, aes(x=walkday)) +
 ```
 ## Warning: The dot-dot notation (`..prop..`) was deprecated in ggplot2 3.4.0.
 ## ℹ Please use `after_stat(prop)` instead.
-## This warning is displayed once every 8 hours.
+## This warning is displayed once per session.
 ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
 ## generated.
 ```

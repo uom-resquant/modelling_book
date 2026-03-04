@@ -157,7 +157,13 @@ To calculate the mean of a numerical variable for specific subgroups, we can use
 
 # Load the dplyr package
 library(dplyr)
+```
 
+```
+## Warning: package 'dplyr' was built under R version 4.5.2
+```
+
+``` r
 # Subset the data for female respondents
 csew_0708_women <- filter(csew_0708, sex == "female")
 
@@ -298,7 +304,55 @@ The `lm()` function, short for *linear model*, streamlines the process by calcul
   + Follow it with a *tilde* ($\sim$).
   + Then, provide the independent variable and the dataset.
 
-When the dependent variable is numerical and the independent variable is binary, the `lm()` function automatically calculates the mean difference. It saves time by performing all the necessary steps in one go. You can use it directly or save the output to an object for later use. For our example, the code would look like this:
+When the dependent variable is numerical and the independent variable is binary, the `lm()` function automatically calculates the mean difference. It saves time by performing all the necessary steps in one go. You can use it directly or save the output to an object for later use. 
+
+### Linear Regression
+
+The `lm()` function can be used to estimate mean differences and stands for *linear model*. This function provides a way to estimate relationships using a statistical model, specifically the most basic and widely used model: **linear regression**. At its core, linear regression characterises the relationship between a dependent variable and one (or more) independent variable(s) using a *linear model*:  
+
+$$
+Y = \underbrace{\alpha}_{\text{Intercept}} + \underbrace{\beta \cdot}_{\text{Slope}} \! X + \!\!\!\!\! \underbrace{\epsilon}_{\text{Error Term}}
+$$
+
+In this equation:
+
+  + $Y$ is the dependent variable.
+  + $X$ is the independent variable.
+
+By convention, the dependent variable ($Y$) is always displayed on the left-hand side of the equation, while the independent variable ($X$) is on the right-hand side. For example, in the context of our dataset, $Y$ might represent scores of fear of violent crime, and $X$ could represent sex. 
+
+It is also standard practice to use Latin letters ($Y$ and $X$) for observed variables in our dataset, whereas Greek letters ($\alpha$, $\beta$, and $\epsilon$) represent unknown parameters that need to be estimated.
+
+  + The **intercept** ($\alpha$) represents the average value of $Y$ when $X = 0$.  
+  + The **slope** ($\beta$) measures the average increase in $Y$ when $X$ increases by one unit.  
+  + Together, $\alpha$ and $\beta$ are called *regression coefficients*. These coefficients are not directly observed in the data and must be estimated.  
+
+Finally, the **error term** ($\epsilon$) accounts for the variability in $Y$ that is not explained by $X$. We will elaborate on this concept in the sections that follow.
+
+Linear regression is a widely used statistical model in the social sciences. Over the coming weeks, we will extend several aspects of this model. Regression models serve two main purposes: prediction and theory testing. These models allow us to specify research questions and translate them into statistical representations, assuming the model approximates the *data-generating process*. 
+
+In reality, we do not know the true data-generating process, and our statistical model may be incomplete. For example, factors beyond gender---such as prior victimisation (of oneself or family/friends), local crime rates, or individual personality traits---may also influence people's fear of violent crime. While these factors are not included in our current model, that's acceptable. As the saying goes, "all models are wrong, but some are useful." Our primary goal is not to explain all variations in the dependent variable (e.g., fear of crime) but to address our research question. In this case, we aim to determine whether women are more afraid of violent crime than men by estimating the difference in average fear scores between the two groups.
+
+Over the next few weeks, we will expand our understanding of linear regression models in various ways:
+
+  + Independent variables can also be numerical (Chapter 6).
+  + Linear regression models have several assumptions that need to be satisfied (Chapter 6).
+  + Independent variables can be categorical with more than two groups (Chapter 7).  
+  + Multiple independent variables can be included simultaneously (Chapter 7).  
+
+For now, we are focusing on a basic scenario: a numerical dependent variable and a binary independent variable. In this case, the estimated slope coefficient corresponds to the *difference-in-means estimator*.
+
+### Linear Regression as a Difference-in-Means Estimator
+
+Let's apply this to our example. The regression equation can be written as:  
+
+$$
+\widehat{tcviolent} = \widehat{\alpha} + \widehat{\beta} \cdot sex
+$$
+
+Here, `tcviolent` (a variable reflecting scores of fear of violent crime) is the dependent variable, and `sex` is the independent variable. We aim to estimate the parameters $\alpha$ (the intercept) and $\beta$ (the slope), which help us address the research question. Linear regression employs *ordinary least squares* (OLS)---a method we will study in more detail next week---to estimate $\alpha$ and $\beta$. The `lm()` function, introduced earlier, performs this estimation.
+
+For our example, the code would look like this:
 
 
 ``` r
@@ -313,8 +367,7 @@ In this case:
   + `csew_0708` is the dataset being analysed.
   + `mean_difference_lm` is the name we assign to the object storing the model's results. 
   
-This single line of code computes the mean difference in fear of violent crime between men and women based on the dataset `csew_0708`, offering a more streamlined approach to the analysis. Now, let's examine the output.
-
+This single line of code computes the mean difference in fear of violent crime between men and women using the `csew_0708` dataset, offering a more streamlined approach to the analysis. Now, let's examine the output.
 
 ``` r
 # Display the results of the linear model
@@ -330,24 +383,82 @@ mean_difference_lm
 ## (Intercept)      sexmale  
 ##      0.3282      -0.6020
 ```
-
-The output has two parts: 
+The output generally has two parts: 
 
   1. **Call:** This section restates the formula you provided to the function, confirming that `tcviolent` is the dependent variable, `sex` is the independent variable, and `csew_0708` is the dataset.
   
   2. **Coefficients:** This section provides the results we're most interested in, showing two estimates:
-  
-      + `(Intercept):` 0.3282
-      + `sexmale:` -0.6020
-    
+
+In our example, we get the following information from the output:
+
+
+
+  + The intercept is 0.3282, meaning $\widehat{\alpha} =$ 0.3282.
+  + The slope is -0.602, meaning $\widehat{\beta} =$ -0.602.
+
 If you recall from above, when we manually calculated everything, these numbers should look familiar! The average score of fear of violent crime among women (remember, we created the `mean_fear_women` object) was 0.3282---exactly what is reported as the *Intercept* in this output. And the mean difference (remember, we created the `mean_difference` object) was -0.602---exactly what is reported as the `sexmale` coefficient! This implies that male respondents have a fear score that is 0.3282 points lower than female respondents on average.
 
+Given the `lm` output, we can rewrite the regression equation as:
+
+$$
+\widehat{tcviolent} = 0.3282 - 0.6020 \cdot sex
+$$
+
+Now, how does this equation make sense in practice? As noted earlier, `tcviolent` is a numerical variable, ranging from -2.35 to 3.81. Since it is numerical, arithmetic operations are meaningful, making its inclusion in a regression equation straightforward. After all, the goal is to estimate expected scores of `tcviolent` under specific conditions. 
+
 <details>
-<summary><b>Note on how to figure out which comparisons the model is making:</b></summary>
+<summary><b>Why do we include "hats" in the parameters (e.g., $\widehat{Y}$, $\widehat{\alpha}$, $\widehat{\beta}$)?</b></summary>
+
+The linear regression model is expressed as:
+
+$$
+Y = \alpha + \beta \cdot X + \epsilon
+$$
+
+Here, $\alpha$ and $\beta$ are *unknown* parameters that need to be estimated. We can attempt to estimate (e.g., calculate) them. A common method for estimating these linear regression coefficients is the method of *least squares*. However, because we don't know whether our estimates of $\alpha$ and $\beta$ perfectly match the unknown parameters, we need to distinguish the estimates from the unknown values. That's where the "hats" come in.
+
+  + $\widehat{\alpha}$ and $\widehat{\beta}$ represent the estimates (think *guesstimates*!) of $\alpha$ and $\beta$, respectively.
+  + The "hat" indicates that these are estimated values, not the true parameters.
+  
+We usually expect our estimator to do a good job of estimating parameters. To the extent that $\widehat{\alpha} = \alpha$ and $\widehat{\beta} = \beta$ can be proved, then we would have an *unbiased estimator*. (but don't worry, that's not something we need to worry about! That's a job for theoretical statisticians).
+
+Once we have estimated values of $\alpha$ and $\beta$, we can use them to *predict* the value of the dependent variable $Y$ for a given value of the independent variable $X$ (e.g., predict the value of fear of violent crime given respondents' sex). This *predicted value* (or *fitted value*) of *Y* is also an estimated value; therefore, we denote it as $\widehat{Y}$. As such, we can write the regression function:
+
+$$
+\widehat{Y} = \widehat{\alpha} + \widehat{\beta} \cdot x
+$$
+
+In this equation, we did not include $\epsilon$. In most cases, the predicted value $\widehat{Y}$ is not equal to the observed value $Y$. For instance, while $\widehat{Y}=0.3282$ for $X=0$ (i.e., the average score of fear of violent crime among female respondents is $0.3282$), most female respondents probably have an observed score of fear of violent crime that is not exactly $0.3282$. Similarly, while $\widehat{Y}=-0.2738$ for $X=1$ (i.e., the average score of fear of violent crime among male respondents is $-0.2738$), most male respondents probably have an observed score of fear of violent crime that is not exactly $-0.2738$. 
+
+The difference between the observed value $Y$ and its predicted value $\widehat{Y}$ (e.g., the difference between each individual score of fear of violent crime and the estimates above) is called the *residual* and is given by:  
+
+$$
+\widehat{\epsilon} = Y - \widehat{Y}.
+$$
+
+The residual ($\widehat{\epsilon}$) is essentially the "error" in prediction. It represents the part of $Y$ that is not explained by $X$ using the regression model. The residual $\widehat{\epsilon}$ is also the error term $\epsilon$ with a hat, as it represents an estimate of the error term. When we write the linear model focused on $Y$, we have unknown parameters $\alpha$ and $\beta$ as well as an error term accounting for variation in $Y$ not explained by $X$. When we write the linear model focused on $\widehat{Y}$, we have parameter estimates $\widehat{\alpha}$ and $\widehat{\beta}$ and no error term.
+
+The distinction between the error term ($\epsilon$) and the residual ($\widehat{\epsilon}$), as well as the role of $\widehat{Y}$ versus $Y$, will become clearer as we explore these concepts further next week!
+
+**End of extra explanation on "Why do we include "hats" in the parameters"**
+
+</details>
+
+However, `sex` is not a numerical variable; it is a binary variable with two possible values: *female* and *male.* How can we incorporate such a variable into an equation?
+
+The trick lies in treating binary variables as a special type of numerical variable. Binary variables can only take two distinct values (e.g., `TRUE` or `FALSE`, yes or no, black or white). By assigning meaningful numeric values, such as `1` or `0`, to the categories, they can be seamlessly included in equations. In this case, the variable sex is coded as follows:
+
+  + $sex = 0$ if `sex` is *female*
+  + $sex = 1$ if `sex` is *male*
+  
+Conventionally, the group assigned a value of `0` is the *reference group* (or sometimes referred to as the *control group*), while the group assigned a value of *1* is called the *comparison group* (or sometimes the *treatment group*).
+
+<details>
+<summary><b>How to figure out which comparisons the model is making:</b></summary>
 
 As we discussed above, there are two possible comparisons. They are numerically equivalent (i.e., only the sign differs), but the interpretation changes. We can calculate `mean_fear_men - mean_fear_women`, which gives a mean difference of -0.602. Alternatively, we can calculate `mean_fear_women - mean_fear_men`, as we did when we created the `mean_difference_alternative` object, which gives a mean difference of 0.602. While these values are numerically the same, their interpretation focuses on different groups.
 
-#### How to determine which comparison `lm()` is performing {-}
+**How to determine which comparison `lm()` is performing**
 
 The `lm()` function selects one category to be represented by the *Intercept*---this is known as the *reference category*. The reference category is the group being compared against, i.e., the right-hand side of the subtraction equation. The `lm()` function then calculates the difference between the other category and the reference category. This is visible in the output. For example, in the output above, the coefficient is labelled `sexmale`. This implies that *female* is the reference category, and the comparison being made is `mean_fear_men - mean_fear_women`. The coefficient `sexmale:` -0.602 therefore indicates that male respondents, on average, have a fear score -0.602 points lower than female respondents.
 
@@ -403,92 +514,10 @@ lm(tcviolent ~ female_factor, data = csew_0708)
 ```
 
 For both models, the outputs are identical. The *Intercept* now reflects the mean of fear of violent crime among male respondents (-0.27), as *male* is the reference category. The coefficient is also identical to the value stored in the `mean_difference_alternative` object (0.6). This coefficient is numerically equivalent to the previously estimated `sexmale` coefficient (-0.6), but the sign changes. With *male* as the reference group, the output reflects that female respondents have a fear score 0.6 points higher than male respondents on average.
+**End of extra explanation on "how to figure out which comparisons the model is making"**
 
 </details>
 
-### Linear Regression
-
-In the previous section, we used the `lm()` function to estimate mean differences and learned that `lm` stands for *linear model*. This function provides a way to estimate relationships using a statistical model, specifically the most basic and widely used model: **linear regression**. At its core, linear regression characterises the relationship between a dependent variable and one (or more) independent variable(s) using a *linear model*:  
-
-$$
-Y = \underbrace{\alpha}_{\text{Intercept}} + \underbrace{\beta \cdot}_{\text{Slope}} \! X + \!\!\!\!\! \underbrace{\epsilon}_{\text{Error Term}}
-$$
-
-In this equation:
-
-  + $Y$ is the dependent variable.
-  + $X$ is the independent variable.
-
-By convention, the dependent variable ($Y$) is always displayed on the left-hand side of the equation, while the independent variable ($X$) is on the right-hand side. For example, in the context of our dataset, $Y$ might represent scores of fear of violent crime, and $X$ could represent sex. 
-
-It is also standard practice to use Latin letters ($Y$ and $X$) for observed variables in our dataset, whereas Greek letters ($\alpha$, $\beta$, and $\epsilon$) represent unknown parameters that need to be estimated.
-
-  + The **intercept** ($\alpha$) represents the average value of $Y$ when $X = 0$.  
-  + The **slope** ($\beta$) measures the average increase in $Y$ when $X$ increases by one unit.  
-  + Together, $\alpha$ and $\beta$ are called *regression coefficients*. These coefficients are not directly observed in the data and must be estimated.  
-
-Finally, the **error term** ($\epsilon$) accounts for the variability in $Y$ that is not explained by $X$. We will elaborate on this concept in the sections that follow.
-
-Linear regression is a widely used statistical model in the social sciences. Over the coming weeks, we will extend several aspects of this model. Regression models serve two main purposes: prediction and theory testing. These models allow us to specify research questions and translate them into statistical representations, assuming the model approximates the *data-generating process*. 
-
-In reality, we do not know the true data-generating process, and our statistical model may be incomplete. For example, factors beyond gender---such as prior victimisation (of oneself or family/friends), local crime rates, or individual personality traits---may also influence people's fear of violent crime. While these factors are not included in our current model, that's acceptable. As the saying goes, "all models are wrong, but some are useful." Our primary goal is not to explain all variations in the dependent variable (e.g., fear of crime) but to address our research question. In this case, we aim to determine whether women are more afraid of violent crime than men by estimating the difference in average fear scores between the two groups.
-
-Over the next few weeks, we will expand our understanding of linear regression models in various ways:
-
-  + Independent variables can also be numerical (Chapter 6).
-  + Linear regression models have several assumptions that need to be satisfied (Chapter 6).
-  + Independent variables can be categorical with more than two groups (Chapter 7).  
-  + Multiple independent variables can be included simultaneously (Chapter 7).  
-
-For now, we are focusing on a basic scenario: a numerical dependent variable and a binary independent variable. In this case, the estimated slope coefficient corresponds to the *difference-in-means estimator*.
-
-### Linear Regression as a Difference-in-Means Estimator
-
-Let's apply this to our example. The regression equation can be written as:  
-
-$$
-\widehat{tcviolent} = \widehat{\alpha} + \widehat{\beta} \cdot sex
-$$
-
-Here, `tcviolent` (a variable reflecting scores of fear of violent crime) is the dependent variable, and `sex` is the independent variable. We aim to estimate the parameters $\alpha$ (the intercept) and $\beta$ (the slope), which help us address the research question. Linear regression employs *ordinary least squares* (OLS)---a method we will study in more detail next week---to estimate $\alpha$ and $\beta$. The `lm()` function, introduced earlier, performs this estimation. Let's revisit the regression output:  
-
-
-``` r
-# Display the results of the linear model
-mean_difference_lm
-```
-
-```
-## 
-## Call:
-## lm(formula = tcviolent ~ sex, data = csew_0708)
-## 
-## Coefficients:
-## (Intercept)      sexmale  
-##      0.3282      -0.6020
-```
-
-From the output:
-
-  + The intercept is 0.3282, meaning $\widehat{\alpha} =$ 0.3282.
-  + The slope is -0.602, meaning $\widehat{\beta} =$ -0.602.
-  
-Thus, we can rewrite the regression equation as:
-
-$$
-\widehat{tcviolent} = 0.3282 - 0.6020 \cdot sex
-$$
-
-Now, how does this equation make sense in practice? As noted earlier, `tcviolent` is a numerical variable, ranging from -2.35 to 3.81. Since it is numerical, arithmetic operations are meaningful, making its inclusion in a regression equation straightforward. After all, the goal is to estimate expected scores of `tcviolent` under specific conditions. 
-
-However, `sex` is not a numerical variable; it is a binary variable with two possible values: *female* and *male.* How can we incorporate such a variable into an equation?
-
-The trick lies in treating binary variables as a special type of numerical variable. Binary variables can only take two distinct values (e.g., `TRUE` or `FALSE`, yes or no, black or white). By assigning meaningful numeric values, such as `1` or `0`, to the categories, they can be seamlessly included in equations. In this case, the variable sex is coded as follows:
-
-  + $sex = 0$ if `sex` is *female*
-  + $sex = 1$ if `sex` is *male*
-  
-Conventionally, the group assigned a value of `0` is the *reference group* (or sometimes referred to as the *control group*), while the group assigned a value of *1* is called the *comparison group* (or sometimes the *treatment group*).
 
 By applying this coding to the linear regression model, we can interpret the results as follows:
 
@@ -516,41 +545,6 @@ Thus, in this example:
 
 Linear regression provides a straightforward way to quantify and interpret these differences.
 
-<details>
-<summary><b>Why do we include "hats" in the parameters (e.g., $\widehat{Y}$, $\widehat{\alpha}$, $\widehat{\beta}$)?</b></summary>
-
-The linear regression model is expressed as:
-
-$$
-Y = \alpha + \beta \cdot X + \epsilon
-$$
-
-Here, $\alpha$ and $\beta$ are *unknown* parameters that need to be estimated. We can attempt to estimate (e.g., calculate) them. A common method for estimating these linear regression coefficients is the method of *least squares*. However, because we don't know whether our estimates of $\alpha$ and $\beta$ perfectly match the unknown parameters, we need to distinguish the estimates from the unknown values. That's where the "hats" come in.
-
-  + $\widehat{\alpha}$ and $\widehat{\beta}$ represent the estimates (think *guesstimates*!) of $\alpha$ and $\beta$, respectively.
-  + The "hat" indicates that these are estimated values, not the true parameters.
-  
-We usually expect our estimator to do a good job of estimating parameters. To the extent that $\widehat{\alpha} = \alpha$ and $\widehat{\beta} = \beta$ can be proved, then we would have an *unbiased estimator*. (but don't worry, that's not something we need to worry about! That's a job for theoretical statisticians).
-
-Once we have estimated values of $\alpha$ and $\beta$, we can use them to *predict* the value of the dependent variable $Y$ for a given value of the independent variable $X$ (e.g., predict the value of fear of violent crime given respondents' sex). This *predicted value* (or *fitted value*) of *Y* is also an estimated value, therefore, we denote it as $\widehat{Y}$. As such, we can write the regression function:
-
-$$
-\widehat{Y} = \widehat{\alpha} + \widehat{\beta} \cdot x
-$$
-
-In this equation, we did not include $\epsilon$. In most cases, the predicted value $\widehat{Y}$ is not equal to the observed value $Y$. For instance, while $\widehat{Y}=0.3282$ for $X=0$ (i.e., the average score of fear of violent crime among female respondents is $0.3282$), most female respondents probably have an observed score of fear of violent crime that is not exactly $0.3282$. Similarly, while $\widehat{Y}=-0.2738$ for $X=1$ (i.e., the average score of fear of violent crime among male respondents is $-0.2738$), most male respondents probably have an observed score of fear of violent crime that is not exactly $-0.2738$. 
-
-The difference between the observed value $Y$ and its predicted value $\widehat{Y}$ (e.g., the difference between each individual score of fear of violent crime and the estimates above) is called the *residual* and is given by:  
-
-$$
-\widehat{\epsilon} = Y - \widehat{Y}.
-$$
-
-The residual ($\widehat{\epsilon}$) is essentially the "error" in prediction. It represents the part of $Y$ that is not explained by $X$ using the regression model. The residual $\widehat{\epsilon}$ is also the error term $\epsilon$ with a hat, as it represents an estimate of the error term. When we write the linear model focused on $Y$, we have unknown parameters $\alpha$ and $\beta$ as well as an error term accounting for variation in $Y$ not explained by $X$. When we write the linear model focused on $\widehat{Y}$, we have parameter estimates $\widehat{\alpha}$ and $\widehat{\beta}$ and no error term.
-
-The distinction between the error term ($\epsilon$) and the residual ($\widehat{\epsilon}$), as well as the role of $\widehat{Y}$ versus $Y$, will become clearer as we explore these concepts further next week!
-
-</details>
 
 ## Effect size
 
