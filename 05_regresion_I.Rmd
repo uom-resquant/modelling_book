@@ -238,77 +238,7 @@ The `lm()` function, short for *linear model*, streamlines the process by calcul
   + Follow it with a *tilde* ($\sim$).
   + Then, provide the independent variable and the dataset.
 
-When the dependent variable is numerical and the independent variable is binary, the `lm()` function automatically calculates the mean difference. It saves time by performing all the necessary steps in one go. You can use it directly or save the output to an object for later use. For our example, the code would look like this:
-
-```{r}
-# Linear model calculating the difference in fear of crime by sex
-mean_difference_lm <- lm(tcviolent ~ sex, data = csew_0708)
-```
-
-In this case:
-
-  + `tcviolent` is the dependent variable (a numerical variable).
-  + `sex` is the independent variable (a binary variable).
-  + `csew_0708` is the dataset being analysed.
-  + `mean_difference_lm` is the name we assign to the object storing the model's results. 
-  
-This single line of code computes the mean difference in fear of violent crime between men and women based on the dataset `csew_0708`, offering a more streamlined approach to the analysis. Now, let's examine the output.
-
-```{r}
-# Display the results of the linear model
-mean_difference_lm
-```
-
-The output has two parts: 
-
-  1. **Call:** This section restates the formula you provided to the function, confirming that `tcviolent` is the dependent variable, `sex` is the independent variable, and `csew_0708` is the dataset.
-  
-  2. **Coefficients:** This section provides the results we're most interested in, showing two estimates:
-  
-      + `(Intercept):` `r round(coef(mean_difference_lm)[1], 4)`
-      + `sexmale:` `r round(coef(mean_difference_lm)[2], 4)`0
-    
-If you recall from above, when we manually calculated everything, these numbers should look familiar! The average score of fear of violent crime among women (remember, we created the `mean_fear_women` object) was `r round(mean_fear_women, 4)`---exactly what is reported as the *Intercept* in this output. And the mean difference (remember, we created the `mean_difference` object) was `r round(mean_difference, 3)`---exactly what is reported as the `sexmale` coefficient! This implies that male respondents have a fear score that is `r round(coef(mean_difference_lm)[1], 4)` points lower than female respondents on average.
-
-<details>
-<summary><b>Note on how to figure out which comparisons the model is making:</b></summary>
-
-As we discussed above, there are two possible comparisons. They are numerically equivalent (i.e., only the sign differs), but the interpretation changes. We can calculate `mean_fear_men - mean_fear_women`, which gives a mean difference of `r round(coef(mean_difference_lm)[2], 4)`. Alternatively, we can calculate `mean_fear_women - mean_fear_men`, as we did when we created the `mean_difference_alternative` object, which gives a mean difference of `r round(mean_difference_alternative, 4)`. While these values are numerically the same, their interpretation focuses on different groups.
-
-#### How to determine which comparison `lm()` is performing {-}
-
-The `lm()` function selects one category to be represented by the *Intercept*---this is known as the *reference category*. The reference category is the group being compared against, i.e., the right-hand side of the subtraction equation. The `lm()` function then calculates the difference between the other category and the reference category. This is visible in the output. For example, in the output above, the coefficient is labelled `sexmale`. This implies that *female* is the reference category, and the comparison being made is `mean_fear_men - mean_fear_women`. The coefficient `sexmale:` `r round(coef(mean_difference_lm)[2], 4)` therefore indicates that male respondents, on average, have a fear score `r round(coef(mean_difference_lm)[2], 4)` points lower than female respondents.
-
-**How R determines the reference category**
-
-1. **Character Variables:** If the independent variable is a `character` variable, `lm()` selects the first group alphabetically as the reference category. In this example, *female* comes before *male*, so *female* is set as the reference category.
-2. **Factor Variables:** If the independent variable is a `factor`, you can manually set the reference category.
-3. **Logical Variables:** If the independent variable is `logical` (i.e., `TRUE` or `FALSE`), `FALSE` is automatically set as the reference category.
-
-**Changing the reference category**. If we wanted to treat *male* as the reference category, we could do one of the following:
-
-```{r}
-# Create a logical variable that is TRUE if the respondent is female 
-# and FALSE if the respondent is male
-csew_0708 <- mutate(csew_0708, female_logical = sex == "female")
-
-# Create a factor variable with 'male' as the reference category
-csew_0708 <- mutate(csew_0708, female_factor = factor(sex, levels = c("male", "female")))
-```
-
-We can then estimate new regression models using the female_logical and female_factor variables:
-
-```{r}
-# Estimate a linear regression using 'female_logical' as the independent variable
-lm(tcviolent ~ female_logical, data = csew_0708)
-
-# Estimate a linear regression using 'female_factor' as the independent variable
-lm(tcviolent ~ female_factor, data = csew_0708)
-```
-
-For both models, the outputs are identical. The *Intercept* now reflects the mean of fear of violent crime among male respondents (`r round(mean_fear_men, 2)`), as *male* is the reference category. The coefficient is also identical to the value stored in the `mean_difference_alternative` object (`r round(mean_difference_alternative, 2)`). This coefficient is numerically equivalent to the previously estimated `sexmale` coefficient (`r round(coef(mean_difference_lm)[2], 2)`), but the sign changes. With *male* as the reference group, the output reflects that female respondents have a fear score `r round(mean_difference_alternative, 2)` points higher than male respondents on average.
-
-</details>
+When the dependent variable is numerical and the independent variable is binary, the `lm()` function automatically calculates the mean difference. It saves time by performing all the necessary steps in one go. You can use it directly or save the output to an object for later use. 
 
 ### Linear Regression
 
@@ -354,18 +284,46 @@ $$
 \widehat{tcviolent} = \widehat{\alpha} + \widehat{\beta} \cdot sex
 $$
 
-Here, `tcviolent` (a variable reflecting scores of fear of violent crime) is the dependent variable, and `sex` is the independent variable. We aim to estimate the parameters $\alpha$ (the intercept) and $\beta$ (the slope), which help us address the research question. Linear regression employs *ordinary least squares* (OLS)---a method we will study in more detail next week---to estimate $\alpha$ and $\beta$. The `lm()` function, introduced earlier, performs this estimation. Let's revisit the regression output:  
+Here, `tcviolent` (a variable reflecting scores of fear of violent crime) is the dependent variable, and `sex` is the independent variable. We aim to estimate the parameters $\alpha$ (the intercept) and $\beta$ (the slope), which help us address the research question. Linear regression employs *ordinary least squares* (OLS)---a method we will study in more detail next week---to estimate $\alpha$ and $\beta$. The `lm()` function, introduced earlier, performs this estimation.
 
+##########################################################
+For our example, the code would look like this:
+
+```{r}
+# Linear model calculating the difference in fear of crime by sex
+mean_difference_lm <- lm(tcviolent ~ sex, data = csew_0708)
+```
+
+In this case:
+
+  + `tcviolent` is the dependent variable (a numerical variable).
+  + `sex` is the independent variable (a binary variable).
+  + `csew_0708` is the dataset being analysed.
+  + `mean_difference_lm` is the name we assign to the object storing the model's results. 
+  
+This single line of code computes the mean difference in fear of violent crime between men and women using the `csew_0708` dataset, offering a more streamlined approach to the analysis. Now, let's examine the output.
 ```{r}
 # Display the results of the linear model
 mean_difference_lm
 ```
+The output generally has two parts: 
 
-From the output:
+  1. **Call:** This section restates the formula you provided to the function, confirming that `tcviolent` is the dependent variable, `sex` is the independent variable, and `csew_0708` is the dataset.
+  
+  2. **Coefficients:** This section provides the results we're most interested in, showing two estimates:
+
+In our example, we get the following information from the output:
+
+
+
+###########################################
+
 
   + The intercept is `r round(coef(mean_difference_lm)[1], 4)`, meaning $\widehat{\alpha} =$ `r round(coef(mean_difference_lm)[1], 4)`.
   + The slope is `r round(coef(mean_difference_lm)[2], 4)`, meaning $\widehat{\beta} =$ `r round(coef(mean_difference_lm)[2], 4)`.
-  
+
+If you recall from above, when we manually calculated everything, these numbers should look familiar! The average score of fear of violent crime among women (remember, we created the `mean_fear_women` object) was `r round(mean_fear_women, 4)`---exactly what is reported as the *Intercept* in this output. And the mean difference (remember, we created the `mean_difference` object) was `r round(mean_difference, 3)`---exactly what is reported as the `sexmale` coefficient! This implies that male respondents have a fear score that is `r round(coef(mean_difference_lm)[1], 4)` points lower than female respondents on average.
+
 Thus, we can rewrite the regression equation as:
 
 $$
@@ -373,6 +331,42 @@ $$
 $$
 
 Now, how does this equation make sense in practice? As noted earlier, `tcviolent` is a numerical variable, ranging from `r csew_0708$tcviolent %>% min(na.rm = T) %>% round(2)` to `r csew_0708$tcviolent %>% max(na.rm = T) %>% round(2)`. Since it is numerical, arithmetic operations are meaningful, making its inclusion in a regression equation straightforward. After all, the goal is to estimate expected scores of `tcviolent` under specific conditions. 
+
+<details>
+<summary><b>Why do we include "hats" in the parameters (e.g., $\widehat{Y}$, $\widehat{\alpha}$, $\widehat{\beta}$)?</b></summary>
+
+The linear regression model is expressed as:
+
+$$
+Y = \alpha + \beta \cdot X + \epsilon
+$$
+
+Here, $\alpha$ and $\beta$ are *unknown* parameters that need to be estimated. We can attempt to estimate (e.g., calculate) them. A common method for estimating these linear regression coefficients is the method of *least squares*. However, because we don't know whether our estimates of $\alpha$ and $\beta$ perfectly match the unknown parameters, we need to distinguish the estimates from the unknown values. That's where the "hats" come in.
+
+  + $\widehat{\alpha}$ and $\widehat{\beta}$ represent the estimates (think *guesstimates*!) of $\alpha$ and $\beta$, respectively.
+  + The "hat" indicates that these are estimated values, not the true parameters.
+  
+We usually expect our estimator to do a good job of estimating parameters. To the extent that $\widehat{\alpha} = \alpha$ and $\widehat{\beta} = \beta$ can be proved, then we would have an *unbiased estimator*. (but don't worry, that's not something we need to worry about! That's a job for theoretical statisticians).
+
+Once we have estimated values of $\alpha$ and $\beta$, we can use them to *predict* the value of the dependent variable $Y$ for a given value of the independent variable $X$ (e.g., predict the value of fear of violent crime given respondents' sex). This *predicted value* (or *fitted value*) of *Y* is also an estimated value; therefore, we denote it as $\widehat{Y}$. As such, we can write the regression function:
+
+$$
+\widehat{Y} = \widehat{\alpha} + \widehat{\beta} \cdot x
+$$
+
+In this equation, we did not include $\epsilon$. In most cases, the predicted value $\widehat{Y}$ is not equal to the observed value $Y$. For instance, while $\widehat{Y}=0.3282$ for $X=0$ (i.e., the average score of fear of violent crime among female respondents is $0.3282$), most female respondents probably have an observed score of fear of violent crime that is not exactly $0.3282$. Similarly, while $\widehat{Y}=-0.2738$ for $X=1$ (i.e., the average score of fear of violent crime among male respondents is $-0.2738$), most male respondents probably have an observed score of fear of violent crime that is not exactly $-0.2738$. 
+
+The difference between the observed value $Y$ and its predicted value $\widehat{Y}$ (e.g., the difference between each individual score of fear of violent crime and the estimates above) is called the *residual* and is given by:  
+
+$$
+\widehat{\epsilon} = Y - \widehat{Y}.
+$$
+
+The residual ($\widehat{\epsilon}$) is essentially the "error" in prediction. It represents the part of $Y$ that is not explained by $X$ using the regression model. The residual $\widehat{\epsilon}$ is also the error term $\epsilon$ with a hat, as it represents an estimate of the error term. When we write the linear model focused on $Y$, we have unknown parameters $\alpha$ and $\beta$ as well as an error term accounting for variation in $Y$ not explained by $X$. When we write the linear model focused on $\widehat{Y}$, we have parameter estimates $\widehat{\alpha}$ and $\widehat{\beta}$ and no error term.
+
+The distinction between the error term ($\epsilon$) and the residual ($\widehat{\epsilon}$), as well as the role of $\widehat{Y}$ versus $Y$, will become clearer as we explore these concepts further next week!
+
+</details>
 
 However, `sex` is not a numerical variable; it is a binary variable with two possible values: *female* and *male.* How can we incorporate such a variable into an equation?
 
@@ -382,6 +376,47 @@ The trick lies in treating binary variables as a special type of numerical varia
   + $sex = 1$ if `sex` is *male*
   
 Conventionally, the group assigned a value of `0` is the *reference group* (or sometimes referred to as the *control group*), while the group assigned a value of *1* is called the *comparison group* (or sometimes the *treatment group*).
+
+<details>
+<summary><b>Note on how to figure out which comparisons the model is making:</b></summary>
+
+As we discussed above, there are two possible comparisons. They are numerically equivalent (i.e., only the sign differs), but the interpretation changes. We can calculate `mean_fear_men - mean_fear_women`, which gives a mean difference of `r round(coef(mean_difference_lm)[2], 4)`. Alternatively, we can calculate `mean_fear_women - mean_fear_men`, as we did when we created the `mean_difference_alternative` object, which gives a mean difference of `r round(mean_difference_alternative, 4)`. While these values are numerically the same, their interpretation focuses on different groups.
+
+#### How to determine which comparison `lm()` is performing {-}
+
+The `lm()` function selects one category to be represented by the *Intercept*---this is known as the *reference category*. The reference category is the group being compared against, i.e., the right-hand side of the subtraction equation. The `lm()` function then calculates the difference between the other category and the reference category. This is visible in the output. For example, in the output above, the coefficient is labelled `sexmale`. This implies that *female* is the reference category, and the comparison being made is `mean_fear_men - mean_fear_women`. The coefficient `sexmale:` `r round(coef(mean_difference_lm)[2], 4)` therefore indicates that male respondents, on average, have a fear score `r round(coef(mean_difference_lm)[2], 4)` points lower than female respondents.
+
+**How R determines the reference category**
+
+1. **Character Variables:** If the independent variable is a `character` variable, `lm()` selects the first group alphabetically as the reference category. In this example, *female* comes before *male*, so *female* is set as the reference category.
+2. **Factor Variables:** If the independent variable is a `factor`, you can manually set the reference category.
+3. **Logical Variables:** If the independent variable is `logical` (i.e., `TRUE` or `FALSE`), `FALSE` is automatically set as the reference category.
+
+**Changing the reference category**. If we wanted to treat *male* as the reference category, we could do one of the following:
+
+```{r}
+# Create a logical variable that is TRUE if the respondent is female 
+# and FALSE if the respondent is male
+csew_0708 <- mutate(csew_0708, female_logical = sex == "female")
+
+# Create a factor variable with 'male' as the reference category
+csew_0708 <- mutate(csew_0708, female_factor = factor(sex, levels = c("male", "female")))
+```
+
+We can then estimate new regression models using the female_logical and female_factor variables:
+
+```{r}
+# Estimate a linear regression using 'female_logical' as the independent variable
+lm(tcviolent ~ female_logical, data = csew_0708)
+
+# Estimate a linear regression using 'female_factor' as the independent variable
+lm(tcviolent ~ female_factor, data = csew_0708)
+```
+
+For both models, the outputs are identical. The *Intercept* now reflects the mean of fear of violent crime among male respondents (`r round(mean_fear_men, 2)`), as *male* is the reference category. The coefficient is also identical to the value stored in the `mean_difference_alternative` object (`r round(mean_difference_alternative, 2)`). This coefficient is numerically equivalent to the previously estimated `sexmale` coefficient (`r round(coef(mean_difference_lm)[2], 2)`), but the sign changes. With *male* as the reference group, the output reflects that female respondents have a fear score `r round(mean_difference_alternative, 2)` points higher than male respondents on average.
+
+</details>
+
 
 By applying this coding to the linear regression model, we can interpret the results as follows:
 
@@ -409,41 +444,6 @@ Thus, in this example:
 
 Linear regression provides a straightforward way to quantify and interpret these differences.
 
-<details>
-<summary><b>Why do we include "hats" in the parameters (e.g., $\widehat{Y}$, $\widehat{\alpha}$, $\widehat{\beta}$)?</b></summary>
-
-The linear regression model is expressed as:
-
-$$
-Y = \alpha + \beta \cdot X + \epsilon
-$$
-
-Here, $\alpha$ and $\beta$ are *unknown* parameters that need to be estimated. We can attempt to estimate (e.g., calculate) them. A common method for estimating these linear regression coefficients is the method of *least squares*. However, because we don't know whether our estimates of $\alpha$ and $\beta$ perfectly match the unknown parameters, we need to distinguish the estimates from the unknown values. That's where the "hats" come in.
-
-  + $\widehat{\alpha}$ and $\widehat{\beta}$ represent the estimates (think *guesstimates*!) of $\alpha$ and $\beta$, respectively.
-  + The "hat" indicates that these are estimated values, not the true parameters.
-  
-We usually expect our estimator to do a good job of estimating parameters. To the extent that $\widehat{\alpha} = \alpha$ and $\widehat{\beta} = \beta$ can be proved, then we would have an *unbiased estimator*. (but don't worry, that's not something we need to worry about! That's a job for theoretical statisticians).
-
-Once we have estimated values of $\alpha$ and $\beta$, we can use them to *predict* the value of the dependent variable $Y$ for a given value of the independent variable $X$ (e.g., predict the value of fear of violent crime given respondents' sex). This *predicted value* (or *fitted value*) of *Y* is also an estimated value, therefore, we denote it as $\widehat{Y}$. As such, we can write the regression function:
-
-$$
-\widehat{Y} = \widehat{\alpha} + \widehat{\beta} \cdot x
-$$
-
-In this equation, we did not include $\epsilon$. In most cases, the predicted value $\widehat{Y}$ is not equal to the observed value $Y$. For instance, while $\widehat{Y}=0.3282$ for $X=0$ (i.e., the average score of fear of violent crime among female respondents is $0.3282$), most female respondents probably have an observed score of fear of violent crime that is not exactly $0.3282$. Similarly, while $\widehat{Y}=-0.2738$ for $X=1$ (i.e., the average score of fear of violent crime among male respondents is $-0.2738$), most male respondents probably have an observed score of fear of violent crime that is not exactly $-0.2738$. 
-
-The difference between the observed value $Y$ and its predicted value $\widehat{Y}$ (e.g., the difference between each individual score of fear of violent crime and the estimates above) is called the *residual* and is given by:  
-
-$$
-\widehat{\epsilon} = Y - \widehat{Y}.
-$$
-
-The residual ($\widehat{\epsilon}$) is essentially the "error" in prediction. It represents the part of $Y$ that is not explained by $X$ using the regression model. The residual $\widehat{\epsilon}$ is also the error term $\epsilon$ with a hat, as it represents an estimate of the error term. When we write the linear model focused on $Y$, we have unknown parameters $\alpha$ and $\beta$ as well as an error term accounting for variation in $Y$ not explained by $X$. When we write the linear model focused on $\widehat{Y}$, we have parameter estimates $\widehat{\alpha}$ and $\widehat{\beta}$ and no error term.
-
-The distinction between the error term ($\epsilon$) and the residual ($\widehat{\epsilon}$), as well as the role of $\widehat{Y}$ versus $Y$, will become clearer as we explore these concepts further next week!
-
-</details>
 
 ## Effect size
 
