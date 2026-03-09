@@ -13,7 +13,7 @@ rmd_files:
   - 03-visualisation.Rmd
   - 04-carpentry.Rmd
   - 05_regresion_I.Rmd
-  # - 06-regression_II.Rmd
+  - 06_regression_II.Rmd
   # - 07-regression_III.Rmd
   # - 08_logistic_regressiion.Rmd
   # - 09_statistical_inference.Rmd

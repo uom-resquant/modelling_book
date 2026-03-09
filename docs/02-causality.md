@@ -42,6 +42,13 @@ You could just click "download" and then place the file in your project director
 ``` r
 #First, let's import the data using an URL address:
 library(haven)
+```
+
+```
+## Warning: package 'haven' was built under R version 4.3.3
+```
+
+``` r
 banbox <- read_dta("https://dataverse.harvard.edu/api/access/datafile/3036350")
 
 ##Window users! R in Windows has some problems with HTTPS addresses; 
@@ -445,7 +452,7 @@ library(dplyr)
 ```
 
 ```
-## Warning: package 'dplyr' was built under R version 4.5.2
+## Warning: package 'dplyr' was built under R version 4.3.3
 ```
 
 ```

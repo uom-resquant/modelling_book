@@ -297,7 +297,7 @@ X
 ```
 
 ```
-## Error: object 'X' not found
+## Error in eval(expr, envir, enclos): object 'X' not found
 ```
 
 You will get the following message: `"Error in eval(expr, envir, enclos): object 'X' not found"`. R is telling us that `X` does not exist. There isn't an object `X` (upper case), but there is an object `x` (lower case). 
@@ -610,7 +610,7 @@ summary(hate_crimes)
 ##  1st Qu.:0.4400   1st Qu.:0.1950   1st Qu.:0.415    1st Qu.:0.14271          
 ##  Median :0.4540   Median :0.2800   Median :0.490    Median :0.22620          
 ##  Mean   :0.4538   Mean   :0.3157   Mean   :0.490    Mean   :0.30409          
-##  3rd Qu.:0.4665   3rd Qu.:0.4200   3rd Qu.:0.575    3rd Qu.:0.35693          
+##  3rd Qu.:0.4665   3rd Qu.:0.4200   3rd Qu.:0.575    3rd Qu.:0.35694          
 ##  Max.   :0.5320   Max.   :0.8100   Max.   :0.700    Max.   :1.52230          
 ##                                                     NA's   :4                
 ##  avg_hatecrimes_per_100k_fbi
@@ -639,6 +639,17 @@ Once you have loaded the *skimr* package, you can use it. Its main function is *
 ``` r
 skim(hate_crimes)
 ```
+
+
+```
+## Warning: 'xfun::attr()' is deprecated.
+## Use 'xfun::attr2()' instead.
+## See help("Deprecated")
+## Warning: 'xfun::attr()' is deprecated.
+## Use 'xfun::attr2()' instead.
+## See help("Deprecated")
+```
+
 
 
 |skim_type |skim_variable               | n_missing| complete_rate| character.min| character.max| character.empty| character.n_unique| character.whitespace| numeric.mean|   numeric.sd|   numeric.p0|  numeric.p25|  numeric.p50|  numeric.p75| numeric.p100|numeric.hist |

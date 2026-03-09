@@ -70,3 +70,11 @@ linear-regression
 linear-regression-as-a-difference-in-means-estimator
 effect-size
 lab-exercises
+regression-ii-numerical-independent-variables
+introduction-3
+motivating-regression
+fitting-a-simple-regression-model
+residuals-r-squared
+is-this-the-same-as-last-week
+regression-assumptions
+lab-exercises-1

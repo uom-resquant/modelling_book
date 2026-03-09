@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 1 A first lesson about R | Modelling Criminological Data CRIM20452</title>
   <meta name="description" content="This is the course material for Modelling Criminological Data CRIM20452." />
-  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 1 A first lesson about R | Modelling Criminological Data CRIM20452" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2026-03-04" />
+<meta name="date" content="2026-03-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -66,7 +66,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -232,6 +232,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5.6" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#effect-size"><i class="fa fa-check"></i><b>5.6</b> Effect size</a></li>
 <li class="chapter" data-level="5.7" data-path="regression-i-mean-differences.html"><a href="regression-i-mean-differences.html#lab-exercises"><i class="fa fa-check"></i><b>5.7</b> Lab Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="regression-ii-numerical-independent-variables.html"><a href="regression-ii-numerical-independent-variables.html"><i class="fa fa-check"></i><b>6</b> Regression II: numerical independent variables</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="regression-ii-numerical-independent-variables.html"><a href="regression-ii-numerical-independent-variables.html#introduction-3"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="regression-ii-numerical-independent-variables.html"><a href="regression-ii-numerical-independent-variables.html#motivating-regression"><i class="fa fa-check"></i><b>6.2</b> Motivating regression</a></li>
+<li class="chapter" data-level="6.3" data-path="regression-ii-numerical-independent-variables.html"><a href="regression-ii-numerical-independent-variables.html#fitting-a-simple-regression-model"><i class="fa fa-check"></i><b>6.3</b> Fitting a simple regression model</a></li>
+<li class="chapter" data-level="6.4" data-path="regression-ii-numerical-independent-variables.html"><a href="regression-ii-numerical-independent-variables.html#residuals-r-squared"><i class="fa fa-check"></i><b>6.4</b> Residuals: R squared</a></li>
+<li class="chapter" data-level="6.5" data-path="regression-ii-numerical-independent-variables.html"><a href="regression-ii-numerical-independent-variables.html#is-this-the-same-as-last-week"><i class="fa fa-check"></i><b>6.5</b> Is this the same as last week?</a></li>
+<li class="chapter" data-level="6.6" data-path="regression-ii-numerical-independent-variables.html"><a href="regression-ii-numerical-independent-variables.html#regression-assumptions"><i class="fa fa-check"></i><b>6.6</b> Regression assumptions</a></li>
+<li class="chapter" data-level="6.7" data-path="regression-ii-numerical-independent-variables.html"><a href="regression-ii-numerical-independent-variables.html#lab-exercises-1"><i class="fa fa-check"></i><b>6.7</b> Lab Exercises</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -419,7 +429,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] 5</code></pre>
 <p>When writing expressions in R, you must understand that <strong>R is case sensitive</strong>. This could drive you nuts if you are not careful. More often than not, if you write an expression asking R to do something and R returns an error message, chances are that you used lowercase when uppercase was needed (or vice versa). So, always check for the right spelling. For example, see what happens if I use a capital ‘X’:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="a-first-lesson-about-r.html#cb18-1" tabindex="-1"></a>X</span></code></pre></div>
-<pre><code>## Error: object &#39;X&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;X&#39; not found</code></pre>
 <p>You will get the following message: <code>"Error in eval(expr, envir, enclos): object 'X' not found"</code>. R is telling us that <code>X</code> does not exist. There isn’t an object <code>X</code> (upper case), but there is an object <code>x</code> (lower case).</p>
 <p>Remember, computers are very literal. They are like dogs. You can tell a dog to “sit”, and if it has been trained, it will sit. But if you tell a dog, “Would you be so kind as to relax a bit and lie down on the sofa?” it won’t have a clue what you are saying and will stare at you like you have gone mad. Error messages are computers’ ways of telling us, “I really want to help you, but I don’t really understand what you mean” (never take them personally; computers don’t hate you).</p>
 <p>When you get an error message or implausible results, you want to look back at your code to figure out what the problem is. This process is called <strong>debugging</strong>. There are some proper systematic ways to write code that facilitate debugging, but we won’t get into that here. R is very good with automatic error handling at the levels we’ll be using it at. Very often, the solution will simply involve correcting the spelling or checking you’ve used the correct placement and number of brackets or commas (you will find this out later, the hard way).</p>
@@ -579,7 +589,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  1st Qu.:0.4400   1st Qu.:0.1950   1st Qu.:0.415    1st Qu.:0.14271          
 ##  Median :0.4540   Median :0.2800   Median :0.490    Median :0.22620          
 ##  Mean   :0.4538   Mean   :0.3157   Mean   :0.490    Mean   :0.30409          
-##  3rd Qu.:0.4665   3rd Qu.:0.4200   3rd Qu.:0.575    3rd Qu.:0.35693          
+##  3rd Qu.:0.4665   3rd Qu.:0.4200   3rd Qu.:0.575    3rd Qu.:0.35694          
 ##  Max.   :0.5320   Max.   :0.8100   Max.   :0.700    Max.   :1.52230          
 ##                                                     NA&#39;s   :4                
 ##  avg_hatecrimes_per_100k_fbi
@@ -596,6 +606,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>You will need to install it before anything else. Use the code you have learnt to do so and then load it. I won’t be providing you the code for it; by now you should know how to do this.</p>
 <p>Once you have loaded the <em>skimr</em> package, you can use it. Its main function is <em>skim</em>. Like <em>summary</em> for data frames, skim presents results for all the columns, and the statistics will depend on the class of the variable. However, the results are displayed and stored in a nicer way - though we won’t get into the details right now.</p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="a-first-lesson-about-r.html#cb54-1" tabindex="-1"></a><span class="fu">skim</span>(hate_crimes)</span></code></pre></div>
+<pre><code>## Warning: &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)
+## Warning: &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
 <table style="width:100%;">
 <colgroup>
 <col width="3%" />
@@ -894,27 +910,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>An important thing to understand in R is that categorical (ordered, also called ordinal, or unordered, also called nominal) data are <em>typically</em> encoded as <strong>factors</strong>, which are just a special type of vector. A factor is simply an integer vector that can contain <em>only predefined values</em> (this bit is very important) and is used to store categorical data. Factors are treated specially by many data analytic and visualisation functions. This makes sense because they are essentially different from quantitative variables.</p>
 <p>Although you can use numbers to represent categories, <em>using factors with labels is better than using integers to represent categories</em> because factors are self-describing (having a variable that has values “Male” and “Female” is better than a variable that has values “1” and “2” to represent male and female). When R reads data in other formats (e.g., comma-separated), it will usually convert all character variables into factors by default. If you would rather keep these variables as simple character vectors, you need to explicitly ask R to do so. We will come back to this next week with some examples.</p>
 <p>Factors can also be created with the <code>factor()</code> function concatenating a series of <em>character</em> elements. You will notice that it is printed differently from a simple character vector and that it tells us the <em>levels</em> of the factor (i.e., each unique value in the factor).</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="a-first-lesson-about-r.html#cb55-1" tabindex="-1"></a>the_smiths <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;Morrisey&quot;</span>, <span class="st">&quot;Marr&quot;</span>, <span class="st">&quot;Rourke&quot;</span>, <span class="st">&quot;Joyce&quot;</span>)) <span class="co">#create a new factor</span></span>
-<span id="cb55-2"><a href="a-first-lesson-about-r.html#cb55-2" tabindex="-1"></a>the_smiths <span class="co">#auto-print the factor</span></span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="a-first-lesson-about-r.html#cb56-1" tabindex="-1"></a>the_smiths <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;Morrisey&quot;</span>, <span class="st">&quot;Marr&quot;</span>, <span class="st">&quot;Rourke&quot;</span>, <span class="st">&quot;Joyce&quot;</span>)) <span class="co">#create a new factor</span></span>
+<span id="cb56-2"><a href="a-first-lesson-about-r.html#cb56-2" tabindex="-1"></a>the_smiths <span class="co">#auto-print the factor</span></span></code></pre></div>
 <pre><code>## [1] Morrisey Marr     Rourke   Joyce   
 ## Levels: Joyce Marr Morrisey Rourke</code></pre>
 <p>Alternatively, for similar results, use the as.factor() function. Here, you will create <code>the_smiths_char</code> object and then transform it to a factor variable, <code>the_smiths_f</code>.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="a-first-lesson-about-r.html#cb57-1" tabindex="-1"></a>the_smiths_char <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Morrisey&quot;</span>, <span class="st">&quot;Marr&quot;</span>, <span class="st">&quot;Rourke&quot;</span>, <span class="st">&quot;Joyce&quot;</span>) <span class="co">#create a character vector</span></span>
-<span id="cb57-2"><a href="a-first-lesson-about-r.html#cb57-2" tabindex="-1"></a>the_smiths_f <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(the_smiths_char) <span class="co">#create a factor using a character vector</span></span>
-<span id="cb57-3"><a href="a-first-lesson-about-r.html#cb57-3" tabindex="-1"></a>the_smiths_f <span class="co">#auto-print factor</span></span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="a-first-lesson-about-r.html#cb58-1" tabindex="-1"></a>the_smiths_char <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Morrisey&quot;</span>, <span class="st">&quot;Marr&quot;</span>, <span class="st">&quot;Rourke&quot;</span>, <span class="st">&quot;Joyce&quot;</span>) <span class="co">#create a character vector</span></span>
+<span id="cb58-2"><a href="a-first-lesson-about-r.html#cb58-2" tabindex="-1"></a>the_smiths_f <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(the_smiths_char) <span class="co">#create a factor using a character vector</span></span>
+<span id="cb58-3"><a href="a-first-lesson-about-r.html#cb58-3" tabindex="-1"></a>the_smiths_f <span class="co">#auto-print factor</span></span></code></pre></div>
 <pre><code>## [1] Morrisey Marr     Rourke   Joyce   
 ## Levels: Joyce Marr Morrisey Rourke</code></pre>
 <p>Factors in R can be seen as vectors with more information added. This extra information consists of a record of the distinct values in that vector, called <strong>levels</strong>. If you want to know the levels in a given factor, you can use the <code>levels()</code> function:</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="a-first-lesson-about-r.html#cb59-1" tabindex="-1"></a><span class="fu">levels</span>(the_smiths_f)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="a-first-lesson-about-r.html#cb60-1" tabindex="-1"></a><span class="fu">levels</span>(the_smiths_f)</span></code></pre></div>
 <pre><code>## [1] &quot;Joyce&quot;    &quot;Marr&quot;     &quot;Morrisey&quot; &quot;Rourke&quot;</code></pre>
 <p>Notice that the levels appear printed in alphabetical order (Try <code>levels(the_smiths_char)</code> and see what R says. Yes, <code>the_smiths_char</code> and <code>the_smiths_f</code> are different!). There will be situations when this is not the most convenient order (e.g., <em>Dec, Jan, Mar (Alphabetical order)</em> instead of <em>Jan, Mar, Dec</em>). Later on, we will discuss in these tutorials how to reorder your factor levels when you need to.</p>
 <p>Let’s look at one more example here. Let’s say we are making data about Hogwarts Houses, which are divided into four houses: Gryffindor, Hufflepuff, Ravenclaw and Slytherin.</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="a-first-lesson-about-r.html#cb61-1" tabindex="-1"></a><span class="co">#We create a data frame called HarryPotter with two variables: </span></span>
-<span id="cb61-2"><a href="a-first-lesson-about-r.html#cb61-2" tabindex="-1"></a><span class="co">#a character vector called name and a character vector called house</span></span>
-<span id="cb61-3"><a href="a-first-lesson-about-r.html#cb61-3" tabindex="-1"></a>HarryPotter <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Potter&quot;</span>, <span class="st">&quot;Malfoy&quot;</span>, <span class="st">&quot;Lovegood&quot;</span>, <span class="st">&quot;Chang&quot;</span>, </span>
-<span id="cb61-4"><a href="a-first-lesson-about-r.html#cb61-4" tabindex="-1"></a>              <span class="st">&quot;Hagrid&quot;</span>, <span class="st">&quot;Diggory&quot;</span>), <span class="at">house =</span> <span class="fu">c</span>(<span class="st">&quot;Gryffindor&quot;</span>, <span class="st">&quot;Slytherin&quot;</span>, </span>
-<span id="cb61-5"><a href="a-first-lesson-about-r.html#cb61-5" tabindex="-1"></a>              <span class="st">&quot;Ravenclaw&quot;</span>, <span class="st">&quot;Ravenclaw&quot;</span>, <span class="st">&quot;Gryffindor&quot;</span>, <span class="st">&quot;Hufflepuff&quot;</span>))</span>
-<span id="cb61-6"><a href="a-first-lesson-about-r.html#cb61-6" tabindex="-1"></a>HarryPotter</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="a-first-lesson-about-r.html#cb62-1" tabindex="-1"></a><span class="co">#We create a data frame called HarryPotter with two variables: </span></span>
+<span id="cb62-2"><a href="a-first-lesson-about-r.html#cb62-2" tabindex="-1"></a><span class="co">#a character vector called name and a character vector called house</span></span>
+<span id="cb62-3"><a href="a-first-lesson-about-r.html#cb62-3" tabindex="-1"></a>HarryPotter <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Potter&quot;</span>, <span class="st">&quot;Malfoy&quot;</span>, <span class="st">&quot;Lovegood&quot;</span>, <span class="st">&quot;Chang&quot;</span>, </span>
+<span id="cb62-4"><a href="a-first-lesson-about-r.html#cb62-4" tabindex="-1"></a>              <span class="st">&quot;Hagrid&quot;</span>, <span class="st">&quot;Diggory&quot;</span>), <span class="at">house =</span> <span class="fu">c</span>(<span class="st">&quot;Gryffindor&quot;</span>, <span class="st">&quot;Slytherin&quot;</span>, </span>
+<span id="cb62-5"><a href="a-first-lesson-about-r.html#cb62-5" tabindex="-1"></a>              <span class="st">&quot;Ravenclaw&quot;</span>, <span class="st">&quot;Ravenclaw&quot;</span>, <span class="st">&quot;Gryffindor&quot;</span>, <span class="st">&quot;Hufflepuff&quot;</span>))</span>
+<span id="cb62-6"><a href="a-first-lesson-about-r.html#cb62-6" tabindex="-1"></a>HarryPotter</span></code></pre></div>
 <pre><code>##       name      house
 ## 1   Potter Gryffindor
 ## 2   Malfoy  Slytherin
@@ -923,12 +939,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5   Hagrid Gryffindor
 ## 6  Diggory Hufflepuff</code></pre>
 <p>Use <code>str(HarryPotter$house)</code> and see what R says. R will list all observations in the variable and say it’s a character variable, right? Now, we are going to convert <code>house</code>, a character variable, into a factor variable <code>house_f</code>, meaning that R will categorise the variable.</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="a-first-lesson-about-r.html#cb63-1" tabindex="-1"></a>HarryPotter<span class="sc">$</span>house_f <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(HarryPotter<span class="sc">$</span>house)</span>
-<span id="cb63-2"><a href="a-first-lesson-about-r.html#cb63-2" tabindex="-1"></a><span class="fu">str</span>(HarryPotter<span class="sc">$</span>house_f)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="a-first-lesson-about-r.html#cb64-1" tabindex="-1"></a>HarryPotter<span class="sc">$</span>house_f <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(HarryPotter<span class="sc">$</span>house)</span>
+<span id="cb64-2"><a href="a-first-lesson-about-r.html#cb64-2" tabindex="-1"></a><span class="fu">str</span>(HarryPotter<span class="sc">$</span>house_f)</span></code></pre></div>
 <pre><code>##  Factor w/ 4 levels &quot;Gryffindor&quot;,&quot;Hufflepuff&quot;,..: 1 4 3 3 1 2</code></pre>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="a-first-lesson-about-r.html#cb65-1" tabindex="-1"></a><span class="fu">levels</span>(HarryPotter<span class="sc">$</span>house_f) </span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="a-first-lesson-about-r.html#cb66-1" tabindex="-1"></a><span class="fu">levels</span>(HarryPotter<span class="sc">$</span>house_f) </span></code></pre></div>
 <pre><code>## [1] &quot;Gryffindor&quot; &quot;Hufflepuff&quot; &quot;Ravenclaw&quot;  &quot;Slytherin&quot;</code></pre>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="a-first-lesson-about-r.html#cb67-1" tabindex="-1"></a><span class="co">#try &#39;levels(HarryPotter$house)&#39; and find the difference</span></span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="a-first-lesson-about-r.html#cb68-1" tabindex="-1"></a><span class="co">#try &#39;levels(HarryPotter$house)&#39; and find the difference</span></span></code></pre></div>
 <p>Now, can you clearly understand what <strong>factor</strong> means in R? Factors are used to represent categorical data. Once created, factors can contain pre-defined set values, known as <code>levels</code>. Like we just converted 6-character data (<code>house</code>) into 4-factor data! (<code>house_f</code>).</p>
 <p><img src="imgs/as_factor.png" style="width:80.0%" /></p>
 </div>
@@ -938,19 +954,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>How can we do this? Well, think about what we do when we read in a file. We say, “Dear R, I would like to create a new object, please, and I will call this new object <code>my_dataframe</code>”. We do this by typing the name we are giving the object and the assignment function <code>&lt;-</code>(assignment operator). Then, on the right-hand side of the assignment function, there is the value to which we are assigning the variable. So it could be a bit of text (such as when you’re creating a <code>my_text</code> object and you pass it the string “I love stats”), or it could be some function, for example, when you read a CSV file with the <code>read_csv()</code> function.</p>
 <p>So, if we’re reading a CSV, we also need to specify <em>where</em> to read the CSV from. Where should R look to find this data? This is where normally you are putting in the path to your file, right?</p>
 <p>Something like:</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="a-first-lesson-about-r.html#cb68-1" tabindex="-1"></a>my_dataframe <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;PATH_OR_URL_TO_CSV_FILE&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="a-first-lesson-about-r.html#cb69-1" tabindex="-1"></a>my_dataframe <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;PATH_OR_URL_TO_CSV_FILE&#39;</span>)</span></code></pre></div>
 <p>Well, what if your data does not live on your laptop or PC? Well, if there is a way that R can still access this data just by following a path, then this approach will still work!
 Tips! Please keep your folders simple. Just use one data folder for this module and do not create multiple folders such as ‘data for week 1’, ‘data for week 2’, or something like this.</p>
 <p>All data we will use in the module are on Canvas, but we will also provide the links to where we saved the data for you. You know when you right-click on the link, and select “Save As…” or whatever you click on to save? You could also select “Copy Link Address”. This just copies the webpage where this data is stored. If you want, find a csv file from a previous module on Canvas, and give this a go. Copy the address, and then paste it into your browser. It will take you to a blank page where a forced download of the data will begin. So what if you pasted this into the <code>read.csv()</code> function?</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="a-first-lesson-about-r.html#cb69-1" tabindex="-1"></a><span class="co">#example: when you download data directly from the webpage, </span></span>
-<span id="cb69-2"><a href="a-first-lesson-about-r.html#cb69-2" tabindex="-1"></a><span class="co">#you will use this code.</span></span>
-<span id="cb69-3"><a href="a-first-lesson-about-r.html#cb69-3" tabindex="-1"></a>my_dataframe <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;www.data.com/data you want to import.csv&quot;</span>)</span>
-<span id="cb69-4"><a href="a-first-lesson-about-r.html#cb69-4" tabindex="-1"></a></span>
-<span id="cb69-5"><a href="a-first-lesson-about-r.html#cb69-5" tabindex="-1"></a><span class="co">#example : if you can&#39;t find a URL from Canvas to use yet,</span></span>
-<span id="cb69-6"><a href="a-first-lesson-about-r.html#cb69-6" tabindex="-1"></a><span class="co">#you can try this random dataset. The dataset itself is irrelevant</span></span>
-<span id="cb69-7"><a href="a-first-lesson-about-r.html#cb69-7" tabindex="-1"></a><span class="co">#(although it is about UFO sightings - pretty interesting if you ask me),</span></span>
-<span id="cb69-8"><a href="a-first-lesson-about-r.html#cb69-8" tabindex="-1"></a><span class="co">#but it does show you how to load data in from a real URL.</span></span>
-<span id="cb69-9"><a href="a-first-lesson-about-r.html#cb69-9" tabindex="-1"></a>ufo_sightings <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-06-20/ufo_sightings.csv&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="a-first-lesson-about-r.html#cb70-1" tabindex="-1"></a><span class="co">#example: when you download data directly from the webpage, </span></span>
+<span id="cb70-2"><a href="a-first-lesson-about-r.html#cb70-2" tabindex="-1"></a><span class="co">#you will use this code.</span></span>
+<span id="cb70-3"><a href="a-first-lesson-about-r.html#cb70-3" tabindex="-1"></a>my_dataframe <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;www.data.com/data you want to import.csv&quot;</span>)</span>
+<span id="cb70-4"><a href="a-first-lesson-about-r.html#cb70-4" tabindex="-1"></a></span>
+<span id="cb70-5"><a href="a-first-lesson-about-r.html#cb70-5" tabindex="-1"></a><span class="co">#example : if you can&#39;t find a URL from Canvas to use yet,</span></span>
+<span id="cb70-6"><a href="a-first-lesson-about-r.html#cb70-6" tabindex="-1"></a><span class="co">#you can try this random dataset. The dataset itself is irrelevant</span></span>
+<span id="cb70-7"><a href="a-first-lesson-about-r.html#cb70-7" tabindex="-1"></a><span class="co">#(although it is about UFO sightings - pretty interesting if you ask me),</span></span>
+<span id="cb70-8"><a href="a-first-lesson-about-r.html#cb70-8" tabindex="-1"></a><span class="co">#but it does show you how to load data in from a real URL.</span></span>
+<span id="cb70-9"><a href="a-first-lesson-about-r.html#cb70-9" tabindex="-1"></a>ufo_sightings <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-06-20/ufo_sightings.csv&#39;</span>)</span></code></pre></div>
 <p>In the first example, the my_dataframe object would be assigned the value returned from the read.csv() function reading in the file from the ‘URL’ link you provided. File path is no mysterious thing, file path is simply the <em>path</em> to the <em>file</em> you want to read. If this is a website, then so be it.</p>
 <p>R also can read Stata (.dta) files using the <code>read_dta()</code> function in the Haven package and SPSS (.sav) files using the <code>read_spss()</code> function also in the Haven Package. There are so many different codes we can use to import data into R. In this course, you will learn one by one!</p>
 </div>

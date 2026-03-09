@@ -45,6 +45,13 @@ First, we will load the data into our session. Since the data is in STATA format
 
 ``` r
 library(haven)
+```
+
+```
+## Warning: package 'haven' was built under R version 4.3.3
+```
+
+``` r
 #option 1: import from your local computer
 eb85_3 <- read_dta("datasets/ZA6695_v2-0-0.dta")
 dim(eb85_3)
@@ -775,13 +782,6 @@ Now, we are going to learn how to remove labels. Run the code below, look at the
 
 ``` r
 library(labelled)
-```
-
-```
-## Warning: package 'labelled' was built under R version 4.5.2
-```
-
-``` r
 val_labels(df)
 ```
 
@@ -1003,7 +1003,7 @@ library(visdat)
 ```
 
 ```
-## Warning: package 'visdat' was built under R version 4.5.2
+## Warning: package 'visdat' was built under R version 4.3.3
 ```
 
 ``` r
@@ -1084,7 +1084,7 @@ library(modeest)
 ```
 
 ```
-## Warning: package 'modeest' was built under R version 4.5.2
+## Warning: package 'modeest' was built under R version 4.3.3
 ```
 
 ``` r
