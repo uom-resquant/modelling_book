@@ -104,13 +104,6 @@ Based on previous research, our research hypothesis is that women are more afrai
 ``` r
 # load readr library and import the data using read_csv() function
 library(readr)
-```
-
-```
-## Warning: package 'readr' was built under R version 4.3.3
-```
-
-``` r
 csew_0708 <- read_csv("https://raw.githubusercontent.com/uom-resquant/modelling_book/refs/heads/master/datasets/BCS0708.csv")
 ```
 
@@ -123,7 +116,7 @@ summary(csew_0708$tcviolent)
 
 ```
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-##  -2.350  -0.672  -0.117   0.046   0.540   3.805    3242
+## -2.3503 -0.6718 -0.1168  0.0456  0.5399  3.8055    3242
 ```
 
 In this dataset, `sex` is a binary variable---unfortunately, the survey instrument did not measure gender identification and is limited to responses recorded as 'male' or 'female'. We can use the `table()` and `prop.table()` functions to summarise this variable, which respectively provide counts and proportions of the number of observations in our data that take distinct values for a given variable. 6369 (55%) respondents were recorded as female, whereas 5307 (45%) were recorded as male.
@@ -167,7 +160,7 @@ library(dplyr)
 ```
 
 ```
-## Warning: package 'dplyr' was built under R version 4.3.3
+## Warning: package 'dplyr' was built under R version 4.5.2
 ```
 
 ``` r
@@ -661,8 +654,8 @@ summary(csew_0708$tcarea)
 ```
 
 ```
-##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-## -2.6735 -0.7943 -0.0942  0.0303  0.6420  4.1883     677
+##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA's 
+## -2.67347 -0.79434 -0.09417  0.03025  0.64201  4.18826      677
 ```
 
 Perceived anti-social behaviour in the neighbourhood is measured using a scale ranging from -2.67 to 4.19. The mean is 0.03, with a median of -0.09.

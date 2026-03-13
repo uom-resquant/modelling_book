@@ -65,13 +65,6 @@ First, you need to read the data. We keep this data on a website, and you can do
 ``` r
 # load readr library and import the data using read_csv() function
 library(readr)
-```
-
-```
-## Warning: package 'readr' was built under R version 4.3.3
-```
-
-``` r
 fbo <- read_csv("https://raw.githubusercontent.com/uom-resquant/modelling_book/refs/heads/master/datasets/FootbalBanningOrders.csv")
 ```
 
@@ -280,13 +273,6 @@ To get the data we're going to use here, load the `MASS` package and then load t
 
 ``` r
 library(MASS)
-```
-
-```
-## Warning: package 'MASS' was built under R version 4.3.3
-```
-
-``` r
 data(Boston)
 ```
 
@@ -474,7 +460,7 @@ library(dplyr)
 ```
 
 ```
-## Warning: package 'dplyr' was built under R version 4.3.3
+## Warning: package 'dplyr' was built under R version 4.5.2
 ```
 
 ``` r
@@ -807,6 +793,13 @@ Then we load `GGally` and run the scatterplot matrix using the `ggpairs` functio
 
 ``` r
 library(GGally)
+```
+
+```
+## Warning: package 'GGally' was built under R version 4.5.2
+```
+
+``` r
 ggpairs(Boston_spm)
 ```
 
@@ -821,17 +814,6 @@ R gives you a lot of flexibility, and there are often competing packages that ai
 
 ``` r
 library(car)
-```
-
-```
-## Warning: package 'car' was built under R version 4.3.3
-```
-
-```
-## Warning: package 'carData' was built under R version 4.3.3
-```
-
-``` r
  #The regLine argument is used to avoid displaying 
 #something we will cover in regression analysis.
 spm(Boston_spm, regLine=FALSE)
@@ -897,6 +879,13 @@ As we said earlier, `ggthemes` gives you additional themes you can use. For exam
 
 ``` r
 library(ggthemes)
+```
+
+```
+## Warning: package 'ggthemes' was built under R version 4.5.2
+```
+
+``` r
 ggplot(Boston, aes(x = medv, y = crim, colour = as.factor(chas))) +
   geom_point() +
   ggtitle("Fig 1.Crime, Property Value and River Proximity of Boston Towns") +
@@ -968,7 +957,7 @@ ggplot(BCS0708, aes(x=walkday)) +
 ```
 ## Warning: The dot-dot notation (`..prop..`) was deprecated in ggplot2 3.4.0.
 ## ℹ Please use `after_stat(prop)` instead.
-## This warning is displayed once every 8 hours.
+## This warning is displayed once per session.
 ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
 ## generated.
 ```

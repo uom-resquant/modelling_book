@@ -1,6 +1,144 @@
-# Appendix
+# Appendix {-}
 
-### Expected frequencies
+## Plotting residuals {-}
+
+Many of the assumptions can be tested first by having a look at your residuals. Remember, the residuals are the 'error' in your model. In previous weeks, we defined the ordinary residuals as the difference between the observed and the predicted values, the distance between the points in your scatterplot and the regression line. Apart from the ordinary residuals, most software computes other forms of closely related ones: the standardised, the studentised, and the Pearson residuals. 
+
+The raw residuals are just the difference between the observed and the predicted, the other three are ways of normalising this measure, so you can compare what is large, what is small, etc. For example, with the standardized residuals, you essentailly calculate z scores, and given a normal distribution of the standardized residuals, the mean is 0, and the standard deviations is 1. 
+Pearson residuas are raw residuals divided by the standard error of the observed value. 
+Studentized resiruals (also called standardized pearson residuals) are raw residuals divided by their standard error. 
+You can read more about these [here](https://r-forge.r-project.org/scm/viewvc.php/*checkout*/pkg/BinomTools/inst/ResidualsGLM.pdf?revision=6&root=binomtools&pathrev=6). 
+
+Plotting these residuals versus the fitted values and versus each of the predictors is the most basic way of diagnosing problems with your regression model. However, as Fox and Weisberg (2011) emphasise 
+> this "is useful for revealing problems but less useful for determining the exact nature of the problem" and consequently one needs "other diagnostic graphs to suggest improvements to the model".
+
+In the previous session we fitted the model `tcviolent ~ tcarea + sex`. This was our `fit_3` model during that session. You may have to run the model again if you do not have it in your global environment.
+
+To obtain the basic residual plots for this model we use the `residualPlots()` function of the `car` package.
+
+
+
+``` r
+library(car)
+```
+
+```
+## Loading required package: carData
+```
+
+``` r
+BCS0708<-read.csv("https://raw.githubusercontent.com/eonk/dar_book/main/datasets/BCS0708.csv")
+
+fit_3 <- lm(tcviolent ~ tcarea + sex, data=BCS0708)
+residualPlots(fit_3)
+```
+
+<img src="Appendix_files/figure-html/unnamed-chunk-1-1.png" width="672" />
+
+```
+##            Test stat Pr(>|Test stat|)    
+## tcarea        6.2571        4.123e-10 ***
+## sex                                      
+## Tukey test    4.6065        4.094e-06 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+This function will produce plots of the Pearson residuals versus each of the predictors in the model and versus the fitted values.
+
+#### Residuals vs predicted values {-}
+The most important of this is the last one, *the scatterplot of the Pearson residuals versus the fitted values*. In these plots one has to pay particular attention to nonlinear trends, trends in variations across the graph, but also isolated points. 
+Ideally a plot of the residuals should show that: 
+
+- they’re pretty symmetrically distributed, tending to cluster towards the middle of the plot
+- they’re clustered around the lower single digits of the y-axis (e.g., 0.5 or 1.5, not 30 or 150)
+- in general there aren’t clear patterns
+
+For example this is a good looking scatterplot of residuals vs fitted values: 
+
+![](imgs/respre.png) 
+
+On the other hand, if your plot isn’t evenly distributed vertically, or they have an outlier, or they have a clear shape to them, that indicates you can detect a clear pattern or trend in your residuals. In this case, then your model has room for improvement.
+
+For example, these are scatterplots of residuals vs fitted values that indicate a problem: 
+![](imgs/respre2.png) 
+![](imgs/respre3.png) 
+![](imgs/respre4.png) 
+![](imgs/respre5.png) 
+
+How concerned should you be if your model isn’t perfect, if your residuals look a bit unhealthy? It’s up to you. Most of the time a decent model is better than none at all. So take your model, try to improve it, and then decide whether the accuracy is good enough to be useful for your purposes.
+
+#### Residuals vs predictors{-}
+
+These plots are related to the **homogeneity of variance** assumption we introduced earlier.
+
+When the predictor is **categorical**, we will see a collection of boxplots (one for each level in the predictor). A good fit will be indicated by boxplots that have the same centre and similar spread. 
+
+When the predictor is **numeric**, we see a scatterplot of the predictor against the Pearson residuals. Here we also look at any systematic differences in the spread of the residuals across the X axis. When the variances are not unequal you can often see a funnel form shaping up, with less variance at one end of the X axis than the other. Though other systematic patterns are also possible. You also need to pay attention to the shape of the red line printed in the output. This line should be straight. If you observe non-linearities (e.g., a curved line), this may be a more serious issue than the unequal spread and will need addressing.
+
+#### Diagnostic {-}
+
+When you run the `residualPlots()` function R will also print two numerical tests. 
+
+First we have a curvature test for each of the plots by adding a quadratic term and testing the quadratic to be zero (more on this in a few sections). This is Tukey's test for nonadditivity when plotting against fitted values. When this test is significant it may indicate a **lack of fit** for this particular predictor. 
+
+The Tukey test optimally should not be significant. We can see in the first of the three plots that the red line is a bit curved. It is this pattern that the printed tests are picking up. 
+
+
+#### Marginal plots {-}
+We can further diagnose the model by printing **marginal model plots** using the `marginalModelPlots()` function of the `car` package.
+
+
+```
+## Error in plot.window(...): need finite 'xlim' values
+```
+
+<img src="Appendix_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+
+This will plot a scatterplot for each predictor variable against the response variable. This displays the conditional distribution of the response given each predictor, *ignoring the other predictors*. They are called marginal plots because they show the marginal relationship between the outcome and *each predictor*. It will also print a scatterplot of the response versus the fitted value displaying the conditional distribution of the outcome given the fit of the model. We observe here the curvature that was already identified by the previous plots (notice the blue line).
+
+We can also use the `marginalModelPlots()` function to assess the **homogeneity of variance** assumption using the following argument:
+
+
+``` r
+marginalModelPlots(fit_3, sd = TRUE)
+```
+
+```
+## Warning in xy.coords(x, y, xlabel, ylabel, log): NAs introduced by coercion
+```
+
+```
+## Warning in min(x): no non-missing arguments to min; returning Inf
+```
+
+```
+## Warning in max(x): no non-missing arguments to max; returning -Inf
+```
+
+```
+## Error in plot.window(...): need finite 'xlim' values
+```
+
+<img src="Appendix_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+
+This will print the estimated standard deviation lines to the graph. You would want this to be **constant** across the X axis.
+ 
+#### Diagnostic for homoskedasiticity {-}
+And since we are discussing homoskedasiticity (e.g., homogeneity of variance or constant/equal variance), it is worth pointing out that the `car` package implements a score test that evaluates whether the variance is constant. To obtain this test we use the `ncvTest()` function.
+
+
+``` r
+ncvTest(fit_3)
+```
+
+```
+## Non-constant Variance Score Test 
+## Variance formula: ~ fitted.values 
+## Chisquare = 186.8947, Df = 1, p = < 2.22e-16
+```
+
+
+### Expected frequencies {-}
 
 Notice that R is telling us that the minimum expected frequency is 41.68. Why? For the Chi-squared test to work, it assumes the cell counts are sufficiently large. Precisely what constitutes 'sufficiently large' is a matter of some debate. One rule of thumb is that all expected cell counts should be above 5. If we have small cells, one alternative is to rely on the Fisher's Exact Test rather than on the Chi-Square. We don't have to request it here. Our cells are large enough for Chi Square to work fine. But if we needed, we could obtain the Fisher's Exact Test with the following code:
 
@@ -30,9 +168,9 @@ The p-value is still considerably lower than our alpha level of .05. So, we can 
 
 Remember that we didn't need the Fisher test. However, as suggested above, there may be times when you need them.
 
-## Logistic regression
+## Logistic regression {-}
 
-### Fitting logistic regression: alternative
+### Fitting logistic regression: alternative {-}
 
 Another way of fitting a logistic regression and getting the odds ratio with less typing is to use the `Logit()` function in the `lessR` package (you will need to install it if you do not have it).
 
@@ -112,7 +250,7 @@ Logit(harsher ~ checks + colour + sex + employed, data=Arrests, brief=TRUE)
 ## sexMale         0.982     1.019
 ## employedYes     0.931     1.074
 ```
-### Assessing model fit: deviance and pseudo r squared
+### Assessing model fit: deviance and pseudo r squared {-}
 
 As you may remember, when looking at linear models, we could use an F test to check the overall fit of the model, and we could evaluate R squared. When running logistic regression, we cannot obtain the R squared (although there is a collection of pseudo-R^2 measures that have been produced). In linear regression, things are a bit simpler. As Menard (2010: 43) explains:
 
@@ -238,7 +376,7 @@ Some authors refer to this as the Hosmer/Lemeshow R^2. It indicates how much the
 
 + And it can be used in other generalised linear models (models for categorical outcomes with more than two levels, which we don't cover here)
 
-### Assessing model fit: ROC curves
+### Assessing model fit: ROC curves {-}
 
 We may want to see what happens to sensitivity and specificity for different cut-off points. For this, we can look at **receiver operating characteristics** or simply [ROC curves](http://en.wikipedia.org/wiki/Receiver_operating_characteristic). This is essentially a tool for evaluating the sensitivity/specificity trade-off. The ROC curve can be used to investigate alternate cut-offs for class probabilities.
 
@@ -259,7 +397,7 @@ Once we have the object with the information, we can plot the ROC curve.
 plot(rocCURVE, legacy.axes = TRUE) #By default, the x-axis goes backwards; we can use the specified option legacy.axes=TRUE, to get 1-spec on the x-axis moving from 0 to 1.
 ```
 
-<img src="Appendix_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+<img src="Appendix_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
 We can see the trajectory of the curve is at first steep, suggesting that sensitivity increases at a greater pace than the decrease in specificity. However, we then reach a point at which specificity decreases at a greater rate than the sensitivity increases. If you want to select a cut-off that gives you the optimal cut-off point, you can use the `coords()` function of the pROC package. You can pass arguments to this function so that it returns the best sum of sensitivity and specificity.
 

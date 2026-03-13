@@ -375,6 +375,8 @@ Models with interaction terms are too often misinterpreted. We strongly recommen
 Equally, [John Fox (2003)](https://www.jstatsoft.org/article/view/v008i15) piece on the `effects` package goes into much more detail than we can explain here - the logic and some of the options that are available when producing plots to show interactions with this package. You may also want to look at the newer `interactions` package [here](https://interactions.jacob-long.com/index.html).
 
 
+For more information on regression assumptions, residuals etc. see the Appendix.
+
 <!--## Plotting residuals
 
 Many of the assumptions can be tested first by having a look at your residuals. Remember, the residuals are the 'error' in your model. In previous weeks, we defined the ordinary residuals as the difference between the observed and the predicted values, the distance between the points in your scatterplot and the regression line. Apart from the ordinary residuals, most software computes other forms of closely related ones: the standardised, the studentised, and the Pearson residuals. 

@@ -1,6 +1,6 @@
-# Appendix
+# Appendix {-}
 
-## Plotting residuals
+## Plotting residuals {-}
 
 Many of the assumptions can be tested first by having a look at your residuals. Remember, the residuals are the 'error' in your model. In previous weeks, we defined the ordinary residuals as the difference between the observed and the predicted values, the distance between the points in your scatterplot and the regression line. Apart from the ordinary residuals, most software computes other forms of closely related ones: the standardised, the studentised, and the Pearson residuals. 
 
@@ -26,7 +26,7 @@ residualPlots(fit_3)
 ```
 This function will produce plots of the Pearson residuals versus each of the predictors in the model and versus the fitted values.
 
-#### Residuals vs predicted values
+#### Residuals vs predicted values {-}
 The most important of this is the last one, *the scatterplot of the Pearson residuals versus the fitted values*. In these plots one has to pay particular attention to nonlinear trends, trends in variations across the graph, but also isolated points. 
 Ideally a plot of the residuals should show that: 
 
@@ -48,7 +48,7 @@ For example, these are scatterplots of residuals vs fitted values that indicate 
 
 How concerned should you be if your model isn’t perfect, if your residuals look a bit unhealthy? It’s up to you. Most of the time a decent model is better than none at all. So take your model, try to improve it, and then decide whether the accuracy is good enough to be useful for your purposes.
 
-#### Residuals vs predictors
+#### Residuals vs predictors{-}
 
 These plots are related to the **homogeneity of variance** assumption we introduced earlier.
 
@@ -56,7 +56,7 @@ When the predictor is **categorical**, we will see a collection of boxplots (one
 
 When the predictor is **numeric**, we see a scatterplot of the predictor against the Pearson residuals. Here we also look at any systematic differences in the spread of the residuals across the X axis. When the variances are not unequal you can often see a funnel form shaping up, with less variance at one end of the X axis than the other. Though other systematic patterns are also possible. You also need to pay attention to the shape of the red line printed in the output. This line should be straight. If you observe non-linearities (e.g., a curved line), this may be a more serious issue than the unequal spread and will need addressing.
 
-#### Diagnostic
+#### Diagnostic {-}
 
 When you run the `residualPlots()` function R will also print two numerical tests. 
 
@@ -65,7 +65,7 @@ First we have a curvature test for each of the plots by adding a quadratic term 
 The Tukey test optimally should not be significant. We can see in the first of the three plots that the red line is a bit curved. It is this pattern that the printed tests are picking up. 
 
 
-#### Marginal plots
+#### Marginal plots {-}
 We can further diagnose the model by printing **marginal model plots** using the `marginalModelPlots()` function of the `car` package.
 
 ```{r, error=TRUE, message=FALSE, warning=FALSE, echo=FALSE}
@@ -81,8 +81,8 @@ marginalModelPlots(fit_3, sd = TRUE)
 ```
 
 This will print the estimated standard deviation lines to the graph. You would want this to be **constant** across the X axis.
-
-#### Diagnostic for homoskedasiticity
+ 
+#### Diagnostic for homoskedasiticity {-}
 And since we are discussing homoskedasiticity (e.g., homogeneity of variance or constant/equal variance), it is worth pointing out that the `car` package implements a score test that evaluates whether the variance is constant. To obtain this test we use the `ncvTest()` function.
 
 ```{r}
@@ -90,7 +90,7 @@ ncvTest(fit_3)
 ```
 
 
-### Expected frequencies
+### Expected frequencies {-}
 
 Notice that R is telling us that the minimum expected frequency is 41.68. Why? For the Chi-squared test to work, it assumes the cell counts are sufficiently large. Precisely what constitutes 'sufficiently large' is a matter of some debate. One rule of thumb is that all expected cell counts should be above 5. If we have small cells, one alternative is to rely on the Fisher's Exact Test rather than on the Chi-Square. We don't have to request it here. Our cells are large enough for Chi Square to work fine. But if we needed, we could obtain the Fisher's Exact Test with the following code:
 
@@ -109,9 +109,9 @@ The p-value is still considerably lower than our alpha level of .05. So, we can 
 
 Remember that we didn't need the Fisher test. However, as suggested above, there may be times when you need them.
 
-## Logistic regression
+## Logistic regression {-}
 
-### Fitting logistic regression: alternative
+### Fitting logistic regression: alternative {-}
 
 Another way of fitting a logistic regression and getting the odds ratio with less typing is to use the `Logit()` function in the `lessR` package (you will need to install it if you do not have it).
 
@@ -128,7 +128,7 @@ Arrests$colour <- relevel(Arrests$colour, "White")
 library(lessR, quietly= TRUE)
 Logit(harsher ~ checks + colour + sex + employed, data=Arrests, brief=TRUE)
 ```
-### Assessing model fit: deviance and pseudo r squared
+### Assessing model fit: deviance and pseudo r squared {-}
 
 As you may remember, when looking at linear models, we could use an F test to check the overall fit of the model, and we could evaluate R squared. When running logistic regression, we cannot obtain the R squared (although there is a collection of pseudo-R^2 measures that have been produced). In linear regression, things are a bit simpler. As Menard (2010: 43) explains:
 
@@ -195,7 +195,7 @@ Some authors refer to this as the Hosmer/Lemeshow R^2. It indicates how much the
 
 + And it can be used in other generalised linear models (models for categorical outcomes with more than two levels, which we don't cover here)
 
-### Assessing model fit: ROC curves
+### Assessing model fit: ROC curves {-}
 
 We may want to see what happens to sensitivity and specificity for different cut-off points. For this, we can look at **receiver operating characteristics** or simply [ROC curves](http://en.wikipedia.org/wiki/Receiver_operating_characteristic). This is essentially a tool for evaluating the sensitivity/specificity trade-off. The ROC curve can be used to investigate alternate cut-offs for class probabilities.
 
