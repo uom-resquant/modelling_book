@@ -1,5 +1,11 @@
 # Regression III: categorical independent variables and multiple regression models
 
+<style>
+details {
+  margin-bottom: 1em; /* Adds space below each details block */
+}
+</style>
+
 In previous weeks, we learned that linear regression models are a powerful method for assessing the association between a binary or numerical independent variable and a numerical dependent variable. This week, we will further develop these models. Specifically, we will learn how to handle scenarios in which the dependent variable is numerical (as in previous weeks), but the independent variable is categorical with more than two groups (i.e., ordinal or nominal). In addition, we will finally introduce the world of *multivariate analysis*, when we analyse more than two variables at the same time.
 
 ## Fitting regression with categorical predictors
@@ -129,7 +135,7 @@ lm(viol_r ~ region, data = df)
 
 It works! But how do we make sense of it? We now have one estimated intercept and **three** estimated slope coefficients! The estimated intercept ($\widehat{\alpha}=790$) we immediately recognise as the mean rate of violence in the East Coast (check the grouped averages above!). And the three slope coefficients all make reference to the remaining groups: Midwest ($\widehat{\beta}=-155.6$), South ($\widehat{\beta}=-200.9$), and West Coast ($\widehat{\beta}=-373.2$). What's going on here?
 
-Essentially, we have four different groups. One of those groups is what we call the **reference category**: this is the group whose average is represented by the Intercept. Then the model returns one coefficient for each remaining group. Those coefficients reflect the mean difference between each group and the reference group. For example, the slope coefficient for the Midwest is $\widehat{\beta} = -155.6$, implying that cities in the Midwest have an average rate of violence 155.6 units lower than the average rate of violence on the East Coast. This checks out! We knew that the average violence rate in Midwest cities was 634, which is exactly 156 units lower than the East Coast's average of 790 (any small differences are due to rounding error).
+Essentially, we have four different groups. One of those groups is what we call the **reference category**: this is the group whose average is represented by the Intercept. The model then returns one coefficient for each remaining group. Those coefficients reflect the mean difference between each group and the reference group. For example, the slope coefficient for the Midwest is $\widehat{\beta} = -155.6$, implying that cities in the Midwest have an average rate of violence 155.6 units lower than the average rate of violence on the East Coast. This checks out! We knew that the average violence rate in Midwest cities was 634, which is exactly 156 units lower than the East Coast's average of 790 (any small differences are due to rounding error).
 
 Similarly, the slope coefficient for the South is $\widehat{\beta} = -200.9$, implying that cities in the South have an average rate of violence 200.9 units lower than the average rate of violence on the East Coast. The slope coefficient for the West Coast is $\widehat{\beta}=-373.2$, implying that cities on the West Coast have an average rate of violence 200.9 units lower than the average rate of violence on the East Coast. 
 
@@ -212,7 +218,7 @@ $$
 Y = \alpha + \beta_1\cdot X_1 + \beta_2\cdot X_2 + \beta_3\cdot X_3 + ... + \beta_n\cdot X_n
 $$
 
-In other words, we still have only one dependent variable $Y$, which has to be numerical. We also have several independent variables $X_1, X_2, X_3, ..., X_n$, and for each independent variable, we have an associated slope coefficient $\beta_1, \beta_2, \beta_3, ..., \beta_n$.
+In other words, we still have only one dependent variable, $Y$, which must be numerical. We also have several independent variables $X_1, X_2, X_3, ..., X_n$, and for each independent variable, we have an associated slope coefficient $\beta_1, \beta_2, \beta_3, ..., \beta_n$.
 
 To estimate a multiple regression in `R`, you simply modify the formula in the `lm()` function by adding terms for the additional inputs. The model works like this:
 
@@ -221,13 +227,13 @@ To estimate a multiple regression in `R`, you simply modify the formula in the `
 lm(dependent_variable ~ independent_variable_1 + independent_variable_2 + independent_variable_3 + independent_variable_4, data = dataset )
 ```
 
-For example, let's regress violence rates on unemployment percentage in a city and whether the city is one of the 50 largest cities in the country. This linear model would look like this:
+For example, let's regress violence rates on the city's unemployment rate and whether it is one of the 50 largest cities in the country. This linear model would look like this:
 
 $$
 viol\_r = \alpha + \beta_1\cdot unemployed + \beta_2\cdot largest50
 $$
 
-So, now have three regression coefficients to estimate: $\alpha$, $\beta_1$, and $\beta_2$. We can use the `lm()` function in `R` to estimate them.
+So, now there are three regression coefficients to estimate: $\alpha$, $\beta_1$, and $\beta_2$. We can use the `lm()` function in `R` to estimate them.
 
 ```{r}
 # fit multiple regression model
@@ -243,43 +249,48 @@ The intercept is the expected score of $Y$ when *all* independent variables are 
 
 The slope coefficients represent the *partial association* between the independent variable and dependent variable *controlling for the other independent variables*. In this case, the coefficient $\widehat{\beta_1}=116.5$ implies that, *controlling for whether or not the city is one of the largest 50 cities in the country*, every additional percentage point increase in unemployment is associated with an expected increase of 116.5 in violence rates. Similarly, the coefficient $\widehat{\beta_2}=295.5$ implies that, *controlling for unemployment percentage*, cities in the top 50 by size have an expected violence rate 295.5 units higher than smaller cities.
 
-Other interpretations are also possible and are more generalizable. Gelman and Hill (2007: p. 34) emphasise what they call the *predictive interpretation* which considers how "the outcome variable differs, on average, when comparing two groups of units that differ by 1 in the relevant predictor while being identical in all the other predictors". So [if you're regressing y on u and v, the coefficient of u is the average difference in y per difference in u, comparing pairs of items that differ in u but are identical in v](http://andrewgelman.com/2013/01/05/understanding-regression-models-and-regression-coefficients/).
+<details>
+<summary><i> Alternative interpretration </i></summary>
 
-So, for example, in this case, we could say that comparing respondents who have the same level of unemployment but who differ in whether they are one of the largest cities or not, the model predicts an expected difference of 295.5 in their violent crime measure. And cities with the same size category but that differ by 1% point in unemployment, we would expect to see a difference of 116.5 in their violent crime measure. So, we are interpreting the regression slopes **as comparisons of observation that differ in one predictor while being at the same levels of the other predictors**.
+Other interpretations are also possible and are more generalisable. Gelman and Hill (2007: p. 34) emphasise what they call the *predictive interpretation*, which considers how "the outcome variable differs, on average, when comparing two groups of units that differ by 1 in the relevant predictor while being identical in all the other predictors". So [if you're regressing y on u and v, the coefficient of u is the average difference in y per difference in u, comparing pairs of items that differ in u but are identical in v](http://andrewgelman.com/2013/01/05/understanding-regression-models-and-regression-coefficients/).
 
-As you can see, interpreting regression coefficients can be kind of tricky[^12]. The relationship between the dependent variable $Y$ and any one explanatory variable can change greatly depending on what other explanatory variables are present in the model. 
+So, for example, in this case, we could say that comparing respondents who have the same level of unemployment but who differ in whether they are in one of the largest cities or not, the model predicts an expected difference of 295.5 in their violent crime measure. And for cities in the same size category that differ by 1% point in unemployment, we would expect to see a difference of 116.5 in their violent crime measure. So, we are interpreting the regression slopes **as comparisons of observations that differ in one predictor while being at the same levels of the other predictors**.
 
-Something you need to be particularly careful about is to interpret the coefficients in a causal manner. Unless your data comes from an experiment, this is unlikely to be helpful. With observational data, regression coefficients should not be read as indexing causal relations. This sort of textbook warning is, however, often neglectfully ignored by professional researchers. Often, authors carefully draw sharp distinctions between causal and correlational claims when discussing their data analysis but then interpret the correlational patterns in a totally causal way in their conclusion section. This is what is called the [causation](http://junkcharts.typepad.com/numbersruleyourworld/2012/07/the-causation-creep.html) creep. Beware. Don't do this tempting as it may be.
+</details>
+
+Interpreting regression coefficients can be kind of tricky[^12]. The relationship between the dependent variable $Y$ and any one explanatory variable can change greatly depending on what other explanatory variables are present in the model. 
+
+Something you need to be particularly careful about is interpreting the coefficients in a causal manner. Unless your data comes from an experiment, this is unlikely to be helpful. In observational data, regression coefficients should not be interpreted as indicating causal relations. This sort of textbook warning is, however, often neglectfully ignored by professional researchers. Often, authors carefully draw sharp distinctions between causal and correlational claims when discussing their data analysis, but then interpret the correlational patterns in a totally causal way in their conclusion section. This is what is called the [causation](http://junkcharts.typepad.com/numbersruleyourworld/2012/07/the-causation-creep.html) creep. Beware. Don't do this, tempting as it may be.
 
 Comparing the simple models with this more complex model, we could say that adjusting for *largest50* does not change much the association between *unemployed* and violence. Almost the same can be said about the effect of *largest50* when holding *unemployed* fixed. 
 
-If we look at the $R^2$, we can see that it is higher than before. This quantity, the R squared, will always increase as a consequence of adding new variables, even if the new variables added are weakly related to the response variable. However, the increase we are observing suggests that adding these two variables results in a substantial improvement to our previous model.
+Looking at $R^2$, we see it is higher than before. This quantity, the R-squared, will always increase as a consequence of adding new variables, even if the new variables added are weakly related to the response variable. However, the increase we are observing suggests that adding these two variables results in a substantial improvement to our previous model.
 
 ```{r}
-# check the R squared of the multiple regression model
+# check the R-squared of the multiple regression model
 summary(multiple_regression)$r.squared
 ```
 
 ## Rescaling input variables to assist interpretation
 
-The interpretation of regression coefficients is sensitive to the scale of measurement of the independent variables. This means one cannot compare the magnitude of the coefficients to compare the relevance of variables to predict the response variable. Let's look at the following multiple regression model, including five independent variables. How can we tell which independent variable have a stronger effect?
+The interpretation of regression coefficients is sensitive to the scale of measurement of the independent variables. This means one cannot compare the magnitudes of the coefficients to compare the relevance of variables in predicting the response variable. Let's look at the following multiple regression model, including five independent variables. How can we tell which independent variable has a stronger effect?
 
 ```{r}
-# fit new multiple regression model with more independent variables
+# fit a new multiple regression model with more independent variables
 multiple_regression_2 <- lm(viol_r ~ unemployed + largest50 + black + fborn + log_incarceraton, data=df)
 
 # print results
 multiple_regression_2
 ```
 
-We just cannot. One way of dealing with this is by rescaling the input variables. A common method involves subtracting the mean and dividing it by the standard deviation of each numerical input. The coefficients in these models are the expected difference in the response variable, comparing units that differ by one standard deviation in the predictor while adjusting for other predictors in the model. 
+We just cannot. One way to deal with this is to rescale the input variables. A common method involves subtracting the mean and dividing it by the standard deviation of each numerical input. The coefficients in these models are the expected difference in the response variable, comparing units that differ by one standard deviation in the predictor while adjusting for other predictors in the model. 
 
-Instead, [Gelman (2008)](http://www.stat.columbia.edu/~gelman/research/published/standardizing7.pdf) has proposed dividing each numeric variable *by two times its standard deviation* so that the generic comparison is with inputs equal to plus/minus one standard deviation. As Gelman explains, the resulting coefficients are comparable to untransformed binary predictors. The implementation of this approach in the `arm` package subtracts the mean of each binary input while subtracting the mean and dividing it by two standard deviations for every numeric input.
+Instead, [Gelman (2008)](http://www.stat.columbia.edu/~gelman/research/published/standardizing7.pdf) has proposed dividing each numeric variable *by two times its standard deviation* so that the generic comparison is with inputs equal to plus/minus one standard deviation. As Gelman explains, the resulting coefficients are comparable to untransformed binary predictors. The implementation of this approach in the `arm` package subtracts the mean of each binary input, while subtracting the mean and dividing it by two standard deviations for every numeric input.
 
 The way we would obtain these rescaled inputs uses the `standardize()` function of the `arm` package, which takes the name of the stored fit model as an argument.
 
 ```{r, message=FALSE}
-# install package you haven't yet; you only need to do it once
+# install the package you haven't yet; you only need to do it once
 ## install.packages("arm")
 
 # load 'arm' package
@@ -291,21 +302,23 @@ standardize(multiple_regression_2)
 
 Notice that the main change affects the numerical predictors. The unstandardised coefficients are influenced by the degree of variability in your predictors, which means they will typically be larger for your binary inputs. With unstandardised coefficients, you are comparing the complete change in one variable (whether one is a large city or not) with one-unit changes in your numerical variable, which may not amount to much change. So, by putting in a comparable scale, you avoid this problem.
 
-Standardising in the way described here will help you to make fairer comparisons. These standardised coefficients are comparable in a way that the unstandardised coefficients are not. We can now see what inputs have a comparatively stronger effect. It is very important to realise, though, that one **should not** compare standardised coefficients *across different models*.
+Standardising as described here will help you make fairer comparisons. These standardised coefficients are comparable in a way that the unstandardised coefficients are not. We can now see what inputs have a comparatively stronger effect. It is very important to realise, though, that one **should not** compare standardised coefficients *across different models*.
 
 ## Testing conditional hypothesis: interactions
 
-In the social sciences, there is a great interest in what are called conditional hypotheses or interactions. Many of our theories do not assume simply **additive effects** but **multiplicative effects**. For example, [Wikstrom and his colleagues (2011)](http://euc.sagepub.com/content/8/5/401.short) suggest that the threat of punishment only affects the probability of involvement in crime for those who have a propensity to offend but is largely irrelevant for people who do not have this propensity. Or you may think that a particular crime prevention programme may work in some environments but not in others. The interest in this kind of conditional hypothesis is growing.
+In the social sciences, there is a great interest in what are called conditional hypotheses or interactions. Many of our theories do not assume simply **additive effects** but **multiplicative effects**. For example, [Wikstrom and his colleagues (2011)](http://euc.sagepub.com/content/8/5/401.short) suggest that the threat of punishment affects the probability of involvement in crime only for those with a propensity to offend, but is largely irrelevant for those without this propensity. Or you may think that a particular crime prevention programme may work in some environments but not in others. The interest in this kind of conditional hypothesis is growing.
 
-One of the assumptions of the regression model is that the relationship between the dependent variable and the independent variables is additive. That is, if you have two independent variables, `X1` and `X2`, regression assumes that the effect of `X1` on `Y` is the same at all levels of `X2`. If that is not the case, you are then violating one of the assumptions of regression. This is, in fact, one of the most important assumptions of regression (see previous week for details), even if researchers often overlook it.
+One of the regression model assumptions is that the relationship between the dependent variable and the independent variables is additive. That is, if you have two independent variables, `X1` and `X2`, regression assumes that the effect of `X1` on `Y` is the same at all levels of `X2`. If that is not the case, you are then violating one of the assumptions of regression. This is, in fact, one of the most important assumptions of regression (see previous week for details), even if researchers often overlook it.
 
-One way of extending our model to accommodate for interaction effects is to add additional terms to our model, a third predictor, `X3`, where `X3` is simply the product of multiplying `X1` by `X2`. Notice that we keep a term for each of the **main effects** (the original predictors) as well as a new term for the interaction effect. "Analysts should include all constitutive terms when specifying multiplicative interaction models except in very rare circumstances" (Brambor et al., 2006: 66). The model now looks like this:
+One way of extending our model to accommodate interaction effects is to add additional terms to our model, a third predictor, `X3`, where `X3` is simply the product of multiplying `X1` by `X2`. Notice that we keep a term for each of the **main effects** (the original predictors) as well as a new term for the interaction effect. "Analysts should include all constitutive terms when specifying multiplicative interaction models except in very rare circumstances" (Brambor et al., 2006: 66). The model now looks like this:
 
 $$
 Y = \alpha + \beta_1\cdot X_1 + \beta_2\cdot X_2 + \beta_3\cdot X_1\cdot X_2
 $$
 
-How do we do this in `R`? One way is to use the following notation in the formula argument. Notice how we have added a third term, `unemployed:largest50`, which is asking `R` to test the conditional hypothesis that the size of the cities may have a different impact on the violent crime rate.
+How do we do this in `R`? One way is to use the following notation in the formula argument. Notice how we have added a third term, `unemployed:largest50`, which is asking `R` to test whether the effect (slope) of unemployment on violent crime differs depending on whether the city is in the largest 50.
+
+
 
 ```{r}
 # fit multiple regression model with an interaction term
@@ -317,11 +330,18 @@ multiple_regression_3 <- lm(viol_r ~ unemployed + largest50 + unemployed:largest
 # now, print results
 multiple_regression_3
 
-# check the R squared
+# check the R-squared
 summary(multiple_regression_3)$r.squared
 ```
 
-You see here that, essentially, you have only two independent variables (the size of the city and unemployment) but three slope coefficients. In this case, the test for the interaction effect is very small, which suggests there isn't such an interaction. The $R^2$ barely changes. Let's visualise the results with the `effects` package:
+You see here that, essentially, you have only two independent variables (city size and unemployment) but three slope coefficients. In this case, the test for the interaction effect is very small, suggesting there is no such interaction. The $R^2$ barely changes. 
+
+
+<details>
+<summary><i> Let's visualise the results  </i></summary>
+
+We can use the `effects` package to visualise regression results
+
 
 ```{r}
 # install package if you haven't done do
@@ -336,17 +356,19 @@ plot(allEffects(multiple_regression_3), ask = FALSE)
 
 Notice that, essentially, what we are doing is running two regression lines and testing whether the slope is different for the two groups. The intercept is different; we know that the largest cities are more violent, but what we are testing here is whether violence goes up in a steeper fashion (and in the same direction) for one or the other group as unemployment goes up. We see that's not the case here. The estimated lines are almost parallel...
 
-A word of warning: the moment you introduce an interaction effect, the meaning of the coefficients for the other predictors changes (what it is often referred to as the "main effects" as opposed to the interaction effect). You cannot retain the interpretation we introduced earlier. Now, for example, the coefficient for the *largest50* variable relates to the marginal effect of this variable when *unemployment* equals zero. The typical table of results helps you to understand whether the effects are significant but offers little of interest that will help you meaningfully interpret what the effects are. For this, it is better if you use some of the graphical displays we have covered.
+</details>
 
-Essentially, the regression coefficients that get printed are interpretable only for certain groups. So now:
+A word of warning: the moment you introduce an interaction effect, the meaning of the coefficients for the other predictors changes (what is often referred to as the "main effects" as opposed to the interaction effect). You cannot retain the interpretation we introduced earlier. Now, for example, the coefficient for the *largest50* variable relates to the marginal effect of this variable when *unemployment* equals zero. The typical table of results helps you to understand whether the effects are significant, but offers little of interest that will help you meaningfully interpret what the effects are. For this, it is better to use one of the graphical displays we have covered.
 
-+ The intercept still represents the predicted score of violence for the smaller cities and has a score of 0 in unemployment (as before).
+Essentially, the printed regression coefficients are interpretable only for certain groups. So now:
+
++ The intercept still represents the predicted score of violence for the smaller cities and remains 0 for unemployment (as before).
 
 + The coefficient of the *largest50Yes* predictor now can be thought of as the difference between the predicted score of violence for small cities *that have a score of 0 in unemployment* and largest cities *that have a score of 0 in unemployment*.
 
 + The coefficient of *unemployed* now becomes the comparison of mean violence *for small cities* that differ by one point in unemployment.
 
-+ The coefficient for the interaction term represents the difference in the slope for *unemployed* comparing smaller and largest cities, the difference in the slope of the two lines that we visualised above.
++ The coefficient for the interaction term represents the difference in the slope for *unemployed* comparing small and large cities, the difference in the slope of the two lines that we visualised above.
 
 Models with interaction terms are too often misinterpreted. We strongly recommend you read this piece by [Brambor et al (2005)](https://www.cambridge.org/core/journals/political-analysis/article/abs/understanding-interaction-models-improving-empirical-analyses/9BA57B3720A303C61EBEC6DDFA40744B) to understand some of the issues involved. When discussing logistic regression, we will return to this and will consider tricks to ease the interpretation.
 
@@ -447,9 +469,9 @@ When the test is **significant**, as it is here, we may suspect there **is** a p
 
 ## Multicollinearity
 
-The regression model may experience problems when there is strong collinearity—when the predictors are related to each other. In these scenarios, the standard errors for the coefficients will be large, and the confidence intervals will be broader. Thus, it will be more difficult to detect a significant relationship, even if there is one.
+The regression model may run into problems when there is strong collinearity—when the predictors are highly correlated. In these scenarios, the standard errors for the coefficients will be large, and the confidence intervals will be broader. Thus, it will be more difficult to detect a significant relationship, even if one exists.
 
-To diagnose multicollinearity, the first step may be to observe the correlation between the predictors in the model. Let's first subset the data to obtain only the relevant predictors and our main outcome. For this, I will introduce another form of selecting columns in a data frame using the `dplyr` package. We will be using the Boston data avaible from the MASS package in R - we have used this in previous weeks. 
+To diagnose multicollinearity, the first step may be to examine the correlations among the predictors in the model. Let's first subset the data to obtain only the relevant predictors and our main outcome. For this, I will introduce another way to select columns in a data frame using the `dplyr` package. We will be using the Boston data avaible from the MASS package in R - we have used this in previous weeks. 
 
 ```{r}
 library(MASS)
@@ -472,7 +494,7 @@ library(corrplot, quietly = TRUE, warn.conflicts = FALSE)
 corrplot(c_1, order = "hclust", tl.pos="d")
 ```
 
-We can see some non-trivial correlations between some of the predictors, particularly between median property value and per cent lower status (r=-73).
+We can see some non-trivial correlations among some predictors, particularly between median property value and per cent lower status (r=-73).
 
 Correlations among pairs of variables will only give you a first impression of the problem. What we are really concerned about is what happens once you throw all the variables in the model. Not all problems with multicollinearity will be detected by the correlation matrix. The recommended reading describes the variance inflation factor as a tool to diagnose multicollinearity. Let's look at the one we obtain with the first model (pre-transformations) that we run with the `Boston` dataset:
 
@@ -482,7 +504,7 @@ fit_B1 <- lm(crim ~ medv + lstat + dis + chas, data = Boston)
 vif(fit_B1)
 ```
 
-Typically, a VIF larger than 5 or 10 indicates serious problems with collinearity. Fox (2008) recommends using the square root of the variance inflation factor:
+Typically, a VIF greater than 5 or 10 indicates serious problems with collinearity. Fox (2008) recommends using the square root of the variance inflation factor:
 
 ```{r}
 
@@ -499,13 +521,13 @@ fit_B3 <- lm(log(crim) ~ poly(medv, 2) + log(lstat) + log(dis) + chas, data = Bo
 vif(fit_B3)
 ```
 
-Now that we are using the transformed variables, it looks as if we have more of an issue with the coefficient for `lstat`. The confidence interval for this coefficient is about 2 times larger than it would be without collinearity, which goes a long way towards explaining why it is no longer significant.
+Now that we are using the transformed variables, it appears we have a stronger issue with the coefficient for `lstat`. The confidence interval for this coefficient is about 2 times larger than it would be without collinearity, which goes a long way towards explaining why it is no longer significant.
 
-The problem with collinear inputs is that they do not add much new to the model. Non-collinearity is not an assumption of the regression model. And everything is related to everything else, to some extent, at least. But if a predictor is strongly related to some other input, then we are simply adding redundant information to the model. If you are developing a risk assessment tool for probation, you don't want to add loads of predictors that are highly correlated (for this simply requires probation to collect redundant information). Also, in these situations is hard to tell apart the relative importance of the collinear predictors (if you are interested in explanation rather than prediction). It can be difficult to separate their effects.
+The problem with collinear inputs is that they do not add much extra to the model. Non-collinearity is not an assumption of the regression model. And everything is related to everything else, to some extent, at least. But if a predictor is strongly correlated with another input, we are simply adding redundant information to the model. If you are developing a risk assessment tool for probation, you don't want to add loads of predictors that are highly correlated (because it basically requires probation to collect redundant information). Also, in these situations is hard to tell apart the relative importance of the collinear predictors (if you are interested in explanation rather than prediction). It can be difficult to separate their effects.
 
 A number of solutions to multicollinearity have been proposed, from dropping the culprits to creating composite variables that summarise variation among the correlated inputs to more complex techniques. Still, all these are well beyond the aims of this course.
 
-It is very important, however, to remember that there are some circumstances in which multicollinearity can be safely ignored. Professor Paul Allison [discusses this issue](http://www.statisticalhorizons.com/multicollinearity) in his blog, and you may want to check the full discussion. Essentially, Prof. Allison argues that one can ignore multicollinearity when:
+It is, however, very important to remember that there are circumstances in which multicollinearity can be safely ignored. Professor Paul Allison [discusses this issue](http://www.statisticalhorizons.com/multicollinearity) in his blog, and you may want to check the full discussion. Essentially, Prof. Allison argues that one can ignore multicollinearity when:
 
 + "The variables with high VIFs are control variables, and the variables of interest do not have high VIFs... In this case, the coefficients of the variables of interest are not affected, and the performance of the control variables as controls is not impaired."
 
