@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2026-03-13" />
+<meta name="date" content="2026-03-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,8 +55,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -66,7 +67,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -660,17 +661,17 @@ Personally, I like boxplots (we will explain them in greater detail below) for s
 <span id="cb194-3"><a href="data-visualisation-with-r.html#cb194-3" tabindex="-1"></a><span class="co">#and I am calling this new data frame object Boston_spm</span></span>
 <span id="cb194-4"><a href="data-visualisation-with-r.html#cb194-4" tabindex="-1"></a>Boston_spm <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Boston, crim, medv, lstat)</span></code></pre></div>
 <p>Then we load <code>GGally</code> and run the scatterplot matrix using the <code>ggpairs</code> function:</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="data-visualisation-with-r.html#cb195-1" tabindex="-1"></a><span class="fu">library</span>(GGally)</span></code></pre></div>
-<pre><code>## Warning: package &#39;GGally&#39; was built under R version 4.5.2</code></pre>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="data-visualisation-with-r.html#cb197-1" tabindex="-1"></a><span class="fu">ggpairs</span>(Boston_spm)</span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="data-visualisation-with-r.html#cb195-1" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb195-2"><a href="data-visualisation-with-r.html#cb195-2" tabindex="-1"></a><span class="fu">ggpairs</span>(Boston_spm)</span></code></pre></div>
 <p><img src="03-visualisation_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
 <p>The diagonal set of boxes that goes from the top left to the bottom right gives you the univariate density plot for each of the variables. So, for example, at the very top left, you have the density plot for the <em>crim</em> variable. If you look underneath this one, you see a scatterplot between <em>crim</em> and <em>medv</em>. In this case, <em>crim</em> defines the X axis and <em>medv</em> the Y axis, which is why it looks a bit different from the one we saw earlier. The labels at the top and the left tell you what variables are plotted in each faceted rectangle. In the top right-hand side of this matrix, you see that the rectangles say “corr” and then give you a number. These numbers are <strong>correlation coefficients</strong>, which are a metric we use to indicate the strength of a relationship between two quantitative or numeric variables. The closer to 1.000 (whether positive or negative) this value is, the stronger the relationship is. The closer to zero, the weaker the relationship. The stronger relationship here is between <em>medv</em> and <em>istat</em> (correlation coefficient value: -0.738). The fact that it is negative indicates that as the values in one increase, the values in the other tend to decrease. So, high crime values correspond to low property prices, as we saw earlier. This coefficient is a summary number of this relationship. We will come back to it later on. For now, keep in mind this metric only works well if the relationship shown in the scatterplot is well represented by a straight line. If the relationship is curvilinear, it will be a very bad metric that you should not trust.</p>
 <p><img src="imgs/ggpairs.png" style="width:80.0%" /></p>
 <p>R gives you a lot of flexibility, and there are often competing packages that aim to do similar things. So, for example, for a scatterplot matrix, you could also use the <code>spm</code> function from the <code>car</code> package.</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="data-visualisation-with-r.html#cb198-1" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb198-2"><a href="data-visualisation-with-r.html#cb198-2" tabindex="-1"></a> <span class="co">#The regLine argument is used to avoid displaying </span></span>
-<span id="cb198-3"><a href="data-visualisation-with-r.html#cb198-3" tabindex="-1"></a><span class="co">#something we will cover in regression analysis.</span></span>
-<span id="cb198-4"><a href="data-visualisation-with-r.html#cb198-4" tabindex="-1"></a><span class="fu">spm</span>(Boston_spm, <span class="at">regLine=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="data-visualisation-with-r.html#cb196-1" tabindex="-1"></a><span class="fu">library</span>(car)</span></code></pre></div>
+<pre><code>## Warning: package &#39;car&#39; was built under R version 4.5.2</code></pre>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="data-visualisation-with-r.html#cb198-1" tabindex="-1"></a> <span class="co">#The regLine argument is used to avoid displaying </span></span>
+<span id="cb198-2"><a href="data-visualisation-with-r.html#cb198-2" tabindex="-1"></a><span class="co">#something we will cover in regression analysis.</span></span>
+<span id="cb198-3"><a href="data-visualisation-with-r.html#cb198-3" tabindex="-1"></a><span class="fu">spm</span>(Boston_spm, <span class="at">regLine=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="03-visualisation_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
 <p>This is a bit different from the one above because, rather than displaying the values of the correlation coefficient, you get another set of scatterplots with the Y and X axes rotated. You can see the matrix is symmetrical. So, the first scatterplot that you see in the top row (second column from the left) shows the relationship between <em>medv</em> (in the X axis) and <em>crim</em> (in the Y axis). This is the same relationship shown in the first scatterplot in the second row (first column); only here, <em>crim</em> defines the X axis and <em>medv</em> the Y axis. In this scatterplot, you can see, although not very well, that smoothed lines representing the relationship have been added to the plots.</p>
 <div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="data-visualisation-with-r.html#cb199-1" tabindex="-1"></a><span class="fu">library</span>(car)</span>

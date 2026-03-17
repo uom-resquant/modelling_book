@@ -108,13 +108,7 @@ Great, we know that the average violence rate in cities on the East Coast is 790
 ``` r
 # load the 'ggplot2' package
 library(ggplot2)
-```
 
-```
-## Warning: package 'ggplot2' was built under R version 4.5.2
-```
-
-``` r
 # produce a grouped boxplot assessing the distribution of
 # 'viol_r' across groups of 'region'
 ggplot(data = df, aes(x = region, y = viol_r)) +
@@ -385,7 +379,7 @@ multiple_regression
 
 What do the two coefficients mean now? **Their interpretation now changes**!
 
-The intercept is the expected score of $Y$ when *all* independent variables are 0. In this case, the intercept is the expected violence rate when both $unemployed = 0$ and $largest50 = 0$. That is, a hypothetical city with 0% of its population unemployed and that is not one of the 50 largest cities in the country is expected to have a violence rate of $=236.3$. From now on, more often than not, there is not much value in bothering to interpret the intercept because it will not always represent a real observation in your sample.
+The intercept is the expected score of $Y$ when *all* independent variables are 0. In this case, the intercept is the expected violence rate when both $unemployed = 0$ and $largest50 = 0$. That is, a hypothetical city with 0% of its population unemployed and that is not one of the 50 largest cities in the country is expected to have a violence rate of $-236.3$. From now on, more often than not, there is not much value in bothering to interpret the intercept because it will not always represent a real observation in your sample.
 
 The slope coefficients represent the *partial association* between the independent variable and dependent variable *controlling for the other independent variables*. In this case, the coefficient $\widehat{\beta_1}=116.5$ implies that, *controlling for whether or not the city is one of the largest 50 cities in the country*, every additional percentage point increase in unemployment is associated with an expected increase of 116.5 in violence rates. Similarly, the coefficient $\widehat{\beta_2}=295.5$ implies that, *controlling for unemployment percentage*, cities in the top 50 by size have an expected violence rate 295.5 units higher than smaller cities.
 
@@ -455,7 +449,13 @@ The way we would obtain these rescaled inputs uses the `standardize()` function 
 
 # load 'arm' package
 library(arm)
+```
 
+```
+## Warning: package 'lme4' was built under R version 4.5.2
+```
+
+``` r
 # obtain standardised results
 standardize(multiple_regression_2)
 ```
@@ -546,10 +546,6 @@ library(effects)
 ```
 
 ```
-## Warning: package 'effects' was built under R version 4.5.2
-```
-
-```
 ## Loading required package: carData
 ```
 
@@ -608,6 +604,10 @@ To obtain the basic residual plots for this model we use the `residualPlots()` f
 
 ``` r
 library(car)
+```
+
+```
+## Warning: package 'car' was built under R version 4.5.2
 ```
 
 ```
@@ -777,10 +777,6 @@ And then, we can visualise these correlations with the `corrplot` package.
 
 ``` r
 library(corrplot, quietly = TRUE, warn.conflicts = FALSE)
-```
-
-```
-## Warning: package 'corrplot' was built under R version 4.5.2
 ```
 
 ```

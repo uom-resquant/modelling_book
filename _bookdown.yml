@@ -15,7 +15,7 @@ rmd_files:
   - 05_regresion_I.Rmd
   - 06_regression_II.Rmd
   - 07_regression_III.Rmd
-  # - 08_logistic_regressiion.Rmd
+  # - 08_logistic_regression.Rmd
   # - 09_statistical_inference.Rmd
   # - 10-Wrapping_up.Rmd
   - Appendix.Rmd
