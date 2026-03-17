@@ -303,7 +303,7 @@ div {
 <b>A one-unit increase in $X_1$ multiplies the odds of the event $Y$ occurring by $exp^{\beta_1}$</b>
 </div>
 
-Odds ratios, by definition, will always be greater than 0. Multiplying something by a number between 0 and 1 actually reduces the number: for example, if we multiply 10 by 0.4, the result is 4, a decrease of 60%. If we multiply something by 1, it stays the same: for example, if we multiply 10 by 1, the result is 1. If we multiply something by a number greater than 1, it implies an increase: for example, if we multiply 10 by 1.5, the result is 5, an increase of 50%.
+Odds ratios, by definition, will always be greater than 0. Multiplying something by a number between 0 and 1 actually reduces the number: for example, if we multiply 10 by 0.4, the result is 4, a decrease of 60%. If we multiply something by 1, it stays the same: for example, if we multiply 10 by 1, the result is 10. If we multiply something by a number greater than 1, it implies an increase: for example, if we multiply 10 by 1.5, the result is 15, an increase of 50%.
 
 + An estimated odds ratio ($exp^{\beta}$) between 0 and 1 implies a negative association
 + An estimated odds ratio ($exp^{\beta}$) equal to 1 implies no association
