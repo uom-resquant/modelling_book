@@ -418,7 +418,6 @@ The interpretation of regression coefficients is sensitive to the scale of measu
 ``` r
 # fit a new multiple regression model with more independent variables
 multiple_regression_2 <- lm(viol_r ~ unemployed + largest50 + black + fborn + log_incarceraton, data=df)
-
 # print results
 multiple_regression_2
 ```
@@ -805,7 +804,7 @@ vif(fit_B1)
 ## 2.358517 2.850675 1.399747 1.057865
 ```
 
-Typically, a VIF greater than 5 or 10 indicates serious problems with collinearity. Fox (2008) recommends using the square root of the variance inflation factor:
+Typically, a VIF greater than 5 (maybe an issue) or 10 (serious issue) indicates problems with collinearity. Fox (2008) recommends using the square root of the variance inflation factor:
 
 
 ``` r
@@ -817,9 +816,9 @@ sqrt(vif(fit_B1))
 ## 1.535746 1.688394 1.183109 1.028525
 ```
 
-Typically, it is assumed that you need a value greater than 2 for the square root of the variance inflation factor before collinearity seriously impairs the precision of the estimation. It does not look as if we would have to worry much on the basis of these results.
+Now, because we're using the square root, our thresholds would change accordingly. So, usually, it is assumed that you need a value greater than around 2 for the square root of the variance inflation factor before collinearity impairs the precision of the estimation, and above 3 would indicate a more serious problem. It does not look as if we have much to worry about on the basis of these results.
 
-When you have a set of related inputs or regressors (either because you have a multicategory factor and various dummy variables or because you have polynomial regressors), you cannot use the variance inflation factor. There is, however, a similar statistic that you can use in these contexts: the **generalised variance inflation factor**. We could use this measure for our final model for the `Boston` data. We invoke this statistic using the same code as before:
+There are some scenarios when you cannot use the the variance inflation factor. For example, when you have multicategory factor and various dummy variables, or because you have polynomial independent variables (e.g., interacting age with itself to model a non-linear association between age and your Y variable). There is, however, a similar statistic that you can use in these contexts: the **generalised variance inflation factor** (see [Fox, 2011](https://books.google.co.uk/books?id=LMqkupSCOd4C&printsec=frontcover&source=gbs_ge_summary_r&cad=0#v=onepage&q=vif&f=false)). We could use this measure for our final model using the `Boston` data. We invoke this statistic using the same code as before, but now, the `vif` function recognises that we need the generalized version of the variance inflation factor (note that we've used a polynomial form of `medv`!).
 
 
 ``` r
@@ -835,8 +834,7 @@ vif(fit_B3)
 ## log(dis)      1.770096  1        1.330450
 ## chas          1.058015  1        1.028599
 ```
-
-Now that we are using the transformed variables, it appears we have a stronger issue with the coefficient for `lstat`. The confidence interval for this coefficient is about 2 times larger than it would be without collinearity, which goes a long way towards explaining why it is no longer significant.
+You will notice that we get a few results, but for now we only focus only on a scaled version of the generalized variance inflation factor (GVIF) in the final column `GVIF^(1/(2*Df))`. This makes the results comparable and can be interpreted the same as the square root of the standard VIF above. So, we might consider `log(lstat)` to have a slight issue (value is >2).
 
 The problem with collinear inputs is that they do not add much extra to the model. Non-collinearity is not an assumption of the regression model. And everything is related to everything else, to some extent, at least. But if a predictor is strongly correlated with another input, we are simply adding redundant information to the model. If you are developing a risk assessment tool for probation, you don't want to add loads of predictors that are highly correlated (because it basically requires probation to collect redundant information). Also, in these situations is hard to tell apart the relative importance of the collinear predictors (if you are interested in explanation rather than prediction). It can be difficult to separate their effects.
 
