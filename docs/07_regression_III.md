@@ -491,8 +491,6 @@ $$
 How do we do this in `R`? One way is to use the following notation in the formula argument. Notice how we have added a third term, `unemployed:largest50`, which is asking `R` to test whether the effect (slope) of unemployment on violent crime differs depending on whether the city is in the largest 50.
 
 
-
-
 ``` r
 # fit multiple regression model with an interaction term
 multiple_regression_3 <- lm(viol_r ~ unemployed + largest50 + unemployed:largest50 , data = df)
@@ -526,7 +524,7 @@ summary(multiple_regression_3)$r.squared
 ## [1] 0.4083445
 ```
 
-You see here that, essentially, you have only two independent variables (city size and unemployment) but three slope coefficients. In this case, the test for the interaction effect is very small, suggesting there is no such interaction. The $R^2$ barely changes. 
+You see here that, essentially, you have only two independent variables (city size and unemployment) but three slope coefficients. In this case, the test for the interaction effect is not big, and the $R^2$ barely changes, so we might conclude that there is no such association. But, the interaction coefficient is still positive: the association between unemployment and violence is stronger in larger cities.
 
 
 <details>
@@ -560,7 +558,7 @@ plot(allEffects(multiple_regression_3), ask = FALSE)
 
 <img src="07_regression_III_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
-Notice that, essentially, what we are doing is running two regression lines and testing whether the slope is different for the two groups. The intercept is different; we know that the largest cities are more violent, but what we are testing here is whether violence goes up in a steeper fashion (and in the same direction) for one or the other group as unemployment goes up. We see that's not the case here. The estimated lines are almost parallel...
+Notice that, essentially, what we are doing is testing whether the slope is different for the two groups i.e., big cities (1) or not big cities (0). The intercept is different (although it's difficult to see on the graph, but we know there's more violence in bigger cities from the coefficient estimates too), but what we are testing here is whether violence goes up in a steeper fashion (and in the same direction) as employment goes up, in big cities (1) compared to not big cities (0). We can see that that is indeed the case (the slope is steeper) confirming what we saw in the coefficient estimate (i.e., the positive value of 64.22). That said, remember that it's not huge, and the $R^2$ barely went up, so the evidence for this conditional hypothesis is not that convincing. 
 
 </details>
 
@@ -570,7 +568,7 @@ Essentially, the printed regression coefficients are interpretable only for cert
 
 + The intercept still represents the predicted score of violence for the smaller cities and remains 0 for unemployment (as before).
 
-+ The coefficient of the *largest50Yes* predictor now can be thought of as the difference between the predicted score of violence for small cities *that have a score of 0 in unemployment* and largest cities *that have a score of 0 in unemployment*.
++ The coefficient of the *largest50* predictor now can be thought of as the difference between the predicted score of violence for small cities *that have a score of 0 in unemployment* and largest cities *that have a score of 0 in unemployment*.
 
 + The coefficient of *unemployed* now becomes the comparison of mean violence *for small cities* that differ by one point in unemployment.
 
