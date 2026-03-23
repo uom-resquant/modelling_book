@@ -510,7 +510,7 @@ We can see first the **accuracy**. The overall accuracy rate gives us the agreem
 
 One of the problems with taking this approach is that the choice of the cut-off point can be arbitrary, and yet this cut-off point will impact the sensitivity and specificity of the model. There is a trade-off between sensitivity and specificity. Given a fixed accuracy, more of one will result in less of the other.
 
-So if we use a different cut-off point, say .75, the classification table would look like this:
+So if we use a different cut-off point, say .75, the classification table would look like this. Note that to do this, we create our own function called `precision` -- the R code itself is much more advanced that this course, so don't worry too much about that. It's a demonstration of calculating specificity and sensitivity.
 
 ```{r}
 precision<-function(c) {
