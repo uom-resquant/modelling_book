@@ -85,3 +85,12 @@ fitting-and-interpreting-a-multiple-regression-model
 rescaling-input-variables-to-assist-interpretation
 testing-conditional-hypothesis-interactions
 multicollinearity
+categorical-variables-and-logistic-regression
+cross-tabulations
+regression-modelling-why-not-linear-regression
+logistic-regression
+fitting-logistic-regression
+interactions
+assessing-model-fit-confusion-matrix
+lab-exercises-2
+further-resources-2
