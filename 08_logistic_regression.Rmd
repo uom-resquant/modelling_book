@@ -482,6 +482,11 @@ tab0 <- table(released_pred, Arrests$released)
 tab0
 ```
 
+What does this tell us? Well, we can see how our predictions about release compare to what was actually observed. The sum of the table is just the number of our predictions (5226), which is the same as the number of rows in our data frame. A broad summary would be to calculate how many predictions we got wrong, namely, 891 (835 + 56) and then calculate the proportion of that given all the predictions made, namely, 891/5226 = 17%. So, based on the 0.5 threshold decided earlier, we'd conclude that we got 17% wrong and therefore had an accuracy of 83%.
+
+<details>
+<summary><i>Extra stuff about classification tables</i></summary>
+
 We can derive various useful measures from classification tables. Two important ones are the **sensitivity** and the **specificity**. The model's sensitivity is the rate at which the event of interest (e.g., being released) is predicted correctly for all cases having the event.
 
 Sensitivity = number of cases with the event and predicted to have the event/number of samples actually presenting the event
@@ -530,6 +535,7 @@ Similarly, the criminal justice system is essentially built around the idea of a
 
 We may want to see what happens to sensitivity and specificity for different cut-off points. For this, we can look at **receiver operating characteristics** or simply [ROC curves](http://en.wikipedia.org/wiki/Receiver_operating_characteristic). This is essentially a tool for evaluating the sensitivity/specificity trade-off. The ROC curve can be used to investigate alternate cut-offs for class probabilities. [See the appendix for more info on the ROC curve](https://uom-resquant.github.io/modelling_book/appendix.html#assessing-model-fit-roc-curves). There are also other ways to assess a model's fit, such as deviance and pseudo r squared. For those interested, [you can read more in the appendix](https://uom-resquant.github.io/modelling_book/appendix.html#assessing-model-fit-deviance-and-pseudo-r-squared).-->
 
+</details>
 
 ## Lab Exercises
 
