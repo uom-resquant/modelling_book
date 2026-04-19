@@ -606,6 +606,7 @@ plot_model(linear_regression_3, title = "Fear of violent crime")
 
 What you see plotted here is the point estimates (the circles), the confidence intervals around those estimates (the longer the line, the less precise the estimate), and the colours represent whether the statistical effect is negative (red) or positive (blue). There are other packages that also provide similar functionality, like the `dotwhisker` package that you may want to explore, see more details [here](https://cran.r-project.org/web/packages/dotwhisker/vignettes/dotwhisker-vignette.html).
 
+<!--
 The `sjPlot` package also allows you to produce html tables for a more professional presentation of your regression tables. For this, we use the `tab_model()` function. This kind of tabulation may be particularly helpful for your final assignment.
 
 ```{r}
@@ -626,6 +627,8 @@ tab_model(linear_regression_3,
           pred.labels = c("Intercept", "Perceived anti-social behaviour", "Crime victimisation", "Urban residents"), 
           dv.labels = "Fear of violent crime")
 ```
+
+-->
 
 It is **crucial** that you always report sample estimates with measures of uncertainty (e.g., standard errors, confidence intervals, p-values, and/or t-statistics).
 

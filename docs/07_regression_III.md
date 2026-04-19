@@ -108,7 +108,13 @@ Great, we know that the average violence rate in cities on the East Coast is 790
 ``` r
 # load the 'ggplot2' package
 library(ggplot2)
+```
 
+```
+## Warning: package 'ggplot2' was built under R version 4.5.2
+```
+
+``` r
 # produce a grouped boxplot assessing the distribution of
 # 'viol_r' across groups of 'region'
 ggplot(data = df, aes(x = region, y = viol_r)) +
@@ -451,7 +457,7 @@ library(arm)
 ```
 
 ```
-## Warning: package 'lme4' was built under R version 4.5.2
+## Warning: package 'arm' was built under R version 4.5.3
 ```
 
 ``` r
@@ -467,9 +473,9 @@ standardize(multiple_regression_2)
 ## 
 ## Coefficients:
 ##        (Intercept)        z.unemployed         c.largest50             z.black  
-##             546.21              270.06              246.87              297.93  
+##            546.208              80.555             246.871               9.078  
 ##            z.fborn  z.log_incarceraton  
-##             -98.15              -30.72
+##             -4.102             -50.506
 ```
 
 Notice that the main change affects the numerical predictors. The unstandardised coefficients are influenced by the degree of variability in your predictors, which means they will typically be larger for your binary inputs. With unstandardised coefficients, you are comparing the complete change in one variable (whether one is a large city or not) with one-unit changes in your numerical variable, which may not amount to much change. So, by putting in a comparable scale, you avoid this problem.
@@ -543,6 +549,10 @@ library(effects)
 ```
 
 ```
+## Warning: package 'effects' was built under R version 4.5.2
+```
+
+```
 ## Loading required package: carData
 ```
 
@@ -601,10 +611,6 @@ To obtain the basic residual plots for this model we use the `residualPlots()` f
 
 ``` r
 library(car)
-```
-
-```
-## Warning: package 'car' was built under R version 4.5.2
 ```
 
 ```
@@ -774,6 +780,10 @@ And then, we can visualise these correlations with the `corrplot` package.
 
 ``` r
 library(corrplot, quietly = TRUE, warn.conflicts = FALSE)
+```
+
+```
+## Warning: package 'corrplot' was built under R version 4.5.2
 ```
 
 ```
