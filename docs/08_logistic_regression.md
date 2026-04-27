@@ -234,23 +234,23 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
 ```
 
 ```{=html}
-<div id="obnogneuud" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#obnogneuud table {
+<div id="vcbxtupvxc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vcbxtupvxc table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#obnogneuud thead, #obnogneuud tbody, #obnogneuud tfoot, #obnogneuud tr, #obnogneuud td, #obnogneuud th {
+#vcbxtupvxc thead, #vcbxtupvxc tbody, #vcbxtupvxc tfoot, #vcbxtupvxc tr, #vcbxtupvxc td, #vcbxtupvxc th {
   border-style: none;
 }
 
-#obnogneuud p {
+#vcbxtupvxc p {
   margin: 0;
   padding: 0;
 }
 
-#obnogneuud .gt_table {
+#vcbxtupvxc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -276,12 +276,12 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   border-left-color: #D3D3D3;
 }
 
-#obnogneuud .gt_caption {
+#vcbxtupvxc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#obnogneuud .gt_title {
+#vcbxtupvxc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -293,7 +293,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   border-bottom-width: 0;
 }
 
-#obnogneuud .gt_subtitle {
+#vcbxtupvxc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -305,7 +305,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   border-top-width: 0;
 }
 
-#obnogneuud .gt_heading {
+#vcbxtupvxc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -317,13 +317,13 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   border-right-color: #D3D3D3;
 }
 
-#obnogneuud .gt_bottom_border {
+#vcbxtupvxc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#obnogneuud .gt_col_headings {
+#vcbxtupvxc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -338,7 +338,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   border-right-color: #D3D3D3;
 }
 
-#obnogneuud .gt_col_heading {
+#vcbxtupvxc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -358,7 +358,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   overflow-x: hidden;
 }
 
-#obnogneuud .gt_column_spanner_outer {
+#vcbxtupvxc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -370,15 +370,15 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   padding-right: 4px;
 }
 
-#obnogneuud .gt_column_spanner_outer:first-child {
+#vcbxtupvxc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#obnogneuud .gt_column_spanner_outer:last-child {
+#vcbxtupvxc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#obnogneuud .gt_column_spanner {
+#vcbxtupvxc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -390,11 +390,11 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   width: 100%;
 }
 
-#obnogneuud .gt_spanner_row {
+#vcbxtupvxc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#obnogneuud .gt_group_heading {
+#vcbxtupvxc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -420,7 +420,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   text-align: left;
 }
 
-#obnogneuud .gt_empty_group_heading {
+#vcbxtupvxc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -435,15 +435,15 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   vertical-align: middle;
 }
 
-#obnogneuud .gt_from_md > :first-child {
+#vcbxtupvxc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#obnogneuud .gt_from_md > :last-child {
+#vcbxtupvxc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#obnogneuud .gt_row {
+#vcbxtupvxc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -462,7 +462,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   overflow-x: hidden;
 }
 
-#obnogneuud .gt_stub {
+#vcbxtupvxc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -475,7 +475,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#obnogneuud .gt_stub_row_group {
+#vcbxtupvxc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -489,15 +489,15 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   vertical-align: top;
 }
 
-#obnogneuud .gt_row_group_first td {
+#vcbxtupvxc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#obnogneuud .gt_row_group_first th {
+#vcbxtupvxc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#obnogneuud .gt_summary_row {
+#vcbxtupvxc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -507,16 +507,16 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#obnogneuud .gt_first_summary_row {
+#vcbxtupvxc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#obnogneuud .gt_first_summary_row.thick {
+#vcbxtupvxc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#obnogneuud .gt_last_summary_row {
+#vcbxtupvxc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -526,7 +526,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   border-bottom-color: #D3D3D3;
 }
 
-#obnogneuud .gt_grand_summary_row {
+#vcbxtupvxc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -536,7 +536,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#obnogneuud .gt_first_grand_summary_row {
+#vcbxtupvxc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -546,7 +546,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   border-top-color: #D3D3D3;
 }
 
-#obnogneuud .gt_last_grand_summary_row_top {
+#vcbxtupvxc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -556,11 +556,11 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   border-bottom-color: #D3D3D3;
 }
 
-#obnogneuud .gt_striped {
+#vcbxtupvxc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#obnogneuud .gt_table_body {
+#vcbxtupvxc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -569,7 +569,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   border-bottom-color: #D3D3D3;
 }
 
-#obnogneuud .gt_footnotes {
+#vcbxtupvxc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -583,7 +583,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   border-right-color: #D3D3D3;
 }
 
-#obnogneuud .gt_footnote {
+#vcbxtupvxc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -592,7 +592,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#obnogneuud .gt_sourcenotes {
+#vcbxtupvxc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -606,7 +606,7 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   border-right-color: #D3D3D3;
 }
 
-#obnogneuud .gt_sourcenote {
+#vcbxtupvxc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -614,72 +614,72 @@ tbl_cross(data = Arrests, row = colour, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#obnogneuud .gt_left {
+#vcbxtupvxc .gt_left {
   text-align: left;
 }
 
-#obnogneuud .gt_center {
+#vcbxtupvxc .gt_center {
   text-align: center;
 }
 
-#obnogneuud .gt_right {
+#vcbxtupvxc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#obnogneuud .gt_font_normal {
+#vcbxtupvxc .gt_font_normal {
   font-weight: normal;
 }
 
-#obnogneuud .gt_font_bold {
+#vcbxtupvxc .gt_font_bold {
   font-weight: bold;
 }
 
-#obnogneuud .gt_font_italic {
+#vcbxtupvxc .gt_font_italic {
   font-style: italic;
 }
 
-#obnogneuud .gt_super {
+#vcbxtupvxc .gt_super {
   font-size: 65%;
 }
 
-#obnogneuud .gt_footnote_marks {
+#vcbxtupvxc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#obnogneuud .gt_asterisk {
+#vcbxtupvxc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#obnogneuud .gt_indent_1 {
+#vcbxtupvxc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#obnogneuud .gt_indent_2 {
+#vcbxtupvxc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#obnogneuud .gt_indent_3 {
+#vcbxtupvxc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#obnogneuud .gt_indent_4 {
+#vcbxtupvxc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#obnogneuud .gt_indent_5 {
+#vcbxtupvxc .gt_indent_5 {
   text-indent: 25px;
 }
 
-#obnogneuud .katex-display {
+#vcbxtupvxc .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#obnogneuud div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#vcbxtupvxc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -746,23 +746,23 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
 ```
 
 ```{=html}
-<div id="hmnmreejsu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hmnmreejsu table {
+<div id="pqvvwxstfu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pqvvwxstfu table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hmnmreejsu thead, #hmnmreejsu tbody, #hmnmreejsu tfoot, #hmnmreejsu tr, #hmnmreejsu td, #hmnmreejsu th {
+#pqvvwxstfu thead, #pqvvwxstfu tbody, #pqvvwxstfu tfoot, #pqvvwxstfu tr, #pqvvwxstfu td, #pqvvwxstfu th {
   border-style: none;
 }
 
-#hmnmreejsu p {
+#pqvvwxstfu p {
   margin: 0;
   padding: 0;
 }
 
-#hmnmreejsu .gt_table {
+#pqvvwxstfu .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -788,12 +788,12 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   border-left-color: #D3D3D3;
 }
 
-#hmnmreejsu .gt_caption {
+#pqvvwxstfu .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hmnmreejsu .gt_title {
+#pqvvwxstfu .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -805,7 +805,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   border-bottom-width: 0;
 }
 
-#hmnmreejsu .gt_subtitle {
+#pqvvwxstfu .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -817,7 +817,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   border-top-width: 0;
 }
 
-#hmnmreejsu .gt_heading {
+#pqvvwxstfu .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -829,13 +829,13 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   border-right-color: #D3D3D3;
 }
 
-#hmnmreejsu .gt_bottom_border {
+#pqvvwxstfu .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hmnmreejsu .gt_col_headings {
+#pqvvwxstfu .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -850,7 +850,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   border-right-color: #D3D3D3;
 }
 
-#hmnmreejsu .gt_col_heading {
+#pqvvwxstfu .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -870,7 +870,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   overflow-x: hidden;
 }
 
-#hmnmreejsu .gt_column_spanner_outer {
+#pqvvwxstfu .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -882,15 +882,15 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   padding-right: 4px;
 }
 
-#hmnmreejsu .gt_column_spanner_outer:first-child {
+#pqvvwxstfu .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hmnmreejsu .gt_column_spanner_outer:last-child {
+#pqvvwxstfu .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hmnmreejsu .gt_column_spanner {
+#pqvvwxstfu .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -902,11 +902,11 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   width: 100%;
 }
 
-#hmnmreejsu .gt_spanner_row {
+#pqvvwxstfu .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hmnmreejsu .gt_group_heading {
+#pqvvwxstfu .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -932,7 +932,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   text-align: left;
 }
 
-#hmnmreejsu .gt_empty_group_heading {
+#pqvvwxstfu .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -947,15 +947,15 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   vertical-align: middle;
 }
 
-#hmnmreejsu .gt_from_md > :first-child {
+#pqvvwxstfu .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hmnmreejsu .gt_from_md > :last-child {
+#pqvvwxstfu .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hmnmreejsu .gt_row {
+#pqvvwxstfu .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -974,7 +974,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   overflow-x: hidden;
 }
 
-#hmnmreejsu .gt_stub {
+#pqvvwxstfu .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -987,7 +987,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#hmnmreejsu .gt_stub_row_group {
+#pqvvwxstfu .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1001,15 +1001,15 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   vertical-align: top;
 }
 
-#hmnmreejsu .gt_row_group_first td {
+#pqvvwxstfu .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hmnmreejsu .gt_row_group_first th {
+#pqvvwxstfu .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hmnmreejsu .gt_summary_row {
+#pqvvwxstfu .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1019,16 +1019,16 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#hmnmreejsu .gt_first_summary_row {
+#pqvvwxstfu .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hmnmreejsu .gt_first_summary_row.thick {
+#pqvvwxstfu .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hmnmreejsu .gt_last_summary_row {
+#pqvvwxstfu .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1038,7 +1038,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   border-bottom-color: #D3D3D3;
 }
 
-#hmnmreejsu .gt_grand_summary_row {
+#pqvvwxstfu .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1048,7 +1048,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#hmnmreejsu .gt_first_grand_summary_row {
+#pqvvwxstfu .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1058,7 +1058,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   border-top-color: #D3D3D3;
 }
 
-#hmnmreejsu .gt_last_grand_summary_row_top {
+#pqvvwxstfu .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1068,11 +1068,11 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   border-bottom-color: #D3D3D3;
 }
 
-#hmnmreejsu .gt_striped {
+#pqvvwxstfu .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hmnmreejsu .gt_table_body {
+#pqvvwxstfu .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1081,7 +1081,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   border-bottom-color: #D3D3D3;
 }
 
-#hmnmreejsu .gt_footnotes {
+#pqvvwxstfu .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1095,7 +1095,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   border-right-color: #D3D3D3;
 }
 
-#hmnmreejsu .gt_footnote {
+#pqvvwxstfu .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1104,7 +1104,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#hmnmreejsu .gt_sourcenotes {
+#pqvvwxstfu .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1118,7 +1118,7 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   border-right-color: #D3D3D3;
 }
 
-#hmnmreejsu .gt_sourcenote {
+#pqvvwxstfu .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1126,72 +1126,72 @@ tbl_cross(data = Arrests, row = citizen, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#hmnmreejsu .gt_left {
+#pqvvwxstfu .gt_left {
   text-align: left;
 }
 
-#hmnmreejsu .gt_center {
+#pqvvwxstfu .gt_center {
   text-align: center;
 }
 
-#hmnmreejsu .gt_right {
+#pqvvwxstfu .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hmnmreejsu .gt_font_normal {
+#pqvvwxstfu .gt_font_normal {
   font-weight: normal;
 }
 
-#hmnmreejsu .gt_font_bold {
+#pqvvwxstfu .gt_font_bold {
   font-weight: bold;
 }
 
-#hmnmreejsu .gt_font_italic {
+#pqvvwxstfu .gt_font_italic {
   font-style: italic;
 }
 
-#hmnmreejsu .gt_super {
+#pqvvwxstfu .gt_super {
   font-size: 65%;
 }
 
-#hmnmreejsu .gt_footnote_marks {
+#pqvvwxstfu .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hmnmreejsu .gt_asterisk {
+#pqvvwxstfu .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hmnmreejsu .gt_indent_1 {
+#pqvvwxstfu .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hmnmreejsu .gt_indent_2 {
+#pqvvwxstfu .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hmnmreejsu .gt_indent_3 {
+#pqvvwxstfu .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hmnmreejsu .gt_indent_4 {
+#pqvvwxstfu .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hmnmreejsu .gt_indent_5 {
+#pqvvwxstfu .gt_indent_5 {
   text-indent: 25px;
 }
 
-#hmnmreejsu .katex-display {
+#pqvvwxstfu .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#hmnmreejsu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#pqvvwxstfu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1255,23 +1255,23 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
 ```
 
 ```{=html}
-<div id="okyxhedmrl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#okyxhedmrl table {
+<div id="bidbqndgno" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bidbqndgno table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#okyxhedmrl thead, #okyxhedmrl tbody, #okyxhedmrl tfoot, #okyxhedmrl tr, #okyxhedmrl td, #okyxhedmrl th {
+#bidbqndgno thead, #bidbqndgno tbody, #bidbqndgno tfoot, #bidbqndgno tr, #bidbqndgno td, #bidbqndgno th {
   border-style: none;
 }
 
-#okyxhedmrl p {
+#bidbqndgno p {
   margin: 0;
   padding: 0;
 }
 
-#okyxhedmrl .gt_table {
+#bidbqndgno .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1297,12 +1297,12 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   border-left-color: #D3D3D3;
 }
 
-#okyxhedmrl .gt_caption {
+#bidbqndgno .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#okyxhedmrl .gt_title {
+#bidbqndgno .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1314,7 +1314,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   border-bottom-width: 0;
 }
 
-#okyxhedmrl .gt_subtitle {
+#bidbqndgno .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1326,7 +1326,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   border-top-width: 0;
 }
 
-#okyxhedmrl .gt_heading {
+#bidbqndgno .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1338,13 +1338,13 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   border-right-color: #D3D3D3;
 }
 
-#okyxhedmrl .gt_bottom_border {
+#bidbqndgno .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#okyxhedmrl .gt_col_headings {
+#bidbqndgno .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1359,7 +1359,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   border-right-color: #D3D3D3;
 }
 
-#okyxhedmrl .gt_col_heading {
+#bidbqndgno .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1379,7 +1379,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   overflow-x: hidden;
 }
 
-#okyxhedmrl .gt_column_spanner_outer {
+#bidbqndgno .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1391,15 +1391,15 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   padding-right: 4px;
 }
 
-#okyxhedmrl .gt_column_spanner_outer:first-child {
+#bidbqndgno .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#okyxhedmrl .gt_column_spanner_outer:last-child {
+#bidbqndgno .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#okyxhedmrl .gt_column_spanner {
+#bidbqndgno .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1411,11 +1411,11 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   width: 100%;
 }
 
-#okyxhedmrl .gt_spanner_row {
+#bidbqndgno .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#okyxhedmrl .gt_group_heading {
+#bidbqndgno .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1441,7 +1441,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   text-align: left;
 }
 
-#okyxhedmrl .gt_empty_group_heading {
+#bidbqndgno .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1456,15 +1456,15 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   vertical-align: middle;
 }
 
-#okyxhedmrl .gt_from_md > :first-child {
+#bidbqndgno .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#okyxhedmrl .gt_from_md > :last-child {
+#bidbqndgno .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#okyxhedmrl .gt_row {
+#bidbqndgno .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1483,7 +1483,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   overflow-x: hidden;
 }
 
-#okyxhedmrl .gt_stub {
+#bidbqndgno .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1496,7 +1496,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#okyxhedmrl .gt_stub_row_group {
+#bidbqndgno .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1510,15 +1510,15 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   vertical-align: top;
 }
 
-#okyxhedmrl .gt_row_group_first td {
+#bidbqndgno .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#okyxhedmrl .gt_row_group_first th {
+#bidbqndgno .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#okyxhedmrl .gt_summary_row {
+#bidbqndgno .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1528,16 +1528,16 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#okyxhedmrl .gt_first_summary_row {
+#bidbqndgno .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#okyxhedmrl .gt_first_summary_row.thick {
+#bidbqndgno .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#okyxhedmrl .gt_last_summary_row {
+#bidbqndgno .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1547,7 +1547,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   border-bottom-color: #D3D3D3;
 }
 
-#okyxhedmrl .gt_grand_summary_row {
+#bidbqndgno .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1557,7 +1557,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#okyxhedmrl .gt_first_grand_summary_row {
+#bidbqndgno .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1567,7 +1567,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   border-top-color: #D3D3D3;
 }
 
-#okyxhedmrl .gt_last_grand_summary_row_top {
+#bidbqndgno .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1577,11 +1577,11 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   border-bottom-color: #D3D3D3;
 }
 
-#okyxhedmrl .gt_striped {
+#bidbqndgno .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#okyxhedmrl .gt_table_body {
+#bidbqndgno .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1590,7 +1590,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   border-bottom-color: #D3D3D3;
 }
 
-#okyxhedmrl .gt_footnotes {
+#bidbqndgno .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1604,7 +1604,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   border-right-color: #D3D3D3;
 }
 
-#okyxhedmrl .gt_footnote {
+#bidbqndgno .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1613,7 +1613,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#okyxhedmrl .gt_sourcenotes {
+#bidbqndgno .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1627,7 +1627,7 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   border-right-color: #D3D3D3;
 }
 
-#okyxhedmrl .gt_sourcenote {
+#bidbqndgno .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1635,72 +1635,72 @@ tbl_cross(data = Arrests, row = sex, col = released, percent = "row")
   padding-right: 5px;
 }
 
-#okyxhedmrl .gt_left {
+#bidbqndgno .gt_left {
   text-align: left;
 }
 
-#okyxhedmrl .gt_center {
+#bidbqndgno .gt_center {
   text-align: center;
 }
 
-#okyxhedmrl .gt_right {
+#bidbqndgno .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#okyxhedmrl .gt_font_normal {
+#bidbqndgno .gt_font_normal {
   font-weight: normal;
 }
 
-#okyxhedmrl .gt_font_bold {
+#bidbqndgno .gt_font_bold {
   font-weight: bold;
 }
 
-#okyxhedmrl .gt_font_italic {
+#bidbqndgno .gt_font_italic {
   font-style: italic;
 }
 
-#okyxhedmrl .gt_super {
+#bidbqndgno .gt_super {
   font-size: 65%;
 }
 
-#okyxhedmrl .gt_footnote_marks {
+#bidbqndgno .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#okyxhedmrl .gt_asterisk {
+#bidbqndgno .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#okyxhedmrl .gt_indent_1 {
+#bidbqndgno .gt_indent_1 {
   text-indent: 5px;
 }
 
-#okyxhedmrl .gt_indent_2 {
+#bidbqndgno .gt_indent_2 {
   text-indent: 10px;
 }
 
-#okyxhedmrl .gt_indent_3 {
+#bidbqndgno .gt_indent_3 {
   text-indent: 15px;
 }
 
-#okyxhedmrl .gt_indent_4 {
+#bidbqndgno .gt_indent_4 {
   text-indent: 20px;
 }
 
-#okyxhedmrl .gt_indent_5 {
+#bidbqndgno .gt_indent_5 {
   text-indent: 25px;
 }
 
-#okyxhedmrl .katex-display {
+#bidbqndgno .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#okyxhedmrl div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#bidbqndgno div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
