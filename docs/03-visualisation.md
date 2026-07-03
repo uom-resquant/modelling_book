@@ -268,55 +268,159 @@ Histograms are useful ways of representing quantitative variables visually.
 
 As mentioned earlier, we will emphasise the use of the `ggplot()` function in this course. With `ggplot()`, you start with a blank canvas and keep adding specific layers. The `ggplot()` function can specify the dataset and the aesthetics (the visual characteristics that represent the data). 
 
-To get the data we're going to use here, load the `MASS` package and then load the *Boston* data into your environment.
+<!-- To get the data we're going to use here, load the `MASS` package and then load the *Boston* data into your environment. -->
+
+
+<!-- ```{r} -->
+<!-- library(MASS) -->
+<!-- data(Boston) -->
+<!-- ``` -->
+
+
+To get the data we're going to use here, load the `WDI` package. If you haven't already installed this package then you'll need to install it before loading it by running `install.packages("WDI")`.
 
 
 ``` r
-library(MASS)
-data(Boston)
+library(WDI)
 ```
 
-This package has a dataframe called *Boston*. This data shows housing values in the suburbs of Boston (USA). To access the codebook (how you find out what variables are), use the "?", `?Boxton`.
+```
+## Warning: package 'WDI' was built under R version 4.5.3
+```
 
-OK, so let's make a graph about the variable which represents the per capita crime rate by town (*crim*).
+<!-- This package has a dataframe called *Boston*. This data shows housing values in the suburbs of Boston (USA). To access the codebook (how you find out what variables are), use the "?", `?Boxton`. -->
+
+This package contains [world development indicator (WDI) data from the World Bank](https://databank.worldbank.org/source/world-development-indicators) on [homicide rates](https://data.worldbank.org/indicator/VC.IHR.PSRC.P5) and other indicators per country. 
+To find out more about this package, run `?WDI` or view the [documentation online](https://cran.r-project.org/web/packages/WDI/).
+
+We're going to analyse data from 2022 for all countries for which we have data for the following:
+
+- Intentional homicides (per 100,000 people). The code for this is [VC.IHR.PSRC.P5](https://data.worldbank.org/indicator/VC.IHR.PSRC.P5)
+
+- Inequality measured using the Gini index (also known as the Gini coefficient). Code: [SI.POV.GINI](https://data.worldbank.org/indicator/SI.POV.GINI) 
+
+- GDP per capita ($). Code: [NY.GDP.PCAP.PP.KD](https://data.worldbank.org/indicator/NY.GDP.PCAP.PP.KD) 
+
+- Percentage of the population that's urban. Code: [SP.URB.TOTL.IN.ZS](https://data.worldbank.org/indicator/SP.URB.TOTL.IN.ZS)
+
+Let's make a list of these indicators codes and then get the data for those indicators for all countries for the year 2022:
+
+
+``` r
+indicators <- c(
+  homicide = "VC.IHR.PSRC.P5",
+  inequality = "SI.POV.GINI",
+  gdp = "NY.GDP.PCAP.PP.KD",
+  urban = "SP.URB.TOTL.IN.ZS")
+
+worldbank <- WDI(
+  country = "all",            
+  indicator = indicators,
+  start = 2022,
+  end = 2022,
+  extra = FALSE)  # setting this to TRUE would include extra columns we don't need
+```
+
+```
+## Warning in open.connection(con, "rb"): URL
+## 'https://api.worldbank.org/v2/en/country/all/indicator/SI.POV.GINI?format=json&date=2022:2022&per_page=32500&page=4':
+## Timeout of 60 seconds was reached
+```
+
+Next, we'll remove countries that don't have data for these indicators for 2022. We'll need the `dplyr` package to do this, so let's load that package first:
+
+
+``` r
+library(dplyr)
+
+# remove rows for countries with no homicide data 
+worldbank <- filter(worldbank, !is.na(homicide))  
+
+# remove rows for countries with no inequality data 
+worldbank <- filter(worldbank, !is.na(inequality)) 
+
+# remove rows for countries with no gdp data 
+worldbank <- filter(worldbank, !is.na(gdp))
+
+# remove rows for countries with no urban population data
+worldbank <- filter(worldbank, !is.na(urban))
+```
+
+Let's also remove the columns we don't need (the ISO country codes and the year as all rows are for 2022) by selecting only the columns that we do need (`country`, `homicide`, `inequality`, `gdp` and `urban`):
+
+
+``` r
+worldbank <- select(worldbank, country, homicide, inequality, gdp, urban)
+```
+
+<!-- OK, so let's make a graph about the variable which represents the per capita crime rate by town (*crim*). -->
+
+OK, so let's make a graph about the variable which represents the homicide rate by country (*homicide*).
 
 If you want to produce a histogram with the `ggplot` function, you would use the following code:
 
 
+<!-- ```{r, message=FALSE} -->
+<!-- ggplot(Boston, aes(x = crim)) +  -->
+<!--   geom_histogram() -->
+<!-- ``` -->
+
+
 
 ``` r
-ggplot(Boston, aes(x = crim)) + 
+ggplot(worldbank, aes(x = homicide)) + 
   geom_histogram()
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
-So you can see that `ggplot` works by allowing you to add a series of specifications (layers, annotations). In this simple plot, the `ggplot` function simply maps *crim* as the variable to be displayed (as one of the **aesthetics**) and the dataset. Then, you add the `geom_histogram` to tell R that you want this variable to be represented as a histogram. Later, we will see what other things you can add.
+<!-- So you can see that `ggplot` works by allowing you to add a series of specifications (layers, annotations). In this simple plot, the `ggplot` function simply maps *crim* as the variable to be displayed (as one of the **aesthetics**) and the dataset. Then, you add the `geom_histogram` to tell R that you want this variable to be represented as a histogram. Later, we will see what other things you can add. -->
+
+So you can see that `ggplot` works by allowing you to add a series of specifications (layers, annotations). In this simple plot, the `ggplot` function simply maps *homicide* as the variable to be displayed (as one of the **aesthetics**) and the dataset. Then, you add the `geom_histogram` to tell R that you want this variable to be represented as a histogram. Later, we will see what other things you can add.
 
 A histogram is simply putting cases in "bins" and then creating a bar for each bin. You can think of it as a *visually grouped frequency distribution*. The code we have used so far has used a bin-width of size range/30, as R kindly reminded us in the output. But you can modify this parameter if you want to get a rougher or a more granular picture. In fact, you should *always* play around with different specifications of the bin width until you find one that tells the full story in a parsimonious way.
 
 
+<!-- ```{r} -->
+<!-- ggplot(Boston, aes(x = crim)) + -->
+<!--   geom_histogram(binwidth = 1)  -->
+<!-- ``` -->
+
+
+
 ``` r
-ggplot(Boston, aes(x = crim)) +
+ggplot(worldbank, aes(x = homicide)) +
   geom_histogram(binwidth = 1) 
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-18-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-21-1.png" width="672" />
 
-We can pass arguments to the geoms, as you see. Here, we are changing the size of the bins (for further details on other arguments, you can check the help files). Using a bin-width of 1, we are essentially creating a bar for every one-unit increase in the percent rate of crime. We can still see that most towns have a very low level of crime.
+<!-- We can pass arguments to the geoms, as you see. Here, we are changing the size of the bins (for further details on other arguments, you can check the help files). Using a bin-width of 1, we are essentially creating a bar for every one-unit increase in the percent rate of crime. We can still see that most towns have a very low level of crime. -->
 
-Let's sum the number of towns with a value lower than 1 in the per capita crime rate. We use the sum function for this, specifying we are only interested in adding cases where the value of the variable *crim* is lower than 1.
+We can pass arguments to the geoms, as you see. Here, we are changing the size of the bins (for further details on other arguments, you can check the help files). Using a bin-width of 1, we are essentially creating a bar for every one-unit increase in the rate of homicide. We can still see that most countries have a very low rate of homicides.
+
+<!-- Let's sum the number of towns with a value lower than 1 in the per capita crime rate. We use the sum function for this, specifying we are only interested in adding cases where the value of the variable *crim* is lower than 1. -->
+
+Let's sum the number of countries with a value lower than 2 in the homicide rate. We use the sum function for this, specifying we are only interested in adding cases where the value of the variable *homicide* is lower than 2.
+
+
+<!-- ```{r} -->
+<!-- sum(Boston$crim < 1) -->
+<!-- ``` -->
+
 
 
 ``` r
-sum(Boston$crim < 1)
+sum(worldbank$homicide < 2)
 ```
 
 ```
-## [1] 332
+## [1] 27
 ```
 
-We can see that the large majority of towns, 332 out of 506, have a per capita crime rate below 1%. But we can also see that there are some towns that have a high concentration of crime. This is a spatial feature of crime; it tends to concentrate in particular areas and places. You can see how we can use visualisations to show the data and get a first feeling for how it may be distributed.
+<!-- We can see that the large majority of towns, 332 out of 506, have a per capita crime rate below 1%. But we can also see that there are some towns that have a high concentration of crime. This is a spatial feature of crime; it tends to concentrate in particular areas and places. You can see how we can use visualisations to show the data and get a first feeling for how it may be distributed. -->
+
+We can see that a large proportion of countries, 27 out of 51, have a homicide rate below 2. But we can also see that there are some countries that have a high rate of homicides. This is a spatial feature of crime; it tends to concentrate in particular areas and places. You can see how we can use visualisations to show the data and get a first feeling for how it may be distributed.
 
 When plotting a continuous variable, we are interested in the following features:
 
@@ -326,23 +430,39 @@ When plotting a continuous variable, we are interested in the following features
 + **Impossibilities or other anomalies**: Values that are simply unrealistic given what we are measuring (e.g., somebody with an age of 1000 years). Sometimes, you may come across a distribution of data with a very high (and implausible) frequency count for a particular value. Maybe you measure age, and you have a large number of cases aged 99 (which is often a code used for missing data).
 + **Spread**: This gives us an idea of the variability of our data.
 
-Often, we visualise data because we want to compare distributions. **Most data analysis is about making comparisons**. We are going to explore whether the distribution of crime in this dataset is different for less affluent areas. The variable *medv* measures in the Boston dataset the median value of owner-occupied homes. For the purposes of this illustration, I want to dichotomise[^4] this variable to create a group of towns with particularly low values versus all the others. For further details on how to recode variables with R, you may want to read the relevant sections in [Quick R](http://www.statmethods.net/management/variables.html) or the [R Cookbook](http://www.cookbook-r.com/Manipulating_data/Recoding_data/). We will learn more about recoding and transforming variables in R soon.
+<!-- Often, we visualise data because we want to compare distributions. **Most data analysis is about making comparisons**. We are going to explore whether the distribution of crime in this dataset is different for less affluent areas. The variable *medv* measures in the Boston dataset the median value of owner-occupied homes. For the purposes of this illustration, I want to dichotomise[^4] this variable to create a group of towns with particularly low values versus all the others. For further details on how to recode variables with R, you may want to read the relevant sections in [Quick R](http://www.statmethods.net/management/variables.html) or the [R Cookbook](http://www.cookbook-r.com/Manipulating_data/Recoding_data/). We will learn more about recoding and transforming variables in R soon. -->
+
+Often, we visualise data because we want to compare distributions. **Most data analysis is about making comparisons**. We are going to explore whether the distribution of homicide in this dataset is different for countries with higher inequality. The variable *inequality* in our worldbank dataset measures the level of inequality in a country using the Gini index. For the purposes of this illustration, I want to dichotomise[^4] this variable to create a group of countries with particularly low values versus all the others. For further details on how to recode variables with R, you may want to read the relevant sections in [Quick R](http://www.statmethods.net/management/variables.html) or the [R Cookbook](http://www.cookbook-r.com/Manipulating_data/Recoding_data/). We will learn more about recoding and transforming variables in R soon.
 
 How can we create a categorical variable based on information from a quantitative variable? Let's look at the following code and pay attention to it, along with the explanation below.
 
+<!-- ```{r} -->
+<!-- Boston$lowval[Boston$medv <= 17.02] <- "Low value"  -->
+<!-- Boston$lowval[Boston$medv > 17.02] <- "Higher value" -->
+<!-- ``` -->
+
+
 
 ``` r
-Boston$lowval[Boston$medv <= 17.02] <- "Low value" 
-Boston$lowval[Boston$medv > 17.02] <- "Higher value"
+worldbank$lowval[worldbank$inequality <= 31.05] <- "Low value" 
+worldbank$lowval[worldbank$inequality > 31.05] <- "Higher value"
 ```
 
-First, we tell R to create a new vector (*lowval*) in the Boston data frame. This vector will be assigned the character value "Low value" when the condition within the square brackets is met. That is, we are saying that whenever the value in *medv* is below 17.02, then the new variable *lowval* will equal "Low value". I have chosen 17.02 as this is the first quartile for *medv* (try this code `summary(Boston$medv)` and find 17.02). Then we tell R that when the value is greater than 17.02, we will assign those cases to a new textual category called "Higher Value".
+
+First, we tell R to create a new vector (*lowval*) in the worldbank data frame. This vector will be assigned the character value "Low value" when the condition within the square brackets is met. That is, we are saying that whenever the value in *inequality* is below 31.05, then the new variable *lowval* will equal "Low value". I have chosen 31.05 as this is the first quartile for *inequality* (try this code `summary(worldbank$inequality)` and find 31.05). Then we tell R that when the value is greater than 31.05, we will assign those cases to a new textual category called "Higher Value".
 
 The variable we created was a character vector (as we can see if we run the `class` function). So, we are going to transform it into a factor using the `as.factor` function (many functions designed to work with categorical variables expect a factor as an input, not just a character vector). If we rerun the `class` function, we will see we changed the original variable.
 
+<!-- ```{r} -->
+<!-- class(Boston$lowval) -->
+<!-- Boston$lowval <- as.factor(Boston$lowval) -->
+<!-- class(Boston$lowval) -->
+<!-- ``` -->
+
+
 
 ``` r
-class(Boston$lowval)
+class(worldbank$lowval)
 ```
 
 ```
@@ -350,8 +470,8 @@ class(Boston$lowval)
 ```
 
 ``` r
-Boston$lowval <- as.factor(Boston$lowval)
-class(Boston$lowval)
+worldbank$lowval <- as.factor(worldbank$lowval)
+class(worldbank$lowval)
 ```
 
 ```
@@ -360,91 +480,148 @@ class(Boston$lowval)
 
 Now, we can produce the plot. We will do this using **facets**. Facets are another element of the grammar of graphics; we use them to define subsets of the data to be represented as multiple groups. Here, we are asking R to produce two plots defined by the two levels of the factor we just created.
 
+<!-- ```{r} -->
+<!-- ggplot(Boston, aes(x = crim)) + -->
+<!--   geom_histogram(binwidth = 1) + -->
+<!--   facet_grid(lowval ~ .)  -->
+<!-- ``` -->
+
+
 
 ``` r
-ggplot(Boston, aes(x = crim)) +
+ggplot(worldbank, aes(x = homicide)) +
   geom_histogram(binwidth = 1) +
   facet_grid(lowval ~ .) 
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-22-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-25-1.png" width="672" />
 
-Visually, this may not look great, but it begins to tell a story. We can see that there is a considerably lower proportion of towns with low crime levels in the group of towns with cheaper homes. It is a flatter, less skewed distribution. You can see how the `facet_grid()` expression tells R to create a histogram of the variable specified in the `ggplot` function, grouped by the categorical input of interest (the factor *lowval*).
+<!-- Visually, this may not look great, but it begins to tell a story. We can see that there is a considerably lower proportion of towns with low crime levels in the group of towns with cheaper homes. It is a flatter, less skewed distribution. You can see how the `facet_grid()` expression tells R to create a histogram of the variable specified in the `ggplot` function, grouped by the categorical input of interest (the factor *lowval*). -->
+
+Visually, this may not look great, but it begins to tell a story. We can see that the group of countries with higher inequality contains all the countries with the highest homicide rates. In both groups, the countries are clustered at the lower homicide rates, but only the higher inequality group has a distribution with a long right tail extending to the highest homicide rates (i.e. positively skewed, or right-skewed). You can see how the `facet_grid()` expression tells R to create a histogram of the variable specified in the `ggplot` function, grouped by the categorical input of interest (the factor *lowval*).
 
 We could do a few things that may help emphasise the comparison, such as adding colour to each group.
 
+<!-- ```{r} -->
+<!-- ggplot(Boston, aes(x = crim, fill = lowval)) + -->
+<!--   geom_histogram(binwidth = 1) + -->
+<!--   facet_grid(lowval ~ .) + -->
+<!--   theme(legend.position = "none") -->
+<!-- ``` -->
+
+
 
 ``` r
-ggplot(Boston, aes(x = crim, fill = lowval)) +
+ggplot(worldbank, aes(x = homicide, fill = lowval)) +
   geom_histogram(binwidth = 1) +
   facet_grid(lowval ~ .) +
   theme(legend.position = "none")
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-23-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-26-1.png" width="672" />
 
 The `fill` argument within the `aes` is telling R what variable to assign colours. Now, each of the levels (groups) defined by the *lowval* variable will have a different colour. The `theme` statement that we add is telling R not to place a legend in the graphic, explaining that red is a higher value and the greenish colour is a lower value. We can already see that without a label.
 
 Instead of using facets, we could overlay the histograms with a bit of transparency. Transparencies work better when projecting on screens than in printed documents, so keep this in mind when deciding whether to use them instead of facets. The code is as follows:
 
 
+<!-- ```{r, message=FALSE} -->
+<!-- ggplot(Boston, aes(x = crim, fill = lowval)) +  -->
+<!--   geom_histogram(position = "identity", alpha = 0.4) -->
+<!-- ``` -->
+
+
+
 ``` r
-ggplot(Boston, aes(x = crim, fill = lowval)) + 
+ggplot(worldbank, aes(x = homicide, fill = lowval)) + 
   geom_histogram(position = "identity", alpha = 0.4)
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-24-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-27-1.png" width="672" />
 
 In the code above, the `fill` argument identifies the factor variable in the dataset and groups the cases. Also, `position = identity` tells R to overlay the distributions, and `alpha` asks for the degree of transparency, so a lower value (e.g., 0.2) will be more transparent.
 
-In this case, part of the problem we have is that the skew can make it difficult to appreciate the differences. When you are dealing with skewed distributions such as this, it is sometimes convenient to use a transformation [^5]. We will come back to this later this semester. For now, it suffices to say that taking the logarithm of a skewed variable helps to reduce the skew and to see patterns more clearly. In order to visualise the differences here a bit better, we could ask for the logarithm of the crime per capita rate. Notice how I also add a constant of 1 to the variable *crim*; this is to avoid NA values in the newly created variable if the value in *crim* is zero (you cannot take the log of 0).
+<!-- In this case, part of the problem we have is that the skew can make it difficult to appreciate the differences. When you are dealing with skewed distributions such as this, it is sometimes convenient to use a transformation [^5]. We will come back to this later this semester. For now, it suffices to say that taking the logarithm of a skewed variable helps to reduce the skew and to see patterns more clearly. In order to visualise the differences here a bit better, we could ask for the logarithm of the crime per capita rate. Notice how I also add a constant of 1 to the variable *crim*; this is to avoid NA values in the newly created variable if the value in *crim* is zero (you cannot take the log of 0). -->
+
+The skew can sometimes make it difficult to appreciate the differences. When you are dealing with skewed distributions such as this, it is sometimes convenient to use a transformation [^5]. We will come back to this later this semester. For now, it suffices to say that taking the logarithm of a skewed variable helps to reduce the skew and to see patterns more clearly. In order to visualise the differences here a bit better, we could ask for the logarithm of the homicide rate. Notice how I also add a constant of 1 to the variable *homicide*; this is to avoid NA values in the newly created variable if the value in *homicide* is zero (you cannot take the log of 0).
+
+<!-- ```{r, message=FALSE} -->
+<!-- ggplot(Boston, aes(x = log10(crim + 1), fill = lowval)) + -->
+<!--   geom_histogram(position = "identity", alpha = 0.4) -->
+<!-- ``` -->
+
 
 
 ``` r
-ggplot(Boston, aes(x = log10(crim + 1), fill = lowval)) +
+ggplot(worldbank, aes(x = log10(homicide + 1), fill = lowval)) +
   geom_histogram(position = "identity", alpha = 0.4)
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-25-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-28-1.png" width="672" />
 
-The plot is a bit clearer now. It seems pretty evident that the distribution of crime is quite different between these two types of towns.
+<!-- The plot is a bit clearer now. It seems pretty evident that the distribution of crime is quite different between these two types of towns. -->
+
+The plot is a bit clearer now. It seems pretty evident that the distribution of homicide is quite different between these two types of countries.
 
 ## Visualising numerical variables: Density plots
 
 For smoother distributions, you can use a density plot. You should have enough data to use these, or you could end up with a lot of unwanted noise. Let's first look at the single-density plot for all cases. Notice all we are doing is invoking a different kind of geom:
 
+<!-- ```{r} -->
+<!-- ggplot(Boston, aes(x = crim)) + -->
+<!--   geom_density()  -->
+<!-- ``` -->
+
+
 
 ``` r
-ggplot(Boston, aes(x = crim)) +
+ggplot(worldbank, aes(x = homicide)) +
   geom_density() 
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-26-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-29-1.png" width="672" />
 
 In a density plot, we attempt to visualise the underlying probability distribution of the data by drawing an appropriate continuous curve. So, in a density plot, then, the area under the lines sums to 1, and the Y, vertical, axis now gives you the estimated (guessed) probability for the different values in the X, horizontal, axis. This curve is estimated from the data, and the method we use is kernel density estimation. You can read more about density plots [here](https://clauswilke.com/dataviz/histograms-density-plots.html).
 
-In this plot, we can see that there is a high estimated probability of observing a town with near zero per capita crime rate and a low estimated probability of seeing towns with large per capita crime rates. As you can observe, it provides a smoother representation of the distribution (as compared to the histograms).
+<!-- In this plot, we can see that there is a high estimated probability of observing a town with near zero per capita crime rate and a low estimated probability of seeing towns with large per capita crime rates. As you can observe, it provides a smoother representation of the distribution (as compared to the histograms). -->
 
-You can also use this to compare the distribution of a quantitative variable across the levels in a categorical variable (factor), and, as before, it is possibly better to take the log of skewed variables such as crime:
+In this plot, we can see that there is a high estimated probability of observing a country with a near zero homicide rate and a low estimated probability of seeing countries with large homicide rates. As you can observe, it provides a smoother representation of the distribution (as compared to the histograms).
+
+<!-- You can also use this to compare the distribution of a quantitative variable across the levels in a categorical variable (factor), and, as before, it is possibly better to take the log of skewed variables such as crime: -->
+
+You can also use this to compare the distribution of a quantitative variable across the levels in a categorical variable (factor), and, as before, it is possibly better to take the log of skewed variables such as homicide:
+
+<!-- ```{r} -->
+<!-- #We are mapping "lowval" as the variable colouring the lines  -->
+<!-- ggplot(Boston, aes(x = log10(crim + 1), colour = lowval)) +  -->
+<!--   geom_density()  -->
+<!-- ``` -->
+
 
 
 ``` r
-#We are mapping "lowval" as the variable colouring the lines 
-ggplot(Boston, aes(x = log10(crim + 1), colour = lowval)) + 
+# We are mapping "lowval" as the variable colouring the lines 
+ggplot(worldbank, aes(x = log10(homicide + 1), colour = lowval)) + 
   geom_density() 
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-27-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-30-1.png" width="672" />
 
 Or you could use transparencies:
 
+<!-- ```{r} -->
+<!-- ggplot(Boston, aes(x = log10(crim + 1), fill = lowval)) +  -->
+<!--   geom_density(alpha = .3) -->
+<!-- ``` -->
+
+
 
 ``` r
-ggplot(Boston, aes(x = log10(crim + 1), fill = lowval)) + 
+ggplot(worldbank, aes(x = log10(homicide + 1), fill = lowval)) + 
   geom_density(alpha = .3)
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-28-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-31-1.png" width="672" />
 
 Did you notice the difference in the comparative histograms? By using density plots, we are rescaling to ensure the same area is used for each of the levels in our grouping variable. This makes it easier to compare two groups that have different frequencies. The areas under the curve add up to 1 for both of the groups, whereas in the histogram, the area within the bars represents the number of cases in each of the groups. If you have many more cases in one group than the other, it may be difficult to make comparisons or to clearly see the distribution for the group with fewer cases. So, this is one of the reasons why you may want to use density plots.
 
@@ -452,75 +629,112 @@ Density plots are a good choice when you want to compare up to three groups. If 
 
 ![](imgs/joydivision.png)
 
-They can be produced with the `ggridges` package. Before we dichotomise the variable *medv* manually, we can use more direct ways of splitting numerical variables into various categories using information already embedded in them. Say we want to split *medv* into deciles. We could use the `mutate` function in `dplyr` for this.
+<!-- They can be produced with the `ggridges` package. Before we dichotomise the variable *medv* manually, we can use more direct ways of splitting numerical variables into various categories using information already embedded in them. Say we want to split *medv* into deciles. We could use the `mutate` function in `dplyr` for this. -->
+
+They can be produced with the `ggridges` package. Before we dichotomise the variable *inequality* manually, we can use more direct ways of splitting numerical variables into various categories using information already embedded in them. Say we want to split *inequality* into deciles. We could use the `mutate` function in `dplyr` for this.
+
+<!-- ```{r, message=FALSE} -->
+<!-- library(dplyr) -->
+<!-- Boston <- mutate(Boston, dec_medv = ntile(medv, 10)) -->
+<!-- ``` -->
+
 
 
 ``` r
-library(dplyr)
+worldbank <- mutate(worldbank, dec_inequality = ntile(inequality, 10))
 ```
 
-```
-## Warning: package 'dplyr' was built under R version 4.5.2
-```
+<!-- The `mutate` function adds a new variable to our existing data frame object. We are naming this variable *dec_medv* because we are going to split *medv* into ten groups of equal size (this name is arbitrary; you may call it something else). To do this, we will use the `ntile` function as an argument within mutate. We will define the new *dec_medv* variable, explaining to R that this variable will be the result of passing the `ntile` function to *medv*. So that `ntile` breaks *medv* into 10, we pass this value as an argument to the function. So that the result of executing `mutate` is stored, we assign this to the *Boston* object. -->
 
-``` r
-Boston <- mutate(Boston, dec_medv = ntile(medv, 10))
-```
-
-The `mutate` function adds a new variable to our existing data frame object. We are naming this variable *dec_medv* because we are going to split *medv* into ten groups of equal size (this name is arbitrary; you may call it something else). To do this, we will use the `ntile` function as an argument within mutate. We will define the new *dec_medv* variable, explaining to R that this variable will be the result of passing the `ntile` function to *medv*. So that `ntile` breaks *medv* into 10, we pass this value as an argument to the function. So that the result of executing `mutate` is stored, we assign this to the *Boston* object.
+The `mutate` function adds a new variable to our existing data frame object. We are naming this variable *dec_inequality* because we are going to split *inequality* into ten groups of equal size (this name is arbitrary; you may call it something else). To do this, we will use the `ntile` function as an argument within mutate. We will define the new *dec_inequality* variable, explaining to R that this variable will be the result of passing the `ntile` function to *inequality*. So that `ntile` breaks *inequality* into 10, we pass this value as an argument to the function. So that the result of executing `mutate` is stored, we assign this to the *worldbank* object.
 
 Check the results:
 
+<!-- ```{r} -->
+<!-- table(Boston$dec_medv) -->
+<!-- ``` -->
+
+
 
 ``` r
-table(Boston$dec_medv)
+table(worldbank$dec_inequality)
 ```
 
 ```
 ## 
 ##  1  2  3  4  5  6  7  8  9 10 
-## 51 51 51 51 51 51 50 50 50 50
+##  6  5  5  5  5  5  5  5  5  5
 ```
 
-We can now use this new variable to illustrate the use of the `ggridge` package. First, you will need to install this package and then load it. You will see that all this package does is extend the functionality of `ggplot2` by adding a new type of geom. Here, the variable defining the groups needs to be a factor, so we will tell `ggplot` to treat *dec_medv* as a factor using `as.factor`. Using `as.factor` in this way saves us from having to create yet another variable that we are going to store as a factor. Here, we are not creating a new variable; we are just telling R to treat this numeric variable *as if* it were a factor. Make sure you understand this difference.
+<!-- We can now use this new variable to illustrate the use of the `ggridge` package. First, you will need to install this package and then load it. You will see that all this package does is extend the functionality of `ggplot2` by adding a new type of geom. Here, the variable defining the groups needs to be a factor, so we will tell `ggplot` to treat *dec_medv* as a factor using `as.factor`. Using `as.factor` in this way saves us from having to create yet another variable that we are going to store as a factor. Here, we are not creating a new variable; we are just telling R to treat this numeric variable *as if* it were a factor. Make sure you understand this difference. -->
+
+We can now use this new variable to illustrate the use of the `ggridge` package. First, you will need to install this package and then load it. You will see that all this package does is extend the functionality of `ggplot2` by adding a new type of geom. Here, the variable defining the groups needs to be a factor, so we will tell `ggplot` to treat *dec_inequality* as a factor using `as.factor`. Using `as.factor` in this way saves us from having to create yet another variable that we are going to store as a factor. Here, we are not creating a new variable; we are just telling R to treat this numeric variable *as if* it were a factor. Make sure you understand this difference.
+
+<!-- ```{r, message=FALSE} -->
+<!-- library(ggridges) -->
+<!-- ggplot(Boston, aes(x = log10(crim + 1), y = as.factor(dec_medv))) + geom_density_ridges() -->
+<!-- ``` -->
+
 
 
 ``` r
 library(ggridges)
-ggplot(Boston, aes(x = log10(crim + 1), y = as.factor(dec_medv))) + geom_density_ridges()
+ggplot(worldbank, aes(x = log10(homicide + 1), y = as.factor(dec_inequality))) + geom_density_ridges()
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-31-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-34-1.png" width="672" />
 
-We can see that the distribution of crime is particularly different when we focus on the three deciles with the lowest level of income. For more details on this kind of plot, you can read the [vignette](https://cran.r-project.org/web/packages/ggridges/vignettes/introduction.html) for this package.
+<!-- We can see that the distribution of crime is particularly different when we focus on the three deciles with the lowest level of income. For more details on this kind of plot, you can read the [vignette](https://cran.r-project.org/web/packages/ggridges/vignettes/introduction.html) for this package. -->
+
+We can see that the distribution of homicide is particularly different when we focus on the three deciles with the highest level of inequality. For more details on this kind of plot, you can read the [vignette](https://cran.r-project.org/web/packages/ggridges/vignettes/introduction.html) for this package.
 
 ## Visualising numerical variables: Box plots
 
 [Box plots](http://tomhopper.me/2014/07/04/the-most-useful-data-plot-youve-never-used/) are an interesting way of presenting the 5-number summary (the minimum value, the first quartile, the median, the third quartile, and the maximum value of a set of numbers) in a visual way. If we want to use `ggplot` to plot a single numerical variable, we need some convoluted code since `ggplot` assumes you want a boxplot to compare various groups. Therefore, we need to set some arbitrary value for the grouping variable, and we may also want to remove the x-axis tick markers and labels. 
 
-For this illustration, I am going to display the distribution of the median value of property in the various towns instead of crime.
+<!-- For this illustration, I am going to display the distribution of the median value of property in the various towns instead of crime. -->
+
+For this illustration, I am going to display the distribution of inequality in the various countries instead of homicide.
+
+<!-- ```{r} -->
+<!-- ggplot(Boston, aes(x = 1, y = medv)) +  -->
+<!--   geom_boxplot() + -->
+<!--   scale_x_continuous(breaks = NULL) + #removes the tick markers from the x axis -->
+<!--   theme(axis.title.x = element_blank()) -->
+<!-- ``` -->
+
 
 
 ``` r
-ggplot(Boston, aes(x = 1, y = medv)) + 
+ggplot(worldbank, aes(x = 1, y = inequality)) + 
   geom_boxplot() +
   scale_x_continuous(breaks = NULL) + #removes the tick markers from the x axis
   theme(axis.title.x = element_blank())
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-32-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-35-1.png" width="672" />
 
-Boxplots, however, really come to life when you use them to compare the distribution of a quantitative variable across various groups. Let's look at the distribution of *log(crime)* across cheaper and more expensive areas:
+<!-- Boxplots, however, really come to life when you use them to compare the distribution of a quantitative variable across various groups. Let's look at the distribution of *log(crime)* across cheaper and more expensive areas: -->
+
+Boxplots, however, really come to life when you use them to compare the distribution of a quantitative variable across various groups. Let's look at the distribution of *log(homicide)* across countries with lower inequality versus higher inequality:
+
+<!-- ```{r,message=FALSE } -->
+<!-- ggplot(Boston, aes(x = lowval, y=log10(crim + 1))) + -->
+<!--   geom_boxplot() -->
+<!-- ``` -->
+
 
 
 ``` r
-ggplot(Boston, aes(x = lowval, y=log10(crim + 1))) +
+ggplot(worldbank, aes(x = lowval, y=log10(homicide + 1))) +
   geom_boxplot()
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-33-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-36-1.png" width="672" />
 
-With a boxplot like this, you can see straight away that the bulk of cheaper areas are very different from the bulk of more expensive areas. The first quartile of the distribution for low areas just about matches the point at which we start to see **outliers** for the more expensive areas.
+<!-- With a boxplot like this, you can see straight away that the bulk of cheaper areas are very different from the bulk of more expensive areas. The first quartile of the distribution for low areas just about matches the point at which we start to see **outliers** for the more expensive areas. -->
+
+With a boxplot like this, you can see straight away that the bulk of higher inequality countries are very different from the bulk of lower inequality countries. The first quartile of the distribution for higher inequality countries just about matches the point at which we start to see **outliers** for the lower inequality countries.
 
 This can be even more helpful when you have various groups. Let's try an example using the *BCS0708* data frame. This is a dataset from the 2007/08 British Crime Survey. You can download it using the code below. 
 
@@ -539,7 +753,7 @@ ggplot(BCS0708, aes(x = ethgrp2, y = tcviolent)) +
   geom_boxplot()
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-35-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-38-1.png" width="672" />
 
 Nice. But it could be nicer. To start with, we could order the groups along the X-axis so that the ethnic groups are positioned according to their level of worry. Secondly, we may want to exclude information on ethnicity for the NA cases (represented by a flat line).
 
@@ -551,7 +765,7 @@ ggplot(filter(BCS0708, !is.na(ethgrp2) & !is.na(tcviolent)),
         geom_boxplot()
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-36-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-39-1.png" width="672" />
 
 The `filter` function from `dplyr` uses a logical argument to tell R to only use the cases that do not have NA values in the two variables that we are using. The exclamation mark followed by `is.na` and then the name of a variable is R's way of saying "the contrary of is NA for the specified variable". So, in essence, we are saying to R to just look at the data that is not NA in these variables. The `reorder` function, on the other hand, asks R to reorder the levels of ethnicity according to the median value of worry of violent crime. Since we are using those functions *within* the `ggplot` function, this subsetting and this reordering (as with `as.factor` earlier) are not introducing permanent changes in your original dataset. If you prefer to reorder according to the mean, you only need to change that parameter after the `FUN` option (e.g., `FUN = mean`).
 
@@ -565,32 +779,53 @@ A scatterplot plots one variable on the Y-axis and another on the X-axis. Typica
 
 This is how you produce a scatterplot with `ggplot()`:
 
+<!-- ```{r} -->
+<!-- #A scatterplot of crime versus median value of the properties -->
+<!-- ggplot(Boston, aes(x = medv, y = crim)) + -->
+<!--   geom_point() -->
+<!-- ``` -->
+
+
 
 ``` r
-#A scatterplot of crime versus median value of the properties
-ggplot(Boston, aes(x = medv, y = crim)) +
+# A scatterplot of homicide rate versus level of inequality (Gini index)
+ggplot(worldbank, aes(x = inequality, y = homicide)) +
   geom_point()
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-37-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-40-1.png" width="672" />
 
-Each point represents a case in our dataset, and the coordinates attached to it in this two-dimensional plane are given by their value in the Y (crime) and X (median value of the properties) variables. 
+<!-- Each point represents a case in our dataset, and the coordinates attached to it in this two-dimensional plane are given by their value in the Y (crime) and X (median value of the properties) variables.  -->
 
-What do you look for in a scatterplot? You want to assess global and local patterns, as well as deviations. We can clearly see that at low levels of *medv*, there is a higher probability in this data that the level of crime is higher. Once the median value of the property hits $30,000, the crime rate will be nearly zero for all towns. So far, it's so good and surely predictable. The first reason why we look at scatterplots is to check our hypothesis (e.g., poorer areas, more crime).
+Each point represents a case in our dataset, and the coordinates attached to it in this two-dimensional plane are given by their value in the Y (homicide) and X (inequality measured by the Gini index) variables. 
 
-However, something odd seems to be going on when the median property value is around $50,000. All of a sudden, the variability in crime increases. We seem to have some of the more expensive areas also exhibiting some fairly decent levels of crime. In fact, there is quite a break in the distribution. What's going on? To be honest, I have no clue. However, the pattern at the higher level of property value is indeed odd; it is just too abrupt to be natural. 
+<!-- What do you look for in a scatterplot? You want to assess global and local patterns, as well as deviations. We can clearly see that at low levels of *medv*, there is a higher probability in this data that the level of crime is higher. Once the median value of the property hits $30,000, the crime rate will be nearly zero for all towns. So far, it's so good and surely predictable. The first reason why we look at scatterplots is to check our hypothesis (e.g., poorer areas, more crime). -->
 
-This is the second reason why you want to plot your data before you do anything else. It helps you to detect apparent anomalies. I say this is an anomaly because the break-in pattern is quite noticeable and abrupt. It is hard to think of a natural process that would generate this sudden, radical increase in crime once the median property value reaches the 50k dollars mark. If you were analysing this for real, you would want to know what's really driving this pattern (e.g., find out about the original data collection, the codebook, etc.): perhaps the maximum median value was capped at 50K dollars, and we are seeing this as a dramatic increase when the picture is more complex? For now, we are going to let this rest.
+What do you look for in a scatterplot? You want to assess global and local patterns, as well as deviations. We can clearly see that at high levels of *inequality*, there is a higher probability in this data that the homicide rate is higher. Once the Gini index hits 45, the homicide rate will be above 10 for all countries. This pattern may be what you had expected. The first reason why we look at scatterplots is to check our hypothesis (e.g., higher inequality, more homicide).
 
-One of the things you may notice with a scatterplot is that even with a smallish dataset such as this, with just about 500 cases, **overplotting** may be a problem. When you have many cases with similar (or, even worse, the same) values, it is difficult to tell them apart. Imagine there is only 1 case with a particular combination of X and Y values. What do you see? A single point. Then imagine you have 500 cases with that same combination of values for X and Y. What do you see? Still a single point. There are a variety of ways to deal with overplotting. One possibility is to add some **transparency** to the points:
+<!-- However, something odd seems to be going on when the median property value is around $50,000. All of a sudden, the variability in crime increases. We seem to have some of the more expensive areas also exhibiting some fairly decent levels of crime. In fact, there is quite a break in the distribution. What's going on? To be honest, I have no clue. However, the pattern at the higher level of property value is indeed odd; it is just too abrupt to be natural.  -->
+
+Another reason why you want to plot your data before you do anything else is that it helps you to detect apparent anomalies. We don't have a clear anomaly here but an example would be if there was a country with a Gini index value of 10 and a homicide rate of 40 (i.e. a point on the plot that clearly doesn't fit the pattern shown by the rest of the data). If you were analysing this for real, you would want to know what's really driving this pattern (e.g., find out about the original data collection, the codebook, etc.).
+
+<!-- One of the things you may notice with a scatterplot is that even with a smallish dataset such as this, with just about 500 cases, **overplotting** may be a problem. When you have many cases with similar (or, even worse, the same) values, it is difficult to tell them apart. Imagine there is only 1 case with a particular combination of X and Y values. What do you see? A single point. Then imagine you have 500 cases with that same combination of values for X and Y. What do you see? Still a single point. There are a variety of ways to deal with overplotting. One possibility is to add some **transparency** to the points: -->
+
+One of the things you may notice with a scatterplot is that even with a smallish dataset such as this, with only 51 cases, **overplotting** may be a problem. When you have many cases with similar (or, even worse, the same) values, it is difficult to tell them apart. Imagine there is only 1 case with a particular combination of X and Y values. What do you see? A single point. Then imagine you have 500 cases with that same combination of values for X and Y. What do you see? Still a single point. There are a variety of ways to deal with overplotting. One possibility is to add some **transparency** to the points:
+
+
+<!-- ```{r} -->
+<!-- ggplot(Boston, aes(x = medv, y = crim)) + -->
+<!--   geom_point(alpha=.4) #you will have to test different values for alpha -->
+<!-- ``` -->
+
 
 
 ``` r
-ggplot(Boston, aes(x = medv, y = crim)) +
-  geom_point(alpha=.4) #you will have to test different values for alpha
+ggplot(worldbank, aes(x = inequality, y = homicide)) +
+  geom_point(alpha=.4)   # you will have to test different values for alpha
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-38-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-41-1.png" width="672" />
+
 
 Why this is an issue may be more evident with the `BCS0708 data`. Compare the two plots:
 
@@ -600,7 +835,7 @@ ggplot(BCS0708, aes(x = age, y = tcviolent)) +
   geom_point()
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-39-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-42-1.png" width="672" />
 
 
 ``` r
@@ -608,7 +843,7 @@ ggplot(BCS0708, aes(x = age, y = tcviolent)) +
   geom_point(alpha=.2)
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-40-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-43-1.png" width="672" />
 
 The second plot gives us a better idea of where the observations seem to concentrate in a way that we could not see with the first.
 
@@ -622,7 +857,7 @@ ggplot(BCS0708, aes(x = age, y = tcviolent)) +
   geom_point(alpha=.2, position="jitter") 
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-41-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-44-1.png" width="672" />
 
 ``` r
 #Alternatively, you could replace geom_point() with geom_jitter(), 
@@ -637,7 +872,7 @@ ggplot(BCS0708, aes(x = age, y = tcviolent)) +
   stat_bin2d()
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-42-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-45-1.png" width="672" />
 
 
 ``` r
@@ -647,98 +882,184 @@ ggplot(BCS0708, aes(x = age, y = tcviolent)) +
   scale_fill_gradient(low = "lightblue", high = "red") #change colors
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-43-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-46-1.png" width="672" />
 
 What this is doing is creating boxes within the two-dimensional plane, counting the number of points within those boxes, and attaching a colour to the box in function of the density of points within each of the rectangles.
 
-When looking at scatterplots, sometimes it is useful to summarise the relationships by means of drawing lines. You could, for example, add a line representing the **conditional mean**. A conditional mean is simply the mean of your Y variable for each value of X. Let's go back to the Boston dataset. We can ask R to plot a line connecting these means using `geom_line()` and specifying that you want the conditional means.
+<!-- When looking at scatterplots, sometimes it is useful to summarise the relationships by means of drawing lines. You could, for example, add a line representing the **conditional mean**. A conditional mean is simply the mean of your Y variable for each value of X. Let's go back to the Boston dataset. We can ask R to plot a line connecting these means using `geom_line()` and specifying that you want the conditional means. -->
+
+When looking at scatterplots, sometimes it is useful to summarise the relationships by means of drawing lines. You could, for example, add a line representing the **conditional mean**. A conditional mean is simply the mean of your Y variable for each value of X. Let's go back to the World Bank's WDI dataset. We can ask R to plot a line connecting these means using `geom_line()` and specifying that you want the conditional means.
+
+<!-- ```{r, message=FALSE} -->
+<!-- ggplot(Boston, aes(x = medv, y = crim)) + -->
+<!--   geom_point(alpha=.4) + -->
+<!--   geom_line(stat='summary', fun.y=mean) -->
+<!-- ``` -->
+
 
 
 ``` r
-ggplot(Boston, aes(x = medv, y = crim)) +
+ggplot(worldbank, aes(x = inequality, y = homicide)) +
   geom_point(alpha=.4) +
   geom_line(stat='summary', fun.y=mean)
 ```
 
-```
-## Warning in geom_line(stat = "summary", fun.y = mean): Ignoring unknown
-## parameters: `fun.y`
-```
+<img src="03-visualisation_files/figure-html/unnamed-chunk-47-1.png" width="672" />
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-44-1.png" width="672" />
+<!-- With only about 500 cases, there are loads of ups and downs. If you have many more cases for each level of X, the line would look less rough. You can, in any case, produce a smoother line using `geom_smooth` instead. We will discuss later this semester how this line is computed (although you will see the R output tells you we are using something called the "loess" method). For now, just know that it is a line that tries to *estimate*, to guess, the typical value for Y for each value of X. -->
 
-With only about 500 cases, there are loads of ups and downs. If you have many more cases for each level of X, the line would look less rough. You can, in any case, produce a smoother line using `geom_smooth` instead. We will discuss later this semester how this line is computed (although you will see the R output tells you we are using something called the "loess" method). For now, just know that it is a line that tries to *estimate*, to guess, the typical value for Y for each value of X.
+With only 51 cases, there are loads of ups and downs. If you have many more cases for each level of X, the line would look less rough. You can, in any case, produce a smoother line using `geom_smooth` instead. We will discuss later this semester how this line is computed (although you will see the R output tells you we are using something called the "loess" method). For now, just know that it is a line that tries to *estimate*, to guess, the typical value for Y for each value of X.
+
+<!-- ```{r, message=FALSE, warning = FALSE} -->
+<!-- ggplot(Boston, aes(x = medv, y = crim)) + -->
+<!--   geom_point(alpha=.4) + -->
+<!--   geom_smooth(colour="red", size=1, se=FALSE)  -->
+<!-- #We'll explain later this semester what the se argument does;  -->
+<!-- #colour is simply asking for a red line instead of blue  -->
+<!-- #(which I personally find harder to see).  -->
+<!-- #I'm also making the line a bit thicker with size 1. -->
+<!-- ``` -->
+
 
 
 ``` r
-ggplot(Boston, aes(x = medv, y = crim)) +
+ggplot(worldbank, aes(x = inequality, y = homicide)) +
   geom_point(alpha=.4) +
   geom_smooth(colour="red", size=1, se=FALSE) 
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-45-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-48-1.png" width="672" />
 
 ``` r
-#We'll explain later this semester what the se argument does; 
-#colour is simply asking for a red line instead of blue 
-#(which I personally find harder to see). 
-#I'm also making the line a bit thicker with size 1.
+# We'll explain later this semester what the se argument does; 
+# colour is simply asking for a red line instead of blue. 
+# I'm also making the line a bit thicker with size 1.
 ```
 
-As you can see here, you produce a smoother line than with the conditional means. The line, as the scatterplot, seems to be suggesting an overall curvilinear relationship that almost flattens out once property values hit $20k. 
+<!-- As you can see here, you produce a smoother line than with the conditional means. The line, as the scatterplot, seems to be suggesting an overall curvilinear relationship that almost flattens out once property values hit $20k.  -->
 
-## Scatterplots conditioning in a third variable
+As you can see here, you produce a smoother line than with the conditional means. The line, as the scatterplot, seems to be suggesting an overall curvilinear relationship that is relatively flat until the Gini index hits about 33 and then starts to curve upwards.
+
+## Scatterplots conditioning on a third variable
 
 There are various ways to plot a third variable in a scatterplot. You could go 3D, and in some contexts, that may be appropriate. But more often than not, it is preferable to use only a two-dimensional plot.
 
-If you have a grouping variable, you could map it to the colour of the points as one of the aesthetics arguments. Here, we return to the *Boston* scatterplot but will add a third variable, which indicates whether the town is located by the river or not.
+<!-- If you have a grouping variable, you could map it to the colour of the points as one of the aesthetics arguments. Here, we return to the *Boston* scatterplot but will add a third variable, which indicates whether the town is located by the river or not. -->
+
+If you have a grouping variable, you could map it to the colour of the points as one of the aesthetics arguments. Here, we return to the scatterplot for the World Bank's homicide data but will add a third variable, which indicates whether the country has a low urban population percentage or not.
+
+The `urban` variable is a numeric variable. To create a categorical variable, we'll dichotomise it as we did earlier with the `lowval` variable, by assigning "Low urban" if the value of urban is equal to or below 63.68 (the first quartile value for the `urban` variable), otherwise "Higher urban":
+
+
+``` r
+worldbank$urbancat[worldbank$urban <= 63.68] <- "Low urban" 
+worldbank$urbancat[worldbank$urban > 63.68] <- "Higher urban"
+```
+
+<!-- ```{r} -->
+<!-- # Scatterplot with two quantitative variables and a grouping variable,  -->
+<!-- # We are telling R to tell "chas", a numeric vector, as a factor.  -->
+<!-- ggplot(Boston, aes(x = medv, y = crim, colour = as.factor(chas))) + -->
+<!--   geom_point()  -->
+<!-- ``` -->
+
 
 
 ``` r
 # Scatterplot with two quantitative variables and a grouping variable, 
-# We are telling R to tell "chas", a numeric vector, as a factor. 
-ggplot(Boston, aes(x = medv, y = crim, colour = as.factor(chas))) +
+# We are telling R to treat "urbancat", a character vector, as a factor. 
+ggplot(worldbank, aes(x = inequality, y = homicide, colour = as.factor(urbancat))) +
   geom_point() 
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-46-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-50-1.png" width="672" />
 
-Curiously, we can see that there are quite a few of those expensive areas with high levels of crime that seem to be located by the river. Maybe that is a particularly attractive area?
+
+<!-- Curiously, we can see that there are quite a few of those expensive areas with high levels of crime that seem to be located by the river. Maybe that is a particularly attractive area? -->
+
+We can see that high urban countries dominate the countries amongst those with high inequality and high homicide rates but, interestingly, the two countries with the highest homicide rates are 'low urban'. We're not going to analyse why here, but out of interest, we could view the top 2 countries based on the homicide rate to see which countries represent these points:
+
+
+``` r
+# get the rows for the 2 countries with the highest homicide rate
+top_2 <- slice_max(worldbank, homicide, n = 2)
+
+# select only the columns country, homicide, inequality, lowval, urbancat
+top_2 <- select(top_2, country, homicide, inequality, lowval, urbancat)
+
+# view the data we selected
+top_2
+```
+
+```
+##        country homicide inequality       lowval  urbancat
+## 1 South Africa 43.72026       54.1 Higher value Low urban
+## 2      Ecuador 27.41264       45.5 Higher value Low urban
+```
+
+Caution: Remember that we are only analysing data on the countries that have the data we're interested in for the year 2022 (i.e. countries that don't have NA as the value in 2022 for homicide, inequality, urban or gdp) so it is not correct to say that these 2 countries are the 2 countries with the highest homicide rates in the world in 2022, but rather they are the top 2 in the sample of WDI data for 2022 that we have available to us.
 
 As before, you can add smooth lines to capture the relationship. What happens now, though, is that `ggplot` will produce a line for each of the levels in the categorical variable grouping the cases:
 
+<!-- ```{r, message=FALSE} -->
+<!-- ggplot(Boston, aes(x = medv, y = crim, colour = as.factor(chas))) + -->
+<!--   geom_point(alpha=.4) + #I am making the points semi-transparent to see the lines better -->
+<!--   geom_smooth(se=FALSE, size=1) #I am making the lines thicker to see them better -->
+<!-- ``` -->
+
+
 
 ``` r
-ggplot(Boston, aes(x = medv, y = crim, colour = as.factor(chas))) +
-  geom_point(alpha=.4) + #I am making the points semi-transparent to see the lines better
-  geom_smooth(se=FALSE, size=1) #I am making the lines thicker to see them better
+ggplot(worldbank, aes(x = inequality, y = homicide, colour = as.factor(urbancat))) +
+  geom_point(alpha=.4) +   # I am making the points semi-transparent to see the lines better
+  geom_smooth(se=FALSE, size=1)   # I am making the lines thicker to see them better
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-47-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-52-1.png" width="672" />
 
-You can see how the relationship between crime and property values is more marked for areas not bordering the river, mostly because you have considerably fewer cheaper areas bordering the river. Notice as well the upward trend in the green line at high values of *medv*. As we saw, there seem to be quite a few of those, particularly more expensive areas that have high crime and seem to be by the river.
+<!-- You can see how the relationship between crime and property values is more marked for areas not bordering the river, mostly because you have considerably fewer cheaper areas bordering the river. Notice as well the upward trend in the green line at high values of *medv*. As we saw, there seem to be quite a few of those, particularly more expensive areas that have high crime and seem to be by the river. -->
 
-We can also map a quantitative variable to the colour aesthetic. When we do that, instead of different colours for each category, we have a gradation in colour from darker to lighter depending on the value of the quantitative variable. Below, we display the relationship between crime and property values, conditioning on the status of the area (high values in *lstat* represent lower status).
+You can see how the relationship between homicide and inequality is more marked for 'low urban' countries, mostly because you have considerably fewer countries (just 2 in our set of complete cases for the year 2022) with high inequality that are 'Low urban'. 
+
+<!-- We can also map a quantitative variable to the colour aesthetic. When we do that, instead of different colours for each category, we have a gradation in colour from darker to lighter depending on the value of the quantitative variable. Below, we display the relationship between crime and property values, conditioning on the status of the area (high values in *lstat* represent lower status). -->
+
+We can also map a quantitative variable to the colour aesthetic. When we do that, instead of different colours for each category, we have a gradation in colour from darker to lighter depending on the value of the quantitative variable. Below, we display the relationship between homicide and inequality, conditioning on the GDP of the country.
+
+<!-- ```{r} -->
+<!-- ggplot(Boston, aes(x = medv, y = crim, colour = lstat)) + -->
+<!--   geom_point()  -->
+<!-- ``` -->
+
 
 
 ``` r
-ggplot(Boston, aes(x = medv, y = crim, colour = lstat)) +
+ggplot(worldbank, aes(x = inequality, y = homicide, colour = gdp)) +
   geom_point() 
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-48-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-53-1.png" width="672" />
 
-As one could predict, *lstat* and *medv* seem to be correlated. The areas with low status tend to be the areas with cheaper properties (and more crime), and the areas with higher status tend to be the areas with more expensive properties (and less crime).
+<!-- As one could predict, *lstat* and *medv* seem to be correlated. The areas with low status tend to be the areas with cheaper properties (and more crime), and the areas with higher status tend to be the areas with more expensive properties (and less crime). -->
 
-You could map the third variable to a different aesthetic (rather than colour). For example, you could map *lstat* to the size of the points. This is called a **bubblechart**. The problem with this, however, is that it can sometimes cause overplotting to become more acute.
+As you might have expected, *gdp* and *inequality* seem to be correlated. The countries with low GDP tend to be the countries with higher inequality (and more homicides), and the areas with higher GDP tend to be the areas with lower inequality (and a lower homicide rate).
+
+<!-- You could map the third variable to a different aesthetic (rather than colour). For example, you could map *lstat* to the size of the points. This is called a **bubblechart**. The problem with this, however, is that it can sometimes cause overplotting to become more acute. -->
+
+You could map the third variable to a different aesthetic (rather than colour). For example, you could map *gdp* to the size of the points. This is called a **bubblechart**. The problem with this, however, is that it can sometimes cause overplotting to become more acute.
+
+<!-- ```{r} -->
+<!-- ggplot(Boston, aes(x = medv, y = crim, size = lstat)) + -->
+<!--   geom_point() #You may want to add alpha for some transparency here. -->
+<!-- ``` -->
+
 
 
 ``` r
-ggplot(Boston, aes(x = medv, y = crim, size = lstat)) +
-  geom_point() #You may want to add alpha for some transparency here.
+ggplot(worldbank, aes(x = inequality, y = homicide, size = gdp)) +
+  geom_point()   # You may want to add alpha for some transparency here.
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-49-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-54-1.png" width="672" />
 
 If you have larger samples and the patterns are not clear (as we saw when looking at the relationship between age and worry of violent crime), conditioning on a third variable can produce hard-to-read scatterplots (even if you use transparencies and jittering). Let's look at the relationship between worry of violent crime and age, conditioned on victimisation during the previous year:
 
@@ -748,7 +1069,7 @@ ggplot(BCS0708, aes(x = age, y = tcviolent, colour = bcsvictim)) +
   geom_point(alpha=.4, position="jitter")
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-50-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-55-1.png" width="672" />
 
 You can possibly notice that there are more green points on the left-hand side (since victimisation tends to be more common among youth). But it is hard to read the relationship with age. Could we try to use facets instead (hint: `facet_grid`)?
 
@@ -759,7 +1080,7 @@ ggplot(BCS0708, aes(x = age, y = tcviolent)) +
   facet_grid( .~ bcsvictim)
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-51-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-56-1.png" width="672" />
 
 It is still hard to see anything, though perhaps you can notice the lower density of the points in the bottom right corner in the facet displaying victims of crime. In a case like this, it may be helpful to draw a smooth line.
 
@@ -770,7 +1091,7 @@ ggplot(BCS0708, aes(x = age, y = tcviolent, colour = bcsvictim)) +
   geom_smooth(size=1.5, se=FALSE)
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-52-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-57-1.png" width="672" />
 
 What we see here is that, for the most part, the relationship between age and worry of violent crime looks quite flat, regardless of whether you have been a victim of crime or not, at least for most people. However, once we get to the 60s, things seem to change a bit. Those over 62 who have not been a victim of crime in the past year start to manifest a lower concern with crime as they age (in comparison with those who have been a victim of crime).
 
@@ -778,17 +1099,33 @@ What we see here is that, for the most part, the relationship between age and wo
 
 Sometimes, you want to produce many scatterplots simultaneously to have a first peek at the relationship between the various variables in your data frame. The way to do this is by using a scatterplot matrix. There are some packages that are particularly good for this. One of them is `GGally`, basically an extension for `ggplot2`.
 
-Not to overcomplicate things, we will only use a few variables from the *Boston* dataset:
+<!-- Not to overcomplicate things, we will only use a few variables from the *Boston* dataset: -->
+
+Not to overcomplicate things, we will only use a few variables from the World Bank WDI dataset:
+
+<!-- ```{r} -->
+<!-- #I create a new data frame that only  -->
+<!-- #contains 4 variables included in the Boston dataset,  -->
+<!-- #and I am calling this new data frame object Boston_spm -->
+<!-- Boston_spm <- dplyr::select(Boston, crim, medv, lstat) -->
+<!-- ``` -->
+
 
 
 ``` r
-#I create a new data frame that only 
-#contains 4 variables included in the Boston dataset, 
-#and I am calling this new data frame object Boston_spm
-Boston_spm <- dplyr::select(Boston, crim, medv, lstat)
+# I create a new data frame that only 
+# contains 4 variables included in the worldbank dataset, 
+# and I am calling this new data frame object worldbank_spm
+worldbank_spm <- dplyr::select(worldbank, homicide, inequality, gdp)
 ```
 
 Then we load `GGally` and run the scatterplot matrix using the `ggpairs` function:
+
+<!-- ```{r,message=FALSE } -->
+<!-- library(GGally) -->
+<!-- ggpairs(Boston_spm) -->
+<!-- ``` -->
+
 
 
 ``` r
@@ -800,47 +1137,76 @@ library(GGally)
 ```
 
 ``` r
-ggpairs(Boston_spm)
+ggpairs(worldbank_spm)
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-54-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-59-1.png" width="672" />
 
-The diagonal set of boxes that goes from the top left to the bottom right gives you the univariate density plot for each of the variables. So, for example, at the very top left, you have the density plot for the *crim* variable. If you look underneath this one, you see a scatterplot between *crim* and *medv*. In this case, *crim* defines the X axis and *medv* the Y axis, which is why it looks a bit different from the one we saw earlier. The labels at the top and the left tell you what variables are plotted in each faceted rectangle. In the top right-hand side of this matrix, you see that the rectangles say "corr" and then give you a number. These numbers are **correlation coefficients**, which are a metric we use to indicate the strength of a relationship between two quantitative or numeric variables. The closer to 1.000 (whether positive or negative) this value is, the stronger the relationship is. The closer to zero, the weaker the relationship. The stronger relationship here is between *medv* and *istat* (correlation coefficient value: -0.738). The fact that it is negative indicates that as the values in one increase, the values in the other tend to decrease. So, high crime values correspond to low property prices, as we saw earlier. This coefficient is a summary number of this relationship. We will come back to it later on. For now, keep in mind this metric only works well if the relationship shown in the scatterplot is well represented by a straight line. If the relationship is curvilinear, it will be a very bad metric that you should not trust.
+<!-- The diagonal set of boxes that goes from the top left to the bottom right gives you the univariate density plot for each of the variables. So, for example, at the very top left, you have the density plot for the *crim* variable. If you look underneath this one, you see a scatterplot between *crim* and *medv*. In this case, *crim* defines the X axis and *medv* the Y axis, which is why it looks a bit different from the one we saw earlier. The labels at the top and the left tell you what variables are plotted in each faceted rectangle. In the top right-hand side of this matrix, you see that the rectangles say "corr" and then give you a number. These numbers are **correlation coefficients**, which are a metric we use to indicate the strength of a relationship between two quantitative or numeric variables. The closer to 1.000 (whether positive or negative) this value is, the stronger the relationship is. The closer to zero, the weaker the relationship. The stronger relationship here is between *medv* and *istat* (correlation coefficient value: -0.738). The fact that it is negative indicates that as the values in one increase, the values in the other tend to decrease. So, high crime values correspond to low property prices, as we saw earlier. This coefficient is a summary number of this relationship. We will come back to it later on. For now, keep in mind this metric only works well if the relationship shown in the scatterplot is well represented by a straight line. If the relationship is curvilinear, it will be a very bad metric that you should not trust. -->
 
-![](imgs/ggpairs.png){width=80%}
+The diagonal set of boxes that goes from the top left to the bottom right gives you the univariate density plot for each of the variables. So, for example, at the very top left, you have the density plot for the *homicide* variable. If you look underneath this one, you see a scatterplot between *homicide* and *inequality*. In this case, *homicide* defines the X axis and *inequality* the Y axis, which is why it looks a bit different from the one we saw earlier. The labels at the top and the left tell you what variables are plotted in each faceted rectangle. In the top right-hand side of this matrix, you see that the rectangles say "corr" and then give you a number. These numbers are **correlation coefficients**, which are a metric we use to indicate the strength of a relationship between two quantitative or numeric variables. The closer to 1.000 (whether positive or negative) this value is, the stronger the relationship is. The closer to zero, the weaker the relationship. The stronger relationship here is between *homicide* and *inequality* (correlation coefficient value: 0.758). The fact that it is positive indicates that as the values in one increase, the values in the other also tend to increase. So, high homicide values correspond to high inequality values, as we saw earlier. This coefficient is a summary number of this relationship. We will come back to it later on. For now, keep in mind this metric only works well if the relationship shown in the scatterplot is well represented by a straight line. If the relationship is curvilinear, it will be a very bad metric that you should not trust.
+
+<!-- ![](imgs/ggpairs.png){width=80%} -->
 
 R gives you a lot of flexibility, and there are often competing packages that aim to do similar things. So, for example, for a scatterplot matrix, you could also use the `spm` function from the `car` package.
 
+<!-- ```{r, message=FALSE} -->
+<!-- library(car) -->
+<!--  #The regLine argument is used to avoid displaying  -->
+<!-- #something we will cover in regression analysis. -->
+<!-- spm(Boston_spm, regLine=FALSE) -->
+<!-- ``` -->
 
-``` r
-library(car)
- #The regLine argument is used to avoid displaying 
-#something we will cover in regression analysis.
-spm(Boston_spm, regLine=FALSE)
-```
-
-<img src="03-visualisation_files/figure-html/unnamed-chunk-55-1.png" width="672" />
-
-This is a bit different from the one above because, rather than displaying the values of the correlation coefficient, you get another set of scatterplots with the Y and X axes rotated. You can see the matrix is symmetrical. So, the first scatterplot that you see in the top row (second column from the left) shows the relationship between *medv* (in the X axis) and *crim* (in the Y axis). This is the same relationship shown in the first scatterplot in the second row (first column); only here, *crim* defines the X axis and *medv* the Y axis. In this scatterplot, you can see, although not very well, that smoothed lines representing the relationship have been added to the plots.
 
 
 ``` r
 library(car)
-spm(Boston_spm, smooth=list(col.smooth="red"), regLine=FALSE)
+
+# The regLine argument is used to avoid displaying 
+# something we will cover in regression analysis.
+spm(worldbank_spm, regLine=FALSE)
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-56-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-60-1.png" width="672" />
 
-You can also condition on a third variable. For example, we could condition on whether the areas bound the Charles River (variable *chas*).
+<!-- This is a bit different from the one above because, rather than displaying the values of the correlation coefficient, you get another set of scatterplots with the Y and X axes rotated. You can see the matrix is symmetrical. So, the first scatterplot that you see in the top row (second column from the left) shows the relationship between *medv* (in the X axis) and *crim* (in the Y axis). This is the same relationship shown in the first scatterplot in the second row (first column); only here, *crim* defines the X axis and *medv* the Y axis. In this scatterplot, you can see, although not very well, that smoothed lines representing the relationship have been added to the plots. -->
+
+This is a bit different from the one above because, rather than displaying the values of the correlation coefficient, you get another set of scatterplots with the Y and X axes rotated. You can see the matrix is symmetrical. So, the first scatterplot that you see in the top row (second column from the left) shows the relationship between *inequality* (in the X axis) and *homicide* (in the Y axis). This is the same relationship shown in the first scatterplot in the second row (first column); only here, *homicide* defines the X axis and *inequality* the Y axis. In this scatterplot, you can see, although not very well, that smoothed lines representing the relationship have been added to the plots.
+
+
+<!-- ```{r} -->
+<!-- library(car) -->
+<!-- spm(Boston_spm, smooth=list(col.smooth="red"), regLine=FALSE) -->
+<!-- ``` -->
+
 
 
 ``` r
-Boston_spm <- dplyr::select(Boston, crim, medv, lstat, chas)
-spm(~crim+medv+lstat, data=Boston_spm, groups=Boston_spm$chas, 
-by.groups=TRUE, smooth=FALSE, regLine=FALSE)
+spm(worldbank_spm, smooth=list(col.smooth="red"), regLine=FALSE)
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-57-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-61-1.png" width="672" />
+
+<!-- You can also condition on a third variable. For example, we could condition on whether the areas bound the Charles River (variable *chas*). -->
+
+You can also condition on a third variable. For example, we could condition on whether the country has a low or higher urban population (variable *urbancat*).
+
+<!-- ```{r} -->
+<!-- Boston_spm <- dplyr::select(Boston, crim, medv, lstat, chas) -->
+<!-- spm(~crim+medv+lstat, data=Boston_spm, groups=Boston_spm$chas,  -->
+<!-- by.groups=TRUE, smooth=FALSE, regLine=FALSE) -->
+<!-- ``` -->
+
+
+
+``` r
+worldbank_spm <- dplyr::select(worldbank, homicide, inequality, gdp, urbancat)
+
+spm(~homicide+inequality+gdp, data=worldbank_spm, groups=worldbank_spm$urbancat, 
+    by.groups=TRUE, smooth=FALSE, regLine=FALSE)
+```
+
+<img src="03-visualisation_files/figure-html/unnamed-chunk-62-1.png" width="672" />
 
 Getting results, once you get the knack of it, is only half the way. The other, and more important, half is trying to make sense of the results. What are the stories this data is telling us? R cannot do that for you. For this, you need to use a better tool: **your brain** (scepticism, curiosity, creativity, a lifetime of knowledge) and what Kaiser Fung calls ["numbersense"](http://www.amazon.co.uk/Numbersense-How-Data-Your-Advantage/dp/0071799664).
 
@@ -848,33 +1214,62 @@ Getting results, once you get the knack of it, is only half the way. The other, 
 
 We have introduced several graphical tools, but what if you want to customise how the produced graphic looks? Here, I am just going to give you some code to modify the titles and legends you use. To add a title to a `ggplot` graph, you use `ggtitle()`.
 
+<!-- ```{r} -->
+<!-- #Notice how here we are using an additional function  -->
+<!-- #to ask R to treat the variable chas, which is numeric  -->
+<!-- #in our dataset, as if it were a factor (as.factor()).  -->
+<!-- #You need to do this if your variable is categorical  -->
+<!-- #but is encoded as numeric in your data frame. -->
+<!-- ggplot(Boston, aes(x = medv, y = crim, colour = as.factor(chas))) + -->
+<!--   geom_point() + -->
+<!--   ggtitle("Fig 1.Crime, Property Value and River Proximity of Boston Towns") -->
+<!-- ``` -->
+
+
 
 ``` r
-#Notice how here we are using an additional function 
-#to ask R to treat the variable chas, which is numeric 
-#in our dataset, as if it were a factor (as.factor()). 
-#You need to do this if your variable is categorical 
-#but is encoded as numeric in your data frame.
-ggplot(Boston, aes(x = medv, y = crim, colour = as.factor(chas))) +
+# Notice how here we are using an additional function 
+# to ask R to treat the variable urbancat, which is a character variable 
+# in our dataset, as if it were a factor (as.factor()). 
+# You need to do this if your variable is categorical 
+# but is encoded as character or numeric in your data frame.
+ggplot(worldbank, aes(x = inequality, y = homicide, colour = as.factor(urbancat))) +
   geom_point() +
-  ggtitle("Fig 1.Crime, Property Value and River Proximity of Boston Towns")
+  ggtitle("Fig 1. Homicide, Inequality, & Urban Population % (2022)")
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-58-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-63-1.png" width="672" />
 
 If you don't like the default background theme for `ggplot`, you can use a theme as discussed at the start, for example, creating a black and white background by adding `theme_bw()` as a layer:
 
+<!-- ```{r} -->
+<!-- ggplot(Boston, aes(x = medv, y = crim, colour = as.factor(chas))) + -->
+<!--   geom_point() + -->
+<!--   ggtitle("Fig 1.Crime, Property Value and River Proximity of Boston Towns") + -->
+<!--   theme_bw() -->
+<!-- ``` -->
+
+
 
 ``` r
-ggplot(Boston, aes(x = medv, y = crim, colour = as.factor(chas))) +
+ggplot(worldbank, aes(x = inequality, y = homicide, colour = as.factor(urbancat))) +
   geom_point() +
-  ggtitle("Fig 1.Crime, Property Value and River Proximity of Boston Towns") +
+  ggtitle("Fig 1. Homicide, Inequality, & Urban Population % (2022)") +
   theme_bw()
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-59-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-64-1.png" width="672" />
 
 As we said earlier, `ggthemes` gives you additional themes you can use. For example, you can use the style inspired by *The Economist* magazine.
+
+<!-- ```{r} -->
+<!-- library(ggthemes) -->
+<!-- ggplot(Boston, aes(x = medv, y = crim, colour = as.factor(chas))) + -->
+<!--   geom_point() + -->
+<!--   ggtitle("Fig 1.Crime, Property Value and River Proximity of Boston Towns") + -->
+<!--   theme_economist() -->
+<!-- ``` -->
+
 
 
 ``` r
@@ -886,49 +1281,80 @@ library(ggthemes)
 ```
 
 ``` r
-ggplot(Boston, aes(x = medv, y = crim, colour = as.factor(chas))) +
+ggplot(worldbank, aes(x = inequality, y = homicide, colour = as.factor(urbancat))) +
   geom_point() +
-  ggtitle("Fig 1.Crime, Property Value and River Proximity of Boston Towns") +
+  ggtitle("Fig 1. Homicide, Inequality, & Urban Population % (2022)") +
   theme_economist()
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-60-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-65-1.png" width="672" />
 
-Using `labs()`, you can change the text of axis labels (and the legend title), which may be handy if your variables have cryptic names. You can also manually name the labels in a legend. The values for *chas* are 0 and 1. This is not informative. We can change that.
+<!-- Using `labs()`, you can change the text of axis labels (and the legend title), which may be handy if your variables have cryptic names. You can also manually name the labels in a legend. The values for *chas* are 0 and 1. This is not informative. We can change that. -->
+
+Using `labs()`, you can change the text of axis labels (and the legend title), which may be handy if your variables have cryptic names. You can also manually name the labels in a legend. The values for *urbancat* are "Higher urban" and "Low urban". Let's change "Low urban" to "Lower urban" on the plot:
+
+
+<!-- ```{r} -->
+<!-- ggplot(Boston, aes(x = medv, y = crim, colour = as.factor(chas))) + -->
+<!--   geom_point() + -->
+<!--   ggtitle("Fig 1.Crime, Property Value and River Proximity of Boston Towns") + -->
+<!--   labs(x = "Median Property Value (in US Dollars x 1000)", -->
+<!--        y = "Per capita crime rate", -->
+<!--        colour = "Borders the river") + -->
+<!--   scale_colour_discrete(labels = c("No", "Yes")) -->
+<!-- ``` -->
+
 
 
 ``` r
-ggplot(Boston, aes(x = medv, y = crim, colour = as.factor(chas))) +
+ggplot(worldbank, aes(x = inequality, y = homicide, colour = as.factor(urbancat))) +
   geom_point() +
-  ggtitle("Fig 1.Crime, Property Value and River Proximity of Boston Towns") +
-  labs(x = "Median Property Value (in US Dollars x 1000)",
-       y = "Per capita crime rate",
-       colour = "Borders the river") +
-  scale_colour_discrete(labels = c("No", "Yes"))
+  ggtitle("Fig 1. Homicide, Inequality, & Urban Population % (2022)") +
+  labs(x = "Inequality (Gini Index)",
+       y = "Intentional Homicides Per 100,000 People",
+       colour = "Urban Population %") +
+  scale_colour_discrete(labels = c("Higher urban", "Lower urban"))
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-61-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-66-1.png" width="672" />
 
 Sometimes, you may want to present several plots together. For this, the `gridExtra` package is very good. You will first need to install it and then load it. You can then create several plots and combine them into a single image.
 
+<!-- ```{r, message=FALSE, warning=FALSE} -->
+<!-- #You may need to install it first with install.packages("gridExtra") -->
+<!-- library(gridExtra) -->
+<!-- #Store your plots in various objects -->
+<!-- p1 <- qplot(x=crim, data=Boston) -->
+<!-- p2 <- qplot(x=indus, data=Boston) -->
+<!-- p3 <- qplot(x=medv, data=Boston) -->
+<!-- #Then, put them all together using grid.arrange() -->
+<!-- grid.arrange(p1, p2, p3, ncol=3) #ncol tells R we want them side by side;  -->
+<!-- #if you want them one on top of the other, try ncol=1;  -->
+<!-- #in this case, however, ncol=2 would possibly be the better solution. Try it! -->
+<!-- ``` -->
+
+
 
 ``` r
-#You may need to install it first with install.packages("gridExtra")
+# You may need to install it first with install.packages("gridExtra")
 library(gridExtra)
-#Store your plots in various objects
-p1 <- qplot(x=crim, data=Boston)
-p2 <- qplot(x=indus, data=Boston)
-p3 <- qplot(x=medv, data=Boston)
-#Then, put them all together using grid.arrange()
-grid.arrange(p1, p2, p3, ncol=3) #ncol tells R we want them side by side; 
+
+# Store your plots in various objects
+p1 <- qplot(x=homicide, data=worldbank)
+p2 <- qplot(x=urban, data=worldbank)
+p3 <- qplot(x=inequality, data=worldbank)
+
+# Then, put them all together using grid.arrange()
+grid.arrange(p1, p2, p3, ncol=3)   # ncol (number of columns) tells R we want them side by side; 
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-62-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-67-1.png" width="672" />
 
 ``` r
-#if you want them one on top of the other, try ncol=1; 
-#in this case, however, ncol=2 would possibly be the better solution. Try it!
+                                   # if you want them one on top of the other, try ncol=1; 
+                                   # in this case, however, ncol=2 would possibly be the better solution. Try it!
 ```
+
 
 We don't have time to get into the details of all the customisation features available for `ggplot2`. You can find some [additional solutions](https://bbc.github.io/rcookbook/) in the cookbook put together by the data journalists at the BBC or in Kieran Healy's free online [book](https://socviz.co/).
 
@@ -942,7 +1368,7 @@ ggplot(BCS0708, aes(x=walkday)) +
   geom_bar()
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-63-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-68-1.png" width="672" />
 
 You can see the label *count* on the Y-axis. This is not a variable in your data. When you run a `geom_bar` like this, you are invoking a hidden default call to the `stat_` function. In this case, what is happening is that this function is *counting* the number of cases in each of the levels of *walkday*, and this count is what is used to map the height of each of the bars.
 
@@ -962,7 +1388,7 @@ ggplot(BCS0708, aes(x=walkday)) +
 ## generated.
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-64-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-69-1.png" width="672" />
 As Kieran Helay (2018) indicates:
 
 *"The resulting plot is still not right. We no longer have a count on the y-axis, but the proportions of the bars all have a value of 1, so all the bars are the same height. We want them to sum to 1 so that we get the number of observations per" (level) "as a proportion of the total number of observations. This is a grouping issue again...  we need to tell ggplot to ignore the x-categories when calculating the denominator of the proportion and use the total number of observations instead. To do so, we specify group = 1 inside the `aes()` call. The value of 1 is just a kind of “dummy group” that tells ggplot to use the whole dataset when establishing the denominator for its prop calculations."*
@@ -973,7 +1399,7 @@ ggplot(BCS0708, aes(x=walkday)) +
   geom_bar(mapping = aes(y = ..prop.., group = 1))
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-65-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-70-1.png" width="672" />
 
 Unfortunately, the levels in this factor are ordered alphabetically, which is confusing. We can modify this by reordering the factor levels first — click [here](http://www.cookbook-r.com/Manipulating_data/Changing_the_order_of_levels_of_a_factor/) for more details. You could do this within the `ggplot` function (just for the visualisation), but in real life, you would want to sort out your factor levels in an appropriate manner more permanently. As discussed last week, this is the sort of thing you do during data preprocessing. And then plot.
 
@@ -1002,7 +1428,7 @@ ggplot(subset(BCS0708, !is.na(walkdayR)), aes(x=walkdayR)) +
   geom_bar(mapping = aes(y = ..prop.., group = 1))
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-67-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-72-1.png" width="672" />
 
 We can also map a second variable to the aesthetics; for example, let's look at ethnicity in relation to feelings of safety. For this, we produce a **stacked bar chart**.
 
@@ -1013,7 +1439,7 @@ ggplot(data=bcs_bar, aes(x=walkdayR, fill=ethgrp2)) +
   geom_bar()
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-68-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-73-1.png" width="672" />
 
 These stacked bar charts are not particularly helpful if you are interested in understanding the relationship between the two variables. It is hard to tell whether any group is more likely to feel safe or not.
 
@@ -1025,7 +1451,7 @@ ggplot(data=bcs_bar, aes(x=walkdayR, fill=ethgrp2)) +
   geom_bar(position = "fill")
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-69-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-74-1.png" width="672" />
 
 Now, we can more easily compare proportions across groups since all the bars have the same height. However, it is more difficult to see how many people there are within each level of the X variable.
 
@@ -1036,7 +1462,7 @@ p <- ggplot(data=bcs_bar, aes(x=walkdayR, fill=ethgrp2)) + geom_bar(position = "
 p
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-70-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-75-1.png" width="672" />
 
 Now, we have a bar chart where ethnicity values are broken down by fear-of-crime level, with proportions shown on the y-axis. Looking at the bars, you will see that they do not sum to one within each level of fear. Instead, the bars for any particular ethnicity sum to one across all the levels of fear. You can see, for example, that nearly 75% of the White respondents are in the "Very Safe" level, whereas, for example, less than 60% of the Black respondents feel "Very Safe".
 
@@ -1044,12 +1470,12 @@ Sometimes, you may want to flip the axis so that the bars are displayed horizont
 
 
 ``` r
-#First, we invoke the plot we created and stored earlier, 
-#and then we add an additional specification with coord_flip()
+# First, we invoke the plot we created and stored earlier, 
+# and then we add an additional specification with coord_flip()
 p + coord_flip()
 ```
 
-<img src="03-visualisation_files/figure-html/unnamed-chunk-71-1.png" width="672" />
+<img src="03-visualisation_files/figure-html/unnamed-chunk-76-1.png" width="672" />
 
 You can also use `coord_flip()` with other `ggplot` plots (e.g., boxplots).
 
@@ -1096,6 +1522,7 @@ This week, we used the following R functions:
 **explore data**
 
 - names()
+- slice_max()  <!-- Added when Boston dataset was replaced by WDI (worldbank) dataset -->
 
 **clean data: janitor package**
 
@@ -1117,7 +1544,8 @@ This week, we used the following R functions:
 
 **create a categorical variable using a numeric variable**
 
-- `Boston$lowval[Boston$medv <= 17.02] <- "Low value"`
+<!-- - `Boston$lowval[Boston$medv <= 17.02] <- "Low value"` -->
+- `worldbank$lowval[worldbank$inequality <= 31.05] <- "Low value"`
 
 
 <!--## Summary: exercise for this week

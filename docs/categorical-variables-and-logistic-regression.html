@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2026-04-27" />
+<meta name="date" content="2026-07-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -192,7 +192,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.5" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#visualising-numerical-variables-density-plots"><i class="fa fa-check"></i><b>3.5</b> Visualising numerical variables: Density plots</a></li>
 <li class="chapter" data-level="3.6" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#visualising-numerical-variables-box-plots"><i class="fa fa-check"></i><b>3.6</b> Visualising numerical variables: Box plots</a></li>
 <li class="chapter" data-level="3.7" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#exploring-relationships-between-two-quantitative-variables-scatterplots"><i class="fa fa-check"></i><b>3.7</b> Exploring relationships between two quantitative variables: scatterplots</a></li>
-<li class="chapter" data-level="3.8" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#scatterplots-conditioning-in-a-third-variable"><i class="fa fa-check"></i><b>3.8</b> Scatterplots conditioning in a third variable</a></li>
+<li class="chapter" data-level="3.8" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#scatterplots-conditioning-on-a-third-variable"><i class="fa fa-check"></i><b>3.8</b> Scatterplots conditioning on a third variable</a></li>
 <li class="chapter" data-level="3.9" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#scatterplot-matrix"><i class="fa fa-check"></i><b>3.9</b> Scatterplot matrix</a></li>
 <li class="chapter" data-level="3.10" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#titles-legends-and-themes-in-ggplot2"><i class="fa fa-check"></i><b>3.10</b> Titles, legends, and themes in ggplot2</a></li>
 <li class="chapter" data-level="3.11" data-path="data-visualisation-with-r.html"><a href="data-visualisation-with-r.html#plotting-categorical-data-bar-charts"><i class="fa fa-check"></i><b>3.11</b> Plotting categorical data: bar charts</a></li>
@@ -330,21 +330,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">8.1</span> Cross-tabulations<a href="categorical-variables-and-logistic-regression.html#cross-tabulations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In earlier sessions, we covered how to run frequency distributions using the <code>table()</code> function. Cross tabulations, also called <strong>contingency tables</strong>, are essentially crossed frequency distributions, where you plot the frequency distributions of more than one categorical variable simultaneously. This semester, we are only going to explore <strong>two-way cross-tabulations</strong>, that is, contingency tables where we plot the frequency distribution of <em>two</em> categorical variables at the same time. Frequency distributions are a useful way of exploring categorical variables that do not have too many categories. By extension, cross-tabulations are a useful way of exploring relationships between two categorical variables that do not have too many levels or categories.</p>
 <p>This week, we will use the <code>Arrests</code> dataset from the <code>effects</code> package. You can obtain details about this dataset and the variables included by using <code>help(Arrests, package="effects")</code>. If you don’t have that package, you must install and load it.</p>
-<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="categorical-variables-and-logistic-regression.html#cb501-1" tabindex="-1"></a><span class="co"># install package if you haven&#39;t done so</span></span>
-<span id="cb501-2"><a href="categorical-variables-and-logistic-regression.html#cb501-2" tabindex="-1"></a><span class="do">## install.packages(&quot;effects&quot;)</span></span>
-<span id="cb501-3"><a href="categorical-variables-and-logistic-regression.html#cb501-3" tabindex="-1"></a></span>
-<span id="cb501-4"><a href="categorical-variables-and-logistic-regression.html#cb501-4" tabindex="-1"></a><span class="co"># load the &#39;effects&#39; package</span></span>
-<span id="cb501-5"><a href="categorical-variables-and-logistic-regression.html#cb501-5" tabindex="-1"></a><span class="fu">library</span>(effects)</span>
-<span id="cb501-6"><a href="categorical-variables-and-logistic-regression.html#cb501-6" tabindex="-1"></a></span>
-<span id="cb501-7"><a href="categorical-variables-and-logistic-regression.html#cb501-7" tabindex="-1"></a><span class="co"># load the dataset &quot;Arrests&quot;</span></span>
-<span id="cb501-8"><a href="categorical-variables-and-logistic-regression.html#cb501-8" tabindex="-1"></a><span class="fu">data</span>(Arrests)<span class="co">#, package = &quot;effects&quot;)</span></span></code></pre></div>
+<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="categorical-variables-and-logistic-regression.html#cb506-1" tabindex="-1"></a><span class="co"># install package if you haven&#39;t done so</span></span>
+<span id="cb506-2"><a href="categorical-variables-and-logistic-regression.html#cb506-2" tabindex="-1"></a><span class="do">## install.packages(&quot;effects&quot;)</span></span>
+<span id="cb506-3"><a href="categorical-variables-and-logistic-regression.html#cb506-3" tabindex="-1"></a></span>
+<span id="cb506-4"><a href="categorical-variables-and-logistic-regression.html#cb506-4" tabindex="-1"></a><span class="co"># load the &#39;effects&#39; package</span></span>
+<span id="cb506-5"><a href="categorical-variables-and-logistic-regression.html#cb506-5" tabindex="-1"></a><span class="fu">library</span>(effects)</span>
+<span id="cb506-6"><a href="categorical-variables-and-logistic-regression.html#cb506-6" tabindex="-1"></a></span>
+<span id="cb506-7"><a href="categorical-variables-and-logistic-regression.html#cb506-7" tabindex="-1"></a><span class="co"># load the dataset &quot;Arrests&quot;</span></span>
+<span id="cb506-8"><a href="categorical-variables-and-logistic-regression.html#cb506-8" tabindex="-1"></a><span class="fu">data</span>(Arrests)<span class="co">#, package = &quot;effects&quot;)</span></span></code></pre></div>
 <p>Please note that when importing data into <code>R</code> using the <code>data()</code> function, the imported object may not immediately appear in the Environment panel. Worry not—if you didn’t receive any error messages, the data frame <code>Arrests</code> (note the capitalised letter!) should be loaded into your <code>R</code> session. To double-check, let’s check the dimensions of this data frame.</p>
-<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb502-1"><a href="categorical-variables-and-logistic-regression.html#cb502-1" tabindex="-1"></a><span class="co"># check the dimensions of the &#39;Arrests&#39; object</span></span>
-<span id="cb502-2"><a href="categorical-variables-and-logistic-regression.html#cb502-2" tabindex="-1"></a><span class="fu">dim</span>(Arrests)</span></code></pre></div>
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="categorical-variables-and-logistic-regression.html#cb507-1" tabindex="-1"></a><span class="co"># check the dimensions of the &#39;Arrests&#39; object</span></span>
+<span id="cb507-2"><a href="categorical-variables-and-logistic-regression.html#cb507-2" tabindex="-1"></a><span class="fu">dim</span>(Arrests)</span></code></pre></div>
 <pre><code>## [1] 5226    8</code></pre>
 <p>We can see that the data frame <code>Arrests</code> has 5226 observations and 8 columns. The unit of analysis here is individuals arrested in Toronto for possession of marijuana. For each of these 5226 individuals, we have information on eight characteristics. Let’s check the names of the variables.</p>
-<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb504-1"><a href="categorical-variables-and-logistic-regression.html#cb504-1" tabindex="-1"></a><span class="co"># check the names of all columns in &#39;Arrests&#39;</span></span>
-<span id="cb504-2"><a href="categorical-variables-and-logistic-regression.html#cb504-2" tabindex="-1"></a><span class="fu">names</span>(Arrests)</span></code></pre></div>
+<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="categorical-variables-and-logistic-regression.html#cb509-1" tabindex="-1"></a><span class="co"># check the names of all columns in &#39;Arrests&#39;</span></span>
+<span id="cb509-2"><a href="categorical-variables-and-logistic-regression.html#cb509-2" tabindex="-1"></a><span class="fu">names</span>(Arrests)</span></code></pre></div>
 <pre><code>## [1] &quot;released&quot; &quot;colour&quot;   &quot;year&quot;     &quot;age&quot;      &quot;sex&quot;      &quot;employed&quot; &quot;citizen&quot; 
 ## [8] &quot;checks&quot;</code></pre>
 <p>This dataset includes information on police treatment of individuals arrested in Toronto for possession of marijuana. For example, it includes information on whether they are White or Black (<code>colour</code>), the year (<code>year</code>), their age (<code>age</code>), their gender (<code>sex</code>), whether they are currently employed (<code>employed</code>), whether they are Canadian citizens (<code>citizen</code>), and the number of entries in the criminal justice system (<code>checks</code>). Crucially, the dataset also contains information indicating whether the arrestee was released with a summons. In this case, the police could:</p>
@@ -353,50 +353,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Bring to the police station, held for bail, etc.—harsher treatment</p></li>
 </ul>
 <p>Let’s use the <code>table()</code> function to examine the frequency distribution of this variable</p>
-<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="categorical-variables-and-logistic-regression.html#cb506-1" tabindex="-1"></a><span class="co"># produce frequency table</span></span>
-<span id="cb506-2"><a href="categorical-variables-and-logistic-regression.html#cb506-2" tabindex="-1"></a><span class="fu">table</span>(Arrests<span class="sc">$</span>released)</span></code></pre></div>
+<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="categorical-variables-and-logistic-regression.html#cb511-1" tabindex="-1"></a><span class="co"># produce frequency table</span></span>
+<span id="cb511-2"><a href="categorical-variables-and-logistic-regression.html#cb511-2" tabindex="-1"></a><span class="fu">table</span>(Arrests<span class="sc">$</span>released)</span></code></pre></div>
 <pre><code>## 
 ##   No  Yes 
 ##  892 4334</code></pre>
 <p>4334 arrestees were released with a summons, whereas 892 received a harsher treatment. As usual, when dealing with frequency tables, it is often better to examine results in relation to proportions (or percentages) instead of raw counts. We can obtain proportions using the <code>prop.table()</code> function (do note that the <code>prop.table()</code> function requires a <code>table()</code> object as its argument!).</p>
-<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="categorical-variables-and-logistic-regression.html#cb508-1" tabindex="-1"></a><span class="co"># store the frequency table under the name &quot;table_released&quot;</span></span>
-<span id="cb508-2"><a href="categorical-variables-and-logistic-regression.html#cb508-2" tabindex="-1"></a>table_released <span class="ot">&lt;-</span> <span class="fu">table</span>(Arrests<span class="sc">$</span>released)</span>
-<span id="cb508-3"><a href="categorical-variables-and-logistic-regression.html#cb508-3" tabindex="-1"></a></span>
-<span id="cb508-4"><a href="categorical-variables-and-logistic-regression.html#cb508-4" tabindex="-1"></a><span class="co"># compute proportions of the frequency table</span></span>
-<span id="cb508-5"><a href="categorical-variables-and-logistic-regression.html#cb508-5" tabindex="-1"></a><span class="fu">prop.table</span>(table_released)</span></code></pre></div>
+<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb513-1"><a href="categorical-variables-and-logistic-regression.html#cb513-1" tabindex="-1"></a><span class="co"># store the frequency table under the name &quot;table_released&quot;</span></span>
+<span id="cb513-2"><a href="categorical-variables-and-logistic-regression.html#cb513-2" tabindex="-1"></a>table_released <span class="ot">&lt;-</span> <span class="fu">table</span>(Arrests<span class="sc">$</span>released)</span>
+<span id="cb513-3"><a href="categorical-variables-and-logistic-regression.html#cb513-3" tabindex="-1"></a></span>
+<span id="cb513-4"><a href="categorical-variables-and-logistic-regression.html#cb513-4" tabindex="-1"></a><span class="co"># compute proportions of the frequency table</span></span>
+<span id="cb513-5"><a href="categorical-variables-and-logistic-regression.html#cb513-5" tabindex="-1"></a><span class="fu">prop.table</span>(table_released)</span></code></pre></div>
 <pre><code>## 
 ##       No      Yes 
 ## 0.170685 0.829315</code></pre>
 <p>In other words, 82.93% of arrestees were released with a summons, and 17.07% received a harsher treatment. Let’s see if we can develop an understanding of the factors that affect this outcome. In particular, let’s assume our research goal is to investigate whether race is associated with harsher treatment. In this case, race is our independent variable, and the treatment offered to the arrestees is our dependent variable.</p>
 <p>Let’s quickly examine our independent variable too.</p>
-<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="categorical-variables-and-logistic-regression.html#cb510-1" tabindex="-1"></a><span class="co"># store the frequency table under the name &quot;table_colour&quot;</span></span>
-<span id="cb510-2"><a href="categorical-variables-and-logistic-regression.html#cb510-2" tabindex="-1"></a>table_colour <span class="ot">&lt;-</span> <span class="fu">table</span>(Arrests<span class="sc">$</span>colour)</span>
-<span id="cb510-3"><a href="categorical-variables-and-logistic-regression.html#cb510-3" tabindex="-1"></a></span>
-<span id="cb510-4"><a href="categorical-variables-and-logistic-regression.html#cb510-4" tabindex="-1"></a><span class="co"># print the frequency table</span></span>
-<span id="cb510-5"><a href="categorical-variables-and-logistic-regression.html#cb510-5" tabindex="-1"></a>table_colour</span></code></pre></div>
+<div class="sourceCode" id="cb515"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb515-1"><a href="categorical-variables-and-logistic-regression.html#cb515-1" tabindex="-1"></a><span class="co"># store the frequency table under the name &quot;table_colour&quot;</span></span>
+<span id="cb515-2"><a href="categorical-variables-and-logistic-regression.html#cb515-2" tabindex="-1"></a>table_colour <span class="ot">&lt;-</span> <span class="fu">table</span>(Arrests<span class="sc">$</span>colour)</span>
+<span id="cb515-3"><a href="categorical-variables-and-logistic-regression.html#cb515-3" tabindex="-1"></a></span>
+<span id="cb515-4"><a href="categorical-variables-and-logistic-regression.html#cb515-4" tabindex="-1"></a><span class="co"># print the frequency table</span></span>
+<span id="cb515-5"><a href="categorical-variables-and-logistic-regression.html#cb515-5" tabindex="-1"></a>table_colour</span></code></pre></div>
 <pre><code>## 
 ## Black White 
 ##  1288  3938</code></pre>
-<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="categorical-variables-and-logistic-regression.html#cb512-1" tabindex="-1"></a><span class="co"># compute proportions of the frequency table</span></span>
-<span id="cb512-2"><a href="categorical-variables-and-logistic-regression.html#cb512-2" tabindex="-1"></a><span class="fu">prop.table</span>(table_colour)</span></code></pre></div>
+<div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb517-1"><a href="categorical-variables-and-logistic-regression.html#cb517-1" tabindex="-1"></a><span class="co"># compute proportions of the frequency table</span></span>
+<span id="cb517-2"><a href="categorical-variables-and-logistic-regression.html#cb517-2" tabindex="-1"></a><span class="fu">prop.table</span>(table_colour)</span></code></pre></div>
 <pre><code>## 
 ##   Black   White 
 ## 0.24646 0.75354</code></pre>
 <p>Now we know that our sample contains 1288 (24.65%) Black arrestees and 3938 (75.35%) White arrestees.</p>
 <p>Given that they are both categorical variables, we can start producing a cross-tabulation. We can simply use the <code>table()</code> function and another variable as a second argument in the function. The first variable included in the function will be represented by rows, whereas the second variable will be represented by columns. Conventionally, we usually include the dependent variable in the columns and the independent variable in the rows</p>
-<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="categorical-variables-and-logistic-regression.html#cb514-1" tabindex="-1"></a><span class="co"># produce a cross-tabulation and store it under &quot;crosstab_released&quot;</span></span>
-<span id="cb514-2"><a href="categorical-variables-and-logistic-regression.html#cb514-2" tabindex="-1"></a>crosstab_released <span class="ot">&lt;-</span> <span class="fu">table</span>(Arrests<span class="sc">$</span>colour, Arrests<span class="sc">$</span>released)</span>
-<span id="cb514-3"><a href="categorical-variables-and-logistic-regression.html#cb514-3" tabindex="-1"></a></span>
-<span id="cb514-4"><a href="categorical-variables-and-logistic-regression.html#cb514-4" tabindex="-1"></a><span class="co"># print the cross-tabulation</span></span>
-<span id="cb514-5"><a href="categorical-variables-and-logistic-regression.html#cb514-5" tabindex="-1"></a>crosstab_released</span></code></pre></div>
+<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb519-1"><a href="categorical-variables-and-logistic-regression.html#cb519-1" tabindex="-1"></a><span class="co"># produce a cross-tabulation and store it under &quot;crosstab_released&quot;</span></span>
+<span id="cb519-2"><a href="categorical-variables-and-logistic-regression.html#cb519-2" tabindex="-1"></a>crosstab_released <span class="ot">&lt;-</span> <span class="fu">table</span>(Arrests<span class="sc">$</span>colour, Arrests<span class="sc">$</span>released)</span>
+<span id="cb519-3"><a href="categorical-variables-and-logistic-regression.html#cb519-3" tabindex="-1"></a></span>
+<span id="cb519-4"><a href="categorical-variables-and-logistic-regression.html#cb519-4" tabindex="-1"></a><span class="co"># print the cross-tabulation</span></span>
+<span id="cb519-5"><a href="categorical-variables-and-logistic-regression.html#cb519-5" tabindex="-1"></a>crosstab_released</span></code></pre></div>
 <pre><code>##        
 ##           No  Yes
 ##   Black  333  955
 ##   White  559 3379</code></pre>
 <p>By checking both frequency distributions at the same time, we can see that 333 arrestees are Black and received a harsher treatment, 955 are Black and were released with a summons, 559 are White and received a harsher treatment, and 3379 are White and were released with a summons. So, is there an association? Do we think that Black arrestees are treated more harshly than White arrestees?</p>
 <p>As before, just looking at the raw counts is tricky. A better approach is to look at <em>proportions</em>. But which proportions? If we simply use the <code>prop.table()</code> function, <code>R</code> will calculate the <strong>total percentages</strong>—but that is not very helpful in addressing our question.</p>
-<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb516-1"><a href="categorical-variables-and-logistic-regression.html#cb516-1" tabindex="-1"></a><span class="co"># compute total proportions of the cross-tabulation</span></span>
-<span id="cb516-2"><a href="categorical-variables-and-logistic-regression.html#cb516-2" tabindex="-1"></a><span class="fu">prop.table</span>(crosstab_released)</span></code></pre></div>
+<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb521-1"><a href="categorical-variables-and-logistic-regression.html#cb521-1" tabindex="-1"></a><span class="co"># compute total proportions of the cross-tabulation</span></span>
+<span id="cb521-2"><a href="categorical-variables-and-logistic-regression.html#cb521-2" tabindex="-1"></a><span class="fu">prop.table</span>(crosstab_released)</span></code></pre></div>
 <pre><code>##        
 ##                 No        Yes
 ##   Black 0.06371986 0.18274015
@@ -404,8 +404,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We can see now that 6.37% of all arrestees are Black and received a harsher treatment, 18.27% are Black and were released with a summons, 10.7% are White and received a harsher treatment, and 64.66% are White and were released with a summons. In other words, what the <code>prop.table()</code> function did was just divide the raw count in each cell of the contingency table by the total number of arrestees in the dataset (i.e., 5226). Not very helpful.</p>
 <p>Instead, we are only interested in the proportions that allow us to make meaningful comparisons. We already knew that Black arrestees were only 24.65% of our sample, so calculating <em>total percentages</em> does not seem to be very useful. Aside from <em>total percentages</em>, we can also compute <strong>row percentages</strong> and <strong>column percentages</strong>. For example, among only Black arrestees, what is the percentage that received a harsher treatment? What about among only White respondents? This is the idea of marginal frequencies and percentages!</p>
 <p>Given that we always have an independent variable doing the explanation and a dependent variable being explained, we only need percentages that allow us to make comparisons for the dependent variable across our independent variable. In this case, we want to examine percentages of police treatment across groups of racial identity. In other words, because we conventionally display the dependent variable in the columns and the independent variable in the rows, we only want to request <strong>row percentages</strong>. We can request row percentages by adding the argument <code>margin = 1</code> into the <code>prop.table()</code> function:</p>
-<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb518-1"><a href="categorical-variables-and-logistic-regression.html#cb518-1" tabindex="-1"></a><span class="co"># compute row percentages</span></span>
-<span id="cb518-2"><a href="categorical-variables-and-logistic-regression.html#cb518-2" tabindex="-1"></a><span class="fu">prop.table</span>(crosstab_released, <span class="at">margin =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb523-1"><a href="categorical-variables-and-logistic-regression.html#cb523-1" tabindex="-1"></a><span class="co"># compute row percentages</span></span>
+<span id="cb523-2"><a href="categorical-variables-and-logistic-regression.html#cb523-2" tabindex="-1"></a><span class="fu">prop.table</span>(crosstab_released, <span class="at">margin =</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>##        
 ##                No       Yes
 ##   Black 0.2585404 0.7414596
@@ -421,8 +421,8 @@ details {
 <i>Attention! What about column percentages?</i>
 </summary>
 <p>We can also request column percentages by specifying <code>margin = 2</code> in the <code>prop.table()</code> function.</p>
-<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="categorical-variables-and-logistic-regression.html#cb520-1" tabindex="-1"></a><span class="co"># compute column percentages</span></span>
-<span id="cb520-2"><a href="categorical-variables-and-logistic-regression.html#cb520-2" tabindex="-1"></a><span class="fu">prop.table</span>(crosstab_released, <span class="at">margin =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb525-1"><a href="categorical-variables-and-logistic-regression.html#cb525-1" tabindex="-1"></a><span class="co"># compute column percentages</span></span>
+<span id="cb525-2"><a href="categorical-variables-and-logistic-regression.html#cb525-2" tabindex="-1"></a><span class="fu">prop.table</span>(crosstab_released, <span class="at">margin =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##        
 ##                No       Yes
 ##   Black 0.3733184 0.2203507
@@ -433,34 +433,34 @@ details {
 <br>
 </details>
 <p>While the <code>table()</code> and <code>prop.table()</code> functions do everything we need, some other functions in <code>R</code> allow a better-formatted inspection of cross-tabulations. For example, the <code>tbl_cross()</code> function from the <code>gtsummary</code> package provides a neat table with all the information we need. This is how it works.</p>
-<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="categorical-variables-and-logistic-regression.html#cb522-1" tabindex="-1"></a><span class="co"># template for the tbl_cross() function</span></span>
-<span id="cb522-2"><a href="categorical-variables-and-logistic-regression.html#cb522-2" tabindex="-1"></a><span class="fu">tbl_cross</span>(<span class="at">data =</span> mydataset, <span class="at">row =</span> independent_variable, <span class="at">col =</span> dependent_variable, <span class="at">percent =</span> <span class="st">&quot;row&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb527-1"><a href="categorical-variables-and-logistic-regression.html#cb527-1" tabindex="-1"></a><span class="co"># template for the tbl_cross() function</span></span>
+<span id="cb527-2"><a href="categorical-variables-and-logistic-regression.html#cb527-2" tabindex="-1"></a><span class="fu">tbl_cross</span>(<span class="at">data =</span> mydataset, <span class="at">row =</span> independent_variable, <span class="at">col =</span> dependent_variable, <span class="at">percent =</span> <span class="st">&quot;row&quot;</span>)</span></code></pre></div>
 <p>In our case, we can now use the <code>tbl_cross()</code> function to produce a neat cross-tabulation!</p>
-<div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb523-1"><a href="categorical-variables-and-logistic-regression.html#cb523-1" tabindex="-1"></a><span class="co"># remember to install the &#39;gtsummary&#39; package</span></span>
-<span id="cb523-2"><a href="categorical-variables-and-logistic-regression.html#cb523-2" tabindex="-1"></a><span class="do">## install.packages(&quot;gtsummary&quot;)</span></span>
-<span id="cb523-3"><a href="categorical-variables-and-logistic-regression.html#cb523-3" tabindex="-1"></a></span>
-<span id="cb523-4"><a href="categorical-variables-and-logistic-regression.html#cb523-4" tabindex="-1"></a><span class="co"># load the &#39;gtsummary&#39; package</span></span>
-<span id="cb523-5"><a href="categorical-variables-and-logistic-regression.html#cb523-5" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
-<span id="cb523-6"><a href="categorical-variables-and-logistic-regression.html#cb523-6" tabindex="-1"></a></span>
-<span id="cb523-7"><a href="categorical-variables-and-logistic-regression.html#cb523-7" tabindex="-1"></a><span class="co"># produce a neatly formatted cross-tabulation</span></span>
-<span id="cb523-8"><a href="categorical-variables-and-logistic-regression.html#cb523-8" tabindex="-1"></a><span class="fu">tbl_cross</span>(<span class="at">data =</span> Arrests, <span class="at">row =</span> colour, <span class="at">col =</span> released, <span class="at">percent =</span> <span class="st">&quot;row&quot;</span>)</span></code></pre></div>
-<div id="vcbxtupvxc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#vcbxtupvxc table {
+<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="categorical-variables-and-logistic-regression.html#cb528-1" tabindex="-1"></a><span class="co"># remember to install the &#39;gtsummary&#39; package</span></span>
+<span id="cb528-2"><a href="categorical-variables-and-logistic-regression.html#cb528-2" tabindex="-1"></a><span class="do">## install.packages(&quot;gtsummary&quot;)</span></span>
+<span id="cb528-3"><a href="categorical-variables-and-logistic-regression.html#cb528-3" tabindex="-1"></a></span>
+<span id="cb528-4"><a href="categorical-variables-and-logistic-regression.html#cb528-4" tabindex="-1"></a><span class="co"># load the &#39;gtsummary&#39; package</span></span>
+<span id="cb528-5"><a href="categorical-variables-and-logistic-regression.html#cb528-5" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
+<span id="cb528-6"><a href="categorical-variables-and-logistic-regression.html#cb528-6" tabindex="-1"></a></span>
+<span id="cb528-7"><a href="categorical-variables-and-logistic-regression.html#cb528-7" tabindex="-1"></a><span class="co"># produce a neatly formatted cross-tabulation</span></span>
+<span id="cb528-8"><a href="categorical-variables-and-logistic-regression.html#cb528-8" tabindex="-1"></a><span class="fu">tbl_cross</span>(<span class="at">data =</span> Arrests, <span class="at">row =</span> colour, <span class="at">col =</span> released, <span class="at">percent =</span> <span class="st">&quot;row&quot;</span>)</span></code></pre></div>
+<div id="gixwmzfaxy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#gixwmzfaxy table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#vcbxtupvxc thead, #vcbxtupvxc tbody, #vcbxtupvxc tfoot, #vcbxtupvxc tr, #vcbxtupvxc td, #vcbxtupvxc th {
+#gixwmzfaxy thead, #gixwmzfaxy tbody, #gixwmzfaxy tfoot, #gixwmzfaxy tr, #gixwmzfaxy td, #gixwmzfaxy th {
   border-style: none;
 }
 
-#vcbxtupvxc p {
+#gixwmzfaxy p {
   margin: 0;
   padding: 0;
 }
 
-#vcbxtupvxc .gt_table {
+#gixwmzfaxy .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -486,12 +486,12 @@ details {
   border-left-color: #D3D3D3;
 }
 
-#vcbxtupvxc .gt_caption {
+#gixwmzfaxy .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#vcbxtupvxc .gt_title {
+#gixwmzfaxy .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -503,7 +503,7 @@ details {
   border-bottom-width: 0;
 }
 
-#vcbxtupvxc .gt_subtitle {
+#gixwmzfaxy .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -515,7 +515,7 @@ details {
   border-top-width: 0;
 }
 
-#vcbxtupvxc .gt_heading {
+#gixwmzfaxy .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -527,13 +527,13 @@ details {
   border-right-color: #D3D3D3;
 }
 
-#vcbxtupvxc .gt_bottom_border {
+#gixwmzfaxy .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vcbxtupvxc .gt_col_headings {
+#gixwmzfaxy .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -548,7 +548,7 @@ details {
   border-right-color: #D3D3D3;
 }
 
-#vcbxtupvxc .gt_col_heading {
+#gixwmzfaxy .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -568,7 +568,7 @@ details {
   overflow-x: hidden;
 }
 
-#vcbxtupvxc .gt_column_spanner_outer {
+#gixwmzfaxy .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -580,15 +580,15 @@ details {
   padding-right: 4px;
 }
 
-#vcbxtupvxc .gt_column_spanner_outer:first-child {
+#gixwmzfaxy .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vcbxtupvxc .gt_column_spanner_outer:last-child {
+#gixwmzfaxy .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vcbxtupvxc .gt_column_spanner {
+#gixwmzfaxy .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -600,11 +600,11 @@ details {
   width: 100%;
 }
 
-#vcbxtupvxc .gt_spanner_row {
+#gixwmzfaxy .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#vcbxtupvxc .gt_group_heading {
+#gixwmzfaxy .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -630,7 +630,7 @@ details {
   text-align: left;
 }
 
-#vcbxtupvxc .gt_empty_group_heading {
+#gixwmzfaxy .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -645,15 +645,15 @@ details {
   vertical-align: middle;
 }
 
-#vcbxtupvxc .gt_from_md > :first-child {
+#gixwmzfaxy .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vcbxtupvxc .gt_from_md > :last-child {
+#gixwmzfaxy .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vcbxtupvxc .gt_row {
+#gixwmzfaxy .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -672,7 +672,7 @@ details {
   overflow-x: hidden;
 }
 
-#vcbxtupvxc .gt_stub {
+#gixwmzfaxy .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -685,7 +685,7 @@ details {
   padding-right: 5px;
 }
 
-#vcbxtupvxc .gt_stub_row_group {
+#gixwmzfaxy .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -699,15 +699,15 @@ details {
   vertical-align: top;
 }
 
-#vcbxtupvxc .gt_row_group_first td {
+#gixwmzfaxy .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#vcbxtupvxc .gt_row_group_first th {
+#gixwmzfaxy .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#vcbxtupvxc .gt_summary_row {
+#gixwmzfaxy .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -717,16 +717,16 @@ details {
   padding-right: 5px;
 }
 
-#vcbxtupvxc .gt_first_summary_row {
+#gixwmzfaxy .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#vcbxtupvxc .gt_first_summary_row.thick {
+#gixwmzfaxy .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#vcbxtupvxc .gt_last_summary_row {
+#gixwmzfaxy .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -736,7 +736,7 @@ details {
   border-bottom-color: #D3D3D3;
 }
 
-#vcbxtupvxc .gt_grand_summary_row {
+#gixwmzfaxy .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -746,7 +746,7 @@ details {
   padding-right: 5px;
 }
 
-#vcbxtupvxc .gt_first_grand_summary_row {
+#gixwmzfaxy .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -756,7 +756,7 @@ details {
   border-top-color: #D3D3D3;
 }
 
-#vcbxtupvxc .gt_last_grand_summary_row_top {
+#gixwmzfaxy .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -766,11 +766,11 @@ details {
   border-bottom-color: #D3D3D3;
 }
 
-#vcbxtupvxc .gt_striped {
+#gixwmzfaxy .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vcbxtupvxc .gt_table_body {
+#gixwmzfaxy .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -779,7 +779,7 @@ details {
   border-bottom-color: #D3D3D3;
 }
 
-#vcbxtupvxc .gt_footnotes {
+#gixwmzfaxy .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -793,7 +793,7 @@ details {
   border-right-color: #D3D3D3;
 }
 
-#vcbxtupvxc .gt_footnote {
+#gixwmzfaxy .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -802,7 +802,7 @@ details {
   padding-right: 5px;
 }
 
-#vcbxtupvxc .gt_sourcenotes {
+#gixwmzfaxy .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -816,7 +816,7 @@ details {
   border-right-color: #D3D3D3;
 }
 
-#vcbxtupvxc .gt_sourcenote {
+#gixwmzfaxy .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -824,72 +824,72 @@ details {
   padding-right: 5px;
 }
 
-#vcbxtupvxc .gt_left {
+#gixwmzfaxy .gt_left {
   text-align: left;
 }
 
-#vcbxtupvxc .gt_center {
+#gixwmzfaxy .gt_center {
   text-align: center;
 }
 
-#vcbxtupvxc .gt_right {
+#gixwmzfaxy .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vcbxtupvxc .gt_font_normal {
+#gixwmzfaxy .gt_font_normal {
   font-weight: normal;
 }
 
-#vcbxtupvxc .gt_font_bold {
+#gixwmzfaxy .gt_font_bold {
   font-weight: bold;
 }
 
-#vcbxtupvxc .gt_font_italic {
+#gixwmzfaxy .gt_font_italic {
   font-style: italic;
 }
 
-#vcbxtupvxc .gt_super {
+#gixwmzfaxy .gt_super {
   font-size: 65%;
 }
 
-#vcbxtupvxc .gt_footnote_marks {
+#gixwmzfaxy .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#vcbxtupvxc .gt_asterisk {
+#gixwmzfaxy .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#vcbxtupvxc .gt_indent_1 {
+#gixwmzfaxy .gt_indent_1 {
   text-indent: 5px;
 }
 
-#vcbxtupvxc .gt_indent_2 {
+#gixwmzfaxy .gt_indent_2 {
   text-indent: 10px;
 }
 
-#vcbxtupvxc .gt_indent_3 {
+#gixwmzfaxy .gt_indent_3 {
   text-indent: 15px;
 }
 
-#vcbxtupvxc .gt_indent_4 {
+#gixwmzfaxy .gt_indent_4 {
   text-indent: 20px;
 }
 
-#vcbxtupvxc .gt_indent_5 {
+#gixwmzfaxy .gt_indent_5 {
   text-indent: 25px;
 }
 
-#vcbxtupvxc .katex-display {
+#gixwmzfaxy .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#vcbxtupvxc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#gixwmzfaxy div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -942,25 +942,25 @@ details {
 <p>In this case, police treatment is our dependent variable. We operationalise it using the <code>released</code> variable, which indicates whether arrestees were released with a summons or received harsher treatment. Citizenship status is our independent variable, and the variable <code>citizen</code> indicates whether arrestees are Canadian citizens or not. Given that they are both categorical (binary) variables, we produce a cross-tabulation to assess whether they are associated.</p>
 <p>We know that 17.07% arrestees received a harsher treatment and 82.93% were released with a summons. If citizenship status is not associated with police treatment (i.e., if the null hypothesis is true), we should expect roughly similar proportions among both citizens and non-citizens. If, however, proportions across citizens and non-citizens are different, that would serve as evidence that the two variables could be associated.</p>
 <p>Let’s have a look at the cross-tabulation.</p>
-<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb524-1"><a href="categorical-variables-and-logistic-regression.html#cb524-1" tabindex="-1"></a><span class="co"># produce a cross-tabulation between &#39;citizen&#39; and &#39;released&#39;</span></span>
-<span id="cb524-2"><a href="categorical-variables-and-logistic-regression.html#cb524-2" tabindex="-1"></a><span class="fu">tbl_cross</span>(<span class="at">data =</span> Arrests, <span class="at">row =</span> citizen, <span class="at">col =</span> released, <span class="at">percent =</span> <span class="st">&quot;row&quot;</span>)</span></code></pre></div>
-<div id="pqvvwxstfu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#pqvvwxstfu table {
+<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="categorical-variables-and-logistic-regression.html#cb529-1" tabindex="-1"></a><span class="co"># produce a cross-tabulation between &#39;citizen&#39; and &#39;released&#39;</span></span>
+<span id="cb529-2"><a href="categorical-variables-and-logistic-regression.html#cb529-2" tabindex="-1"></a><span class="fu">tbl_cross</span>(<span class="at">data =</span> Arrests, <span class="at">row =</span> citizen, <span class="at">col =</span> released, <span class="at">percent =</span> <span class="st">&quot;row&quot;</span>)</span></code></pre></div>
+<div id="pwxkicgaks" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pwxkicgaks table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#pqvvwxstfu thead, #pqvvwxstfu tbody, #pqvvwxstfu tfoot, #pqvvwxstfu tr, #pqvvwxstfu td, #pqvvwxstfu th {
+#pwxkicgaks thead, #pwxkicgaks tbody, #pwxkicgaks tfoot, #pwxkicgaks tr, #pwxkicgaks td, #pwxkicgaks th {
   border-style: none;
 }
 
-#pqvvwxstfu p {
+#pwxkicgaks p {
   margin: 0;
   padding: 0;
 }
 
-#pqvvwxstfu .gt_table {
+#pwxkicgaks .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -986,12 +986,12 @@ details {
   border-left-color: #D3D3D3;
 }
 
-#pqvvwxstfu .gt_caption {
+#pwxkicgaks .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#pqvvwxstfu .gt_title {
+#pwxkicgaks .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1003,7 +1003,7 @@ details {
   border-bottom-width: 0;
 }
 
-#pqvvwxstfu .gt_subtitle {
+#pwxkicgaks .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1015,7 +1015,7 @@ details {
   border-top-width: 0;
 }
 
-#pqvvwxstfu .gt_heading {
+#pwxkicgaks .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1027,13 +1027,13 @@ details {
   border-right-color: #D3D3D3;
 }
 
-#pqvvwxstfu .gt_bottom_border {
+#pwxkicgaks .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#pqvvwxstfu .gt_col_headings {
+#pwxkicgaks .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1048,7 +1048,7 @@ details {
   border-right-color: #D3D3D3;
 }
 
-#pqvvwxstfu .gt_col_heading {
+#pwxkicgaks .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1068,7 +1068,7 @@ details {
   overflow-x: hidden;
 }
 
-#pqvvwxstfu .gt_column_spanner_outer {
+#pwxkicgaks .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1080,15 +1080,15 @@ details {
   padding-right: 4px;
 }
 
-#pqvvwxstfu .gt_column_spanner_outer:first-child {
+#pwxkicgaks .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#pqvvwxstfu .gt_column_spanner_outer:last-child {
+#pwxkicgaks .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#pqvvwxstfu .gt_column_spanner {
+#pwxkicgaks .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1100,11 +1100,11 @@ details {
   width: 100%;
 }
 
-#pqvvwxstfu .gt_spanner_row {
+#pwxkicgaks .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#pqvvwxstfu .gt_group_heading {
+#pwxkicgaks .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1130,7 +1130,7 @@ details {
   text-align: left;
 }
 
-#pqvvwxstfu .gt_empty_group_heading {
+#pwxkicgaks .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1145,15 +1145,15 @@ details {
   vertical-align: middle;
 }
 
-#pqvvwxstfu .gt_from_md > :first-child {
+#pwxkicgaks .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#pqvvwxstfu .gt_from_md > :last-child {
+#pwxkicgaks .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#pqvvwxstfu .gt_row {
+#pwxkicgaks .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1172,7 +1172,7 @@ details {
   overflow-x: hidden;
 }
 
-#pqvvwxstfu .gt_stub {
+#pwxkicgaks .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1185,7 +1185,7 @@ details {
   padding-right: 5px;
 }
 
-#pqvvwxstfu .gt_stub_row_group {
+#pwxkicgaks .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1199,15 +1199,15 @@ details {
   vertical-align: top;
 }
 
-#pqvvwxstfu .gt_row_group_first td {
+#pwxkicgaks .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#pqvvwxstfu .gt_row_group_first th {
+#pwxkicgaks .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#pqvvwxstfu .gt_summary_row {
+#pwxkicgaks .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1217,16 +1217,16 @@ details {
   padding-right: 5px;
 }
 
-#pqvvwxstfu .gt_first_summary_row {
+#pwxkicgaks .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#pqvvwxstfu .gt_first_summary_row.thick {
+#pwxkicgaks .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#pqvvwxstfu .gt_last_summary_row {
+#pwxkicgaks .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1236,7 +1236,7 @@ details {
   border-bottom-color: #D3D3D3;
 }
 
-#pqvvwxstfu .gt_grand_summary_row {
+#pwxkicgaks .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1246,7 +1246,7 @@ details {
   padding-right: 5px;
 }
 
-#pqvvwxstfu .gt_first_grand_summary_row {
+#pwxkicgaks .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1256,7 +1256,7 @@ details {
   border-top-color: #D3D3D3;
 }
 
-#pqvvwxstfu .gt_last_grand_summary_row_top {
+#pwxkicgaks .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1266,11 +1266,11 @@ details {
   border-bottom-color: #D3D3D3;
 }
 
-#pqvvwxstfu .gt_striped {
+#pwxkicgaks .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#pqvvwxstfu .gt_table_body {
+#pwxkicgaks .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1279,7 +1279,7 @@ details {
   border-bottom-color: #D3D3D3;
 }
 
-#pqvvwxstfu .gt_footnotes {
+#pwxkicgaks .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1293,7 +1293,7 @@ details {
   border-right-color: #D3D3D3;
 }
 
-#pqvvwxstfu .gt_footnote {
+#pwxkicgaks .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1302,7 +1302,7 @@ details {
   padding-right: 5px;
 }
 
-#pqvvwxstfu .gt_sourcenotes {
+#pwxkicgaks .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1316,7 +1316,7 @@ details {
   border-right-color: #D3D3D3;
 }
 
-#pqvvwxstfu .gt_sourcenote {
+#pwxkicgaks .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1324,72 +1324,72 @@ details {
   padding-right: 5px;
 }
 
-#pqvvwxstfu .gt_left {
+#pwxkicgaks .gt_left {
   text-align: left;
 }
 
-#pqvvwxstfu .gt_center {
+#pwxkicgaks .gt_center {
   text-align: center;
 }
 
-#pqvvwxstfu .gt_right {
+#pwxkicgaks .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#pqvvwxstfu .gt_font_normal {
+#pwxkicgaks .gt_font_normal {
   font-weight: normal;
 }
 
-#pqvvwxstfu .gt_font_bold {
+#pwxkicgaks .gt_font_bold {
   font-weight: bold;
 }
 
-#pqvvwxstfu .gt_font_italic {
+#pwxkicgaks .gt_font_italic {
   font-style: italic;
 }
 
-#pqvvwxstfu .gt_super {
+#pwxkicgaks .gt_super {
   font-size: 65%;
 }
 
-#pqvvwxstfu .gt_footnote_marks {
+#pwxkicgaks .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#pqvvwxstfu .gt_asterisk {
+#pwxkicgaks .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#pqvvwxstfu .gt_indent_1 {
+#pwxkicgaks .gt_indent_1 {
   text-indent: 5px;
 }
 
-#pqvvwxstfu .gt_indent_2 {
+#pwxkicgaks .gt_indent_2 {
   text-indent: 10px;
 }
 
-#pqvvwxstfu .gt_indent_3 {
+#pwxkicgaks .gt_indent_3 {
   text-indent: 15px;
 }
 
-#pqvvwxstfu .gt_indent_4 {
+#pwxkicgaks .gt_indent_4 {
   text-indent: 20px;
 }
 
-#pqvvwxstfu .gt_indent_5 {
+#pwxkicgaks .gt_indent_5 {
   text-indent: 25px;
 }
 
-#pqvvwxstfu .katex-display {
+#pwxkicgaks .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#pqvvwxstfu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#pwxkicgaks div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1441,25 +1441,25 @@ details {
 <p>In this case, arrestees’ gender is our independent variable, and the variable <code>sex</code> indicates whether arrestees are recorded as male or female. Given that they are both categorical (binary) variables, we produce a cross-tabulation to assess whether they are associated.</p>
 <p>We know that 17.07% arrestees received a harsher treatment and 82.93% were released with a summons. If gender is not associated with police treatment (i.e., if the null hypothesis is true), we should expect roughly similar proportions among both males and females. If, however, proportions across male and female arrestees are different, that would serve as evidence that the two variables could be associated.</p>
 <p>Let’s have a look at the cross-tabulation.</p>
-<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb525-1"><a href="categorical-variables-and-logistic-regression.html#cb525-1" tabindex="-1"></a><span class="co"># produce a cross-tabulation between &#39;sex&#39; and &#39;released&#39;</span></span>
-<span id="cb525-2"><a href="categorical-variables-and-logistic-regression.html#cb525-2" tabindex="-1"></a><span class="fu">tbl_cross</span>(<span class="at">data =</span> Arrests, <span class="at">row =</span> sex, <span class="at">col =</span> released, <span class="at">percent =</span> <span class="st">&quot;row&quot;</span>)</span></code></pre></div>
-<div id="bidbqndgno" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#bidbqndgno table {
+<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb530-1"><a href="categorical-variables-and-logistic-regression.html#cb530-1" tabindex="-1"></a><span class="co"># produce a cross-tabulation between &#39;sex&#39; and &#39;released&#39;</span></span>
+<span id="cb530-2"><a href="categorical-variables-and-logistic-regression.html#cb530-2" tabindex="-1"></a><span class="fu">tbl_cross</span>(<span class="at">data =</span> Arrests, <span class="at">row =</span> sex, <span class="at">col =</span> released, <span class="at">percent =</span> <span class="st">&quot;row&quot;</span>)</span></code></pre></div>
+<div id="cdslokcelz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#cdslokcelz table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#bidbqndgno thead, #bidbqndgno tbody, #bidbqndgno tfoot, #bidbqndgno tr, #bidbqndgno td, #bidbqndgno th {
+#cdslokcelz thead, #cdslokcelz tbody, #cdslokcelz tfoot, #cdslokcelz tr, #cdslokcelz td, #cdslokcelz th {
   border-style: none;
 }
 
-#bidbqndgno p {
+#cdslokcelz p {
   margin: 0;
   padding: 0;
 }
 
-#bidbqndgno .gt_table {
+#cdslokcelz .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1485,12 +1485,12 @@ details {
   border-left-color: #D3D3D3;
 }
 
-#bidbqndgno .gt_caption {
+#cdslokcelz .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#bidbqndgno .gt_title {
+#cdslokcelz .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1502,7 +1502,7 @@ details {
   border-bottom-width: 0;
 }
 
-#bidbqndgno .gt_subtitle {
+#cdslokcelz .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1514,7 +1514,7 @@ details {
   border-top-width: 0;
 }
 
-#bidbqndgno .gt_heading {
+#cdslokcelz .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1526,13 +1526,13 @@ details {
   border-right-color: #D3D3D3;
 }
 
-#bidbqndgno .gt_bottom_border {
+#cdslokcelz .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#bidbqndgno .gt_col_headings {
+#cdslokcelz .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1547,7 +1547,7 @@ details {
   border-right-color: #D3D3D3;
 }
 
-#bidbqndgno .gt_col_heading {
+#cdslokcelz .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1567,7 +1567,7 @@ details {
   overflow-x: hidden;
 }
 
-#bidbqndgno .gt_column_spanner_outer {
+#cdslokcelz .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1579,15 +1579,15 @@ details {
   padding-right: 4px;
 }
 
-#bidbqndgno .gt_column_spanner_outer:first-child {
+#cdslokcelz .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#bidbqndgno .gt_column_spanner_outer:last-child {
+#cdslokcelz .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#bidbqndgno .gt_column_spanner {
+#cdslokcelz .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1599,11 +1599,11 @@ details {
   width: 100%;
 }
 
-#bidbqndgno .gt_spanner_row {
+#cdslokcelz .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#bidbqndgno .gt_group_heading {
+#cdslokcelz .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1629,7 +1629,7 @@ details {
   text-align: left;
 }
 
-#bidbqndgno .gt_empty_group_heading {
+#cdslokcelz .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1644,15 +1644,15 @@ details {
   vertical-align: middle;
 }
 
-#bidbqndgno .gt_from_md > :first-child {
+#cdslokcelz .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#bidbqndgno .gt_from_md > :last-child {
+#cdslokcelz .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#bidbqndgno .gt_row {
+#cdslokcelz .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1671,7 +1671,7 @@ details {
   overflow-x: hidden;
 }
 
-#bidbqndgno .gt_stub {
+#cdslokcelz .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1684,7 +1684,7 @@ details {
   padding-right: 5px;
 }
 
-#bidbqndgno .gt_stub_row_group {
+#cdslokcelz .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1698,15 +1698,15 @@ details {
   vertical-align: top;
 }
 
-#bidbqndgno .gt_row_group_first td {
+#cdslokcelz .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#bidbqndgno .gt_row_group_first th {
+#cdslokcelz .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#bidbqndgno .gt_summary_row {
+#cdslokcelz .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1716,16 +1716,16 @@ details {
   padding-right: 5px;
 }
 
-#bidbqndgno .gt_first_summary_row {
+#cdslokcelz .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#bidbqndgno .gt_first_summary_row.thick {
+#cdslokcelz .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#bidbqndgno .gt_last_summary_row {
+#cdslokcelz .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1735,7 +1735,7 @@ details {
   border-bottom-color: #D3D3D3;
 }
 
-#bidbqndgno .gt_grand_summary_row {
+#cdslokcelz .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1745,7 +1745,7 @@ details {
   padding-right: 5px;
 }
 
-#bidbqndgno .gt_first_grand_summary_row {
+#cdslokcelz .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1755,7 +1755,7 @@ details {
   border-top-color: #D3D3D3;
 }
 
-#bidbqndgno .gt_last_grand_summary_row_top {
+#cdslokcelz .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1765,11 +1765,11 @@ details {
   border-bottom-color: #D3D3D3;
 }
 
-#bidbqndgno .gt_striped {
+#cdslokcelz .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#bidbqndgno .gt_table_body {
+#cdslokcelz .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1778,7 +1778,7 @@ details {
   border-bottom-color: #D3D3D3;
 }
 
-#bidbqndgno .gt_footnotes {
+#cdslokcelz .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1792,7 +1792,7 @@ details {
   border-right-color: #D3D3D3;
 }
 
-#bidbqndgno .gt_footnote {
+#cdslokcelz .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1801,7 +1801,7 @@ details {
   padding-right: 5px;
 }
 
-#bidbqndgno .gt_sourcenotes {
+#cdslokcelz .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1815,7 +1815,7 @@ details {
   border-right-color: #D3D3D3;
 }
 
-#bidbqndgno .gt_sourcenote {
+#cdslokcelz .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1823,72 +1823,72 @@ details {
   padding-right: 5px;
 }
 
-#bidbqndgno .gt_left {
+#cdslokcelz .gt_left {
   text-align: left;
 }
 
-#bidbqndgno .gt_center {
+#cdslokcelz .gt_center {
   text-align: center;
 }
 
-#bidbqndgno .gt_right {
+#cdslokcelz .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#bidbqndgno .gt_font_normal {
+#cdslokcelz .gt_font_normal {
   font-weight: normal;
 }
 
-#bidbqndgno .gt_font_bold {
+#cdslokcelz .gt_font_bold {
   font-weight: bold;
 }
 
-#bidbqndgno .gt_font_italic {
+#cdslokcelz .gt_font_italic {
   font-style: italic;
 }
 
-#bidbqndgno .gt_super {
+#cdslokcelz .gt_super {
   font-size: 65%;
 }
 
-#bidbqndgno .gt_footnote_marks {
+#cdslokcelz .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#bidbqndgno .gt_asterisk {
+#cdslokcelz .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#bidbqndgno .gt_indent_1 {
+#cdslokcelz .gt_indent_1 {
   text-indent: 5px;
 }
 
-#bidbqndgno .gt_indent_2 {
+#cdslokcelz .gt_indent_2 {
   text-indent: 10px;
 }
 
-#bidbqndgno .gt_indent_3 {
+#cdslokcelz .gt_indent_3 {
   text-indent: 15px;
 }
 
-#bidbqndgno .gt_indent_4 {
+#cdslokcelz .gt_indent_4 {
   text-indent: 20px;
 }
 
-#bidbqndgno .gt_indent_5 {
+#cdslokcelz .gt_indent_5 {
   text-indent: 25px;
 }
 
-#bidbqndgno .katex-display {
+#cdslokcelz .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#bidbqndgno div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#cdslokcelz div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1960,8 +1960,8 @@ Y = \alpha + \beta_1 \cdot X_1 + \beta_2 \cdot X_2 + ... + \beta_n\cdot X_n
 With logistic regression, we want to estimate a similar model. The right-hand side will remain unchanged: a combination of independent variables influencing the outcome based on estimated <span class="math inline">\(\beta\)</span> coefficients. However, the left-hand side of the equation does not work anymore. Because the dependent variable is now binary, the left-hand side of this linear model is no longer appropriate. If <span class="math inline">\(Y\)</span> is binary, that means that it can only have two values—e.g., 0 or 1. To avoid confusion and ensure that we know that this is a binary variable, let’s call it <span class="math inline">\(p\)</span> when <span class="math inline">\(y=1\)</span> and <span class="math inline">\(1-p\)</span> when <span class="math inline">\(y=0\)</span>. If we were to simply estimate a linear model with a binary dependent variable, then this linear equation could end up yielding all sorts of values of <span class="math inline">\(Y\)</span>—values that are not 0 or 1.<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a></p>
 <p>The logistic regression model solves this issue by modelling the <em>odds</em> of an event occurring. Unlike linear models, which directly model the dependent variable, logistic regression focuses on the ratio <span class="math inline">\(\frac{p}{1-p}\)</span>, known as <strong>odds</strong>. If you are familiar with betting, you may already know a thing or two about odds. Odds represent how much more likely an event is to happen than not to happen.</p>
 <p>Let’s go back to our example: marijuana-possession arrestees in Toronto. We know, from above, that most arrestees are released with a summons. Let’s remember the numbers:</p>
-<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="categorical-variables-and-logistic-regression.html#cb526-1" tabindex="-1"></a><span class="co"># frequency table of variable &#39;released&#39;</span></span>
-<span id="cb526-2"><a href="categorical-variables-and-logistic-regression.html#cb526-2" tabindex="-1"></a>table_released</span></code></pre></div>
+<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb531-1"><a href="categorical-variables-and-logistic-regression.html#cb531-1" tabindex="-1"></a><span class="co"># frequency table of variable &#39;released&#39;</span></span>
+<span id="cb531-2"><a href="categorical-variables-and-logistic-regression.html#cb531-2" tabindex="-1"></a>table_released</span></code></pre></div>
 <pre><code>## 
 ##   No  Yes 
 ##  892 4334</code></pre>
@@ -2005,25 +2005,25 @@ div {
 <div id="fitting-logistic-regression" class="section level2 hasAnchor" number="8.4">
 <h2><span class="header-section-number">8.4</span> Fitting logistic regression<a href="categorical-variables-and-logistic-regression.html#fitting-logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>It is fairly straightforward to run a logistic model. Assuming that the dependent variable is binary, we can use the <code>glm()</code> function in <code>R</code>. It works exactly the same way as the <code>lm()</code> function—we only need to specify that we will be using a <em>logit</em> function link (we can do that by including the argument <code>family = binomial</code>).</p>
-<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="categorical-variables-and-logistic-regression.html#cb528-1" tabindex="-1"></a><span class="fu">glm</span>(dependent_var <span class="sc">~</span> independent_var1 <span class="sc">+</span> independent_var2 <span class="sc">+</span> independent_var3, <span class="at">data =</span> dataset, <span class="at">family =</span> binomial)</span></code></pre></div>
+<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb533-1"><a href="categorical-variables-and-logistic-regression.html#cb533-1" tabindex="-1"></a><span class="fu">glm</span>(dependent_var <span class="sc">~</span> independent_var1 <span class="sc">+</span> independent_var2 <span class="sc">+</span> independent_var3, <span class="at">data =</span> dataset, <span class="at">family =</span> binomial)</span></code></pre></div>
 <p>Now, let’s fit a multiple logistic regression. The dependent variable, as before, indicates whether arrestees were released with a summons or not. To ensure that we are modeling the odds of being released with a summons (and not the odds of receiving harsher treatment), we recoded the released variable so that “Yes” (released) is coded as 1 and “No” (not released) is coded as 0.</p>
 <p>In logistic regression, the event coded as 1 is the comparison group (the outcome for which we are modeling the odds), and the group coded as 0 serves as the reference category.</p>
-<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="categorical-variables-and-logistic-regression.html#cb529-1" tabindex="-1"></a><span class="co"># load the dplyr package</span></span>
-<span id="cb529-2"><a href="categorical-variables-and-logistic-regression.html#cb529-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb529-3"><a href="categorical-variables-and-logistic-regression.html#cb529-3" tabindex="-1"></a></span>
-<span id="cb529-4"><a href="categorical-variables-and-logistic-regression.html#cb529-4" tabindex="-1"></a><span class="co"># recode the &#39;released&#39; variable to ensure that the</span></span>
-<span id="cb529-5"><a href="categorical-variables-and-logistic-regression.html#cb529-5" tabindex="-1"></a><span class="co"># comparison group is coded as 1</span></span>
-<span id="cb529-6"><a href="categorical-variables-and-logistic-regression.html#cb529-6" tabindex="-1"></a>Arrests <span class="ot">&lt;-</span> <span class="fu">mutate</span>(Arrests, </span>
-<span id="cb529-7"><a href="categorical-variables-and-logistic-regression.html#cb529-7" tabindex="-1"></a>                  <span class="at">released =</span> <span class="fu">case_when</span>(</span>
-<span id="cb529-8"><a href="categorical-variables-and-logistic-regression.html#cb529-8" tabindex="-1"></a>                    released <span class="sc">==</span> <span class="st">&quot;Yes&quot;</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb529-9"><a href="categorical-variables-and-logistic-regression.html#cb529-9" tabindex="-1"></a>                    released <span class="sc">==</span> <span class="st">&quot;No&quot;</span> <span class="sc">~</span> <span class="dv">0</span></span>
-<span id="cb529-10"><a href="categorical-variables-and-logistic-regression.html#cb529-10" tabindex="-1"></a>                  ))</span></code></pre></div>
+<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb534-1"><a href="categorical-variables-and-logistic-regression.html#cb534-1" tabindex="-1"></a><span class="co"># load the dplyr package</span></span>
+<span id="cb534-2"><a href="categorical-variables-and-logistic-regression.html#cb534-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb534-3"><a href="categorical-variables-and-logistic-regression.html#cb534-3" tabindex="-1"></a></span>
+<span id="cb534-4"><a href="categorical-variables-and-logistic-regression.html#cb534-4" tabindex="-1"></a><span class="co"># recode the &#39;released&#39; variable to ensure that the</span></span>
+<span id="cb534-5"><a href="categorical-variables-and-logistic-regression.html#cb534-5" tabindex="-1"></a><span class="co"># comparison group is coded as 1</span></span>
+<span id="cb534-6"><a href="categorical-variables-and-logistic-regression.html#cb534-6" tabindex="-1"></a>Arrests <span class="ot">&lt;-</span> <span class="fu">mutate</span>(Arrests, </span>
+<span id="cb534-7"><a href="categorical-variables-and-logistic-regression.html#cb534-7" tabindex="-1"></a>                  <span class="at">released =</span> <span class="fu">case_when</span>(</span>
+<span id="cb534-8"><a href="categorical-variables-and-logistic-regression.html#cb534-8" tabindex="-1"></a>                    released <span class="sc">==</span> <span class="st">&quot;Yes&quot;</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb534-9"><a href="categorical-variables-and-logistic-regression.html#cb534-9" tabindex="-1"></a>                    released <span class="sc">==</span> <span class="st">&quot;No&quot;</span> <span class="sc">~</span> <span class="dv">0</span></span>
+<span id="cb534-10"><a href="categorical-variables-and-logistic-regression.html#cb534-10" tabindex="-1"></a>                  ))</span></code></pre></div>
 <p>Now we can fit the multiple logistic regression. As independent variables, let’s include arrestees’ racial identity (<code>colour</code>), gender (<code>sex</code>), the number of entries in the criminal justice system (<code>checks</code>), and whether they were employed at the time of arrest (<code>employed</code>).</p>
-<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb530-1"><a href="categorical-variables-and-logistic-regression.html#cb530-1" tabindex="-1"></a><span class="co"># Fit a logistic regression model and store it under &#39;logistic_reg&#39;</span></span>
-<span id="cb530-2"><a href="categorical-variables-and-logistic-regression.html#cb530-2" tabindex="-1"></a>logistic_reg <span class="ot">&lt;-</span> <span class="fu">glm</span>(released <span class="sc">~</span> colour <span class="sc">+</span> sex <span class="sc">+</span> checks <span class="sc">+</span> employed, <span class="at">data =</span> Arrests, <span class="at">family =</span> binomial)</span>
-<span id="cb530-3"><a href="categorical-variables-and-logistic-regression.html#cb530-3" tabindex="-1"></a></span>
-<span id="cb530-4"><a href="categorical-variables-and-logistic-regression.html#cb530-4" tabindex="-1"></a><span class="co"># print the estimated coefficients</span></span>
-<span id="cb530-5"><a href="categorical-variables-and-logistic-regression.html#cb530-5" tabindex="-1"></a>logistic_reg</span></code></pre></div>
+<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb535-1"><a href="categorical-variables-and-logistic-regression.html#cb535-1" tabindex="-1"></a><span class="co"># Fit a logistic regression model and store it under &#39;logistic_reg&#39;</span></span>
+<span id="cb535-2"><a href="categorical-variables-and-logistic-regression.html#cb535-2" tabindex="-1"></a>logistic_reg <span class="ot">&lt;-</span> <span class="fu">glm</span>(released <span class="sc">~</span> colour <span class="sc">+</span> sex <span class="sc">+</span> checks <span class="sc">+</span> employed, <span class="at">data =</span> Arrests, <span class="at">family =</span> binomial)</span>
+<span id="cb535-3"><a href="categorical-variables-and-logistic-regression.html#cb535-3" tabindex="-1"></a></span>
+<span id="cb535-4"><a href="categorical-variables-and-logistic-regression.html#cb535-4" tabindex="-1"></a><span class="co"># print the estimated coefficients</span></span>
+<span id="cb535-5"><a href="categorical-variables-and-logistic-regression.html#cb535-5" tabindex="-1"></a>logistic_reg</span></code></pre></div>
 <pre><code>## 
 ## Call:  glm(formula = released ~ colour + sex + checks + employed, family = binomial, 
 ##     data = Arrests)
@@ -2041,11 +2041,11 @@ log \bigg( \frac{release\_summons}{harsher\_treatment} \bigg) = 1.407 + 0.496\cd
 \]</span></p>
 <p>Based on this, we can conclude that White arrestees’ <em>log-odds</em> of being released with a summons are <span class="math inline">\(\beta_1=0.496\)</span> larger than Black arrestees’ <em>log-odds</em>, controlling for sex, previous checks in the criminal justice system, and employment status; that male’s <em>log-odds</em> of being released are <span class="math inline">\(\beta_2=-0.042\)</span> lower than females’, controlling for race, previous checks in the criminal justice system, and employment status; that every additional check in the criminal justice system is associated with a decrease of <span class="math inline">\(\beta_3=-0.358\)</span> in the <em>log-odds</em> of being released, controlling for race, sex, and employment status; and that employed arrestees’ <em>log-odds</em> are <span class="math inline">\(\beta_4=0.780\)</span> larger than the <em>log-odds</em> among unemployed arrestees, controlling for race, sex, and checks in the criminal justice system.</p>
 <p>So what does that actually mean? As mentioned above, interpreting the log odds scale is something some people do not find very intuitive. So, using <strong>odd ratios</strong> when interpreting logistic regression is common. To do this, all we need to do is to exponentiate the coefficients. To get the exponentiated coefficients, you tell <code>R</code> that you want to exponentiate (<code>exp()</code>), that the object you want to exponentiate is called coefficients, and it is part of the model you just ran. We can do this in several steps or in one step.</p>
-<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb532-1"><a href="categorical-variables-and-logistic-regression.html#cb532-1" tabindex="-1"></a><span class="co"># store regression coefficients under &#39;coefficients&#39;</span></span>
-<span id="cb532-2"><a href="categorical-variables-and-logistic-regression.html#cb532-2" tabindex="-1"></a>coefficients <span class="ot">&lt;-</span> <span class="fu">coef</span>(logistic_reg)</span>
-<span id="cb532-3"><a href="categorical-variables-and-logistic-regression.html#cb532-3" tabindex="-1"></a></span>
-<span id="cb532-4"><a href="categorical-variables-and-logistic-regression.html#cb532-4" tabindex="-1"></a><span class="co"># exponentiate all coefficients to obtain odds ratios</span></span>
-<span id="cb532-5"><a href="categorical-variables-and-logistic-regression.html#cb532-5" tabindex="-1"></a><span class="fu">exp</span>(coefficients)</span></code></pre></div>
+<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb537-1"><a href="categorical-variables-and-logistic-regression.html#cb537-1" tabindex="-1"></a><span class="co"># store regression coefficients under &#39;coefficients&#39;</span></span>
+<span id="cb537-2"><a href="categorical-variables-and-logistic-regression.html#cb537-2" tabindex="-1"></a>coefficients <span class="ot">&lt;-</span> <span class="fu">coef</span>(logistic_reg)</span>
+<span id="cb537-3"><a href="categorical-variables-and-logistic-regression.html#cb537-3" tabindex="-1"></a></span>
+<span id="cb537-4"><a href="categorical-variables-and-logistic-regression.html#cb537-4" tabindex="-1"></a><span class="co"># exponentiate all coefficients to obtain odds ratios</span></span>
+<span id="cb537-5"><a href="categorical-variables-and-logistic-regression.html#cb537-5" tabindex="-1"></a><span class="fu">exp</span>(coefficients)</span></code></pre></div>
 <pre><code>## (Intercept) colourWhite     sexMale      checks employedYes 
 ##   4.0852619   1.6422658   0.9587242   0.6990998   2.1808765</code></pre>
 <p>Much better! Now that we have exponentiated the coefficients, we have <strong>odds ratios</strong>—, which are much easier to interpret than coefficients on the <em>log-odds</em> scale.</p>
@@ -2072,19 +2072,19 @@ log \bigg( \frac{release\_summons}{harsher\_treatment} \bigg) = 1.407 + 0.496\cd
 <p>See <a href="https://uom-resquant.github.io/modelling_book/appendix.html#fitting-logistic-regression-alternative">the appendix</a> for an alternative way of getting the same results with less typing.</p>
 <p>As with linear regression, the interpretation of regression coefficients is sensitive to the scale of measurement of the predictors. This means one cannot compare the magnitude of the coefficients to compare the relevance of variables to predict the response variable. The same applies to the odd ratios. Tempting and common as this might be, unless the independent variables use the same metric (or maybe if they are all categorical), there is little point in comparing the magnitude of the odd ratios in logistic regression. Like the unstandardised logistic regression coefficients, odd ratios are <strong>not</strong> a measure of effect size that allows comparisons across inputs (Menard, 2012).</p>
 <p>We can also produce effect plots using the <code>effects</code> package:</p>
-<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb534-1"><a href="categorical-variables-and-logistic-regression.html#cb534-1" tabindex="-1"></a><span class="co"># load the &#39;effects&#39; package</span></span>
-<span id="cb534-2"><a href="categorical-variables-and-logistic-regression.html#cb534-2" tabindex="-1"></a><span class="fu">library</span>(effects)</span>
-<span id="cb534-3"><a href="categorical-variables-and-logistic-regression.html#cb534-3" tabindex="-1"></a></span>
-<span id="cb534-4"><a href="categorical-variables-and-logistic-regression.html#cb534-4" tabindex="-1"></a><span class="co"># produce effect plots</span></span>
-<span id="cb534-5"><a href="categorical-variables-and-logistic-regression.html#cb534-5" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">allEffects</span>(logistic_reg), <span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb539-1"><a href="categorical-variables-and-logistic-regression.html#cb539-1" tabindex="-1"></a><span class="co"># load the &#39;effects&#39; package</span></span>
+<span id="cb539-2"><a href="categorical-variables-and-logistic-regression.html#cb539-2" tabindex="-1"></a><span class="fu">library</span>(effects)</span>
+<span id="cb539-3"><a href="categorical-variables-and-logistic-regression.html#cb539-3" tabindex="-1"></a></span>
+<span id="cb539-4"><a href="categorical-variables-and-logistic-regression.html#cb539-4" tabindex="-1"></a><span class="co"># produce effect plots</span></span>
+<span id="cb539-5"><a href="categorical-variables-and-logistic-regression.html#cb539-5" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">allEffects</span>(logistic_reg), <span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="08_logistic_regression_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <p>Effect plots in this context are particularly helpful because they summarise the results using probabilities, which is what you see plotted on the y-axis.</p>
 <p>We don’t have to print them all. When we are primarily concerned with one of them, as in this case, that’s the one we want to emphasise when presenting and discussing our results. There isn’t much point in discussing the results for the variables we simply defined as control (given what our research goal was). So, in this case, we would ask for the plot for our input measuring race/ethnicity:</p>
-<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb535-1"><a href="categorical-variables-and-logistic-regression.html#cb535-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">effect</span>(<span class="st">&quot;colour&quot;</span>, logistic_reg), <span class="at">multiline =</span> <span class="cn">FALSE</span>, <span class="at">ylab =</span> <span class="st">&quot;Probability(harsher)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb540-1"><a href="categorical-variables-and-logistic-regression.html#cb540-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">effect</span>(<span class="st">&quot;colour&quot;</span>, logistic_reg), <span class="at">multiline =</span> <span class="cn">FALSE</span>, <span class="at">ylab =</span> <span class="st">&quot;Probability(harsher)&quot;</span>)</span></code></pre></div>
 <p><img src="08_logistic_regression_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>We can use the predict() function to generate the predicted probability that the arrestees will be released given what we know about their inputs in the model, given values of the predictors. By default, R will compute the probabilities for the dataset we fitted the model with. Here, we have printed only the first ten probabilities, but the way we use the predict() function here will generate a predicted probability for each case in the dataset.</p>
-<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb536-1"><a href="categorical-variables-and-logistic-regression.html#cb536-1" tabindex="-1"></a>logistic_reg_prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(logistic_reg, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>) <span class="co">#If you want to add this to your dataframe, you could designate your object as Arrests$fitl_1_prob</span></span>
-<span id="cb536-2"><a href="categorical-variables-and-logistic-regression.html#cb536-2" tabindex="-1"></a>logistic_reg_prob[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb541-1"><a href="categorical-variables-and-logistic-regression.html#cb541-1" tabindex="-1"></a>logistic_reg_prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(logistic_reg, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>) <span class="co">#If you want to add this to your dataframe, you could designate your object as Arrests$fitl_1_prob</span></span>
+<span id="cb541-2"><a href="categorical-variables-and-logistic-regression.html#cb541-2" tabindex="-1"></a>logistic_reg_prob[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div>
 <pre><code>##         1         2         3         4         5         6         7         8 
 ## 0.8273773 0.7448014 0.8273773 0.8565590 0.8616606 0.8990862 0.8654497 0.9109450 
 ##         9        10 
@@ -2094,12 +2094,12 @@ log \bigg( \frac{release\_summons}{harsher\_treatment} \bigg) = 1.407 + 0.496\cd
 <div id="interactions" class="section level2 hasAnchor" number="8.5">
 <h2><span class="header-section-number">8.5</span> Interactions<a href="categorical-variables-and-logistic-regression.html#interactions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The data we have been using were obtained by the author of the <code>effects</code> package from <a href="http://www.datavis.ca/">Michael Friendly</a>, another prominent contributor to the development of R packages. The data are related to a series of stories revealed by the Toronto Star and further analysed by Professor Friendly as seen <a href="http://www.datavis.ca/courses/VCD/vcd4-handout-2x2.pdf">here</a>. In this further analysis, Friendly proposes a slightly more complex model than the one we have specified so far. This model adds three new predictors (citizenship, age, and year in which the case was processed) and also allows for interactions between race (colour) and year, as well as race and age.</p>
-<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb538-1"><a href="categorical-variables-and-logistic-regression.html#cb538-1" tabindex="-1"></a><span class="co"># fit new multiple logistic regression</span></span>
-<span id="cb538-2"><a href="categorical-variables-and-logistic-regression.html#cb538-2" tabindex="-1"></a>logistic_reg_2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(released <span class="sc">~</span> employed <span class="sc">+</span> citizen <span class="sc">+</span> checks <span class="sc">+</span> colour <span class="sc">*</span> year <span class="sc">+</span> colour <span class="sc">*</span> age, </span>
-<span id="cb538-3"><a href="categorical-variables-and-logistic-regression.html#cb538-3" tabindex="-1"></a>              <span class="at">family =</span> binomial, <span class="at">data =</span> Arrests) </span>
-<span id="cb538-4"><a href="categorical-variables-and-logistic-regression.html#cb538-4" tabindex="-1"></a></span>
-<span id="cb538-5"><a href="categorical-variables-and-logistic-regression.html#cb538-5" tabindex="-1"></a><span class="co"># print results</span></span>
-<span id="cb538-6"><a href="categorical-variables-and-logistic-regression.html#cb538-6" tabindex="-1"></a>logistic_reg_2</span></code></pre></div>
+<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb543-1"><a href="categorical-variables-and-logistic-regression.html#cb543-1" tabindex="-1"></a><span class="co"># fit new multiple logistic regression</span></span>
+<span id="cb543-2"><a href="categorical-variables-and-logistic-regression.html#cb543-2" tabindex="-1"></a>logistic_reg_2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(released <span class="sc">~</span> employed <span class="sc">+</span> citizen <span class="sc">+</span> checks <span class="sc">+</span> colour <span class="sc">*</span> year <span class="sc">+</span> colour <span class="sc">*</span> age, </span>
+<span id="cb543-3"><a href="categorical-variables-and-logistic-regression.html#cb543-3" tabindex="-1"></a>              <span class="at">family =</span> binomial, <span class="at">data =</span> Arrests) </span>
+<span id="cb543-4"><a href="categorical-variables-and-logistic-regression.html#cb543-4" tabindex="-1"></a></span>
+<span id="cb543-5"><a href="categorical-variables-and-logistic-regression.html#cb543-5" tabindex="-1"></a><span class="co"># print results</span></span>
+<span id="cb543-6"><a href="categorical-variables-and-logistic-regression.html#cb543-6" tabindex="-1"></a>logistic_reg_2</span></code></pre></div>
 <pre><code>## 
 ## Call:  glm(formula = released ~ employed + citizen + checks + colour * 
 ##     year + colour * age, family = binomial, data = Arrests)
@@ -2116,12 +2116,12 @@ log \bigg( \frac{release\_summons}{harsher\_treatment} \bigg) = 1.407 + 0.496\cd
 ## Null Deviance:       4776 
 ## Residual Deviance: 4275  AIC: 4293</code></pre>
 <p>What we see here is that the two interactions included are somewhat different from 0. To assist in the interpretation of interactions, it is helpful to look at effect plots.</p>
-<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb540-1"><a href="categorical-variables-and-logistic-regression.html#cb540-1" tabindex="-1"></a><span class="co"># produce effects plot to assess interaction effects</span></span>
-<span id="cb540-2"><a href="categorical-variables-and-logistic-regression.html#cb540-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">effect</span>(<span class="st">&quot;colour:year&quot;</span>, logistic_reg_2))</span></code></pre></div>
+<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb545-1"><a href="categorical-variables-and-logistic-regression.html#cb545-1" tabindex="-1"></a><span class="co"># produce effects plot to assess interaction effects</span></span>
+<span id="cb545-2"><a href="categorical-variables-and-logistic-regression.html#cb545-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">effect</span>(<span class="st">&quot;colour:year&quot;</span>, logistic_reg_2))</span></code></pre></div>
 <p><img src="08_logistic_regression_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 <p>First, we see that up to 2000, there is strong evidence for differential treatment of blacks and whites. However, we also see evidence to support Police claims of the effect of training to reduce racial effects.</p>
-<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb541-1"><a href="categorical-variables-and-logistic-regression.html#cb541-1" tabindex="-1"></a><span class="co"># produce effects plot to assess interaction effects</span></span>
-<span id="cb541-2"><a href="categorical-variables-and-logistic-regression.html#cb541-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">effect</span>(<span class="st">&quot;colour:age&quot;</span>, logistic_reg_2))</span></code></pre></div>
+<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb546-1"><a href="categorical-variables-and-logistic-regression.html#cb546-1" tabindex="-1"></a><span class="co"># produce effects plot to assess interaction effects</span></span>
+<span id="cb546-2"><a href="categorical-variables-and-logistic-regression.html#cb546-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">effect</span>(<span class="st">&quot;colour:age&quot;</span>, logistic_reg_2))</span></code></pre></div>
 <p><img src="08_logistic_regression_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 <p>On the other hand, we see a significant interaction between race and age. Young blacks are treated more harshly than young whites. However, older blacks were treated less harshly than older whites.</p>
 <p>In a previous session, we discussed the difficulties of interpreting regression coefficients in models with interactions. Centring and standardising in the way discussed earlier can actually be of help for this purpose.</p>
@@ -2137,32 +2137,32 @@ log \bigg( \frac{release\_summons}{harsher\_treatment} \bigg) = 1.407 + 0.496\cd
 </div>
 <p>The diagonal entries correspond to observations that are classified correctly according to our model and our cut-off point, whereas the off-diagonal entries are misclassifications. <strong>False negatives</strong> are observations that were classified as zeros but turned out to be ones (the outcome of interest). <strong>False positives</strong> are observations that were classified as ones (the outcome of interest) but turned out to be zeros.</p>
 <p>There are various ways of producing a confusion matrix in R. The most basic one is to ask for the cross-tabulation of the predicted classes (determined by the cut-off criterion) versus the observed classes.</p>
-<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb542-1"><a href="categorical-variables-and-logistic-regression.html#cb542-1" tabindex="-1"></a><span class="co">#to create a confusion matrix, we want </span></span>
-<span id="cb542-2"><a href="categorical-variables-and-logistic-regression.html#cb542-2" tabindex="-1"></a><span class="co">#our variable to be back to a factor</span></span>
-<span id="cb542-3"><a href="categorical-variables-and-logistic-regression.html#cb542-3" tabindex="-1"></a>Arrests <span class="ot">&lt;-</span> <span class="fu">mutate</span>(Arrests, </span>
-<span id="cb542-4"><a href="categorical-variables-and-logistic-regression.html#cb542-4" tabindex="-1"></a>                  <span class="at">released =</span> <span class="fu">case_when</span>(</span>
-<span id="cb542-5"><a href="categorical-variables-and-logistic-regression.html#cb542-5" tabindex="-1"></a>                    released <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">&quot;Yes&quot;</span>,</span>
-<span id="cb542-6"><a href="categorical-variables-and-logistic-regression.html#cb542-6" tabindex="-1"></a>                    released <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">&quot;No&quot;</span></span>
-<span id="cb542-7"><a href="categorical-variables-and-logistic-regression.html#cb542-7" tabindex="-1"></a>                  ),</span>
-<span id="cb542-8"><a href="categorical-variables-and-logistic-regression.html#cb542-8" tabindex="-1"></a>                  <span class="at">released =</span> <span class="fu">as.factor</span>(released))</span>
-<span id="cb542-9"><a href="categorical-variables-and-logistic-regression.html#cb542-9" tabindex="-1"></a><span class="co">#First, we define the classes according to the cut-off</span></span>
-<span id="cb542-10"><a href="categorical-variables-and-logistic-regression.html#cb542-10" tabindex="-1"></a>logistic_reg_pred_class <span class="ot">&lt;-</span> logistic_reg_prob <span class="sc">&gt;</span> .<span class="dv">5</span></span>
-<span id="cb542-11"><a href="categorical-variables-and-logistic-regression.html#cb542-11" tabindex="-1"></a><span class="co">#This creates a logical vector that returns TRUE </span></span>
-<span id="cb542-12"><a href="categorical-variables-and-logistic-regression.html#cb542-12" tabindex="-1"></a><span class="co">#when the condition is met (the subject is predicted to be released) and </span></span>
-<span id="cb542-13"><a href="categorical-variables-and-logistic-regression.html#cb542-13" tabindex="-1"></a><span class="co">#FALSE when the condition is not met (the subject is not released)</span></span>
-<span id="cb542-14"><a href="categorical-variables-and-logistic-regression.html#cb542-14" tabindex="-1"></a>logistic_reg_pred_class[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb547-1"><a href="categorical-variables-and-logistic-regression.html#cb547-1" tabindex="-1"></a><span class="co">#to create a confusion matrix, we want </span></span>
+<span id="cb547-2"><a href="categorical-variables-and-logistic-regression.html#cb547-2" tabindex="-1"></a><span class="co">#our variable to be back to a factor</span></span>
+<span id="cb547-3"><a href="categorical-variables-and-logistic-regression.html#cb547-3" tabindex="-1"></a>Arrests <span class="ot">&lt;-</span> <span class="fu">mutate</span>(Arrests, </span>
+<span id="cb547-4"><a href="categorical-variables-and-logistic-regression.html#cb547-4" tabindex="-1"></a>                  <span class="at">released =</span> <span class="fu">case_when</span>(</span>
+<span id="cb547-5"><a href="categorical-variables-and-logistic-regression.html#cb547-5" tabindex="-1"></a>                    released <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">&quot;Yes&quot;</span>,</span>
+<span id="cb547-6"><a href="categorical-variables-and-logistic-regression.html#cb547-6" tabindex="-1"></a>                    released <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">&quot;No&quot;</span></span>
+<span id="cb547-7"><a href="categorical-variables-and-logistic-regression.html#cb547-7" tabindex="-1"></a>                  ),</span>
+<span id="cb547-8"><a href="categorical-variables-and-logistic-regression.html#cb547-8" tabindex="-1"></a>                  <span class="at">released =</span> <span class="fu">as.factor</span>(released))</span>
+<span id="cb547-9"><a href="categorical-variables-and-logistic-regression.html#cb547-9" tabindex="-1"></a><span class="co">#First, we define the classes according to the cut-off</span></span>
+<span id="cb547-10"><a href="categorical-variables-and-logistic-regression.html#cb547-10" tabindex="-1"></a>logistic_reg_pred_class <span class="ot">&lt;-</span> logistic_reg_prob <span class="sc">&gt;</span> .<span class="dv">5</span></span>
+<span id="cb547-11"><a href="categorical-variables-and-logistic-regression.html#cb547-11" tabindex="-1"></a><span class="co">#This creates a logical vector that returns TRUE </span></span>
+<span id="cb547-12"><a href="categorical-variables-and-logistic-regression.html#cb547-12" tabindex="-1"></a><span class="co">#when the condition is met (the subject is predicted to be released) and </span></span>
+<span id="cb547-13"><a href="categorical-variables-and-logistic-regression.html#cb547-13" tabindex="-1"></a><span class="co">#FALSE when the condition is not met (the subject is not released)</span></span>
+<span id="cb547-14"><a href="categorical-variables-and-logistic-regression.html#cb547-14" tabindex="-1"></a>logistic_reg_pred_class[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div>
 <pre><code>##    1    2    3    4    5    6    7    8    9   10 
 ## TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE</code></pre>
-<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb544-1"><a href="categorical-variables-and-logistic-regression.html#cb544-1" tabindex="-1"></a><span class="co">#Let&#39;s make this into a factor with the same levels as the original variable</span></span>
-<span id="cb544-2"><a href="categorical-variables-and-logistic-regression.html#cb544-2" tabindex="-1"></a>released_pred <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(logistic_reg_pred_class)</span>
-<span id="cb544-3"><a href="categorical-variables-and-logistic-regression.html#cb544-3" tabindex="-1"></a><span class="fu">levels</span>(released_pred) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)</span>
-<span id="cb544-4"><a href="categorical-variables-and-logistic-regression.html#cb544-4" tabindex="-1"></a><span class="fu">table</span>(released_pred)</span></code></pre></div>
+<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb549-1"><a href="categorical-variables-and-logistic-regression.html#cb549-1" tabindex="-1"></a><span class="co">#Let&#39;s make this into a factor with the same levels as the original variable</span></span>
+<span id="cb549-2"><a href="categorical-variables-and-logistic-regression.html#cb549-2" tabindex="-1"></a>released_pred <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(logistic_reg_pred_class)</span>
+<span id="cb549-3"><a href="categorical-variables-and-logistic-regression.html#cb549-3" tabindex="-1"></a><span class="fu">levels</span>(released_pred) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)</span>
+<span id="cb549-4"><a href="categorical-variables-and-logistic-regression.html#cb549-4" tabindex="-1"></a><span class="fu">table</span>(released_pred)</span></code></pre></div>
 <pre><code>## released_pred
 ##   No  Yes 
 ##  113 5113</code></pre>
-<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb546-1"><a href="categorical-variables-and-logistic-regression.html#cb546-1" tabindex="-1"></a><span class="co">#Then we can produce the cross-tab</span></span>
-<span id="cb546-2"><a href="categorical-variables-and-logistic-regression.html#cb546-2" tabindex="-1"></a>tab0 <span class="ot">&lt;-</span> <span class="fu">table</span>(released_pred, Arrests<span class="sc">$</span>released)</span>
-<span id="cb546-3"><a href="categorical-variables-and-logistic-regression.html#cb546-3" tabindex="-1"></a>tab0</span></code></pre></div>
+<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb551-1"><a href="categorical-variables-and-logistic-regression.html#cb551-1" tabindex="-1"></a><span class="co">#Then we can produce the cross-tab</span></span>
+<span id="cb551-2"><a href="categorical-variables-and-logistic-regression.html#cb551-2" tabindex="-1"></a>tab0 <span class="ot">&lt;-</span> <span class="fu">table</span>(released_pred, Arrests<span class="sc">$</span>released)</span>
+<span id="cb551-3"><a href="categorical-variables-and-logistic-regression.html#cb551-3" tabindex="-1"></a>tab0</span></code></pre></div>
 <pre><code>##              
 ## released_pred   No  Yes
 ##           No    57   56
@@ -2178,9 +2178,9 @@ log \bigg( \frac{release\_summons}{harsher\_treatment} \bigg) = 1.407 + 0.496\cd
 <p>Specificity = number of cases without the events and predicted as non-events/number of cases without the event</p>
 <p>In this case, this amounts to 57 divided by 57 plus 835. The <strong>false positive rate</strong> is defined as one minus the specificity.</p>
 <p>We can generate these measures automatically from the table we produced. However, for this sort of thing, I prefer to use the <code>confusionMatrix()</code> function from the <code>caret</code> package. It produces a very detailed set of calibration measures that help indicate how well the model is classifying.</p>
-<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb548-1"><a href="categorical-variables-and-logistic-regression.html#cb548-1" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
-<span id="cb548-2"><a href="categorical-variables-and-logistic-regression.html#cb548-2" tabindex="-1"></a><span class="fu">confusionMatrix</span>(<span class="at">data=</span>released_pred, </span>
-<span id="cb548-3"><a href="categorical-variables-and-logistic-regression.html#cb548-3" tabindex="-1"></a>               <span class="at">reference=</span>Arrests<span class="sc">$</span>released, <span class="at">positive=</span><span class="st">&quot;Yes&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb553-1"><a href="categorical-variables-and-logistic-regression.html#cb553-1" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb553-2"><a href="categorical-variables-and-logistic-regression.html#cb553-2" tabindex="-1"></a><span class="fu">confusionMatrix</span>(<span class="at">data=</span>released_pred, </span>
+<span id="cb553-3"><a href="categorical-variables-and-logistic-regression.html#cb553-3" tabindex="-1"></a>               <span class="at">reference=</span>Arrests<span class="sc">$</span>released, <span class="at">positive=</span><span class="st">&quot;Yes&quot;</span>) </span></code></pre></div>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##           Reference
@@ -2208,21 +2208,21 @@ log \bigg( \frac{release\_summons}{harsher\_treatment} \bigg) = 1.407 + 0.496\cd
 ##                                          
 ##        &#39;Positive&#39; Class : Yes            
 ## </code></pre>
-<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb550-1"><a href="categorical-variables-and-logistic-regression.html#cb550-1" tabindex="-1"></a><span class="co">#The data argument specifies the vector </span></span>
-<span id="cb550-2"><a href="categorical-variables-and-logistic-regression.html#cb550-2" tabindex="-1"></a><span class="co">#with the predictions and the reference </span></span>
-<span id="cb550-3"><a href="categorical-variables-and-logistic-regression.html#cb550-3" tabindex="-1"></a><span class="co">#argument the vector with the observed </span></span>
-<span id="cb550-4"><a href="categorical-variables-and-logistic-regression.html#cb550-4" tabindex="-1"></a><span class="co">#outcome or event. The positive argument </span></span>
-<span id="cb550-5"><a href="categorical-variables-and-logistic-regression.html#cb550-5" tabindex="-1"></a><span class="co">#identifies the level of interest in the factor.</span></span></code></pre></div>
+<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb555-1"><a href="categorical-variables-and-logistic-regression.html#cb555-1" tabindex="-1"></a><span class="co">#The data argument specifies the vector </span></span>
+<span id="cb555-2"><a href="categorical-variables-and-logistic-regression.html#cb555-2" tabindex="-1"></a><span class="co">#with the predictions and the reference </span></span>
+<span id="cb555-3"><a href="categorical-variables-and-logistic-regression.html#cb555-3" tabindex="-1"></a><span class="co">#argument the vector with the observed </span></span>
+<span id="cb555-4"><a href="categorical-variables-and-logistic-regression.html#cb555-4" tabindex="-1"></a><span class="co">#outcome or event. The positive argument </span></span>
+<span id="cb555-5"><a href="categorical-variables-and-logistic-regression.html#cb555-5" tabindex="-1"></a><span class="co">#identifies the level of interest in the factor.</span></span></code></pre></div>
 <p>We can see first the <strong>accuracy</strong>. The overall accuracy rate gives us the agreement between the observed and predicted classes. However, the overall accuracy is often not the most useful measure. <strong>Kappa</strong> is also a measure that is often used with values ranging between 0.30 and 0.50 considered to indicate reasonable agreement. However, for many applications, it will be of interest to focus on the sensitivity and the specificity as defined above. In this case, we can see that our sensitivity, or the true positive rate, is good. However, our Kappa is not. The model can predict those who are released with summons but is not doing so well predicting harsh treatment with the selected cut-off point.</p>
 <p>One of the problems with taking this approach is that the choice of the cut-off point can be arbitrary, and yet this cut-off point will impact the sensitivity and specificity of the model. There is a trade-off between sensitivity and specificity. Given a fixed accuracy, more of one will result in less of the other.</p>
 <p>So if we use a different cut-off point, say .75, the classification table would look like this. Note that to do this, we create our own function called <code>precision</code> – the R code itself is much more advanced that this course, so don’t worry too much about that. It’s a demonstration of calculating specificity and sensitivity.</p>
-<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb551-1"><a href="categorical-variables-and-logistic-regression.html#cb551-1" tabindex="-1"></a>precision<span class="ot">&lt;-</span><span class="cf">function</span>(c) {</span>
-<span id="cb551-2"><a href="categorical-variables-and-logistic-regression.html#cb551-2" tabindex="-1"></a>tab1 <span class="ot">&lt;-</span> <span class="fu">table</span>(logistic_reg_prob<span class="sc">&gt;</span>c, Arrests<span class="sc">$</span>released)</span>
-<span id="cb551-3"><a href="categorical-variables-and-logistic-regression.html#cb551-3" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">diag</span>(tab1)<span class="sc">/</span><span class="fu">apply</span>(tab1, <span class="dv">2</span>, sum)</span>
-<span id="cb551-4"><a href="categorical-variables-and-logistic-regression.html#cb551-4" tabindex="-1"></a><span class="fu">names</span>(out) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;specificity&#39;</span>, <span class="st">&#39;sensitivity&#39;</span>)</span>
-<span id="cb551-5"><a href="categorical-variables-and-logistic-regression.html#cb551-5" tabindex="-1"></a><span class="fu">list</span>(tab1, out)</span>
-<span id="cb551-6"><a href="categorical-variables-and-logistic-regression.html#cb551-6" tabindex="-1"></a>}</span>
-<span id="cb551-7"><a href="categorical-variables-and-logistic-regression.html#cb551-7" tabindex="-1"></a><span class="fu">precision</span>(.<span class="dv">75</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb556-1"><a href="categorical-variables-and-logistic-regression.html#cb556-1" tabindex="-1"></a>precision<span class="ot">&lt;-</span><span class="cf">function</span>(c) {</span>
+<span id="cb556-2"><a href="categorical-variables-and-logistic-regression.html#cb556-2" tabindex="-1"></a>tab1 <span class="ot">&lt;-</span> <span class="fu">table</span>(logistic_reg_prob<span class="sc">&gt;</span>c, Arrests<span class="sc">$</span>released)</span>
+<span id="cb556-3"><a href="categorical-variables-and-logistic-regression.html#cb556-3" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">diag</span>(tab1)<span class="sc">/</span><span class="fu">apply</span>(tab1, <span class="dv">2</span>, sum)</span>
+<span id="cb556-4"><a href="categorical-variables-and-logistic-regression.html#cb556-4" tabindex="-1"></a><span class="fu">names</span>(out) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;specificity&#39;</span>, <span class="st">&#39;sensitivity&#39;</span>)</span>
+<span id="cb556-5"><a href="categorical-variables-and-logistic-regression.html#cb556-5" tabindex="-1"></a><span class="fu">list</span>(tab1, out)</span>
+<span id="cb556-6"><a href="categorical-variables-and-logistic-regression.html#cb556-6" tabindex="-1"></a>}</span>
+<span id="cb556-7"><a href="categorical-variables-and-logistic-regression.html#cb556-7" tabindex="-1"></a><span class="fu">precision</span>(.<span class="dv">75</span>)</span></code></pre></div>
 <pre><code>## [[1]]
 ##        
 ##           No  Yes
@@ -2242,16 +2242,16 @@ log \bigg( \frac{release\_summons}{harsher\_treatment} \bigg) = 1.407 + 0.496\cd
 <h2><span class="header-section-number">8.7</span> Lab Exercises<a href="categorical-variables-and-logistic-regression.html#lab-exercises-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Your turn!</strong> In the lab session, answer the following questions. Note that not all questions necessarily require analysing data in R. After you finish, click on ‘Reveal answer!’ to check your answers.</p>
 <p>We start by revisiting the ‘Ban the Box: fair chance recruitment’ practices in the UK, a dataset from Week 2. We first load, select the needed variables, and carry out any data transformation required.</p>
-<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb553-1"><a href="categorical-variables-and-logistic-regression.html#cb553-1" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
-<span id="cb553-2"><a href="categorical-variables-and-logistic-regression.html#cb553-2" tabindex="-1"></a>banbox <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">&quot;https://dataverse.harvard.edu/api/access/datafile/3036350&quot;</span>)</span>
-<span id="cb553-3"><a href="categorical-variables-and-logistic-regression.html#cb553-3" tabindex="-1"></a><span class="co">#if you have issues with loading the data</span></span>
-<span id="cb553-4"><a href="categorical-variables-and-logistic-regression.html#cb553-4" tabindex="-1"></a><span class="co">#see section 2.2 on how to get the data</span></span>
-<span id="cb553-5"><a href="categorical-variables-and-logistic-regression.html#cb553-5" tabindex="-1"></a></span>
-<span id="cb553-6"><a href="categorical-variables-and-logistic-regression.html#cb553-6" tabindex="-1"></a><span class="co">#select needed variables</span></span>
-<span id="cb553-7"><a href="categorical-variables-and-logistic-regression.html#cb553-7" tabindex="-1"></a>banbox <span class="ot">&lt;-</span> banbox <span class="sc">%&gt;%</span> <span class="fu">select</span> (response, black, crime, empgap)</span>
-<span id="cb553-8"><a href="categorical-variables-and-logistic-regression.html#cb553-8" tabindex="-1"></a></span>
-<span id="cb553-9"><a href="categorical-variables-and-logistic-regression.html#cb553-9" tabindex="-1"></a><span class="co">#data transformation</span></span>
-<span id="cb553-10"><a href="categorical-variables-and-logistic-regression.html#cb553-10" tabindex="-1"></a>banbox<span class="sc">$</span>black_f <span class="ot">&lt;-</span> <span class="fu">factor</span>(banbox<span class="sc">$</span>black, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;non-Black&quot;</span>, <span class="st">&quot;Black&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb558-1"><a href="categorical-variables-and-logistic-regression.html#cb558-1" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb558-2"><a href="categorical-variables-and-logistic-regression.html#cb558-2" tabindex="-1"></a>banbox <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">&quot;https://dataverse.harvard.edu/api/access/datafile/3036350&quot;</span>)</span>
+<span id="cb558-3"><a href="categorical-variables-and-logistic-regression.html#cb558-3" tabindex="-1"></a><span class="co">#if you have issues with loading the data</span></span>
+<span id="cb558-4"><a href="categorical-variables-and-logistic-regression.html#cb558-4" tabindex="-1"></a><span class="co">#see section 2.2 on how to get the data</span></span>
+<span id="cb558-5"><a href="categorical-variables-and-logistic-regression.html#cb558-5" tabindex="-1"></a></span>
+<span id="cb558-6"><a href="categorical-variables-and-logistic-regression.html#cb558-6" tabindex="-1"></a><span class="co">#select needed variables</span></span>
+<span id="cb558-7"><a href="categorical-variables-and-logistic-regression.html#cb558-7" tabindex="-1"></a>banbox <span class="ot">&lt;-</span> banbox <span class="sc">%&gt;%</span> <span class="fu">select</span> (response, black, crime, empgap)</span>
+<span id="cb558-8"><a href="categorical-variables-and-logistic-regression.html#cb558-8" tabindex="-1"></a></span>
+<span id="cb558-9"><a href="categorical-variables-and-logistic-regression.html#cb558-9" tabindex="-1"></a><span class="co">#data transformation</span></span>
+<span id="cb558-10"><a href="categorical-variables-and-logistic-regression.html#cb558-10" tabindex="-1"></a>banbox<span class="sc">$</span>black_f <span class="ot">&lt;-</span> <span class="fu">factor</span>(banbox<span class="sc">$</span>black, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;non-Black&quot;</span>, <span class="st">&quot;Black&quot;</span>))</span></code></pre></div>
 <p>Using the above data, we want to assess whether receiving a positive answer to a job application is associated with having a criminal record. Your variables of interest are <code>response</code> - Application received Positive Response; <code>empgap</code> - Applicant has Employment Gap; <code>crime</code> - Applicant has Criminal Record; and <code>black</code> - whether someone is black or not.</p>
 <ol style="list-style-type: decimal">
 <li>Based on your research hypothesis, what are your dependent and independent variables?</li>
@@ -2290,13 +2290,13 @@ Null hypothesis: There is no association between having a criminal record and re
 <i>Reveal answer!</i>
 </summary>
 <p>We can produce a bar chart to assess the relationship</p>
-<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb554-1"><a href="categorical-variables-and-logistic-regression.html#cb554-1" tabindex="-1"></a><span class="co"># produce barchart</span></span>
-<span id="cb554-2"><a href="categorical-variables-and-logistic-regression.html#cb554-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb554-3"><a href="categorical-variables-and-logistic-regression.html#cb554-3" tabindex="-1"></a></span>
-<span id="cb554-4"><a href="categorical-variables-and-logistic-regression.html#cb554-4" tabindex="-1"></a><span class="fu">ggplot</span>(banbox, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as_factor</span>(crime), <span class="at">fill =</span> <span class="fu">factor</span>(response, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>, <span class="st">&quot;Yes&quot;</span>)))) <span class="sc">+</span></span>
-<span id="cb554-5"><a href="categorical-variables-and-logistic-regression.html#cb554-5" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">&quot;fill&quot;</span>) <span class="sc">+</span></span>
-<span id="cb554-6"><a href="categorical-variables-and-logistic-regression.html#cb554-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Proportion&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Response&quot;</span>, <span class="at">x =</span> <span class="st">&quot;criminal record&quot;</span>) <span class="sc">+</span></span>
-<span id="cb554-7"><a href="categorical-variables-and-logistic-regression.html#cb554-7" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb559-1"><a href="categorical-variables-and-logistic-regression.html#cb559-1" tabindex="-1"></a><span class="co"># produce barchart</span></span>
+<span id="cb559-2"><a href="categorical-variables-and-logistic-regression.html#cb559-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb559-3"><a href="categorical-variables-and-logistic-regression.html#cb559-3" tabindex="-1"></a></span>
+<span id="cb559-4"><a href="categorical-variables-and-logistic-regression.html#cb559-4" tabindex="-1"></a><span class="fu">ggplot</span>(banbox, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as_factor</span>(crime), <span class="at">fill =</span> <span class="fu">factor</span>(response, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>, <span class="st">&quot;Yes&quot;</span>)))) <span class="sc">+</span></span>
+<span id="cb559-5"><a href="categorical-variables-and-logistic-regression.html#cb559-5" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">&quot;fill&quot;</span>) <span class="sc">+</span></span>
+<span id="cb559-6"><a href="categorical-variables-and-logistic-regression.html#cb559-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Proportion&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Response&quot;</span>, <span class="at">x =</span> <span class="st">&quot;criminal record&quot;</span>) <span class="sc">+</span></span>
+<span id="cb559-7"><a href="categorical-variables-and-logistic-regression.html#cb559-7" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <p><img src="08_logistic_regression_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
 </details>
 <ol start="5" style="list-style-type: decimal">
@@ -2317,9 +2317,9 @@ Null hypothesis: There is no association between having a criminal record and re
 <summary>
 <i>Reveal answer!</i>
 </summary>
-<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb555-1"><a href="categorical-variables-and-logistic-regression.html#cb555-1" tabindex="-1"></a><span class="co"># fit logistic regression model</span></span>
-<span id="cb555-2"><a href="categorical-variables-and-logistic-regression.html#cb555-2" tabindex="-1"></a>log_reg <span class="ot">&lt;-</span> <span class="fu">glm</span>(response <span class="sc">~</span> crime, <span class="at">data =</span> banbox, <span class="at">family =</span> binomial)</span>
-<span id="cb555-3"><a href="categorical-variables-and-logistic-regression.html#cb555-3" tabindex="-1"></a>log_reg</span></code></pre></div>
+<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb560-1"><a href="categorical-variables-and-logistic-regression.html#cb560-1" tabindex="-1"></a><span class="co"># fit logistic regression model</span></span>
+<span id="cb560-2"><a href="categorical-variables-and-logistic-regression.html#cb560-2" tabindex="-1"></a>log_reg <span class="ot">&lt;-</span> <span class="fu">glm</span>(response <span class="sc">~</span> crime, <span class="at">data =</span> banbox, <span class="at">family =</span> binomial)</span>
+<span id="cb560-3"><a href="categorical-variables-and-logistic-regression.html#cb560-3" tabindex="-1"></a>log_reg</span></code></pre></div>
 <pre><code>## 
 ## Call:  glm(formula = response ~ crime, family = binomial, data = banbox)
 ## 
@@ -2343,24 +2343,24 @@ Null hypothesis: There is no association between having a criminal record and re
 <summary>
 <i>Reveal answer!</i>
 </summary>
-<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb557-1"><a href="categorical-variables-and-logistic-regression.html#cb557-1" tabindex="-1"></a><span class="co"># fit regression model</span></span>
-<span id="cb557-2"><a href="categorical-variables-and-logistic-regression.html#cb557-2" tabindex="-1"></a>log_reg_prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(log_reg, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
-<span id="cb557-3"><a href="categorical-variables-and-logistic-regression.html#cb557-3" tabindex="-1"></a></span>
-<span id="cb557-4"><a href="categorical-variables-and-logistic-regression.html#cb557-4" tabindex="-1"></a>log_reg_pred_class <span class="ot">&lt;-</span> log_reg_prob <span class="sc">&gt;</span> .<span class="dv">5</span></span>
-<span id="cb557-5"><a href="categorical-variables-and-logistic-regression.html#cb557-5" tabindex="-1"></a>response_pred <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(log_reg_pred_class)</span>
-<span id="cb557-6"><a href="categorical-variables-and-logistic-regression.html#cb557-6" tabindex="-1"></a><span class="fu">levels</span>(response_pred) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)</span>
-<span id="cb557-7"><a href="categorical-variables-and-logistic-regression.html#cb557-7" tabindex="-1"></a></span>
-<span id="cb557-8"><a href="categorical-variables-and-logistic-regression.html#cb557-8" tabindex="-1"></a></span>
-<span id="cb557-9"><a href="categorical-variables-and-logistic-regression.html#cb557-9" tabindex="-1"></a>banbox <span class="ot">&lt;-</span> <span class="fu">mutate</span>(banbox, </span>
-<span id="cb557-10"><a href="categorical-variables-and-logistic-regression.html#cb557-10" tabindex="-1"></a>                  <span class="at">response =</span> <span class="fu">case_when</span>(</span>
-<span id="cb557-11"><a href="categorical-variables-and-logistic-regression.html#cb557-11" tabindex="-1"></a>                    response <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">&quot;Yes&quot;</span>,</span>
-<span id="cb557-12"><a href="categorical-variables-and-logistic-regression.html#cb557-12" tabindex="-1"></a>                    response <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">&quot;No&quot;</span></span>
-<span id="cb557-13"><a href="categorical-variables-and-logistic-regression.html#cb557-13" tabindex="-1"></a>                  ),</span>
-<span id="cb557-14"><a href="categorical-variables-and-logistic-regression.html#cb557-14" tabindex="-1"></a>                  <span class="at">response =</span> <span class="fu">as.factor</span>(response))</span>
-<span id="cb557-15"><a href="categorical-variables-and-logistic-regression.html#cb557-15" tabindex="-1"></a></span>
-<span id="cb557-16"><a href="categorical-variables-and-logistic-regression.html#cb557-16" tabindex="-1"></a></span>
-<span id="cb557-17"><a href="categorical-variables-and-logistic-regression.html#cb557-17" tabindex="-1"></a><span class="co">#Then we can produce the cross-tab</span></span>
-<span id="cb557-18"><a href="categorical-variables-and-logistic-regression.html#cb557-18" tabindex="-1"></a><span class="fu">table</span>(response_pred, banbox<span class="sc">$</span>response)</span></code></pre></div>
+<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb562-1"><a href="categorical-variables-and-logistic-regression.html#cb562-1" tabindex="-1"></a><span class="co"># fit regression model</span></span>
+<span id="cb562-2"><a href="categorical-variables-and-logistic-regression.html#cb562-2" tabindex="-1"></a>log_reg_prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(log_reg, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb562-3"><a href="categorical-variables-and-logistic-regression.html#cb562-3" tabindex="-1"></a></span>
+<span id="cb562-4"><a href="categorical-variables-and-logistic-regression.html#cb562-4" tabindex="-1"></a>log_reg_pred_class <span class="ot">&lt;-</span> log_reg_prob <span class="sc">&gt;</span> .<span class="dv">5</span></span>
+<span id="cb562-5"><a href="categorical-variables-and-logistic-regression.html#cb562-5" tabindex="-1"></a>response_pred <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(log_reg_pred_class)</span>
+<span id="cb562-6"><a href="categorical-variables-and-logistic-regression.html#cb562-6" tabindex="-1"></a><span class="fu">levels</span>(response_pred) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)</span>
+<span id="cb562-7"><a href="categorical-variables-and-logistic-regression.html#cb562-7" tabindex="-1"></a></span>
+<span id="cb562-8"><a href="categorical-variables-and-logistic-regression.html#cb562-8" tabindex="-1"></a></span>
+<span id="cb562-9"><a href="categorical-variables-and-logistic-regression.html#cb562-9" tabindex="-1"></a>banbox <span class="ot">&lt;-</span> <span class="fu">mutate</span>(banbox, </span>
+<span id="cb562-10"><a href="categorical-variables-and-logistic-regression.html#cb562-10" tabindex="-1"></a>                  <span class="at">response =</span> <span class="fu">case_when</span>(</span>
+<span id="cb562-11"><a href="categorical-variables-and-logistic-regression.html#cb562-11" tabindex="-1"></a>                    response <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">&quot;Yes&quot;</span>,</span>
+<span id="cb562-12"><a href="categorical-variables-and-logistic-regression.html#cb562-12" tabindex="-1"></a>                    response <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">&quot;No&quot;</span></span>
+<span id="cb562-13"><a href="categorical-variables-and-logistic-regression.html#cb562-13" tabindex="-1"></a>                  ),</span>
+<span id="cb562-14"><a href="categorical-variables-and-logistic-regression.html#cb562-14" tabindex="-1"></a>                  <span class="at">response =</span> <span class="fu">as.factor</span>(response))</span>
+<span id="cb562-15"><a href="categorical-variables-and-logistic-regression.html#cb562-15" tabindex="-1"></a></span>
+<span id="cb562-16"><a href="categorical-variables-and-logistic-regression.html#cb562-16" tabindex="-1"></a></span>
+<span id="cb562-17"><a href="categorical-variables-and-logistic-regression.html#cb562-17" tabindex="-1"></a><span class="co">#Then we can produce the cross-tab</span></span>
+<span id="cb562-18"><a href="categorical-variables-and-logistic-regression.html#cb562-18" tabindex="-1"></a><span class="fu">table</span>(response_pred, banbox<span class="sc">$</span>response)</span></code></pre></div>
 <pre><code>##              
 ## response_pred    No   Yes
 ##           No  13066  1747
@@ -2373,9 +2373,9 @@ Null hypothesis: There is no association between having a criminal record and re
 <summary>
 <i>Reveal answer!</i>
 </summary>
-<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb559-1"><a href="categorical-variables-and-logistic-regression.html#cb559-1" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
-<span id="cb559-2"><a href="categorical-variables-and-logistic-regression.html#cb559-2" tabindex="-1"></a><span class="fu">confusionMatrix</span>(<span class="at">data=</span>response_pred, </span>
-<span id="cb559-3"><a href="categorical-variables-and-logistic-regression.html#cb559-3" tabindex="-1"></a>               <span class="at">reference=</span>banbox<span class="sc">$</span>response, <span class="at">positive=</span><span class="st">&quot;Yes&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb564-1"><a href="categorical-variables-and-logistic-regression.html#cb564-1" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb564-2"><a href="categorical-variables-and-logistic-regression.html#cb564-2" tabindex="-1"></a><span class="fu">confusionMatrix</span>(<span class="at">data=</span>response_pred, </span>
+<span id="cb564-3"><a href="categorical-variables-and-logistic-regression.html#cb564-3" tabindex="-1"></a>               <span class="at">reference=</span>banbox<span class="sc">$</span>response, <span class="at">positive=</span><span class="st">&quot;Yes&quot;</span>) </span></code></pre></div>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##           Reference

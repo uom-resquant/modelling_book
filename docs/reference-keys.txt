@@ -37,7 +37,7 @@ visualising-numerical-variables-histograms
 visualising-numerical-variables-density-plots
 visualising-numerical-variables-box-plots
 exploring-relationships-between-two-quantitative-variables-scatterplots
-scatterplots-conditioning-in-a-third-variable
+scatterplots-conditioning-on-a-third-variable
 scatterplot-matrix
 titles-legends-and-themes-in-ggplot2
 plotting-categorical-data-bar-charts
